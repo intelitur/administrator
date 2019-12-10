@@ -11,8 +11,8 @@ import { CommonService } from '../services/common.service';
 })
 export class AddAdminComponent implements OnInit {
 
-  addAdminForm: FormGroup;
-  hide = true;
+  addAdminForm: FormGroup; // Form group to manage form
+  hide = true; // Controller to show button
   icon = "warning";
   constructor(
     public dialogRef: MatDialogRef<AddAdminComponent>,
@@ -20,6 +20,7 @@ export class AddAdminComponent implements OnInit {
     private _fb: FormBuilder,
     public commonService: CommonService
   ) {
+    // Variable to controller the form group
     this.addAdminForm = this._fb.group({
       firstName: ["", Validators.required],
       secondName: [""],
@@ -30,12 +31,16 @@ export class AddAdminComponent implements OnInit {
    }
 
   ngOnInit() {
+    // Trigger to change icon
     this.addAdminForm.valueChanges.subscribe(() => {
       if (this.addAdminForm.invalid == false) this.icon = "done";
       else this.icon = "warning";
     });
   }
 
+  /**
+   * @function add Admin
+   */
   addAdmin(){
     this.dialog.closeAll();
     this.commonService.openSnackBar("Se ha agregado correctamente","OK");
