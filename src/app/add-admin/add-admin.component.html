@@ -23,6 +23,11 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput [formControl]="addAdminForm.get('email')">
+      </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>Contraseña</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" [formControl]="addAdminForm.get('password')">
       <button mat-icon-button matSuffix mat-button>

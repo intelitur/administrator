@@ -3,6 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersManagementComponent } from "./users-management/users-management.component";
 import { ItineraryDashboardComponent } from "./itinerary-dashboard/itinerary-dashboard.component";
+import { LoginComponent } from './login/login.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
 
 const routes: Routes = [
   {
@@ -16,7 +18,15 @@ const routes: Routes = [
   {
     path: "itinerary-dashboard",
     component: ItineraryDashboardComponent
-  }
+  },
+  {
+    path: "login",
+    component: LoginComponent
+  },
+  {
+    path: "main-nav",
+    component: MainNavComponent
+  },
 ];
 
 @NgModule({

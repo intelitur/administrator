@@ -12,6 +12,8 @@ import { AddAdminComponent } from "./add-admin/add-admin.component";
 import { ItineraryDashboardComponent } from "./itinerary-dashboard/itinerary-dashboard.component";
 import { ItinerariesTableComponent } from "./itinerary-dashboard/itineraries-table/itineraries-table.component";
 import { ItineraryFormDialogComponent } from "./itinerary-dashboard/itinerary-form-dialog/itinerary-form-dialog.component";
+import { LoginComponent } from './login/login.component';
+import { RegisterBusinessManComponent } from './login/register-business-man/register-business-man.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ItineraryFormDialogComponent } from "./itinerary-dashboard/itinerary-fo
     AddAdminComponent,
     ItineraryDashboardComponent,
     ItinerariesTableComponent,
-    ItineraryFormDialogComponent
+    ItineraryFormDialogComponent,
+    LoginComponent,
+    RegisterBusinessManComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,6 @@ import { ItineraryFormDialogComponent } from "./itinerary-dashboard/itinerary-fo
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddAdminComponent, ItineraryFormDialogComponent]
+  entryComponents: [AddAdminComponent, ItineraryFormDialogComponent,RegisterBusinessManComponent]
 })
 export class AppModule {}

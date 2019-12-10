@@ -26,6 +26,7 @@ export class AddAdminComponent implements OnInit {
       secondName: [""],
       firstLastName: ["", Validators.required],
       secondLastName: ["", Validators.required],
+      email: ["", Validators.email],
       password: ["", Validators.required]
     });
    }
