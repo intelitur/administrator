@@ -9,6 +9,7 @@ import { SharedModule } from './shared.module';
 import { ProfileComponent } from './profile/profile.component';
 import { ItineraryDashboardComponent } from './itinerary-dashboard/itinerary-dashboard.component';
 import { ItinerariesTableComponent } from './itinerary-dashboard/itineraries-table/itineraries-table.component';
+import { ItineraryFormDialogComponent } from './itinerary-dashboard/itinerary-form-dialog/itinerary-form-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ItinerariesTableComponent } from './itinerary-dashboard/itineraries-tab
     MainNavComponent,
     ProfileComponent,
     ItineraryDashboardComponent,
-    ItinerariesTableComponent
+    ItinerariesTableComponent,
+    ItineraryFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +27,9 @@ import { ItinerariesTableComponent } from './itinerary-dashboard/itineraries-tab
     SharedModule
   ],
   providers: [],
+  entryComponents: [
+    ItineraryFormDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

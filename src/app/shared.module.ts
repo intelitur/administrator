@@ -7,8 +7,14 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { MatTableModule } from "@angular/material/table";
-
+import { MatDialogModule } from "@angular/material/dialog";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSelectModule } from "@angular/material/select";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatRadioModule } from "@angular/material/radio";
 @NgModule({
   declarations: [],
   imports: [
@@ -20,7 +26,15 @@ import { MatTableModule } from "@angular/material/table";
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
-    MatTableModule
+    MatInputModule,
+    MatTableModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule
   ],
   exports: [
     LayoutModule,
@@ -30,7 +44,15 @@ import { MatTableModule } from "@angular/material/table";
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
-    MatTableModule
+    MatInputModule,
+    MatTableModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule
   ]
 })
 export class SharedModule {}

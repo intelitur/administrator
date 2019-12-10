@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogManagerService } from '../services/dialog-manager.service';
 
 @Component({
   selector: 'app-itinerary-dashboard',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItineraryDashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _dialog: DialogManagerService) { }
 
   ngOnInit() {
+  }
+
+  openItineraryDialog() {
+    this._dialog.openItineraryFormDialog();
   }
 
 }
