@@ -10,29 +10,34 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class ItineraryFormDialogComponent implements OnInit {
   itineraryFG: FormGroup;
-  categories: Array<string> = ["Vida Silvestre", "Termales", "Aventura", "Relajación"];
+  categories: Array<string> = [
+    "Vida Silvestre",
+    "Termales",
+    "Aventura",
+    "Relajación"
+  ];
+  groupTypes: Array<string> = ["Amigos", "Sólo", "Familiar", "Pareja"];
   constructor(
     public dialogRef: MatDialogRef<ItineraryFormDialogComponent>,
     private _fb: FormBuilder
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.itineraryFG = this._fb.group({
-      name: ['', Validators.required],
-      pricePerDay: ['', Validators.required],
-      totalPrice: ['', Validators.required],
-      adultsQuantity: ['', Validators.required],
-      childrenQuantity: ['', Validators.required],
-      description: ['', Validators.required],
-      duration: ['', Validators.required],
-      groupType: ['', Validators.required],
-      category: ['', Validators.required],
-      travelAdvices: ['', Validators.required],
-      enable: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      status: ['', Validators.required], // public or private
+      name: ["", Validators.required],
+      pricePerDay: ["", Validators.required],
+      totalPrice: ["", Validators.required],
+      adultsQuantity: ["", Validators.required],
+      childrenQuantity: ["", Validators.required],
+      description: ["", Validators.required],
+      duration: ["", Validators.required],
+      groupType: ["", Validators.required],
+      category: ["", Validators.required],
+      travelAdvices: ["", Validators.required],
+      enable: ["", Validators.required],
+      startDate: ["", Validators.required],
+      endDate: ["", Validators.required],
+      status: ["", Validators.required] // public or private
     });
   }
 }

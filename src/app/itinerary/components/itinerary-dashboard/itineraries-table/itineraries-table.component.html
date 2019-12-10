@@ -18,7 +18,7 @@
   <ng-container class="text-center" matColumnDef="actions">
     <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
     <td class="text-center" mat-cell *matCellDef="let element">
-      <button mat-stroked-button color="primary">Ver más</button>
+      <button (click)="openShowItineraryDetails(); false" mat-stroked-button color="primary">Ver más</button>
     </td>
   </ng-container>
 

@@ -53,6 +53,14 @@
     <input [formControl]="itineraryFG.get('duration')" matInput type="number" />
   </mat-form-field>
   <mat-form-field appearance="outline">
+    <mat-label>Tipo de grupo</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let t of groupTypes" [value]="t">
+        {{ t }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Categoría</mat-label>
     <mat-select>
       <mat-option *ngFor="let c of categories" [value]="c">
