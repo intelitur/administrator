@@ -16,6 +16,7 @@ export class ItineraryFormDialogComponent implements OnInit {
     "Aventura",
     "Relajación"
   ];
+  images = [];
   groupTypes: Array<string> = ["Amigos", "Sólo", "Familiar", "Pareja"];
   constructor(
     public dialogRef: MatDialogRef<ItineraryFormDialogComponent>,
@@ -42,6 +43,14 @@ export class ItineraryFormDialogComponent implements OnInit {
   }
 
   catchSelectedImages(files: FileList) {
-    
+    console.log(files);
+    for (let i = 0; i < files.length; i++) {
+      var reader = new FileReader();
+      reader.readAsDataURL(files[i]);
+      reader.onload = (event: any) => {
+        // called once readAsDataURL is completed
+        this.images.unshift(event.target.result);
+      };
+    }
   }
 }
