@@ -40,4 +40,8 @@ export class ItineraryFormDialogComponent implements OnInit {
       status: ["", Validators.required] // public or private
     });
   }
+
+  catchSelectedImages(files: FileList) {
+    
+  }
 }

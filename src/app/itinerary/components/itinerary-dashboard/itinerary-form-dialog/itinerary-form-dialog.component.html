@@ -118,6 +118,7 @@
     <mat-radio-button class="mr-1" value="true">Público</mat-radio-button>
     <mat-radio-button class="ml-1" value="false">Privada</mat-radio-button>
   </mat-radio-group>
+  <app-upload-images (selectedImages)="catchSelectedImages($event);"></app-upload-images>
   <div class="container text-center mb-3">
     <button mat-raised-button color="primary"><mat-icon>done</mat-icon></button>
   </div>

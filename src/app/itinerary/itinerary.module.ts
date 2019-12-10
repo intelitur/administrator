@@ -6,13 +6,15 @@ import { ItineraryFormDialogComponent } from "./components/itinerary-dashboard/i
 import { ItineraryRoutingModule } from "./itinerary-routing.module";
 import { SharedModule } from "../shared.module";
 import { CarouselComponent } from "./components/carousel/carousel.component";
+import { UploadImagesComponent } from './components/itinerary-dashboard/itinerary-form-dialog/upload-images/upload-images.component';
 
 @NgModule({
   declarations: [
     ItineraryDashboardComponent,
     ItinerariesTableComponent,
     ItineraryFormDialogComponent,
-    CarouselComponent
+    CarouselComponent,
+    UploadImagesComponent
   ],
   imports: [CommonModule, ItineraryRoutingModule, SharedModule],
   exports: [ItineraryDashboardComponent],
