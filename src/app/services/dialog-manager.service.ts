@@ -19,7 +19,7 @@ export class DialogManagerService {
 
   openAddAdminFormDialog(): void {
     this.dialog.open(AddAdminComponent, {
-      panelClass: 'custom-dialog'
+      panelClass: 'custom-dialog-add-admin'
     });
   }
 }
