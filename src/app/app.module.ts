@@ -9,9 +9,8 @@ import { SharedModule } from "./shared.module";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersManagementComponent } from "./users-management/users-management.component";
 import { AddAdminComponent } from "./add-admin/add-admin.component";
-import { ItineraryDashboardComponent } from "./itinerary-dashboard/itinerary-dashboard.component";
-import { ItinerariesTableComponent } from "./itinerary-dashboard/itineraries-table/itineraries-table.component";
-import { ItineraryFormDialogComponent } from "./itinerary-dashboard/itinerary-form-dialog/itinerary-form-dialog.component";
+
+import { ItineraryModule } from './itinerary/itinerary.module';
 
 @NgModule({
   declarations: [
@@ -20,9 +19,6 @@ import { ItineraryFormDialogComponent } from "./itinerary-dashboard/itinerary-fo
     ProfileComponent,
     UsersManagementComponent,
     AddAdminComponent,
-    ItineraryDashboardComponent,
-    ItinerariesTableComponent,
-    ItineraryFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +26,11 @@ import { ItineraryFormDialogComponent } from "./itinerary-dashboard/itinerary-fo
     BrowserAnimationsModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ItineraryModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddAdminComponent, ItineraryFormDialogComponent]
+  entryComponents: [AddAdminComponent]
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../services/common.service';
+import { CommonService } from '../general-services/common.service';
 import { MatDialog } from '@angular/material';
 import { AddAdminComponent } from '../add-admin/add-admin.component';
 

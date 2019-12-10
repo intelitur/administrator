@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogManagerService } from '../services/dialog-manager.service';
+import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
 
 @Component({
   selector: 'app-itinerary-dashboard',

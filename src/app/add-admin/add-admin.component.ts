@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CommonService } from '../services/common.service';
+import { CommonService } from '../general-services/common.service';
 
 @Component({
   selector: 'app-add-admin',
