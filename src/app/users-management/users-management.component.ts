@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../services/common.service';
 import { MatDialog } from '@angular/material';
 import { AddAdminComponent } from '../add-admin/add-admin.component';
+import { DialogManagerService } from '../services/dialog-manager.service';
 
 @Component({
   selector: 'app-users-management',
@@ -12,6 +13,7 @@ export class UsersManagementComponent implements OnInit {
 
   constructor(
     public commonService: CommonService,
+    public dialogService: DialogManagerService,
     public dialog: MatDialog,
   ) { }
 
@@ -84,7 +86,7 @@ export class UsersManagementComponent implements OnInit {
    * @funtion Open dialog to add new admin
    */
   openDialogToAddAdmin(){
-    this.dialog.open(AddAdminComponent, {width: '450px',});
+    this.dialogService.openAddAdminFormDialog();
   }
 
 

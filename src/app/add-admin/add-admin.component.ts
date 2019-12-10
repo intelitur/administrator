@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonService } from '../services/common.service';
@@ -6,7 +6,8 @@ import { CommonService } from '../services/common.service';
 @Component({
   selector: 'app-add-admin',
   templateUrl: './add-admin.component.html',
-  styleUrls: ['./add-admin.component.scss']
+  styleUrls: ['./add-admin.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AddAdminComponent implements OnInit {
 
