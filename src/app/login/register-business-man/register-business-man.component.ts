@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
@@ -6,7 +6,8 @@ import { CommonService } from 'src/app/services/common.service';
 @Component({
   selector: 'app-register-business-man',
   templateUrl: './register-business-man.component.html',
-  styleUrls: ['./register-business-man.component.scss']
+  styleUrls: ['./register-business-man.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegisterBusinessManComponent implements OnInit {
   addBusinessmanForm: FormGroup; // Form group to manage form
