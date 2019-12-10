@@ -84,7 +84,7 @@ export class UsersManagementComponent implements OnInit {
    * @funtion Open dialog to add new admin
    */
   openDialogToAddAdmin(){
-    this.dialog.open(AddAdminComponent, {});
+    this.dialog.open(AddAdminComponent, {width: '450px',});
   }
 
 
