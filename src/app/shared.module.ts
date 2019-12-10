@@ -13,6 +13,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material';
+import { MatTableModule } from "@angular/material/table";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatRadioModule } from "@angular/material/radio";
 @NgModule({
   declarations: [],
   imports: [
@@ -29,7 +34,13 @@ import {MatInputModule} from '@angular/material';
     MatSnackBarModule,
     MatDialogModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule
   ],
   exports: [
     LayoutModule,
@@ -44,7 +55,13 @@ import {MatInputModule} from '@angular/material';
     MatSnackBarModule,
     MatDialogModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {}
