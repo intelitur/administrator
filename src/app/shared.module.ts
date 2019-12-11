@@ -12,7 +12,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSelectModule } from "@angular/material/select";
-import { MatInputModule, MatChipsModule } from "@angular/material";
+import { MatInputModule, MatChipsModule, MatCardModule } from "@angular/material";
 import { MatTableModule } from "@angular/material/table";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -43,6 +43,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
+    MatCardModule,
     NgbCarouselModule,
     MatChipsModule,
     DragDropModule
@@ -67,6 +68,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
+    MatCardModule,
     NgbCarouselModule,
     MatChipsModule,
     DragDropModule

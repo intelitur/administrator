@@ -6,19 +6,13 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MainNavComponent } from "./main-nav/main-nav.component";
 import { SharedModule } from "./shared.module";
-import { ProfileComponent } from "./profile/profile.component";
-import { UsersManagementComponent } from "./users-management/users-management.component";
-import { AddAdminComponent } from "./add-admin/add-admin.component";
-
 import { ItineraryModule } from './itinerary/itinerary.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainNavComponent,
-    ProfileComponent,
-    UsersManagementComponent,
-    AddAdminComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -27,10 +21,11 @@ import { ItineraryModule } from './itinerary/itinerary.module';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    ItineraryModule
+    ItineraryModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddAdminComponent]
+  entryComponents: []
 })
 export class AppModule {}
