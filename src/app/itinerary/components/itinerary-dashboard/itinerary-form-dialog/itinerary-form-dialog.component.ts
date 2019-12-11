@@ -53,4 +53,8 @@ export class ItineraryFormDialogComponent implements OnInit {
       };
     }
   }
+
+  onSubmit() {
+    console.log(this.images);
+  }
 }

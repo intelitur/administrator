@@ -1,5 +1,6 @@
 <form
   [formGroup]="itineraryFG"
+  (ngSubmit)="onSubmit()"
   class="p-0 container-fluid d-flex flex-column justify-content-center"
 >
   <h5 class="font-weight-light text-center">Agregar nuevo itinerario</h5>
@@ -121,6 +122,6 @@
   <app-upload-images (selectedImages)="catchSelectedImages($event);"></app-upload-images>
   <app-carousel class="mb-3" [images]="images"></app-carousel>
   <div class="container text-center mb-3">
-    <button mat-raised-button color="primary"><mat-icon>done</mat-icon></button>
+    <button type="submit" mat-raised-button color="primary"><mat-icon>done</mat-icon></button>
   </div>
 </form>

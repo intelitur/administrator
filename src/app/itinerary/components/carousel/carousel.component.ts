@@ -6,10 +6,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit {
-  @Input() images: any;
+  @Input() images: Array<any>;
   constructor() { }
 
   ngOnInit() {
   }
 
+  deleteImage(index: number) {
+    this.images.splice(index, 1);
+  }
 }

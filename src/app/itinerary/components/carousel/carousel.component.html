@@ -4,8 +4,7 @@
       <img class="img img-fluid" [src]="images[index]" alt="Image" />
     </div>
     <div class="carousel-caption">
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      <button mat-raised-button (click)="deleteImage(index); false"><mat-icon>delete</mat-icon></button>
     </div>
   </ng-template>
 </ngb-carousel>
