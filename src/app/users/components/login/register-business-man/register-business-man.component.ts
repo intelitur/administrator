@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CommonService } from 'src/app/services/common.service';
+import { CommonService } from 'src/app/general-services/common.service';
+
 
 @Component({
   selector: 'app-register-business-man',

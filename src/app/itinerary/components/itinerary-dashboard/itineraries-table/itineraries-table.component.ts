@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -26,9 +27,12 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ItinerariesTableComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'actions'];
   dataSource = ELEMENT_DATA;
-  constructor() { }
+  constructor(private _dialog: DialogManagerService) { }
 
   ngOnInit() {
   }
 
+  openShowItineraryDetails() {
+    //this._dialog.openItineraryDetailsDialog();
+  }
 }

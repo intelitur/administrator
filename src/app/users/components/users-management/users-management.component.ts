@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../services/common.service';
 import { MatDialog } from '@angular/material';
-import { AddAdminComponent } from '../add-admin/add-admin.component';
-import { DialogManagerService } from '../services/dialog-manager.service';
+import { CommonService } from 'src/app/general-services/common.service';
+import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
+
 
 @Component({
   selector: 'app-users-management',
