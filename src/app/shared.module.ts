@@ -19,6 +19,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatRadioModule } from "@angular/material/radio";
 import { NgbCarouselModule } from "@ng-bootstrap/ng-bootstrap";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 @NgModule({
   declarations: [],
   imports: [
@@ -43,7 +44,8 @@ import { NgbCarouselModule } from "@ng-bootstrap/ng-bootstrap";
     MatNativeDateModule,
     MatRadioModule,
     NgbCarouselModule,
-    MatChipsModule
+    MatChipsModule,
+    DragDropModule
   ],
   exports: [
     LayoutModule,
@@ -66,7 +68,8 @@ import { NgbCarouselModule } from "@ng-bootstrap/ng-bootstrap";
     MatNativeDateModule,
     MatRadioModule,
     NgbCarouselModule,
-    MatChipsModule
+    MatChipsModule,
+    DragDropModule
   ]
 })
 export class SharedModule {}

@@ -7,6 +7,7 @@ import { ItineraryRoutingModule } from "./itinerary-routing.module";
 import { SharedModule } from "../shared.module";
 import { CarouselComponent } from "./components/carousel/carousel.component";
 import { UploadImagesComponent } from './components/itinerary-dashboard/itinerary-form-dialog/upload-images/upload-images.component';
+import { ItineraryDetailsComponent } from './components/itinerary-dashboard/itinerary-details/itinerary-details.component';
 
 @NgModule({
   declarations: [
@@ -14,10 +15,11 @@ import { UploadImagesComponent } from './components/itinerary-dashboard/itinerar
     ItinerariesTableComponent,
     ItineraryFormDialogComponent,
     CarouselComponent,
-    UploadImagesComponent
+    UploadImagesComponent,
+    ItineraryDetailsComponent
   ],
   imports: [CommonModule, ItineraryRoutingModule, SharedModule],
   exports: [ItineraryDashboardComponent],
-  entryComponents: [ItineraryFormDialogComponent]
+  entryComponents: [ItineraryFormDialogComponent, ItineraryDetailsComponent]
 })
 export class ItineraryModule {}
