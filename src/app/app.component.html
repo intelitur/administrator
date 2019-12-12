@@ -1,1 +1,2 @@
-<app-main-nav></app-main-nav>
+<app-main-nav *ngIf="sessionService.actualUser"></app-main-nav>
+<app-login *ngIf="sessionService.actualUser === null"></app-login>

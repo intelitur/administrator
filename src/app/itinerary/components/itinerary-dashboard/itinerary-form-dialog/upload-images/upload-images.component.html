@@ -1,0 +1,18 @@
+<div
+  class="dropzone shadow-sm container mb-2"
+  dropZone
+  (hovered)="toggleHover($event)"
+  (dropped)="prepareFiles($event)"
+  [class.hovering]="isHovering"
+>
+  <h3 class="text-white font-weight-light">Seleccione o arrastre el archivo</h3>
+
+  <div class="container text-center">
+    <input
+      multiple
+      style="color: transparent"
+      type="file"
+      (change)="prepareFiles($event.target.files)"
+    />
+  </div>
+</div>

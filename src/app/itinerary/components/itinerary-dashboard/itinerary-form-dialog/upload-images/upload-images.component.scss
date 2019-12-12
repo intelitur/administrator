@@ -1,0 +1,37 @@
+@media screen and (min-width: 601px) {
+  .dropzone {
+    width: 70%
+  }
+}
+@media screen and (max-width: 700px) {
+  .dropzone{
+    width: 95%
+  }
+}
+
+progress::-webkit-progress-value {
+  transition: width 0.1 ease
+}
+progress {
+  width: 100%
+}
+.dropzone:hover {
+  box-shadow: 10px 10px 8px #888888;
+}
+.dropzone { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; 
+  height: 300px;
+  border: 0.5px dashed black;
+  border-radius: 5px;
+  background: transparent;
+  background-color: #FF9A8B;
+  background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
+
+  &.hovering {
+      border: 2px solid #f16624;
+      color: #dadada !important;
+  }
+}

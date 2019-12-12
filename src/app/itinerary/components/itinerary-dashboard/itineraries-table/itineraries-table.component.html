@@ -1,0 +1,51 @@
+<mat-form-field class="container-fluid mb-3" appearance="outline">
+  <mat-label>Escriba cualquier valor para filtrar</mat-label>
+  <input matInput (keyup)="applyFilter($event.target.value)" />
+  <button
+    mat-icon-button
+    matSuffix
+    [attr.aria-label]="'Hide password'"
+    [attr.aria-pressed]="hide"
+  >
+    <mat-icon>library_books</mat-icon>
+  </button>
+  <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar desde el servidor</mat-hint>
+</mat-form-field>
+<br>
+<table mat-table [dataSource]="dataSource" class="w-100 mat-elevation-z8">
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <th class="text-center" mat-header-cell *matHeaderCellDef>No.</th>
+    <td class="text-center" mat-cell *matCellDef="let element">
+      {{ element.position }}
+    </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th class="text-center" mat-header-cell *matHeaderCellDef>Name</th>
+    <td class="text-center" mat-cell *matCellDef="let element">
+      {{ element.name }}
+    </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container class="text-center" matColumnDef="actions">
+    <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
+    <td class="text-center" mat-cell *matCellDef="let element">
+      <button
+        (click)="openShowItineraryDetails(); (false)"
+        mat-stroked-button
+        color="primary"
+      >
+        Ver más
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

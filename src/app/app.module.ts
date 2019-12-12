@@ -6,23 +6,17 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MainNavComponent } from "./main-nav/main-nav.component";
 import { SharedModule } from "./shared.module";
-import { ProfileComponent } from "./profile/profile.component";
-import { UsersManagementComponent } from "./users-management/users-management.component";
-import { AddAdminComponent } from "./add-admin/add-admin.component";
-import { ItineraryDashboardComponent } from "./itinerary-dashboard/itinerary-dashboard.component";
-import { ItinerariesTableComponent } from "./itinerary-dashboard/itineraries-table/itineraries-table.component";
-import { ItineraryFormDialogComponent } from "./itinerary-dashboard/itinerary-form-dialog/itinerary-form-dialog.component";
+import { ItineraryModule } from './itinerary/itinerary.module';
+import { UsersModule } from './users/users.module';
+import { LoginComponent } from './login/login.component';
+import { RegisterBusinessManComponent } from './login/register-business-man/register-business-man.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
-    ProfileComponent,
-    UsersManagementComponent,
-    AddAdminComponent,
-    ItineraryDashboardComponent,
-    ItinerariesTableComponent,
-    ItineraryFormDialogComponent
+    LoginComponent,
+    RegisterBusinessManComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +24,12 @@ import { ItineraryFormDialogComponent } from "./itinerary-dashboard/itinerary-fo
     BrowserAnimationsModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ItineraryModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddAdminComponent, ItineraryFormDialogComponent]
+  entryComponents: [RegisterBusinessManComponent]
 })
 export class AppModule {}

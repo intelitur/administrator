@@ -3,3 +3,14 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.bg-img
+{
+    background-image: url('../src/assets/background-login.jpg');
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    z-index: -10;
+}

@@ -1,0 +1,40 @@
+
+@media (min-width: 34em) {
+  .custom-dialog-add-admin {
+    width: 100vw !important;
+    height: 90vh !important;
+  }
+
+}
+
+@media (min-width: 48em) {
+  .custom-dialog-add-admin {
+    width: 100vw !important;
+  }
+}
+
+@media (min-width: 62em) {
+  .custom-dialog-add-admin {
+    width: 70vw !important;
+    height: 75vh !important;
+  }
+}
+
+@media (min-width: 75em) {
+  .custom-dialog-add-admin {
+    width: 65vw !important;
+    height: 90vh !important;
+  }
+}
+
+.custom-dialog-add-admin {
+  overflow-y: auto;
+}
+.mat-dialog-container {
+  padding: 15px !important;
+}
+
+::ng-deep .cdk-overlay-container {
+  position: fixed !important;
+  z-index: 100000 !important; /* set value you need */
+}
