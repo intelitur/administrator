@@ -1,15 +1,13 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ItineraryRoutingModule } from './itinerary/itinerary-routing.module';
-import { UsersRoutingModule } from './users/users-routing.module';
 const routes: Routes = [
   {
     path: "itinerary",
-    component: ItineraryRoutingModule
+    loadChildren: './itinerary/itinerary-routing.module'
   },
   {
     path: "users",
-    component: UsersRoutingModule
+    loadChildren: './users/users-routing.module'
   }
 ];
 
