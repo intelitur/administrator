@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
+import { SessionService } from '../general-services/session.service';
 
 @Component({
   selector: "app-login",
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   icon = "warning";
   constructor(
     private _fb: FormBuilder,
-    public dialogService: DialogManagerService) {
+    public dialogService: DialogManagerService,
+    public sessionService: SessionService) {
     // Variable to controller the form group
     this.loginForm = this._fb.group({
       email: ["", Validators.email],
@@ -34,5 +36,12 @@ export class LoginComponent implements OnInit {
    */
   registerBusinessman(): void{
     this.dialogService.openAddBusinessmanFormDialog();
+  }
+
+  /**
+   * @funtion Login
+   */
+  loginUser(){
+    this.sessionService.login(this.loginForm.get("email").value,this.loginForm.get("password").value)
   }
 }

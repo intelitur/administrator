@@ -5,7 +5,7 @@ import { ItineraryFormDialogComponent } from "../itinerary/components/itinerary-
 import { ItineraryDetailsComponent } from '../itinerary/components/itinerary-dashboard/itinerary-details/itinerary-details.component';
 
 import { AddAdminComponent } from '../users/components/add-admin/add-admin.component';
-import { RegisterBusinessManComponent } from '../users/components/login/register-business-man/register-business-man.component';
+import { RegisterBusinessManComponent } from '../login/register-business-man/register-business-man.component';
 @Injectable({
   providedIn: "root"
 })

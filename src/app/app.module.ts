@@ -8,11 +8,15 @@ import { MainNavComponent } from "./main-nav/main-nav.component";
 import { SharedModule } from "./shared.module";
 import { ItineraryModule } from './itinerary/itinerary.module';
 import { UsersModule } from './users/users.module';
+import { LoginComponent } from './login/login.component';
+import { RegisterBusinessManComponent } from './login/register-business-man/register-business-man.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainNavComponent
+    MainNavComponent,
+    LoginComponent,
+    RegisterBusinessManComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,6 @@ import { UsersModule } from './users/users.module';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: []
+  entryComponents: [RegisterBusinessManComponent]
 })
 export class AppModule {}

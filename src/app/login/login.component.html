@@ -18,7 +18,7 @@
       </form>
       <button mat-button color="primary" (click)="registerBusinessman()">Regístrese aquí!</button>
       <div class="text-center">
-          <button mat-button color="primary" [disabled]="!loginForm.valid">
+          <button mat-button color="primary" [disabled]="!loginForm.valid" (click)="loginUser()">
             <i class="material-icons">{{icon}}</i>
           </button>
         </div>
