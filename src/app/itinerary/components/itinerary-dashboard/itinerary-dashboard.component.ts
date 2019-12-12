@@ -1,20 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 
 @Component({
-  selector: 'app-itinerary-dashboard',
-  templateUrl: './itinerary-dashboard.component.html',
-  styleUrls: ['./itinerary-dashboard.component.scss']
+  selector: "app-itinerary-details",
+  templateUrl: "./itinerary-dashboard.component.html",
+  styleUrls: ["./itinerary-dashboard.component.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class ItineraryDashboardComponent implements OnInit {
+  checked: boolean = false;
 
-  constructor(private _dialog: DialogManagerService) { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
-  openItineraryDialog() {
-    this._dialog.openItineraryFormDialog();
-  }
-
+  ngOnInit() {}
 }

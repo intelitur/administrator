@@ -1,0 +1,122 @@
+<div
+      class="container-fluid d-flex flex-column justify-content-sm-around m-0 p-1"
+    >
+      <h1 class="text-center text-primary font-weight-light">
+        Nombre del itinerario
+      </h1>
+      <mat-slide-toggle (change)="checked = !checked" [checked]="checked">{{
+        checked ? "Habilidado" : "Deshabilitado"
+      }}</mat-slide-toggle>
+      <div class="container-fluid p-0">
+        <h2 class="text-center text-warning font-weight-light">
+          Días del itinerario
+        </h2>
+        <mat-form-field class="container-fluid mb-3" appearance="outline">
+          <mat-label>Escriba cualquier valor para buscar</mat-label>
+          <input matInput />
+        </mat-form-field>
+        <div class="row" cdkDropListGroup>
+          <div class="col-sm text-center">
+            <strong>Día 1</strong>
+            <div
+              cdkDropList
+              [cdkDropListData]="offersDay1"
+              class="example-list shadow"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div class="example-box" *ngFor="let item of offersDay1" cdkDrag>
+                {{ item }}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm text-center">
+            <strong>Día 2</strong>
+            <div
+              cdkDropList
+              [cdkDropListData]="offersDay2"
+              class="example-list shadow"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div class="example-box" *ngFor="let item of offersDay2" cdkDrag>
+                {{ item }}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm text-center">
+            <strong>Día 3</strong>
+            <div
+              cdkDropList
+              [cdkDropListData]="offersDay3"
+              class="example-list shadow"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div class="example-box" *ngFor="let item of offersDay3" cdkDrag>
+                {{ item }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid mt-5 p-0">
+        <h2 class="text-center text-warning font-weight-light">
+          Promociones del itinerario
+        </h2>
+        <mat-form-field class="container-fluid mb-3" appearance="outline">
+          <mat-label>Escriba cualquier valor para buscar</mat-label>
+          <input matInput />
+        </mat-form-field>
+        <div class="row" cdkDropListGroup>
+          <div class="col-sm text-center">
+            <strong>Día 1</strong>
+            <div
+              cdkDropList
+              [cdkDropListData]="promotionsDay1"
+              class="example-list shadow"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div
+                class="example-box"
+                *ngFor="let item of promotionsDay1"
+                cdkDrag
+              >
+                {{ item }}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm text-center">
+            <strong>Día 2</strong>
+            <div
+              cdkDropList
+              [cdkDropListData]="promotionsDay2"
+              class="example-list shadow"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div
+                class="example-box"
+                *ngFor="let item of promotionsDay2"
+                cdkDrag
+              >
+                {{ item }}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm text-center">
+            <strong>Día 3</strong>
+            <div
+              cdkDropList
+              [cdkDropListData]="promotionsDay3"
+              class="example-list shadow"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div
+                class="example-box"
+                *ngFor="let item of promotionsDay3"
+                cdkDrag
+              >
+                {{ item }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

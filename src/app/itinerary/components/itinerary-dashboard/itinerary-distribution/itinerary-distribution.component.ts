@@ -1,19 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { MatDialogRef } from "@angular/material";
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem
 } from "@angular/cdk/drag-drop";
-
 @Component({
-  selector: "app-itinerary-details",
-  templateUrl: "./itinerary-details.component.html",
-  styleUrls: ["./itinerary-details.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-itinerary-distribution',
+  templateUrl: './itinerary-distribution.component.html',
+  styleUrls: ['./itinerary-distribution.component.scss']
 })
-export class ItineraryDetailsComponent implements OnInit {
-  checked: boolean = false;
+export class ItineraryDistributionComponent implements OnInit {
   offersDay1 = ["Walking", "Lunch", "Dinner"];
   offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
   offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
@@ -21,7 +17,7 @@ export class ItineraryDetailsComponent implements OnInit {
   promotionsDay1 = ["Promotion", "Promotion", "Promotion"];
   promotionsDay2 = ["Promotion", "Promotion", "Promotion"];
   promotionsDay3 = ["Promotion", "Promotion", "Promotion"];
-  constructor(public dialogRef: MatDialogRef<ItineraryDetailsComponent>) {}
+  constructor() { }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -40,5 +36,7 @@ export class ItineraryDetailsComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
 }

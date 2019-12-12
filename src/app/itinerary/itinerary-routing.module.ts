@@ -1,17 +1,24 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ItineraryDashboardComponent } from './components/itinerary-dashboard/itinerary-dashboard.component';
+import { ItinerariesComponent } from "./components/itineraries/itineraries.component";
+import { ItineraryDashboardComponent } from "./components/itinerary-dashboard/itinerary-dashboard.component";
+import { ItineraryRootComponent } from "./components/itinerary-root.component";
 
 const routes: Routes = [
   {
-    path: "itinerary-dashboard",
-    component: ItineraryDashboardComponent
+    path: "itineraries",
+    component: ItineraryRootComponent,
+    children: [
+      {
+        path: "show-all",
+        component: ItinerariesComponent
+      },
+      {
+        path: "dashboard",
+        component: ItineraryDashboardComponent
+      }
+    ]
   }
 ];
 
-@NgModule({
-  declarations: [],
-  imports: [CommonModule, RouterModule.forRoot(routes)]
-})
-export class ItineraryRoutingModule {}
+export const ItineraryRoutingModule: ModuleWithProviders = RouterModule.forChild(routes);

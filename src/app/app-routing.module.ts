@@ -3,11 +3,14 @@ import { Routes, RouterModule } from "@angular/router";
 const routes: Routes = [
   {
     path: "itinerary",
-    loadChildren: './itinerary/itinerary-routing.module'
+    loadChildren: () =>
+      import("./itinerary/itinerary.module").then(
+        i => i.ItineraryModule
+      )
   },
   {
     path: "users",
-    loadChildren: './users/users-routing.module'
+    loadChildren: "./users/users-routing.module"
   }
 ];
 

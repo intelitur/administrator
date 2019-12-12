@@ -33,7 +33,7 @@ export class ItinerariesTableComponent implements OnInit {
   ngOnInit() {}
 
   openShowItineraryDetails() {
-  this._dialog.openItineraryDetailsDialog();
+  //this._dialog.openItineraryDetailsDialog();
   }
 
   applyFilter(filterValue: string) {
