@@ -10,6 +10,7 @@ import { ItineraryRootComponent } from './components/itinerary-root.component';
 import { ItineraryDistributionComponent } from './components/itinerary-dashboard/itinerary-distribution/itinerary-distribution.component';
 import { ItinerariesTableComponent } from './components/itineraries/itineraries-table/itineraries-table.component';
 import { UploadImagesComponent } from './components/itineraries/itinerary-form-dialog/upload-images/upload-images.component';
+import { ItineraryDetailsComponent } from './components/itinerary-dashboard/itinerary-details/itinerary-details.component';
 
 
 
@@ -22,10 +23,11 @@ import { UploadImagesComponent } from './components/itineraries/itinerary-form-d
     UploadImagesComponent,
     ItineraryDashboardComponent,
     ItineraryRootComponent,
-    ItineraryDistributionComponent
+    ItineraryDistributionComponent,
+    ItineraryDetailsComponent
   ],
   imports: [CommonModule, ItineraryRoutingModule, SharedModule],
   exports: [ItineraryRootComponent],
-  entryComponents: [ItineraryFormDialogComponent]
+  entryComponents: [ItineraryFormDialogComponent, ItineraryDetailsComponent]
 })
 export class ItineraryModule {}

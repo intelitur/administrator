@@ -28,6 +28,9 @@
                 {{ item }}
               </div>
             </div>
+            <div class="mt-2 mb-2 container-fluid text-center">
+              <button (click)="openDetailsDialog()" mat-raised-button color="primary">Detalles</button>
+            </div>
           </div>
           <div class="col-sm text-center">
             <strong>Día 2</strong>
@@ -41,6 +44,9 @@
                 {{ item }}
               </div>
             </div>
+            <div class="mt-2 mb-2 container-fluid text-center">
+              <button (click)="openDetailsDialog()" mat-raised-button color="primary">Detalles</button>
+            </div>
           </div>
           <div class="col-sm text-center">
             <strong>Día 3</strong>
@@ -53,6 +59,9 @@
               <div class="example-box" *ngFor="let item of offersDay3" cdkDrag>
                 {{ item }}
               </div>
+            </div>
+            <div class="mt-2 mb-2 container-fluid text-center">
+              <button (click)="openDetailsDialog()" mat-raised-button color="primary">Detalles</button>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import {
   moveItemInArray,
   transferArrayItem
 } from "@angular/cdk/drag-drop";
+import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
 @Component({
   selector: 'app-itinerary-distribution',
   templateUrl: './itinerary-distribution.component.html',
@@ -17,7 +18,7 @@ export class ItineraryDistributionComponent implements OnInit {
   promotionsDay1 = ["Promotion", "Promotion", "Promotion"];
   promotionsDay2 = ["Promotion", "Promotion", "Promotion"];
   promotionsDay3 = ["Promotion", "Promotion", "Promotion"];
-  constructor() { }
+  constructor(private _dialog: DialogManagerService) { }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -37,6 +38,10 @@ export class ItineraryDistributionComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  openDetailsDialog() {
+    this._dialog.openItineraryDetailsDialog();
   }
 
 }
