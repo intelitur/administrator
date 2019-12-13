@@ -1,8 +1,8 @@
 import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ItinerariesComponent } from "./components/itineraries/itineraries.component";
 import { ItineraryDashboardComponent } from "./components/itinerary-dashboard/itinerary-dashboard.component";
-import { ItineraryRootComponent } from "./components/itinerary-root.component";
+import { ItineraryRootComponent } from './components/itinerary-root.component';
+import { ItinerariesComponent } from './components/itineraries/itineraries.component';
 
 const routes: Routes = [
   {

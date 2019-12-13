@@ -53,8 +53,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     NgbCarouselModule,
     MatChipsModule,
     DragDropModule,
-    MatTabsModule,
-    MatAutocompleteModule
+    MatTabsModule
   ],
   exports: [
     LayoutModule,
@@ -80,8 +79,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     NgbCarouselModule,
     MatChipsModule,
     DragDropModule,
-    MatTabsModule,
-    MatAutocompleteModule
+    MatTabsModule
   ]
 })
 export class SharedModule {}

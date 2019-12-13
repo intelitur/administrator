@@ -1,0 +1,86 @@
+<div class="container-fluid mt-5 p-0">
+  <h2 class="text-center text-warning font-weight-light">
+    Promociones del itinerario
+  </h2>
+  <mat-form-field class="container-fluid mb-3" appearance="outline">
+    <mat-label>Escriba cualquier valor para buscar</mat-label>
+    <input matInput />
+  </mat-form-field>
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="result"
+    [cdkDropListConnectedTo]="[prom1, prom2, prom3]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="example-box" *ngFor="let r of result" cdkDrag>
+      {{ r }}
+    </div>
+  </div>
+  <div class="row" cdkDropListGroup>
+    <div class="col-sm text-center">
+      <strong>Día 1</strong>
+      <div
+        cdkDropList
+        #prom1="cdkDropList"
+        [cdkDropListData]="promotionsDay1"
+        class="example-list shadow"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div
+          class="example-box d-flex flex-row justify-content-sm-between"
+          *ngFor="let item of promotionsDay1"
+          cdkDrag
+        >
+          <span>{{ item }}</span>
+          <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deletePromotion(item,1)">
+            <mat-icon color="warn" >delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm text-center">
+      <strong>Día 2</strong>
+      <div
+        cdkDropList
+        #prom2="cdkDropList"
+        [cdkDropListData]="promotionsDay2"
+        class="example-list shadow"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div
+          class="example-box d-flex flex-row justify-content-sm-between"
+          *ngFor="let item of promotionsDay2"
+          cdkDrag
+        >
+          <span>{{ item }}</span>
+          <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deletePromotion(item,2)">
+            <mat-icon color="warn" >delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm text-center">
+      <strong>Día 3</strong>
+      <div
+        cdkDropList
+        #prom3="cdkDropList"
+        [cdkDropListData]="promotionsDay3"
+        class="example-list shadow"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div
+          class="example-box d-flex flex-row justify-content-sm-between"
+          *ngFor="let item of promotionsDay3"
+          cdkDrag
+        >
+          <span>{{ item }}</span>
+          <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deletePromotion(item,3)">
+            <mat-icon color="warn" >delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
