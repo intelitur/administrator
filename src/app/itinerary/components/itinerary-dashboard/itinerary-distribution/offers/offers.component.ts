@@ -36,7 +36,28 @@ export class OffersComponent implements OnInit {
       );
     }
   }
-
+  /**
+   * @funtion delete day by name and clean list
+   * @param day
+   */
+  deleteDay(day){
+    switch(day){
+      case "dia1":{
+        this.offersDay1 = [];
+        break;
+      }
+      case "dia2":{
+        this.offersDay2 = [];
+        break;
+      }
+      case "dia3":{
+        this.offersDay3 = [];
+        break;
+      }
+    }
+    document.getElementById(day).parentNode.removeChild(document.getElementById(day));
+    this.commonService.openSnackBar(`Se ha eliminado correctamente el ${day}`,"OK");
+  }
   /**
    * @funtion delete offert by item and listIndicator that is 1 is list 1 and so on...
    * @param item
@@ -59,29 +80,6 @@ export class OffersComponent implements OnInit {
     }
 
     this.commonService.openSnackBar(`Se ha eliminado correctamente la oferta ${item}`,"OK");
-  }
-
-  /**
-   * @funtion delete day by name and clean list
-   * @param day
-   */
-  deleteDay(day){
-    switch(day){
-      case "dia1":{
-        this.offersDay1 = [];
-        break;
-      }
-      case "dia2":{
-        this.offersDay2 = [];
-        break;
-      }
-      case "dia3":{
-        this.offersDay3 = [];
-        break;
-      }
-    }
-
-    document.getElementById(day).parentNode.removeChild(day);
   }
   openDayDetails() {
     this._dialog.openDayDetailsDialog();
