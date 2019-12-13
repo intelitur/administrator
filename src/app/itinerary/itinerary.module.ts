@@ -13,6 +13,7 @@ import { UploadImagesComponent } from './components/itineraries/itinerary-form-d
 import { ItineraryDetailsComponent } from './components/itinerary-dashboard/itinerary-details/itinerary-details.component';
 import { OffersComponent } from './components/itinerary-dashboard/itinerary-distribution/offers/offers.component';
 import { PromotionsComponent } from './components/itinerary-dashboard/itinerary-distribution/promotions/promotions.component';
+import { ItineraryMapComponent } from './components/itinerary-dashboard/itinerary-map/itinerary-map.component';
 
 
 
@@ -28,7 +29,8 @@ import { PromotionsComponent } from './components/itinerary-dashboard/itinerary-
     ItineraryDistributionComponent,
     ItineraryDetailsComponent,
     OffersComponent,
-    PromotionsComponent
+    PromotionsComponent,
+    ItineraryMapComponent
   ],
   imports: [CommonModule, ItineraryRoutingModule, SharedModule],
   exports: [ItineraryRootComponent],
