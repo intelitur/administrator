@@ -17,3 +17,5 @@ export class ItineraryDetailsComponent implements OnInit {
   }
 
 }
+
+
