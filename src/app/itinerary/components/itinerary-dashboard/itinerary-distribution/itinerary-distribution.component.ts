@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
+
 @Component({
   selector: "app-itinerary-distribution",
   templateUrl: "./itinerary-distribution.component.html",
@@ -77,4 +78,5 @@ export class ItineraryDistributionComponent implements OnInit {
   openDayDetails() {
     this._dialog.openDayDetailsDialog();
   }
+
 }
