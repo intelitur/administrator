@@ -11,6 +11,8 @@ import { ItineraryDistributionComponent } from './components/itinerary-dashboard
 import { ItinerariesTableComponent } from './components/itineraries/itineraries-table/itineraries-table.component';
 import { UploadImagesComponent } from './components/itineraries/itinerary-form-dialog/upload-images/upload-images.component';
 import { ItineraryDetailsComponent } from './components/itinerary-dashboard/itinerary-details/itinerary-details.component';
+import { OffersComponent } from './components/itinerary-dashboard/itinerary-distribution/offers/offers.component';
+import { PromotionsComponent } from './components/itinerary-dashboard/itinerary-distribution/promotions/promotions.component';
 
 
 
@@ -24,7 +26,9 @@ import { ItineraryDetailsComponent } from './components/itinerary-dashboard/itin
     ItineraryDashboardComponent,
     ItineraryRootComponent,
     ItineraryDistributionComponent,
-    ItineraryDetailsComponent
+    ItineraryDetailsComponent,
+    OffersComponent,
+    PromotionsComponent
   ],
   imports: [CommonModule, ItineraryRoutingModule, SharedModule],
   exports: [ItineraryRootComponent],
