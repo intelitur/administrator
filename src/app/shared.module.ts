@@ -22,7 +22,8 @@ import {
   MatTableModule,
   MatDatepickerModule,
   MatRadioModule,
-  MatTabsModule
+  MatTabsModule,
+  MatAutocompleteModule
 } from "@angular/material";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 @NgModule({
@@ -52,7 +53,8 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     NgbCarouselModule,
     MatChipsModule,
     DragDropModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule
   ],
   exports: [
     LayoutModule,
@@ -78,7 +80,8 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     NgbCarouselModule,
     MatChipsModule,
     DragDropModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule
   ]
 })
 export class SharedModule {}

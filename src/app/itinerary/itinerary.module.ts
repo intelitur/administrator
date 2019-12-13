@@ -10,8 +10,8 @@ import { ItineraryDashboardComponent } from './components/itinerary-dashboard/it
 import { ItineraryRootComponent } from './components/itinerary-root.component';
 import { ItineraryRoutingModule } from './itinerary-routing.module';
 import { ItineraryDistributionComponent } from './components/itinerary-dashboard/itinerary-distribution/itinerary-distribution.component';
-
-
+import { ItineraryMapComponent } from './components/itinerary-dashboard/itinerary-map/itinerary-map.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 @NgModule({
   declarations: [
     ItinerariesComponent,
@@ -21,9 +21,10 @@ import { ItineraryDistributionComponent } from './components/itinerary-dashboard
     UploadImagesComponent,
     ItineraryDashboardComponent,
     ItineraryRootComponent,
-    ItineraryDistributionComponent
+    ItineraryDistributionComponent,
+    ItineraryMapComponent
   ],
-  imports: [CommonModule, ItineraryRoutingModule, SharedModule],
+  imports: [CommonModule, ItineraryRoutingModule, SharedModule,LeafletModule,FilterPipeModule],
   exports: [ItineraryRootComponent],
   entryComponents: [ItineraryFormDialogComponent]
 })
