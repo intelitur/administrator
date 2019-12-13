@@ -16,47 +16,30 @@
       <input matInput/>
     </mat-form-field>
     <div class="row" cdkDropListGroup>
-      <div class="col-sm text-center">
-        <strong>Día 1</strong>
+
+      <div class="col-sm text-center" *ngFor="let offerDay of offersDays;let i = index">
+        <strong>Día {{i + 1}}</strong>
+        <button class="mt-3" mat-button color="primary"  (click)="deleteOfferDay(i)">
+          <i class="material-icons">{{"delete"}}</i>
+        </button>
+
         <div
           cdkDropList
-          [cdkDropListData]="offersDay1"
+          [cdkDropListData]="offerDay"
           class="example-list shadow"
           (cdkDropListDropped)="drop($event)"
         >
-          <div class="example-box" *ngFor="let item of offersDay1" cdkDrag>
+          <div class="example-box" *ngFor="let item of offerDay; let j = index" cdkDrag>
             {{ item }}
-          </div>
-        </div>
-      </div>
-      <div class="col-sm text-center">
-        <strong>Día 2</strong>
-        <div
-          cdkDropList
-          [cdkDropListData]="offersDay2"
-          class="example-list shadow"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <div class="example-box" *ngFor="let item of offersDay2" cdkDrag>
-            {{ item }}
-          </div>
-        </div>
-      </div>
-      <div class="col-sm text-center">
-        <strong>Día 3</strong>
-        <div
-          cdkDropList
-          [cdkDropListData]="offersDay3"
-          class="example-list shadow"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <div class="example-box" *ngFor="let item of offersDay3" cdkDrag>
-            {{ item }}
+            <button class="mt-3" mat-button color="primary"  (click)="deleteOfferItem(j, i)">
+                <i class="material-icons">{{"delete"}}</i>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="container-fluid mt-5 p-0">
     <h2 class="text-center text-warning font-weight-light">
       Promociones del itinerario
@@ -66,45 +49,23 @@
       <input matInput />
     </mat-form-field>
     <div class="row" cdkDropListGroup>
-      <div class="col-sm text-center">
-        <strong>Día 1</strong>
+      <div class="col-sm text-center"  *ngFor="let promotionDay of promotionsDays;let i = index">
+        <strong>Día {{i + 1}}</strong>
         <div
           cdkDropList
-          [cdkDropListData]="promotionsDay1"
+          [cdkDropListData]="promotionDay"
           class="example-list shadow"
           (cdkDropListDropped)="drop($event)"
         >
-          <div class="example-box" *ngFor="let item of promotionsDay1" cdkDrag>
+          <div class="example-box" *ngFor="let item of promotionDay; let j = index" cdkDrag>
             {{ item }}
+            <button class="mt-3" mat-button color="primary"  (click)="deletePromotionItem(j, i)">
+              <i class="material-icons">{{"delete"}}</i>
+          </button>
           </div>
         </div>
       </div>
-      <div class="col-sm text-center">
-        <strong>Día 2</strong>
-        <div
-          cdkDropList
-          [cdkDropListData]="promotionsDay2"
-          class="example-list shadow"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <div class="example-box" *ngFor="let item of promotionsDay2" cdkDrag>
-            {{ item }}
-          </div>
-        </div>
-      </div>
-      <div class="col-sm text-center">
-        <strong>Día 3</strong>
-        <div
-          cdkDropList
-          [cdkDropListData]="promotionsDay3"
-          class="example-list shadow"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <div class="example-box" *ngFor="let item of promotionsDay3" cdkDrag>
-            {{ item }}
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>

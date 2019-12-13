@@ -14,6 +14,19 @@ import {
 })
 export class ItineraryDetailsComponent implements OnInit {
   checked: boolean = false;
+
+  offersDays = [
+    ["Walking", "Lunch", "Dinner"],
+    ["Biking tour", "Afternoon chill", "BreakFast"],
+    ["Extreme canopy", "Souvenir time", "Horse tour"]
+  ];
+
+  promotionsDays =[
+    ["Promotion", "Promotion", "Promotion"],
+    ["Promotion", "Promotion", "Promotion"],
+    ["Promotion", "pepe", "Promotion"]
+  ];
+  
   offersDay1 = ["Walking", "Lunch", "Dinner"];
   offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
   offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
@@ -41,4 +54,35 @@ export class ItineraryDetailsComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+/**
+ * @function Delete an offer item from a day of offers
+ * @param itemIndex Index of the item
+ * @param offerIndex Index of the day in offersDays list
+ */
+  deleteOfferItem(itemIndex, offerIndex){
+    this.offersDays[offerIndex].splice(itemIndex, 1);
+  }
+
+  /**
+ * @function Delete a promotion item from a day of promotions
+ * @param itemIndex Index of the item
+ * @param promotionIndex Index of the day in promotionsDays list
+ */
+  deletePromotionItem(itemIndex, promotionIndex){
+    this.promotionsDays[promotionIndex].splice(itemIndex, 1);
+  }
+
+  /**
+ * @function Delete a day from offersDays list
+ * @param index Index of the day in promotionsDays list
+ */
+  deleteOfferDay(index){
+    if (index > -1) {
+      this.offersDays.splice(index, 1);
+    }
+  }
+
 }
+
+
