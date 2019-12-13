@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
 
 @Component({
   selector: 'app-offers',
@@ -12,7 +13,7 @@ export class OffersComponent implements OnInit {
   offersDay1 = ["Walking", "Lunch", "Dinner"];
   offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
   offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
-  constructor() { }
+  constructor(private _dialog: DialogManagerService) { }
 
   ngOnInit() {
   }
@@ -32,6 +33,10 @@ export class OffersComponent implements OnInit {
         event.currentIndex
       );
     }
+  }
+
+  openDayDetails() {
+    this._dialog.openDayDetailsDialog();
   }
 
 }

@@ -1,10 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from "@angular/cdk/drag-drop";
-import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
+
 @Component({
   selector: "app-itinerary-distribution",
   templateUrl: "./itinerary-distribution.component.html",
@@ -13,7 +8,7 @@ import { DialogManagerService } from "src/app/general-services/dialog-manager.se
 export class ItineraryDistributionComponent implements OnInit {
   checked: boolean = false;
 
-  constructor(private _dialog: DialogManagerService) {}
+  constructor() {}
 
   ngOnInit() {}
 
@@ -45,7 +40,4 @@ export class ItineraryDistributionComponent implements OnInit {
     }
   }*/
 
-  openDayDetails() {
-    this._dialog.openDayDetailsDialog();
-  }
 }

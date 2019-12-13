@@ -28,10 +28,21 @@
         class="example-list shadow"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="example-box d-flex flex-row justify-content-sm-between" *ngFor="let item of offersDay1" cdkDrag>
-          <span>{{item}}</span>
-          <button mat-raised-button color="warn"><mat-icon>delete</mat-icon></button>
+        <div
+          class="example-box d-flex flex-row justify-content-sm-between"
+          *ngFor="let item of offersDay1"
+          cdkDrag
+        >
+          <span>{{ item }}</span>
+          <button mat-raised-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
         </div>
+      </div>
+      <div class="container-fluid mt-3 text-center">
+        <button mat-raised-button (click)="openDayDetails()" color="accent">
+          Detalles
+        </button>
       </div>
     </div>
     <div class="col-sm text-center">
@@ -43,10 +54,21 @@
         class="example-list shadow"
         (cdkDropListDropped)="drop($event)"
       >
-      <div class="example-box d-flex flex-row justify-content-sm-between" *ngFor="let item of offersDay2" cdkDrag>
-        <span>{{item}}</span>
-        <button mat-raised-button color="warn"><mat-icon>delete</mat-icon></button>
+        <div
+          class="example-box d-flex flex-row justify-content-sm-between"
+          *ngFor="let item of offersDay2"
+          cdkDrag
+        >
+          <span>{{ item }}</span>
+          <button mat-raised-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
+      <div class="container-fluid mt-3 text-center">
+        <button mat-raised-button (click)="openDayDetails()" color="accent">
+          Detalles
+        </button>
       </div>
     </div>
     <div class="col-sm text-center">
@@ -58,10 +80,21 @@
         class="example-list shadow"
         (cdkDropListDropped)="drop($event)"
       >
-      <div class="example-box d-flex flex-row justify-content-sm-between" *ngFor="let item of offersDay3" cdkDrag>
-        <span>{{item}}</span>
-        <button mat-raised-button color="warn"><mat-icon>delete</mat-icon></button>
+        <div
+          class="example-box d-flex flex-row justify-content-sm-between"
+          *ngFor="let item of offersDay3"
+          cdkDrag
+        >
+          <span>{{ item }}</span>
+          <button mat-raised-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
+      <div class="container-fluid mt-3 text-center">
+        <button mat-raised-button (click)="openDayDetails()" color="accent">
+          Detalles
+        </button>
       </div>
     </div>
   </div>
