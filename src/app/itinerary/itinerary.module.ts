@@ -24,7 +24,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     ItineraryDistributionComponent,
     ItineraryMapComponent
   ],
-  imports: [CommonModule, ItineraryRoutingModule, SharedModule,LeafletModule,FilterPipeModule],
+  imports: [CommonModule, ItineraryRoutingModule, SharedModule,LeafletModule],
   exports: [ItineraryRootComponent],
   entryComponents: [ItineraryFormDialogComponent]
 })
