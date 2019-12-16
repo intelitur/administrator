@@ -36,13 +36,12 @@
   <ng-container class="text-center" matColumnDef="actions">
     <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
     <td class="text-center" mat-cell *matCellDef="let element">
-      <button
-        (click)="openShowItineraryDetails(); (false)"
+      <button [routerLink]="['/itineraries/dashboard']"
         mat-stroked-button
         color="primary"
       >
         Ver más
-      </button>
+    </button>
     </td>
   </ng-container>
 

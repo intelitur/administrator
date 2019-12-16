@@ -1,86 +1,19 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { MatDialogRef } from "@angular/material";
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from "@angular/cdk/drag-drop";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-itinerary-details",
-  templateUrl: "./itinerary-details.component.html",
-  styleUrls: ["./itinerary-details.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-itinerary-details',
+  templateUrl: './itinerary-details.component.html',
+  styleUrls: ['./itinerary-details.component.scss']
 })
 export class ItineraryDetailsComponent implements OnInit {
-  checked: boolean = false;
+  images = [
+    "https://www.solidbackgrounds.com/images/1920x1080/1920x1080-mint-solid-color-background.jpg",
+    "https://www.solidbackgrounds.com/images/1920x1080/1920x1080-mint-green-solid-color-background.jpg",
+    "https://www.solidbackgrounds.com/images/1366x768/1366x768-navy-purple-solid-color-background.jpg"
+  ]
+  constructor() { }
 
-  offersDays = [
-    ["Walking", "Lunch", "Dinner"],
-    ["Biking tour", "Afternoon chill", "BreakFast"],
-    ["Extreme canopy", "Souvenir time", "Horse tour"]
-  ];
-
-  promotionsDays =[
-    ["Promotion", "Promotion", "Promotion"],
-    ["Promotion", "Promotion", "Promotion"],
-    ["Promotion", "pepe", "Promotion"]
-  ];
-  
-  offersDay1 = ["Walking", "Lunch", "Dinner"];
-  offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
-  offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
-
-  promotionsDay1 = ["Promotion", "Promotion", "Promotion"];
-  promotionsDay2 = ["Promotion", "Promotion", "Promotion"];
-  promotionsDay3 = ["Promotion", "Promotion", "Promotion"];
-  constructor(public dialogRef: MatDialogRef<ItineraryDetailsComponent>) {}
-
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
-  }
-
-  ngOnInit() {}
-
-/**
- * @function Delete an offer item from a day of offers
- * @param itemIndex Index of the item
- * @param offerIndex Index of the day in offersDays list
- */
-  deleteOfferItem(itemIndex, offerIndex){
-    this.offersDays[offerIndex].splice(itemIndex, 1);
-  }
-
-  /**
- * @function Delete a promotion item from a day of promotions
- * @param itemIndex Index of the item
- * @param promotionIndex Index of the day in promotionsDays list
- */
-  deletePromotionItem(itemIndex, promotionIndex){
-    this.promotionsDays[promotionIndex].splice(itemIndex, 1);
-  }
-
-  /**
- * @function Delete a day from offersDays list
- * @param index Index of the day in promotionsDays list
- */
-  deleteOfferDay(index){
-    if (index > -1) {
-      this.offersDays.splice(index, 1);
-    }
+  ngOnInit() {
   }
 
 }

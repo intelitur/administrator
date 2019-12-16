@@ -1,0 +1,12 @@
+<div
+  class="container-fluid d-flex flex-column justify-content-sm-around m-0 p-1"
+>
+  <h1 class="text-center text-primary font-weight-light">
+    Nombre del itinerario
+  </h1>
+  <mat-slide-toggle (change)="checked = !checked" [checked]="checked">{{
+    checked ? "Habilidado" : "Deshabilitado"
+  }}</mat-slide-toggle>
+  <app-offers></app-offers>
+  <app-promotions></app-promotions>
+</div>

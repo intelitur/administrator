@@ -33,7 +33,9 @@
 .mat-dialog-container {
   padding: 15px !important;
 }
-
+.btn-eye{
+  outline: none;
+}
 ::ng-deep .cdk-overlay-container {
   position: fixed !important;
   z-index: 100000 !important; /* set value you need */
