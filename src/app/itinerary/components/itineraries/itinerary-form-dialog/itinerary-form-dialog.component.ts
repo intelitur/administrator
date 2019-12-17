@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, ViewEncapsulation } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Itinerary } from "src/app/itinerary/models/Itinerary";
 
 @Component({
   selector: "app-itinerary-form-dialog",
@@ -35,7 +36,6 @@ export class ItineraryFormDialogComponent implements OnInit {
       groupType: ["", Validators.required],
       category: ["", Validators.required],
       travelAdvices: ["", Validators.required],
-      enable: ["", Validators.required],
       startDate: ["", Validators.required],
       endDate: ["", Validators.required],
       status: ["", Validators.required] // public or private
@@ -56,5 +56,21 @@ export class ItineraryFormDialogComponent implements OnInit {
 
   onSubmit() {
     console.log(this.images);
+    let fv = this.itineraryFG.value;
+    console.log(
+      new Itinerary(
+        fv.name,
+        fv.totalPrice,
+        fv.adultsQuantity,
+        fv.childrenQuantity,
+        fv.description,
+        fv.duration,
+        false,
+        Boolean(fv.status),
+        new Date(fv.startDate),
+        new Date(fv.endDate)
+      )
+    );
+    //console.log(new Itinerary(formValue));
   }
 }
