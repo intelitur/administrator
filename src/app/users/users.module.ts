@@ -7,7 +7,7 @@ import { AddAdminComponent } from './components/add-admin/add-admin.component';
 
 import { FormsModule } from '@angular/forms';
 import { UsersRoutingModule } from './users-routing.module';
-
+import { FilterPipeModule } from 'ngx-filter-pipe';
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -18,7 +18,8 @@ import { UsersRoutingModule } from './users-routing.module';
     CommonModule,
      SharedModule,
      FormsModule,
-     UsersRoutingModule],
+     UsersRoutingModule,
+     FilterPipeModule],
   exports: [],
   entryComponents: [AddAdminComponent]
 })

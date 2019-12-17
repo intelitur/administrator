@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CommonService } from 'src/app/general-services/common.service';
 import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
+import { UserManagementService } from 'src/app/services/user-management.service';
 
 
 @Component({
@@ -11,13 +12,17 @@ import { DialogManagerService } from 'src/app/general-services/dialog-manager.se
 })
 export class UsersManagementComponent implements OnInit {
 
+  filter:any = {user_id: ''};
+
   constructor(
     public commonService: CommonService,
     public dialogService: DialogManagerService,
     public dialog: MatDialog,
+    public userManagmentService: UserManagementService
   ) { }
 
   ngOnInit() {
+    this.userManagmentService.getAllUser();
   }
 
   /**
