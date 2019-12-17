@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { CommonService } from "src/app/general-services/common.service";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
-import { UserManagementService } from "src/app/login/services/user-management.service";
+import { UserManagementService } from "src/app/users/services/user-management.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Subscription } from 'rxjs';
 
@@ -40,7 +40,6 @@ export class UsersManagementComponent implements OnInit {
       .changeAvailableOrStateUser(userID, modifyInfo)
       .subscribe({
         next: (data: any) => {
-          console.log(state);
           if (state) {
             this.commonService.openSnackBar(
               `El usuario ${userID} ha sido habilitado`,
@@ -52,6 +51,7 @@ export class UsersManagementComponent implements OnInit {
               "OK"
             );
           }
+          this.subscription.unsubscribe();
           let idx = this.userManagmentService.users.findIndex(user => user.user_id === userID);
           this.userManagmentService.users[idx].info.available = state;
         },
@@ -77,6 +77,7 @@ export class UsersManagementComponent implements OnInit {
             `El id de usuario ${userID} ha sido registrado correctamente`,
             "OK"
           );
+          this.subscription.unsubscribe();
           let idx = this.userManagmentService.users.findIndex(user => user.user_id === userID);
           this.userManagmentService.users[idx].info.state = true;
         },
@@ -92,8 +93,8 @@ export class UsersManagementComponent implements OnInit {
     this.dialogService.openAddAdminFormDialog();
   }
 
-  ngOnDestroy() {
+  /*ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
+  }*/
 
 }
