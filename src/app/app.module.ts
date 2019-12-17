@@ -10,6 +10,7 @@ import { ItineraryModule } from './itinerary/itinerary.module';
 import { UsersModule } from './users/users.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterBusinessManComponent } from './login/register-business-man/register-business-man.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RegisterBusinessManComponent } from './login/register-business-man/regi
     FormsModule,
     ReactiveFormsModule,
     ItineraryModule,
-    UsersModule
+    UsersModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
