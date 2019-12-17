@@ -2,8 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/general-services/common.service';
-import { BusinessmanService } from 'src/app/services/bussinesman.service';
-import { BusinessMan } from 'src/app/models/Businessman.class';
+import { BusinessmanService } from 'src/app/users/services/bussinesman.service';
+import { BusinessMan } from 'src/app/users/models/Businessman.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
