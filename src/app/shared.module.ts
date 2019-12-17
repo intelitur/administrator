@@ -22,10 +22,10 @@ import {
   MatTableModule,
   MatDatepickerModule,
   MatRadioModule,
-  MatTabsModule
+  MatTabsModule,
+  MatAutocompleteModule
 } from "@angular/material";
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 @NgModule({
   declarations: [],
   imports: [
@@ -53,8 +53,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     NgbCarouselModule,
     MatChipsModule,
     DragDropModule,
-    MatTabsModule,
-    LeafletModule.forRoot()
+    MatTabsModule
   ],
   exports: [
     LayoutModule,
@@ -80,8 +79,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     NgbCarouselModule,
     MatChipsModule,
     DragDropModule,
-    MatTabsModule,
-    LeafletModule
+    MatTabsModule
   ]
 })
 export class SharedModule {}

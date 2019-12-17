@@ -34,8 +34,8 @@
           cdkDrag
         >
           <span>{{ item }}</span>
-          <button mat-raised-button color="warn">
-            <mat-icon>delete</mat-icon>
+          <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deletePromotion(item,1)">
+            <mat-icon matTooltip="Eliminar promoción del día" color="warn" >delete</mat-icon>
           </button>
         </div>
       </div>
@@ -55,8 +55,8 @@
           cdkDrag
         >
           <span>{{ item }}</span>
-          <button mat-raised-button color="warn">
-            <mat-icon>delete</mat-icon>
+          <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deletePromotion(item,2)">
+            <mat-icon matTooltip="Eliminar promoción del día" color="warn" >delete</mat-icon>
           </button>
         </div>
       </div>
@@ -76,8 +76,8 @@
           cdkDrag
         >
           <span>{{ item }}</span>
-          <button mat-raised-button color="warn">
-            <mat-icon>delete</mat-icon>
+          <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deletePromotion(item,3)">
+            <mat-icon matTooltip="Eliminar promoción del día" color="warn" >delete</mat-icon>
           </button>
         </div>
       </div>

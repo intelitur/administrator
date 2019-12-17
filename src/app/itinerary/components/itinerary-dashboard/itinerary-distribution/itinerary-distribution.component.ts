@@ -1,4 +1,13 @@
 import { Component, OnInit } from "@angular/core";
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem
+} from "@angular/cdk/drag-drop";
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 
 @Component({
   selector: "app-itinerary-distribution",
@@ -6,12 +15,39 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./itinerary-distribution.component.scss"]
 })
 export class ItineraryDistributionComponent implements OnInit {
+  ngOnInit(): void {
+
+  }
+
+  offertFilter = '';
   checked: boolean = false;
+  newOffersList = ["Booking", "Fire","Swing"]
 
-  constructor() {}
+  myControlOffers = new FormControl();
+  filteredOptionsOffers: Observable<string[]>;
+  offersDay1 = ["Walking", "Lunch", "Dinner"];
+  offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
+  offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
 
-  ngOnInit() {}
-
+  promotionsDay1 = ["Promotion", "Promotion", "Promotion"];
+  promotionsDay2 = ["Promotion", "Promotion", "Promotion"];
+  promotionsDay3 = ["Promotion", "Promotion", "Promotion"];
+  constructor(private _dialog: DialogManagerService) { }
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+  }}
   /**
    * @function Delete an offer item from a day of offers
    * @param itemIndex Index of the item
@@ -39,5 +75,8 @@ export class ItineraryDistributionComponent implements OnInit {
       this.offersDays.splice(index, 1);
     }
   }*/
+  openDayDetails() {
+    this._dialog.openDayDetailsDialog();
+  }
 
 }

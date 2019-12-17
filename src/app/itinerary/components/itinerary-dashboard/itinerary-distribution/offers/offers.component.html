@@ -6,37 +6,28 @@
     <mat-label>Escriba cualquier valor para buscar</mat-label>
     <input matInput />
   </mat-form-field>
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="result"
-    [cdkDropListConnectedTo]="[offDay1, offDay2, offDay3]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-  >
+  <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="result"
+    [cdkDropListConnectedTo]="[offDay1, offDay2, offDay3]" class="example-list" (cdkDropListDropped)="drop($event)">
     <div class="example-box" *ngFor="let r of result" cdkDrag>
       {{ r }}
     </div>
   </div>
   <div class="row" cdkDropListGroup>
-    <div class="col-sm text-center">
+
+    <div class="col-sm text-center" id="dia1">
       <strong>Día 1</strong>
-      <div
-        cdkDropList
-        #offDay1="cdkDropList"
-        [cdkDropListData]="offersDay1"
-        class="example-list shadow"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <div
-          class="example-box d-flex flex-row justify-content-sm-between"
-          *ngFor="let item of offersDay1"
-          cdkDrag
-        >
-          <span>{{ item }}</span>
-          <button mat-raised-button color="warn">
-            <mat-icon>delete</mat-icon>
+      <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deleteDay('dia1')">
+        <mat-icon matTooltip="Eliminar día del itinerario" color="warn">close</mat-icon>
+
+      </button>
+      <div cdkDropList #offDay1="cdkDropList" [cdkDropListData]="offersDay1" class="example-list shadow"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box d-flex flex-row justify-content-sm-between" *ngFor="let item of offersDay1" cdkDrag>
+          <span>{{item}}</span>
+          <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deleteOffert(item,1)">
+            <mat-icon matTooltip="Eliminar oferta del día" color="warn">delete</mat-icon>
           </button>
+
         </div>
       </div>
       <div class="container-fluid mt-3 text-center">
@@ -45,57 +36,50 @@
         </button>
       </div>
     </div>
-    <div class="col-sm text-center">
-      <strong>Día 2</strong>
-      <div
-        cdkDropList
-        #offDay2="cdkDropList"
-        [cdkDropListData]="offersDay2"
-        class="example-list shadow"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <div
-          class="example-box d-flex flex-row justify-content-sm-between"
-          *ngFor="let item of offersDay2"
-          cdkDrag
-        >
-          <span>{{ item }}</span>
-          <button mat-raised-button color="warn">
-            <mat-icon>delete</mat-icon>
+
+    <div class="col-sm text-center" id="dia2">
+        <strong>Día 2</strong>
+        <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deleteDay('dia2')">
+          <mat-icon matTooltip="Eliminar día del itinerario" color="warn">close</mat-icon>
+        </button>
+        <div cdkDropList #offDay2="cdkDropList" [cdkDropListData]="offersDay2" class="example-list shadow"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box d-flex flex-row justify-content-sm-between" *ngFor="let item of offersDay2" cdkDrag>
+            <span>{{item}}</span>
+            <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deleteOffert(item,2)">
+              <mat-icon matTooltip="Eliminar oferta del día" color="warn">delete</mat-icon>
+            </button>
+
+          </div>
+        </div>
+        <div class="container-fluid mt-3 text-center">
+          <button mat-raised-button (click)="openDayDetails()" color="accent">
+            Detalles
           </button>
         </div>
       </div>
-      <div class="container-fluid mt-3 text-center">
-        <button mat-raised-button (click)="openDayDetails()" color="accent">
-          Detalles
-        </button>
-      </div>
-    </div>
-    <div class="col-sm text-center">
-      <strong>Día 3</strong>
-      <div
-        cdkDropList
-        #offDay3="cdkDropList"
-        [cdkDropListData]="offersDay3"
-        class="example-list shadow"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <div
-          class="example-box d-flex flex-row justify-content-sm-between"
-          *ngFor="let item of offersDay3"
-          cdkDrag
-        >
-          <span>{{ item }}</span>
-          <button mat-raised-button color="warn">
-            <mat-icon>delete</mat-icon>
+
+      <div class="col-sm text-center" id="dia3">
+          <strong>Día 3</strong>
+          <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deleteDay('dia3')">
+            <mat-icon matTooltip="Eliminar día del itinerario" color="warn">close</mat-icon>
           </button>
+          <div cdkDropList #offDay3="cdkDropList" [cdkDropListData]="offersDay3" class="example-list shadow"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box d-flex flex-row justify-content-sm-between" *ngFor="let item of offersDay3" cdkDrag>
+              <span>{{item}}</span>
+              <button mat-icon-button matSuffix mat-button class="btn-delete" (click)="deleteOffert(item,3)">
+                <mat-icon matTooltip="Eliminar oferta del día"  color="warn">delete</mat-icon>
+              </button>
+
+            </div>
+          </div>
+          <div class="container-fluid mt-3 text-center">
+            <button mat-raised-button (click)="openDayDetails()" color="accent">
+              Detalles
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="container-fluid mt-3 text-center">
-        <button mat-raised-button (click)="openDayDetails()" color="accent">
-          Detalles
-        </button>
-      </div>
-    </div>
+
   </div>
 </div>

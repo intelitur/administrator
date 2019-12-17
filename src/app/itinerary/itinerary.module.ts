@@ -8,12 +8,13 @@ import { ItineraryFormDialogComponent } from './components/itineraries/itinerary
 import { ItinerariesComponent } from './components/itineraries/itineraries.component';
 import { ItineraryRootComponent } from './components/itinerary-root.component';
 import { ItineraryDistributionComponent } from './components/itinerary-dashboard/itinerary-distribution/itinerary-distribution.component';
+import { ItineraryMapComponent } from './components/itinerary-dashboard/itinerary-map/itinerary-map.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ItinerariesTableComponent } from './components/itineraries/itineraries-table/itineraries-table.component';
 import { UploadImagesComponent } from './components/itineraries/itinerary-form-dialog/upload-images/upload-images.component';
 import { ItineraryDetailsComponent } from './components/itinerary-dashboard/itinerary-details/itinerary-details.component';
 import { OffersComponent } from './components/itinerary-dashboard/itinerary-distribution/offers/offers.component';
 import { PromotionsComponent } from './components/itinerary-dashboard/itinerary-distribution/promotions/promotions.component';
-import { ItineraryMapComponent } from './components/itinerary-dashboard/itinerary-map/itinerary-map.component';
 
 
 
@@ -32,7 +33,7 @@ import { ItineraryMapComponent } from './components/itinerary-dashboard/itinerar
     PromotionsComponent,
     ItineraryMapComponent
   ],
-  imports: [CommonModule, ItineraryRoutingModule, SharedModule],
+  imports: [CommonModule, ItineraryRoutingModule, SharedModule,LeafletModule],
   exports: [ItineraryRootComponent],
   entryComponents: [ItineraryFormDialogComponent, ItineraryDetailsComponent]
 })
