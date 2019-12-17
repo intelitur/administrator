@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from 'src/environments/environment';
 import { BusinessMan } from '../models/Businessman.class';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { CommonService } from '../general-services/common.service';
+import { CommonService } from '../../general-services/common.service';
 import { Observable } from 'rxjs';
 
 @Injectable({

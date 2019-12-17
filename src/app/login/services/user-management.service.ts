@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/User.class';
-import { CommonService } from '../general-services/common.service';
+import { CommonService } from '../../general-services/common.service';
 import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
