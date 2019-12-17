@@ -33,7 +33,7 @@
             <td *ngIf="user.role_id === 2">Emprendedor</td>
             <td>
               <section>
-                <mat-slide-toggle (change)="setAvailable(!user.habilitado,user.user_id, user.info)" color="primary"
+                <mat-slide-toggle (change)="setAvailable(!user.info.available,user.user_id, user.info)" color="primary"
                   [checked]=user.info.available>
                 </mat-slide-toggle>
               </section>

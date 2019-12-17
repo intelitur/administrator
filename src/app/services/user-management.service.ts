@@ -3,13 +3,13 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/User.class';
 import { CommonService } from '../general-services/common.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserManagementService {
-
+  private subscription: Subscription;
   users: Array<User>;
   constructor(
     private http: HttpClient,
@@ -20,9 +20,10 @@ export class UserManagementService {
    * @funtion Get all user
    */
   getAllUser(){
-    this.http.get(`${environment.SERVER_BASE_URL}generalUsers/getAllUsers`).subscribe({
-      next: (data : Array<User>) => {
-        this.users = data;
+    this.subscription = this.http.get(`${environment.SERVER_BASE_URL}generalUsers/getAllUsers`).subscribe({
+      next: (data: any) => {
+        this.users = data.data;
+        this.subscription.unsubscribe();
       }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
     });
   };
