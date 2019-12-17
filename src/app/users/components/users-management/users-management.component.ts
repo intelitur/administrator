@@ -1,54 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { CommonService } from 'src/app/general-services/common.service';
-import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
-
+import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material";
+import { CommonService } from "src/app/general-services/common.service";
+import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
+import { UserManagementService } from "src/app/services/user-management.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
-  selector: 'app-users-management',
-  templateUrl: './users-management.component.html',
-  styleUrls: ['./users-management.component.scss']
+  selector: "app-users-management",
+  templateUrl: "./users-management.component.html",
+  styleUrls: ["./users-management.component.scss"]
 })
 export class UsersManagementComponent implements OnInit {
+  filter: any = { user_id: "" };
 
   constructor(
     public commonService: CommonService,
     public dialogService: DialogManagerService,
     public dialog: MatDialog,
-  ) { }
+    public userManagmentService: UserManagementService
+  ) {}
 
   ngOnInit() {
+    this.userManagmentService.getAllUser();
   }
-
-  /**
-   * Default Users to show
-   */
-  users = [
-    {
-      id: 1,
-      name: "José Pablo",
-      lastname: "Brenes Alfaro",
-      rol: "Empresario",
-      habilitado: true,
-      estado: true
-    },
-    {
-      id: 2,
-      name: "Josué",
-      lastname: "Brenes Alfaro",
-      rol: "Admin",
-      habilitado: true,
-      estado: true
-    },
-    {
-      id: 3,
-      name: "Dago",
-      lastname: "Rojas Alfaro",
-      rol: "Empresario",
-      habilitado: true,
-      estado: false
-    }
-  ]
 
   /**
    * Functions
@@ -58,36 +32,61 @@ export class UsersManagementComponent implements OnInit {
    * @param state
    * @param userID
    */
-  setAvailable(state: boolean, userID: number){
-    //TODO: set to db state
-    if(state)
-      this.commonService.openSnackBar(`El usuario ${userID} ha sido habilitado`,"OK")
-    else
-      this.commonService.openSnackBar(`El usuario ${userID} ha sido desabilitado`,"OK")
-    let idx = this.users.findIndex(user => user.id === userID);
-    this.users[idx].habilitado = state;
-  };
+  setAvailable(state: boolean, userID: number, info: any) {
+    let modifyInfo = info;
+    modifyInfo.available = state;
+    console.log(modifyInfo);
+    this.userManagmentService
+      .changeAvailableOrStateUser(userID, modifyInfo)
+      .subscribe({
+        next: (data: any) => {
+          if (state) {
+            this.commonService.openSnackBar(
+              `El usuario ${userID} ha sido habilitado`,
+              "OK"
+            );
+          } else {
+            this.commonService.openSnackBar(
+              `El usuario ${userID} ha sido desabilitado`,
+              "OK"
+            );
+          }
+          let idx = this.userManagmentService.users.findIndex(user => user.user_id === userID);
+          this.userManagmentService.users[idx].info.available = state;
+        },
+        error: (err: HttpErrorResponse) =>
+          this.commonService.openSnackBar(`Error: ${err}`, "OK")
+      });
+  }
 
   /**
    * @function Set Acceptance business user
    * @param accept
    * @param userID
    */
-  setAcceptance(accept: boolean, userID: number){
-    //TODO: accept to db business user
-    if(accept){
-      this.commonService.openSnackBar(`El usuario ${userID} ha sido registrado correctamente`,"OK");
-      let idx = this.users.findIndex(user => user.id === userID);
-      this.users[idx].estado = accept;
-    }
-  };
+  setAcceptance(userID: number, info:any) {
+    let modifyInfo = info;
+    modifyInfo.state = true;
+    this.userManagmentService
+      .changeAvailableOrStateUser(userID, modifyInfo)
+      .subscribe({
+        next: (data: any) => {
+          this.commonService.openSnackBar(
+            `El id de usuario ${userID} ha sido registrado correctamente`,
+            "OK"
+          );
+          let idx = this.userManagmentService.users.findIndex(user => user.user_id === userID);
+          this.userManagmentService.users[idx].info.state = true;
+        },
+        error: (err: HttpErrorResponse) =>
+          this.commonService.openSnackBar(`Error: ${err}`, "OK")
+      });
+  }
 
   /**
    * @funtion Open dialog to add new admin
    */
-  openDialogToAddAdmin(){
+  openDialogToAddAdmin() {
     this.dialogService.openAddAdminFormDialog();
   }
-
-
 }
