@@ -5,6 +5,7 @@ import { CommonService } from 'src/app/general-services/common.service';
 import { BusinessmanService } from 'src/app/services/bussinesman.service';
 import { BusinessMan } from 'src/app/models/Businessman.class';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class RegisterBusinessManComponent implements OnInit {
   addBusinessmanForm: FormGroup; // Form group to manage form
   hide = true; // Controller to show button
   icon = "warning";
+  private subscription: Subscription;
   loading: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<RegisterBusinessManComponent>,
@@ -56,14 +58,18 @@ export class RegisterBusinessManComponent implements OnInit {
       available: false,
       state: false
     }
-    this.businessService.registerBusinessman(info).subscribe({
+    this.subscription = this.businessService.registerBusinessman(info).subscribe({
       next: (data : any) => {
         this.loading = false;
         this.commonService.openSnackBar(`Se ha registrado ${info.name}, espere la validación de su cuenta`, "OK");
         this.dialog.closeAll();
       }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
     });
-    this.dialog.closeAll();
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 
 }

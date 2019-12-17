@@ -4,6 +4,7 @@ import { CommonService } from "src/app/general-services/common.service";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 import { UserManagementService } from "src/app/services/user-management.service";
 import { HttpErrorResponse } from "@angular/common/http";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "app-users-management",
@@ -12,7 +13,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 })
 export class UsersManagementComponent implements OnInit {
   filter: any = { user_id: "" };
-
+  private subscription: Subscription;
   constructor(
     public commonService: CommonService,
     public dialogService: DialogManagerService,
@@ -35,11 +36,11 @@ export class UsersManagementComponent implements OnInit {
   setAvailable(state: boolean, userID: number, info: any) {
     let modifyInfo = info;
     modifyInfo.available = state;
-    console.log(modifyInfo);
-    this.userManagmentService
+    this.subscription = this.userManagmentService
       .changeAvailableOrStateUser(userID, modifyInfo)
       .subscribe({
         next: (data: any) => {
+          console.log(state);
           if (state) {
             this.commonService.openSnackBar(
               `El usuario ${userID} ha sido habilitado`,
@@ -55,7 +56,8 @@ export class UsersManagementComponent implements OnInit {
           this.userManagmentService.users[idx].info.available = state;
         },
         error: (err: HttpErrorResponse) =>
-          this.commonService.openSnackBar(`Error: ${err}`, "OK")
+         this.commonService.openSnackBar(`Error: ${err}`, "OK")
+
       });
   }
 
@@ -67,7 +69,7 @@ export class UsersManagementComponent implements OnInit {
   setAcceptance(userID: number, info:any) {
     let modifyInfo = info;
     modifyInfo.state = true;
-    this.userManagmentService
+    this.subscription = this.userManagmentService
       .changeAvailableOrStateUser(userID, modifyInfo)
       .subscribe({
         next: (data: any) => {
@@ -89,4 +91,9 @@ export class UsersManagementComponent implements OnInit {
   openDialogToAddAdmin() {
     this.dialogService.openAddAdminFormDialog();
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 }
