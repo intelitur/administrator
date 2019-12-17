@@ -62,7 +62,7 @@ export class RegisterBusinessManComponent implements OnInit {
         this.commonService.openSnackBar(`Se ha registrado ${info.name}, espere la validación de su cuenta`, "OK");
         this.dialog.closeAll();
       }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
-    });;
+    });
     this.dialog.closeAll();
   }
 

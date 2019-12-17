@@ -33,7 +33,7 @@
             <td *ngIf="user.role_id === 2">Emprendedor</td>
             <td>
               <section>
-                <mat-slide-toggle (change)="setAvailable(!user.habilitado,user.id)" color="primary"
+                <mat-slide-toggle (change)="setAvailable(!user.habilitado,user.user_id, user.info)" color="primary"
                   [checked]=user.info.available>
                 </mat-slide-toggle>
               </section>
@@ -45,7 +45,7 @@
             </td>
             <td *ngIf="!user.info.state">
               <button mat-raised-button matTooltip="Validar empresario" color="warn"
-                (click)="setAcceptance(!user.estado,user.id)">
+                (click)="setAcceptance(user.user_id,user.info)">
                 Validar
               </button>
             </td>
