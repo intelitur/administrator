@@ -1,7 +1,11 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, Inject, ViewEncapsulation, OnDestroy } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Itinerary } from "src/app/itinerary/models/Itinerary";
+import { Subscription } from "rxjs";
+import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { CommonService } from "src/app/general-services/common.service";
 
 @Component({
   selector: "app-itinerary-form-dialog",
@@ -9,7 +13,7 @@ import { Itinerary } from "src/app/itinerary/models/Itinerary";
   styleUrls: ["./itinerary-form-dialog.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
-export class ItineraryFormDialogComponent implements OnInit {
+export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   itineraryFG: FormGroup;
   categories: Array<string> = [
     "Vida Silvestre",
@@ -19,9 +23,12 @@ export class ItineraryFormDialogComponent implements OnInit {
   ];
   images = [];
   groupTypes: Array<string> = ["Amigos", "Sólo", "Familiar", "Pareja"];
+  private subscription: Subscription;
   constructor(
     public dialogRef: MatDialogRef<ItineraryFormDialogComponent>,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _itinerary: ItineraryService,
+    private _common: CommonService
   ) {}
 
   ngOnInit() {
@@ -71,6 +78,30 @@ export class ItineraryFormDialogComponent implements OnInit {
         new Date(fv.endDate)
       )
     );
-    //console.log(new Itinerary(formValue));
+    this.subscription = this._itinerary
+      .saveItinerary(
+        new Itinerary(
+          fv.name,
+          fv.totalPrice,
+          fv.adultsQuantity,
+          fv.childrenQuantity,
+          fv.description,
+          fv.duration,
+          false,
+          Boolean(fv.status),
+          new Date(fv.startDate),
+          new Date(fv.endDate)
+        )
+      )
+      .subscribe({
+        next: response => {
+          console.log(response);
+        },
+        error: (err: HttpErrorResponse) => this._common.handleError(err)
+      });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
