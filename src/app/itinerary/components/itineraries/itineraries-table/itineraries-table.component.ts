@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 import { MatTableDataSource } from "@angular/material/table";
+import { ItineraryService } from 'src/app/itinerary/services/itinerary.service';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -28,7 +29,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ItinerariesTableComponent implements OnInit {
   displayedColumns: string[] = ["position", "name", "actions"];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  constructor(private _dialog: DialogManagerService) {}
+  constructor(private _dialog: DialogManagerService, public itineraryService: ItineraryService) {}
 
   ngOnInit() {}
 
@@ -38,5 +39,13 @@ export class ItinerariesTableComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  /**
+   * @funtion Assign id of itinerary to will used in other components
+   * @param id
+   */
+  assignItineraryId(id: number){
+    this.itineraryService.itinerary_id = id;
   }
 }
