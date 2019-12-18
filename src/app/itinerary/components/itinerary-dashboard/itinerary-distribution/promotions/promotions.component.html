@@ -4,7 +4,7 @@
   </h2>
   <mat-form-field class="container-fluid" appearance="outline">
     <mat-label>Escriba el nombre de la promoción a buscar</mat-label>
-    <input matInput [(ngModel)]="filter"/>
+    <input matInput [(ngModel)]="filter.name"/>
   </mat-form-field>
   <!-- View Promotions -->
   <div class="row container-fluid">
@@ -13,13 +13,13 @@
       <br>
       <h4 class="text-center font-weight-light text-warning"> Agregar Promociones </h4>
       <div class="alert alert-info text-center" role="alert" *ngIf="(promotions | filterBy: filter).length === 0">
-          No se encuentra la promoción con el nombre:  <span class="text-danger">{{filter}}</span>!
+          No se encuentran promociones
         </div>
       <cdk-virtual-scroll-viewport  itemSize="50" class="containerPromotions">
         <div class="example-box d-flex flex-row justify-content-sm-between rounded" *cdkVirtualFor="let promotion of promotions | filterBy: filter">
-          <span>{{ promotion }}</span>
+          <span>{{ promotion.name }}</span>
           <button mat-icon-button mat-button class="btn">
-            <mat-icon matTooltip="Agregar promoción" color="primary">add</mat-icon>
+            <mat-icon matTooltip="Agregar promoción" color="primary" (click)="addPromotionInItinerary(promotion.promotion_id)">add</mat-icon>
           </button>
         </div>
       </cdk-virtual-scroll-viewport>
@@ -31,9 +31,12 @@
     <div class="col">
       <br>
       <h4 class="text-center font-weight-light text-warning"> Promociones Agregadas </h4>
-      <cdk-virtual-scroll-viewport itemSize="50" class="containerPromotions">
-        <div *cdkVirtualFor="let addedPromotion of addedPromotions">
-          <mat-card class="m-1">{{addedPromotion}}</mat-card>
+      <cdk-virtual-scroll-viewport  itemSize="50" class="containerPromotions">
+        <div class="example-box d-flex flex-row justify-content-sm-between rounded" *cdkVirtualFor="let addedPromotion of addedPromotions">
+          <span>{{ addedPromotion.name }}</span>
+          <button mat-icon-button mat-button class="btn">
+            <mat-icon matTooltip="Eliminar promoción" color="warn" (click)="deletePromotionOfItinerary(addedPromotion.promotion_id)">delete</mat-icon>
+          </button>
         </div>
       </cdk-virtual-scroll-viewport>
     </div>
