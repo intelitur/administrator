@@ -2,10 +2,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/general-services/common.service';
-import { BusinessmanService } from 'src/app/users/services/bussinesman.service';
 import { BusinessMan } from 'src/app/users/models/Businessman.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { SessionService } from 'src/app/general-services/session.service';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class RegisterBusinessManComponent implements OnInit {
     public dialogRef: MatDialogRef<RegisterBusinessManComponent>,
     public dialog: MatDialog,
     private _fb: FormBuilder,
-    public businessService: BusinessmanService,
+    public sessionService: SessionService,
     public commonService: CommonService
   ) {
     // Variable to controller the form group
@@ -58,7 +58,7 @@ export class RegisterBusinessManComponent implements OnInit {
       available: false,
       state: false
     }
-    this.subscription = this.businessService.registerBusinessman(info).subscribe({
+    this.subscription = this.sessionService.saveUser(info,2).subscribe({
       next: (data : any) => {
         this.loading = false;
         this.commonService.openSnackBar(`Se ha registrado ${info.name}, espere la validación de su cuenta`, "OK");

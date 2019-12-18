@@ -15,9 +15,8 @@ import { UploadImagesComponent } from './components/itineraries/itinerary-form-d
 import { ItineraryDetailsComponent } from './components/itinerary-dashboard/itinerary-details/itinerary-details.component';
 import { OffersComponent } from './components/itinerary-dashboard/itinerary-distribution/offers/offers.component';
 import { PromotionsComponent } from './components/itinerary-dashboard/itinerary-distribution/promotions/promotions.component';
-
-
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 @NgModule({
   declarations: [
     ItinerariesComponent,
@@ -33,7 +32,7 @@ import { PromotionsComponent } from './components/itinerary-dashboard/itinerary-
     PromotionsComponent,
     ItineraryMapComponent
   ],
-  imports: [CommonModule, ItineraryRoutingModule, SharedModule,LeafletModule],
+  imports: [CommonModule, ItineraryRoutingModule, SharedModule,LeafletModule,ScrollingModule,FilterPipeModule],
   exports: [ItineraryRootComponent],
   entryComponents: [ItineraryFormDialogComponent, ItineraryDetailsComponent]
 })

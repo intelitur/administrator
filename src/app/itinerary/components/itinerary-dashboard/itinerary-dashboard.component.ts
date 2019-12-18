@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-itinerary-details",
@@ -8,8 +9,8 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 })
 export class ItineraryDashboardComponent implements OnInit {
   checked: boolean = false;
-
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

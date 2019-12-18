@@ -8,6 +8,7 @@ import { environment } from "src/environments/environment";
   providedIn: "root"
 })
 export class ItineraryService {
+  itinerary_id: number;
   constructor(private _http: HttpClient) {}
 
   saveItinerary(it: Itinerary): Observable<any> {
