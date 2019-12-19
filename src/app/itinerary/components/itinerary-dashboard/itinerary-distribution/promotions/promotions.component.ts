@@ -18,11 +18,16 @@ export class PromotionsComponent implements OnInit {
   private subscriptionPromotion: Subscription;
   private subscriptionAddedPromotion: Subscription;
   private subscription: Subscription;
+  public promotionLoading: boolean = false;
+  public addedPromotionLoading: boolean = false;
   filter: any = { name: '' };
   ngOnInit() {
+    this.promotionLoading = true;
+    this.addedPromotionLoading = true;
     this.subscriptionPromotion = this.itineraryService.getAllPromotions().subscribe({
       next: (data : any) => {
         this.promotions = data.data.rows;
+        this.promotionLoading = false;
        this.subscriptionPromotion.unsubscribe();
       }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
     });
@@ -30,6 +35,7 @@ export class PromotionsComponent implements OnInit {
     this.subscriptionAddedPromotion = this.itineraryService.getPromotionByItinerayID().subscribe({
       next: (data : any) => {
         this.addedPromotions = data.data.rows;
+        this.addedPromotionLoading = false;
        this.subscriptionAddedPromotion.unsubscribe();
       }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
     });
