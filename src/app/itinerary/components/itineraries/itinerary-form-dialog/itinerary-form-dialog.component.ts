@@ -64,20 +64,6 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   onSubmit() {
     console.log(this.images);
     let fv = this.itineraryFG.value;
-    console.log(
-      new Itinerary(
-        fv.name,
-        fv.totalPrice,
-        fv.adultsQuantity,
-        fv.childrenQuantity,
-        fv.description,
-        fv.duration,
-        false,
-        Boolean(fv.status),
-        new Date(fv.startDate),
-        new Date(fv.endDate)
-      )
-    );
     this.subscription = this._itinerary
       .saveItinerary(
         new Itinerary(

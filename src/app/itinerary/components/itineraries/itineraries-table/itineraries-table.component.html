@@ -12,15 +12,15 @@
   <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar desde el servidor</mat-hint>
 </mat-form-field>
 <br>
-<table mat-table [dataSource]="dataSource" class="w-100 mat-elevation-z8">
+<table *ngIf="dataSource" mat-table [dataSource]="dataSource" class="w-100 mat-elevation-z8">
   <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
   <!-- Position Column -->
   <ng-container matColumnDef="position">
     <th class="text-center" mat-header-cell *matHeaderCellDef>No.</th>
-    <td class="text-center" mat-cell *matCellDef="let element">
-      {{ element.position }}
+    <td class="text-center" mat-cell *matCellDef="let element; let i = index">
+      {{ i + 1 }}
     </td>
   </ng-container>
 
