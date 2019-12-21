@@ -14,7 +14,21 @@ export class ItineraryService {
     return this._http.post(`${environment.SERVER_BASE_URL}itinerary/save`, it);
   }
 
-  getItineraryMinimalInfoByUser(id_user: number): Observable<any> {
-    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}itinerary/minimalInfo/${id_user}`);
+  getItineraryFullInfo(id_itinerary: number): Observable<any> {
+    return this._http.get(
+      `${environment.SERVER_BASE_URL}itinerary/fullInfo/${id_itinerary}`
+    );
+  }
+
+  getDayInfo(id_itinerary: number, day_number: number): Observable<any> {
+    return this._http.get(
+      `${environment.SERVER_BASE_URL}itinerary/dayInfo/${id_itinerary}/${day_number}`
+    );
+  }
+
+  getItineraryMinimalInfoByUser(id_user: number): Observable<Array<any>> {
+    return this._http.get<Array<any>>(
+      `${environment.SERVER_BASE_URL}itinerary/minimalInfo/${id_user}`
+    );
   }
 }
