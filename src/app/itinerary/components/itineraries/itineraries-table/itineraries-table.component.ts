@@ -38,9 +38,9 @@ export class ItinerariesTableComponent implements OnInit {
     this.subscription = this._itinerary
       .getItineraryMinimalInfoByUser(9)
       .subscribe({
-        next: data =>{ 
+        next: data => {
           console.log(data);
-          this.dataSource = new MatTableDataSource(data)
+          this.dataSource = new MatTableDataSource(data);
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
@@ -56,5 +56,12 @@ export class ItinerariesTableComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+  /**
+   * @funtion Assign id of itinerary to will used in other components
+   * @param id
+   */
+  assignItineraryId(id: number) {
+    this._itinerary.itinerary_id = id;
   }
 }

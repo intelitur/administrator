@@ -37,6 +37,7 @@
     <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
     <td class="text-center" mat-cell *matCellDef="let element">
       <button [routerLink]="['/itineraries/dashboard']"
+        (click)="assignItineraryId(1)"
         mat-stroked-button
         color="primary"
       >
