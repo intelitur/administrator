@@ -1,7 +1,7 @@
 export class Itinerary {
   constructor(
-    info?: any,
-    group_type_id?: number,
-    itineray_id?: number
+    public info?: any,
+    public group_type_id?: number,
+    public itineray_id?: number
   ) {}
 }
