@@ -38,9 +38,8 @@ export class ItinerariesTableComponent implements OnInit {
     this.subscription = this._itinerary
       .getItineraryMinimalInfoByUser(9)
       .subscribe({
-        next: data => {
-          console.log(data);
-          this.dataSource = new MatTableDataSource(data);
+        next: (data: any) => {
+          this.dataSource = new MatTableDataSource(data.data);
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });

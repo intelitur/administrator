@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -16,7 +16,7 @@ import { HttpErrorResponse } from "@angular/common/http";
   templateUrl: "./offers.component.html",
   styleUrls: ["./offers.component.scss"]
 })
-export class OffersComponent implements OnInit {
+export class OffersComponent implements OnInit, OnDestroy {
   result = ["el"];
 
   offersDay1 = ["Walking", "Lunch", "Dinner"];
@@ -41,8 +41,8 @@ export class OffersComponent implements OnInit {
         .getDayInfo(this._itinerary.itinerary_id, i)
         .subscribe({
           next: (data: any) => {
-            if (data.day !== null) {
-              this.days.push(data);
+            if (data.data.day !== null) {
+              this.days.push(data.data);
               this.sortArray();
             }
           },
@@ -132,5 +132,9 @@ export class OffersComponent implements OnInit {
   }
   openDayDetails() {
     this._dialog.openDayDetailsDialog(this.it);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

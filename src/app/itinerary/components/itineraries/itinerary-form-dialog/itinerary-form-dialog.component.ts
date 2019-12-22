@@ -1,4 +1,10 @@
-import { Component, OnInit, Inject, ViewEncapsulation, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewEncapsulation,
+  OnDestroy
+} from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Itinerary } from "src/app/itinerary/models/Itinerary";
@@ -6,6 +12,7 @@ import { Subscription } from "rxjs";
 import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { CommonService } from "src/app/general-services/common.service";
+import { GroupType } from 'src/app/itinerary/models/GroupType';
 
 @Component({
   selector: "app-itinerary-form-dialog",
@@ -22,7 +29,7 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     "Relajación"
   ];
   images = [];
-  groupTypes: Array<string> = ["Amigos", "Sólo", "Familiar", "Pareja"];
+  groupTypes: Array<GroupType>;
   private subscription: Subscription;
   constructor(
     public dialogRef: MatDialogRef<ItineraryFormDialogComponent>,
@@ -47,6 +54,19 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
       endDate: ["", Validators.required],
       status: ["", Validators.required] // public or private
     });
+    this.getGroupTypes();
+  }
+
+  getGroupTypes() {
+    this.subscription = this._itinerary.getGroupTypes().subscribe({
+      next: (data: any) => {
+        this.groupTypes = [];
+        data.data.forEach(el => {
+          this.groupTypes.unshift(el);
+        });
+      },
+      error: (err: HttpErrorResponse) => this._common.handleError(err)
+    });
   }
 
   catchSelectedImages(files: FileList) {
@@ -64,27 +84,21 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   onSubmit() {
     console.log(this.images);
     let fv = this.itineraryFG.value;
-    /*this.subscription = this._itinerary
-      .saveItinerary(
-        new Itinerary(
-          fv.name,
-          fv.totalPrice,
-          fv.adultsQuantity,
-          fv.childrenQuantity,
-          fv.description,
-          fv.duration,
-          false,
-          Boolean(fv.status),
-          new Date(fv.startDate),
-          new Date(fv.endDate)
-        )
-      )
-      .subscribe({
-        next: response => {
-          console.log(response);
-        },
-        error: (err: HttpErrorResponse) => this._common.handleError(err)
-      });*/
+    /*this.subscription = */ this._itinerary.saveItinerary(
+      new Itinerary({
+        name: fv.name,
+        total_price: fv.totalPrice,
+        price_per_day: fv.pricePerDay,
+        adult_number: fv.adultsQuantity,
+        child_number: fv.childrenQuantity,
+        description: fv.description,
+        duration: fv.duration,
+        active: false,
+        public: fv.status,
+        initial_date: fv.startDate,
+        final_date: fv.endDate
+      })
+    );
   }
 
   ngOnDestroy() {

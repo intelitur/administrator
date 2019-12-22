@@ -32,6 +32,11 @@ export class ItineraryService {
       `${environment.SERVER_BASE_URL}itinerary/minimalInfo/${id_user}`
     );
   }
+
+  getGroupTypes(): Observable<Array<any>> {
+    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}groupType/getAll`);
+  }
+
   /**
    * @function Add Promotion in itinerary
    * @param promotion_id
