@@ -41,13 +41,24 @@ export class OffersComponent implements OnInit {
         .getDayInfo(this._itinerary.itinerary_id, i)
         .subscribe({
           next: (data: any) => {
-            console.log(data);
-            if(data.day !== null)
+            if (data.day !== null) {
               this.days.push(data);
+              this.sortArray();
+            }
           },
           error: (err: HttpErrorResponse) => this.commonService.handleError(err)
         });
     }
+  }
+
+  sortArray() {
+    console.log(this.days);
+    this.days.sort((a, b): number => {
+      if (a.day[0].day_number > b.day[0].day_number) return 1;
+      if (a.day[0].day_number < b.day[0].day_number) return -1;
+      // a must be equal to b
+      return 0;
+    });
   }
 
   drop(event: CdkDragDrop<string[]>) {
