@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Itinerary } from "../models/Itinerary";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { ResponseInterface } from "src/app/globalModels/Response.interface";
 
 @Injectable({
   providedIn: "root"
@@ -11,8 +12,13 @@ export class ItineraryService {
   itinerary_id: number = 5; //TODO: Cambiar esto
   constructor(private _http: HttpClient) {}
 
-  saveItinerary(it: Itinerary): Observable<any> {
-    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/save`, it);
+  saveItinerary(it: Itinerary, categories_ids: Array<number>): Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/save`, {
+      info: it.info,
+      categories_ids: categories_ids,
+      group_type_id: it.group_type_id,
+      user_id: 9
+    });
   }
 
   getItineraryFullInfo(id_itinerary: number): Observable<any> {
@@ -33,8 +39,16 @@ export class ItineraryService {
     );
   }
 
-  getGroupTypes(): Observable<Array<any>> {
-    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}groupType/getAll`);
+  getGroupTypes(): Observable<ResponseInterface> {
+    return this._http.get<ResponseInterface>(
+      `${environment.SERVER_BASE_URL}groupType/getAll`
+    );
+  }
+
+  getCategories(): Observable<ResponseInterface> {
+    return this._http.get<ResponseInterface>(
+      `${environment.SERVER_BASE_URL}category/getAll`
+    );
   }
 
   /**

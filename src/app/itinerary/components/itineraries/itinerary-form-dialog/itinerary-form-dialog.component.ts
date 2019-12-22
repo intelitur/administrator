@@ -12,7 +12,9 @@ import { Subscription } from "rxjs";
 import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { CommonService } from "src/app/general-services/common.service";
-import { GroupType } from 'src/app/itinerary/models/GroupType';
+import { GroupType } from "src/app/itinerary/models/GroupType";
+import { ResponseInterface } from "src/app/globalModels/Response.interface";
+import { Category } from "src/app/itinerary/models/Category";
 
 @Component({
   selector: "app-itinerary-form-dialog",
@@ -22,12 +24,8 @@ import { GroupType } from 'src/app/itinerary/models/GroupType';
 })
 export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   itineraryFG: FormGroup;
-  categories: Array<string> = [
-    "Vida Silvestre",
-    "Termales",
-    "Aventura",
-    "Relajación"
-  ];
+  categories: Array<Category>;
+  linkedCategories: Array<Category> = [];
   images = [];
   groupTypes: Array<GroupType>;
   private subscription: Subscription;
@@ -55,6 +53,15 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
       status: ["", Validators.required] // public or private
     });
     this.getGroupTypes();
+    this.getCategories();
+  }
+
+  linkCategory(c: Category) {
+    if (!this.linkedCategories.includes(c)) this.linkedCategories.unshift(c);
+  }
+
+  deleteLinkedCategory(index: number) {
+    this.linkedCategories.splice(index, 1);
   }
 
   getGroupTypes() {
@@ -64,6 +71,15 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
         data.data.forEach(el => {
           this.groupTypes.unshift(el);
         });
+      },
+      error: (err: HttpErrorResponse) => this._common.handleError(err)
+    });
+  }
+
+  getCategories() {
+    this.subscription = this._itinerary.getCategories().subscribe({
+      next: (result: ResponseInterface) => {
+        this.categories = result.data;
       },
       error: (err: HttpErrorResponse) => this._common.handleError(err)
     });
@@ -82,23 +98,33 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.images);
     let fv = this.itineraryFG.value;
-    /*this.subscription = */ this._itinerary.saveItinerary(
-      new Itinerary({
-        name: fv.name,
-        total_price: fv.totalPrice,
-        price_per_day: fv.pricePerDay,
-        adult_number: fv.adultsQuantity,
-        child_number: fv.childrenQuantity,
-        description: fv.description,
-        duration: fv.duration,
-        active: false,
-        public: fv.status,
-        initial_date: fv.startDate,
-        final_date: fv.endDate
-      })
-    );
+    this.subscription = this._itinerary
+      .saveItinerary(
+        new Itinerary(
+          {
+            name: fv.name,
+            total_price: fv.totalPrice,
+            price_per_day: fv.pricePerDay,
+            adult_number: fv.adultsQuantity,
+            child_number: fv.childrenQuantity,
+            description: fv.description,
+            duration: fv.duration,
+            active: false,
+            public: fv.status,
+            initial_date: fv.startDate,
+            final_date: fv.endDate
+          },
+          fv.groupType
+        ),
+        this.linkedCategories.map(e => e.category_id)
+      )
+      .subscribe({
+        next: (data: ResponseInterface) => {
+          this._common.openSnackBar("Itinerario guardado con éxito", "Ok");
+        },
+        error: (err: HttpErrorResponse) => this._common.handleError(err)
+      });
   }
 
   ngOnDestroy() {
