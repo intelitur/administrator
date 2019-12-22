@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -15,8 +15,9 @@ import { DialogManagerService } from "src/app/general-services/dialog-manager.se
   styleUrls: ["./itinerary-distribution.component.scss"]
 })
 export class ItineraryDistributionComponent implements OnInit {
+  @Input() it;
   ngOnInit(): void {
-
+    console.log(this.it);
   }
 
   offertFilter = '';
@@ -75,8 +76,5 @@ export class ItineraryDistributionComponent implements OnInit {
       this.offersDays.splice(index, 1);
     }
   }*/
-  openDayDetails() {
-    this._dialog.openDayDetailsDialog();
-  }
 
 }

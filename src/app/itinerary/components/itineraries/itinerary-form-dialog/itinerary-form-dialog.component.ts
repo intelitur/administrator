@@ -64,7 +64,7 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   onSubmit() {
     console.log(this.images);
     let fv = this.itineraryFG.value;
-    this.subscription = this._itinerary
+    /*this.subscription = this._itinerary
       .saveItinerary(
         new Itinerary(
           fv.name,
@@ -84,7 +84,7 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
           console.log(response);
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
-      });
+      });*/
   }
 
   ngOnDestroy() {

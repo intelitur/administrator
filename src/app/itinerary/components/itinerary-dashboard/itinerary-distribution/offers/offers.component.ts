@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonService } from 'src/app/general-services/common.service';
 import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
@@ -15,9 +15,11 @@ export class OffersComponent implements OnInit {
   offersDay1 = ["Walking", "Lunch", "Dinner"];
   offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
   offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
+  @Input() it;
   constructor( public commonService: CommonService,private _dialog: DialogManagerService) { }
 
   ngOnInit() {
+    console.log(this.it);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -82,7 +84,7 @@ export class OffersComponent implements OnInit {
     this.commonService.openSnackBar(`Se ha eliminado correctamente la oferta ${item}`,"OK");
   }
   openDayDetails() {
-    this._dialog.openDayDetailsDialog();
+    this._dialog.openDayDetailsDialog(this.it);
   }
 
 }

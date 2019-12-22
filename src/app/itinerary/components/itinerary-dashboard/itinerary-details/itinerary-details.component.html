@@ -7,26 +7,26 @@
   <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
       Precio por día
-      <span class="badge badge-primary badge-pill">$14</span>
+      <span class="badge badge-primary badge-pill">{{it.info.price_per_day}}</span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
       Precio total
-      <span class="badge badge-primary badge-pill">$100</span>
+      <span class="badge badge-primary badge-pill">${{it.info.total_price}}</span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
       Número de adultos
-      <span class="badge badge-primary badge-pill">5</span>
+      <span class="badge badge-primary badge-pill">{{it.info.adult_number}}</span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
       Número de niños
-      <span class="badge badge-primary badge-pill">5</span>
+      <span class="badge badge-primary badge-pill">{{it.info.child_number}}</span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      Descripción
+      {{it.info.description}}
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
       Duración
-      <span class="badge badge-primary badge-pill">4 días</span>
+      <span class="badge badge-primary badge-pill">{{it.info.duration}} días</span>
     </li>
   </ul>
 </div>

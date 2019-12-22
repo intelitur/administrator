@@ -5,6 +5,7 @@ import { AddAdminComponent } from "../users/components/add-admin/add-admin.compo
 import { RegisterBusinessManComponent } from "../login/register-business-man/register-business-man.component";
 import { ItineraryFormDialogComponent } from "../itinerary/components/itineraries/itinerary-form-dialog/itinerary-form-dialog.component";
 import { ItineraryDetailsComponent } from "../itinerary/components/itinerary-dashboard/itinerary-details/itinerary-details.component";
+import { Itinerary } from '../itinerary/models/Itinerary';
 @Injectable({
   providedIn: "root"
 })
@@ -19,9 +20,10 @@ export class DialogManagerService {
     return dialogRef.afterClosed();
   }
 
-  openDayDetailsDialog(): Observable<any> {
+  openDayDetailsDialog(itinerary: Itinerary): Observable<any> {
     const dialogRef = this.dialog.open(ItineraryDetailsComponent, {
-      panelClass: "custom-dialog"
+      panelClass: "custom-dialog",
+      data: itinerary
     });
 
     return dialogRef.afterClosed();
