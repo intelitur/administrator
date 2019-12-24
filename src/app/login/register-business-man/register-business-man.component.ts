@@ -54,6 +54,7 @@ export class RegisterBusinessManComponent implements OnInit {
       name: this.addBusinessmanForm.get('name').value,
       lastName: this.addBusinessmanForm.get('lastName').value,
       businessName: this.addBusinessmanForm.get('businessName').value,
+      email: this.addBusinessmanForm.get('email').value,
       password: this.addBusinessmanForm.get('password').value,
       available: false,
       state: false
