@@ -78,6 +78,13 @@ export class ItineraryService {
     );
   }
 
+  saveImageUrl(it_id: number, url: string): Observable<any> {
+    return this._http.post(
+      `${environment.SERVER_BASE_URL}itinerary/saveImageUrl`,
+      { it_id: it_id, url: url }
+    );
+  }
+
   /**
    * @funtion delete promotion of itinerary
    * @param promotion_id

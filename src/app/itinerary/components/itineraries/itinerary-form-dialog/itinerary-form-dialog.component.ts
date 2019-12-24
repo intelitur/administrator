@@ -1,11 +1,5 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  ViewEncapsulation,
-  OnDestroy
-} from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from "@angular/core";
+import { MatDialogRef } from "@angular/material/dialog";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Itinerary } from "src/app/itinerary/models/Itinerary";
 import { Subscription } from "rxjs";
@@ -15,6 +9,9 @@ import { CommonService } from "src/app/general-services/common.service";
 import { GroupType } from "src/app/itinerary/models/GroupType";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
 import { Category } from "src/app/itinerary/models/Category";
+import { ImageService } from "src/app/itinerary/services/image.service";
+import { FileUploader } from "ng2-file-upload";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-itinerary-form-dialog",
@@ -26,17 +23,21 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   itineraryFG: FormGroup;
   categories: Array<Category>;
   linkedCategories: Array<Category> = [];
-  images = [];
+  images: Array<File> = [];
   groupTypes: Array<GroupType>;
   private subscription: Subscription;
+  savedIt: number;
+  savedImagePaths: Array<string> = [];
   constructor(
     public dialogRef: MatDialogRef<ItineraryFormDialogComponent>,
     private _fb: FormBuilder,
     private _itinerary: ItineraryService,
-    private _common: CommonService
+    private _common: CommonService,
+    private _image: ImageService
   ) {}
 
   ngOnInit() {
+    this.setupUploader();
     this.itineraryFG = this._fb.group({
       name: ["", Validators.required],
       pricePerDay: ["", Validators.required],
@@ -54,6 +55,25 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     });
     this.getGroupTypes();
     this.getCategories();
+  }
+
+  setupUploader() {
+    this._image.uploader.onAfterAddingFile = file => {
+      file.withCredentials = false;
+    };
+    this._image.uploader.onSuccessItem = (item, response, status, headers) => {
+      let path = JSON.parse(response).data;
+      this.savedImagePaths.push(path);
+    };
+    this._image.uploader.onCompleteAll = () => {
+      this.savedImagePaths.forEach(e => {
+        this.subscription = this._itinerary
+          .saveImageUrl(this.savedIt, e)
+          .subscribe({
+            error: (err: HttpErrorResponse) => this._common.handleError(err)
+          });
+      });
+    };
   }
 
   linkCategory(c: Category) {
@@ -85,16 +105,19 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     });
   }
 
-  catchSelectedImages(files: FileList) {
-    console.log(files);
+  catchSelectedImages(files: any) {
     for (let i = 0; i < files.length; i++) {
       var reader = new FileReader();
-      reader.readAsDataURL(files[i]);
+      reader.readAsDataURL(files[i].rawFile);
       reader.onload = (event: any) => {
         // called once readAsDataURL is completed
-        this.images.unshift(event.target.result);
+        this.images.push(event.target.result);
       };
     }
+  }
+
+  catchDeletedImage(index: number) {
+    this._image.uploader.removeFromQueue(this._image.uploader.queue[index]);
   }
 
   onSubmit() {
@@ -120,11 +143,17 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
         this.linkedCategories.map(e => e.category_id)
       )
       .subscribe({
-        next: (data: ResponseInterface) => {
+        next: (result: ResponseInterface) => {
           this._common.openSnackBar("Itinerario guardado con éxito", "Ok");
+          this.savedIt = result.data;
+          this.uploadImages();
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
+  }
+
+  uploadImages() {
+    this._image.uploader.uploadAll();
   }
 
   ngOnDestroy() {

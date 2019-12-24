@@ -4,6 +4,7 @@ import { LayoutModule } from "@angular/cdk/layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
 import { NgbCarouselModule } from "@ng-bootstrap/ng-bootstrap";
+import { FileUploadModule } from 'ng2-file-upload';
 import {
   MatToolbarModule,
   MatButtonModule,
@@ -54,7 +55,8 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     MatChipsModule,
     DragDropModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FileUploadModule
   ],
   exports: [
     LayoutModule,
@@ -81,7 +83,8 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     MatChipsModule,
     DragDropModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FileUploadModule
   ]
 })
 export class SharedModule {}

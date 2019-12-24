@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-upload-images',
@@ -6,14 +6,15 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./upload-images.component.scss']
 })
 export class UploadImagesComponent implements OnInit {
+  @Input() uploader;
   @Output() selectedImages = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
 
-  prepareFiles(event: FileList) {
-    this.selectedImages.emit(event);
+  prepareFiles() {
+    this.selectedImages.emit(this.uploader.queue.map(e => e.file));
   }
 
 }
