@@ -6,7 +6,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./upload-images.component.scss']
 })
 export class UploadImagesComponent implements OnInit {
-  @Input() uploader;
+  @Input() uploader: { queue: any[]; };
   @Output() selectedImages = new EventEmitter();
   constructor() { }
 

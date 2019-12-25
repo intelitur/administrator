@@ -88,7 +88,7 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     this.subscription = this._itinerary.getGroupTypes().subscribe({
       next: (data: any) => {
         this.groupTypes = [];
-        data.data.forEach(el => {
+        data.data.forEach((el: GroupType) => {
           this.groupTypes.unshift(el);
         });
       },
