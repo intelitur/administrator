@@ -22,7 +22,13 @@ export class UsersManagementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userManagmentService.getAllUser();
+    this.subscription = this.userManagmentService.getAllUser()
+    .subscribe({
+      next: (data: any) => {
+        this.userManagmentService.users = data.data;
+        this.subscription.unsubscribe();
+      }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
+    });
   }
 
   /**
