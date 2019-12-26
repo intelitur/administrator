@@ -5,7 +5,6 @@ import {
   platformBrowserDynamicTesting
 } from "@angular/platform-browser-dynamic/testing";
 import { HttpClientModule } from '@angular/common/http';
-import { User } from 'src/app/users/models/User.class';
 describe("Itinerary service", () => {
   let injector: TestBed;
   let service: ItineraryService;
