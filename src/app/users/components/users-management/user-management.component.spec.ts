@@ -39,7 +39,7 @@ describe("User-Management", () => {
       available: true,
       state: false
     }
-    service.changeAvailableOrStateUser(18,testInfo).subscribe({
+    service.changeAvailableOrStateUser(18, testInfo as any).subscribe({
       next: (data: any) => {
 
         expect(data.code).toBe(200);
@@ -68,7 +68,7 @@ describe("User-Management", () => {
       available: false,
       state: false
     }
-    service.changeAvailableOrStateUser(18,testInfo).subscribe({
+    service.changeAvailableOrStateUser(18, testInfo as any).subscribe({
       next: (data: any) => {
 
         expect(data.code).toBe(200);
@@ -96,7 +96,7 @@ describe("User-Management", () => {
       available: false,
       state: true
     }
-    service.changeAvailableOrStateUser(18,testInfo).subscribe({
+    service.changeAvailableOrStateUser(18, testInfo as any).subscribe({
       next: (data: any) => {
 
         expect(data.code).toBe(200);
