@@ -33,7 +33,7 @@ export class ItineraryService {
     );
   }
 
-  getItineraryMinimalInfoByUser(id_user: number): Observable<Array<any>> {
+  getItineraryMinimalInfoByUser(id_user: number): Observable<any> {
     return this._http.get<Array<any>>(
       `${environment.SERVER_BASE_URL}itinerary/minimalInfo/${id_user}`
     );
