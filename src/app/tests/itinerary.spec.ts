@@ -33,6 +33,76 @@ describe("Itinerary service", () => {
     httpMock = injector.get(HttpTestingController);
   });
 
+  it("Vincular una promoción", (done: DoneFn) => {
+    service.addPromotionInItinerary(9).subscribe({
+      next: (data: any) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  it("Error al vincular una promoción", (done: DoneFn) => {
+    service.addPromotionInItinerary(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+  it("Desvincular una promoción", (done: DoneFn) => {
+    service.deletePromotionOfItinerary(9).subscribe({
+      next: (data: any) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+  it("Error al desvincular una promoción", (done: DoneFn) => {
+    service.itinerary_id = undefined;
+    service.deletePromotionOfItinerary(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+  it("Obtener promociones ya vinculadas a un itinerario", (done: DoneFn) => {
+    service.getPromotionByItinerayID().subscribe({
+      next: (data: any) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+  it("Error al obtener promociones ya vinculadas a un itinerario", (done: DoneFn) => {
+    service.itinerary_id = undefined;
+    service.getPromotionByItinerayID().subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+  it("Obtener todas las promociones", (done: DoneFn) => {
+    service.getAllPromotions().subscribe({
+      next: (data: any) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  it("Error al obtener todas las promociones", (done: DoneFn) => {
+    service.itinerary_id = undefined;
+    service.getAllPromotions().subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
   // 25
   it("get itineraries minimal info", (done: DoneFn) => {
     //spyOn(service, ).and.returnValue(of(response))
@@ -46,17 +116,14 @@ describe("Itinerary service", () => {
 
   // 26
   it("get itineraries minimal info ERROR", (done: DoneFn) => {
-    const mockErrorResponse = { status: 500, statusText: 'Bad Request' };
+    const mockErrorResponse = { status: 500, statusText: "Bad Request" };
     service.getItineraryMinimalInfoByUser(undefined).subscribe({
       error: (err: HttpErrorResponse) => {
         expect(err.status).toBe(500);
         done();
       }
     });
-
-    
   });
-
 
   // 27
   it("get categories", (done: DoneFn) => {
@@ -80,7 +147,9 @@ describe("Itinerary service", () => {
       res => (response = res),
       (err: HttpErrorResponse) => (errResponse = err)
     );
-    httpMock.expectOne(`${environment.SERVER_BASE_URL}category/getAll`).flush(data, mockErrorResponse);
+    httpMock
+      .expectOne(`${environment.SERVER_BASE_URL}category/getAll`)
+      .flush(data, mockErrorResponse);
     expect(errResponse.error).toBe(data);
   });
 
@@ -105,7 +174,7 @@ describe("Itinerary service", () => {
       res => {
         response = res;
       },
-      (err) => (errResponse = err)
+      err => (errResponse = err)
     );
     httpMock
       .expectOne(`${environment.SERVER_BASE_URL}groupType/getAll`)

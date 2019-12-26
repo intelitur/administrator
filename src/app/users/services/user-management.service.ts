@@ -33,7 +33,7 @@ export class UserManagementService {
    * @param user_id
    * @param info
    */
-  changeAvailableOrStateUser(user_id: number, info: JSON) : Observable<any> {
+  changeAvailableOrStateUser(user_id: number, info: any) : Observable<any> {
     return this.http.post(`${environment.SERVER_BASE_URL}generalUsers/changeAvailableOrStateUser`,{id: user_id,info: info});
   };
 
