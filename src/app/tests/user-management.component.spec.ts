@@ -4,10 +4,11 @@ import {
   platformBrowserDynamicTesting
 } from "@angular/platform-browser-dynamic/testing";
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { UserManagementService } from '../../services/user-management.service';
-import { SharedModule } from 'src/app/shared.module';
+import { UserManagementService } from '../users/services/user-management.service';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedModule } from '../shared.module';
 import { environment } from 'src/environments/environment';
+
 describe("User-Management", () => {
   let injector: TestBed;
   let service: UserManagementService;
