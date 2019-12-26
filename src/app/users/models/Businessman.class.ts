@@ -6,6 +6,7 @@ export class BusinessMan {
     public businessName: string,
     public email: string,
     public password: string,
+    public email: string,
     public available: boolean,
     public state: boolean
   ) {}

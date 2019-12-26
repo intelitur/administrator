@@ -1,6 +1,6 @@
 <mat-tab-group>
   <mat-tab label="Detalles">
-    <app-itinerary-distribution></app-itinerary-distribution>
+    <app-itinerary-distribution [it]="itinerary" *ngIf="itinerary"></app-itinerary-distribution>
   </mat-tab
   >
   <mat-tab label="Mapa"> <app-itinerary-map></app-itinerary-map> </mat-tab>

@@ -2,12 +2,12 @@
   class="container-fluid d-flex flex-column justify-content-sm-around p-0"
 >
   <h1 class="text-center text-primary font-weight-light">
-    Nombre del itinerario
+    {{it.info.name}}
   </h1>
-  <mat-slide-toggle (change)="checked = !checked" [checked]="checked">{{
-    checked ? "Habilidado" : "Deshabilitado"
+  <mat-slide-toggle (change)="checked = !checked" [checked]="it.info.active">{{
+    it.info.active ? "Habilidado" : "Deshabilitado"
   }}</mat-slide-toggle>
-  <app-offers></app-offers>
+  <app-offers *ngIf="it" [it]="it"></app-offers>
   <hr>
   <app-promotions></app-promotions>
 </div>

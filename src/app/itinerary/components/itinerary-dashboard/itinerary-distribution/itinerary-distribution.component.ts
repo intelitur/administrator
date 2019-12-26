@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -15,8 +15,9 @@ import { DialogManagerService } from "src/app/general-services/dialog-manager.se
   styleUrls: ["./itinerary-distribution.component.scss"]
 })
 export class ItineraryDistributionComponent implements OnInit {
+  @Input() it;
   ngOnInit(): void {
-
+    console.log(this.it);
   }
 
   offertFilter = '';
@@ -48,35 +49,5 @@ export class ItineraryDistributionComponent implements OnInit {
         event.currentIndex
       );
   }}
-  /**
-   * @function Delete an offer item from a day of offers
-   * @param itemIndex Index of the item
-   * @param offerIndex Index of the day in offersDays list
-   */
-  /*deleteOfferItem(itemIndex, offerIndex) {
-    this.offersDays[offerIndex].splice(itemIndex, 1);
-  }*/
-
-  /**
-   * @function Delete a promotion item from a day of promotions
-   * @param itemIndex Index of the item
-   * @param promotionIndex Index of the day in promotionsDays list
-   */
-  /*deletePromotionItem(itemIndex, promotionIndex) {
-    this.promotionsDays[promotionIndex].splice(itemIndex, 1);
-  }*/
-
-  /**
-   * @function Delete a day from offersDays list
-   * @param index Index of the day in promotionsDays list
-   */
-  /*deleteOfferDay(index) {
-    if (index > -1) {
-      this.offersDays.splice(index, 1);
-    }
-  }*/
-  openDayDetails() {
-    this._dialog.openDayDetailsDialog();
-  }
 
 }
