@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit {
    
 
   ngOnInit() {
-
     this.subscriptionUserProfile = this.userProfileService.getUser(15).subscribe({
       next: (data : any) => {
         this.user = data.data[0];
@@ -57,9 +56,8 @@ export class ProfileComponent implements OnInit {
   }
 
   saveChanges(){
-    console.log('object');
     let passChanged = false;
-    if(!this.editProfileForm.get('password').value){
+    if(this.editProfileForm.get('password').value != ''){
       this.user.info.password = this.editProfileForm.get('password').value;
       passChanged = true;
     }
