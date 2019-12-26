@@ -20,12 +20,7 @@ export class UserManagementService {
    * @funtion Get all user
    */
   getAllUser(){
-    this.subscription = this.http.get(`${environment.SERVER_BASE_URL}generalUsers/getAllUsers`).subscribe({
-      next: (data: any) => {
-        this.users = data.data;
-        this.subscription.unsubscribe();
-      }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
-    });
+    return this.http.get(`${environment.SERVER_BASE_URL}generalUsers/getAllUsers`);
   };
 
   /**
