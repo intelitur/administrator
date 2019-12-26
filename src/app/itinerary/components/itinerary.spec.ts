@@ -4,11 +4,14 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from "@angular/platform-browser-dynamic/testing";
-import { HttpClientModule } from '@angular/common/http';
-describe("Itinerary service", () => {
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+
+
+describe("Promotions", () => {
   let injector: TestBed;
   let service: ItineraryService;
-  //let httpMock: HttpTestingController;
+  let auxRoute: String = '';
   beforeEach(() => {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(
@@ -22,16 +25,76 @@ describe("Itinerary service", () => {
 
     injector = getTestBed();
     service = injector.get(ItineraryService);
-    //httpMock = injector.get(HttpTestingController);
   });
 
-  it("should return an Observable<Itinerary[]>", (done: DoneFn) => {
-    //spyOn(service, ).and.returnValue(of(response))
-    service.getItineraryMinimalInfoByUser(9).subscribe({
+  it("Vincular una promoción", (done: DoneFn) => {
+    service.addPromotionInItinerary(9).subscribe({
       next: (data: any) => {
-        expect(data.data.length).toBe(11);
+        expect(data.code).toBe(200);
+        done();
+      }
+    })
+  });
+
+  it("Error al vincular una promoción", (done: DoneFn) => {
+    service.addPromotionInItinerary(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    })
+  });
+  it("Desvincular una promoción", (done: DoneFn) => {
+    service.deletePromotionOfItinerary(9).subscribe({
+      next: (data: any) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    })
+  });
+  it("Error al desvincular una promoción", (done: DoneFn) => {
+    service.itinerary_id = undefined;
+    service.deletePromotionOfItinerary(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    })
+  });
+  it("Obtener promociones ya vinculadas a un itinerario", (done: DoneFn) => {
+    service.getPromotionByItinerayID().subscribe({
+      next: (data: any) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    })
+  });
+  it("Error al obtener promociones ya vinculadas a un itinerario", (done: DoneFn) => {
+    service.itinerary_id = undefined;
+    service.getPromotionByItinerayID().subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    })
+  });
+  it("Obtener todas las promociones", (done: DoneFn) => {
+    service.getAllPromotions().subscribe({
+      next: (data: any) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    })
+  });
+
+  it("Error al obtener todas las promociones", (done: DoneFn) => {
+    service.itinerary_id = undefined;
+    service.getAllPromotions().subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
         done();
       }
     })
   });
 });
+
