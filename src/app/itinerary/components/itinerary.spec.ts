@@ -1,67 +1,15 @@
-/*import { Substitute, Arg } from "@fluffy-spoon/substitute";
-import { Foto } from "./foto";
-import { Person } from "./person";
-import { Grupo } from "./grupo";
-import { Album } from "./album";
-
-describe("Casos de prueba para foto y grupo", () => {
-  let p: Person = new Person("mail@mail.com", "Nombre", "Apellido1", "Apellido2", "Password", "H");
-  beforeEach(async () => {
-    p = new Person("mail@mail.com", "Nombre", "Apellido1", "Apellido2", "Password", "H");
-  });
-
-  afterEach(async() => {
-    p = null;
-  });
-
-  // 1
-  it("Obtener tamaño del array foto", () => {
-    const fotoAccess = Substitute.for<Foto>();
-
-    p.setListaFotos(fotoAccess);
-    expect(p.getListaFotos().length).toBe(1);
-  });
-
-  // 2
-  it("Obtener tamaño del array grupo", () => {
-    const grupoAccess = Substitute.for<Grupo>();
-    p.setListaGrupos(grupoAccess);
-    expect(p.getListaGrupos().length).toBe(1);
-  });
-
-  // 3
-
-  it("Obtener etiquetas de foto enviando un nombre de fichero que no existe", () => {
-    const fotoAccess = Substitute.for<Foto>();
-
-    p.setListaFotos(fotoAccess);
-    expect(p.verEtiquetas(null)).toBe("");
-  });
-
-  // 4
-  it("Agregar foto", () => {
-    const fotoAccess = Substitute.for<Foto>();
-    p.setListaAlbumes(new Album("album1", "hola"));
-
-    p.agregarFoto("album1", fotoAccess);
-
-    expect(
-      p
-        .getListaAlbumes()
-        .find(a => a.getNombre() === "album1")
-        .getListaFotos().length
-    ).toBe(1);
-  });
-});*/
-
-import { TestBed, inject } from "@angular/core/testing";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { SharedModule } from "src/app/shared.module";
+import { TestBed, getTestBed } from "@angular/core/testing";
 import { ItineraryService } from "../services/itinerary.service";
-import { HttpClientModule } from "@angular/common/http";
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from "@angular/platform-browser-dynamic/testing";
+import { HttpClientModule } from '@angular/common/http';
+import { User } from 'src/app/users/models/User.class';
 describe("Itinerary service", () => {
+  let injector: TestBed;
+  let service: ItineraryService;
+  //let httpMock: HttpTestingController;
   beforeEach(() => {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(
@@ -69,15 +17,22 @@ describe("Itinerary service", () => {
       platformBrowserDynamicTesting()
     );
     TestBed.configureTestingModule({
-      imports: [HttpClientModule, SharedModule],
+      imports: [HttpClientModule],
       providers: [ItineraryService]
     });
+
+    injector = getTestBed();
+    service = injector.get(ItineraryService);
+    //httpMock = injector.get(HttpTestingController);
   });
 
-  it("should be created", inject(
-    [ItineraryService],
-    (service: ItineraryService) => {
-      expect(service).toBeTruthy();
-    }
-  ));
+  it("should return an Observable<Itinerary[]>", (done: DoneFn) => {
+    //spyOn(service, ).and.returnValue(of(response))
+    service.getItineraryMinimalInfoByUser(9).subscribe({
+      next: (data: any) => {
+        expect(data.data.length).toBe(11);
+        done();
+      }
+    })
+  });
 });
