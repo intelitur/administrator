@@ -1,11 +1,17 @@
-import { Component, OnInit, Inject, ViewEncapsulation, OnDestroy } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from "@angular/core";
+import { MatDialogRef } from "@angular/material/dialog";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Itinerary } from "src/app/itinerary/models/Itinerary";
 import { Subscription } from "rxjs";
 import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { CommonService } from "src/app/general-services/common.service";
+import { GroupType } from "src/app/itinerary/models/GroupType";
+import { ResponseInterface } from "src/app/globalModels/Response.interface";
+import { Category } from "src/app/itinerary/models/Category";
+import { ImageService } from "src/app/itinerary/services/image.service";
+import { FileUploader } from "ng2-file-upload";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-itinerary-form-dialog",
@@ -15,23 +21,23 @@ import { CommonService } from "src/app/general-services/common.service";
 })
 export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   itineraryFG: FormGroup;
-  categories: Array<string> = [
-    "Vida Silvestre",
-    "Termales",
-    "Aventura",
-    "Relajación"
-  ];
-  images = [];
-  groupTypes: Array<string> = ["Amigos", "Sólo", "Familiar", "Pareja"];
+  categories: Array<Category>;
+  linkedCategories: Array<Category> = [];
+  images: Array<File> = [];
+  groupTypes: Array<GroupType>;
   private subscription: Subscription;
+  savedIt: number;
+  savedImagePaths: Array<string> = [];
   constructor(
     public dialogRef: MatDialogRef<ItineraryFormDialogComponent>,
     private _fb: FormBuilder,
     private _itinerary: ItineraryService,
-    private _common: CommonService
+    private _common: CommonService,
+    private _image: ImageService
   ) {}
 
   ngOnInit() {
+    this.setupUploader();
     this.itineraryFG = this._fb.group({
       name: ["", Validators.required],
       pricePerDay: ["", Validators.required],
@@ -47,58 +53,107 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
       endDate: ["", Validators.required],
       status: ["", Validators.required] // public or private
     });
+    this.getGroupTypes();
+    this.getCategories();
   }
 
-  catchSelectedImages(files: FileList) {
-    console.log(files);
+  setupUploader() {
+    this._image.uploader.onAfterAddingFile = file => {
+      file.withCredentials = false;
+    };
+    this._image.uploader.onSuccessItem = (item, response, status, headers) => {
+      let path = JSON.parse(response).data;
+      this.savedImagePaths.push(path);
+    };
+    this._image.uploader.onCompleteAll = () => {
+      this.savedImagePaths.forEach(e => {
+        this.subscription = this._itinerary
+          .saveImageUrl(this.savedIt, e)
+          .subscribe({
+            error: (err: HttpErrorResponse) => this._common.handleError(err)
+          });
+      });
+    };
+  }
+
+  linkCategory(c: Category) {
+    if (!this.linkedCategories.includes(c)) this.linkedCategories.unshift(c);
+  }
+
+  deleteLinkedCategory(index: number) {
+    this.linkedCategories.splice(index, 1);
+  }
+
+  getGroupTypes() {
+    this.subscription = this._itinerary.getGroupTypes().subscribe({
+      next: (data: any) => {
+        this.groupTypes = [];
+        data.data.forEach((el: GroupType) => {
+          this.groupTypes.unshift(el);
+        });
+      },
+      error: (err: HttpErrorResponse) => this._common.handleError(err)
+    });
+  }
+
+  getCategories() {
+    this.subscription = this._itinerary.getCategories().subscribe({
+      next: (result: ResponseInterface) => {
+        this.categories = result.data;
+      },
+      error: (err: HttpErrorResponse) => this._common.handleError(err)
+    });
+  }
+
+  catchSelectedImages(files: any) {
     for (let i = 0; i < files.length; i++) {
       var reader = new FileReader();
-      reader.readAsDataURL(files[i]);
+      reader.readAsDataURL(files[i].rawFile);
       reader.onload = (event: any) => {
         // called once readAsDataURL is completed
-        this.images.unshift(event.target.result);
+        this.images.push(event.target.result);
       };
     }
   }
 
+  catchDeletedImage(index: number) {
+    this._image.uploader.removeFromQueue(this._image.uploader.queue[index]);
+  }
+
   onSubmit() {
-    console.log(this.images);
     let fv = this.itineraryFG.value;
-    console.log(
-      new Itinerary(
-        fv.name,
-        fv.totalPrice,
-        fv.adultsQuantity,
-        fv.childrenQuantity,
-        fv.description,
-        fv.duration,
-        false,
-        Boolean(fv.status),
-        new Date(fv.startDate),
-        new Date(fv.endDate)
-      )
-    );
     this.subscription = this._itinerary
       .saveItinerary(
         new Itinerary(
-          fv.name,
-          fv.totalPrice,
-          fv.adultsQuantity,
-          fv.childrenQuantity,
-          fv.description,
-          fv.duration,
-          false,
-          Boolean(fv.status),
-          new Date(fv.startDate),
-          new Date(fv.endDate)
-        )
+          {
+            name: fv.name,
+            total_price: fv.totalPrice,
+            price_per_day: fv.pricePerDay,
+            adult_number: fv.adultsQuantity,
+            child_number: fv.childrenQuantity,
+            description: fv.description,
+            duration: fv.duration,
+            active: false,
+            public: fv.status,
+            initial_date: fv.startDate,
+            final_date: fv.endDate
+          },
+          fv.groupType
+        ),
+        this.linkedCategories.map(e => e.category_id)
       )
       .subscribe({
-        next: response => {
-          console.log(response);
+        next: (result: ResponseInterface) => {
+          this._common.openSnackBar("Itinerario guardado con éxito", "Ok");
+          this.savedIt = result.data;
+          this.uploadImages();
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
+  }
+
+  uploadImages() {
+    this._image.uploader.uploadAll();
   }
 
   ngOnDestroy() {

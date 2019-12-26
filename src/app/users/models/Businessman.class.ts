@@ -4,8 +4,8 @@ export class BusinessMan {
     public name: string,
     public lastName: string,
     public businessName: string,
-    public password: string,
     public email: string,
+    public password: string,
     public available: boolean,
     public state: boolean
   ) {}

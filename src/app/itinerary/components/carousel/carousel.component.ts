@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-carousel',
@@ -7,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CarouselComponent implements OnInit {
   @Input() images: Array<any>;
+  @Output() deletedImage = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -14,5 +16,6 @@ export class CarouselComponent implements OnInit {
 
   deleteImage(index: number) {
     this.images.splice(index, 1);
+    this.deletedImage.emit(index);
   }
 }

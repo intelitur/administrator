@@ -1,10 +1,15 @@
-<div class="container" >
-    <h2 class="text-center font-weight-light mt-3">Editar informacion</h2>
+<div class="container" *ngIf="this.user">
+    <h2 class="text-center font-weight-light mt-3">Editar informacion {{this.user.user_id}}</h2>
     <form [formGroup]="editProfileForm">
 
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Nombre completo</mat-label>
+            <mat-label>Nombre</mat-label>
             <input matInput  [formControl]="editProfileForm.get('name')">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Apellido</mat-label>
+            <input matInput  [formControl]="editProfileForm.get('lastName')">
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
@@ -32,3 +37,4 @@
     </form>
 
   </div>
+  <mat-spinner class="spinner " *ngIf="!this.user"></mat-spinner>
