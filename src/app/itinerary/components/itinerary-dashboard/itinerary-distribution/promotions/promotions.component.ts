@@ -1,9 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from "@angular/cdk/drag-drop";
 import { CommonService } from "src/app/general-services/common.service";
 import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { Subscription } from "rxjs";
@@ -31,31 +26,34 @@ export class PromotionsComponent implements OnInit {
   ngOnInit() {
     this.promotionLoading = true;
     this.addedPromotionLoading = true;
-    this.subscriptionPromotion = this.itineraryService
-      .getAllPromotions()
-      .subscribe({
-        next: (data: any) => {
-          this.promotions = data.data;
-          this.promotionLoading = false;
-          this.subscriptionPromotion.unsubscribe();
-        },
-        error: (err: HttpErrorResponse) =>
-          this.commonService.openSnackBar(`Error: ${err}`, "OK")
-      });
 
-    this.subscriptionAddedPromotion = this.itineraryService
-      .getPromotionByItinerayID()
-      .subscribe({
-        next: (data: any) => {
-          this.addedPromotions = data.data.rows;
-          this.addedPromotionLoading = false;
-          this.subscriptionAddedPromotion.unsubscribe();
-        },
-        error: (err: HttpErrorResponse) =>
-          this.commonService.openSnackBar(`Error: ${err}`, "OK")
-      });
+    this.getAllPromotions();
+    this.getPromotionByItineraryID();
   }
-
+  /**
+   *@funtion Get promotions by itinerary id
+   */
+  getPromotionByItineraryID(){
+    this.subscriptionAddedPromotion = this.itineraryService.getPromotionByItinerayID().subscribe({
+      next: (data : any) => {
+        this.addedPromotions = data.data.rows;
+        this.addedPromotionLoading = false;
+       this.subscriptionAddedPromotion.unsubscribe();
+      }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
+    });
+  }
+  /**
+   * @funtion Get all promotions
+   */
+  getAllPromotions(){
+    this.subscriptionPromotion = this.itineraryService.getAllPromotions().subscribe({
+      next: (data : any) => {
+        this.promotions = data.data.rows;
+        this.promotionLoading = false;
+       this.subscriptionPromotion.unsubscribe();
+      }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
+    });
+  }
   /**
    * @funtion Add Promotion in itinerary
    * @param promotion_id
