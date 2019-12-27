@@ -129,9 +129,6 @@ export class OffersComponent implements OnInit, OnDestroy {
       "OK"
     );
   }
-  openDayDetails() {
-    this._dialog.openDayDetailsDialog(this.it);
-  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

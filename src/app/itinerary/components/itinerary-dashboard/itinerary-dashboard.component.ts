@@ -7,7 +7,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { CommonService } from "src/app/general-services/common.service";
 
 @Component({
-  selector: "app-itinerary-details",
+  selector: "app-itinerary-dashboard",
   templateUrl: "./itinerary-dashboard.component.html",
   styleUrls: ["./itinerary-dashboard.component.scss"],
   encapsulation: ViewEncapsulation.None

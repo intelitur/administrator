@@ -6,7 +6,6 @@ import {
 } from "@angular/cdk/drag-drop";
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 
 @Component({

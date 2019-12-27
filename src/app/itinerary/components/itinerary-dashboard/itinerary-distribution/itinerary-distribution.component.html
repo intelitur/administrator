@@ -1,13 +1,11 @@
-<div
-  class="container-fluid d-flex flex-column justify-content-sm-around p-0"
->
-  <h1 class="text-center text-primary font-weight-light">
-    {{it.info.name}}
-  </h1>
-  <mat-slide-toggle (change)="checked = !checked" [checked]="it.info.active">{{
-    it.info.active ? "Habilidado" : "Deshabilitado"
-  }}</mat-slide-toggle>
+<div class="container-fluid d-flex flex-column justify-content-sm-around p-0">
+  <app-itinerary-details [it]="it"></app-itinerary-details>
+  <div class="text-left container-fluid mt-2">
+    <mat-slide-toggle (change)="checked = !checked" [checked]="it.info.active">{{
+      it.info.active ? "Habilidado" : "Deshabilitado"
+    }}</mat-slide-toggle>
+  </div>
   <app-offers *ngIf="it" [it]="it"></app-offers>
-  <hr>
+  <hr />
   <app-promotions></app-promotions>
 </div>
