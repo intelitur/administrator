@@ -52,7 +52,6 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   sortArray() {
-    console.log(this.days);
     this.days.sort((a, b): number => {
       if (a.day[0].day_number > b.day[0].day_number) return 1;
       if (a.day[0].day_number < b.day[0].day_number) return -1;

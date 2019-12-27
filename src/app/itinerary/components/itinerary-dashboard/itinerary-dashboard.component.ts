@@ -27,7 +27,6 @@ export class ItineraryDashboardComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.itinerary = data.data;
-          console.log(this.itinerary);
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
