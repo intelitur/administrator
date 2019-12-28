@@ -11,13 +11,16 @@ import { UsersModule } from './users/users.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterBusinessManComponent } from './login/register-business-man/register-business-man.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
     LoginComponent,
-    RegisterBusinessManComponent
+    RegisterBusinessManComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,6 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [RegisterBusinessManComponent]
+  entryComponents: [RegisterBusinessManComponent, ForgotPasswordComponent]
 })
 export class AppModule {}
