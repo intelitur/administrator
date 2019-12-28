@@ -5,6 +5,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Subscription } from 'rxjs';
 import { UserProfileService } from '../../services/user-profile.service';
 import { User } from '../../models/User.class';
+import { SessionService } from 'src/app/general-services/session.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { User } from '../../models/User.class';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: User;
+  user: any;
   editProfileForm: FormGroup;
   hide = true;
   icon = "done";
@@ -27,14 +28,15 @@ export class ProfileComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     public commonService: CommonService,
-    public userProfileService: UserProfileService
+    public userProfileService: UserProfileService,
+    public sesionService: SessionService
   ) {   }
 
-   
+
 
   ngOnInit() {
 
-    this.subscriptionUserProfile = this.userProfileService.getUser(15).subscribe({
+    this.subscriptionUserProfile = this.userProfileService.getUser(this.sesionService.actualUser.user_id).subscribe({
       next: (data : any) => {
         this.user = data.data[0];
         this.subscriptionUserProfile.unsubscribe();
@@ -53,7 +55,7 @@ export class ProfileComponent implements OnInit {
     this.editProfileForm.valueChanges.subscribe(() => {
       if (this.editProfileForm.invalid == false) this.icon = "done";
       else this.icon = "warning";
-    }); 
+    });
   }
 
   saveChanges(){

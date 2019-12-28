@@ -10,7 +10,7 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class UserManagementService {
   private subscription: Subscription;
-  users: Array<User>;
+  users: Array<any>;
   constructor(
     private http: HttpClient,
     public commonService: CommonService
