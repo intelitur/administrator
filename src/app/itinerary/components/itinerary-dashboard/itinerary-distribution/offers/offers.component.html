@@ -1,72 +1,92 @@
-<div class="container-fluid p-0">
-  <h2 class="text-center text-warning font-weight-light">
-    Días del itinerario
-  </h2>
-  <mat-form-field class="container-fluid mb-3" appearance="outline">
-    <mat-label>Escriba cualquier valor para buscar</mat-label>
-    <input matInput />
-  </mat-form-field>
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="result"
-    [cdkDropListConnectedTo]="[offDay1, offDay2, offDay3]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <div class="example-box" *ngFor="let r of result" cdkDrag>
-      {{ r }}
-    </div>
-  </div>
-  <div *ngIf="days.length > 0" class="row" cdkDropListGroup>
+<div *ngIf="days.length > 0; else noDays">
+  <div class="container-fluid p-0">
+    <h2 class="text-center text-warning font-weight-light">
+      Días del itinerario
+    </h2>
+    <mat-form-field class="container-fluid mb-3" appearance="outline">
+      <mat-label>Escriba cualquier valor para buscar</mat-label>
+      <input matInput />
+    </mat-form-field>
     <div
-      *ngFor="let item of days; let i = index"
-      class="col-sm text-center"
-      id="dia1"
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="result"
+      [cdkDropListConnectedTo]="[offDay1, offDay2, offDay3]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
     >
-      <strong>Día {{ i + 1 }}</strong>
-      <button
-        mat-icon-button
-        matSuffix
-        mat-button
-        class="btn-delete"
-        (click)="deleteDay('dia1')"
-      >
-        <mat-icon matTooltip="Eliminar día del itinerario" color="warn"
-          >close</mat-icon
-        >
-      </button>
+      <div class="example-box" *ngFor="let r of result" cdkDrag>
+        {{ r }}
+      </div>
+    </div>
+    <div *ngIf="days.length > 0" class="row" cdkDropListGroup>
       <div
-        cdkDropList
-        #offDay1="cdkDropList"
-        [cdkDropListData]="item.day"
-        class="example-list shadow"
-        (cdkDropListDropped)="drop($event)"
+        *ngFor="let item of days; let i = index"
+        class="col-sm text-center"
+        id="dia1"
       >
-        <div
+        <strong>Día {{ i + 1 }}</strong>
+        <button
+          mat-icon-button
+          matSuffix
+          mat-button
+          class="btn-delete"
+          (click)="deleteDay('dia1')"
+        >
+          <mat-icon matTooltip="Eliminar día del itinerario" color="warn"
+            >close</mat-icon
+          >
+        </button>
+        <!-- <div
+          cdkDropList
+          #offDay1="cdkDropList"
+          [cdkDropListData]="item.day"
+          class="example-list shadow"
+          (cdkDropListDropped)="drop($event)"
+
+        > -->
+        <mat-accordion
+          cdkDropList
+          #offDay1="cdkDropList"
+          [cdkDropListData]="item.day"
+          class="example-list shadow"
+          (cdkDropListDropped)="drop($event)"
           class="example-box d-flex flex-row justify-content-sm-between"
-          *ngFor="let offr of item.day"
+          *ngFor="let offer of item.day"
           cdkDrag
         >
-          <span>{{ offr.name }}</span>
-          <button
-            mat-icon-button
-            matSuffix
-            mat-button
-            class="btn-delete"
-            (click)="deleteOffert(item, 1)"
-          >
-            <mat-icon matTooltip="Eliminar oferta del día" color="warn"
-              >delete</mat-icon
+          <mat-expansion-panel class="container-fluid">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ offer.name }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <span>{{ offer.name }}</span>
+            <button
+              mat-icon-button
+              matSuffix
+              mat-button
+              class="btn-delete"
+              (click)="deleteOffert(item, 1)"
             >
+              <mat-icon matTooltip="Eliminar oferta del día" color="warn"
+                >delete</mat-icon
+              >
+            </button>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <!-- </div> -->
+        <div class="container-fluid mt-3 text-center">
+          <button mat-raised-button (click)="openDayDetails()" color="accent">
+            Detalles
           </button>
         </div>
-      </div>
-      <div class="container-fluid mt-3 text-center">
-        <button mat-raised-button (click)="openDayDetails()" color="accent">
-          Detalles
-        </button>
       </div>
     </div>
   </div>
 </div>
+<ng-template #noDays>
+  <h4 class="font-weight-light text-muted text-center">
+    Sin información de días
+  </h4>
+</ng-template>

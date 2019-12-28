@@ -23,22 +23,23 @@ export class OffersComponent implements OnInit, OnDestroy {
   offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
   offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
   days: Array<any> = [];
-  @Input() it: Itinerary;
+  @Input() it: any;
   subscription: Subscription;
   constructor(
     public commonService: CommonService,
-    private _dialog: DialogManagerService,
-    private _itinerary: ItineraryService
+    private _itinerary: ItineraryService,
+    private _dialog: DialogManagerService
   ) {}
 
   ngOnInit() {
-    this.getDaysInfo();
+    if(this.it)
+      this.getDaysInfo();
   }
 
   getDaysInfo() {
     for (let i = 0; i < this.it.info.duration; i++) {
       this.subscription = this._itinerary
-        .getDayInfo(this._itinerary.itinerary_id, i)
+        .getDayInfo(this.it["itinerary_id"], i)
         .subscribe({
           next: (data: any) => {
             if (data.data.day !== null) {
@@ -58,6 +59,7 @@ export class OffersComponent implements OnInit, OnDestroy {
       // a must be equal to b
       return 0;
     });
+    console.log(this.days);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -128,6 +130,10 @@ export class OffersComponent implements OnInit, OnDestroy {
       `Se ha eliminado correctamente la oferta ${item}`,
       "OK"
     );
+  }
+
+  openDayDetails(i: number) {
+    this._dialog.openDayDetails(this.days[i].details);
   }
 
   ngOnDestroy() {

@@ -9,7 +9,7 @@ import { ResponseInterface } from "src/app/globalModels/Response.interface";
   providedIn: "root"
 })
 export class ItineraryService {
-  itinerary_id: number = 5; //TODO: Cambiar esto
+  itinerary_id: number; //TODO: Cambiar esto
   constructor(private _http: HttpClient) {}
 
   saveItinerary(it: Itinerary, categories_ids: Array<number>): Observable<any> {
