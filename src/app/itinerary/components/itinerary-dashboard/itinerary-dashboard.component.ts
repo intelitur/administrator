@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ItineraryService } from "../../services/itinerary.service";
 import { Subscription } from "rxjs";
 import { Itinerary } from "../../models/Itinerary";
@@ -12,16 +12,20 @@ import { CommonService } from "src/app/general-services/common.service";
   styleUrls: ["./itinerary-dashboard.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
-export class ItineraryDashboardComponent implements OnInit {
+export class ItineraryDashboardComponent implements OnInit, OnDestroy {
   checked: boolean = false;
   subscription: Subscription;
   itinerary: Itinerary;
   constructor(
     private _itinerary: ItineraryService,
-    private _common: CommonService
+    private _common: CommonService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
+    if(!this._itinerary.itinerary_id) {
+      this._router.navigate(['itineraries/show-all'])
+    }
     this.subscription = this._itinerary
       .getItineraryFullInfo(this._itinerary.itinerary_id)
       .subscribe({
@@ -30,5 +34,9 @@ export class ItineraryDashboardComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

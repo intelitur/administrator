@@ -14,32 +14,7 @@ import { DialogManagerService } from "src/app/general-services/dialog-manager.se
   styleUrls: ["./itinerary-distribution.component.scss"]
 })
 export class ItineraryDistributionComponent implements OnInit {
-  @Input() it;
+  @Input() it: any;
   ngOnInit(): void {
   }
-
-  offertFilter = '';
-  checked: boolean = false;
-  newOffersList = ["Booking", "Fire","Swing"]
-
-  myControlOffers = new FormControl();
-  filteredOptionsOffers: Observable<string[]>;
-  promotionsDay3 = ["Promotion", "Promotion", "Promotion"];
-  constructor(private _dialog: DialogManagerService) { }
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-  }}
-
 }

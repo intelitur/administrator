@@ -6,6 +6,7 @@ import { RegisterBusinessManComponent } from "../login/register-business-man/reg
 import { ItineraryFormDialogComponent } from "../itinerary/components/itineraries/itinerary-form-dialog/itinerary-form-dialog.component";
 import { ItineraryDetailsComponent } from "../itinerary/components/itinerary-dashboard/itinerary-details/itinerary-details.component";
 import { Itinerary } from '../itinerary/models/Itinerary';
+import { DayDetailsComponent } from '../itinerary/components/itinerary-dashboard/itinerary-distribution/offers/day-details/day-details.component';
 @Injectable({
   providedIn: "root"
 })
@@ -15,6 +16,15 @@ export class DialogManagerService {
   openItineraryFormDialog(): Observable<any> {
     const dialogRef = this.dialog.open(ItineraryFormDialogComponent, {
       panelClass: "custom-dialog"
+    });
+
+    return dialogRef.afterClosed();
+  }
+
+  openDayDetails(details: string) {
+    const dialogRef = this.dialog.open(DayDetailsComponent, {
+      panelClass: "custom-dialog",
+      data: details
     });
 
     return dialogRef.afterClosed();
