@@ -48,7 +48,7 @@ export class PromotionsComponent implements OnInit {
   getAllPromotions(){
     this.subscriptionPromotion = this.itineraryService.getAllPromotions().subscribe({
       next: (data : any) => {
-        this.promotions = data.data.rows;
+        this.promotions = data.data;
         this.promotionLoading = false;
        this.subscriptionPromotion.unsubscribe();
       }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")

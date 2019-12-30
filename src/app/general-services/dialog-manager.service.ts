@@ -19,15 +19,6 @@ export class DialogManagerService {
 
     return dialogRef.afterClosed();
   }
-
-  openDayDetailsDialog(itinerary: Itinerary): Observable<any> {
-    const dialogRef = this.dialog.open(ItineraryDetailsComponent, {
-      panelClass: "custom-dialog",
-      data: itinerary
-    });
-
-    return dialogRef.afterClosed();
-  }
   /**
    * @funtion Open dialog to add admin
    */

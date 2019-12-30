@@ -52,7 +52,6 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   sortArray() {
-    console.log(this.days);
     this.days.sort((a, b): number => {
       if (a.day[0].day_number > b.day[0].day_number) return 1;
       if (a.day[0].day_number < b.day[0].day_number) return -1;
@@ -129,9 +128,6 @@ export class OffersComponent implements OnInit, OnDestroy {
       `Se ha eliminado correctamente la oferta ${item}`,
       "OK"
     );
-  }
-  openDayDetails() {
-    this._dialog.openDayDetailsDialog(this.it);
   }
 
   ngOnDestroy() {

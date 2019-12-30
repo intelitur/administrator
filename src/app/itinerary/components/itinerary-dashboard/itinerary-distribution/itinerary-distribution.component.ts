@@ -6,7 +6,6 @@ import {
 } from "@angular/cdk/drag-drop";
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 
 @Component({
@@ -17,7 +16,6 @@ import { DialogManagerService } from "src/app/general-services/dialog-manager.se
 export class ItineraryDistributionComponent implements OnInit {
   @Input() it;
   ngOnInit(): void {
-    console.log(this.it);
   }
 
   offertFilter = '';
@@ -26,12 +24,6 @@ export class ItineraryDistributionComponent implements OnInit {
 
   myControlOffers = new FormControl();
   filteredOptionsOffers: Observable<string[]>;
-  offersDay1 = ["Walking", "Lunch", "Dinner"];
-  offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
-  offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
-
-  promotionsDay1 = ["Promotion", "Promotion", "Promotion"];
-  promotionsDay2 = ["Promotion", "Promotion", "Promotion"];
   promotionsDay3 = ["Promotion", "Promotion", "Promotion"];
   constructor(private _dialog: DialogManagerService) { }
   drop(event: CdkDragDrop<string[]>) {

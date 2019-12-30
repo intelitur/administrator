@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, Input } from "@angular/core";
 import { Itinerary } from "src/app/itinerary/models/Itinerary";
 import { MAT_DIALOG_DATA } from "@angular/material";
 
@@ -13,7 +13,8 @@ export class ItineraryDetailsComponent implements OnInit {
     "https://www.solidbackgrounds.com/images/1920x1080/1920x1080-mint-green-solid-color-background.jpg",
     "https://www.solidbackgrounds.com/images/1366x768/1366x768-navy-purple-solid-color-background.jpg"
   ];
-  constructor(@Inject(MAT_DIALOG_DATA) public it: Itinerary) {}
+  @Input() it: Itinerary;
+  constructor() {}
 
   ngOnInit() {}
 }
