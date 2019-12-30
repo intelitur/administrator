@@ -8,8 +8,11 @@ import { CommonService } from "src/app/general-services/common.service";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { Subscription } from "rxjs";
-import { Itinerary } from "src/app/itinerary/models/Itinerary";
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpErrorResponse, HttpClient } from "@angular/common/http";
+import { ResponseInterface } from "src/app/globalModels/Response.interface";
+import { FormControl } from "@angular/forms";
+import { debounceTime, tap, switchMap, finalize } from "rxjs/operators";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-offers",
@@ -25,15 +28,42 @@ export class OffersComponent implements OnInit, OnDestroy {
   days: Array<any> = [];
   @Input() it: any;
   subscription: Subscription;
+  searchOffersCTRL: FormControl = new FormControl();
+  filteredOffers: any[];
+  isLoading: boolean = false;
   constructor(
     public commonService: CommonService,
     private _itinerary: ItineraryService,
-    private _dialog: DialogManagerService
+    private _dialog: DialogManagerService,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
-    if(this.it)
+    if (this.it) {
       this.getDaysInfo();
+      this.searchOffersCTRL.valueChanges
+        .pipe(
+          debounceTime(500),
+          tap(() => {
+            this.filteredOffers = [];
+            this.isLoading = true;
+          }),
+          switchMap(value =>
+            this.http
+              .get(
+                `${environment.SERVER_BASE_URL}itinerary/filterOffers?value=${value}&it_id=${this.it["itinerary_id"]}`
+              )
+              .pipe(
+                finalize(() => {
+                  this.isLoading = false;
+                })
+              )
+          )
+        )
+        .subscribe((result: ResponseInterface) => {
+          this.filteredOffers = result.data;
+        });
+    }
   }
 
   getDaysInfo() {
@@ -59,7 +89,6 @@ export class OffersComponent implements OnInit, OnDestroy {
       // a must be equal to b
       return 0;
     });
-    console.log(this.days);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -105,6 +134,25 @@ export class OffersComponent implements OnInit, OnDestroy {
       "OK"
     );
   }
+
+  unlinkOffer(
+    offer_id: number,
+    day_number: number,
+    offer_index: number,
+    day_index: number
+  ) {
+    //console.log(this.days[day_index].day.splice(offer_index, 1));
+    this.subscription = this._itinerary
+      .unlinkOffer(offer_id, this.it["itinerary_id"], day_number)
+      .subscribe({
+        next: (result: ResponseInterface) => {
+          this.commonService.openSnackBar(result.message, "Ok");
+          this.days[day_index].day.splice(offer_index, 1);
+        },
+        error: (err: HttpErrorResponse) => this.commonService.handleError(err)
+      });
+  }
+
   /**
    * @funtion delete offert by item and listIndicator that is 1 is list 1 and so on...
    * @param item

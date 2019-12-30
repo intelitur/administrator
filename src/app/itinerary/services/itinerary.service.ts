@@ -9,7 +9,7 @@ import { ResponseInterface } from "src/app/globalModels/Response.interface";
   providedIn: "root"
 })
 export class ItineraryService {
-  itinerary_id: number; //TODO: Cambiar esto
+  itinerary_id: number;
   constructor(private _http: HttpClient) {}
 
   saveItinerary(it: Itinerary, categories_ids: Array<number>): Observable<any> {
@@ -30,6 +30,16 @@ export class ItineraryService {
   getDayInfo(id_itinerary: number, day_number: number): Observable<any> {
     return this._http.get(
       `${environment.SERVER_BASE_URL}itinerary/dayInfo/${id_itinerary}/${day_number}`
+    );
+  }
+
+  unlinkOffer(
+    offer_id: number,
+    itinerary_id: number,
+    day_number: number
+  ): Observable<any> {
+    return this._http.delete(
+      `${environment.SERVER_BASE_URL}itinerary/unlinkOffer?it_id=${itinerary_id}&off_id=${offer_id}&day=${day_number}`
     );
   }
 
