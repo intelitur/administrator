@@ -20,11 +20,7 @@
       </div>
     </div>
     <div *ngIf="days.length > 0" class="row" cdkDropListGroup>
-      <div
-        *ngFor="let item of days; let i = index"
-        class="col-sm text-center"
-        id="dia1"
-      >
+      <div *ngFor="let item of days; let i = index" class="col-sm text-center">
         <strong>Día {{ i + 1 }}</strong>
         <button
           mat-icon-button
@@ -37,42 +33,58 @@
             >close</mat-icon
           >
         </button>
-        <!-- <div
-          cdkDropList
-          #offDay1="cdkDropList"
-          [cdkDropListData]="item.day"
-          class="example-list shadow"
-          (cdkDropListDropped)="drop($event)"
-
-        > -->
         <mat-accordion
           cdkDropList
           #offDay1="cdkDropList"
           [cdkDropListData]="item.day"
-          class="example-list shadow"
+          class="example-list shadow bg-transparent"
           (cdkDropListDropped)="drop($event)"
           class="example-box d-flex flex-row justify-content-sm-between"
           *ngFor="let offer of item.day"
           cdkDrag
         >
-          <mat-expansion-panel class="container-fluid">
+          <mat-expansion-panel class="m-0 p-0 container-fluid">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{ offer.name }}
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <span>{{ offer.name }}</span>
-            <button
-              mat-icon-button
-              matSuffix
-              mat-button
-              class="btn-delete"
-              (click)="deleteOffert(item, 1)"
+            <div
+              class="container-fluid d-flex flex-column justify-content-sm-around"
             >
-              <mat-icon matTooltip="Eliminar oferta del día" color="warn"
-                >delete</mat-icon
+              <div
+                class="container-fluid d-flex flex-row justify-content-sm-between"
               >
-            </button>
+                <span
+                  class="d-flex justify-content-center align-items-center"
+                  >{{ offer.name }}</span
+                >
+                <button
+                  mat-icon-button
+                  matSuffix
+                  mat-button
+                  class="btn-delete"
+                  (click)="deleteOffert(item, 1)"
+                >
+                  <mat-icon matTooltip="Eliminar oferta del día" color="warn"
+                    >delete</mat-icon
+                  >
+                </button>
+              </div>
+              <mat-list class="container-fluid" role="list">
+                <mat-list-item *ngIf="offer.detail !== null" role="listitem"
+                  ><strong>Detalles: </strong> {{ offer.detail }}</mat-list-item
+                >
+                <mat-list-item role="listitem"
+                  ><strong>Inicio: </strong>
+                  <span class="ml-2">{{ offer.initial_time }}</span></mat-list-item
+                >
+                <mat-list-item role="listitem"
+                  ><strong>Fin: </strong>
+                  <span class="ml-2">{{ offer.final_time }}</span></mat-list-item
+                >
+              </mat-list>
+            </div>
           </mat-expansion-panel>
         </mat-accordion>
         <!-- </div> -->
