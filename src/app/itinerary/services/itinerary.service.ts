@@ -95,6 +95,15 @@ export class ItineraryService {
     );
   }
 
+  updateDayDistribution(
+    day_distribution: Array<any>
+  ): Observable<ResponseInterface> {
+    return this._http.put<ResponseInterface>(
+      `${environment.SERVER_BASE_URL}itinerary/updateDayDistribution`,
+      {day_distribution: day_distribution}
+    );
+  }
+
   /**
    * @funtion delete promotion of itinerary
    * @param promotion_id

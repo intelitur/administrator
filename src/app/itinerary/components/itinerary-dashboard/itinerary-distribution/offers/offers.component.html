@@ -95,8 +95,11 @@
           </mat-accordion>
         </div>
         <div class="container-fluid mt-3 text-center">
-          <button mat-raised-button (click)="openDayDetails()" color="accent">
+          <button class="mr-1" mat-raised-button (click)="openDayDetails()" color="accent">
             Detalles
+          </button>
+          <button (click)="updateDayDistribution(i); false" class="ml-1 text-white" mat-raised-button style="background-color: #0687F5">
+            Actualizar
           </button>
         </div>
       </div>

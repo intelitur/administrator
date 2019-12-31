@@ -66,6 +66,32 @@ export class OffersComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * is needed to add + 1 to represent day number
+   * @param index represent day number
+   */
+  updateDayDistribution(index: number) {
+    console.log(index);
+    let distArray = this.days[index].day.map(
+      (e: { offer_id: number; initial_time: string; final_time: string }) => {
+        return {
+          it: this.it["itinerary_id"],
+          offer_id: e.offer_id,
+          day_number: index + 1,
+          initial_time: "21:40:12.585447",
+          final_time: "21:40:12.585447"
+        };
+      }
+    );
+    this.subscription = this._itinerary
+      .updateDayDistribution(distArray)
+      .subscribe({
+        next: (result: ResponseInterface) =>
+          this.commonService.openSnackBar(result.message, "Ok"),
+        error: (err: HttpErrorResponse) => this.commonService.handleError(err)
+      });
+  }
+
   getDaysInfo() {
     for (let i = 0; i < this.it.info.duration; i++) {
       this.subscription = this._itinerary
@@ -111,7 +137,7 @@ export class OffersComponent implements OnInit, OnDestroy {
    * @funtion delete day by name and clean list
    * @param day
    */
-  deleteDay(day) {
+  deleteDay(day: string) {
     switch (day) {
       case "dia1": {
         this.offersDay1 = [];
