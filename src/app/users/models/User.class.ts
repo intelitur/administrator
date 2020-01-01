@@ -1,8 +1,8 @@
 
 export class User {
   constructor(
+    public name: String,
     public user_id: number,
-    public role_id: number,
-    public info: any
+    public role_id: number
   ) {}
 }

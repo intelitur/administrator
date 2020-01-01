@@ -59,7 +59,7 @@ export class OffersComponent implements OnInit, OnDestroy {
       // a must be equal to b
       return 0;
     });
-    console.log(this.days);
+    //console.log(this.days);
   }
 
   drop(event: CdkDragDrop<string[]>) {

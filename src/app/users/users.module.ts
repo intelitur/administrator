@@ -14,7 +14,7 @@ import { UserRootComponent } from './user-root.component';
     ProfileComponent,
     UsersManagementComponent,
     AddAdminComponent,
-    UserRootComponent
+    UserRootComponent,
   ],
   imports: [
     CommonModule,

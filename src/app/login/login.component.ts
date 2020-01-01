@@ -37,7 +37,12 @@ export class LoginComponent implements OnInit {
   registerBusinessman(): void{
     this.dialogService.openAddBusinessmanFormDialog();
   }
-
+  /**
+   * @function Open Dialog to recovery password
+   */
+  forgotPassword(): void{
+    this.dialogService.openForgotPasswordDialog();
+  }
   /**
    * @funtion Login
    */

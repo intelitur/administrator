@@ -12,6 +12,11 @@ export class ItineraryService {
   itinerary_id: number; //TODO: Cambiar esto
   constructor(private _http: HttpClient) {}
 
+  changeActiveState(itinerary_id: number, info: any) : Observable<any> {
+    console.log(itinerary_id);
+    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/changeActiveState`,{id: itinerary_id, info: info});
+  };
+
   saveItinerary(it: Itinerary, categories_ids: Array<number>): Observable<any> {
     return this._http.post(`${environment.SERVER_BASE_URL}itinerary/save`, {
       info: it.info,

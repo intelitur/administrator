@@ -7,6 +7,7 @@ import { ItineraryFormDialogComponent } from "../itinerary/components/itinerarie
 import { ItineraryDetailsComponent } from "../itinerary/components/itinerary-dashboard/itinerary-details/itinerary-details.component";
 import { Itinerary } from '../itinerary/models/Itinerary';
 import { DayDetailsComponent } from '../itinerary/components/itinerary-dashboard/itinerary-distribution/offers/day-details/day-details.component';
+import { ForgotPasswordComponent } from '../login/forgot-password/forgot-password.component';
 @Injectable({
   providedIn: "root"
 })
@@ -41,6 +42,12 @@ export class DialogManagerService {
   openAddBusinessmanFormDialog(): void {
     this.dialog.open(RegisterBusinessManComponent, {
       panelClass: "custom-dialog-add-businessman"
+    });
+  }
+
+  openForgotPasswordDialog(): void {
+    this.dialog.open(ForgotPasswordComponent, {
+      panelClass: "custom-dialog-forgot-password"
     });
   }
 }
