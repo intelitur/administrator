@@ -47,19 +47,16 @@ export class SessionService {
       }, error: (err : HttpErrorResponse)  => {
         this.subscribeLogin.unsubscribe();
         this.commonService.openSnackBar(`Error en la autenticación`,"OK");this.loadingLogin = false;}});
-
   }
 
-  forgotPassword(email: String){
-    return this.http.post(`${environment.SERVER_BASE_URL}generalUsers/resetPassword`,{email: email});
-
+  sendCodePassword(email: String){
+    return this.http.post(`${environment.SERVER_BASE_URL}generalUsers/sendCodePassword`,{email: email});
   }
 
-  resetNewPassword(password: String, code: String){
-    console.log("Entro");
-    return this.http.post(`${environment.SERVER_BASE_URL}generalUsers/resetNewPassword`,{password: password, code: code});
-
+  changePasswordByCode(password: String, code: String){
+    return this.http.post(`${environment.SERVER_BASE_URL}generalUsers/changePasswordByCode`,{password: password, code: code});
   }
+
   logOut(){
     localStorage.removeItem(environment.localstorage_key);
     this.actualUser = null;

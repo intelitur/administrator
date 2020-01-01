@@ -58,7 +58,7 @@ export class ForgotPasswordComponent implements OnInit {
    */
   resetPassword(){
     this.loading = true;
-    this.subscribeForgotPassword = this.sessionService.forgotPassword(this.forgotPasswordForm.get("email").value).subscribe({
+    this.subscribeForgotPassword = this.sessionService.sendCodePassword(this.forgotPasswordForm.get("email").value).subscribe({
       next: (data: any) => {
         this.loading = false;
         this.commonService.openSnackBar("Verifique su correo electrónico","OK");
@@ -81,7 +81,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.loading = false;
       this.commonService.openSnackBar("Las contraseñas no coinciden!","OK");
     }else{
-      this.subscribeForgotPassword = this.sessionService.resetNewPassword(this.changePasswordForm.get("password").value,this.changePasswordForm.get("code").value).subscribe({
+      this.subscribeForgotPassword = this.sessionService.changePasswordByCode(this.changePasswordForm.get("password").value,this.changePasswordForm.get("code").value).subscribe({
         next: (data: any) => {
           this.loading = false;
           this.commonService.openSnackBar("Las contraseña ha sido actualizada!","OK");
