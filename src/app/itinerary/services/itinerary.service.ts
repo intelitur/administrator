@@ -29,7 +29,7 @@ export class ItineraryService {
 
   getDayInfo(id_itinerary: number, day_number: number): Observable<any> {
     return this._http.get(
-      `${environment.SERVER_BASE_URL}itinerary/dayInfo/${id_itinerary}/${day_number}`
+      `${environment.SERVER_BASE_URL}day/dayInfo/${id_itinerary}/${day_number}`
     );
   }
 
@@ -74,7 +74,7 @@ export class ItineraryService {
   /**
    * @function Get promotion by itinerary id
    */
-  getPromotionByItinerayID(): Observable<any> {
+  getPromotionByItineraryID(): Observable<any> {
     return this._http.get(
       `${environment.SERVER_BASE_URL}itinerary/getPromotionByItinerayID/${this.itinerary_id}`
     );
@@ -99,7 +99,7 @@ export class ItineraryService {
     day_distribution: Array<any>
   ): Observable<ResponseInterface> {
     return this._http.put<ResponseInterface>(
-      `${environment.SERVER_BASE_URL}itinerary/updateDayDistribution`,
+      `${environment.SERVER_BASE_URL}day/updateDayDistribution`,
       {day_distribution: day_distribution}
     );
   }

@@ -68,7 +68,7 @@ describe("Itinerary service", () => {
     });
   });
   it("Obtener promociones ya vinculadas a un itinerario", (done: DoneFn) => {
-    service.getPromotionByItinerayID().subscribe({
+    service.getPromotionByItineraryID().subscribe({
       next: (data: any) => {
         expect(data.code).toBe(200);
         done();
@@ -77,7 +77,7 @@ describe("Itinerary service", () => {
   });
   it("Error al obtener promociones ya vinculadas a un itinerario", (done: DoneFn) => {
     service.itinerary_id = undefined;
-    service.getPromotionByItinerayID().subscribe({
+    service.getPromotionByItineraryID().subscribe({
       error: (err: HttpErrorResponse) => {
         expect(err.status).toBe(500);
         done();

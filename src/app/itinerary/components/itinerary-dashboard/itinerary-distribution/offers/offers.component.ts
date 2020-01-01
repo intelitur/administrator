@@ -20,11 +20,6 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./offers.component.scss"]
 })
 export class OffersComponent implements OnInit, OnDestroy {
-  result = ["el"];
-
-  offersDay1 = ["Walking", "Lunch", "Dinner"];
-  offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
-  offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
   days: Array<any> = [];
   @Input() it: any;
   subscription: Subscription;
@@ -38,6 +33,10 @@ export class OffersComponent implements OnInit, OnDestroy {
     private http: HttpClient
   ) {}
 
+  /**
+   * in this hook an observable is configured to filter offers based on
+   * input value
+   */
   ngOnInit() {
     if (this.it) {
       this.getDaysInfo();
@@ -92,6 +91,9 @@ export class OffersComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * this method get all days for a specific itinerary
+   */
   getDaysInfo() {
     for (let i = 0; i < this.it.info.duration; i++) {
       this.subscription = this._itinerary
@@ -108,6 +110,10 @@ export class OffersComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * method needed to sort an array of days
+   * This is needed because in some cases the second promise respond first
+   */
   sortArray() {
     this.days.sort((a, b): number => {
       if (a.day[0].day_number > b.day[0].day_number) return 1;
@@ -138,27 +144,7 @@ export class OffersComponent implements OnInit, OnDestroy {
    * @param day
    */
   deleteDay(day: string) {
-    switch (day) {
-      case "dia1": {
-        this.offersDay1 = [];
-        break;
-      }
-      case "dia2": {
-        this.offersDay2 = [];
-        break;
-      }
-      case "dia3": {
-        this.offersDay3 = [];
-        break;
-      }
-    }
-    document
-      .getElementById(day)
-      .parentNode.removeChild(document.getElementById(day));
-    this.commonService.openSnackBar(
-      `Se ha eliminado correctamente el ${day}`,
-      "OK"
-    );
+
   }
 
   unlinkOffer(
@@ -167,7 +153,6 @@ export class OffersComponent implements OnInit, OnDestroy {
     offer_index: number,
     day_index: number
   ) {
-    //console.log(this.days[day_index].day.splice(offer_index, 1));
     this.subscription = this._itinerary
       .unlinkOffer(offer_id, this.it["itinerary_id"], day_number)
       .subscribe({
@@ -177,33 +162,6 @@ export class OffersComponent implements OnInit, OnDestroy {
         },
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });
-  }
-
-  /**
-   * @funtion delete offert by item and listIndicator that is 1 is list 1 and so on...
-   * @param item
-   * @param listIndicator
-   */
-  deleteOffert(item: string, listIndicator: number) {
-    switch (listIndicator) {
-      case 1: {
-        this.offersDay1 = this.offersDay1.filter(i => i !== item);
-        break;
-      }
-      case 2: {
-        this.offersDay2 = this.offersDay2.filter(i => i !== item);
-        break;
-      }
-      case 3: {
-        this.offersDay3 = this.offersDay3.filter(i => i !== item);
-        break;
-      }
-    }
-
-    this.commonService.openSnackBar(
-      `Se ha eliminado correctamente la oferta ${item}`,
-      "OK"
-    );
   }
 
   openDayDetails(i: number) {

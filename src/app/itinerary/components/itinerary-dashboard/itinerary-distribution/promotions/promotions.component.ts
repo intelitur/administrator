@@ -34,7 +34,7 @@ export class PromotionsComponent implements OnInit {
    *@funtion Get promotions by itinerary id
    */
   getPromotionByItineraryID(){
-    this.subscriptionAddedPromotion = this.itineraryService.getPromotionByItinerayID().subscribe({
+    this.subscriptionAddedPromotion = this.itineraryService.getPromotionByItineraryID().subscribe({
       next: (data : any) => {
         this.addedPromotions = data.data.rows;
         this.addedPromotionLoading = false;
