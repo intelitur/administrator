@@ -102,14 +102,13 @@ export class OffersComponent implements OnInit, OnDestroy {
    * this method get all days for a specific itinerary
    */
   async getDaysInfo() {
-    for (let i = 1; i < this.it.info.duration; i++) {
+    for (let i = 1; i <= this.it.info.duration; i++) {
       await this._itinerary
         .getDayInfo(this.it["itinerary_id"], i)
         .toPromise()
         .then((data: any) => {
           if (data.data.day !== null) {
             this.days.push(data.data);
-            console.log(this.days);
             this.sortArray();
           }
         })

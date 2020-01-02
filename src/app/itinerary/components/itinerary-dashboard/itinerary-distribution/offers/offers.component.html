@@ -1,5 +1,5 @@
 <div class="container-fluid mt-2 text-right">
-  <button mat-button (click)="addDay(); false">Agregar día</button>
+  <button mat-button (click)="addDay(); (false)">Agregar día</button>
 </div>
 <div *ngIf="days.length > 0; else noDays">
   <div class="container-fluid p-0">
@@ -21,7 +21,9 @@
           {{ r.name }}
         </div>
       </div>
-      <div class="container-fluid d-flex flex-row flex-wrap justify-content-sm-center">
+      <div
+        class="container-fluid d-flex flex-row flex-wrap justify-content-sm-center"
+      >
         <div *ngFor="let item of days; let i = index" class="col-sm-4">
           <strong>Día {{ i + 1 }}</strong>
           <button
@@ -46,9 +48,12 @@
               *ngFor="let offer of item.day; let index = index"
               cdkDrag
             >
-              <mat-expansion-panel *ngIf="offer !== null" class="m-0 p-0 container-fluid">
+              <mat-expansion-panel
+                *ngIf="offer !== null"
+                class="m-0 p-0 container-fluid"
+              >
                 <mat-expansion-panel-header>
-                  <mat-panel-title >
+                  <mat-panel-title>
                     {{ offer.name }}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -61,7 +66,6 @@
                     <span
                       class="d-flex justify-content-center align-items-center"
                       >{{ offer.name }}</span
-
                     >
                     <button
                       mat-icon-button
@@ -72,7 +76,9 @@
                         unlinkOffer(offer.offer_id, offer.day_number, index, i)
                       "
                     >
-                      <mat-icon matTooltip="Eliminar oferta del día" color="warn"
+                      <mat-icon
+                        matTooltip="Eliminar oferta del día"
+                        color="warn"
                         >delete</mat-icon
                       >
                     </button>
@@ -96,10 +102,21 @@
             </mat-accordion>
           </div>
           <div class="container-fluid mt-3 text-center">
-            <button class="mr-1" mat-raised-button (click)="openDayDetails()" color="accent">
+            <button
+              class="mr-1"
+              mat-raised-button
+              (click)="openDayDetails()"
+              color="accent"
+            >
               Detalles
             </button>
-            <button (click)="updateDayDistribution(i); false" class="ml-1 text-white" mat-raised-button style="background-color: #0687F5">
+            <button
+              [disabled]="item.day.length !== null && item.day.length === 0"
+              (click)="updateDayDistribution(i); (false)"
+              class="ml-1 text-white"
+              mat-raised-button
+              style="background-color: #0687F5"
+            >
               Actualizar
             </button>
           </div>
