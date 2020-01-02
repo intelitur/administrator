@@ -90,6 +90,7 @@ export class OffersComponent implements OnInit, OnDestroy {
           delete_all: true
         }
       ];
+
     this.subscription = this._itinerary
       .updateDayDistribution(distArray)
       .subscribe({
@@ -166,9 +167,6 @@ export class OffersComponent implements OnInit, OnDestroy {
         details: "",
         id_itinerary: this.it["itinerary_id"],
         day_number: this.days.length + 1
-      })
-      .subscribe({
-        next: (details: string) => console.log(details)
       });
   }
 

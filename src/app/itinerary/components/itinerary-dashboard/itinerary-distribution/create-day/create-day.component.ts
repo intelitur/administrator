@@ -31,7 +31,6 @@ export class CreateDayComponent implements OnInit {
   }
 
   save() {
-    console.log(this.data)
     this.subscription = this._itinerary
       .addDay(this.data.id_itinerary, this.data.day_number, this.data.details)
       .subscribe({
