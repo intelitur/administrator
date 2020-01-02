@@ -70,8 +70,7 @@ export class OffersComponent implements OnInit, OnDestroy {
    * @param index represent day number
    */
   updateDayDistribution(index: number) {
-    console.log(index);
-    let distArray = this.days[index].day.map(
+    let distArray: Array<any> = this.days[index].day.map(
       (e: { offer_id: number; initial_time: string; final_time: string }) => {
         return {
           it: this.it["itinerary_id"],
@@ -82,6 +81,14 @@ export class OffersComponent implements OnInit, OnDestroy {
         };
       }
     );
+    if (distArray.length === 0)
+      distArray = [
+        {
+          it: this.it["itinerary_id"],
+          day_number: index + 1,
+          delete_all: true
+        }
+      ];
     this.subscription = this._itinerary
       .updateDayDistribution(distArray)
       .subscribe({
@@ -94,19 +101,19 @@ export class OffersComponent implements OnInit, OnDestroy {
   /**
    * this method get all days for a specific itinerary
    */
-  getDaysInfo() {
-    for (let i = 0; i < this.it.info.duration; i++) {
-      this.subscription = this._itinerary
+  async getDaysInfo() {
+    for (let i = 1; i < this.it.info.duration; i++) {
+      await this._itinerary
         .getDayInfo(this.it["itinerary_id"], i)
-        .subscribe({
-          next: (data: any) => {
-            if (data.data.day !== null) {
-              this.days.push(data.data);
-              this.sortArray();
-            }
-          },
-          error: (err: HttpErrorResponse) => this.commonService.handleError(err)
-        });
+        .toPromise()
+        .then((data: any) => {
+          if (data.data.day !== null) {
+            this.days.push(data.data);
+            console.log(this.days);
+            this.sortArray();
+          }
+        })
+        .catch((err: HttpErrorResponse) => this.commonService.handleError(err));
     }
   }
 
@@ -116,8 +123,10 @@ export class OffersComponent implements OnInit, OnDestroy {
    */
   sortArray() {
     this.days.sort((a, b): number => {
-      if (a.day[0].day_number > b.day[0].day_number) return 1;
-      if (a.day[0].day_number < b.day[0].day_number) return -1;
+      if (a.day[0] && b.day[0] && a.day[0].day_number > b.day[0].day_number)
+        return 1;
+      if (a.day[0] && b.day[0] && a.day[0].day_number < b.day[0].day_number)
+        return -1;
       // a must be equal to b
       return 0;
     });
@@ -143,8 +152,18 @@ export class OffersComponent implements OnInit, OnDestroy {
    * @funtion delete day by name and clean list
    * @param day
    */
-  deleteDay(day: string) {
+  deleteDay(day: string) {}
 
+  addDay() {
+    this._dialog
+      .openDayDetails({
+        details: "",
+        id_itinerary: this.it["itinerary_id"],
+        day_number: this.days.length + 1
+      })
+      .subscribe({
+        next: (details: string) => console.log(details)
+      });
   }
 
   unlinkOffer(

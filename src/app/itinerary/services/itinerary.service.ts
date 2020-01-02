@@ -27,6 +27,14 @@ export class ItineraryService {
     );
   }
 
+  addDay(id_itinerary: number, day_number: number, details: string): Observable<ResponseInterface> {
+    return this._http.post(`${environment.SERVER_BASE_URL}day/save`, {
+      id_itinerary: id_itinerary,
+      day_number: day_number,
+      details: details
+    });
+  }
+
   getDayInfo(id_itinerary: number, day_number: number): Observable<any> {
     return this._http.get(
       `${environment.SERVER_BASE_URL}day/dayInfo/${id_itinerary}/${day_number}`

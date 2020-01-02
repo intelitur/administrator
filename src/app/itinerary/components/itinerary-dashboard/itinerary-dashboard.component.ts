@@ -23,20 +23,21 @@ export class ItineraryDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    if(!this._itinerary.itinerary_id) {
-      this._router.navigate(['itineraries/show-all'])
-    }
-    this.subscription = this._itinerary
-      .getItineraryFullInfo(this._itinerary.itinerary_id)
-      .subscribe({
-        next: (data: any) => {
-          this.itinerary = data.data;
-        },
-        error: (err: HttpErrorResponse) => this._common.handleError(err)
-      });
+    if (!this._itinerary.itinerary_id)
+      this._router.navigate(["itineraries/show-all"]);
+    else
+      this.subscription = this._itinerary
+        .getItineraryFullInfo(this._itinerary.itinerary_id)
+        .subscribe({
+          next: (data: any) => {
+            this.itinerary = data.data;
+          },
+          error: (err: HttpErrorResponse) => this._common.handleError(err)
+        });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription)
+      this.subscription.unsubscribe();
   }
 }
