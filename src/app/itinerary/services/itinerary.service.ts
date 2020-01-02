@@ -79,6 +79,7 @@ export class ItineraryService {
       { itinerary_id: this.itinerary_id, promotion_id: promotion_id }
     );
   }
+
   /**
    * @function Get promotion by itinerary id
    */
@@ -87,12 +88,22 @@ export class ItineraryService {
       `${environment.SERVER_BASE_URL}itinerary/getPromotionByItinerayID/${this.itinerary_id}`
     );
   }
+
   /**
    * @funtion Get all promotion except added promotion in itinerary
    */
   getAllPromotions(): Observable<any> {
     return this._http.get(
       `${environment.SERVER_BASE_URL}itinerary/getAllPromotions/${this.itinerary_id}`
+    );
+  }
+
+  /**
+   * @funtion Get all promotion except added promotion in itinerary
+   */
+  getDaysDetails(itinerary_id: number): Observable<ResponseInterface> {
+    return this._http.get(
+      `${environment.SERVER_BASE_URL}day/daysDetails/${itinerary_id}`
     );
   }
 

@@ -17,7 +17,8 @@ import { OffersComponent } from "./components/itinerary-dashboard/itinerary-dist
 import { PromotionsComponent } from "./components/itinerary-dashboard/itinerary-distribution/promotions/promotions.component";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { FilterPipeModule } from "ngx-filter-pipe";
-import { DayDetailsComponent } from "./components/itinerary-dashboard/itinerary-distribution/offers/day-details/day-details.component";
+import { CreateDayComponent } from "./components/itinerary-dashboard/itinerary-distribution/create-day/create-day.component";
+import { ShowDayDetailsComponent } from './components/itinerary-dashboard/itinerary-distribution/show-day-details/show-day-details.component';
 @NgModule({
   declarations: [
     ItinerariesComponent,
@@ -32,7 +33,8 @@ import { DayDetailsComponent } from "./components/itinerary-dashboard/itinerary-
     OffersComponent,
     PromotionsComponent,
     ItineraryMapComponent,
-    DayDetailsComponent
+    CreateDayComponent,
+    ShowDayDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { DayDetailsComponent } from "./components/itinerary-dashboard/itinerary-
   entryComponents: [
     ItineraryFormDialogComponent,
     ItineraryDetailsComponent,
-    DayDetailsComponent
+    CreateDayComponent,
+    ShowDayDetailsComponent
   ]
 })
-export class ItineraryModule {}
+export class ItineraryModule { }

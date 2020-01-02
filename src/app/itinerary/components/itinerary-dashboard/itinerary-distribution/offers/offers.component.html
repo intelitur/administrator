@@ -105,7 +105,8 @@
             <button
               class="mr-1"
               mat-raised-button
-              (click)="openDayDetails()"
+              *ngIf="daysDetails[i] && daysDetails[i].details !== null"
+              (click)="openDayDetails(i); false"
               color="accent"
             >
               Detalles

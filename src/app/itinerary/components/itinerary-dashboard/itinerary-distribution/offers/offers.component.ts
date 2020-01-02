@@ -26,12 +26,13 @@ export class OffersComponent implements OnInit, OnDestroy {
   searchOffersCTRL: FormControl = new FormControl();
   filteredOffers: any[];
   isLoading: boolean = false;
+  daysDetails: Array<any> = [];
   constructor(
     public commonService: CommonService,
     private _itinerary: ItineraryService,
     private _dialog: DialogManagerService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   /**
    * in this hook an observable is configured to filter offers based on
@@ -114,6 +115,12 @@ export class OffersComponent implements OnInit, OnDestroy {
         })
         .catch((err: HttpErrorResponse) => this.commonService.handleError(err));
     }
+
+    this.subscription = this._itinerary.getDaysDetails(this.it["itinerary_id"])
+      .subscribe({
+        next: (result: ResponseInterface) => (this.daysDetails = result.data),
+        error: (err: HttpErrorResponse) => this.commonService.handleError(err)
+      })
   }
 
   /**
@@ -151,11 +158,11 @@ export class OffersComponent implements OnInit, OnDestroy {
    * @funtion delete day by name and clean list
    * @param day
    */
-  deleteDay(day: string) {}
+  deleteDay(day: string) { }
 
   addDay() {
     this._dialog
-      .openDayDetails({
+      .openCreateDay({
         details: "",
         id_itinerary: this.it["itinerary_id"],
         day_number: this.days.length + 1
@@ -183,11 +190,11 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   openDayDetails(i: number) {
-    this._dialog.openDayDetails(this.days[i].details);
+    this._dialog.openShowDayDetails(this.daysDetails[i].details);
   }
 
   ngOnDestroy() {
-    if(this.subscription)
+    if (this.subscription)
       this.subscription.unsubscribe();
   }
 }

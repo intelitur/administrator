@@ -4,12 +4,13 @@ import { Observable } from "rxjs";
 import { AddAdminComponent } from "../users/components/add-admin/add-admin.component";
 import { RegisterBusinessManComponent } from "../login/register-business-man/register-business-man.component";
 import { ItineraryFormDialogComponent } from "../itinerary/components/itineraries/itinerary-form-dialog/itinerary-form-dialog.component";
-import { DayDetailsComponent } from "../itinerary/components/itinerary-dashboard/itinerary-distribution/offers/day-details/day-details.component";
+import { CreateDayComponent } from "../itinerary/components/itinerary-dashboard/itinerary-distribution/create-day/create-day.component";
+import { ShowDayDetailsComponent } from '../itinerary/components/itinerary-dashboard/itinerary-distribution/show-day-details/show-day-details.component';
 @Injectable({
   providedIn: "root"
 })
 export class DialogManagerService {
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   openItineraryFormDialog(): Observable<any> {
     const dialogRef = this.dialog.open(ItineraryFormDialogComponent, {
@@ -19,15 +20,24 @@ export class DialogManagerService {
     return dialogRef.afterClosed();
   }
 
-  openDayDetails(data: any) {
-    const dialogRef = this.dialog.open(DayDetailsComponent, {
+  openCreateDay(data: any) {
+    const dialogRef = this.dialog.open(CreateDayComponent, {
       data: data
     });
 
     return dialogRef.afterClosed();
   }
+
+  openShowDayDetails(details: string) {
+    const dialogRef = this.dialog.open(ShowDayDetailsComponent, {
+      data: details
+    });
+
+    return dialogRef.afterClosed();
+  }
+
   /**
-   * @funtion Open dialog to add admin
+   * @function Open dialog to add admin
    */
   openAddAdminFormDialog(): void {
     this.dialog.open(AddAdminComponent, {

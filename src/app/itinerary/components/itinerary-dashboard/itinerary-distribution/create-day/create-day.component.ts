@@ -14,13 +14,13 @@ import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: "app-day-details",
-  templateUrl: "./day-details.component.html",
-  styleUrls: ["./day-details.component.scss"]
+  templateUrl: "./create-day.component.html",
+  styleUrls: ["./create-day.component.scss"]
 })
-export class DayDetailsComponent implements OnInit {
+export class CreateDayComponent implements OnInit {
   subscription: Subscription;
   constructor(
-    @Optional() public dialogRef: MatDialogRef<DayDetailsComponent>,
+    @Optional() public dialogRef: MatDialogRef<CreateDayComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     private _common: CommonService,
     private _itinerary: ItineraryService
