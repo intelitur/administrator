@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
-import { SessionService } from '../general-services/session.service';
+import { AuthService } from '../general-services/auth.service';
+import { User } from '../users/models/User.class';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-login",
@@ -15,8 +17,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     public dialogService: DialogManagerService,
-    public sessionService: SessionService) {
-    // Variable to controller the form group
+    public _auth: AuthService,
+    private _router: Router
+  ) {
     this.loginForm = this._fb.group({
       email: ["", Validators.email],
       password: ["", Validators.required]
@@ -34,14 +37,16 @@ export class LoginComponent implements OnInit {
   /**
    * @funtion Open Dialog to register businessman
    */
-  registerBusinessman(): void{
+  registerBusinessman(): void {
     this.dialogService.openAddBusinessmanFormDialog();
   }
 
   /**
    * @funtion Login
    */
-  loginUser(){
-    this.sessionService.login(this.loginForm.get("email").value,this.loginForm.get("password").value)
+  loginUser() {
+    //this.sessionService.login(this.loginForm.get("email").value, this.loginForm.get("password").value)
+    this._auth.login(new User(1, 1, {}))
+    this._router.navigate(['/'])
   }
 }
