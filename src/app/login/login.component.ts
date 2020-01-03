@@ -5,6 +5,9 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from '../users/services/user.service';
+import { AuthService } from '../general-services/auth.service';
+import { User } from '../users/models/User.class';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-login",
@@ -19,14 +22,15 @@ export class LoginComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     public dialogService: DialogManagerService,
-    public sessionService: UserService) {
-    // Variable to controller the form group
-    this.loginForm = this._fb.group({
-      email: ["", Validators.email],
-      password: ["", Validators.required]
-    });
-  }
+    public sessionService: UserService,
+    public _auth: AuthService,
+    private _router: Router) {
+      this.loginForm = this._fb.group({
+        email: ["", Validators.email],
+        password: ["", Validators.required]
+      });
 
+  }
   ngOnInit() {
     document.body.classList.add('bg-img');
     // Trigger to change icon
@@ -38,7 +42,7 @@ export class LoginComponent implements OnInit {
   /**
    * @funtion Open Dialog to register businessman
    */
-  registerBusinessman(): void{
+  registerBusinessman(): void {
     this.dialogService.openAddBusinessmanFormDialog();
   }
   /**
@@ -64,5 +68,10 @@ export class LoginComponent implements OnInit {
       }, error: (err : HttpErrorResponse)  => {
         this.subscribeLogin.unsubscribe();
         this.sessionService.commonService.openSnackBar(`Error en la autenticación`,"OK");this.sessionService.loadingLogin = false;}});
+ /* loginUser() {
+    //this.sessionService.login(this.loginForm.get("email").value, this.loginForm.get("password").value)
+    this._auth.login(new User(1, 1, {}))
+    this._router.navigate(['/'])
+  }*/
   }
 }

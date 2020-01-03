@@ -1,0 +1,9 @@
+<div class="container-fluid d-flex flex-column justify-content-sm-center">
+  <mat-form-field appearance="outline">
+    <mat-label>Detalles del día</mat-label>
+    <textarea [(ngModel)]="data.details" matInput></textarea>
+  </mat-form-field>
+  <div class="container text-center">
+    <button (click)="save(); false" mat-raised-button color="primary"><mat-icon>save</mat-icon>save</button>
+  </div>
+</div>

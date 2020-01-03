@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { UserService } from '../users/services/user.service';
+import { AuthService } from '../general-services/auth.service';
+
 
 @Component({
   selector: 'app-main-nav',
@@ -18,6 +20,7 @@ export class MainNavComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver,
-    public sessionService: UserService) {}
+    public sessionService: UserService,
+    public _auth: AuthService) {}
 
 }

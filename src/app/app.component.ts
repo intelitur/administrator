@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './users/services/user.service';
+import { AuthService } from './general-services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { UserService } from './users/services/user.service';
 export class AppComponent {
 
   constructor(
-    public sessionService: UserService
+    public sessionService: UserService,
+    public _auth: AuthService
   ){}
   title = 'AdministratorModule';
 

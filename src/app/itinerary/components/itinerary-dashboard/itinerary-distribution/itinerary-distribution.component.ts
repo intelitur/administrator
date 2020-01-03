@@ -1,13 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from "@angular/cdk/drag-drop";
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
+import { HttpErrorResponse } from '@angular/common/http';
+import { CommonService } from 'src/app/general-services/common.service';
+import { ItineraryService } from 'src/app/itinerary/services/itinerary.service';
+import { SessionService } from 'src/app/general-services/session.service';
 
 @Component({
   selector: "app-itinerary-distribution",
@@ -15,39 +12,57 @@ import { DialogManagerService } from "src/app/general-services/dialog-manager.se
   styleUrls: ["./itinerary-distribution.component.scss"]
 })
 export class ItineraryDistributionComponent implements OnInit {
-  @Input() it;
+  private subscription: Subscription;
+  public favorites;
+  constructor(
+    public commonService: CommonService,
+    public sesionService: SessionService,
+    public dialogService: DialogManagerService,
+    public itineraryService: ItineraryService
+  ) {}
+  @Input() it: any;
   ngOnInit(): void {
-    console.log(this.it);
+    //this.favorites = [8];
   }
 
-  offertFilter = '';
-  checked: boolean = false;
-  newOffersList = ["Booking", "Fire","Swing"]
+  setAvailable(state: boolean, itineraryID: number, info: any) {
+    let modifyInfo = info;
+    modifyInfo.active = state;
+    this.subscription = this.itineraryService
+      .changeActiveState(itineraryID, modifyInfo)
+      .subscribe({
+        next: () => {
+          if (state) {
+            this.commonService.openSnackBar(
+              `El itinerario ${itineraryID} ha sido habilitado`,
+              "OK"
+            );
+          } else {
+            this.commonService.openSnackBar(
+              `El itinerario ${itineraryID} ha sido desabilitado`,
+              "OK"
+            );
+          }
+          this.subscription.unsubscribe();
+        },
+        error: (err: HttpErrorResponse) =>
+         this.commonService.openSnackBar(`Error: ${err}`, "OK")
+      });
+  }
 
-  myControlOffers = new FormControl();
-  filteredOptionsOffers: Observable<string[]>;
-  offersDay1 = ["Walking", "Lunch", "Dinner"];
-  offersDay2 = ["Biking tour", "Afternoon chill", "BreakFast"];
-  offersDay3 = ["Extreme canopy", "Souvenir time", "Horse tour"];
-
-  promotionsDay1 = ["Promotion", "Promotion", "Promotion"];
-  promotionsDay2 = ["Promotion", "Promotion", "Promotion"];
-  promotionsDay3 = ["Promotion", "Promotion", "Promotion"];
-  constructor(private _dialog: DialogManagerService) { }
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-  }}
-
+  favoriteItinerary(itineraryID: number) {
+    let userID = this.sesionService.actualUser.user_id;
+    this.subscription = this.itineraryService
+      .addFavoriteItinerary(itineraryID, userID)
+      .subscribe({
+        next: () => {
+            this.commonService.openSnackBar(
+              `El itinerario ${itineraryID} ha sido agregado a favoritos`,
+              "OK"
+            );
+          this.subscription.unsubscribe();
+        },
+        error: (err: HttpErrorResponse) =>
+         this.commonService.openSnackBar(`Error: ${err}`, "OK")});
+  }
 }

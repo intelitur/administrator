@@ -24,7 +24,9 @@ import {
   MatDatepickerModule,
   MatRadioModule,
   MatTabsModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatProgressBarModule,
+  MatExpansionModule
 } from "@angular/material";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 @NgModule({
@@ -56,7 +58,9 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     DragDropModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    FileUploadModule
+    FileUploadModule,
+    MatProgressBarModule,
+    MatExpansionModule
   ],
   exports: [
     LayoutModule,
@@ -84,7 +88,9 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     DragDropModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    FileUploadModule
+    FileUploadModule,
+    MatProgressBarModule,
+    MatExpansionModule
   ]
 })
 export class SharedModule {}

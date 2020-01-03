@@ -57,9 +57,8 @@ export class ProfileComponent implements OnInit {
   }
 
   saveChanges(){
-    console.log('object');
     let passChanged = false;
-    if(!this.editProfileForm.get('password').value){
+    if(this.editProfileForm.get('password').value != ''){
       this.user.info.password = this.editProfileForm.get('password').value;
       passChanged = true;
     }

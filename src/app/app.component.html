@@ -1,2 +1,2 @@
-<app-main-nav *ngIf="sessionService.actualUser"></app-main-nav>
-<app-login *ngIf="sessionService.actualUser === null"></app-login>
+<app-main-nav *ngIf="_auth.isLoggedIn()"></app-main-nav>
+<app-login *ngIf="!_auth.isLoggedIn()"></app-login>

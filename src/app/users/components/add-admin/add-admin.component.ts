@@ -63,7 +63,6 @@ export class AddAdminComponent implements OnInit {
         this.dialog.closeAll();
       }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
     });
-
   }
 
   ngOnDestroy() {
