@@ -6,6 +6,7 @@ import { CommonService } from '../../general-services/common.service';
 import { Observable, Subscription } from 'rxjs';
 import { BusinessMan } from '../models/Businessman.class';
 import { AdministratorMan } from '../models/AdministratorMan.class';
+import { AuthService } from 'src/app/general-services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,10 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    public commonService: CommonService
+    public commonService: CommonService,
+    public authService: AuthService
   ) {
-    this.actualUser = JSON.parse(localStorage.getItem(environment.localstorage_key));
+    this.actualUser = this.authService.getUser();
    }
 
 
@@ -90,7 +92,7 @@ export class UserService {
    * @function Log out session
    */
   logOut(){
-    localStorage.removeItem(environment.localstorage_key);
+    this.authService.logout();
     this.actualUser = null;
   }
 

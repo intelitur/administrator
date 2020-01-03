@@ -2,12 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
 import { Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from '../users/services/user.service';
 import { AuthService } from '../general-services/auth.service';
-import { User } from '../users/models/User.class';
-import { Router } from '@angular/router';
 
 @Component({
   selector: "app-login",
@@ -24,7 +21,7 @@ export class LoginComponent implements OnInit {
     public dialogService: DialogManagerService,
     public sessionService: UserService,
     public _auth: AuthService,
-    private _router: Router) {
+    ) {
       this.loginForm = this._fb.group({
         email: ["", Validators.email],
         password: ["", Validators.required]
@@ -60,18 +57,11 @@ export class LoginComponent implements OnInit {
       next: (data : any) => {
         this.sessionService.loadingLogin = false;
         this.subscribeLogin.unsubscribe();
-        localStorage.setItem(environment.localstorage_key,JSON.stringify(
-          {name: data.data.name, user_id: data.data.user_id, role_id: data.data.role_id})
-          );
-        this.sessionService.actualUser = JSON.parse(localStorage.getItem(environment.localstorage_key));
+        this._auth.login({name: data.data.name, user_id: data.data.user_id, role_id: data.data.role_id});
+        this.sessionService.actualUser = this._auth.getUser();
         this.sessionService.commonService.openSnackBar(`Bienvenido ${this.sessionService.actualUser.name}`,"OK");
       }, error: (err : HttpErrorResponse)  => {
         this.subscribeLogin.unsubscribe();
         this.sessionService.commonService.openSnackBar(`Error en la autenticación`,"OK");this.sessionService.loadingLogin = false;}});
- /* loginUser() {
-    //this.sessionService.login(this.loginForm.get("email").value, this.loginForm.get("password").value)
-    this._auth.login(new User(1, 1, {}))
-    this._router.navigate(['/'])
-  }*/
   }
 }
