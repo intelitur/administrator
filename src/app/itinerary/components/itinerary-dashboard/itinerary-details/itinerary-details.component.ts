@@ -14,7 +14,8 @@ export class ItineraryDetailsComponent implements OnInit {
     "https://www.solidbackgrounds.com/images/1366x768/1366x768-navy-purple-solid-color-background.jpg"
   ];
   @Input() it: Itinerary;
-  constructor() {}
+  constructor(
+  ) {}
 
   ngOnInit() {}
 }

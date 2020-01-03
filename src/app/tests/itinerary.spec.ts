@@ -245,4 +245,119 @@ describe("Itinerary service", () => {
         }
       });
   });
+    // 33
+  it("Able itinerary active state successfully", (done: DoneFn) => {
+      //spyOn(service, ).and.returnValue(of(response))
+      service
+        .changeActiveState(
+          8,
+            {
+              name: "nombre de prueba",
+              total_price: 10,
+              price_per_day: 10,
+              adult_number: 10,
+              child_number: 10,
+              description: "descripción de prueba",
+              duration: 5,
+              active: true,
+              public: false,
+              initial_date: Date.now(),
+              final_date: Date.now()
+            }
+        )
+        .subscribe({
+          next: (data: ResponseInterface) => {
+            expect(data.message).not.toBeNull();
+            expect(data.code).toBe(200);
+            done();
+          }
+        });
+    });
+  // 34
+  it("Disable itinerary active state successfully", (done: DoneFn) => {
+    //spyOn(service, ).and.returnValue(of(response))
+    service
+      .changeActiveState(
+        8,
+          {
+            name: "nombre de prueba",
+            total_price: 10,
+            price_per_day: 10,
+            adult_number: 10,
+            child_number: 10,
+            description: "descripción de prueba",
+            duration: 5,
+            active: false,
+            public: false,
+            initial_date: Date.now(),
+            final_date: Date.now()
+          }
+      )
+      .subscribe({
+        next: (data: ResponseInterface) => {
+          expect(data.message).not.toBeNull();
+          expect(data.code).toBe(200);
+          done();
+        }
+      });
+  });
+    // 35
+  it("Change itinerary active state error", (done: DoneFn) => {
+      //spyOn(service, ).and.returnValue(of(response))
+      service
+        .changeActiveState(undefined, undefined)
+        .subscribe({
+          error: (err: HttpErrorResponse) => {
+            expect(err.message).not.toBeNull();
+            expect(err.status).toBe(500);
+            done();
+          }
+        });
+    });
+   // 36
+  it("Add itinerary to favorites successfully", (done: DoneFn) => {
+     service.addFavoriteItinerary(8, 14).subscribe({
+       next: (data: ResponseInterface) => {
+         expect(data.message).not.toBeNull();
+         expect(data.code).toBe(200);
+         done();
+        }
+      });
+  });
+
+  // 37
+  it("Add itinerary to favorites error", (done: DoneFn) => {
+    service
+      .addFavoriteItinerary(undefined, undefined)
+      .subscribe({
+        error: (err: HttpErrorResponse) => {
+          expect(err.message).not.toBeNull();
+          expect(err.status).toBe(500);
+          done();
+        }
+      });
+  });
+     // 38
+  it("Add promotion to favorites successfully", (done: DoneFn) => {
+      service.addFavoritePromotion(10, 14).subscribe({
+        next: (data: ResponseInterface) => {
+          expect(data.message).not.toBeNull();
+          expect(data.code).toBe(200);
+          done();
+         }
+       });
+   });
+ 
+   // 39
+  it("Add promotion to favorites error", (done: DoneFn) => {
+     service
+       .addFavoritePromotion(undefined, undefined)
+       .subscribe({
+         error: (err: HttpErrorResponse) => {
+           expect(err.message).not.toBeNull();
+           expect(err.status).toBe(500);
+           done();
+         }
+       });
+   });
 });
