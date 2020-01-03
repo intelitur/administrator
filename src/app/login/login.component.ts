@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
    */
   loginUser(){
     this.sessionService.loadingLogin = true;
-    this.sessionService.login(this.loginForm.get("email").value,this.loginForm.get("password").value).subscribe({
+    this.subscribeLogin = this.sessionService.login(this.loginForm.get("email").value,this.loginForm.get("password").value).subscribe({
       next: (data : any) => {
         this.sessionService.loadingLogin = false;
         this.subscribeLogin.unsubscribe();
