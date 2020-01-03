@@ -11,11 +11,11 @@ import { AdministratorMan } from '../models/AdministratorMan.class';
   providedIn: 'root'
 })
 export class UserService {
-  private subscription: Subscription;
+
   public actualUser:User;
   public loadingLogin: boolean = false;
   users: Array<any>;
-  user: User;
+
   constructor(
     private http: HttpClient,
     public commonService: CommonService
@@ -28,12 +28,7 @@ export class UserService {
    * @funtion Get all user
    */
   getAllUser(){
-    this.subscription = this.http.get(`${environment.SERVER_BASE_URL}generalUsers/getAllUsers`).subscribe({
-      next: (data: any) => {
-        this.users = data.data;
-        this.subscription.unsubscribe();
-      }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
-    });
+    return this.http.get(`${environment.SERVER_BASE_URL}generalUsers/getAllUsers`);
   };
 
   /**

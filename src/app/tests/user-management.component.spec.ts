@@ -119,17 +119,22 @@ describe("User-Management", () => {
     let errResponse: any;
     const mockErrorResponse = { status: 400, statusText: "Bad Request" };
     const data = "Invalid request parameters";
-
+    service.getAllUser().subscribe(
+      res => (response = res),
+      (err: HttpErrorResponse) => (errResponse = err)
+    );
     httpMock.expectOne(`${environment.SERVER_BASE_URL}category/getAll`).flush(data, mockErrorResponse);
     expect(errResponse.error).toBe(data);
   });
 
-  /*it("Get all users", (done: DoneFn) => {
+  it("Get all users", (done: DoneFn) => {
     service.getAllUser().subscribe({
       next: (data: any) => {
         expect(data.code).toBe(200);
         done();
       }
     })
-  });*/
+  });
 });
+
+

@@ -4,7 +4,7 @@ import {
   platformBrowserDynamicTesting
 } from "@angular/platform-browser-dynamic/testing";
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { SharedModule } from 'src/app/shared.module';
+import { SharedModule } from '../shared.module';
 import { UserService } from '../users/services/user.service';
 
 describe("Authentication", () => {

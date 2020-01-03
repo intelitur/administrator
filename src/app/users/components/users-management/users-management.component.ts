@@ -99,8 +99,5 @@ export class UsersManagementComponent implements OnInit {
     this.dialogService.openAddAdminFormDialog();
   }
 
-  /*ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }*/
 
 }
