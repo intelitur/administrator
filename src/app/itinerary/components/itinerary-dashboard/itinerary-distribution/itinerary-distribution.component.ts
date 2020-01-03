@@ -4,7 +4,7 @@ import { DialogManagerService } from "src/app/general-services/dialog-manager.se
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/general-services/common.service';
 import { ItineraryService } from 'src/app/itinerary/services/itinerary.service';
-import { SessionService } from 'src/app/general-services/session.service';
+import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
   selector: "app-itinerary-distribution",
@@ -16,7 +16,7 @@ export class ItineraryDistributionComponent implements OnInit {
   public favorites;
   constructor(
     public commonService: CommonService,
-    public sesionService: SessionService,
+    public sesionService: UserService,
     public dialogService: DialogManagerService,
     public itineraryService: ItineraryService
   ) {}

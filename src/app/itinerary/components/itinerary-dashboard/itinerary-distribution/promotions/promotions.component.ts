@@ -4,7 +4,7 @@ import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { Subscription } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Promotion } from "src/app/itinerary/models/promotion";
-import { SessionService } from 'src/app/general-services/session.service';
+import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
   selector: "app-promotions",
@@ -14,7 +14,7 @@ import { SessionService } from 'src/app/general-services/session.service';
 export class PromotionsComponent implements OnInit {
   constructor(
     public commonService: CommonService,
-    public sesionService: SessionService,
+    public sesionService: UserService,
     public itineraryService: ItineraryService
   ) {}
   addedPromotions: Array<Promotion> = new Array();
