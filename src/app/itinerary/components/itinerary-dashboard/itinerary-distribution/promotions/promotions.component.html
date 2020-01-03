@@ -19,9 +19,15 @@
       <cdk-virtual-scroll-viewport  *ngIf="!promotionLoading" itemSize="50" class="containerPromotions">
         <div class="example-box d-flex flex-row justify-content-sm-between rounded" *cdkVirtualFor="let promotion of promotions | filterBy: filter">
           <span>{{ promotion.name }}</span>
+
+          <button mat-icon-button mat-button class="btn">
+            <mat-icon matTooltip="Agregar a favoritos" color="primary" (click)="favoritePromotion(promotion.promotion_id)">favorite_border</mat-icon>
+          </button>
+
           <button mat-icon-button mat-button class="btn">
             <mat-icon matTooltip="Agregar promoción" color="primary" (click)="addPromotionInItinerary(promotion.promotion_id)">add</mat-icon>
           </button>
+          
         </div>
       </cdk-virtual-scroll-viewport>
       <!-- in case you want to show empty message -->

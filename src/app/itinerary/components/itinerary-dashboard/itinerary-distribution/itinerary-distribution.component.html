@@ -1,22 +1,17 @@
 <div class="container-fluid d-flex flex-column justify-content-sm-around p-0">
   <app-itinerary-details [it]="it"></app-itinerary-details>
-  <div class="text-left container-fluid mt-2">
+  <div class="text-left container-fluid mt-2 example-box ">
+    
     <mat-slide-toggle (change)="setAvailable(!it.info.active, it.itinerary_id, it.info)" [checked]="it.info.active">{{
       it.info.active ? "Habilidado" : "Deshabilitado"
     }}</mat-slide-toggle>
+
+    <button mat-icon-button mat-button class="btn">
+      <mat-icon matTooltip="Agregar a favoritos" color="primary" (click)="favoriteItinerary(it.itinerary_id)">favorite_border</mat-icon>
+    </button>
+
   </div>
   <app-offers *ngIf="it" [it]="it"></app-offers>
   <hr />
   <app-promotions></app-promotions>
 </div>
-
-<!--
-
-  <mat-slide-toggle (change)="checked = !checked" [checked]="it.info.active">{{
-      it.info.active ? "Habilidado" : "Deshabilitado"
-    }}</mat-slide-toggle>
-
-  <mat-slide-toggle (change)="setAvailable(!user.info.available,user.user_id, user.info)" color="primary"
-                  [checked]=user.info.available>
-                </mat-slide-toggle>
--->

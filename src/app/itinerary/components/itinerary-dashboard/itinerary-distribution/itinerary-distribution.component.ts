@@ -10,6 +10,7 @@ import { DialogManagerService } from "src/app/general-services/dialog-manager.se
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/general-services/common.service';
 import { ItineraryService } from 'src/app/itinerary/services/itinerary.service';
+import { SessionService } from 'src/app/general-services/session.service';
 
 @Component({
   selector: "app-itinerary-distribution",
@@ -18,14 +19,16 @@ import { ItineraryService } from 'src/app/itinerary/services/itinerary.service';
 })
 export class ItineraryDistributionComponent implements OnInit {
   private subscription: Subscription;
+  public favorites;
   constructor(
     public commonService: CommonService,
+    public sesionService: SessionService,
     public dialogService: DialogManagerService,
-    //public dialog: MatDialog,
     public itineraryService: ItineraryService
   ) {}
   @Input() it: any;
   ngOnInit(): void {
+    //this.favorites = [8];
   }
 
   setAvailable(state: boolean, itineraryID: number, info: any) {
@@ -47,13 +50,25 @@ export class ItineraryDistributionComponent implements OnInit {
             );
           }
           this.subscription.unsubscribe();
-
-          //let idx = this.itineraryService.users.findIndex(user => user.user_id === userID);
-          //this.itineraryService.users[idx].info.available = state;
         },
         error: (err: HttpErrorResponse) =>
          this.commonService.openSnackBar(`Error: ${err}`, "OK")
-
       });
+  }
+
+  favoriteItinerary(itineraryID: number) {
+    let userID = this.sesionService.actualUser.user_id;
+    this.subscription = this.itineraryService
+      .addFavoriteItinerary(itineraryID, userID)
+      .subscribe({
+        next: (data: any) => {
+            this.commonService.openSnackBar(
+              `El itinerario ${itineraryID} ha sido agregado a favoritos`,
+              "OK"
+            );
+          this.subscription.unsubscribe();
+        },
+        error: (err: HttpErrorResponse) =>
+         this.commonService.openSnackBar(`Error: ${err}`, "OK")});
   }
 }

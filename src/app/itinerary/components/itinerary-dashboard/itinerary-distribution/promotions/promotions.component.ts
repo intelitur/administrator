@@ -4,6 +4,7 @@ import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { Subscription } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Promotion } from "src/app/itinerary/models/promotion";
+import { SessionService } from 'src/app/general-services/session.service';
 
 @Component({
   selector: "app-promotions",
@@ -13,6 +14,7 @@ import { Promotion } from "src/app/itinerary/models/promotion";
 export class PromotionsComponent implements OnInit {
   constructor(
     public commonService: CommonService,
+    public sesionService: SessionService,
     public itineraryService: ItineraryService
   ) {}
   addedPromotions: Array<Promotion> = new Array();
@@ -124,5 +126,21 @@ export class PromotionsComponent implements OnInit {
     );
     this.promotions.push(prom);
     this.promotions = this.promotions.filter(item => item); // Refresh list
+  }
+
+  favoritePromotion(promotionID: number) {
+    let userID = this.sesionService.actualUser.user_id;
+    this.subscription = this.itineraryService
+      .addFavoritePromotion(promotionID, userID)
+      .subscribe({
+        next: (data: any) => {
+            this.commonService.openSnackBar(
+              `La oferta ${promotionID} ha sido agregado a favoritos`,
+              "OK"
+            );
+          this.subscription.unsubscribe();
+        },
+        error: (err: HttpErrorResponse) =>
+         this.commonService.openSnackBar(`Error: ${err}`, "OK")});
   }
 }
