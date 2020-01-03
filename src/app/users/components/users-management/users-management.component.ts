@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { CommonService } from "src/app/general-services/common.service";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
-import { UserManagementService } from "src/app/users/services/user-management.service";
+import { UserService } from "src/app/users/services/user.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Subscription } from 'rxjs';
 
@@ -18,7 +18,7 @@ export class UsersManagementComponent implements OnInit {
     public commonService: CommonService,
     public dialogService: DialogManagerService,
     public dialog: MatDialog,
-    public userManagmentService: UserManagementService
+    public userManagmentService: UserService
   ) {}
 
   ngOnInit() {

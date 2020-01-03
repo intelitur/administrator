@@ -5,7 +5,7 @@ import { CommonService } from 'src/app/general-services/common.service';
 import { BusinessMan } from 'src/app/users/models/Businessman.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { SessionService } from 'src/app/general-services/session.service';
+import { UserService } from 'src/app/users/services/user.service';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class RegisterBusinessManComponent implements OnInit {
     public dialogRef: MatDialogRef<RegisterBusinessManComponent>,
     public dialog: MatDialog,
     private _fb: FormBuilder,
-    public sessionService: SessionService,
+    public sessionService: UserService,
     public commonService: CommonService
   ) {
     // Variable to controller the form group

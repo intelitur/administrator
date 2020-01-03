@@ -5,7 +5,7 @@ import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { Subscription } from "rxjs";
 import { CommonService } from "src/app/general-services/common.service";
 import { HttpErrorResponse } from "@angular/common/http";
-import { SessionService } from 'src/app/general-services/session.service';
+import { UserService } from 'src/app/users/services/user.service';
 
 /*const ELEMENT_DATA: PeriodicElement[] = [
   { position: 1, name: "Arenal Lake Premium Package", status: true },
@@ -33,7 +33,7 @@ export class ItinerariesTableComponent implements OnInit {
     private _dialog: DialogManagerService,
     private _itinerary: ItineraryService,
     private _common: CommonService,
-    public sesionService: SessionService
+    public sesionService: UserService
   ) {}
 
   ngOnInit() {

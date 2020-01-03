@@ -5,7 +5,7 @@ import { CommonService } from '../../../general-services/common.service';
 import { AdministratorMan } from 'src/app/users/models/AdministratorMan.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { SessionService } from 'src/app/general-services/session.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-add-admin',
@@ -23,7 +23,7 @@ export class AddAdminComponent implements OnInit {
     public dialogRef: MatDialogRef<AddAdminComponent>,
     public dialog: MatDialog,
     private _fb: FormBuilder,
-    public sessionService: SessionService,
+    public sessionService: UserService,
     public commonService: CommonService
   ) {
     // Variable to controller the form group

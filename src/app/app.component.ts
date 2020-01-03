@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SessionService } from './general-services/session.service';
+import { UserService } from './users/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { SessionService } from './general-services/session.service';
 export class AppComponent {
 
   constructor(
-    public sessionService: SessionService
+    public sessionService: UserService
   ){}
   title = 'AdministratorModule';
 

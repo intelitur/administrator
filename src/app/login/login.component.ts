@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
-import { SessionService } from '../general-services/session.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from '../users/services/user.service';
 
 @Component({
   selector: "app-login",
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     public dialogService: DialogManagerService,
-    public sessionService: SessionService) {
+    public sessionService: UserService) {
     // Variable to controller the form group
     this.loginForm = this._fb.group({
       email: ["", Validators.email],

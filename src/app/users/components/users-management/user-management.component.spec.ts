@@ -4,11 +4,11 @@ import {
   platformBrowserDynamicTesting
 } from "@angular/platform-browser-dynamic/testing";
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { UserManagementService } from '../../services/user-management.service';
+import { UserService } from '../../services/user.service';
 import { SharedModule } from 'src/app/shared.module';
 describe("User-Management", () => {
   let injector: TestBed;
-  let service: UserManagementService;
+  let service: UserService;
 
   beforeEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
@@ -19,11 +19,11 @@ describe("User-Management", () => {
     );
     TestBed.configureTestingModule({
       imports: [HttpClientModule, SharedModule],
-      providers: [UserManagementService]
+      providers: [UserService]
     });
 
     injector = getTestBed();
-    service = injector.get(UserManagementService);
+    service = injector.get(UserService);
     //httpMock = injector.get(HttpTestingController);
   });
 

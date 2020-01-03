@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { CommonService } from 'src/app/general-services/common.service';
-import { SessionService } from 'src/app/general-services/session.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -24,7 +24,7 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ForgotPasswordComponent>,
     public dialog: MatDialog,
-    public sessionService: SessionService,
+    public sessionService: UserService,
     public commonService: CommonService,
     private _fb: FormBuilder
   ) {

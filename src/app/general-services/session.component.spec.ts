@@ -5,10 +5,11 @@ import {
 } from "@angular/platform-browser-dynamic/testing";
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared.module';
-import { SessionService } from './session.service';
+import { UserService } from '../users/services/user.service';
+
 describe("Authentication", () => {
   let injector: TestBed;
-  let service: SessionService;
+  let service: UserService;
   beforeEach(() => {
     //jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     TestBed.resetTestEnvironment();
@@ -18,10 +19,10 @@ describe("Authentication", () => {
     );
     TestBed.configureTestingModule({
       imports: [HttpClientModule, SharedModule],
-      providers: [SessionService]
+      providers: [UserService]
     });
     injector = getTestBed();
-    service = injector.get(SessionService);
+    service = injector.get(UserService);
   });
 
   it("Autenticación de usuario correctamente", (done: DoneFn) => {
