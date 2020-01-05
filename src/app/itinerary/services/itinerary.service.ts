@@ -12,13 +12,28 @@ export class ItineraryService {
   itinerary_id: number;
   constructor(private _http: HttpClient) {}
 
+  getFavoriteItinerary(user_id: number): Observable<any> {
+    return this._http.get(`${environment.SERVER_BASE_URL}itinerary/getFavoriteItinerary/${user_id}`);
+  };
+
+  getFavoriteOffer(user_id: number): Observable<any> {
+    return this._http.get(`${environment.SERVER_BASE_URL}itinerary/getFavoriteOffer/${user_id}`);
+  };
 
   addFavoriteItinerary(itinerary_id: number, user_id: number) : Observable<any> {
     return this._http.post(`${environment.SERVER_BASE_URL}itinerary/addFavoriteItinerary`,{id_itinerary: itinerary_id, id_user: user_id});
   };
+  
+  addFavoriteOffer(offer_id: number, user_id: number) : Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/addFavoriteOffer`,{id_offer: offer_id, id_user: user_id});
+  };
 
-  addFavoritePromotion(promotion_id: number, user_id: number) : Observable<any> {
-    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/addFavoritePromotion`,{id_promotion: promotion_id, id_user: user_id});
+  removeFavoriteItinerary(itinerary_id: number, user_id: number) : Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/removeFavoriteItinerary`,{id_itinerary: itinerary_id, id_user: user_id});
+  };
+  
+  removeFavoriteOffer(offer_id: number, user_id: number) : Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/removeFavoriteOffer`,{id_offer: offer_id, id_user: user_id});
   };
 
   changeActiveState(itinerary_id: number, info: any) : Observable<any> {

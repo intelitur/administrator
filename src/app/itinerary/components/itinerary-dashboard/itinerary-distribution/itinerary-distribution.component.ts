@@ -13,7 +13,7 @@ import { UserService } from 'src/app/users/services/user.service';
 })
 export class ItineraryDistributionComponent implements OnInit {
   private subscription: Subscription;
-  public favorites;
+  favorites: Array<number> = [];
   constructor(
     public commonService: CommonService,
     public sesionService: UserService,
@@ -22,7 +22,14 @@ export class ItineraryDistributionComponent implements OnInit {
   ) {}
   @Input() it: any;
   ngOnInit(): void {
-    //this.favorites = [8];
+    this.subscription = this.itineraryService
+      .getFavoriteItinerary(this.sesionService.actualUser.user_id)
+      .subscribe({
+        next: (data: any) => {
+          this.favorites = data.data[0].get_favorite_itinerary;
+        },
+        error: (err: HttpErrorResponse) => this.commonService.handleError(err)
+      });
   }
 
   setAvailable(state: boolean, itineraryID: number, info: any) {
@@ -50,7 +57,8 @@ export class ItineraryDistributionComponent implements OnInit {
       });
   }
 
-  favoriteItinerary(itineraryID: number) {
+  addFavoriteItinerary(itineraryID: number) {
+    this.favorites.push(itineraryID);
     let userID = this.sesionService.actualUser.user_id;
     this.subscription = this.itineraryService
       .addFavoriteItinerary(itineraryID, userID)
@@ -58,6 +66,23 @@ export class ItineraryDistributionComponent implements OnInit {
         next: () => {
             this.commonService.openSnackBar(
               `El itinerario ${itineraryID} ha sido agregado a favoritos`,
+              "OK"
+            );
+          this.subscription.unsubscribe();
+        },
+        error: (err: HttpErrorResponse) =>
+         this.commonService.openSnackBar(`Error: ${err}`, "OK")});
+  }
+
+  removeFavoriteItinerary(itineraryID: number) {
+    this.favorites.splice(this.favorites.indexOf(itineraryID, 0), 1);
+    let userID = this.sesionService.actualUser.user_id;
+    this.subscription = this.itineraryService
+      .removeFavoriteItinerary(itineraryID, userID)
+      .subscribe({
+        next: () => {
+            this.commonService.openSnackBar(
+              `El itinerario ${itineraryID} ha sido removido de favoritos`,
               "OK"
             );
           this.subscription.unsubscribe();

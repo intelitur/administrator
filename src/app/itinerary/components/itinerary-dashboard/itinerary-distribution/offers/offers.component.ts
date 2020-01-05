@@ -13,6 +13,7 @@ import { ResponseInterface } from "src/app/globalModels/Response.interface";
 import { FormControl } from "@angular/forms";
 import { debounceTime, tap, switchMap, finalize } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
   selector: "app-offers",
@@ -21,6 +22,7 @@ import { environment } from "src/environments/environment";
 })
 export class OffersComponent implements OnInit, OnDestroy {
   days: Array<any> = [];
+  favorites: Array<number> = [];
   @Input() it: any;
   subscription: Subscription;
   searchOffersCTRL: FormControl = new FormControl();
@@ -29,6 +31,7 @@ export class OffersComponent implements OnInit, OnDestroy {
   daysDetails: Array<any> = [];
   constructor(
     public commonService: CommonService,
+    public sesionService: UserService,
     private _itinerary: ItineraryService,
     private _dialog: DialogManagerService,
     private http: HttpClient
@@ -39,6 +42,15 @@ export class OffersComponent implements OnInit, OnDestroy {
    * input value
    */
   ngOnInit() {
+    this.subscription = this._itinerary
+      .getFavoriteOffer(this.sesionService.actualUser.user_id)
+      .subscribe({
+        next: (data: any) => {
+          this.favorites = data.data[0].get_favorite_offer;
+          console.log(this.favorites);
+        },
+        error: (err: HttpErrorResponse) => this.commonService.handleError(err)
+    });
     if (this.it) {
       this.getDaysInfo();
       this.searchOffersCTRL.valueChanges
@@ -64,6 +76,40 @@ export class OffersComponent implements OnInit, OnDestroy {
           this.filteredOffers = result.data;
         });
     }
+  }
+
+  addOfferFavorite(offerID: number) {
+    this.favorites.push(offerID);
+    let userID = this.sesionService.actualUser.user_id;
+    this.subscription = this._itinerary
+      .addFavoriteOffer(offerID, userID)
+      .subscribe({
+        next: () => {
+            this.commonService.openSnackBar(
+              `La oferta ${offerID} ha sido agregado a favoritos`,
+              "OK"
+            );
+          this.subscription.unsubscribe();
+        },
+        error: (err: HttpErrorResponse) =>
+         this.commonService.openSnackBar(`Error: ${err}`, "OK")});
+  }
+
+  removeOfferFavorite(offerID: number) {
+    this.favorites.splice(this.favorites.indexOf(offerID, 0), 1);
+    let userID = this.sesionService.actualUser.user_id;
+    this.subscription = this._itinerary
+      .removeFavoriteOffer(offerID, userID)
+      .subscribe({
+        next: () => {
+            this.commonService.openSnackBar(
+              `La oferta ${offerID} ha sido eliminada de favoritos`,
+              "OK"
+            );
+          this.subscription.unsubscribe();
+        },
+        error: (err: HttpErrorResponse) =>
+         this.commonService.openSnackBar(`Error: ${err}`, "OK")});
   }
 
   /**

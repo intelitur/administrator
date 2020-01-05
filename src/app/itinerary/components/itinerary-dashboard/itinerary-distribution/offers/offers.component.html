@@ -82,6 +82,17 @@
                         >delete</mat-icon
                       >
                     </button>
+
+                    <button *ngIf="favorites.includes(offer.offer_id); else filled" mat-icon-button mat-button class="btn">
+                      <mat-icon matTooltip="Remover de favoritos" color="primary" (click)="removeOfferFavorite(offer.offer_id)">favorite</mat-icon>
+                    </button>
+                
+                    <ng-template #filled>
+                      <button mat-icon-button mat-button class="btn">
+                        <mat-icon matTooltip="Agregar a favoritos" color="primary" (click)="addOfferFavorite(offer.offer_id)">favorite_border</mat-icon>
+                      </button>
+                    </ng-template>
+
                   </div>
                   <mat-list class="container-fluid" role="list">
                     <mat-list-item role="listitem"

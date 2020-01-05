@@ -93,7 +93,7 @@ describe("offers and related tests", () => {
           done();
         }
       });
-    })
+    });
 
     // TODO: revisar algún enlace existente
     it("Error al desvincular una oferta con un día", (done: DoneFn) => {
@@ -104,7 +104,30 @@ describe("offers and related tests", () => {
           done();
         }
       });
-    })
+    });
+
+    it("Add offer to favorites successfully", (done: DoneFn) => {
+      service.addFavoriteOffer(4, 14).subscribe({
+        next: (data: ResponseInterface) => {
+          expect(data.message).not.toBeNull();
+          expect(data.code).toBe(200);
+          done();
+        }
+      });
+    });
+
+
+    it("Add offer to favorites error", (done: DoneFn) => {
+      service
+        .addFavoriteOffer(undefined, undefined)
+        .subscribe({
+          error: (err: HttpErrorResponse) => {
+            expect(err.message).not.toBeNull();
+            expect(err.status).toBe(500);
+            done();
+          }
+        });
+    });
 
   })
   

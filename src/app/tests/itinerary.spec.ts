@@ -337,27 +337,5 @@ describe("Itinerary service", () => {
         }
       });
   });
-     // 38
-  it("Add promotion to favorites successfully", (done: DoneFn) => {
-      service.addFavoritePromotion(10, 14).subscribe({
-        next: (data: ResponseInterface) => {
-          expect(data.message).not.toBeNull();
-          expect(data.code).toBe(200);
-          done();
-         }
-       });
-   });
- 
-   // 39
-  it("Add promotion to favorites error", (done: DoneFn) => {
-     service
-       .addFavoritePromotion(undefined, undefined)
-       .subscribe({
-         error: (err: HttpErrorResponse) => {
-           expect(err.message).not.toBeNull();
-           expect(err.status).toBe(500);
-           done();
-         }
-       });
-   });
+
 });
