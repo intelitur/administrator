@@ -360,4 +360,31 @@ describe("Itinerary service", () => {
          }
        });
    });
+
+   it("Error al obtener puntos de eventos geográficos por id del itinerario",() => {
+    let response: any;
+    let errResponse: any;
+    const mockErrorResponse = { status: 400, statusText: "Bad Request" };
+    const data = "Invalid request parameters";
+    service.itinerary_id = 5;
+    service.getEventGeomByItineraryID().subscribe(
+      res => (response = res),
+      (err: HttpErrorResponse) => (errResponse = err)
+    );
+    httpMock.expectOne(`${environment.SERVER_BASE_URL}itinerary/getEventGeomByItineraryID/5`).flush(data, mockErrorResponse);
+    expect(errResponse.error).toBe(data);
+  })
+
+
+  it("Obtener puntos de eventos geográficos por id del itinerario", (done: DoneFn) => {
+    service
+      .getEventGeomByItineraryID()
+      .subscribe({
+        next: (data: ResponseInterface) => {
+          expect(data.message).not.toBeNull();
+          expect(data.code).toBe(200);
+          done();
+         }
+      });
+  });
 });
