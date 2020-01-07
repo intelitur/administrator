@@ -13,32 +13,54 @@ export class ItineraryService {
   constructor(private _http: HttpClient) {}
 
   getFavoriteItinerary(user_id: number): Observable<any> {
-    return this._http.get(`${environment.SERVER_BASE_URL}itinerary/getFavoriteItinerary/${user_id}`);
-  };
+    return this._http.get(
+      `${environment.SERVER_BASE_URL}itinerary/getFavoriteItinerary/${user_id}`
+    );
+  }
 
   getFavoriteOffer(user_id: number): Observable<any> {
-    return this._http.get(`${environment.SERVER_BASE_URL}itinerary/getFavoriteOffer/${user_id}`);
-  };
+    return this._http.get(
+      `${environment.SERVER_BASE_URL}itinerary/getFavoriteOffer/${user_id}`
+    );
+  }
 
-  addFavoriteItinerary(itinerary_id: number, user_id: number) : Observable<any> {
-    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/addFavoriteItinerary`,{id_itinerary: itinerary_id, id_user: user_id});
-  };
-  
-  addFavoriteOffer(offer_id: number, user_id: number) : Observable<any> {
-    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/addFavoriteOffer`,{id_offer: offer_id, id_user: user_id});
-  };
+  addFavoriteItinerary(itinerary_id: number, user_id: number): Observable<any> {
+    return this._http.post(
+      `${environment.SERVER_BASE_URL}itinerary/addFavoriteItinerary`,
+      { id_itinerary: itinerary_id, id_user: user_id }
+    );
+  }
 
-  removeFavoriteItinerary(itinerary_id: number, user_id: number) : Observable<any> {
-    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/removeFavoriteItinerary`,{id_itinerary: itinerary_id, id_user: user_id});
-  };
-  
-  removeFavoriteOffer(offer_id: number, user_id: number) : Observable<any> {
-    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/removeFavoriteOffer`,{id_offer: offer_id, id_user: user_id});
-  };
+  addFavoriteOffer(offer_id: number, user_id: number): Observable<any> {
+    return this._http.post(
+      `${environment.SERVER_BASE_URL}itinerary/addFavoriteOffer`,
+      { id_offer: offer_id, id_user: user_id }
+    );
+  }
 
-  changeActiveState(itinerary_id: number, info: any) : Observable<any> {
-    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/changeActiveState`,{id: itinerary_id, info: info});
-  };
+  removeFavoriteItinerary(
+    itinerary_id: number,
+    user_id: number
+  ): Observable<any> {
+    return this._http.post(
+      `${environment.SERVER_BASE_URL}itinerary/removeFavoriteItinerary`,
+      { id_itinerary: itinerary_id, id_user: user_id }
+    );
+  }
+
+  removeFavoriteOffer(offer_id: number, user_id: number): Observable<any> {
+    return this._http.post(
+      `${environment.SERVER_BASE_URL}itinerary/removeFavoriteOffer`,
+      { id_offer: offer_id, id_user: user_id }
+    );
+  }
+
+  changeActiveState(itinerary_id: number, info: any): Observable<any> {
+    return this._http.post(
+      `${environment.SERVER_BASE_URL}itinerary/changeActiveState`,
+      { id: itinerary_id, info: info }
+    );
+  }
 
   saveItinerary(it: Itinerary, categories_ids: Array<number>): Observable<any> {
     return this._http.post(`${environment.SERVER_BASE_URL}itinerary/save`, {
@@ -55,7 +77,11 @@ export class ItineraryService {
     );
   }
 
-  addDay(id_itinerary: number, day_number: number, details: string): Observable<ResponseInterface> {
+  addDay(
+    id_itinerary: number,
+    day_number: number,
+    details: string
+  ): Observable<ResponseInterface> {
     return this._http.post(`${environment.SERVER_BASE_URL}day/save`, {
       id_itinerary: id_itinerary,
       day_number: day_number,
@@ -147,7 +173,7 @@ export class ItineraryService {
   ): Observable<ResponseInterface> {
     return this._http.put<ResponseInterface>(
       `${environment.SERVER_BASE_URL}day/updateDayDistribution`,
-      {day_distribution: day_distribution}
+      { day_distribution: day_distribution }
     );
   }
 
@@ -159,6 +185,12 @@ export class ItineraryService {
     return this._http.post(
       `${environment.SERVER_BASE_URL}itinerary/deletePromotionOfItinerary`,
       { itinerary_id: this.itinerary_id, promotion_id: promotion_id }
+    );
+  }
+
+  deleteDay(id_itinerary: number, day_number: number) {
+    return this._http.delete(
+      `${environment.SERVER_BASE_URL}day/deleteDay/${id_itinerary}/${day_number}`
     );
   }
 }

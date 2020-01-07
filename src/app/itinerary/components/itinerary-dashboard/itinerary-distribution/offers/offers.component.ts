@@ -13,7 +13,7 @@ import { ResponseInterface } from "src/app/globalModels/Response.interface";
 import { FormControl } from "@angular/forms";
 import { debounceTime, tap, switchMap, finalize } from "rxjs/operators";
 import { environment } from "src/environments/environment";
-import { UserService } from 'src/app/users/services/user.service';
+import { UserService } from "src/app/users/services/user.service";
 
 @Component({
   selector: "app-offers",
@@ -25,6 +25,7 @@ export class OffersComponent implements OnInit, OnDestroy {
   favorites: Array<number> = [];
   @Input() it: any;
   subscription: Subscription;
+  deleteDaySubs: Subscription;
   searchOffersCTRL: FormControl = new FormControl();
   filteredOffers: any[];
   isLoading: boolean = false;
@@ -35,7 +36,7 @@ export class OffersComponent implements OnInit, OnDestroy {
     private _itinerary: ItineraryService,
     private _dialog: DialogManagerService,
     private http: HttpClient
-  ) { }
+  ) {}
 
   /**
    * in this hook an observable is configured to filter offers based on
@@ -50,7 +51,7 @@ export class OffersComponent implements OnInit, OnDestroy {
           console.log(this.favorites);
         },
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
-    });
+      });
     if (this.it) {
       this.getDaysInfo();
       this.searchOffersCTRL.valueChanges
@@ -85,14 +86,15 @@ export class OffersComponent implements OnInit, OnDestroy {
       .addFavoriteOffer(offerID, userID)
       .subscribe({
         next: () => {
-            this.commonService.openSnackBar(
-              `La oferta ${offerID} ha sido agregado a favoritos`,
-              "OK"
-            );
+          this.commonService.openSnackBar(
+            `La oferta ${offerID} ha sido agregado a favoritos`,
+            "OK"
+          );
           this.subscription.unsubscribe();
         },
         error: (err: HttpErrorResponse) =>
-         this.commonService.openSnackBar(`Error: ${err}`, "OK")});
+          this.commonService.openSnackBar(`Error: ${err}`, "OK")
+      });
   }
 
   removeOfferFavorite(offerID: number) {
@@ -102,14 +104,15 @@ export class OffersComponent implements OnInit, OnDestroy {
       .removeFavoriteOffer(offerID, userID)
       .subscribe({
         next: () => {
-            this.commonService.openSnackBar(
-              `La oferta ${offerID} ha sido eliminada de favoritos`,
-              "OK"
-            );
+          this.commonService.openSnackBar(
+            `La oferta ${offerID} ha sido eliminada de favoritos`,
+            "OK"
+          );
           this.subscription.unsubscribe();
         },
         error: (err: HttpErrorResponse) =>
-         this.commonService.openSnackBar(`Error: ${err}`, "OK")});
+          this.commonService.openSnackBar(`Error: ${err}`, "OK")
+      });
   }
 
   /**
@@ -163,11 +166,12 @@ export class OffersComponent implements OnInit, OnDestroy {
         .catch((err: HttpErrorResponse) => this.commonService.handleError(err));
     }
 
-    this.subscription = this._itinerary.getDaysDetails(this.it["itinerary_id"])
+    this.subscription = this._itinerary
+      .getDaysDetails(this.it["itinerary_id"])
       .subscribe({
         next: (result: ResponseInterface) => (this.daysDetails = result.data),
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
-      })
+      });
   }
 
   /**
@@ -202,18 +206,26 @@ export class OffersComponent implements OnInit, OnDestroy {
     }
   }
   /**
-   * @funtion delete day by name and clean list
-   * @param day
    */
-  deleteDay(day: string) { }
+  deleteDay(i: number) {
+    console.log({ day_number: i + 1, id_itinerary: this.it["itinerary_id"] });
+    this.deleteDaySubs = this._itinerary
+      .deleteDay(this.it["itinerary_id"], i + 1)
+      .subscribe({
+        next: (result: ResponseInterface) => {
+          this.commonService.openSnackBar(result.message, "Ok");
+          this.days.splice(i, 1);
+        },
+        error: (err: HttpErrorResponse) => this.commonService.handleError(err)
+      });
+  }
 
   addDay() {
-    this._dialog
-      .openCreateDay({
-        details: "",
-        id_itinerary: this.it["itinerary_id"],
-        day_number: this.days.length + 1
-      });
+    this._dialog.openCreateDay({
+      details: "",
+      id_itinerary: this.it["itinerary_id"],
+      day_number: this.days.length + 1
+    });
   }
 
   unlinkOffer(
@@ -238,7 +250,6 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription)
-      this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }
