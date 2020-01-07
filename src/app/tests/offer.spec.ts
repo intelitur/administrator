@@ -36,7 +36,7 @@ describe("offers and related tests", () => {
       }
     })
   })
-  
+
   it("Error al agregar un nuevo día al itinerario", (done: DoneFn) => {
     service.addDay(7, 2, "detalles del día")
     .subscribe({
@@ -46,7 +46,7 @@ describe("offers and related tests", () => {
       }
     })
   })
-  
+
   // TODO: revisar cuales ofertas están o no enlazadas con el día
   it("Cambiar la distribución de los días", (done: DoneFn) => {
     let distArray = [{
@@ -74,7 +74,7 @@ describe("offers and related tests", () => {
         initial_time: "21:40:12.585447",
         final_time: "21:40:12.585447"
       }];
-  
+
       service.updateDayDistribution(distArray)
       .subscribe({
         error: (err: HttpErrorResponse) => {
@@ -107,5 +107,5 @@ describe("offers and related tests", () => {
     })
 
   })
-  
+
 });

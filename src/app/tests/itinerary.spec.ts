@@ -347,7 +347,7 @@ describe("Itinerary service", () => {
          }
        });
    });
- 
+
    // 39
   it("Add promotion to favorites error", (done: DoneFn) => {
      service

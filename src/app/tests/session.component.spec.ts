@@ -63,7 +63,7 @@ describe("Authentication", () => {
   });
 
   it("Cambio de contraseña por código correctamente", (done: DoneFn) => {
-    service.changePasswordByCode('1234','68111733952').subscribe({
+    service.changePasswordByCode('1234','77130943257').subscribe({
       next: (data: any) => {
         expect(data.code).toBe(200);
         done();

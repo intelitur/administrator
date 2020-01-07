@@ -146,4 +146,10 @@ export class ItineraryService {
       { itinerary_id: this.itinerary_id, promotion_id: promotion_id }
     );
   }
+  /**
+   * @function Get all event geometry points by itinerary id
+   */
+  getEventGeomByItineraryID(){
+    return this._http.get(`${environment.SERVER_BASE_URL}itinerary/getEventGeomByItineraryID/${this.itinerary_id}`);
+  }
 }

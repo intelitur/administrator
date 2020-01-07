@@ -1,5 +1,5 @@
-<div class="container mt-3 mb-3">
-  <div class="shadow-sm rounded" style="height: 500px;" leaflet [leafletOptions]="options">
+<div class="container mt-3 mb-3" >
+  <div class="shadow-sm rounded"  class="map" leaflet (leafletMapReady)="onMapReady($event)" [leafletOptions]="options" >
     <div *ngFor="let l of layers" [leafletLayer]="l"></div>
   </div>
 </div>

@@ -3,7 +3,7 @@ import { CommonService } from "src/app/general-services/common.service";
 import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { Subscription } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
-import { Promotion } from "src/app/itinerary/models/promotion";
+import { Promotion } from "src/app/itinerary/models/Promotion";
 import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
