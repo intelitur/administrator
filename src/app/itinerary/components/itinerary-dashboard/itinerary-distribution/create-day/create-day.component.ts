@@ -27,7 +27,6 @@ export class CreateDayComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data)
   }
 
   save() {

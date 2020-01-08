@@ -25,13 +25,13 @@
         class="container-fluid d-flex flex-row flex-wrap justify-content-sm-center"
       >
         <div *ngFor="let item of days; let i = index" class="col-sm-4">
-          <strong>Día {{ i + 1 }}</strong>
+          <strong>Día {{ item.day_number }}</strong>
           <button
             mat-icon-button
             matSuffix
             mat-button
             class="btn-delete"
-            (click)="deleteDay(i)"
+            (click)="deleteDay(item.day_number, i)"
           >
             <mat-icon matTooltip="Eliminar día del itinerario" color="warn"
               >close</mat-icon
@@ -39,13 +39,13 @@
           </button>
           <div
             cdkDropList
-            [cdkDropListData]="item.day"
+            [cdkDropListData]="item.items"
             class="example-list shadow bg-transparent"
             (cdkDropListDropped)="drop($event)"
           >
             <mat-accordion
               class="example-box"
-              *ngFor="let offer of item.day; let index = index"
+              *ngFor="let offer of item.items; let index = index"
               cdkDrag
             >
               <mat-expansion-panel
@@ -83,16 +83,30 @@
                       >
                     </button>
 
-                    <button *ngIf="favorites.includes(offer.offer_id); else filled" mat-icon-button mat-button class="btn">
-                      <mat-icon matTooltip="Remover de favoritos" color="primary" (click)="removeOfferFavorite(offer.offer_id)">favorite</mat-icon>
+                    <button
+                      *ngIf="favorites.includes(offer.offer_id); else filled"
+                      mat-icon-button
+                      mat-button
+                      class="btn"
+                    >
+                      <mat-icon
+                        matTooltip="Remover de favoritos"
+                        color="primary"
+                        (click)="removeOfferFavorite(offer.offer_id)"
+                        >favorite</mat-icon
+                      >
                     </button>
-                
+
                     <ng-template #filled>
                       <button mat-icon-button mat-button class="btn">
-                        <mat-icon matTooltip="Agregar a favoritos" color="primary" (click)="addOfferFavorite(offer.offer_id)">favorite_border</mat-icon>
+                        <mat-icon
+                          matTooltip="Agregar a favoritos"
+                          color="primary"
+                          (click)="addOfferFavorite(offer.offer_id)"
+                          >favorite_border</mat-icon
+                        >
                       </button>
                     </ng-template>
-
                   </div>
                   <mat-list class="container-fluid" role="list">
                     <mat-list-item role="listitem"
@@ -116,15 +130,14 @@
             <button
               class="mr-1"
               mat-raised-button
-              *ngIf="daysDetails[i] && daysDetails[i].details !== null"
-              (click)="openDayDetails(i); false"
+              (click)="openDayDetails(i); (false)"
               color="accent"
             >
               Detalles
             </button>
             <button
-              [disabled]="item.day.length !== null && item.day.length === 0"
-              (click)="updateDayDistribution(i); (false)"
+              [disabled]="item.items.length === 0"
+              (click)="updateDayDistribution(item.day_number, i); (false)"
               class="ml-1 text-white"
               mat-raised-button
               style="background-color: #0687F5"

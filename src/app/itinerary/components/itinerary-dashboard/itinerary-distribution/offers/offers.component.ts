@@ -7,11 +7,19 @@ import {
 import { CommonService } from "src/app/general-services/common.service";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
-import { Subscription } from "rxjs";
+import { Subscription, from } from "rxjs";
 import { HttpErrorResponse, HttpClient } from "@angular/common/http";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
 import { FormControl } from "@angular/forms";
-import { debounceTime, tap, switchMap, finalize } from "rxjs/operators";
+import {
+  debounceTime,
+  tap,
+  switchMap,
+  finalize,
+  groupBy,
+  mergeMap,
+  toArray
+} from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { UserService } from "src/app/users/services/user.service";
 
@@ -25,6 +33,7 @@ export class OffersComponent implements OnInit, OnDestroy {
   favorites: Array<number> = [];
   @Input() it: any;
   subscription: Subscription;
+  formatArraySubscription: Subscription;
   deleteDaySubs: Subscription;
   searchOffersCTRL: FormControl = new FormControl();
   filteredOffers: any[];
@@ -43,12 +52,13 @@ export class OffersComponent implements OnInit, OnDestroy {
    * input value
    */
   ngOnInit() {
+    this.days = new Array(this.it.info["duration"]);
+    this.days = this.fillArray(this.it.info["duration"]);
     this.subscription = this._itinerary
       .getFavoriteOffer(this.sesionService.actualUser.user_id)
       .subscribe({
         next: (data: any) => {
-          this.favorites = data.data[0].get_favorite_offer;
-          console.log(this.favorites);
+          if (data.data[0]) this.favorites = data.data[0].get_favorite_offer;
         },
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });
@@ -77,6 +87,14 @@ export class OffersComponent implements OnInit, OnDestroy {
           this.filteredOffers = result.data;
         });
     }
+  }
+
+  fillArray(duration: number): Array<any> {
+    let array = [];
+    for (let i = 1; i <= duration; i++) {
+      array.push({ day_number: i, items: [] });
+    }
+    return array;
   }
 
   addOfferFavorite(offerID: number) {
@@ -119,13 +137,13 @@ export class OffersComponent implements OnInit, OnDestroy {
    * is needed to add + 1 to represent day number
    * @param index represent day number
    */
-  updateDayDistribution(index: number) {
-    let distArray: Array<any> = this.days[index].day.map(
+  updateDayDistribution(day_number: number, index: number) {
+    let distArray: Array<any> = this.days[index].items.map(
       (e: { offer_id: number; initial_time: string; final_time: string }) => {
         return {
           it: this.it["itinerary_id"],
           offer_id: e.offer_id,
-          day_number: index + 1,
+          day_number: day_number,
           initial_time: "21:40:12.585447",
           final_time: "21:40:12.585447"
         };
@@ -153,18 +171,15 @@ export class OffersComponent implements OnInit, OnDestroy {
    * this method get all days for a specific itinerary
    */
   async getDaysInfo() {
-    for (let i = 1; i <= this.it.info.duration; i++) {
-      await this._itinerary
-        .getDayInfo(this.it["itinerary_id"], i)
-        .toPromise()
-        .then((data: any) => {
-          if (data.data.day !== null) {
-            this.days.push(data.data);
-            this.sortArray();
-          }
-        })
-        .catch((err: HttpErrorResponse) => this.commonService.handleError(err));
-    }
+    await this._itinerary
+      .getDayInfo(this.it["itinerary_id"])
+      .toPromise()
+      .then((data: ResponseInterface) => {
+        if (data.data.day !== null) {
+          this.formatDaysArray(data.data.day);
+        }
+      })
+      .catch((err: HttpErrorResponse) => this.commonService.handleError(err));
 
     this.subscription = this._itinerary
       .getDaysDetails(this.it["itinerary_id"])
@@ -172,6 +187,30 @@ export class OffersComponent implements OnInit, OnDestroy {
         next: (result: ResponseInterface) => (this.daysDetails = result.data),
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });
+  }
+
+  formatDaysArray(data: Array<any>) {
+    let source = from(data);
+    let example = source.pipe(
+      groupBy(d => d.day_number),
+      // return each item in group as array
+      mergeMap(group => group.pipe(toArray()))
+    );
+
+    this.formatArraySubscription = example.subscribe({
+      next: (val: any) => {
+        this.days[val[0].day_number - 1].items = val;
+        console.log(this.days);
+      }
+    });
+  }
+
+  fillEmptyDays(duration: number) {
+    for (let i = 1; i <= duration; i++) {
+      this.days.push({
+        day_number: i
+      });
+    }
   }
 
   /**
@@ -207,25 +246,28 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
   /**
    */
-  deleteDay(i: number) {
-    console.log({ day_number: i + 1, id_itinerary: this.it["itinerary_id"] });
+  deleteDay(day_number: number, index: number) {
     this.deleteDaySubs = this._itinerary
-      .deleteDay(this.it["itinerary_id"], i + 1)
+      .deleteDay(this.it["itinerary_id"], day_number)
       .subscribe({
         next: (result: ResponseInterface) => {
           this.commonService.openSnackBar(result.message, "Ok");
-          this.days.splice(i, 1);
+          this.days.splice(index, 1);
         },
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });
   }
 
   addDay() {
-    this._dialog.openCreateDay({
-      details: "",
-      id_itinerary: this.it["itinerary_id"],
-      day_number: this.days.length + 1
-    });
+    this._dialog
+      .openCreateDay({
+        details: "",
+        id_itinerary: this.it["itinerary_id"],
+        day_number: this.days.length + 1
+      })
+      .subscribe({
+        next: (createdDay: any) => console.log(createdDay)
+      });
   }
 
   unlinkOffer(
@@ -251,5 +293,7 @@ export class OffersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe();
+    if (this.formatArraySubscription)
+      this.formatArraySubscription.unsubscribe();
   }
 }

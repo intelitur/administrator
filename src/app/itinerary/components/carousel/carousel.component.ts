@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -9,6 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class CarouselComponent implements OnInit {
   @Input() images: Array<any>;
   @Output() deletedImage = new EventEmitter();
+  serverUrl = environment.SERVER_BASE_URL;
   constructor() { }
 
   ngOnInit() {

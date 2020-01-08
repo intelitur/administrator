@@ -89,9 +89,9 @@ export class ItineraryService {
     });
   }
 
-  getDayInfo(id_itinerary: number, day_number: number): Observable<any> {
+  getDayInfo(id_itinerary: number): Observable<any> {
     return this._http.get(
-      `${environment.SERVER_BASE_URL}day/dayInfo/${id_itinerary}/${day_number}`
+      `${environment.SERVER_BASE_URL}day/dayInfo/${id_itinerary}`
     );
   }
 
