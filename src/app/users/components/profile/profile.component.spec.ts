@@ -4,13 +4,12 @@ import {
 } from "@angular/platform-browser-dynamic/testing";
 import { TestBed, getTestBed } from "@angular/core/testing";
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { UserProfileService } from '../../services/user-profile.service';
-import { SessionService } from 'src/app/general-services/session.service';
+import { UserService } from '../../../users/services/user.service';
 import { BusinessMan } from '../../models/Businessman.class';
 
 describe("User profile service", () => {
   let injector: TestBed;
-  let service: UserProfileService;
+  let service: UserService;
   beforeEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     TestBed.resetTestEnvironment();
@@ -20,11 +19,11 @@ describe("User profile service", () => {
     );
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [UserProfileService]
+      providers: [UserService]
     });
 
     injector = getTestBed();
-    service = injector.get(UserProfileService);
+    service = injector.get(UserService);
   });
 
   it("Error al obtener un usuario", (done: DoneFn) => {
@@ -88,7 +87,7 @@ describe("User profile service", () => {
 
 describe("Sesion service", () => {
   let injector: TestBed;
-  let service: SessionService;
+  let service: UserService;
   beforeEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     TestBed.resetTestEnvironment();
@@ -98,10 +97,10 @@ describe("Sesion service", () => {
     );
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [SessionService]
+      providers: [UserService]
     });
     injector = getTestBed();
-    service = injector.get(SessionService);
+    service = injector.get(UserService);
   });
 
   it("Add bussines user error", (done: DoneFn) => {
