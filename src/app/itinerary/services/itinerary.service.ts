@@ -80,12 +80,14 @@ export class ItineraryService {
   addDay(
     id_itinerary: number,
     day_number: number,
-    details: string
+    details: string,
+    new_duration: number
   ): Observable<ResponseInterface> {
     return this._http.post(`${environment.SERVER_BASE_URL}day/save`, {
       id_itinerary: id_itinerary,
       day_number: day_number,
-      details: details
+      details: details,
+      new_duration: new_duration
     });
   }
 

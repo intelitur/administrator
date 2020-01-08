@@ -200,7 +200,6 @@ export class OffersComponent implements OnInit, OnDestroy {
     this.formatArraySubscription = example.subscribe({
       next: (val: any) => {
         this.days[val[0].day_number - 1].items = val;
-        console.log(this.days);
       }
     });
   }
@@ -263,10 +262,13 @@ export class OffersComponent implements OnInit, OnDestroy {
       .openCreateDay({
         details: "",
         id_itinerary: this.it["itinerary_id"],
-        day_number: this.days.length + 1
+        day_number: this.days.length + 1,
+        duration: this.it.info["duration"]
       })
       .subscribe({
-        next: (createdDay: any) => console.log(createdDay)
+        next: (createdDay: any) => {
+          this.days.push({day_number: createdDay.day_number, items: []})
+        }
       });
   }
 
@@ -281,7 +283,7 @@ export class OffersComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (result: ResponseInterface) => {
           this.commonService.openSnackBar(result.message, "Ok");
-          this.days[day_index].day.splice(offer_index, 1);
+          this.days[day_index].items.splice(offer_index, 1);
         },
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });
