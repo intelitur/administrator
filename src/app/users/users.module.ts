@@ -9,12 +9,18 @@ import { FormsModule } from '@angular/forms';
 import { UsersRoutingModule } from './users-routing.module';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { UserRootComponent } from './user-root.component';
+import { ProfileInfoComponent } from './components/profile/profile-info/profile-info.component';
+import { FavoriteItineraryComponent } from './components/profile/favorite-itinerary/favorite-itinerary.component';
+import { FavoriteOfferComponent } from './components/profile/favorite-offer/favorite-offer.component';
 @NgModule({
   declarations: [
     ProfileComponent,
     UsersManagementComponent,
     AddAdminComponent,
     UserRootComponent,
+    ProfileInfoComponent,
+    FavoriteItineraryComponent,
+    FavoriteOfferComponent,
   ],
   imports: [
     CommonModule,

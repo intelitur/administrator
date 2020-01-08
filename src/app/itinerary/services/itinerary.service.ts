@@ -36,6 +36,12 @@ export class ItineraryService {
     return this._http.post(`${environment.SERVER_BASE_URL}itinerary/removeFavoriteOffer`,{id_offer: offer_id, id_user: user_id});
   };
 
+  getFavoriteItineraryMinimalInfoByUser(id_user: number): Observable<any> {
+    return this._http.get<Array<any>>(
+      `${environment.SERVER_BASE_URL}itinerary/minimalFavoriteInfo/${id_user}`
+    );
+  }
+
   changeActiveState(itinerary_id: number, info: any) : Observable<any> {
     return this._http.post(`${environment.SERVER_BASE_URL}itinerary/changeActiveState`,{id: itinerary_id, info: info});
   };

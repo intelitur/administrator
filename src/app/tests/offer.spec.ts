@@ -64,71 +64,90 @@ describe("offers and related tests", () => {
         done();
       }
     });
+  });
 
-    // TODO: revisar cuales ofertas están o no enlazadas con el día
-    it("Error al cambiar la distribución de los días", (done: DoneFn) => {
-      let distArray = [{
-        it: 7,
-        offer_id: 1,
-        day_number: 1,
-        initial_time: "21:40:12.585447",
-        final_time: "21:40:12.585447"
-      }];
-  
-      service.updateDayDistribution(distArray)
+  // TODO: revisar cuales ofertas están o no enlazadas con el día
+  it("Error al cambiar la distribución de los días", (done: DoneFn) => {
+    let distArray = [{
+      it: 7,
+      offer_id: 1,
+      day_number: 1,
+      initial_time: "21:40:12.585447",
+      final_time: "21:40:12.585447"
+    }];
+
+    service.updateDayDistribution(distArray)
+    .subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+  // TODO: revisar algún enlace existente
+  it("Desvincular una oferta con un día", (done: DoneFn) => {
+    service.unlinkOffer(1, 7, 3)
+    .subscribe({
+      next: (result: ResponseInterface) => {
+        expect(result.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // TODO: revisar algún enlace existente
+  it("Error al desvincular una oferta con un día", (done: DoneFn) => {
+    service.unlinkOffer(1, 7, 3)
+    .subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+  it("Añadir oferta a favoritos", (done: DoneFn) => {
+    service.addFavoriteOffer(4, 14).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.message).not.toBeNull();
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+
+  it("Error al añadir oferta a favoritos", (done: DoneFn) => {
+    service
+      .addFavoriteOffer(undefined, undefined)
       .subscribe({
         error: (err: HttpErrorResponse) => {
+          expect(err.message).not.toBeNull();
           expect(err.status).toBe(500);
           done();
         }
       });
-    })
+  });
 
-    // TODO: revisar algún enlace existente
-    it("Desvincular una oferta con un día", (done: DoneFn) => {
-      service.unlinkOffer(1, 7, 3)
-      .subscribe({
-        next: (result: ResponseInterface) => {
-          expect(result.code).toBe(200);
-          done();
-        }
-      });
+  it("Eliminar oferta de favoritos", (done: DoneFn) => {
+    service.removeFavoriteOffer(4, 14).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.message).not.toBeNull();
+        expect(data.code).toBe(200);
+        done();
+      }
     });
+  });
 
-    // TODO: revisar algún enlace existente
-    it("Error al desvincular una oferta con un día", (done: DoneFn) => {
-      service.unlinkOffer(1, 7, 3)
-      .subscribe({
+
+  it("Error al eliminar oferta de favoritos", (done: DoneFn) => {
+    service.removeFavoriteOffer(undefined, undefined).subscribe({
         error: (err: HttpErrorResponse) => {
+          expect(err.message).not.toBeNull();
           expect(err.status).toBe(500);
           done();
         }
       });
-    });
-
-    it("Add offer to favorites successfully", (done: DoneFn) => {
-      service.addFavoriteOffer(4, 14).subscribe({
-        next: (data: ResponseInterface) => {
-          expect(data.message).not.toBeNull();
-          expect(data.code).toBe(200);
-          done();
-        }
-      });
-    });
-
-
-    it("Add offer to favorites error", (done: DoneFn) => {
-      service
-        .addFavoriteOffer(undefined, undefined)
-        .subscribe({
-          error: (err: HttpErrorResponse) => {
-            expect(err.message).not.toBeNull();
-            expect(err.status).toBe(500);
-            done();
-          }
-        });
-    });
-
-  })
-  
+  });
 });

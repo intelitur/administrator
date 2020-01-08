@@ -246,8 +246,7 @@ describe("Itinerary service", () => {
       });
   });
     // 33
-  it("Able itinerary active state successfully", (done: DoneFn) => {
-      //spyOn(service, ).and.returnValue(of(response))
+  it("Habilitar itinerario exitosamente", (done: DoneFn) => {
       service
         .changeActiveState(
           8,
@@ -274,7 +273,7 @@ describe("Itinerary service", () => {
         });
     });
   // 34
-  it("Disable itinerary active state successfully", (done: DoneFn) => {
+  it("Deshabilitar itinerario exitosamente", (done: DoneFn) => {
     //spyOn(service, ).and.returnValue(of(response))
     service
       .changeActiveState(
@@ -302,8 +301,7 @@ describe("Itinerary service", () => {
       });
   });
     // 35
-  it("Change itinerary active state error", (done: DoneFn) => {
-      //spyOn(service, ).and.returnValue(of(response))
+  it("Error al cambiar el estado de un itinerario", (done: DoneFn) => {
       service
         .changeActiveState(undefined, undefined)
         .subscribe({
@@ -315,7 +313,7 @@ describe("Itinerary service", () => {
         });
     });
    // 36
-  it("Add itinerary to favorites successfully", (done: DoneFn) => {
+  it("Añadir itinerario a favoritos exitosamente", (done: DoneFn) => {
      service.addFavoriteItinerary(8, 14).subscribe({
        next: (data: ResponseInterface) => {
          expect(data.message).not.toBeNull();
@@ -326,9 +324,31 @@ describe("Itinerary service", () => {
   });
 
   // 37
-  it("Add itinerary to favorites error", (done: DoneFn) => {
+  it("Error al añadir itinerarios a favoritos", (done: DoneFn) => {
     service
       .addFavoriteItinerary(undefined, undefined)
+      .subscribe({
+        error: (err: HttpErrorResponse) => {
+          expect(err.message).not.toBeNull();
+          expect(err.status).toBe(500);
+          done();
+        }
+      });
+  });
+  // 38
+  it("Eliminar itinerario de favoritos exitosamente", (done: DoneFn) => {
+  service.removeFavoriteItinerary(8, 14).subscribe({
+    next: (data: ResponseInterface) => {
+      expect(data.message).not.toBeNull();
+      expect(data.code).toBe(200);
+      done();
+      }
+    });
+  });
+
+  // 39
+  it("Error al eliminar itinerarios de favoritos", (done: DoneFn) => {
+    service.removeFavoriteItinerary(undefined, undefined)
       .subscribe({
         error: (err: HttpErrorResponse) => {
           expect(err.message).not.toBeNull();

@@ -46,8 +46,9 @@ export class OffersComponent implements OnInit, OnDestroy {
       .getFavoriteOffer(this.sesionService.actualUser.user_id)
       .subscribe({
         next: (data: any) => {
-          this.favorites = data.data[0].get_favorite_offer;
-          console.log(this.favorites);
+          if(data.data.length > 0){
+            this.favorites = data.data[0].get_favorite_offer;
+          }
         },
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
     });
