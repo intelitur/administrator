@@ -6,9 +6,15 @@
       it.info.active ? "Habilidado" : "Deshabilitado"
     }}</mat-slide-toggle>
 
-    <button mat-icon-button mat-button class="btn">
-      <mat-icon matTooltip="Agregar a favoritos" color="primary" (click)="favoriteItinerary(it.itinerary_id)">favorite_border</mat-icon>
+    <button *ngIf="favorites.includes(it.itinerary_id); else filled" mat-icon-button mat-button class="btn">
+      <mat-icon matTooltip="Remover de favoritos" color="primary" (click)="removeFavoriteItinerary(it.itinerary_id)">favorite</mat-icon>
     </button>
+
+    <ng-template #filled>
+      <button mat-icon-button mat-button class="btn">
+        <mat-icon matTooltip="Agregar a favoritos" color="primary" (click)="addFavoriteItinerary(it.itinerary_id)">favorite_border</mat-icon>
+      </button>      
+    </ng-template>
 
   </div>
   <app-offers *ngIf="it" [it]="it"></app-offers>
