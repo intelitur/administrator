@@ -34,12 +34,28 @@ export class FavoriteItineraryComponent implements OnInit {
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
   }
-  openShowItineraryDetails() {
-    //this._dialog.openItineraryDetailsDialog();
-  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  removeItineraryFavorite(itineraryID: number) {
+    this.dataSource.filteredData.splice(this.dataSource.filteredData.indexOf(itineraryID, 0), 1);
+    this.dataSource = new MatTableDataSource(this.dataSource.filteredData);
+    let userID = this.sesionService.actualUser.user_id;
+    this.subscription = this._itinerary
+      .removeFavoriteItinerary(itineraryID, userID)
+      .subscribe({
+        next: () => {
+          this._common.openSnackBar(
+            `El itinerario ${itineraryID} ha sido eliminado de favoritos`,
+            "OK"
+          );
+          this.subscription.unsubscribe();
+        },
+        error: (err: HttpErrorResponse) =>
+          this._common.openSnackBar(`Error: ${err}`, "OK")
+      });
   }
 
   ngOnDestroy() {

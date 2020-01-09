@@ -358,4 +358,88 @@ describe("Itinerary service", () => {
       });
   });
 
+  // 40
+  it("Obtener los id de itinerarios en favoritos", (done: DoneFn) => {
+    service.getFavoriteItinerary(19).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // 41
+  it("Obtener los id de itinerarios en favoritos ERROR", (done: DoneFn) => {
+    const mockErrorResponse = { status: 500, statusText: "Bad Request" };
+    service.getFavoriteItinerary(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+      // 42
+  it("Obtener los id de ofertas en favoritos", (done: DoneFn) => {
+    service.getFavoriteOffer(19).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // 43
+  it("Obtener los id de ofertas en favoritos ERROR", (done: DoneFn) => {
+    const mockErrorResponse = { status: 500, statusText: "Bad Request" };
+    service.getFavoriteOffer(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+  // 44
+  it("Obtener info de itinerarios en favoritos", (done: DoneFn) => {
+    service.getFavoriteItineraryMinimalInfoByUser(19).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // 45
+  it("Obtener info de itinerarios en favoritos ERROR", (done: DoneFn) => {
+    const mockErrorResponse = { status: 500, statusText: "Bad Request" };
+    service.getFavoriteItineraryMinimalInfoByUser(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+      // 46
+  it("Obtener info de ofertas en favoritos", (done: DoneFn) => {
+    service.getFavoriteOfferInfoByUser(19).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // 47
+  it("Obtener info de ofertas en favoritos ERROR", (done: DoneFn) => {
+    const mockErrorResponse = { status: 500, statusText: "Bad Request" };
+    service.getFavoriteOfferInfoByUser(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
 });

@@ -1,6 +1,5 @@
-import { Component, OnInit, Inject, Input } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Itinerary } from "src/app/itinerary/models/Itinerary";
-import { MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
   selector: "app-itinerary-details",
@@ -8,14 +7,10 @@ import { MAT_DIALOG_DATA } from "@angular/material";
   styleUrls: ["./itinerary-details.component.scss"]
 })
 export class ItineraryDetailsComponent implements OnInit {
-  images = [
-    "https://www.solidbackgrounds.com/images/1920x1080/1920x1080-mint-solid-color-background.jpg",
-    "https://www.solidbackgrounds.com/images/1920x1080/1920x1080-mint-green-solid-color-background.jpg",
-    "https://www.solidbackgrounds.com/images/1366x768/1366x768-navy-purple-solid-color-background.jpg"
-  ];
   @Input() it: Itinerary;
   constructor(
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

@@ -33,16 +33,25 @@
         </td>
       </ng-container>
     
-      <!-- Weight Column -->
+      <!-- Actions Column -->
       <ng-container class="text-center" matColumnDef="actions">
         <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
         <td class="text-center" mat-cell *matCellDef="let element">
+          
           <button [routerLink]="['/itineraries/dashboard']"
             (click)="assignItineraryId(element.itinerary_id)"
             mat-stroked-button
             color="primary"
+            class="mr-2"
           >
             Ver más
+        </button>
+
+        <button mat-icon-button matSuffix mat-button mat-stroked-button color="primary">
+          <mat-icon matTooltip="Eliminar de favoritos"
+            color="primary"
+            (click)="removeItineraryFavorite(element.itinerary_id)"
+            >favorite</mat-icon>
         </button>
         </td>
       </ng-container>
