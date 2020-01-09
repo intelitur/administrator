@@ -12,7 +12,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ["./users-management.component.scss"]
 })
 export class UsersManagementComponent implements OnInit {
-  filter: any = { user_id: "" };
+  filter: any = { info: {
+    name: ""
+  } };
   private subscription: Subscription;
   constructor(
     public commonService: CommonService,
@@ -22,10 +24,12 @@ export class UsersManagementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.subscription = this.userManagmentService.getAllUser()
     .subscribe({
       next: (data: any) => {
         this.userManagmentService.users = data.data;
+        console.log(this.userManagmentService.users);
         this.subscription.unsubscribe();
       }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
     });

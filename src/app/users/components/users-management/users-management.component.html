@@ -6,8 +6,8 @@
   </div>
   <div *ngIf="this.userManagmentService.users">
     <mat-form-field class="container-fluid mb-3" appearance="outline">
-      <mat-label>Buscar por id de usuario</mat-label>
-      <input matInput [(ngModel)]="filter.user_id"/>
+      <mat-label>Buscar por nombre de usuario</mat-label>
+      <input matInput [(ngModel)]="filter.info.name"/>
     </mat-form-field>
     <div class="table-responsive">
       <table class="table">
