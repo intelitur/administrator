@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   localstorage_key: 'key_user',
-  SERVER_BASE_URL: 'http://localhost:3000/'
-
+  SERVER_BASE_URL: 'http://localhost:3000/',
+  IMAGES_URL_BASE: 'http://localhost:3000/images/'
 };
 
 /*

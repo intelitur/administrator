@@ -8,9 +8,14 @@ import { Itinerary } from "src/app/itinerary/models/Itinerary";
 })
 export class ItineraryDetailsComponent implements OnInit {
   @Input() it: Itinerary;
+  data =  {
+    local: false,
+    images: []
+  }
   constructor(
   ) {}
 
   ngOnInit() {
+    this.data.images = this.it.imgs
   }
 }

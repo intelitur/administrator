@@ -128,7 +128,7 @@
     <mat-radio-button class="ml-1" value="false">Privada</mat-radio-button>
   </mat-radio-group>
   <app-upload-images [uploader]="_image.uploader" (selectedImages)="catchSelectedImages($event);"></app-upload-images>
-  <app-carousel (deletedImage)="catchDeletedImage($event)" class="mb-3" [images]="images"></app-carousel>
+  <app-carousel (deletedImage)="catchDeletedImage($event)" class="mb-3" [data]="data"></app-carousel>
   <div class="container text-center mb-3">
     <button type="submit" mat-raised-button color="primary"><mat-icon>done</mat-icon></button>
   </div>
