@@ -63,14 +63,13 @@ export class RegisterBusinessManComponent implements OnInit {
       next: (data : any) => {
         this.loading = false;
         this.commonService.openSnackBar(`Se ha registrado ${info.name}, espere la validación de su cuenta`, "OK");
+        this.subscription.unsubscribe();
         this.dialog.closeAll();
-      }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
+
+      }, error: (err : HttpErrorResponse)  => {this.commonService.openSnackBar(`Error: ${err}`,"OK");this.subscription.unsubscribe();}
     });
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 
 
 }
