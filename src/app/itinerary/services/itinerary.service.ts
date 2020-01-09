@@ -4,6 +4,7 @@ import { Itinerary } from "../models/Itinerary";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
+import { Filter } from "../models/Filter.interface";
 
 @Injectable({
   providedIn: "root"
@@ -74,6 +75,14 @@ export class ItineraryService {
   getItineraryFullInfo(id_itinerary: number): Observable<any> {
     return this._http.get(
       `${environment.SERVER_BASE_URL}itinerary/fullInfo/${id_itinerary}`
+    );
+  }
+
+  filterItineraries(filters: Filter): Observable<ResponseInterface> {
+    console.log(filters)
+    return this._http.post<ResponseInterface>(
+      `${environment.SERVER_BASE_URL}itinerary/filter`,
+      filters
     );
   }
 

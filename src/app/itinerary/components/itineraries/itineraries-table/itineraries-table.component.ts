@@ -5,7 +5,9 @@ import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { Subscription } from "rxjs";
 import { CommonService } from "src/app/general-services/common.service";
 import { HttpErrorResponse } from "@angular/common/http";
-import { UserService } from 'src/app/users/services/user.service';
+import { UserService } from "src/app/users/services/user.service";
+import { Filter } from "src/app/itinerary/models/Filter.interface";
+import { ResponseInterface } from "src/app/globalModels/Response.interface";
 @Component({
   selector: "app-itineraries-table",
   templateUrl: "./itineraries-table.component.html",
@@ -13,8 +15,10 @@ import { UserService } from 'src/app/users/services/user.service';
 })
 export class ItinerariesTableComponent implements OnInit {
   displayedColumns: string[] = ["position", "name", "actions"];
-  dataSource; /*= new MatTableDataSource(ELEMENT_DATA);*/
+  dataSource: MatTableDataSource<unknown>;
   subscription: Subscription;
+  filterItinerariesSubs: Subscription;
+  dialogSubscription: Subscription;
   constructor(
     private _dialog: DialogManagerService,
     private _itinerary: ItineraryService,
@@ -23,6 +27,7 @@ export class ItinerariesTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.sesionService.actualUser);
     this.subscription = this._itinerary
       .getItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id)
       .subscribe({
@@ -33,8 +38,17 @@ export class ItinerariesTableComponent implements OnInit {
       });
   }
 
-  openShowItineraryDetails() {
-    //this._dialog.openItineraryDetailsDialog();
+  openShowFilterOptionsDialog() {
+    this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
+      next: (filters: Filter) =>
+        (this.filterItinerariesSubs = this._itinerary
+          .filterItineraries(filters)
+          .subscribe({
+            next: (response: ResponseInterface) => 
+              this.dataSource = new MatTableDataSource(response.data),
+            error: (err: HttpErrorResponse) => this._common.handleError(err)
+          }))
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -42,7 +56,8 @@ export class ItinerariesTableComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
+    if (this.dialogSubscription) this.dialogSubscription.unsubscribe();
   }
   /**
    * @funtion Assign id of itinerary to will used in other components

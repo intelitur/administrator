@@ -7,6 +7,7 @@
       matSuffix
       [attr.aria-label]="'Hide password'"
       [attr.aria-pressed]="hide"
+      (click)="openShowFilterOptionsDialog(); false"
     >
       <mat-icon>library_books</mat-icon>
     </button>
