@@ -1,9 +1,9 @@
 <div class="container-fluid d-flex flex-column justify-content-sm-center">
   <h3 class="text-center font-weight-light text-primary">
-    Nombre itinerario
+    {{it.info.name}}
   </h3>
   <div class="container-fluid">
-    <app-carousel [images]="images"></app-carousel>
+    <app-carousel *ngIf="it.imgs.length > 0 && it.imgs[0] !== null" [data]="data"></app-carousel>
   </div>
   <hr>
   <ul class="list-group">

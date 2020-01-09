@@ -27,16 +27,15 @@ export class CreateDayComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data)
   }
 
   save() {
     this.subscription = this._itinerary
-      .addDay(this.data.id_itinerary, this.data.day_number, this.data.details)
+      .addDay(this.data.id_itinerary, this.data.day_number, this.data.details, this.data.duration + 1)
       .subscribe({
         next: (result: ResponseInterface) => {
           this._common.openSnackBar(result.message, "Ok");
-          return this.dialogRef.close(this.data.details);
+          return this.dialogRef.close(this.data);
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });

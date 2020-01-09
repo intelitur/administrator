@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -7,15 +8,17 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit {
-  @Input() images: Array<any>;
+  @Input() data: any;
   @Output() deletedImage = new EventEmitter();
+  url: string;
   constructor() { }
 
   ngOnInit() {
+    this.url = this.data.local ? '' : environment.IMAGES_URL_BASE;
   }
 
   deleteImage(index: number) {
-    this.images.splice(index, 1);
+    this.data.images.splice(index, 1);
     this.deletedImage.emit(index);
   }
 }

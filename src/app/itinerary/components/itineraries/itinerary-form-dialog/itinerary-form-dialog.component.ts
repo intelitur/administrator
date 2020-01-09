@@ -24,6 +24,10 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   categories: Array<Category>;
   linkedCategories: Array<Category> = [];
   images: Array<File> = [];
+  data = {
+    local: true,
+    images: []
+  };
   groupTypes: Array<GroupType>;
   private subscription: Subscription;
   savedIt: number;
@@ -41,7 +45,7 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     this.itineraryFG = this._fb.group({
       name: ["", Validators.required],
       pricePerDay: ["", Validators.required],
-      totalPrice: ["", Validators.required],
+      totalPrice: [{ value: "", disabled: true }, Validators.required],
       adultsQuantity: ["", Validators.required],
       childrenQuantity: ["", Validators.required],
       description: ["", Validators.required],
@@ -53,8 +57,25 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
       endDate: ["", Validators.required],
       status: ["", Validators.required] // public or private
     });
+    this.setupValueChangesTotalPrice();
     this.getGroupTypes();
     this.getCategories();
+  }
+
+  setupValueChangesTotalPrice() {
+    this.itineraryFG.get("pricePerDay").valueChanges.subscribe(val => {
+      if (this.itineraryFG.get("duration").value) {
+        let duration = this.itineraryFG.get("duration").value;
+        this.itineraryFG.controls["totalPrice"].setValue(val * duration);
+      }
+    });
+
+    this.itineraryFG.get("duration").valueChanges.subscribe(val => {
+      if (this.itineraryFG.get("pricePerDay").value) {
+        let pricePerDay = this.itineraryFG.get("pricePerDay").value;
+        this.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
+      }
+    });
   }
 
   setupUploader() {
@@ -112,6 +133,7 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
       reader.onload = (event: any) => {
         // called once readAsDataURL is completed
         this.images.push(event.target.result);
+        this.data.images = this.images;
       };
     }
   }
