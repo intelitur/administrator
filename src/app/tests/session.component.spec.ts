@@ -27,7 +27,7 @@ describe("Authentication", () => {
 
   it("Autenticación de usuario correctamente", (done: DoneFn) => {
 
-    service.login('o@o','o').subscribe({
+    service.login('test@dfsf','12345').subscribe({
       next: (data: any) => {
         expect(data.code).toBe(200);
         done();
@@ -37,7 +37,7 @@ describe("Authentication", () => {
 
   it("Error en la autenticación de usuario", (done: DoneFn) => {
 
-    service.login('o@o','o23ca').subscribe({
+    service.login('test@dfsf','o23ca').subscribe({
       error: (err: HttpErrorResponse) => {
         expect(err.status).toBe(401);
         done();
