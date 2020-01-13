@@ -61,11 +61,12 @@ export class PromotionsComponent implements OnInit {
    * @param promotion_id
    */
   addPromotionInItinerary(promotion_id: number) {
-    this.addPromotionToListAddedPromotion(promotion_id);
+
     this.subscription = this.itineraryService
       .addPromotionInItinerary(promotion_id)
       .subscribe({
         next: (data: any) => {
+          this.addPromotionToListAddedPromotion(promotion_id);
           this.commonService.openSnackBar(
             "Se ha agregado la promoción correctamente",
             "OK"
@@ -97,11 +98,11 @@ export class PromotionsComponent implements OnInit {
    * @param promotion_id
    */
   deletePromotionOfItinerary(promotion_id: number) {
-    this.returnPromotionToPromotions(promotion_id);
     this.subscription = this.itineraryService
       .deletePromotionOfItinerary(promotion_id)
       .subscribe({
         next: (data: any) => {
+          this.returnPromotionToPromotions(promotion_id);
           this.commonService.openSnackBar(
             "Se ha eliminado la promoción correctamente",
             "OK"
