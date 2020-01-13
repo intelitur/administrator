@@ -27,7 +27,6 @@ export class ItinerariesTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.sesionService.actualUser);
     this.subscription = this._itinerary
       .getItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id)
       .subscribe({
