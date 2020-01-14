@@ -245,54 +245,22 @@ describe("Itinerary service", () => {
         }
       });
   });
-    // 33
-  it("Able itinerary active state successfully", (done: DoneFn) => {
-      //spyOn(service, ).and.returnValue(of(response))
-      service
-        .changeActiveState(
-          8,
-            {
-              name: "nombre de prueba",
-              total_price: 10,
-              price_per_day: 10,
-              adult_number: 10,
-              child_number: 10,
-              description: "descripción de prueba",
-              duration: 5,
-              active: true,
-              public: false,
-              initial_date: Date.now(),
-              final_date: Date.now()
-            }
-        )
-        .subscribe({
-          next: (data: ResponseInterface) => {
-            expect(data.message).not.toBeNull();
-            expect(data.code).toBe(200);
-            done();
-          }
-        });
-    });
-  // 34
-  it("Disable itinerary active state successfully", (done: DoneFn) => {
-    //spyOn(service, ).and.returnValue(of(response))
+  // 33
+  it("Habilitar itinerario exitosamente", (done: DoneFn) => {
     service
-      .changeActiveState(
-        8,
-          {
-            name: "nombre de prueba",
-            total_price: 10,
-            price_per_day: 10,
-            adult_number: 10,
-            child_number: 10,
-            description: "descripción de prueba",
-            duration: 5,
-            active: false,
-            public: false,
-            initial_date: Date.now(),
-            final_date: Date.now()
-          }
-      )
+      .changeActiveState(8, {
+        name: "nombre de prueba",
+        total_price: 10,
+        price_per_day: 10,
+        adult_number: 10,
+        child_number: 10,
+        description: "descripción de prueba",
+        duration: 5,
+        active: true,
+        public: false,
+        initial_date: Date.now(),
+        final_date: Date.now()
+      })
       .subscribe({
         next: (data: ResponseInterface) => {
           expect(data.message).not.toBeNull();
@@ -301,45 +269,169 @@ describe("Itinerary service", () => {
         }
       });
   });
-    // 35
-  it("Change itinerary active state error", (done: DoneFn) => {
-      //spyOn(service, ).and.returnValue(of(response))
-      service
-        .changeActiveState(undefined, undefined)
-        .subscribe({
-          error: (err: HttpErrorResponse) => {
-            expect(err.message).not.toBeNull();
-            expect(err.status).toBe(500);
-            done();
-          }
-        });
-    });
-   // 36
-  it("Add itinerary to favorites successfully", (done: DoneFn) => {
-     service.addFavoriteItinerary(8, 14).subscribe({
-       next: (data: ResponseInterface) => {
-         expect(data.message).not.toBeNull();
-         expect(data.code).toBe(200);
-         done();
-        }
-      });
-  });
-
-  // 37
-  it("Add itinerary to favorites error", (done: DoneFn) => {
+  // 34
+  it("Deshabilitar itinerario exitosamente", (done: DoneFn) => {
+    //spyOn(service, ).and.returnValue(of(response))
     service
-      .addFavoriteItinerary(undefined, undefined)
+      .changeActiveState(8, {
+        name: "nombre de prueba",
+        total_price: 10,
+        price_per_day: 10,
+        adult_number: 10,
+        child_number: 10,
+        description: "descripción de prueba",
+        duration: 5,
+        active: false,
+        public: false,
+        initial_date: Date.now(),
+        final_date: Date.now()
+      })
       .subscribe({
-        error: (err: HttpErrorResponse) => {
-          expect(err.message).not.toBeNull();
-          expect(err.status).toBe(500);
+        next: (data: ResponseInterface) => {
+          expect(data.message).not.toBeNull();
+          expect(data.code).toBe(200);
           done();
         }
       });
   });
-     // 38
+  // 35
+  it("Error al cambiar el estado de un itinerario", (done: DoneFn) => {
+    service.changeActiveState(undefined, undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.message).not.toBeNull();
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+  // 36
+  it("Añadir itinerario a favoritos exitosamente", (done: DoneFn) => {
+    service.addFavoriteItinerary(8, 14).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.message).not.toBeNull();
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
 
-   it("Error al obtener puntos de eventos geográficos por id del itinerario",() => {
+  // 37
+  it("Error al añadir itinerarios a favoritos", (done: DoneFn) => {
+    service.addFavoriteItinerary(undefined, undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.message).not.toBeNull();
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+  // 38
+  it("Eliminar itinerario de favoritos exitosamente", (done: DoneFn) => {
+    service.removeFavoriteItinerary(8, 14).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.message).not.toBeNull();
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // 39
+  it("Error al eliminar itinerarios de favoritos", (done: DoneFn) => {
+    service.removeFavoriteItinerary(undefined, undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.message).not.toBeNull();
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+  // 40
+  it("Obtener los id de itinerarios en favoritos", (done: DoneFn) => {
+    service.getFavoriteItinerary(19).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // 41
+  it("Obtener los id de itinerarios en favoritos ERROR", (done: DoneFn) => {
+    const mockErrorResponse = { status: 500, statusText: "Bad Request" };
+    service.getFavoriteItinerary(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+  // 42
+  it("Obtener los id de ofertas en favoritos", (done: DoneFn) => {
+    service.getFavoriteOffer(19).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // 43
+  it("Obtener los id de ofertas en favoritos ERROR", (done: DoneFn) => {
+    const mockErrorResponse = { status: 500, statusText: "Bad Request" };
+    service.getFavoriteOffer(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+  // 44
+  it("Obtener info de itinerarios en favoritos", (done: DoneFn) => {
+    service.getFavoriteItineraryMinimalInfoByUser(19).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // 45
+  it("Obtener info de itinerarios en favoritos ERROR", (done: DoneFn) => {
+    const mockErrorResponse = { status: 500, statusText: "Bad Request" };
+    service.getFavoriteItineraryMinimalInfoByUser(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+  // 46
+  it("Obtener info de ofertas en favoritos", (done: DoneFn) => {
+    service.getFavoriteOfferInfoByUser(19).subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
+  });
+
+  // 47
+  it("Obtener info de ofertas en favoritos ERROR", (done: DoneFn) => {
+    const mockErrorResponse = { status: 500, statusText: "Bad Request" };
+    service.getFavoriteOfferInfoByUser(undefined).subscribe({
+      error: (err: HttpErrorResponse) => {
+        expect(err.status).toBe(500);
+        done();
+      }
+    });
+  });
+
+  it("Error al obtener puntos de eventos geográficos por id del itinerario", () => {
     let response: any;
     let errResponse: any;
     const mockErrorResponse = { status: 400, statusText: "Bad Request" };
@@ -349,20 +441,21 @@ describe("Itinerary service", () => {
       res => (response = res),
       (err: HttpErrorResponse) => (errResponse = err)
     );
-    httpMock.expectOne(`${environment.SERVER_BASE_URL}itinerary/getEventGeomByItineraryID/5`).flush(data, mockErrorResponse);
+    httpMock
+      .expectOne(
+        `${environment.SERVER_BASE_URL}itinerary/getEventGeomByItineraryID/5`
+      )
+      .flush(data, mockErrorResponse);
     expect(errResponse.error).toBe(data);
-  })
-
+  });
 
   it("Obtener puntos de eventos geográficos por id del itinerario", (done: DoneFn) => {
-    service
-      .getEventGeomByItineraryID()
-      .subscribe({
-        next: (data: ResponseInterface) => {
-          expect(data.message).not.toBeNull();
-          expect(data.code).toBe(200);
-          done();
-         }
-      });
+    service.getEventGeomByItineraryID().subscribe({
+      next: (data: ResponseInterface) => {
+        expect(data.message).not.toBeNull();
+        expect(data.code).toBe(200);
+        done();
+      }
+    });
   });
 });

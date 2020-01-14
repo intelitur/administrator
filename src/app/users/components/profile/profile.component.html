@@ -1,40 +1,27 @@
-<div class="container" *ngIf="this.user">
-    <h2 class="text-center font-weight-light mt-3">Editar informacion {{this.user.user_id}}</h2>
-    <form [formGroup]="editProfileForm">
+<mat-tab-group>
 
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Nombre</mat-label>
-            <input matInput  [formControl]="editProfileForm.get('name')">
-          </mat-form-field>
+  <mat-tab label="Perfil">
+    <div class="container justify-content">
+      <app-profile-info></app-profile-info>
+    </div>    
+  </mat-tab>
 
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Apellido</mat-label>
-            <input matInput  [formControl]="editProfileForm.get('lastName')">
-          </mat-form-field>
+  <mat-tab label="Itinerarios favoritos">
+    <div class="container justify-content">
+      <h2 class="text-center font-weight-light mt-3">Ver itinerarios favoritos</h2> 
+      <app-favorite-itinerary></app-favorite-itinerary>
+    </div> 
+  </mat-tab>
 
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Email</mat-label>
-            <input matInput  [formControl]="editProfileForm.get('email')">
-          </mat-form-field>
+  <mat-tab label="Ofertas favoritos">
+    <div class="container justify-content">
+      <h2 class="text-center font-weight-light mt-3">Ver ofertas favoritos</h2> 
+      <app-favorite-offer></app-favorite-offer>
+    </div> 
+  </mat-tab>
 
-          <mat-form-field appearance="outline" class="password-width">
-            <mat-label>Contraseña</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'"
-              [formControl]="editProfileForm.get('password')" >
-
-              <button matSuffix mat-icon-button class="btn-icon">
-                    <mat-icon (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                  </button>
-          </mat-form-field>
+</mat-tab-group>
 
 
+ 
 
-      <div class="text-center">
-        <button class="mt-3" mat-button color="primary" [disabled]="!editProfileForm.valid" (click)="saveChanges()">
-          <i class="material-icons">{{icon}}</i>
-        </button>
-      </div>
-    </form>
-
-  </div>
-  <mat-spinner class="spinner " *ngIf="!this.user"></mat-spinner>

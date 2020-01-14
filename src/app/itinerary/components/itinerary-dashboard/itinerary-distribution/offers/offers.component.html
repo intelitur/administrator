@@ -12,7 +12,7 @@
     </mat-form-field>
     <div cdkDropListGroup>
       <div
-      *ngIf="filteredOffers"
+        *ngIf="filteredOffers"
         cdkDropList
         [cdkDropListData]="filteredOffers"
         class="col-sm-4 shadow m-auto draggable-list"
@@ -26,12 +26,11 @@
         class="container-fluid d-flex flex-row flex-wrap justify-content-sm-center"
       >
         <div *ngFor="let item of days; let i = index" class="col-sm-4">
-          <div class="flex-row d-flex justify-content-sm-between align-items-center">
+          <div
+            class="flex-row d-flex justify-content-sm-between align-items-center"
+          >
             <strong>Día {{ item.day_number }}</strong>
-            <button
-              mat-icon-button
-              (click)="deleteDay(item.day_number, i)"
-            >
+            <button mat-icon-button (click)="deleteDay(item.day_number, i)">
               <mat-icon matTooltip="Eliminar día del itinerario" color="warn"
                 >delete</mat-icon
               >
@@ -60,21 +59,6 @@
                 <div
                   class="m-0 p-0 d-flex flex-column justify-content-sm-around"
                 >
-                  <!-- <div
-                    class="container-fluid d-flex flex-row justify-content-sm-between"
-                  >
-                  
-                    <ng-template #filled>
-                      <button mat-icon-button mat-button class="btn">
-                        <mat-icon
-                          matTooltip="Agregar a favoritos"
-                          color="primary"
-                          (click)="addOfferFavorite(offer.offer_id)"
-                          >favorite_border</mat-icon
-                        >
-                      </button>
-                    </ng-template>
-                  </div> -->
                   <mat-list class="container-fluid p-0 m-0" role="list">
                     <mat-list-item role="listitem"
                       ><strong>Inicio: </strong>
@@ -92,32 +76,30 @@
                 </div>
                 <div class="container-fluid text-right">
                   <button
-                      mat-icon-button
-                      matSuffix
-                      mat-button
-                      (click)="
-                        unlinkOffer(offer.offer_id, offer.day_number, index, i)
-                      "
+                    mat-icon-button
+                    matSuffix
+                    mat-button
+                    (click)="
+                      unlinkOffer(offer.offer_id, offer.day_number, index, i)
+                    "
+                  >
+                    <mat-icon matTooltip="Eliminar oferta del día" color="warn"
+                      >delete</mat-icon
                     >
-                      <mat-icon
-                        matTooltip="Eliminar oferta del día"
-                        color="warn"
-                        >delete</mat-icon
-                      >
-                    </button>
+                  </button>
 
-                    <button
-                      *ngIf="favorites.includes(offer.offer_id); else filled"
-                      mat-icon-button
-                      mat-button
+                  <button
+                    *ngIf="favorites.includes(offer.offer_id); else filled"
+                    mat-icon-button
+                    mat-button
+                  >
+                    <mat-icon
+                      matTooltip="Remover de favoritos"
+                      color="primary"
+                      (click)="removeOfferFavorite(offer.offer_id)"
+                      >favorite</mat-icon
                     >
-                      <mat-icon
-                        matTooltip="Remover de favoritos"
-                        color="primary"
-                        (click)="removeOfferFavorite(offer.offer_id)"
-                        >favorite</mat-icon
-                      >
-                    </button>
+                  </button>
                 </div>
               </mat-expansion-panel>
             </mat-accordion>
@@ -126,7 +108,9 @@
             <button
               class="mr-1"
               mat-raised-button
-              [disabled]="this.daysDetails[i] && this.daysDetails[i].details === null"
+              [disabled]="
+                this.daysDetails[i] && this.daysDetails[i].details === null
+              "
               (click)="openDayDetails(i); (false)"
               color="accent"
             >

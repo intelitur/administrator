@@ -14,54 +14,46 @@ export class ItineraryService {
   constructor(private _http: HttpClient) {}
 
   getFavoriteItinerary(user_id: number): Observable<any> {
-    return this._http.get(
-      `${environment.SERVER_BASE_URL}itinerary/getFavoriteItinerary/${user_id}`
-    );
+    return this._http.get(`${environment.SERVER_BASE_URL}favorite/getFavoriteItinerary/${user_id}`);
   }
 
   getFavoriteOffer(user_id: number): Observable<any> {
-    return this._http.get(
-      `${environment.SERVER_BASE_URL}itinerary/getFavoriteOffer/${user_id}`
+    return this._http.get(`${environment.SERVER_BASE_URL}favorite/getFavoriteOffer/${user_id}`);
+  };
+
+  addFavoriteItinerary(itinerary_id: number, user_id: number) : Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}favorite/addFavoriteItinerary`,{id_itinerary: itinerary_id, id_user: user_id});
+  };
+  
+  addFavoriteOffer(offer_id: number, user_id: number) : Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}favorite/addFavoriteOffer`,{id_offer: offer_id, id_user: user_id});
+  };
+
+  removeFavoriteItinerary(itinerary_id: number, user_id: number) : Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}favorite/removeFavoriteItinerary`,{id_itinerary: itinerary_id, id_user: user_id});
+  };
+  
+  removeFavoriteOffer(offer_id: number, user_id: number) : Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}favorite/removeFavoriteOffer`,{id_offer: offer_id, id_user: user_id});
+  };
+
+  getFavoriteItineraryMinimalInfoByUser(id_user: number): Observable<any> {
+    return this._http.get<Array<any>>(
+      `${environment.SERVER_BASE_URL}favorite/itineraryFavoriteInfo/${id_user}`
     );
   }
 
-  addFavoriteItinerary(itinerary_id: number, user_id: number): Observable<any> {
-    return this._http.post(
-      `${environment.SERVER_BASE_URL}itinerary/addFavoriteItinerary`,
-      { id_itinerary: itinerary_id, id_user: user_id }
-    );
+  getFavoriteOfferInfoByUser(id_user: number): Observable<any> {
+    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}favorite/offerFavoriteInfo/${id_user}`);
   }
 
-  addFavoriteOffer(offer_id: number, user_id: number): Observable<any> {
-    return this._http.post(
-      `${environment.SERVER_BASE_URL}itinerary/addFavoriteOffer`,
-      { id_offer: offer_id, id_user: user_id }
-    );
+  getItineraryMinimalInfoByUser(id_user: number): Observable<any> {
+    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}itinerary/minimalInfo/${id_user}`);
   }
 
-  removeFavoriteItinerary(
-    itinerary_id: number,
-    user_id: number
-  ): Observable<any> {
-    return this._http.post(
-      `${environment.SERVER_BASE_URL}itinerary/removeFavoriteItinerary`,
-      { id_itinerary: itinerary_id, id_user: user_id }
-    );
-  }
-
-  removeFavoriteOffer(offer_id: number, user_id: number): Observable<any> {
-    return this._http.post(
-      `${environment.SERVER_BASE_URL}itinerary/removeFavoriteOffer`,
-      { id_offer: offer_id, id_user: user_id }
-    );
-  }
-
-  changeActiveState(itinerary_id: number, info: any): Observable<any> {
-    return this._http.post(
-      `${environment.SERVER_BASE_URL}itinerary/changeActiveState`,
-      { id: itinerary_id, info: info }
-    );
-  }
+  changeActiveState(itinerary_id: number, info: any) : Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}itinerary/changeActiveState`,{id: itinerary_id, info: info});
+  };
 
   saveItinerary(it: Itinerary, categories_ids: Array<number>): Observable<any> {
     return this._http.post(`${environment.SERVER_BASE_URL}itinerary/save`, {
@@ -101,9 +93,7 @@ export class ItineraryService {
   }
 
   getDayInfo(id_itinerary: number): Observable<any> {
-    return this._http.get(
-      `${environment.SERVER_BASE_URL}day/dayInfo/${id_itinerary}`
-    );
+    return this._http.get(`${environment.SERVER_BASE_URL}day/dayInfo/${id_itinerary}`);
   }
 
   unlinkOffer(
@@ -112,26 +102,17 @@ export class ItineraryService {
     day_number: number
   ): Observable<any> {
     return this._http.delete(
-      `${environment.SERVER_BASE_URL}itinerary/unlinkOffer?it_id=${itinerary_id}&off_id=${offer_id}&day=${day_number}`
-    );
-  }
-
-  getItineraryMinimalInfoByUser(id_user: number): Observable<any> {
-    return this._http.get<Array<any>>(
-      `${environment.SERVER_BASE_URL}itinerary/minimalInfo/${id_user}`
-    );
+      `${environment.SERVER_BASE_URL}itinerary/unlinkOffer?it_id=${itinerary_id}&off_id=${offer_id}&day=${day_number}`);
   }
 
   getGroupTypes(): Observable<ResponseInterface> {
     return this._http.get<ResponseInterface>(
-      `${environment.SERVER_BASE_URL}groupType/getAll`
-    );
+      `${environment.SERVER_BASE_URL}groupType/getAll`);
   }
 
   getCategories(): Observable<ResponseInterface> {
     return this._http.get<ResponseInterface>(
-      `${environment.SERVER_BASE_URL}category/getAll`
-    );
+      `${environment.SERVER_BASE_URL}category/getAll`);
   }
 
   /**

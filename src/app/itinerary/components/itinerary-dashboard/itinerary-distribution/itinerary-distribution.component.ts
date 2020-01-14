@@ -26,9 +26,10 @@ export class ItineraryDistributionComponent implements OnInit {
     this.subscription = this.itineraryService
       .getFavoriteItinerary(this.sesionService.actualUser.user_id)
       .subscribe({
-        next: (data: ResponseInterface) => {
-          if(data.data[0])
+        next: (data: any) => {
+          if(data.data.length > 0){
             this.favorites = data.data[0].get_favorite_itinerary;
+          }
         },
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });
