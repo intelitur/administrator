@@ -44,8 +44,8 @@ export class FavoriteOfferComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  removeOfferFavorite(offerID: number) {
-    this.dataSource.filteredData.splice(this.dataSource.filteredData.indexOf(offerID, 0), 1);
+  removeOfferFavorite(offerID: number, elementIndex: number) {
+    this.dataSource.filteredData.splice(elementIndex, 1);
     this.dataSource = new MatTableDataSource(this.dataSource.filteredData);
     let userID = this.sesionService.actualUser.user_id;
     this.subscription = this._itinerary

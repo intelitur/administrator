@@ -100,6 +100,15 @@
                       >favorite</mat-icon
                     >
                   </button>
+                  <ng-template #filled>
+                    <button mat-icon-button matSuffix mat-button class="btn">
+                      <mat-icon matTooltip="Agregar a favoritos"
+                        color="primary"
+                        (click)="addOfferFavorite(offer.offer_id)"
+                        >favorite_border</mat-icon>
+                    </button>
+                  </ng-template>
+
                 </div>
               </mat-expansion-panel>
             </mat-accordion>

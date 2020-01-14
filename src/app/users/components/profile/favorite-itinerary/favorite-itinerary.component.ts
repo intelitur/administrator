@@ -39,8 +39,8 @@ export class FavoriteItineraryComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  removeItineraryFavorite(itineraryID: number) {
-    this.dataSource.filteredData.splice(this.dataSource.filteredData.indexOf(itineraryID, 0), 1);
+  removeItineraryFavorite(itineraryID: number, elementIndex: number) {
+    this.dataSource.filteredData.splice(elementIndex, 1);
     this.dataSource = new MatTableDataSource(this.dataSource.filteredData);
     let userID = this.sesionService.actualUser.user_id;
     this.subscription = this._itinerary

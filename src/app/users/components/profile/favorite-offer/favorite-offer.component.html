@@ -1,17 +1,8 @@
 
 <div class="container-fluid" *ngIf="dataSource; else loading">
   <mat-form-field class="container-fluid mb-3" appearance="outline">
-    <mat-label>Escriba cualquier valor para filtrar</mat-label>
+    <mat-label>Buscar por nombre</mat-label>
     <input matInput (keyup)="applyFilter($event.target.value)" />
-    <button
-      mat-icon-button
-      matSuffix
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide"
-    >
-      <mat-icon>library_books</mat-icon>
-    </button>
-    <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar desde el servidor</mat-hint>
   </mat-form-field>
   <br>
   <table *ngIf="dataSource" mat-table [dataSource]="dataSource" class="w-100 mat-elevation-z8">
@@ -37,11 +28,11 @@
     <!-- Weight Column -->
     <ng-container class="text-center" matColumnDef="actions">
       <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
-      <td class="text-center" mat-cell *matCellDef="let element">
+      <td class="text-center" mat-cell *matCellDef="let element; let i = index">
         <button mat-icon-button matSuffix mat-button class="btn" mat-stroked-button color="primary">
           <mat-icon matTooltip="Eliminar de favoritos"
             color="primary"
-            (click)="removeOfferFavorite(element.offer_id)"
+            (click)="removeOfferFavorite(element.offer_id, i)"
             >favorite</mat-icon>
         </button>
       </td>
