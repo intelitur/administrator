@@ -58,15 +58,17 @@ export class AddAdminComponent implements OnInit {
     }
     this.subscription = this.sessionService.saveUserAdmi(info,1).subscribe({
       next: (data : any) => {
+        this.subscription.unsubscribe();
         this.loading = false;
         this.commonService.openSnackBar(`Se ha registrado el usuario administrador ${info.name}`, "OK");
         this.dialog.closeAll();
-      }, error: (err : HttpErrorResponse)  => this.commonService.openSnackBar(`Error: ${err}`,"OK")
+      }, error: (err : HttpErrorResponse)  => {
+        this.subscription.unsubscribe();this.commonService.openSnackBar(`Error: ${err}`,"OK")}
     });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+
   }
 
 }
