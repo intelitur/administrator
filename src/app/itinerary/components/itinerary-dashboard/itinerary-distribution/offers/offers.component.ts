@@ -267,7 +267,8 @@ export class OffersComponent implements OnInit, OnDestroy {
       })
       .subscribe({
         next: (createdDay: any) => {
-          this.days.push({day_number: createdDay.day_number, items: []})
+          this.days.push({day_number: createdDay.day_number, items: []});
+          this.daysDetails.push({details: createdDay.details})
         }
       });
   }
