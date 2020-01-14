@@ -1,12 +1,5 @@
-.example-container {
-  width: 400px;
-  max-width: 100%;
-  margin: 0 25px 25px 0;
-  display: inline-block;
-  vertical-align: top;
-}
 
-.example-list {
+.draggable-list {
   border: solid 1px #ccc;
   min-height: 60px;
   background: white;
@@ -17,7 +10,7 @@
 .btn-delete{
   outline: none;
 }
-.example-box {
+.draggable-box {
   padding: 10px 10px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);

@@ -7,6 +7,7 @@ import { ItineraryFormDialogComponent } from "../itinerary/components/itinerarie
 import { CreateDayComponent } from "../itinerary/components/itinerary-dashboard/itinerary-distribution/create-day/create-day.component";
 import { ShowDayDetailsComponent } from '../itinerary/components/itinerary-dashboard/itinerary-distribution/show-day-details/show-day-details.component';
 import { ForgotPasswordComponent } from '../login/forgot-password/forgot-password.component';
+import { FilterOptionsDialogComponent } from '../itinerary/components/itineraries/itineraries-table/filter-options-dialog/filter-options-dialog.component';
 @Injectable({
   providedIn: "root"
 })
@@ -17,6 +18,12 @@ export class DialogManagerService {
     const dialogRef = this.dialog.open(ItineraryFormDialogComponent, {
       panelClass: "custom-dialog"
     });
+
+    return dialogRef.afterClosed();
+  }
+
+  openFilterOptionsDialog(): Observable<any> {
+    const dialogRef = this.dialog.open(FilterOptionsDialogComponent);
 
     return dialogRef.afterClosed();
   }

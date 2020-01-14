@@ -28,7 +28,7 @@ describe("offers and related tests", () => {
   });
 
   it("Agregar un nuevo día al itinerario", (done: DoneFn) => {
-    service.addDay(7, 7, "detalles del día")
+    service.addDay(7, 7, "detalles del día", 5)
     .subscribe({
       next: (data: ResponseInterface) => {
         expect(data.code).toBe(200)
@@ -38,7 +38,7 @@ describe("offers and related tests", () => {
   })
 
   it("Error al agregar un nuevo día al itinerario", (done: DoneFn) => {
-    service.addDay(7, 2, "detalles del día")
+    service.addDay(7, 2, "detalles del día", 5)
     .subscribe({
       error: (err: HttpErrorResponse) => {
         expect(err.status).toBe(500)
@@ -120,6 +120,66 @@ describe("offers and related tests", () => {
     it("Add offer to favorites error", (done: DoneFn) => {
       service
         .addFavoriteOffer(undefined, undefined)
+        .subscribe({
+          error: (err: HttpErrorResponse) => {
+            expect(err.message).not.toBeNull();
+            expect(err.status).toBe(500);
+            done();
+          }
+        });
+    });
+
+    it("getDaysDetails successfully by itinerary", (done: DoneFn) => {
+      service
+        .getDaysDetails(5)
+        .subscribe({
+          next: (data: ResponseInterface) => {
+            expect(data.data).not.toBeNull();
+            expect(data.code).toBe(200);
+            done();
+          }
+        });
+    });
+
+    it("error on getDaysDetails by itinerary", (done: DoneFn) => {
+      service
+        .getDaysDetails(undefined)
+        .subscribe({
+          error: (err: HttpErrorResponse) => {
+            expect(err.message).not.toBeNull();
+            expect(err.status).toBe(500);
+            done();
+          }
+        });
+    });
+
+    it("getDayInfo successfully by itinerary", (done: DoneFn) => {
+      service
+        .getDayInfo(5)
+        .subscribe({
+          next: (data: ResponseInterface) => {
+            expect(data.data).not.toBeNull();
+            expect(data.code).toBe(200);
+            done();
+          }
+        });
+    });
+
+    it("getDayInfo null data by itinerary", (done: DoneFn) => {
+      service
+        .getDayInfo(undefined)
+        .subscribe({
+          next: (data: ResponseInterface) => {
+            expect(data.data).toBeNull();
+            expect(data.code).toBe(200);
+            done();
+          }
+        });
+    });
+
+    it("error on getDayInfo  by itinerary", (done: DoneFn) => {
+      service
+        .getDayInfo(undefined)
         .subscribe({
           error: (err: HttpErrorResponse) => {
             expect(err.message).not.toBeNull();
