@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/general-services/common.service';
 import { ItineraryService } from 'src/app/itinerary/services/itinerary.service';
 import { UserService } from 'src/app/users/services/user.service';
+import { ResponseInterface } from 'src/app/globalModels/Response.interface';
 
 @Component({
   selector: "app-itinerary-distribution",
@@ -25,8 +26,9 @@ export class ItineraryDistributionComponent implements OnInit {
     this.subscription = this.itineraryService
       .getFavoriteItinerary(this.sesionService.actualUser.user_id)
       .subscribe({
-        next: (data: any) => {
-          this.favorites = data.data[0].get_favorite_itinerary;
+        next: (data: ResponseInterface) => {
+          if(data.data[0])
+            this.favorites = data.data[0].get_favorite_itinerary;
         },
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });

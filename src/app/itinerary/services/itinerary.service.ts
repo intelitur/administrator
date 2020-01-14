@@ -182,6 +182,7 @@ export class ItineraryService {
   updateDayDistribution(
     day_distribution: Array<any>
   ): Observable<ResponseInterface> {
+    console.log(day_distribution);
     return this._http.put<ResponseInterface>(
       `${environment.SERVER_BASE_URL}day/updateDayDistribution`,
       { day_distribution: day_distribution }

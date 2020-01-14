@@ -12,12 +12,13 @@
     </mat-form-field>
     <div cdkDropListGroup>
       <div
+      *ngIf="filteredOffers"
         cdkDropList
         [cdkDropListData]="filteredOffers"
-        class="example-list"
+        class="col-sm-4 shadow m-auto draggable-list"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="example-box" *ngFor="let r of filteredOffers" cdkDrag>
+        <div class="draggable-box" *ngFor="let r of filteredOffers" cdkDrag>
           {{ r.name }}
         </div>
       </div>
@@ -25,26 +26,25 @@
         class="container-fluid d-flex flex-row flex-wrap justify-content-sm-center"
       >
         <div *ngFor="let item of days; let i = index" class="col-sm-4">
-          <strong>Día {{ item.day_number }}</strong>
-          <button
-            mat-icon-button
-            matSuffix
-            mat-button
-            class="btn-delete"
-            (click)="deleteDay(item.day_number, i)"
-          >
-            <mat-icon matTooltip="Eliminar día del itinerario" color="warn"
-              >close</mat-icon
+          <div class="flex-row d-flex justify-content-sm-between align-items-center">
+            <strong>Día {{ item.day_number }}</strong>
+            <button
+              mat-icon-button
+              (click)="deleteDay(item.day_number, i)"
             >
-          </button>
+              <mat-icon matTooltip="Eliminar día del itinerario" color="warn"
+                >delete</mat-icon
+              >
+            </button>
+          </div>
           <div
             cdkDropList
             [cdkDropListData]="item.items"
-            class="example-list shadow bg-transparent"
+            class="draggable-list m-0 shadow bg-transparent"
             (cdkDropListDropped)="drop($event)"
           >
             <mat-accordion
-              class="example-box"
+              class="draggable-box"
               *ngFor="let offer of item.items; let index = index"
               cdkDrag
             >
@@ -58,20 +58,43 @@
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div
-                  class="container-fluid d-flex flex-column justify-content-sm-around"
+                  class="m-0 p-0 d-flex flex-column justify-content-sm-around"
                 >
-                  <div
+                  <!-- <div
                     class="container-fluid d-flex flex-row justify-content-sm-between"
                   >
-                    <span
-                      class="d-flex justify-content-center align-items-center"
-                      >{{ offer.name }}</span
+                  
+                    <ng-template #filled>
+                      <button mat-icon-button mat-button class="btn">
+                        <mat-icon
+                          matTooltip="Agregar a favoritos"
+                          color="primary"
+                          (click)="addOfferFavorite(offer.offer_id)"
+                          >favorite_border</mat-icon
+                        >
+                      </button>
+                    </ng-template>
+                  </div> -->
+                  <mat-list class="container-fluid p-0 m-0" role="list">
+                    <mat-list-item role="listitem"
+                      ><strong>Inicio: </strong>
+                      <span class="ml-2">{{
+                        offer.initial_time
+                      }}</span></mat-list-item
                     >
-                    <button
+                    <mat-list-item role="listitem"
+                      ><strong>Fin: </strong>
+                      <span class="ml-2">{{
+                        offer.final_time
+                      }}</span></mat-list-item
+                    >
+                  </mat-list>
+                </div>
+                <div class="container-fluid text-right">
+                  <button
                       mat-icon-button
                       matSuffix
                       mat-button
-                      class="btn-delete"
                       (click)="
                         unlinkOffer(offer.offer_id, offer.day_number, index, i)
                       "
@@ -87,7 +110,6 @@
                       *ngIf="favorites.includes(offer.offer_id); else filled"
                       mat-icon-button
                       mat-button
-                      class="btn"
                     >
                       <mat-icon
                         matTooltip="Remover de favoritos"
@@ -96,32 +118,6 @@
                         >favorite</mat-icon
                       >
                     </button>
-
-                    <ng-template #filled>
-                      <button mat-icon-button mat-button class="btn">
-                        <mat-icon
-                          matTooltip="Agregar a favoritos"
-                          color="primary"
-                          (click)="addOfferFavorite(offer.offer_id)"
-                          >favorite_border</mat-icon
-                        >
-                      </button>
-                    </ng-template>
-                  </div>
-                  <mat-list class="container-fluid" role="list">
-                    <mat-list-item role="listitem"
-                      ><strong>Inicio: </strong>
-                      <span class="ml-2">{{
-                        offer.initial_time
-                      }}</span></mat-list-item
-                    >
-                    <mat-list-item role="listitem"
-                      ><strong>Fin: </strong>
-                      <span class="ml-2">{{
-                        offer.final_time
-                      }}</span></mat-list-item
-                    >
-                  </mat-list>
                 </div>
               </mat-expansion-panel>
             </mat-accordion>

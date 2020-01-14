@@ -3,7 +3,7 @@
     <div class="container-fluid text-center">
       <img class="img img-fluid" src="{{url}}{{data.images[index]}}" alt="Image" />
     </div>
-    <div class="carousel-caption">
+    <div *ngIf="data.local" class="carousel-caption">
       <button mat-raised-button (click)="deleteImage(index); false"><mat-icon>delete</mat-icon></button>
     </div>
   </ng-template>

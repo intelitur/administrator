@@ -191,15 +191,16 @@ export class OffersComponent implements OnInit, OnDestroy {
 
   formatDaysArray(data: Array<any>) {
     let source = from(data);
-    let example = source.pipe(
+    let obs = source.pipe(
       groupBy(d => d.day_number),
       // return each item in group as array
       mergeMap(group => group.pipe(toArray()))
     );
 
-    this.formatArraySubscription = example.subscribe({
+    this.formatArraySubscription = obs.subscribe({
       next: (val: any) => {
-        this.days[val[0].day_number - 1].items = val;
+        if(this.days[val[0].day_number - 1])
+          this.days[val[0].day_number - 1].items = val;
       }
     });
   }
