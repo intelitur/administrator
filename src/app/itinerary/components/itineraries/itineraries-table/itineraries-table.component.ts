@@ -43,8 +43,10 @@ export class ItinerariesTableComponent implements OnInit {
         (this.filterItinerariesSubs = this._itinerary
           .filterItineraries(filters)
           .subscribe({
-            next: (response: ResponseInterface) => 
-              this.dataSource = new MatTableDataSource(response.data),
+            next: (response: ResponseInterface) => {
+              console.log(response.data);
+              this.dataSource = new MatTableDataSource(response.data);
+            },
             error: (err: HttpErrorResponse) => this._common.handleError(err)
           }))
     });
