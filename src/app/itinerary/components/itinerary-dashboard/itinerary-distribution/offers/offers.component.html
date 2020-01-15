@@ -118,7 +118,7 @@
               class="mr-1"
               mat-raised-button
               [disabled]="
-                this.daysDetails[i] && this.daysDetails[i].details === null
+                !this.daysDetails[i] || this.daysDetails[i].details === null
               "
               (click)="openDayDetails(i); (false)"
               color="accent"

@@ -71,7 +71,6 @@ export class ItineraryService {
   }
 
   filterItineraries(filters: Filter): Observable<ResponseInterface> {
-    console.log(filters)
     return this._http.post<ResponseInterface>(
       `${environment.SERVER_BASE_URL}itinerary/filter`,
       filters

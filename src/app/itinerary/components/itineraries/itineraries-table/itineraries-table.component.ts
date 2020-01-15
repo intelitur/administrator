@@ -19,6 +19,7 @@ export class ItinerariesTableComponent implements OnInit {
   subscription: Subscription;
   filterItinerariesSubs: Subscription;
   dialogSubscription: Subscription;
+  isFilters: boolean = false;
   constructor(
     private _dialog: DialogManagerService,
     private _itinerary: ItineraryService,
@@ -27,6 +28,10 @@ export class ItinerariesTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getItinerariesMinimalInfo();
+  }
+
+  getItinerariesMinimalInfo() {
     this.subscription = this._itinerary
       .getItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id)
       .subscribe({
@@ -35,20 +40,24 @@ export class ItinerariesTableComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
+    this.isFilters = false;
   }
 
   openShowFilterOptionsDialog() {
     this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
-      next: (filters: Filter) =>
-        (this.filterItinerariesSubs = this._itinerary
-          .filterItineraries(filters)
-          .subscribe({
-            next: (response: ResponseInterface) => {
-              console.log(response.data);
-              this.dataSource = new MatTableDataSource(response.data);
-            },
-            error: (err: HttpErrorResponse) => this._common.handleError(err)
-          }))
+      next: (filters: Filter) => {
+        if(filters) {
+          this.filterItinerariesSubs = this._itinerary
+            .filterItineraries(filters)
+            .subscribe({
+              next: (response: ResponseInterface) => {
+                this.dataSource = new MatTableDataSource(response.data);
+              },
+              error: (err: HttpErrorResponse) => this._common.handleError(err)
+            });
+          this.isFilters = true;
+        }
+      }
     });
   }
 
