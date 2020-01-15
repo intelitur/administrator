@@ -54,12 +54,25 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
       category: ["", Validators.required],
       travelAdvices: ["", Validators.required],
       startDate: ["", Validators.required],
-      endDate: ["", Validators.required],
+      endDate: [{ value: "", disabled: true }, Validators.required],
       status: ["", Validators.required] // public or private
     });
     this.setupValueChangesTotalPrice();
     this.getGroupTypes();
     this.getCategories();
+    this.setupEndDate();
+  }
+
+  setupEndDate() {
+    this.itineraryFG.get("startDate").valueChanges.subscribe(val => {
+      if (this.itineraryFG.get("startDate").value) {
+        var date = new Date(val);
+        if(this.itineraryFG.get("duration").value) {
+          date.setDate(date.getDate() + this.itineraryFG.get("duration").value);
+          this.itineraryFG.get('endDate').setValue(date);
+        }
+      }
+    });
   }
 
   setupValueChangesTotalPrice() {

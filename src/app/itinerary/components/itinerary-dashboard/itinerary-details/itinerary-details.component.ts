@@ -16,7 +16,6 @@ export class ItineraryDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.it);
     this.data.images = this.it.imgs
   }
 }

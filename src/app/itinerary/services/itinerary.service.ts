@@ -5,13 +5,15 @@ import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
 import { Filter } from "../models/Filter.interface";
+import { AuthService } from 'src/app/general-services/auth.service';
+import { User } from 'src/app/users/models/User.class';
 
 @Injectable({
   providedIn: "root"
 })
 export class ItineraryService {
   itinerary_id: number;
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _auth: AuthService) {}
 
   getFavoriteItinerary(user_id: number): Observable<any> {
     return this._http.get(`${environment.SERVER_BASE_URL}favorite/getFavoriteItinerary/${user_id}`);
@@ -60,7 +62,7 @@ export class ItineraryService {
       info: it.info,
       categories_ids: categories_ids,
       group_type_id: it.group_type_id,
-      user_id: 9
+      user_id: (this._auth.getUser() as User).user_id
     });
   }
 

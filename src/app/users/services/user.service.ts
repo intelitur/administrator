@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/general-services/auth.service';
 })
 export class UserService {
 
-  public actualUser:User;
+  public actualUser: User;
   public loadingLogin: boolean = false;
   users: Array<any>;
 

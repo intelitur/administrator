@@ -1,21 +1,45 @@
 <div class="container-fluid d-flex flex-column justify-content-sm-around p-0">
   <app-itinerary-details [it]="it"></app-itinerary-details>
   <div class="text-left container-fluid mt-2 example-box ">
-    
-    <mat-slide-toggle (change)="setAvailable(!it.info.active, it.itinerary_id, it.info)" [checked]="it.info.active">{{
-      it.info.active ? "Habilidado" : "Deshabilitado"
-    }}</mat-slide-toggle>
+    <mat-slide-toggle
+      *ngIf="sesionService.actualUser.role_id === 1; else status"
+      (change)="setAvailable(!it.info.active, it.itinerary_id, it.info)"
+      [checked]="it.info.active"
+      >{{ it.info.active ? "Habilitado" : "Deshabilitado" }}</mat-slide-toggle
+    >
 
-    <button *ngIf="favorites.includes(it.itinerary_id); else filled" mat-icon-button mat-button class="btn">
-      <mat-icon matTooltip="Remover de favoritos" color="primary" (click)="removeFavoriteItinerary(it.itinerary_id)">favorite</mat-icon>
+    <ng-template #status>
+      <h2 class="font-weight-light">{{
+        it.info.active
+          ? "Itinerario habilitado"
+          : "Este itinerario se encuentra deshabilitado"
+      }}</h2>
+    </ng-template>
+
+    <button
+      *ngIf="favorites.includes(it.itinerary_id); else filled"
+      mat-icon-button
+      mat-button
+      class="btn"
+    >
+      <mat-icon
+        matTooltip="Remover de favoritos"
+        color="primary"
+        (click)="removeFavoriteItinerary(it.itinerary_id)"
+        >favorite</mat-icon
+      >
     </button>
 
     <ng-template #filled>
       <button mat-icon-button mat-button class="btn">
-        <mat-icon matTooltip="Agregar a favoritos" color="primary" (click)="addFavoriteItinerary(it.itinerary_id)">favorite_border</mat-icon>
-      </button>      
+        <mat-icon
+          matTooltip="Agregar a favoritos"
+          color="primary"
+          (click)="addFavoriteItinerary(it.itinerary_id)"
+          >favorite_border</mat-icon
+        >
+      </button>
     </ng-template>
-
   </div>
   <app-offers *ngIf="it" [it]="it"></app-offers>
   <hr />
