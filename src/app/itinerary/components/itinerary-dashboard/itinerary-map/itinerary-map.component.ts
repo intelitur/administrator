@@ -30,13 +30,14 @@ export class ItineraryMapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.itineraryService.itinerary_id !== undefined ?
     this.itineraryService.getEventGeomByItineraryID().subscribe({
       next: (data: any) => {
         this.markers = data.data;
         this.fillMarkers(); // Fill info
       },
       error: (err: HttpErrorResponse) => this._common.handleError(err)
-    });
+    }) : null;
   }
 
 
