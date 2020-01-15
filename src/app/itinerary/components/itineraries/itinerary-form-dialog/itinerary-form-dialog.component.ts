@@ -149,7 +149,7 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
         new Itinerary(
           {
             name: fv.name,
-            total_price: fv.totalPrice,
+            total_price: this.itineraryFG.get('totalPrice').value,
             price_per_day: fv.pricePerDay,
             adult_number: fv.adultsQuantity,
             child_number: fv.childrenQuantity,
