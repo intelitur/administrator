@@ -88,7 +88,9 @@ export class OffersComponent implements OnInit, OnDestroy {
         });
     }
   }
-
+  /**
+   * @function fill array 
+   */
   fillArray(duration: number): Array<any> {
     let array = [];
     for (let i = 1; i <= duration; i++) {
@@ -97,6 +99,10 @@ export class OffersComponent implements OnInit, OnDestroy {
     return array;
   }
 
+  /**
+   * @function add offer to favorite
+   * @param offerID
+   */
   addOfferFavorite(offerID: number) {
     this.favorites.push(offerID);
     let userID = this.sesionService.actualUser.user_id;
@@ -115,6 +121,10 @@ export class OffersComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * @function add remove offer to favorite
+   * @param offerID 
+   */
   removeOfferFavorite(offerID: number) {
     this.favorites.splice(this.favorites.indexOf(offerID, 0), 1);
     let userID = this.sesionService.actualUser.user_id;
@@ -189,6 +199,10 @@ export class OffersComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * @function format days 
+   * @param data: Array<any>
+   */
   formatDaysArray(data: Array<any>) {
     let source = from(data);
     let obs = source.pipe(
@@ -204,7 +218,10 @@ export class OffersComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  /**
+   * @function fillEmptyDays 
+   * @param duration: number
+   */
   fillEmptyDays(duration: number) {
     for (let i = 1; i <= duration; i++) {
       this.days.push({
@@ -214,7 +231,7 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * method needed to sort an array of days
+   * @function method needed to sort an array of days
    * This is needed because in some cases the second promise respond first
    */
   sortArray() {
@@ -227,7 +244,9 @@ export class OffersComponent implements OnInit, OnDestroy {
       return 0;
     });
   }
-
+  /**
+   * @function drop offer
+   */
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -245,6 +264,9 @@ export class OffersComponent implements OnInit, OnDestroy {
     }
   }
   /**
+   * @function delete day
+   * @param day_number: number
+   * @param index: number
    */
   deleteDay(day_number: number, index: number) {
     this.deleteDaySubs = this._itinerary
@@ -257,7 +279,9 @@ export class OffersComponent implements OnInit, OnDestroy {
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });
   }
-
+  /**
+   * @function add day
+   */
   addDay() {
     this._dialog
       .openCreateDay({
@@ -273,7 +297,13 @@ export class OffersComponent implements OnInit, OnDestroy {
         }
       });
   }
-
+  /**
+   * @function unlink offer
+   * @param offer_id: number
+   * @param day_number: number
+   * @param offer_index: number
+   * @param day_index: number
+   */
   unlinkOffer(
     offer_id: number,
     day_number: number,
@@ -290,7 +320,10 @@ export class OffersComponent implements OnInit, OnDestroy {
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });
   }
-
+  /**
+   * @function open day details 
+   * @param i:number
+   */
   openDayDetails(i: number) {
     this._dialog.openShowDayDetails(this.daysDetails[i].details);
   }

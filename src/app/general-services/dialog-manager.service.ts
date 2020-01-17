@@ -5,14 +5,14 @@ import { AddAdminComponent } from "../users/components/add-admin/add-admin.compo
 import { RegisterBusinessManComponent } from "../login/register-business-man/register-business-man.component";
 import { ItineraryFormDialogComponent } from "../itinerary/components/itineraries/itinerary-form-dialog/itinerary-form-dialog.component";
 import { CreateDayComponent } from "../itinerary/components/itinerary-dashboard/itinerary-distribution/create-day/create-day.component";
-import { ShowDayDetailsComponent } from '../itinerary/components/itinerary-dashboard/itinerary-distribution/show-day-details/show-day-details.component';
-import { ForgotPasswordComponent } from '../login/forgot-password/forgot-password.component';
-import { FilterOptionsDialogComponent } from '../itinerary/components/itineraries/itineraries-table/filter-options-dialog/filter-options-dialog.component';
+import { ShowDayDetailsComponent } from "../itinerary/components/itinerary-dashboard/itinerary-distribution/show-day-details/show-day-details.component";
+import { ForgotPasswordComponent } from "../login/forgot-password/forgot-password.component";
+import { FilterOptionsDialogComponent } from "../itinerary/components/itineraries/itineraries-table/filter-options-dialog/filter-options-dialog.component";
 @Injectable({
   providedIn: "root"
 })
 export class DialogManagerService {
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {}
 
   openItineraryFormDialog(): Observable<any> {
     const dialogRef = this.dialog.open(ItineraryFormDialogComponent, {
@@ -59,9 +59,10 @@ export class DialogManagerService {
     });
   }
 
+  /**
+   * open
+   */
   openForgotPasswordDialog(): void {
-    this.dialog.open(ForgotPasswordComponent, {
-      panelClass: "custom-dialog-forgot-password"
-    });
+    this.dialog.open(ForgotPasswordComponent, {});
   }
 }

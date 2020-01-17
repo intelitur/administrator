@@ -1,10 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivateChild } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from './general-services/auth.service';
+import { Injectable } from "@angular/core";
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+  CanActivateChild
+} from "@angular/router";
+import { Observable } from "rxjs";
+import { AuthService } from "./general-services/auth.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class LoggedInGuard implements CanActivateChild {
   constructor(private authService: AuthService) {}
@@ -15,8 +20,8 @@ export class LoggedInGuard implements CanActivateChild {
    * @param state
    */
   canActivateChild(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    _next: ActivatedRouteSnapshot,
+    _state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     const isLoggedIn = this.authService.isLoggedIn();
     return isLoggedIn;

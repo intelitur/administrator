@@ -14,12 +14,9 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class FavoriteOfferComponent implements OnInit {
   displayedColumns: string[] = ["position", "name", "actions"];
-  dataSource; /*= new MatTableDataSource(ELEMENT_DATA);*/
+  dataSource: MatTableDataSource<unknown>;
   subscription: Subscription;
-
-
   constructor(
-    private _dialog: DialogManagerService,
     private _itinerary: ItineraryService,
     private _common: CommonService,
     public sesionService: UserService
@@ -37,13 +34,19 @@ export class FavoriteOfferComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription)
+      this.subscription.unsubscribe();
   }
-
+  /**
+   * @function apply filter
+   */
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  /**
+   * @function remover offer from favorite
+   */
   removeOfferFavorite(offerID: number, elementIndex: number) {
     this.dataSource.filteredData.splice(elementIndex, 1);
     this.dataSource = new MatTableDataSource(this.dataSource.filteredData);
@@ -56,7 +59,6 @@ export class FavoriteOfferComponent implements OnInit {
             `La oferta ${offerID} ha sido eliminada de favoritos`,
             "OK"
           );
-          this.subscription.unsubscribe();
         },
         error: (err: HttpErrorResponse) =>
           this._common.openSnackBar(`Error: ${err}`, "OK")

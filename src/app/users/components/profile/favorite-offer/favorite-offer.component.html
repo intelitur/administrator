@@ -6,26 +6,18 @@
   </mat-form-field>
   <br>
   <table *ngIf="dataSource" mat-table [dataSource]="dataSource" class="w-100 mat-elevation-z8">
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Position Column -->
     <ng-container matColumnDef="position">
       <th class="text-center" mat-header-cell *matHeaderCellDef>No.</th>
       <td class="text-center" mat-cell *matCellDef="let element; let i = index">
         {{ i + 1 }}
       </td>
     </ng-container>
-  
-    <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th class="text-center" mat-header-cell *matHeaderCellDef>Name</th>
+      <th class="text-center" mat-header-cell *matHeaderCellDef>Nombre</th>
       <td class="text-center" mat-cell *matCellDef="let element">
         {{ element.name }}
       </td>
     </ng-container>
-  
-    <!-- Weight Column -->
     <ng-container class="text-center" matColumnDef="actions">
       <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
       <td class="text-center" mat-cell *matCellDef="let element; let i = index">
@@ -41,7 +33,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
-
 <ng-template #loading>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-template>

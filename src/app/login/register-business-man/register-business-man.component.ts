@@ -60,16 +60,18 @@ export class RegisterBusinessManComponent implements OnInit {
       state: false
     }
     this.subscription = this.sessionService.saveUser(info,2).subscribe({
-      next: (data : any) => {
+      next: (_data : any) => {
         this.loading = false;
         this.commonService.openSnackBar(`Se ha registrado ${info.name}, espere la validación de su cuenta`, "OK");
-        this.subscription.unsubscribe();
         this.dialog.closeAll();
 
       }, error: (err : HttpErrorResponse)  => {this.commonService.openSnackBar(`Error: ${err}`,"OK");this.subscription.unsubscribe();}
     });
   }
 
-
+  ngOnDestroy() {
+    if(this.subscription)
+      this.subscription.unsubscribe();
+  }
 
 }

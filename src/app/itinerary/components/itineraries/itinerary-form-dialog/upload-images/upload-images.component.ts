@@ -12,7 +12,9 @@ export class UploadImagesComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  /**
+   * @function prepare files 
+   */
   prepareFiles() {
     this.selectedImages.emit(this.uploader.queue.map(e => e.file));
   }

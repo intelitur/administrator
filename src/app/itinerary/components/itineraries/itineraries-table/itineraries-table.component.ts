@@ -30,7 +30,9 @@ export class ItinerariesTableComponent implements OnInit {
   ngOnInit() {
     this.getItinerariesMinimalInfo();
   }
-
+  /**
+   * @function get minimal info of itinerary
+   */
   getItinerariesMinimalInfo() {
     this.subscription = this._itinerary
       .getItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id)
@@ -43,6 +45,9 @@ export class ItinerariesTableComponent implements OnInit {
     this.isFilters = false;
   }
 
+  /**
+   * @function open filter dialog
+   */
   openShowFilterOptionsDialog() {
     this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
       next: (filters: Filter) => {
@@ -61,6 +66,9 @@ export class ItinerariesTableComponent implements OnInit {
     });
   }
 
+  /**
+   * @function apply filter
+   */
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

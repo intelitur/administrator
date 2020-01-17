@@ -44,7 +44,7 @@ export class AddAdminComponent implements OnInit {
   }
 
   /**
-   * @function add Admin
+   * @function add administrator user
    */
   addAdmin(){
     this.loading = true; // Charge loading
@@ -57,18 +57,18 @@ export class AddAdminComponent implements OnInit {
       state: true
     }
     this.subscription = this.sessionService.saveUserAdmi(info,1).subscribe({
-      next: (data : any) => {
-        this.subscription.unsubscribe();
+      next: () => {
         this.loading = false;
         this.commonService.openSnackBar(`Se ha registrado el usuario administrador ${info.name}`, "OK");
         this.dialog.closeAll();
       }, error: (err : HttpErrorResponse)  => {
-        this.subscription.unsubscribe();this.commonService.openSnackBar(`Error: ${err}`,"OK")}
+        this.commonService.openSnackBar(`Error: ${err}`,"OK")}
     });
   }
 
   ngOnDestroy() {
-
+    if(this.subscription)
+      this.subscription.unsubscribe();
   }
 
 }

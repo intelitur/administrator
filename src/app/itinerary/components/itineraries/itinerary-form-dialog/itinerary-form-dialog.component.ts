@@ -63,6 +63,9 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     this.setupEndDate();
   }
 
+  /**
+   * @function setud end date
+   */
   setupEndDate() {
     this.itineraryFG.get("startDate").valueChanges.subscribe(val => {
       if (this.itineraryFG.get("startDate").value) {
@@ -75,6 +78,9 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * @function setup changes of total price
+   */
   setupValueChangesTotalPrice() {
     this.itineraryFG.get("pricePerDay").valueChanges.subscribe(val => {
       if (this.itineraryFG.get("duration").value) {
@@ -91,6 +97,9 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * @function setup up loader
+   */
   setupUploader() {
     this._image.uploader.onAfterAddingFile = file => {
       file.withCredentials = false;
@@ -110,14 +119,23 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     };
   }
 
+  /**
+   * @function link category
+   */
   linkCategory(c: Category) {
     if (!this.linkedCategories.includes(c)) this.linkedCategories.unshift(c);
   }
 
+  /**
+   * @function delete linked category
+   */
   deleteLinkedCategory(index: number) {
     this.linkedCategories.splice(index, 1);
   }
 
+  /**
+   * @function get group types
+   */
   getGroupTypes() {
     this.subscription = this._itinerary.getGroupTypes().subscribe({
       next: (data: any) => {
@@ -130,6 +148,9 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * @function get categories
+   */
   getCategories() {
     this.subscription = this._itinerary.getCategories().subscribe({
       next: (result: ResponseInterface) => {
@@ -139,6 +160,9 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * @function catch selected images
+   */
   catchSelectedImages(files: any) {
     for (let i = 0; i < files.length; i++) {
       var reader = new FileReader();
@@ -151,6 +175,9 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @function catch deleted image
+   */
   catchDeletedImage(index: number) {
     this._image.uploader.removeFromQueue(this._image.uploader.queue[index]);
   }
@@ -187,6 +214,9 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * @function upload images
+   */
   uploadImages() {
     this._image.uploader.uploadAll();
   }

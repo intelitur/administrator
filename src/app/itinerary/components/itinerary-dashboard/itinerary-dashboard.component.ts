@@ -37,7 +37,6 @@ export class ItineraryDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscription)
-      this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }

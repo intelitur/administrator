@@ -12,11 +12,11 @@ export class CommonService {
 
   /**
    * @Function Open Snackbar
-   * @param msj
+   * @param msg
    * @param action
    */
-  openSnackBar(msj:string, action: string){
-    this.snackBar.open(msj,action, {
+  openSnackBar(msg:string, action: string){
+    this.snackBar.open(msg,action, {
       duration: 3000,
     });
   }

@@ -57,7 +57,10 @@ export class ItineraryMapComponent implements OnInit {
       }).bindPopup(mark.name))
     });
   }
-
+  /**
+   * @function Map ready
+   * @param map: Map
+   */
   onMapReady(map: Map) {
     setTimeout(() => {
       map.invalidateSize();

@@ -41,6 +41,9 @@ export class ProfileInfoComponent implements OnInit {
           this.commonService.openSnackBar(`Error: ${err}`, "OK")
       });
   }
+  /**
+   * @function load user
+   */
   loadUser() {
     this.editProfileForm = this._fb.group({
       name: [this.user.info.name, Validators.required],
@@ -53,7 +56,9 @@ export class ProfileInfoComponent implements OnInit {
       else this.icon = "warning";
     });
   }
-
+  /**
+   * @function Save changes by user
+   */
   saveChanges() {
     let passChanged = false;
     if (this.editProfileForm.get("password").value != "") {
@@ -76,5 +81,12 @@ export class ProfileInfoComponent implements OnInit {
         error: (err: HttpErrorResponse) =>
           this.commonService.openSnackBar(`Error: ${err}`, "OK")
       });
+  }
+
+  ngOnDestroy(): void {
+    if(this.subscription)
+      this.subscription.unsubscribe();
+    if(this.subscriptionUserProfile)
+      this.subscriptionUserProfile.unsubscribe();
   }
 }

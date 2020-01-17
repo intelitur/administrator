@@ -1,17 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-itinerary-root',
+  selector: "app-itinerary-root",
   template: `
     <router-outlet></router-outlet>
   `,
   styles: []
 })
 export class ItineraryRootComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

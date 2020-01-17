@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { UserService } from "../users/services/user.service";
 import { AuthService } from "../general-services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -20,13 +21,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     public dialogService: DialogManagerService,
     public sessionService: UserService,
-    public _auth: AuthService
+    public _auth: AuthService,
+    private _router: Router
   ) {
     this.loginForm = this._fb.group({
       email: ["", Validators.email],
       password: ["", Validators.required]
     });
   }
+  
   ngOnInit() {
     document.body.classList.add("bg-img");
     // Trigger to change icon
@@ -35,20 +38,23 @@ export class LoginComponent implements OnInit, OnDestroy {
       else this.icon = "warning";
     });
   }
+
   /**
    * @funtion Open Dialog to register businessman
    */
   registerBusinessman(): void {
     this.dialogService.openAddBusinessmanFormDialog();
   }
+
   /**
    * @function Open Dialog to recovery password
    */
   forgotPassword(): void {
     this.dialogService.openForgotPasswordDialog();
   }
+
   /**
-   * @funtion Login
+   * @funtion Login to system
    */
   loginUser() {
     this.sessionService.loadingLogin = true;
@@ -60,7 +66,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data: any) => {
           this.sessionService.loadingLogin = false;
-          this.subscribeLogin.unsubscribe();
           this._auth.login({
             name: data.data.name,
             user_id: data.data.user_id,
@@ -71,9 +76,9 @@ export class LoginComponent implements OnInit, OnDestroy {
             `Bienvenido ${this.sessionService.actualUser.name}`,
             "OK"
           );
+          this._router.navigate(["/itineraries/show-all"]);
         },
         error: (_err: HttpErrorResponse) => {
-          this.subscribeLogin.unsubscribe();
           this.sessionService.commonService.openSnackBar(
             `Error en la autenticación`,
             "OK"
@@ -84,7 +89,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscribeLogin)
-      this.subscribeLogin.unsubscribe();
+    if (this.subscribeLogin) this.subscribeLogin.unsubscribe();
   }
 }

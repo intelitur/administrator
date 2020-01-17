@@ -34,7 +34,12 @@ export class ItineraryDistributionComponent implements OnInit {
         error: (err: HttpErrorResponse) => this.commonService.handleError(err)
       });
   }
-
+  /**
+   * @function set available 
+   * @param state: boolean 
+   * @param itineraryID: number
+   * @param info: any
+   */
   setAvailable(state: boolean, itineraryID: number, info: any) {
     let modifyInfo = info;
     modifyInfo.active = state;
@@ -60,6 +65,10 @@ export class ItineraryDistributionComponent implements OnInit {
       });
   }
 
+  /**
+   * @function add favorite from itinerary
+   * @param itineraryID: number
+   */
   addFavoriteItinerary(itineraryID: number) {
     this.favorites.push(itineraryID);
     let userID = this.sesionService.actualUser.user_id;
@@ -76,7 +85,10 @@ export class ItineraryDistributionComponent implements OnInit {
         error: (err: HttpErrorResponse) =>
          this.commonService.openSnackBar(`Error: ${err}`, "OK")});
   }
-
+  /**
+   * @function remove favorite from itinerary
+   * @param itineraryID: number
+   */
   removeFavoriteItinerary(itineraryID: number) {
     this.favorites.splice(this.favorites.indexOf(itineraryID, 0), 1);
     let userID = this.sesionService.actualUser.user_id;

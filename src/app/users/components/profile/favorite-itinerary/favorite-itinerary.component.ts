@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
 import { ItineraryService } from 'src/app/itinerary/services/itinerary.service';
 import { CommonService } from 'src/app/general-services/common.service';
 import { UserService } from 'src/app/users/services/user.service';
@@ -14,11 +13,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class FavoriteItineraryComponent implements OnInit {
   displayedColumns: string[] = ["position", "name", "actions"];
-  dataSource; /*= new MatTableDataSource(ELEMENT_DATA);*/
+  dataSource: MatTableDataSource<unknown>;
   subscription: Subscription;
 
   constructor(
-    private _dialog: DialogManagerService,
     private _itinerary: ItineraryService,
     private _common: CommonService,
     public sesionService: UserService
@@ -34,11 +32,16 @@ export class FavoriteItineraryComponent implements OnInit {
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
   }
-
+  /**
+   * @function apply filter
+   */
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  /**
+   * @function remove favarite from itinerary
+   */
   removeItineraryFavorite(itineraryID: number, elementIndex: number) {
     this.dataSource.filteredData.splice(elementIndex, 1);
     this.dataSource = new MatTableDataSource(this.dataSource.filteredData);
@@ -51,7 +54,6 @@ export class FavoriteItineraryComponent implements OnInit {
             `El itinerario ${itineraryID} ha sido eliminado de favoritos`,
             "OK"
           );
-          this.subscription.unsubscribe();
         },
         error: (err: HttpErrorResponse) =>
           this._common.openSnackBar(`Error: ${err}`, "OK")
@@ -59,8 +61,10 @@ export class FavoriteItineraryComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription)
+      this.subscription.unsubscribe();
   }
+  
   /**
    * @funtion Assign id of itinerary to will used in other components
    * @param id

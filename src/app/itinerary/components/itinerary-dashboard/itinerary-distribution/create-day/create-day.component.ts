@@ -28,7 +28,9 @@ export class CreateDayComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  /**
+   * @function Save day
+   */
   save() {
     this.subscription = this._itinerary
       .addDay(this.data.id_itinerary, this.data.day_number, this.data.details, this.data.duration + 1)

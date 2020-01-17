@@ -41,10 +41,15 @@ export class FilterOptionsDialogComponent implements OnInit, OnDestroy {
       error: (err: HttpErrorResponse) => this._common.handleError(err)
     });
   }
+  /**
+   * @function close dialog
+   */
   submit(): void {
     this.dialogRef.close(this.filters);
   }
-
+  /**
+   * @function close dialog
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }

@@ -63,15 +63,13 @@ export class ForgotPasswordComponent implements OnInit {
         this.loading = false;
         this.commonService.openSnackBar("Verifique su correo electrónico","OK");
         this.isSendEmail = true;
-        this.subscribeForgotPassword.unsubscribe();
-        //this.dialog.closeAll();
       }, error:(err: HttpErrorResponse) => {
-        this.subscribeForgotPassword.unsubscribe();
         this.loading = false;
         this.commonService.openSnackBar(err.error.message,"OK");
       }
-    });;
+    });
   }
+  
   /**
    * @function send new password
    */
@@ -84,11 +82,11 @@ export class ForgotPasswordComponent implements OnInit {
       this.subscribeForgotPassword = this.sessionService.changePasswordByCode(
         this.changePasswordForm.get("password").value,this.changePasswordForm.get("code").value).subscribe({
         next: (data: any) => {
+
           this.loading = false;
           this.commonService.openSnackBar("Las contraseña ha sido actualizada!","OK");
           this.dialog.closeAll();
         },error:(err: HttpErrorResponse) => {
-        this.subscribeForgotPassword.unsubscribe();
         this.loading = false;
         this.commonService.openSnackBar(err.error.message,"OK");
       }
@@ -96,4 +94,8 @@ export class ForgotPasswordComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    if(this.subscribeForgotPassword)
+      this.subscribeForgotPassword.unsubscribe();
+  }
 }
