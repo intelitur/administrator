@@ -13,7 +13,6 @@
       <table class="table">
         <thead class="thead-light">
           <tr>
-            <th scope="col">id</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellidos</th>
             <th scope="col">Empresa</th>
@@ -24,7 +23,6 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of this.userManagmentService.users | filterBy: filter">
-            <th scope="row">{{ user.user_id  }}</th>
             <td>{{ user.info.name }}</td>
             <td>{{ user.info.lastName }}</td>
             <td *ngIf="user.role_id === 1">No aplica</td>
