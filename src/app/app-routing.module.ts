@@ -17,6 +17,14 @@ const routes: Routes = [
         i => i.UsersModule
       ),
     canActivateChild: [LoggedInGuard]
+  },
+  {
+    path: "companies",
+    loadChildren: () =>
+      import("./company/company.module").then(
+        i => i.CompanyModule
+      ),
+    canActivateChild: [LoggedInGuard]
   }
 ];
 

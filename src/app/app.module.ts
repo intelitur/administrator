@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterBusinessManComponent } from './login/register-business-man/register-business-man.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { CompanyModule } from './company/company.module';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
     ItineraryModule,
     UsersModule,
     HttpClientModule,
+    CompanyModule
 
   ],
   providers: [],
