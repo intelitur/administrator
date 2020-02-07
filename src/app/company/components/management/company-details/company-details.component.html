@@ -1,0 +1,81 @@
+<div style="display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;">
+    <div style="width: 60%; min-width: 300px;">
+        <div style="display: flex; justify-content: space-around;">
+            <h2 style="color: #dbb735; text-align: center; margin: auto 0">{{company.name}}</h2>
+            <div style="display: flex; flex-direction: column; margin: auto 0; padding: 0 20px">
+                <div style="margin: auto" [style.color]="company.state? '#673ab7': 'gray'">
+                    {{company.state? "Activa": "Inactiva"}}</div>
+                <mat-slide-toggle style="width: min-content; margin: auto;" (change)="changeState($event)"
+                    color="primary" [checked]=company.state>
+                </mat-slide-toggle>
+            </div>
+
+        </div>
+
+        <form [formGroup]="companyForm" class="container-fluid d-flex flex-column justify-content-center"
+            style="padding: 25px">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Cédula Jurídica</mat-label>
+                <input matInput formControlName="legal_id">
+                <mat-hint align="end">Sin guiones - 10 dígitos</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input matInput formControlName="phone_number">
+                <mat-hint align="end">Formato: 8888 8888</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Ubicación descrita</mat-label>
+                <input matInput formControlName="location">
+            </mat-form-field>
+
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                <button mat-stroked-button [disabled]="!companyForm.valid || !isChanged()" color="primary"
+                    style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="applyChanges()">
+                    Guardar cambios
+                </button>
+                <button mat-stroked-button [disabled]="!isChanged()" color="warn"
+                    style="width: 47%; min-width: fit-content;margin-top: 10px;"
+                    (click)="companyForm.patchValue(company)">
+                    Descartar cambios
+                </button>
+            </div>
+
+
+        </form>
+    </div>
+    <div
+        style="width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
+        <img style="margin: 5% auto; max-height: 450px; max-width: 90%;"
+            src="https://media-exp1.licdn.com/dms/image/C561BAQECpbD6BAejKg/company-background_10000/0?e=2159024400&v=beta&t=0OMsZud-rJoJIlHTUOuvOGPWNEZJBJDx7_mzKQI37UU">
+        <div style=" display: flex; height: 70px;">
+            <div
+                style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);">
+                <button mat-button matTooltip="Buscar nueva imagen" style="border-radius: 0 0 0 20px;"
+                    class="image-buttons" color="accent">
+                    <mat-icon>find_replace</mat-icon>
+
+                </button>
+            </div>
+            <div
+                style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);">
+                <button mat-button matTooltip="Eliminar imagen de empresa" style="border-radius: 0 0 20px 0"
+                    class="image-buttons" color="warn">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

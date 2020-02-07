@@ -14,7 +14,7 @@ const routes: Routes = [
         component: CompaniesComponent
       },
       {
-        path: ":company",
+        path: ":company_id",
         component: ManagementComponent
       }
     ]

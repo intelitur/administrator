@@ -1,0 +1,16 @@
+<div class="m-3" style="height: calc(100vh - 150px); display: flex; flex-direction: column;" (mouseenter)="refreshMap()">
+    <div class="shadow-sm rounded" class="map container-fluid" leaflet (leafletMapReady)="onMapReady($event)"
+        [leafletOptions]="options" (leafletClick)="putLocationMarker($event)"></div>
+    <div style="width: 94%; height: 14%; display: flex; justify-content: space-between; margin: 3%; flex-wrap: wrap;">
+        <label style="font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;">
+            Latitud: <b style="color: #dbb735;;">{{locationMarker.getLatLng().lat}}</b> <br> 
+            Longitud: <b style="color: #ca382d;">{{locationMarker.getLatLng().lng}}</b>
+        </label>
+        <button mat-stroked-button color="primary" style="width: 60%; min-width: 200px; margin: 0 auto"
+            matTooltip="Arrastre el marcador hasta la nueva ubicación y presione el botón para guardar"
+            [disabled]="company.latitude == locationMarker.getLatLng().lat && company.longitude == locationMarker.getLatLng().lng"
+            (click)="updateCompanyLocation()">
+            Guardar ubicación
+            <mat-icon style="margin-left: 5%;">check</mat-icon></button>
+    </div>
+</div>
