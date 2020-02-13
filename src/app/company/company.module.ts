@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ManagementComponent } from './components/management/management.component';
-import { AddComponent } from './components/add/add.component';
 import { CompaniesComponent } from './components/companies/companies.component';
 import { CompanyRootComponent } from './company-root.component';
 import { CompanyRoutingModule } from "./company-routing.module";
@@ -13,17 +12,20 @@ import { CompanyUsersComponent } from './components/management/company-users/com
 import { CompanyMapComponent } from './components/management/company-map/company-map.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { CompanyRequestsComponent } from './components/management/company-requests/company-requests.component';
+import { CompanyCreateComponent } from './components/company-create/company-create.component';
 
 
 
 @NgModule({
   declarations: [
     ManagementComponent, 
-    AddComponent, 
     CompaniesComponent, 
     CompanyRootComponent, 
     CompanyDetailsComponent, 
-    CompanyUsersComponent, CompanyMapComponent, CompanyRequestsComponent
+    CompanyUsersComponent, 
+    CompanyMapComponent, 
+    CompanyRequestsComponent, 
+    CompanyCreateComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,9 @@ import { CompanyRequestsComponent } from './components/management/company-reques
     FormsModule,
     FilterPipeModule,
     LeafletModule, 
-    
+  ],
+  entryComponents: [
+    CompanyCreateComponent
   ]
 })
 export class CompanyModule { }

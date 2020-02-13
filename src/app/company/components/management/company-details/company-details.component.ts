@@ -17,6 +17,8 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
 
   companyForm: FormGroup
 
+  loading = false;
+
 
 
   constructor(
@@ -44,10 +46,14 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
   }
 
   changeState({ source }: any) {
+    this.loading = true;
+    this.companyForm.disable()
     this.companyService
       .chageCompanyState(this.company)
       .subscribe({
         next: (data: any) => {
+          this.loading = false;
+          this.companyForm.enable()
           if (data.status == 204) {
             this.company.state = !this.company.state;
             source.checked = this.company.state
@@ -74,11 +80,15 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
         error: (err: HttpErrorResponse) => {
           this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
           source.checked = this.company.state
+          this.loading = false;
+          this.companyForm.enable()
         }
       });
   }
 
   applyChanges() {
+    this.loading = true;
+    this.companyForm.disable()
     let company = {
       ...this.company,
       ...this.companyForm.value
@@ -86,6 +96,8 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
     this.companyService.updateCompany(company).subscribe({
       next: (data: any) => {
         if (data.status == 204) {
+          this.loading = false;
+          this.companyForm.enable()
           this.company = company;
           this.commonService.openSnackBar(
             `La empresa ${this.company.name} ha sido cambiada`,
@@ -101,7 +113,10 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
       },
       error: (err: HttpErrorResponse) => {
         this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        this.loading = false;
+        this.companyForm.enable()
       }
+
     })
   }
 

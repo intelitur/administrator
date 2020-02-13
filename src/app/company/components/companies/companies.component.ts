@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/general-services/common.service';
 import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
-import { MatDialog } from '@angular/material';
 import { CompanyService } from '../../services/company.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Company } from '../../models/Company';
+import { CompanyCreateComponent } from '../company-create/company-create.component';
 
 @Component({
   selector: 'app-companies',
@@ -20,7 +20,6 @@ export class CompaniesComponent implements OnInit {
   constructor(
     public commonService: CommonService,
     public dialogService: DialogManagerService,
-    public dialog: MatDialog,
     public companyService: CompanyService
   ) { }
 
@@ -79,37 +78,9 @@ export class CompaniesComponent implements OnInit {
       });
   }
 
-  // /**
-  //  * @function Set Acceptance business user
-  //  * @param accept
-  //  * @param userID
-  //  */
-  // setAcceptance(userID: number, info:any) {
-  //   let modifyInfo = info;
-  //   modifyInfo.state = true;
-  //   this.subscription = this.userManagmentService
-  //     .changeAvailableOrStateUser(userID, modifyInfo)
-  //     .subscribe({
-  //       next: (data: any) => {
-  //         this.commonService.openSnackBar(
-  //           `El id de usuario ${userID} ha sido registrado correctamente`,
-  //           "OK"
-  //         );
-  //         this.subscription.unsubscribe();
-  //         let idx = this.userManagmentService.users.findIndex(user => user.user_id === userID);
-  //         this.userManagmentService.users[idx].info.state = true;
-  //       },
-  //       error: (err: HttpErrorResponse) =>
-  //         this.commonService.openSnackBar(`Error: ${err}`, "OK")
-  //     });
-  // }
-
-  // /**
-  //  * @funtion Open dialog to add new admin
-  //  */
-  // openDialogToAddAdmin() {
-  //   this.dialogService.openAddAdminFormDialog();
-  // }
+  openCreateCompanyDialog(){
+    this.dialogService.open(CompanyCreateComponent, {width: "60%", minWidth: "280px"});
+  }
 
 
 }

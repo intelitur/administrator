@@ -2,7 +2,7 @@
     <h1 class="text-center font-weight-light mt-3">Gestión de empresas</h1>
     <div class="float-right mb-3 ">
       <button mat-fab color="primary" class="btn-add" matTooltip="Agregar un administrador"
-        (click)="openDialogAddCompany()"><i class="material-icons">add</i></button>
+        (click)="openCreateCompanyDialog()"><i class="material-icons">add</i></button>
     </div>
     <div *ngIf="this.companyService.companies; else loading">
       <mat-form-field class="container-fluid mb-3" appearance="outline">
@@ -22,20 +22,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let company of this.companyService.companies | filterBy: filter">
+            <tr *ngFor="let company of this.companyService.companies | filterBy: filter" [routerLink]="['/company', company.company_id]">
               <td>{{ company.name }}</td>
               <td>{{ company.legal_id }}</td>
-              <td>{{ company.email }}</td>
-              <td>{{ (company.phone_number)? (company.phone_number).replace(" ", "-"): "No registrado" }}</td>
+              <td>{{ company.email? company.email: "No registrado" }}</td>
+              <td>{{ company.phone_number? company.phone_number: "No registrado" }}</td>
               <td>
-                <section>
+                <section (click)="$event.stopPropagation()">
                   <mat-slide-toggle (change)="changeState(company, $event)" color="primary"
                     [checked]= company.state>
                   </mat-slide-toggle>
                 </section>
               </td>
               <td>
-                <button mat-stroked-button [routerLink]="['/company', company.company_id]" matTooltip="Detalles de la empresa" style="color: rgb(82, 82, 82); font-size: 14px;">
+                <button mat-stroked-button  matTooltip="Detalles de la empresa" style="color: rgb(82, 82, 82); font-size: 14px;">
                   Ver detalles
                 </button>
               </td>

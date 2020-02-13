@@ -12,8 +12,8 @@ export class CompanyUsersService {
   companies: Array<Company>;
 
   companyModule = "company"
-
   requestModule = "request"
+  userModule = "generalUsers"
 
   constructor(
     private http: HttpClient
@@ -39,6 +39,10 @@ export class CompanyUsersService {
 
   deleteUserFromCompany({user_company_id}: any){
     return this.http.delete(`${environment.SERVER_BASE_URL}${this.requestModule}/${user_company_id}/`, {observe: 'response'});
+  }
+
+  getUserCompanies(user_id: number){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.userModule}/${user_id}/companies/`);
   }
 
 

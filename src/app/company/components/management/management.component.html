@@ -5,14 +5,14 @@
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </ng-template>
     </mat-tab>
-    <mat-tab label="Usuarios">
-        <app-company-users *ngIf="company; else loadingCompany" [company]="company"></app-company-users>
+    <mat-tab label="Ubicación">
+        <app-company-map *ngIf="company; else loadingCompany" [company]="company"></app-company-map>
         <ng-template #loadingCompany>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </ng-template>
     </mat-tab>
-    <mat-tab label="Ubicación">
-        <app-company-map *ngIf="company; else loadingCompany" [company]="company"></app-company-map>
+    <mat-tab label="Usuarios">
+        <app-company-users *ngIf="company; else loadingCompany" [company]="company"></app-company-users>
         <ng-template #loadingCompany>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </ng-template>

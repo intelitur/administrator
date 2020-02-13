@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { Observable } from "rxjs";
 import { AddAdminComponent } from "../users/components/add-admin/add-admin.component";
 import { RegisterBusinessManComponent } from "../login/register-business-man/register-business-man.component";
@@ -64,5 +64,11 @@ export class DialogManagerService {
    */
   openForgotPasswordDialog(): void {
     this.dialog.open(ForgotPasswordComponent, {});
+  }
+
+  open(component: any, options?: MatDialogConfig) {
+    const dialogRef = this.dialog.open(component, options);
+
+    return dialogRef.afterClosed()
   }
 }

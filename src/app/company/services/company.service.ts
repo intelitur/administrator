@@ -48,6 +48,10 @@ export class CompanyService {
     return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}/${company.company_id}`, company ,{observe: "response"});
   };
 
+  createCompany(company: Company){
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/`, company ,{observe: "response"})
+  }
+
   
 
 

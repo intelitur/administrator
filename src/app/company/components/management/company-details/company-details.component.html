@@ -41,12 +41,15 @@
                 <input matInput formControlName="location">
             </mat-form-field>
 
-            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-                <button mat-stroked-button [disabled]="!companyForm.valid || !isChanged()" color="primary"
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                <button *ngIf="!loading; else loadingBar" mat-stroked-button [disabled]="!companyForm.valid || !isChanged()" color="primary"
                     style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="applyChanges()">
                     Guardar cambios
                 </button>
-                <button mat-stroked-button [disabled]="!isChanged()" color="warn"
+                <ng-template #loadingBar>
+                    <mat-progress-bar mode="indeterminate" style="width: 47%; margin: auto 0;"></mat-progress-bar>
+                </ng-template>
+                <button mat-stroked-button [disabled]="!isChanged() || loading" color="warn"
                     style="width: 47%; min-width: fit-content;margin-top: 10px;"
                     (click)="companyForm.patchValue(company)">
                     Descartar cambios

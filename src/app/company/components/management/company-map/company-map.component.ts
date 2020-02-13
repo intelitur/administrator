@@ -70,7 +70,7 @@ export class CompanyMapComponent implements OnInit, AfterViewInit {
   refreshMap(){
     if(!this.refreshed){
       this.map.invalidateSize()
-      this.map.flyTo(latLng(this.company.latitude, this.company.longitude), 16)
+      this.map.flyTo(latLng(this.company.latitude, this.company.longitude), 18)
       this.refreshed = true
     }
   }
@@ -78,7 +78,7 @@ export class CompanyMapComponent implements OnInit, AfterViewInit {
   refreshMapCallback(event: any) {
     let { map, company } = event.currentTarget.parameters
     map.invalidateSize();
-    setTimeout(() => map.flyTo(latLng(company.latitude, company.longitude), 16), 200)
+    setTimeout(() => map.flyTo(latLng(company.latitude, company.longitude), 18), 200)
   }
 
   putLocationMarker(event: any) {
@@ -101,7 +101,7 @@ export class CompanyMapComponent implements OnInit, AfterViewInit {
             this.commonService.openSnackBar(
               `La ubicación de ${this.company.name} ha sido actualizada`,
               "OK")
-            this.map.flyTo(latLng(this.company.latitude, this.company.longitude), 16)
+            this.map.flyTo(latLng(this.company.latitude, this.company.longitude), 18)
           }
           else {
             this.commonService.openSnackBar(

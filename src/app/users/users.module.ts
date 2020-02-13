@@ -12,6 +12,7 @@ import { UserRootComponent } from "./user-root.component";
 import { ProfileInfoComponent } from "./components/profile/profile-info/profile-info.component";
 import { FavoriteItineraryComponent } from "./components/profile/favorite-itinerary/favorite-itinerary.component";
 import { FavoriteOfferComponent } from "./components/profile/favorite-offer/favorite-offer.component";
+import { ProfileCompaniesComponent } from './components/profile/profile-companies/profile-companies.component';
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -20,7 +21,8 @@ import { FavoriteOfferComponent } from "./components/profile/favorite-offer/favo
     UserRootComponent,
     ProfileInfoComponent,
     FavoriteItineraryComponent,
-    FavoriteOfferComponent
+    FavoriteOfferComponent,
+    ProfileCompaniesComponent
   ],
   imports: [
     CommonModule,
