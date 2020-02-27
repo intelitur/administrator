@@ -82,7 +82,7 @@ export class DetailsComponent implements OnInit {
       ...this.categoryFG.value
     }
 
-    let values = {
+    let values = { 
       url: category.url,
       name: category.name,
       category_id: category.category_id
