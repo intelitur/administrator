@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/general-services/common.service';
-import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
 import { CategoryService } from '../../services/category.service';
 import { CategoryCreateComponent } from '../category-create/category-create.component';
 import { CategoryFiltersComponent } from './category-filters/category-filters.component';
@@ -16,6 +15,9 @@ import { MatDialog } from '@angular/material';
 })
 export class CategoriesComponent implements OnInit {
 
+  filter: any = {
+    name: ""
+  };
   isFilters: boolean = false;
   private subscription: Subscription;
 
@@ -26,20 +28,24 @@ export class CategoriesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subscription = this.categoryService.getAllCategories()
-      .subscribe({
-        next: (data: any) => {
-          this.categoryService.categories = data;
-          this.subscription.unsubscribe();
-        }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-      });
+    this.obtainAllCategories()
   }
 
-
-  openCreateCategoryDialog(action: boolean){
-    this.dialogService.open(CategoryCreateComponent, {width: "60%", minWidth: "280px", data: action});
+  /**
+   * @function to open the create category dialog 
+   */
+  openCreateCategoryDialog(){
+    const dialog = this.dialogService.open(CategoryCreateComponent, {width: "60%", minWidth: "280px", disableClose: true})
+    dialog.afterClosed().subscribe( data =>{
+      console.log(data)
+    })
   }
 
+  /**
+   * @function to change the status of the category from active to inactive and vice versa
+   * @param category to obtain the category's id
+   * @param param1 to change the toggle
+   */
   changeState(category: Category, {source}: any){
 
     var id = {
@@ -76,10 +82,39 @@ export class CategoriesComponent implements OnInit {
       });
   }
 
+  /**
+   * @function to show the fiters option dialog
+   */
   openShowFilterOptionsDialog(){
     const  dialog = this.dialogService.open(CategoryFiltersComponent, {width: "50", minWidth: "280px", disableClose: true})
-    dialog.afterClosed().subscribe( data => {
-      console.log(data)
+
+    dialog.afterClosed().subscribe( type_id => {
+      if(type_id != undefined){
+        this.isFilters = true
+        this.subscription = this.categoryService.getAllCategories(type_id)
+        .subscribe({
+          next: (data: any) => {
+            this.categoryService.categories = data;
+            this.subscription.unsubscribe();
+          }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
+      }
+
     })
+
+  }
+
+  /**
+   * @function to get categories without filters
+   */
+  obtainAllCategories(){
+    this.isFilters = false
+    this.subscription = this.categoryService.getAllCategories()
+    .subscribe({
+      next: (data: any) => {
+        this.categoryService.categories = data;
+        this.subscription.unsubscribe();
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+    });
   }
 }

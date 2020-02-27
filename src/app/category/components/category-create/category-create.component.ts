@@ -5,7 +5,7 @@ import { CommonService } from 'src/app/general-services/common.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Category } from '../../models/Category';
-import { MatDialog } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-category-create',
@@ -26,13 +26,13 @@ export class CategoryCreateComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private commonService: CommonService,
-    private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    public dialogRef: MatDialogRef<CategoryCreateComponent>
   ) { }
 
   ngOnInit() {
     this.categoryFG = new FormGroup({
-      name: new FormControl(null, Validators.required),
+      name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
       type: new FormControl(null,Validators.required)
     })
   }
@@ -46,20 +46,22 @@ export class CategoryCreateComponent implements OnInit {
     this.createCategory(category)
   }
 
+  onNoClick(){
+    this.dialogRef.close()
+  }
+
   createCategory(category: Category){
     this.loading = true;
     this.categoryFG.disable();
     this.categoryService.createCategory(category).subscribe({
       next: (data: any) => {
         if (data.status == 204) {
-          console.log(data)
           this.commonService.openSnackBar(
             `La categoría ${this.categoryFG.value.name} se ha creado`,
             "OK"
           );
-          console.log(data)
+          this.dialogRef.close();
           this.router.navigate([`/category/all`])
-          this.dialog.closeAll();
         } else {  
           this.commonService.openSnackBar(
             `Error al crear la empresa: ${data.error}`,
@@ -80,6 +82,10 @@ export class CategoryCreateComponent implements OnInit {
   getFile(files: FileList) {
     this.fileToUpload = files.item(0);
     console.log(files.item(0))
+  }
+
+  closeDialog(){
+    this.dialogRef.close()
   }
 
 }

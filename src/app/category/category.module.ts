@@ -9,6 +9,7 @@ import { CategoryRoutingModule } from './category-routing.module';
 import { CategoryManagementComponent } from './components/category-management/category-management.component';
 import { CategoryFiltersComponent } from './components/categories/category-filters/category-filters.component';
 import { DetailsComponent } from './components/category-management/details/details.component';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DetailsComponent } from './components/category-management/details/detai
     CommonModule,
     CategoryRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    FilterPipeModule
   ],
   entryComponents: [
     CategoryCreateComponent,

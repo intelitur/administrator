@@ -22,8 +22,7 @@ export class CategoryFiltersComponent implements OnInit {
 
   ngOnInit() {
     this.categoryFiltersFG = new FormGroup({
-      name: new FormControl(null, Validators.required),
-      type: new FormControl(null,Validators.required)
+      type: new FormControl(null, Validators.required)
     })
   }
 
@@ -32,11 +31,8 @@ export class CategoryFiltersComponent implements OnInit {
   }
 
   submit(){
-    var value = {
-      data: "A"
-    }
-    this.dialogRef.close(value)
-    
+    var type_id = this.categoryFiltersFG.controls['type'].value
+    this.dialogRef.close(type_id)
   }
 
   closeDialog(){

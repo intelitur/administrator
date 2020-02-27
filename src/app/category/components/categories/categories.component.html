@@ -2,12 +2,12 @@
     <h1 class="text-center font-weight-light mt-3">Gestión de Categorías</h1>
     <div class="float-right mb-3 ">
       <button mat-raised-button color="primary" class="btn-add" matTooltip="Agregar una categoría"
-        (click)="openCreateCategoryDialog(true)"><i class="material-icons">add</i>Agregar Categoría</button>
+        (click)="openCreateCategoryDialog()"><i class="material-icons">add</i>Agregar Categoría</button>
     </div>
     <div *ngIf="this.categoryService.categories; else loading">
         <mat-form-field class="container-fluid mb-3" appearance="outline">
-            <mat-label>Escriba cualquier valor para filtrar</mat-label>
-            <input matInput (keyup)="applyFilter($event.target.value)" />
+            <mat-label>Buscar por nombre de categoría</mat-label>
+            <input matInput [(ngModel)]="filter.name"/>
             <button
               mat-icon-button
               matSuffix
@@ -17,14 +17,14 @@
             >
               <mat-icon>library_books</mat-icon>
             </button>
-            <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar desde el servidor</mat-hint>
+            <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar las categorías por tipo</mat-hint>
         </mat-form-field>
         <div *ngIf="isFilters" class="container-text-left">
-          <button  mat-raised-button color="primary">Limpiar filtro</button>
+          <button  mat-raised-button color="primary" (click)="obtainAllCategories()">Limpiar filtro</button>
         </div> 
         
         <div class="table-responsive" style="padding: 0 3%;">
-            <table class="table" >
+            <table class="table" *ngIf="this.categoryService.categories">
             <thead class="thead-light">
                 <tr>
                 <th scope="col">Nombre</th>
@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let category of this.categoryService.categories">
+                <tr *ngFor="let category of this.categoryService.categories | filterBy: filter">
                 <td>{{category.name}}</td>
                 <td *ngIf="category.type === 1">Evento</td>
                 <td *ngIf="category.type === 2">Itinerario</td>
@@ -54,9 +54,13 @@
                 </tr>
             </tbody>
             </table>
+            <div class="alert alert-info text-center" role="alert" *ngIf="(this.categoryService.categories | filterBy: filter).length === 0">
+              ¡No hay categorías disponibles<span class="text-danger"></span>!
+            </div>
         </div>
     </div>
 </div>
+
 <ng-template #loading>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-template>

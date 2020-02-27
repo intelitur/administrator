@@ -46,7 +46,6 @@ export class DetailsComponent implements OnInit {
       .changeStateCategory(id)
       .subscribe({
         next: (data: any) => {
-          console.log(data)
           if (data.status == 204) {
             this.category.is_active = !this.category.is_active;
             source.checked = this.category.is_active

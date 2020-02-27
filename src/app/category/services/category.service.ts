@@ -10,7 +10,7 @@ import { Category } from '../models/Category';
 export class CategoryService {
 
   module = "categories"
-  categories: Array<Category> = []
+  categories: Array<Category>;
 
   constructor(
     private http: HttpClient,
@@ -43,7 +43,7 @@ export class CategoryService {
   }
 
   /**
-   * @function to get only one category
+   * @function to get only one specific category
    * @param category_id category's id to be obtened
    */
   getCategory(category_id: number){
@@ -53,7 +53,8 @@ export class CategoryService {
   /**
    * @function to get all categories
    */
-  getAllCategories(){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`)
+  getAllCategories(type?: number){
+    let query : any = {state: type}
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/`, {params: query})
   }
 }

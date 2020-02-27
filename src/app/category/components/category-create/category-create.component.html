@@ -6,7 +6,7 @@
    
     <mat-form-field appearance="outline">
         <mat-label>Nombre</mat-label>
-        <input matInput formControlName="name" matTooltip="Nombre de la empresa" required>
+        <input matInput formControlName="name" matTooltip="Nombre de la categoría" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -26,10 +26,12 @@
                (change)="processFile(imageInput)">
     </mat-label>
 
-    <div style="display: flex; justify-content: center; flex-wrap: wrap;">
-        <button mat-stroked-button [disabled]="!categoryFG.valid" color="primary"
-            style="width: 50%; min-width: fit-content; margin-top: 10px;" (click)="onSubmit()">
+    <div class="buttonContainer">
+        <button mat-raised-button [disabled]="!categoryFG.valid" color="primary" (click)="onSubmit()">
             Crear Categoría
         </button>
+        <button (click)="closeDialog()" mat-raised-button color="warn">
+            Cerrar<mat-icon>close</mat-icon>
+          </button>
     </div>
 </form>
