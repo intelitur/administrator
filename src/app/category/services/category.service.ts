@@ -44,7 +44,7 @@ export class CategoryService {
 
   /**
    * @function to get only one specific category
-   * @param category_id category's id to be obtened
+   * @param category_id category's id to be obtained
    */
   getCategory(category_id: number){
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${category_id}`)

@@ -7,6 +7,7 @@ import { EventCreateComponent } from './components/event-create/event-create.com
 import { ManagementComponent } from './components/management/management.component';
 import { EventRootComponent } from './event-root.component';
 import { EventRoutingModule } from './event-rounting.module';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { EventRoutingModule } from './event-rounting.module';
       CommonModule,
       SharedModule,
       FormsModule,
-      EventRoutingModule
+      EventRoutingModule,
+      FilterPipeModule
     ],
     entryComponents: [
       EventCreateComponent

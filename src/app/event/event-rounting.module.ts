@@ -14,7 +14,7 @@ const routes: Routes = [
           component: EventsComponent
         },
         {
-          path: ":details",
+          path: ":event_id",
           component: ManagementComponent
         }
       ]

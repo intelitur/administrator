@@ -1,1 +1,59 @@
-<p>event-create works!</p>
+<div style="height: 20px;">
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+</div>
+
+<form [formGroup]="eventFG" class="container-fluid d-flex flex-column justify-content-center" style="padding: 25px">
+    <h1>Creación de Evento</h1>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" matTooltip="Nombre del evento" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <textarea 
+            matInput 
+            formControlName="address" 
+            matTooltip="Dirección exacta del evento" 
+            type="text"
+            required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" >
+        <mat-label>Detalles</mat-label>
+        <textarea 
+            matInput 
+            formControlName="address" 
+            matTooltip="Detalles del evento" 
+            type="text"
+            required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Color</mat-label>
+        <input matInput formControlName="color">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Costo</mat-label>
+        <input matInput formControlName="cost">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-slide-toggle (change)="changeState()" color="primary"
+            [checked]= allDay>
+        </mat-slide-toggle>
+    </mat-form-field>
+
+    <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+        <button mat-stroked-button [disabled]="!companyForm.valid" color="primary"
+            style="width: 50%; min-width: fit-content; margin-top: 10px;" (click)="createCompany()">
+            Continuar con la creación
+        </button>
+    </div>
+</form>
+
+<ng-template #loading>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
