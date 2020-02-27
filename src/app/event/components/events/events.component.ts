@@ -35,7 +35,6 @@ export class EventsComponent implements OnInit {
     this.subscription = this.eventService.getAllEvents()
     .subscribe({
       next: (data: any) => {
-        console.log(data)
         this.eventService.events = data;
         this.subscription.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
@@ -43,7 +42,7 @@ export class EventsComponent implements OnInit {
   }
 
   openCreateEventDialog(){
-    this.dialogService.open(EventCreateComponent, {width: "60%", minWidth: "280px"})
+    this.dialogService.open(EventCreateComponent, {height:"90%", width: "60%", minWidth: "280px", disableClose: true})
   }
 
   changeState(event: EventType, {source}: any){

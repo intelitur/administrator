@@ -13,6 +13,7 @@ export class EventCreateComponent implements OnInit {
 
   eventFG: FormGroup
   allDay: boolean = false
+  loading: boolean = false
   
   constructor(
     public dialogRef: MatDialogRef<EventCreateComponent>,
@@ -23,11 +24,10 @@ export class EventCreateComponent implements OnInit {
   ngOnInit() {
     this.eventFG = new FormGroup({
       name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
-      addres: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
+      address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
       detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
       color: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
-      cost: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[0-9 ]")]),
-      all_day: new FormControl(null, Validators.required),
+      cost: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$")]),
       /*
       initial_date: new FormControl(null, Validators.required),
       final_date: new FormControl(null, Validators.required),

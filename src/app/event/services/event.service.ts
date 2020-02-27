@@ -9,10 +9,9 @@ import { EventType } from '../models/Event';
 })
 export class EventService{
 
-    events: Array<EventType> = [
-      
-    ]
-    module: 'events'
+    events: Array<EventType>
+    module= 'events/'
+    
     constructor(
       private http: HttpClient,
       public commonService: CommonService
@@ -23,7 +22,7 @@ export class EventService{
      * @function to obtain all events
      */
     getAllEvents(){
-      return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/`)
+      return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`)
     }
     
     /**
