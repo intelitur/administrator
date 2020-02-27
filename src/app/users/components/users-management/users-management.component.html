@@ -1,0 +1,61 @@
+<div class="container">
+  <h1 class="text-center font-weight-light mt-3">Gestión de usuarios</h1>
+  <div class="float-right mb-3 ">
+    <button mat-fab color="primary" class="btn-add" matTooltip="Agregar un administrador"
+      (click)="openDialogToAddAdmin()"><i class="material-icons">add</i></button>
+  </div>
+  <div *ngIf="this.userManagmentService.users">
+    <mat-form-field class="container-fluid mb-3" appearance="outline">
+      <mat-label>Buscar por nombre de usuario</mat-label>
+      <input matInput [(ngModel)]="filter.info.name"/>
+    </mat-form-field>
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Empresa</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Habilitar</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of this.userManagmentService.users | filterBy: filter">
+            <td>{{ user.info.name }}</td>
+            <td>{{ user.info.lastName }}</td>
+            <td *ngIf="user.role_id === 1">No aplica</td>
+            <td *ngIf="user.role_id === 2">{{user.info.businessName}}</td>
+            <td *ngIf="user.role_id === 1">Administrador</td>
+            <td *ngIf="user.role_id === 2">Emprendedor</td>
+            <td>
+              <section>
+                <mat-slide-toggle (change)="setAvailable(!user.info.available,user.user_id, user.info)" color="primary"
+                  [checked]=user.info.available>
+                </mat-slide-toggle>
+              </section>
+            </td>
+            <td *ngIf="user.info.state">
+              <button mat-raised-button matTooltip="Empresario esta registrado correctamente" color="primary">
+                Aceptado
+              </button>
+            </td>
+            <td *ngIf="!user.info.state">
+              <button mat-raised-button matTooltip="Validar empresario" color="warn"
+                (click)="setAcceptance(user.user_id,user.info)">
+                Validar
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <!-- in case you want to show empty message -->
+      <div class="alert alert-info text-center" role="alert" *ngIf="(this.userManagmentService.users | filterBy: filter).length === 0">
+        No se encuentra el usuario con el id <span class="text-danger">{{filter.user_id}}</span>!
+      </div>
+    </div>
+  </div>
+</div>
+<mat-spinner class="spinner " *ngIf="!this.userManagmentService.users"></mat-spinner>

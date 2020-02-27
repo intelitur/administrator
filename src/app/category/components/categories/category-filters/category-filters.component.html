@@ -1,0 +1,29 @@
+<div class="container-fluid d-flex flex-column justify-content-sm-center">
+    <h4 class="text-muted text-center font-weight-light">
+      Introduzca los valores a filtrar
+    </h4>
+    <small class="text-muted"><i>Deje en blanco los campos sobre los que no desea filtrar</i></small>
+    <hr>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input [(ngModel)]="categoryFiltersFG.name" matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo</mat-label>
+      <mat-select [(ngModel)]="categoryFiltersFG.type">
+        <mat-option *ngFor="let t of types" [value]="t.id">
+          {{t.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+   
+    <div class="buttonContainer">
+      <button (click)="submit(); false" mat-raised-button color="primary">Aceptar<mat-icon>check</mat-icon></button>
+      <button (click)="closeDialog()" mat-raised-button color="warn">
+        Cerrar<mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  

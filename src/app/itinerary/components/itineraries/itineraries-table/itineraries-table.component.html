@@ -1,0 +1,57 @@
+<div class="container-fluid" *ngIf="dataSource; else loading">
+  <mat-form-field class="container-fluid mb-3" appearance="outline">
+    <mat-label>Escriba cualquier valor para filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event.target.value)" />
+    <button
+      mat-icon-button
+      matSuffix
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+      (click)="openShowFilterOptionsDialog(); false"
+    >
+      <mat-icon>library_books</mat-icon>
+    </button>
+    <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar desde el servidor</mat-hint>
+  </mat-form-field>
+  <div *ngIf="isFilters" class="container text-left">
+    <button (click)="getItinerariesMinimalInfo(); false" mat-raised-button color="primary">Limpiar filtro</button>
+  </div>
+  <br>
+  <table *ngIf="dataSource" mat-table [dataSource]="dataSource" class="w-100 mat-elevation-z8">
+    <ng-container matColumnDef="position">
+      <th class="text-center" mat-header-cell *matHeaderCellDef>No.</th>
+      <td class="text-center" mat-cell *matCellDef="let element; let i = index">
+        {{ i + 1 }}
+      </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th class="text-center" mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td class="text-center" mat-cell *matCellDef="let element">
+        {{ element.name }}
+      </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container class="text-center" matColumnDef="actions">
+      <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td class="text-center" mat-cell *matCellDef="let element">
+        <button [routerLink]="['/itineraries/dashboard']"
+          (click)="assignItineraryId(element.itinerary_id)"
+          mat-stroked-button
+          color="primary"
+        >
+          Ver más
+      </button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

@@ -1,0 +1,26 @@
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+  box-shadow: 3px 0 6px rgba(128, 89, 89, 0.15);
+}
+
+.fx-spacer {
+  flex: 1 1 auto;
+}
+.mat-toolbar.mat-primary {
+  position: relative;
+  top: 0;
+  z-index: 1;
+}
+.mat-drawer-side {
+  border: none;
+}
+.router-link-active {
+  color: rgb(103,58,183);
+  box-shadow: 2px 0 5px rgba(103,58,183,0.2);
+}
+

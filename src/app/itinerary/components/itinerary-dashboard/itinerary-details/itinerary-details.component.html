@@ -1,0 +1,34 @@
+<div class="container-fluid d-flex flex-column justify-content-sm-center">
+  <h3 class="text-center font-weight-light text-primary">
+    {{it.info.name}}
+  </h3>
+  <div class="container-fluid">
+    <app-carousel *ngIf="it.imgs.length > 0 && it.imgs[0] !== null" [data]="data"></app-carousel>
+  </div>
+  <hr>
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Precio por día
+      <span class="badge badge-primary badge-pill">${{it.info.price_per_day}}</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Precio total
+      <span class="badge badge-primary badge-pill">${{it.info.total_price}}</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Número de adultos
+      <span class="badge badge-primary badge-pill">{{it.info.adult_number}}</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Número de niños
+      <span class="badge badge-primary badge-pill">{{it.info.child_number}}</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{it.info.description}}
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Duración
+      <span class="badge badge-primary badge-pill">{{it.info.duration}} días</span>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,2 @@
+<app-main-nav *ngIf="_auth.isLoggedIn()"></app-main-nav>
+<app-login *ngIf="!_auth.isLoggedIn()"></app-login>

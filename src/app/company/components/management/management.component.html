@@ -1,0 +1,27 @@
+<mat-tab-group>
+    <mat-tab label="Detalles">
+        <app-company-details *ngIf="company; else loadingCompany" [company]="company"></app-company-details>
+        <ng-template #loadingCompany>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Ubicación">
+        <app-company-map *ngIf="company; else loadingCompany" [company]="company"></app-company-map>
+        <ng-template #loadingCompany>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Usuarios">
+        <app-company-users *ngIf="company; else loadingCompany" [company]="company"></app-company-users>
+        <ng-template #loadingCompany>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </mat-tab>
+    <mat-tab *ngIf="_auth.getUser().role_id === 1" label="Solicitudes de unión a la empresa">
+        <app-company-requests *ngIf="company; else loadingCompany" [company]="company"></app-company-requests>
+        <ng-template #loadingCompany>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>
+

@@ -1,0 +1,62 @@
+<div class="container">
+    <h1 class="text-center font-weight-light mt-3">Gestión de Categorías</h1>
+    <div class="float-right mb-3 ">
+      <button mat-raised-button color="primary" class="btn-add" matTooltip="Agregar una categoría"
+        (click)="openCreateCategoryDialog(true)"><i class="material-icons">add</i>Agregar Categoría</button>
+    </div>
+    <div *ngIf="this.categoryService.categories; else loading">
+        <mat-form-field class="container-fluid mb-3" appearance="outline">
+            <mat-label>Escriba cualquier valor para filtrar</mat-label>
+            <input matInput (keyup)="applyFilter($event.target.value)" />
+            <button
+              mat-icon-button
+              matSuffix
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+              (click)="openShowFilterOptionsDialog()"
+            >
+              <mat-icon>library_books</mat-icon>
+            </button>
+            <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar desde el servidor</mat-hint>
+        </mat-form-field>
+        <div *ngIf="isFilters" class="container-text-left">
+          <button  mat-raised-button color="primary">Limpiar filtro</button>
+        </div> 
+        
+        <div class="table-responsive" style="padding: 0 3%;">
+            <table class="table" >
+            <thead class="thead-light">
+                <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Activa</th>
+                <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of this.categoryService.categories">
+                <td>{{category.name}}</td>
+                <td *ngIf="category.type === 1">Evento</td>
+                <td *ngIf="category.type === 2">Itinerario</td>
+                <td *ngIf="category.type === 3">Servicio</td>
+                <td>
+                    <section (click)="$event.stopPropagation()">
+                        <mat-slide-toggle (change)="changeState(category, $event)" color="primary"
+                          [checked]= category.is_active>
+                        </mat-slide-toggle>
+                      </section>
+                </td>
+                <td > 
+                    <button mat-stroked-button [routerLink]="['/category', category.category_id]" matTooltip="Detalles de la Categoría" style="color: rgb(82, 82, 82); font-size: 14px;">
+                        Ver Detalles
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

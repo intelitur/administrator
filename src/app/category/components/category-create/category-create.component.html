@@ -1,0 +1,35 @@
+<div style="height: 20px;">
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+</div>
+<form [formGroup]="categoryFG" class="container-fluid d-flex flex-column justify-content-center" style="padding: 25px">
+    <h1>Creación de Categoría</h1>
+   
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" matTooltip="Nombre de la empresa" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Tipo de categoría</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let t of types" [value]="t.id">
+            {{t.name}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-label class="image-upload-container btn btn-bwm">
+        <span>Seleccione una imagen</span>
+        <input #imageInput
+               type="file"
+               accept="image/*"
+               (change)="processFile(imageInput)">
+    </mat-label>
+
+    <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+        <button mat-stroked-button [disabled]="!categoryFG.valid" color="primary"
+            style="width: 50%; min-width: fit-content; margin-top: 10px;" (click)="onSubmit()">
+            Crear Categoría
+        </button>
+    </div>
+</form>

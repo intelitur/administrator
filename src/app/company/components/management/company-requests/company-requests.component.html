@@ -1,0 +1,50 @@
+<div *ngIf="companyRequests" style="padding: 5%;">
+    <mat-form-field class="container-fluid mb-3" appearance="outline">
+        <mat-label>Buscar por nombre y/o apellido</mat-label>
+        <input matInput [(ngModel)]="filter.input" />
+    </mat-form-field>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Nombre del usuario</th>
+                    <th scope="col">Email del usuario</th>
+                    <th scope="col" style="text-align: center;">Aceptar/ Rechazar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of this.companyRequests | filterBy: filter.filter">
+                    <td>{{ dateString(request.request_date) }}</td>
+                    <td>{{ timeString(request.request_date) }}</td>
+                    <td>{{ request.user_info.name + ' ' + request.user_info.lastName }}</td>
+                    <td>{{ request.user_info.email }}</td>
+                    <td>
+                        <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                            <button mat-stroked-button color="primary"
+                                style="min-width: fit-content; margin-top: 10px; margin-right: 10px; color: green;"
+                                (click)="allowUnion(request)" matTooltip="Aceptar solicitud">
+                                <mat-icon>done</mat-icon>
+                            </button>
+                            <button mat-stroked-button color="warn" style="min-width: fit-content; margin-top: 10px;"
+                                (click)="denyUnion(request)" matTooltip="Rechazar solicitud">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <!-- in case you want to show empty message -->
+        <div class="alert alert-info text-center" role="alert" *ngIf="this.companyRequests.length === 0">
+            La empresa <span class="text-danger">{{company.name}}</span> no tiene ninguna solicitud de unión de usuario pendiente
+        </div>
+
+        <div class="alert alert-info text-center" style="margin: auto 5%" role="alert"
+            *ngIf="!(this.companyRequests.length === 0) && (this.companyRequests | filterBy: filter.filter).length === 0">
+            Ninguna usuario solicitante coincide con nombre y/o apellido <span class="text-danger">{{filter.input}}</span>
+        </div>
+    </div>
+</div>
