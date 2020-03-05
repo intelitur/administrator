@@ -45,13 +45,19 @@
         <mat-slide-toggle style="margin-left: 3%;" (change)="changeState($event)" color="primary" [checked]= "false"></mat-slide-toggle>
         <label style="margin-left: 5%; margin-right: 15%;"> {{!this.allDay? "No": "Sí"}} </label>
     
-        <mat-form-field style="width: 45%; ">
+        <mat-form-field *ngIf="allDay== true" style="width: 45%; ">
+            <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="commonDate"  [min]="today"  placeholder="Fecha" [(ngModel)]="common_date" disabled >
+            <mat-datepicker-toggle matSuffix [for]="commonDate" ></mat-datepicker-toggle>
+            <mat-datepicker #commonDate disabled="false" ></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="allDay== false" style="width: 45%; ">
             <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="startDate" [min]="today"  placeholder="Fecha Inicial" [(ngModel)]="initial_date" disabled >
             <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
             <mat-datepicker #startDate disabled="false" ></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field  style="width: 45%; ">
+        <mat-form-field *ngIf="allDay== false"  style="width: 45%; ">
             <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha de Finalización" [(ngModel)]="final_date" disabled >
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker  #endDate [disabled]="initial_date == undefined" [startAt]="initial_date"></mat-datepicker>
@@ -74,7 +80,7 @@
 
 
 <div class="buttonContainer">
-    <button mat-raised-button  [disabled]="!eventFG.valid || initial_date == undefined || final_date==undefined || (allDay==true && initial_time == udefined) || (allDay==true && final_time == udefined ) " color="primary" (click)="onSubmit()">
+    <button mat-raised-button  [disabled]="disableDialog()" color="primary" (click)="onSubmit()">
         Continuar la Creacón
     </button>
     <button (click)="closeDialog()" mat-raised-button color="warn">

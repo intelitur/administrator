@@ -16,14 +16,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class EventCreateComponent implements OnInit {
 
   eventFG: FormGroup
-  allDay: boolean = false
-  loading: boolean = false
+  allDay: boolean = false;
+  loading: boolean = false;
   color: string;
   initial_date: any = undefined;
   final_date: any = undefined;
   today: any = new Date();
   initial_time: any = undefined;
   final_time: any =  undefined;
+  common_date: any = undefined;
 
   
   constructor(
@@ -60,6 +61,9 @@ export class EventCreateComponent implements OnInit {
   }
 
   onSubmit(){
+
+    this.allDay == true? (this.initial_date=this.common_date , this.final_date=this.common_date) : null; 
+
     let event: EventType = {
       name: this.eventFG.controls['name'].value,
       cost: this.eventFG.controls['cost'].value,
@@ -74,6 +78,9 @@ export class EventCreateComponent implements OnInit {
       initial_time: this.initial_time,
       final_time: this.final_time
     }
+    console.log(this.initial_date)
+    console.log(this.final_date)
+    console.log(this.common_date)
     this.createEvent(event);
   }
 
@@ -118,23 +125,17 @@ export class EventCreateComponent implements OnInit {
    * Metodo para flitar que la fecha final sea mayor o igual a la de inicio
    */
   dateFilter = (date: Date): boolean => {
-    var startDay = this.initial_date.getDate();
-    var startMonth = this.initial_date.getMonth();
-    var startYear = this.initial_date.getFullYear();
-
-    var day = date.getDate();
-    var month = date.getMonth();
-    var year = date.getFullYear();
-
-    if (year > startYear) {
-      return year > startYear;
-    } else if ((year === startYear) && (month === startMonth)) {
-      return day >= startDay && month >= startMonth && year >= startYear;
-    } else if (year === startYear) {
-      return month >= startMonth && year >= startYear;
-    } else {
-      year > startYear;
-    }
+    return date >= this.initial_date
   }
 
+  disableDialog(): boolean {
+    if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || 
+    (this.allDay == false && this.final_date== undefined) || 
+    (this.allDay == true && this.initial_time == undefined) || 
+    (this.allDay == true && this.final_time == undefined ) || 
+    (this.allDay == true && this.common_date == undefined))  {
+      return true
+    }
+    return false
+  }
 }

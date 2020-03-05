@@ -8,14 +8,18 @@ import { ManagementComponent } from './components/management/management.componen
 import { EventRootComponent } from './event-root.component';
 import { EventRoutingModule } from './event-rounting.module';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-import { ColorCircleModule } from 'ngx-color/circle'; 
+import { ColorCircleModule } from 'ngx-color/circle';
+import { DetailsComponent } from './components/management/details/details.component';
+import { LocationComponent } from './components/management/location/location.component'; 
 
 @NgModule({
     declarations: [
     EventsComponent,
     EventCreateComponent,
     ManagementComponent,
-    EventRootComponent
+    EventRootComponent,
+    DetailsComponent,
+    LocationComponent
   ],
     imports: [
       CommonModule,
