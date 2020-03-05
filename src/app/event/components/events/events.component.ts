@@ -42,7 +42,7 @@ export class EventsComponent implements OnInit {
   }
 
   openCreateEventDialog(){
-    this.dialogService.open(EventCreateComponent, {height:"90%", width: "60%", minWidth: "280px", disableClose: true})
+    this.dialogService.open(EventCreateComponent, {height:"95%", width: "80%", minWidth: "280px", disableClose: true})
   }
 
   changeState(event: EventType, {source}: any){

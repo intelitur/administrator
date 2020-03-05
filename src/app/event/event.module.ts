@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared.module';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { ManagementComponent } from './components/management/management.componen
 import { EventRootComponent } from './event-root.component';
 import { EventRoutingModule } from './event-rounting.module';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { ColorCircleModule } from 'ngx-color/circle'; 
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
       SharedModule,
       FormsModule,
       EventRoutingModule,
-      FilterPipeModule
+      FilterPipeModule,
+      ColorCircleModule,
     ],
     entryComponents: [
       EventCreateComponent

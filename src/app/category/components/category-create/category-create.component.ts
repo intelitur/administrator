@@ -64,7 +64,7 @@ export class CategoryCreateComponent implements OnInit {
           this.router.navigate([`/category/all`])
         } else {  
           this.commonService.openSnackBar(
-            `Error al crear la empresa: ${data.error}`,
+            `Error al crear la categoría: ${data.error}`,
             "OK"
           );
           this.categoryFG.enable()

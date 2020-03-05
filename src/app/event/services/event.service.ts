@@ -38,7 +38,7 @@ export class EventService{
      * @param event to be added
      */
     createEvent(event: EventType){
-      return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/CreateCategory`, event, {observe: 'response'})
+      return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/CreateEvent`, event, {observe: 'response'})
     }
 
     /**

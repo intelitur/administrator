@@ -14,6 +14,6 @@ export interface EventType{
     all_day: boolean,
     initial_time: Time,
     final_time: Time,
-    latitude: Number, 
-    longitude: Number
+    latitude?: Number, 
+    longitude?: Number
 }
