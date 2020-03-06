@@ -1,7 +1,7 @@
 <mat-tab-group>
     <mat-tab label="Detalles">
-        <app-details *ngIf="category; else loadingCompany" [category]="category[0]"></app-details>
-        <ng-template #loadingCompany>
+        <app-details *ngIf="category; else loading" [category]="category[0]"></app-details>
+        <ng-template #loading>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </ng-template>
     </mat-tab>

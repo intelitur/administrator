@@ -2,9 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Category } from '../../models/Category';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/general-services/auth.service';
 import { CategoryService } from '../../services/category.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -21,7 +19,6 @@ export class CategoryManagementComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private categoryService: CategoryService,
-    public _auth: AuthService
   ) { }
 
   ngOnInit() {
