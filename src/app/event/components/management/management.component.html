@@ -1,1 +1,14 @@
-<p>management works!</p>
+<mat-tab-group>
+    <mat-tab label="Detalles">
+        <app-event-details *ngIf="event; else null" [event]="event"></app-event-details>
+        <ng-template #loading>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Ubicación">
+        <app-location *ngIf="event; else null" [event]="event"></app-location>
+        <ng-template #loading>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group> 
