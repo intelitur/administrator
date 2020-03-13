@@ -31,10 +31,36 @@
                 type="text"
                 required></textarea>
         </mat-form-field>
+
+        <div  class="chip-list">
+            <mat-form-field class="chip-list" appearance="outline">
+              <mat-chip-list #chipList aria-label="Categories selection">
+                <mat-chip class="chip"
+                  *ngFor="let category of allCategories"
+                  [selectable]="selectable"
+                  [removable]="removable">
+                  {{category.name}}
+                  <i matChipRemove class="material-icons" (click)="remove(category)">cancel</i>
+                </mat-chip>
+                <input
+                  placeholder="Seleccione las categorías"
+                  #tagInput
+                  formControlName="categories" 
+                  [matChipInputFor]="chipList"
+                  [matAutocomplete]="auto"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let c of filteredCategories " [value]="c">
+                  {{c.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+        </div>
     </div>
 </form>
 
-<div class="container" style=" width: 95%; padding-top: 3%; margin-left: 2.5%;">
+<div class="container" style=" width: 95%; margin-left: 2.5%;">
     <div class="color-picker">
         <label>Color </label>
         <color-circle  (onChangeComplete)="changeComplete($event)" ></color-circle> 

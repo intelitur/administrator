@@ -38,7 +38,14 @@ export class EventService{
      * @param event to be added
      */
     createEvent(event: EventType){
-      return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/CreateEvent`, event, {observe: 'response'})
+      let eventJson = JSON.stringify(event)
+      let json ={
+        "info": eventJson,
+        "latitude":  10.471681129073,
+        "longitude": -84.64514404535
+      }
+      console.log(json)
+      return this.http.post(`${environment.SERVER_BASE_URL}${this.module}`, json, {observe: 'response'})
     }
 
     /**

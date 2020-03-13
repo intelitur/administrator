@@ -6,14 +6,14 @@ export interface EventType{
     address: string,
     detail: string,
     color: string,
-    date_range: { //cambiar el dato a tipo date
-        initial_date: string,
-        final_date: string
+    date_range: {
+        initial_date: Date,
+        final_date: Date
     },
     cost: Number,
     all_day: boolean,
     initial_time: Time,
     final_time: Time,
-    latitude?: Number, 
-    longitude?: Number
+    latitude?: number, 
+    longitude?: number
 }
