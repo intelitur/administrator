@@ -13,7 +13,8 @@ import { RegisterBusinessManComponent } from './login/register-business-man/regi
 import { HttpClientModule } from '@angular/common/http';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { CompanyModule } from './company/company.module';
-
+import { EventModule } from './event/event.module';
+import { CategoryModule } from './category/category.module';
 
 @NgModule({
   declarations: [
@@ -33,11 +34,13 @@ import { CompanyModule } from './company/company.module';
     ItineraryModule,
     UsersModule,
     HttpClientModule,
-    CompanyModule
-
+    CompanyModule,
+    EventModule,
+    CategoryModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [RegisterBusinessManComponent, ForgotPasswordComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

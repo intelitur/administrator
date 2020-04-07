@@ -61,7 +61,8 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     MatProgressSpinnerModule,
     FileUploadModule,
     MatProgressBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatAutocompleteModule
   ],
   exports: [
     LayoutModule,
@@ -97,3 +98,5 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
   ]
 })
 export class SharedModule {}
+
+   

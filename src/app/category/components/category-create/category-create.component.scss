@@ -1,0 +1,26 @@
+h1{
+    text-align: center;
+    margin: 0%;
+    margin-bottom: 3%;
+    font-size: medium;
+}
+
+.fileChooser{
+    border-radius: 20px;
+    background-color: rgb(103,58,183);
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2%;
+}
+
+.fileChooserFile{
+    padding-top: 3%;
+    padding-bottom: 5%;
+    color: white;
+}
+
+.buttonContainer{
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-around;;
+}

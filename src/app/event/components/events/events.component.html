@@ -1,0 +1,71 @@
+<div class="container">
+    <h1 class="text-center font-weight-light mt-3">Gestión de Eventos</h1>
+    <div class="float-right mb-3 ">
+      <button mat-raised-button color="primary" class="btn-add" matTooltip="Agregar un evento" (click)="openCreateEventDialog()">
+          <i class="material-icons">add</i>Agregar Evento</button>
+    </div>
+    <div *ngIf="this.eventService.events; else loading">
+        <mat-form-field class="container-fluid mb-3" appearance="outline">
+            <mat-label>Buscar por nombre del evento</mat-label>
+            <input matInput [(ngModel)]="filter.name"/>
+            <button
+              mat-icon-button
+              matSuffix
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+              (click)="openShowFilterOptionsDialog()"
+            >
+              <mat-icon>library_books</mat-icon>
+            </button>
+            <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por otros valores.</mat-hint>
+        </mat-form-field>
+        <div *ngIf="isFilters" class="container-text-left">
+          <button  mat-raised-button color="primary" (click)="obtainAllEvents()">Limpiar filtro</button>
+        </div> 
+        
+        <div class="table-responsive" style="padding: 0 3%;">
+            <table class="table" *ngIf="this.eventService.events">
+            <thead class="thead-light">
+                <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Costo</th>
+                <th scope="col">Todo el día</th>
+                <th scope="col">Fecha Inicio</th>
+                <th scope="col">Fecha Fin</th>
+                <th scope="col">Activo</th>
+                <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let event of this.eventService.events | filterBy: filter">
+                <td>{{event.name}}</td>
+                <td>{{event.cost}}</td>
+                <td *ngIf="event.all_day==true">Sí</td>
+                <td *ngIf="event.all_day==false">No</td>
+                <td>{{event.date_range.initial_date}}</td>
+                <td>{{event.date_range.final_date}}</td>
+                <td>
+                    <section (click)="$event.stopPropagation()">
+                        <mat-slide-toggle (change)="changeState(event, $event)" color="primary"
+                          [checked]= event.is_active>
+                        </mat-slide-toggle>
+                      </section>
+                </td>
+                <td > 
+                    <button mat-stroked-button [routerLink]="['/event', event.event_id]" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px;">
+                        Ver Detalles
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+            <div class="alert alert-info text-center" role="alert" *ngIf="(this.eventService.events | filterBy: filter).length === 0">
+              ¡No hay eventos disponibles<span class="text-danger"></span>!
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

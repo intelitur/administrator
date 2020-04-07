@@ -1,0 +1,119 @@
+<h1>Creación de Evento</h1>
+<form [formGroup]="eventFG"  style="padding: 25px" class="container">
+
+    <div class="container">
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" matTooltip="Nombre del evento" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Costo</mat-label>
+            <input matInput formControlName="cost" required>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Dirección</mat-label>
+            <textarea 
+                matInput 
+                formControlName="address" 
+                matTooltip="Dirección exacta del evento" 
+                type="text"
+                required></textarea>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" >
+            <mat-label>Detalles</mat-label>
+            <textarea 
+                matInput 
+                formControlName="detail" 
+                matTooltip="Detalles del evento" 
+                type="text"
+                required></textarea>
+        </mat-form-field>
+
+        <div  class="chip-list">
+            <mat-form-field class="chip-list" appearance="outline">
+              <mat-chip-list #chipList aria-label="Categories selection">
+                <mat-chip class="chip"
+                  *ngFor="let category of allCategories"
+                  [selectable]="selectable"
+                  [removable]="removable">
+                  {{category.name}}
+                  <i matChipRemove class="material-icons" (click)="remove(category)">cancel</i>
+                </mat-chip>
+                <input
+                  placeholder="Seleccione las categorías"
+                  #tagInput
+                  formControlName="categories" 
+                  [matChipInputFor]="chipList"
+                  [matAutocomplete]="auto"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let c of filteredCategories " [value]="c">
+                  {{c.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+        </div>
+    </div>
+</form>
+
+<div class="container" style=" width: 95%; margin-left: 2.5%;">
+    <div class="color-picker">
+        <label>Color </label>
+        <color-circle  (onChangeComplete)="changeComplete($event)" ></color-circle> 
+    </div>
+    
+    <div class="toggle" style=" margin-left: 3%;">
+        <label>Todo el día:</label>
+        <mat-slide-toggle style="margin-left: 3%;" (change)="changeState($event)" color="primary" [checked]= "false"></mat-slide-toggle>
+        <label style="margin-left: 5%; margin-right: 15%;"> {{!this.allDay? "No": "Sí"}} </label>
+    
+        <mat-form-field *ngIf="allDay== true" style="width: 45%; ">
+            <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="commonDate"  [min]="today"  placeholder="Fecha" [(ngModel)]="common_date" disabled >
+            <mat-datepicker-toggle matSuffix [for]="commonDate" ></mat-datepicker-toggle>
+            <mat-datepicker #commonDate disabled="false" ></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="allDay== false" style="width: 45%; ">
+            <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="startDate" [min]="today"  placeholder="Fecha Inicial" [(ngModel)]="initial_date" disabled >
+            <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
+            <mat-datepicker #startDate disabled="false" ></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="allDay== false"  style="width: 45%; ">
+            <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha de Finalización" [(ngModel)]="final_date" disabled >
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker  #endDate [disabled]="initial_date == undefined" [startAt]="initial_date"></mat-datepicker>
+        </mat-form-field>
+
+        <div *ngIf="allDay == true">
+            <mat-form-field  appearance="outline">
+                <mat-label>Hora Inicial</mat-label>
+                <input type="time" matInput [(ngModel)]="initial_time" matToolTip="Hora de inicio" >
+            </mat-form-field>
+           
+            <mat-form-field  appearance="outline">
+                <mat-label>Hora de finalización</mat-label>
+                <input type="time"  [disabled]="initial_time == undefined" matToolTip="Hora de finalización" matInput [(ngModel)]="final_time">
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="buttonContainer">
+    <button mat-raised-button  [disabled]="disableDialog()" color="primary" (click)="onSubmit()">
+        Continuar la Creacón
+    </button>
+    <button (click)="closeDialog()" mat-raised-button color="warn">
+        Cancelar<mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<ng-template #loading>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
