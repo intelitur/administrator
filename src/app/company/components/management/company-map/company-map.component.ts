@@ -44,7 +44,9 @@ export class CompanyMapComponent implements OnInit, AfterViewInit {
     private commonService: CommonService,
     private companyService: CompanyService,
     private route: ActivatedRoute
-  ) { }
+  ) { 
+    this.refreshMap = this.refreshMap.bind(this)
+  }
 
   ngOnInit() {
 
@@ -53,7 +55,7 @@ export class CompanyMapComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if(document.getElementById("mat-tab-label-0-2")){
       (document.getElementById("mat-tab-label-0-2") as any).parameters = { map: this.map, company: this.company }
-      document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMapCallback, false);
+      document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMap, false);
     }
     setTimeout(() => this.map.invalidateSize(), 2000);
   }
@@ -68,17 +70,12 @@ export class CompanyMapComponent implements OnInit, AfterViewInit {
   }
 
   refreshMap(){
+    this.map.invalidateSize()
     if(!this.refreshed){
-      this.map.invalidateSize()
-      this.map.flyTo(latLng(this.company.latitude, this.company.longitude), 18)
       this.refreshed = true
+      if(this.company.latitude && this.company.longitude)
+        this.map.flyTo(latLng(this.company.latitude, this.company.longitude), 18)
     }
-  }
-
-  refreshMapCallback(event: any) {
-    let { map, company } = event.currentTarget.parameters
-    map.invalidateSize();
-    setTimeout(() => map.flyTo(latLng(company.latitude, company.longitude), 18), 200)
   }
 
   putLocationMarker(event: any) {

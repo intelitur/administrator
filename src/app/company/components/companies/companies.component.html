@@ -1,55 +1,61 @@
 <div class="container">
-    <h1 class="text-center font-weight-light mt-3">Gestión de empresas</h1>
-    <div class="float-right mb-3 ">
-      <button mat-fab color="primary" class="btn-add" matTooltip="Agregar un administrador"
-        (click)="openCreateCompanyDialog()"><i class="material-icons">add</i></button>
-    </div>
-    <div *ngIf="this.companyService.companies; else loading">
-      <mat-form-field class="container-fluid mb-3" appearance="outline">
-        <mat-label>Buscar por nombre de empresa</mat-label>
-        <input matInput [(ngModel)]="filter.name"/>
-      </mat-form-field>
-      <div class="table-responsive" style="padding: 0 3%;">
-        <table class="table" >
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Cédula Jurídica</th>
-              <th scope="col">Email</th>
-              <th scope="col">Teléfono</th>
-              <th scope="col">Activa</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let company of this.companyService.companies | filterBy: filter" [routerLink]="['/company', company.company_id]">
-              <td>{{ company.name }}</td>
-              <td>{{ company.legal_id }}</td>
-              <td>{{ company.email? company.email: "No registrado" }}</td>
-              <td>{{ company.phone_number? company.phone_number: "No registrado" }}</td>
-              <td>
-                <section (click)="$event.stopPropagation()">
-                  <mat-slide-toggle (change)="changeState(company, $event)" color="primary"
-                    [checked]= company.state>
-                  </mat-slide-toggle>
-                </section>
-              </td>
-              <td>
-                <button mat-stroked-button  matTooltip="Detalles de la empresa" style="color: rgb(82, 82, 82); font-size: 14px;">
-                  Ver detalles
-                </button>
-              </td>
-            </tr>
-  
-          </tbody>
-        </table>
-        <!-- in case you want to show empty message -->
-        <div class="alert alert-info text-center" role="alert" *ngIf="(this.companyService.companies | filterBy: filter).length === 0">
-          No se encuentra el usuario con el id <span class="text-danger">{{filter.user_id}}</span>!
-        </div>
+  <h1 class="text-center font-weight-light mt-3">Gestión de empresas</h1>
+  <div class="float-right mb-3 ">
+    <button mat-raised-button color="primary" class="btn-add mr-3 mt-3" style="margin:auto"
+      matTooltip="Agregar una nueva empresa" (click)="openCreateCompanyDialog()">Agregar empresa</button>
+    <button mat-raised-button color="accent" class="btn-add mr-3 mt-3" style="margin:auto"
+      matTooltip="Ver las solicitudes de unión a empresas" [routerLink]="['/company', 'requests']">
+      Solicitudes de unión
+    </button>
+  </div>
+  <div *ngIf="this.companyService.companies; else loading">
+    <mat-form-field class="container-fluid mb-3" appearance="outline">
+      <mat-label>Buscar por nombre de empresa</mat-label>
+      <input matInput [(ngModel)]="filter.name" />
+    </mat-form-field>
+    <div class="table-responsive" style="padding: 0 3%;">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cédula Jurídica</th>
+            <th scope="col">Email</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Activa</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let company of this.companyService.companies | filterBy: filter"
+            [routerLink]="['/company', company.company_id]">
+            <td>{{ company.name }}</td>
+            <td>{{ company.legal_id }}</td>
+            <td>{{ company.email? company.email: "No registrado" }}</td>
+            <td>{{ company.phone_number? company.phone_number: "No registrado" }}</td>
+            <td>
+              <section (click)="$event.stopPropagation()">
+                <mat-slide-toggle (change)="changeState(company, $event)" color="primary" [checked]=company.state>
+                </mat-slide-toggle>
+              </section>
+            </td>
+            <td>
+              <button mat-stroked-button matTooltip="Detalles de la empresa"
+                style="color: rgb(82, 82, 82); font-size: 14px;">
+                Ver detalles
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <!-- in case you want to show empty message -->
+      <div class="alert alert-info text-center" role="alert"
+        *ngIf="(this.companyService.companies | filterBy: filter).length === 0">
+        No se encuentra el usuario con el id <span class="text-danger">{{filter.user_id}}</span>!
       </div>
     </div>
   </div>
-  <ng-template #loading>
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </ng-template>
+</div>
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

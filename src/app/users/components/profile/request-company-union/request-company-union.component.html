@@ -1,0 +1,69 @@
+<div>
+    <div style="display:flex; justify-content: end; margin-top: 1rem;">
+        <button mat-raised-button color="primary" class="btn-add mr-3 mt-3" style="margin:auto"
+          matTooltip="Agregar una nueva solicitud a empresa" (click)="addRequestUnion()">Solicitar unión</button>
+      </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 1rem 0 0 0">
+        <mat-form-field class="container-fluid" appearance="outline" style="width: 40%; min-width: 300px; margin: auto">
+            <mat-label>Buscar por nombre de empresa</mat-label>
+            <input matInput [(ngModel)]="filter.name" />
+        </mat-form-field>
+        <mat-radio-group class="radio-button-group" color="primary" [(ngModel)]="filter.state" (change)="refresh()">
+            <mat-radio-button value="1" style="color: rgb(160, 105, 0)">
+                Pendientes
+            </mat-radio-button>
+            <mat-radio-button value="2" style="color: rgb(0, 90, 0)">
+                Aceptadas
+            </mat-radio-button>
+            <mat-radio-button value="3" style="color: rgb(90, 0, 0)">
+                Rechazadas
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="table-responsive" style="padding: 0 3%;">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" style="text-align: center;">Fecha de solicitud</th>
+                    <th scope="col" matTooltip="Nombre la empresa a la que se envió la solicitud">Empresa</th>
+                    <th scope="col" matTooltip="Correo electrónico de persona que solicitó la unión">Email de la empresa</th>
+                    <th scope="col" matTooltip="Pendiente / Aceptada / Rechazada">Estado</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!this.loading">
+                <tr *ngFor="let request of this.userRequests | filterBy: filter.filter">
+                    <td style="text-align: center;">{{ dateString(request.request_date) }} <br>
+                        {{ timeString(request.request_date) }}</td>
+                        <td>{{ request.company_info.name }}</td>
+                        <td>{{ request.company_info.email }}</td>
+                    <td>
+                        <label color="primary" style="cursor: default;"
+                            [style.color]="request.state == 1? 'rgb(160, 105, 0)': request.state == 2? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'">
+                            {{ request.state == 1? 'Pendiente': request.state == 2? 'Aceptado': 'Rechazado' }}
+                        </label>
+
+                    </td>
+                    <td>
+                        <div style="display: flex; justify-content: center; flex-wrap: wrap;"
+                            *ngIf="request.state == 1">
+                            <button mat-stroked-button color="warn" style="min-width: fit-content;"
+                                (click)="deleteRequest(request)" matTooltip="Eliminar solicitud">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <ng-container *ngIf="this.loading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-container>
+        <!-- in case you want to show empty message -->
+        <div class="alert alert-info text-center" role="alert"
+            *ngIf="!this.loading && (this.userRequests | filterBy: filter.filter).length === 0 ">
+            No se encuentra ninguna solicitud a su nombre
+        </div>
+    </div>
+</div>

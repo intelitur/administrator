@@ -1,5 +1,5 @@
-<div *ngIf="userCompanies" style="padding: 5%;">
-    <mat-form-field class="container-fluid mb-3" appearance="outline">
+<div *ngIf="userCompanies" style="padding: 0 5%;">
+    <mat-form-field class="container-fluid mb-3 mt-1" appearance="outline">
         <mat-label>Buscar por nombre y/o apellido</mat-label>
         <input matInput [(ngModel)]="filter.input" />
     </mat-form-field>
@@ -23,8 +23,7 @@
                     <td>{{ company.phone_number? company.phone_number: "No registrado" }}</td>
                     <td>
                         <section>
-                            <mat-slide-toggle color="primary" disabled
-                                [checked]=company.state>
+                            <mat-slide-toggle color="primary" disabled [checked]=company.state>
                             </mat-slide-toggle>
                         </section>
                     </td>
@@ -48,7 +47,8 @@
 
         <div class="alert alert-info text-center" style="margin: auto 5%" role="alert"
             *ngIf="!(this.userCompanies.length === 0) && (this.userCompanies | filterBy: filter.filter).length === 0">
-            El usuario no está asociado a ninguna empresa con nombre que coincida con <span class="text-danger">{{filter.input}}</span> 
+            El usuario no está asociado a ninguna empresa con nombre que coincida con <span
+                class="text-danger">{{filter.input}}</span>
         </div>
     </div>
 </div>

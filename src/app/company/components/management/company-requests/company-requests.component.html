@@ -21,13 +21,13 @@
                     <td>{{ request.user_info.name + ' ' + request.user_info.lastName }}</td>
                     <td>{{ request.user_info.email }}</td>
                     <td>
-                        <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
                             <button mat-stroked-button color="primary"
-                                style="min-width: fit-content; margin-top: 10px; margin-right: 10px; color: green;"
+                                style="min-width: fit-content; margin: 1px; color: green;"
                                 (click)="allowUnion(request)" matTooltip="Aceptar solicitud">
                                 <mat-icon>done</mat-icon>
                             </button>
-                            <button mat-stroked-button color="warn" style="min-width: fit-content; margin-top: 10px;"
+                            <button mat-stroked-button color="warn" style="min-width: fit-content; margin: 1px;"
                                 (click)="denyUnion(request)" matTooltip="Rechazar solicitud">
                                 <mat-icon>clear</mat-icon>
                             </button>

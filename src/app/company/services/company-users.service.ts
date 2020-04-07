@@ -10,6 +10,7 @@ import { Company } from '../models/Company';
 export class CompanyUsersService {
 
   companies: Array<Company>;
+  requests: Array<any>
 
   companyModule = "company"
   requestModule = "request"
@@ -32,8 +33,13 @@ export class CompanyUsersService {
     return this.http.get(`${environment.SERVER_BASE_URL}${this.requestModule}/company/${company_id}/`, { params: query });
   };
 
-  updateRequesState({user_company_id}: any, state: number) {
-    let body = { state }
+  getUserRequests(user_id: number, state?: number) {
+    let query: any = { state };
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.requestModule}/user/${user_id}/`, { params: query });
+  };
+
+  updateRequesState({user_company_id}: any, state: number, is_admin = false) {
+    let body = { state, is_admin }
     return this.http.patch(`${environment.SERVER_BASE_URL}${this.requestModule}/${user_company_id}/`, body, {observe: 'response'});
   }
 
@@ -43,6 +49,21 @@ export class CompanyUsersService {
 
   getUserCompanies(user_id: number){
     return this.http.get(`${environment.SERVER_BASE_URL}${this.userModule}/${user_id}/companies/`);
+  }
+
+  addUserToCompany(user_id: number, company_id: number, is_admin = false){
+    const body = {user_id, is_admin}
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.companyModule}/${company_id}/users`, body, {observe: 'response'});
+  }
+
+  getRequests(state: any){
+    let query : any = {state}
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.requestModule}`, {params: query});
+  }
+
+  requesUnion(user_id: number, company_id: number){
+    let body : any = {user_id, company_id}
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.requestModule}`, body, {observe: 'response'});
   }
 
 

@@ -1,0 +1,16 @@
+<form class="example-form">
+    <mat-form-field style="width: 100%">
+        <input type="text" placeholder="Compañía a la que desea unirse" matInput [formControl]="companyControl"
+            [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let company of filteredCompanies | async"
+                [value]="company.company_id + ' | ' + company.name">
+                <span>{{company.name}} | </span><small style="font-weight: 100;">{{company.legal_id}}</small>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <div style="display:flex; justify-content: end;">
+        <button mat-raised-button color="accent" class="btn-add mr-3 mt-2" style="margin:auto" (click)="requestUnion()"
+            matTooltip="Agregar una nueva solicitud a empresa" [disabled]="!companyControl.valid" >Solicitar unión</button>
+    </div>
+</form>
