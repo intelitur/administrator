@@ -40,6 +40,7 @@ export class LocationComponent implements OnInit,  AfterViewInit {
     zoom: 16,
     center: latLng(10.471691479992346, -84.64503407478333)
   };
+  
   constructor(
     private cd: ChangeDetectorRef,
     private commonService: CommonService,
@@ -82,8 +83,8 @@ export class LocationComponent implements OnInit,  AfterViewInit {
     setTimeout(() => map.flyTo(latLng(event.latitude, event.longitude), 18), 200)
   }
 
-  putLocationMarker(event: any) {
-    this.locationMarker.setLatLng(event.latlng);
+  putLocationMarker(_event: any) {
+    this.locationMarker.setLatLng(_event.latlng);
   }
 
   updateEventLocation() {
