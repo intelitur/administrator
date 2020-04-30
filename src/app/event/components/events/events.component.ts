@@ -46,7 +46,34 @@ export class EventsComponent implements OnInit {
   }
 
   changeState(event: EventType, {source}: any){
-
+  
+    this.eventService.changeEventState(event.event_id).subscribe({
+      next: (data: any) => {
+        if (data.status == 200) {
+          event.is_active = !event.is_active;
+          source.checked = event.is_active
+          if (event.is_active)
+            this.commonService.openSnackBar(
+              `El evento ${event.name} ha sido activado`,
+              "OK"
+            );
+          else
+            this.commonService.openSnackBar(
+              `El evento ${event.name} ha sido desactivado`,
+              "OK"
+            );
+        } else {
+          this.commonService.openSnackBar(
+            `Error al cambiar el estado: ${data.error}`,
+            "OK"
+          );
+        }
+      },
+      error: (err: HttpErrorResponse) => {
+        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        source.checked = event.is_active
+      }
+    });
   }
 
   

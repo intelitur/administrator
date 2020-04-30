@@ -60,7 +60,7 @@ export class EventService{
      * @function to change the event status
      * @param event_id to identify which event will change status
      */
-    changeEventState(event_id: Number){
-      return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}/${event_id}/state`, null , {observe: 'response'})
+    changeEventState(id){
+      return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}${id}/state`, null , {observe: 'response'})
     }
 }

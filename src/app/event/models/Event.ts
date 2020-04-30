@@ -16,4 +16,5 @@ export interface EventType{
     final_time: Time,
     latitude?: number, 
     longitude?: number
+    is_active?: boolean
 }

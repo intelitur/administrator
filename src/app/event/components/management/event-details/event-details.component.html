@@ -5,7 +5,7 @@
     <div style="display: flex;  margin: auto 0; padding: 0 20px">
         <h2 style="margin: auto" [style.color]="event.is_active? '#673ab7': 'gray'">
             {{event.is_active? "Activo": "Inactivo"}}</h2>
-        <mat-slide-toggle style="width: min-content; margin-left: 3%; margin-top: 5%;" (change)="changeState($event)"
+        <mat-slide-toggle style="width: min-content; margin-left: 3%; margin-top: 5%;" (change)="changeEventState(event, $event)"
             color="primary" [checked]=event.is_active>
         </mat-slide-toggle>
     </div>
