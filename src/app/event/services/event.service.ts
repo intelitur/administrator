@@ -53,7 +53,7 @@ export class EventService{
      * @param event to modified
      */
     modifyEvent(event: any){
-      return this.http.patch(`${environment.IMAGES_URL_BASE}${this.module}/${event.event_id}`, event, {observe: 'response'})
+      return this.http.put(`${environment.SERVER_BASE_URL}${this.module}${event.info.event_id}`, event, {observe: 'response'})
     }
 
     /**

@@ -50,7 +50,7 @@ export class EventDetailsComponent implements OnInit {
       name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
       address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
       detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
-      cost: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{1,}[.][0-9]{1,})*$")]),
+      cost: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
       categories: new FormControl(null) 
     });
 
@@ -151,4 +151,65 @@ export class EventDetailsComponent implements OnInit {
     }
     this.allCategories = categoryIDs;
   }
+
+
+  modifyEvent(){
+
+    this.loading = true;
+    this.eventFG.disable()
+
+    this.allDay == true? (this.initial_date=this.common_date , this.final_date=this.common_date) : null; 
+    this.initial_time == undefined? this.initial_time = null: null;
+    this.final_time == undefined? this.final_time = null: null;
+
+    let event: EventType = {
+      event_id: this.event.event_id,
+      name: this.eventFG.controls['name'].value,
+      cost: this.eventFG.controls['cost'].value,
+      address: this.eventFG.controls['address'].value,
+      detail: this.eventFG.controls['detail'].value,
+      all_day: this.allDay,
+      color:  this.color,
+      date_range: {
+        initial_date: this.initial_date,
+        final_date: this.final_date
+      },
+      initial_time: this.initial_time,
+      final_time: this.final_time,
+    }
+     
+    let json = {
+      "info": event,
+      "latitude": this.event.latitude,
+      "longuitude": this.event.longitude
+    } 
+
+    console.log(json)
+    this.eventService.modifyEvent(json).subscribe({
+      next: (data: any) => {
+        if (data.status == 200) {
+          this.loading = false;
+          this.eventFG.enable()
+          this.event= event;
+          this.commonService.openSnackBar(
+            `El evento ${this.event.name} ha sido cambiado`,
+            "OK")
+        }
+        else {
+          this.commonService.openSnackBar(
+            `Error al cambiar el estado: ${data.error}`,
+            "OK"
+          );
+        }
+
+      },
+      error: (err: HttpErrorResponse) => {
+        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        this.loading = false;
+        this.eventFG.enable()
+      }
+    })
+  }
+
+
 }
