@@ -6,6 +6,9 @@ import { ColorEvent } from 'ngx-color';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
+import { Subscription } from 'rxjs';
+import { CategoryService } from 'src/app/category/services/category.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -26,6 +29,7 @@ export class EventDetailsComponent implements OnInit {
   initial_time: any = undefined;
   final_time: any =  undefined;
   common_date: any = undefined;
+  subscription: Subscription
   //chipList
   visible = true;
   selectable = true;
@@ -38,6 +42,7 @@ export class EventDetailsComponent implements OnInit {
   constructor(
     public commonService: CommonService,
     public eventService: EventService,
+    public categoryService: CategoryService
   ) { }
 
   ngOnInit() {
@@ -45,8 +50,18 @@ export class EventDetailsComponent implements OnInit {
       name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
       address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
       detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
-      cost: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{1,}[.][0-9]{1,})*$")]) 
+      cost: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{1,}[.][0-9]{1,})*$")]),
+      categories: new FormControl(null) 
     });
+
+    this.subscription = this.categoryService.getAllCategories(1)
+    .subscribe({
+      next: (data: any) => {
+        this.filteredCategories = data;
+        this.subscription.unsubscribe();
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+    });
+
     console.log(this.event)
     this.setData();
   }

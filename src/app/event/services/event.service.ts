@@ -38,9 +38,9 @@ export class EventService{
      * @param event to be added
      */
     createEvent(event: EventType){
-      let eventJson = JSON.stringify(event)
+    
       let json ={
-        "info": eventJson,
+        "info": event,
         "latitude":  10.471681129073,
         "longitude": -84.64514404535
       }
