@@ -1,4 +1,8 @@
 <div *ngIf="companyUsers" style="padding: 5%;">
+  <div class="float-right mb-3 ">
+    <button mat-raised-button color="primary" class="btn-add" matTooltip="Agregar usuario a la empresa"
+      (click)="openAddUserToCompanyDialog()">Agregar usuario</button>
+  </div>
   <mat-form-field class="container-fluid mb-3" appearance="outline">
     <mat-label>Buscar por nombre y/o apellido</mat-label>
     <input matInput [(ngModel)]="filter.input" />
@@ -11,7 +15,7 @@
           <th scope="col">Apellidos</th>
           <th scope="col">Email</th>
           <th scope="col">Estado del usuario</th>
-          <th scope="col" style="text-align: center;">Desasociar</th>
+          <th scope="col" style="text-align: center;">Asociar</th>
         </tr>
       </thead>
       <tbody>

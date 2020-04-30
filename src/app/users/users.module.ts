@@ -13,6 +13,8 @@ import { ProfileInfoComponent } from "./components/profile/profile-info/profile-
 import { FavoriteItineraryComponent } from "./components/profile/favorite-itinerary/favorite-itinerary.component";
 import { FavoriteOfferComponent } from "./components/profile/favorite-offer/favorite-offer.component";
 import { ProfileCompaniesComponent } from './components/profile/profile-companies/profile-companies.component';
+import { RequestCompanyUnionComponent } from './components/profile/request-company-union/request-company-union.component';
+import { AddRequestCompanyUnionComponent } from './components/profile/add-request-company-union/add-request-company-union.component';
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -22,7 +24,9 @@ import { ProfileCompaniesComponent } from './components/profile/profile-companie
     ProfileInfoComponent,
     FavoriteItineraryComponent,
     FavoriteOfferComponent,
-    ProfileCompaniesComponent
+    ProfileCompaniesComponent,
+    RequestCompanyUnionComponent,
+    AddRequestCompanyUnionComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +36,6 @@ import { ProfileCompaniesComponent } from './components/profile/profile-companie
     FilterPipeModule
   ],
   exports: [UserRootComponent],
-  entryComponents: [AddAdminComponent]
+  entryComponents: [AddAdminComponent, AddRequestCompanyUnionComponent]
 })
 export class UsersModule {}

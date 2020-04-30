@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { CompaniesComponent } from "./components/companies/companies.component";
 import { CompanyRootComponent } from './company-root.component';
 import { ManagementComponent } from './components/management/management.component';
+import { RequestsComponent } from './components/requests/requests.component';
 
 const routes: Routes = [
   {
@@ -14,9 +15,13 @@ const routes: Routes = [
         component: CompaniesComponent
       },
       {
+        path: "requests",
+        component: RequestsComponent
+      },
+      {
         path: ":company_id",
         component: ManagementComponent
-      }
+      },
     ]
   }
 ];

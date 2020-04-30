@@ -1,0 +1,61 @@
+<ng-template #loadingB>
+    <mat-progress-bar  style="margin: auto" mode="indeterminate"></mat-progress-bar>
+</ng-template>
+<mat-progress-bar *ngIf="!users" mode="indeterminate"></mat-progress-bar>
+<div *ngIf="users" style="padding: 2vh;">
+    <mat-form-field class="container-fluid" appearance="outline" style="margin-bottom: 2vh;">
+      <mat-label>Buscar por nombre y/o apellido</mat-label>
+      <input matInput [(ngModel)]="filter.input" />
+    </mat-form-field>
+    <div class="table-responsive" style="max-height: 50vh; overflow-y: auto;">
+      <table class="table" >
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Nombre completo</th>
+            <th scope="col">Email</th>
+            <th scope="col" >Estado del usuario</th>
+            <th scope="col" style="text-align: center;">Agregar como empleado</th>
+            <th scope="col" style="text-align: center;"> o como administrador</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of this.users | filterBy: this.filter.filter">
+            <td>{{ user.info.name + " " + user.info.lastName}}</td>
+            <td>{{ user.info.email }}</td>
+            <td>
+              <section>
+                <mat-slide-toggle color="primary" [checked]="user.info.available && user.info.state" disabled>
+                </mat-slide-toggle>
+              </section>
+            </td>
+            <td>
+              <div style="display: flex; height: 33.6px;">
+                <button mat-stroked-button style="min-width: fit-content; margin: auto; color: green" *ngIf="!loading; else loadingB"
+                  (click)="addUserToCompany(user)" matTooltip="Agregar usuario a la empresa como empleado">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </td>
+            <td>
+              <div style="display: flex;  height: 33.6px;">
+                <button mat-stroked-button color="accent" style="min-width: fit-content; margin: auto;" *ngIf="!loading; else loadingB"
+                  (click)="addUserToCompany(user, true)" matTooltip="Agregar usuario a la empresa como administrador">
+                  <mat-icon>lock_open</mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+  
+        </tbody>
+      </table>
+      <!-- in case you want to show empty message -->
+      <div class="alert alert-info text-center" role="alert" *ngIf="this.users.length === 0">
+        La empresa <span class="text-danger">{{data.company.name}}</span> no tiene ningún usuario asociado
+      </div>
+  
+      <div class="alert alert-info text-center" style="margin: auto 5%" role="alert"
+        *ngIf="!(this.users.length === 0) && (this.users | filterBy: filter.filter).length === 0">
+        Ningún usuario coincide con nombre y/o apellido <span class="text-danger">{{filter.input}}</span>
+      </div>
+    </div>
+  </div>

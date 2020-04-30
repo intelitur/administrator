@@ -13,6 +13,8 @@ import { CompanyMapComponent } from './components/management/company-map/company
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { CompanyRequestsComponent } from './components/management/company-requests/company-requests.component';
 import { CompanyCreateComponent } from './components/company-create/company-create.component';
+import { CompanyAddUserComponent } from './components/management/company-users/company-add-user/company-add-user.component';
+import { RequestsComponent } from './components/requests/requests.component';
 
 
 
@@ -25,7 +27,8 @@ import { CompanyCreateComponent } from './components/company-create/company-crea
     CompanyUsersComponent, 
     CompanyMapComponent, 
     CompanyRequestsComponent, 
-    CompanyCreateComponent
+    CompanyCreateComponent, 
+    CompanyAddUserComponent, RequestsComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +39,8 @@ import { CompanyCreateComponent } from './components/company-create/company-crea
     LeafletModule, 
   ],
   entryComponents: [
-    CompanyCreateComponent
+    CompanyCreateComponent,
+    CompanyAddUserComponent
   ]
 })
 export class CompanyModule { }
