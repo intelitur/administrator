@@ -76,6 +76,31 @@
                 </mat-form-field>
             </div>
 
+            <div  class="chip-list">
+                <mat-form-field class="chip-list" appearance="outline" style="width: 100%;">
+                  <mat-chip-list #chipList2 aria-label="Companies selection">
+                    <mat-chip class="chip"
+                      *ngFor="let company of allCompanies"
+                      [selectable]="selectable"
+                      [removable]="removable">
+                      {{company.name}}
+                      <i matChipRemove class="material-icons" (click)="removeCompany(company)">cancel</i>
+                    </mat-chip>
+                    <input
+                      placeholder="Seleccione las compañías"
+                      #tagInput2
+                      formControlName="companies" 
+                      [matChipInputFor]="chipList"
+                      [matAutocomplete]="autoCompany"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+                  </mat-chip-list>
+                  <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
+                    <mat-option *ngFor="let c of filteredCompanies " [value]="c">
+                      {{c.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+            </div>
         </form>
     </div>
 
