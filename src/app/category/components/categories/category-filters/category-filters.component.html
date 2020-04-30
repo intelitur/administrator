@@ -1,0 +1,27 @@
+<div class="container-fluid d-flex flex-column justify-content-sm-center">
+    <h4 class="text-muted text-center font-weight-light">
+      Seleecione el tipo de categoría a filtrar
+    </h4>
+    <hr>
+    <form [formGroup]="categoryFiltersFG">
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo de categoría</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let t of types" [value]="t.id">
+            {{t.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+     
+      <div class="buttonContainer">
+        <button (click)="submit(); false" mat-raised-button color="primary" [disabled]="!categoryFiltersFG.valid">
+          Aceptar<mat-icon>check</mat-icon>
+        </button>
+        <button (click)="closeDialog()" mat-raised-button color="warn">
+          Cerrar<mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </form>
+    
+  </div>
+  

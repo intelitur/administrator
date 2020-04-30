@@ -1,0 +1,165 @@
+
+<div style="display: flex; justify-content: space-around;">
+
+    <h2 style="color: #dbb735; text-align: center; margin: auto 0">{{event.name}}</h2>
+    <div style="display: flex;  margin: auto 0; padding: 0 20px">
+        <h2 style="margin: auto" [style.color]="event.is_active? '#673ab7': 'gray'">
+            {{event.is_active? "Activo": "Inactivo"}}</h2>
+        <mat-slide-toggle style="width: min-content; margin-left: 3%; margin-top: 5%;" (change)="changeState($event)"
+            color="primary" [checked]=event.is_active>
+        </mat-slide-toggle>
+    </div>
+
+</div>
+
+
+<div style="display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;">
+    <div style="width: 60%; min-width: 300px;">
+        
+        <form [formGroup]="eventFG" class="container-fluid d-flex flex-column justify-content-center" style="padding: 25px">
+
+            <mat-form-field style="margin-bottom: 4%;" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" matTooltip="Nombre del evento" required>
+            </mat-form-field>
+    
+            <mat-form-field style="margin-bottom: 4%;" appearance="outline">
+                <mat-label>Costo</mat-label>
+                <input matInput formControlName="cost" required>
+            </mat-form-field>
+        
+            <mat-form-field style="margin-bottom: 4%; resize: none;" appearance="outline">
+                <mat-label>Dirección</mat-label>
+                <textarea 
+                    matInput 
+                    formControlName="address" 
+                    matTooltip="Dirección exacta del evento" 
+                    type="text"
+                    required></textarea>
+            </mat-form-field>
+        
+            <mat-form-field style="margin-bottom: 4%; resize: none;" appearance="outline" >
+                <mat-label>Detalles</mat-label>
+                <textarea 
+                    matInput 
+                    formControlName="detail" 
+                    matTooltip="Detalles del evento" 
+                    type="text"
+                    required></textarea>
+            </mat-form-field>
+
+            <div  class="chip-list">
+                <mat-form-field class="chip-list" appearance="outline">
+                  <mat-chip-list #chipList aria-label="Categories selection">
+                    <mat-chip class="chip"
+                      *ngFor="let category of allCategories"
+                      [selectable]="selectable"
+                      [removable]="removable">
+                      {{category.name}}
+                      <i matChipRemove class="material-icons" (click)="remove(category)">cancel</i>
+                    </mat-chip>
+                    <input
+                      placeholder="Seleccione las categorías"
+                      #tagInput
+                      formControlName="categories" 
+                      [matChipInputFor]="chipList"
+                      [matAutocomplete]="auto"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+                  </mat-chip-list>
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let c of filteredCategories " [value]="c">
+                      {{c.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+        </form>
+    </div>
+
+    <div
+        style="width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
+        <img style="margin: 5% auto; max-height: 450px; max-width: 90%;"
+            src="https://media-exp1.licdn.com/dms/image/C561BAQECpbD6BAejKg/company-background_10000/0?e=2159024400&v=beta&t=0OMsZud-rJoJIlHTUOuvOGPWNEZJBJDx7_mzKQI37UU">
+        <div style=" display: flex; height: 70px;">
+            <div
+                style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);">
+                <button mat-button matTooltip="Buscar nueva imagen" style="border-radius: 0 0 0 20px;"
+                    class="image-buttons" color="accent">
+                    <mat-icon>find_replace</mat-icon>
+
+                </button>
+            </div>
+            <div
+                style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);">
+                <button mat-button matTooltip="Eliminar imagen de categoría" style="border-radius: 0 0 20px 0"
+                    class="image-buttons" color="warn">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<div class="container" style=" width: 95%; padding-top: 2%; margin-left: 2.5%;">
+    <div class="color-picker">
+        <label>Color </label>
+        <color-circle  [color]="color" (onChangeComplete)="changeComplete($event)" ></color-circle> 
+    </div>
+    
+    <div class="toggle">
+        <label>Todo el día:</label>
+        <mat-slide-toggle style="margin-left: 3%;" (change)="changeState($event)" color="primary" [checked]= "allDay"></mat-slide-toggle>
+        <label style="margin-left: 5%; margin-right: 15%;"> {{!this.allDay? "No": "Sí"}} </label>
+    
+        <div style=" margin-left: 2%; display: flex; flex-direction: column;">
+            <mat-form-field *ngIf="allDay== true" style="width: 45%; ">
+                <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="commonDate"  [min]="today"  placeholder="Fecha" [(ngModel)]="common_date" disabled >
+                <mat-datepicker-toggle matSuffix [for]="commonDate" ></mat-datepicker-toggle>
+                <mat-datepicker #commonDate disabled="false" ></mat-datepicker>
+            </mat-form-field>
+    
+            <mat-form-field *ngIf="allDay== false" style="width: 45%; ">
+                <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="startDate" [min]="today"  placeholder="Fecha Inicial" [(ngModel)]="initial_date" disabled >
+                <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
+                <mat-datepicker #startDate disabled="false" ></mat-datepicker>
+            </mat-form-field>
+    
+            <mat-form-field *ngIf="allDay== false"  style="width: 45%;">
+                <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha de Finalización" [(ngModel)]="final_date" disabled >
+                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                <mat-datepicker  #endDate [disabled]="initial_date == undefined" [startAt]="initial_date"></mat-datepicker>
+            </mat-form-field>
+    
+            <div *ngIf="allDay == true">
+                <mat-form-field  appearance="outline">
+                    <mat-label>Hora Inicial</mat-label>
+                    <input type="time" matInput [(ngModel)]="initial_time" matToolTip="Hora de inicio" >
+                </mat-form-field>
+               
+                <mat-form-field  style="margin-left: 3%;" appearance="outline">
+                    <mat-label>Hora de finalización</mat-label>
+                    <input type="time"  [disabled]="initial_time == undefined" matToolTip="Hora de finalización" matInput [(ngModel)]="final_time">
+                </mat-form-field>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="buttonContainer">
+    <button *ngIf="!loading; else loadingBar" mat-stroked-button color="primary"  [disabled]="!eventFG.valid"
+        style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="modifyEvent()" >
+        Guardar cambios
+    </button>
+
+    <ng-template #loadingBar>
+        <mat-progress-bar mode="indeterminate" style="width: 47%; margin: auto 0;"></mat-progress-bar>
+    </ng-template>
+    <button mat-stroked-button color="warn"
+        style="width: 47%; min-width: fit-content;margin-top: 10px;">
+        Descartar cambios
+    </button>
+</div>

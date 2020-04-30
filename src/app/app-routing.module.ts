@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { LoggedInGuard } from './logged-in.guard';
 const routes: Routes = [
-  {
+  { 
     path: "itinerary",
     loadChildren: () =>
       import("./itinerary/itinerary.module").then(
@@ -23,6 +23,22 @@ const routes: Routes = [
     loadChildren: () =>
       import("./company/company.module").then(
         i => i.CompanyModule
+      ),
+    canActivateChild: [LoggedInGuard]
+  },
+  {
+    path: "events",
+    loadChildren: () =>
+      import("./event/event.module").then(
+        i => i.EventModule
+      ),
+    canActivateChild: [LoggedInGuard]
+  },
+  {
+    path: "categories",
+    loadChildren: () =>
+      import("./category/category.module").then(
+        i => i.CategoryModule
       ),
     canActivateChild: [LoggedInGuard]
   }

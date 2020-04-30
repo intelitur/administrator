@@ -6,6 +6,8 @@
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['user/user-managment']" routerLinkActive="router-link-active" href="#">Gestión de usuarios</a>
       <a mat-list-item [routerLink]="['/itineraries/show-all']" routerLinkActive="router-link-active" href="#">Gestión de itinerarios</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/company/all']" routerLinkActive="router-link-active" href="#">Gestión de empresas</a>
+      <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/event/all']" routerLinkActive="router-link-active" href="#">Gestión de Eventos</a>
+      <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/category/all']" routerLinkActive="router-link-active" href="#">Gestión de Categorías</a>
       <a mat-list-item [routerLink]="['user/profile']" routerLinkActive="router-link-active" href="#">Cuenta</a>
     </mat-nav-list>
   </mat-sidenav>
