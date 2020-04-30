@@ -112,6 +112,7 @@ export class EventCreateComponent implements OnInit {
     this.eventFG.disable();
     this.eventService.createEvent(event).subscribe({
       next: (data: any) => {
+        console.log( data)
         if (data.status == 204) {
           this.commonService.openSnackBar(
             `El evento ${this.eventFG.value.name} se ha creado`,

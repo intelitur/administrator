@@ -58,4 +58,8 @@ export class CategoryService {
     let query : any = {state: type}
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/`, {params: query})
   }
+
+  getEventCategories(id){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}/events`)
+  }
 }
