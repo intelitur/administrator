@@ -40,7 +40,7 @@
                   [selectable]="selectable"
                   [removable]="removable">
                   {{category.name}}
-                  <i matChipRemove class="material-icons" (click)="remove(category)">cancel</i>
+                  <i matChipRemove class="material-icons" (click)="removeCategory(category)">cancel</i>
                 </mat-chip>
                 <input
                   placeholder="Seleccione las categorías"
@@ -50,13 +50,40 @@
                   [matAutocomplete]="auto"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
               </mat-chip-list>
-              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCategory($event)">
                 <mat-option *ngFor="let c of filteredCategories " [value]="c">
                   {{c.name}}
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
         </div>
+
+        <div  class="chip-list">
+            <mat-form-field class="chip-list" appearance="outline">
+              <mat-chip-list #chipList2 aria-label="Companies selection">
+                <mat-chip class="chip"
+                  *ngFor="let company of allCompanies"
+                  [selectable]="selectable"
+                  [removable]="removable">
+                  {{company.name}}
+                  <i matChipRemove class="material-icons" (click)="removeCompany(company)">cancel</i>
+                </mat-chip>
+                <input
+                  placeholder="Seleccione las compañías"
+                  #tagInput2
+                  formControlName="companies" 
+                  [matChipInputFor]="chipList"
+                  [matAutocomplete]="autoCompany"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+              </mat-chip-list>
+              <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
+                <mat-option *ngFor="let c of filteredCompanies " [value]="c">
+                  {{c.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+        </div>
+
     </div>
 </form>
 

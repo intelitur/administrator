@@ -11,6 +11,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { Category } from 'src/app/itinerary/models/Category';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { CompanyService } from 'src/app/company/services/company.service';
 
 @Component({
   selector: 'app-event-create',
@@ -30,13 +31,16 @@ export class EventCreateComponent implements OnInit {
   final_time: any =  undefined;
   common_date: any = undefined;
   subscription: Subscription
+  subscription2: Subscription
   //chipList
   visible = true;
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  filteredCategories: any;//Contiene todos los tags activos
-  allCategories: Array<any> = [];//Almacena los tags seleccionados
+  filteredCategories: any;
+  allCategories: Array<any> = [];
+  filteredCompanies: any;
+  allCompanies: Array<any> = [];
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
   
   constructor(
@@ -44,7 +48,8 @@ export class EventCreateComponent implements OnInit {
     public commonService: CommonService,
     public eventService: EventService,
     public router: Router,
-    public categoryService: CategoryService
+    public categoryService: CategoryService,
+    public companyService: CompanyService
   ) { }
 
   ngOnInit() {
@@ -53,17 +58,27 @@ export class EventCreateComponent implements OnInit {
       address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
       detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
       cost: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
-      categories: new FormControl(null)
+      categories: new FormControl(null),
+      companies: new FormControl(null)
     });
     
     this.subscription = this.categoryService.getAllCategories(1)
     .subscribe({
       next: (data: any) => {
+        console.log(data)
         this.filteredCategories = data;
         this.subscription.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
 
+    this.subscription2 = this.companyService.getCompanies()
+    .subscribe({
+      next: (data: any) => {
+        console.log(data)
+        this.filteredCompanies = data;
+        this.subscription.unsubscribe();
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+    });
   }
 
   /**
@@ -163,7 +178,7 @@ export class EventCreateComponent implements OnInit {
   }
 
   //chipList 
-  remove(category: string): void {
+  removeCategory(category: string): void {
     let index = this.allCategories.indexOf(category)
     if (index >= 0) {
       this.allCategories.splice(index, 1);
@@ -174,7 +189,7 @@ export class EventCreateComponent implements OnInit {
    * Añade el tag seleccionado a la lista para mostarlo y lo guarda
    * @param event 
    */
-  selected(event: MatAutocompleteSelectedEvent): void {
+  selectedCategory(event: MatAutocompleteSelectedEvent): void {
     let index = this.allCategories.indexOf(event.option.value);
     if (index < 0) {
       this.allCategories.push(event.option.value)
@@ -182,6 +197,30 @@ export class EventCreateComponent implements OnInit {
     } else {
       this.commonService.openSnackBar(
         "¡La categoría ya ha sido agregada!",
+        "OK"
+      );
+    }
+  }
+
+  removeCompany(company: string): void {
+    let index = this.allCompanies.indexOf(company)
+    if (index >= 0) {
+      this.allCompanies.splice(index, 1);
+    }
+  }
+
+  /**
+   * Añade el tag seleccionado a la lista para mostarlo y lo guarda
+   * @param event 
+   */
+  selectedCompany(event: MatAutocompleteSelectedEvent): void {
+    let index = this.allCompanies.indexOf(event.option.value);
+    if (index < 0) {
+      this.allCompanies.push(event.option.value)
+      this.eventFG.controls['companies'].setValue(null);
+    } else {
+      this.commonService.openSnackBar(
+        "¡La compañía ya ha sido agregada!",
         "OK"
       );
     }
@@ -196,6 +235,17 @@ export class EventCreateComponent implements OnInit {
       categoryIDs.push(this.allCategories[i].category_id)
     }
     this.allCategories = categoryIDs;
+  }
+
+  /**
+   * Metodo para obtener únicamente los ids de los tags que se guardaron 
+   */
+  getCompanies() {
+    let companyIDs: Array<any> = [];
+    for (let i = 0; i < this.allCompanies.length; i++) {
+      companyIDs.push(this.allCompanies[i].company_id)
+    }
+    this.allCompanies = companyIDs;
   }
 
 }
