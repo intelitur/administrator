@@ -32,6 +32,7 @@ export class EventDetailsComponent implements OnInit {
   common_date: any = undefined;
   subscription: Subscription
   subscription2: Subscription
+  subscription3: Subscription
   //chipList
   visible = true;
   selectable = true;
@@ -129,7 +130,7 @@ export class EventDetailsComponent implements OnInit {
     this.final_time = this.event.final_time
     this.allDay?  this.common_date = this.event.date_range.initial_date : this.common_date = undefined; 
     //añadir el endpoint para obtener todas la categorías del evento  
-    this.subscription2 = this.categoryService.getEventCategories(this.event.event_id).subscribe({
+    this.subscription3 = this.categoryService.getEventCategories(this.event.event_id).subscribe({
       next: (data: any) => {
         console.log(data)
         this.allCategories = data;
