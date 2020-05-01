@@ -6,6 +6,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/general-services/common.service';
 import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
 import { EventCreateComponent } from '../event-create/event-create.component'
+import { EventFiltersComponent } from './event-filters/event-filters.component';
+import { CategoryService } from 'src/app/category/services/category.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-events',
@@ -23,7 +26,8 @@ export class EventsComponent implements OnInit {
   constructor(
     public eventService: EventService,
     public commonService: CommonService,
-    public dialogService: DialogManagerService
+    public dialogService: MatDialog,
+    public categoryService: CategoryService
   ) { }
 
   ngOnInit() {
@@ -76,5 +80,22 @@ export class EventsComponent implements OnInit {
     });
   }
 
+  openShowFilterOptionsDialog(){
+    const  dialog = this.dialogService.open(EventFiltersComponent, {width: "50", minWidth: "280px", disableClose: true})
+
+    dialog.afterClosed().subscribe( category_id => {
+      if(category_id != undefined){
+        this.isFilters = true
+        this.subscription = this.categoryService.getEventsByCategory(category_id)
+        .subscribe({
+          next: (data: any) => {
+            this.eventService.events = data;
+            this.subscription.unsubscribe();
+          }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
+      }
+
+    })
+  }
   
 }

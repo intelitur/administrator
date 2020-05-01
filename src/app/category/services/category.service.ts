@@ -62,4 +62,8 @@ export class CategoryService {
   getEventCategories(id){
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}/events`)
   }
+
+  getEventsByCategory(id){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}/category`)
+  }
 }

@@ -12,6 +12,7 @@ import { ColorCircleModule } from 'ngx-color/circle';
 import { LocationComponent } from './components/management/location/location.component';
 import { EventDetailsComponent } from './components/management/event-details/event-details.component'; 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { EventFiltersComponent } from './components/events/event-filters/event-filters.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     ManagementComponent,
     EventRootComponent,
     LocationComponent,
-    EventDetailsComponent
+    EventDetailsComponent,
+    EventFiltersComponent
   ],
     imports: [
       CommonModule,
@@ -32,7 +34,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
       LeafletModule
     ],
     entryComponents: [
-      EventCreateComponent
+      EventCreateComponent,
+      EventFiltersComponent
     ]
   })
   export class EventModule { }

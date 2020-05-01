@@ -1,20 +1,20 @@
 <div class="container-fluid d-flex flex-column justify-content-sm-center">
     <h4 class="text-muted text-center font-weight-light">
-      Seleccione el tipo de categoría a filtrar
+      Seleccione la categoría para filtrar
     </h4>
     <hr>
-    <form [formGroup]="categoryFiltersFG">
+    <form [formGroup]="eventFiltersFG">
       <mat-form-field appearance="fill">
         <mat-label>Tipo de categoría</mat-label>
-        <mat-select formControlName="type">
-          <mat-option *ngFor="let t of types" [value]="t.id">
-            {{t.name}}
+        <mat-select formControlName="categories">
+          <mat-option *ngFor="let c of categories" [value]="c.category_id">
+            {{c.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
      
       <div class="buttonContainer">
-        <button (click)="submit(); false" mat-raised-button color="primary" [disabled]="!categoryFiltersFG.valid">
+        <button (click)="submit(); false" mat-raised-button color="primary" [disabled]="!eventFiltersFG.valid">
           Aceptar<mat-icon>check</mat-icon>
         </button>
         <button (click)="closeDialog()" mat-raised-button color="warn">
@@ -24,4 +24,3 @@
     </form>
     
   </div>
-  
