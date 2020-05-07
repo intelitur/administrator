@@ -59,11 +59,29 @@ export class CategoryService {
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/`, {params: query})
   }
 
+  /**
+   * @function to get the categories related to an specific event
+   * @param id of the event
+   */
   getEventCategories(id){
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}/events`)
   }
 
+  /**
+   * @function to get the events related to an specific category
+   * @param id of the category
+   */
   getEventsByCategory(id){
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}/category`)
   }
+
+  /**
+   * @function to delete a category from an event
+   * @param category_id 
+   * @param event_id 
+   */
+  deleteCategoryFromEvent(category_id, event_id){
+    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}/RemoveCategoryInEvent/${category_id}/${event_id}`, {observe: 'response'})
+  }
+
 }

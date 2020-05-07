@@ -32,7 +32,7 @@ export class CategoryCreateComponent implements OnInit {
 
   ngOnInit() {
     this.categoryFG = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
+      name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
       type: new FormControl(null,Validators.required)
     })
   }

@@ -54,9 +54,9 @@ export class EventCreateComponent implements OnInit {
 
   ngOnInit() {
     this.eventFG = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
-      address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
-      detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
+      name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+      address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+      detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
       cost: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
       categories: new FormControl(null),
       companies: new FormControl(null)
@@ -65,7 +65,6 @@ export class EventCreateComponent implements OnInit {
     this.subscription = this.categoryService.getAllCategories(1)
     .subscribe({
       next: (data: any) => {
-        console.log(data)
         this.filteredCategories = data;
         this.subscription.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
@@ -74,9 +73,8 @@ export class EventCreateComponent implements OnInit {
     this.subscription2 = this.companyService.getCompanies()
     .subscribe({
       next: (data: any) => {
-        console.log(data)
         this.filteredCompanies = data;
-        this.subscription.unsubscribe();
+        this.subscription2.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
   }
@@ -127,14 +125,17 @@ export class EventCreateComponent implements OnInit {
     this.eventFG.disable();
     this.eventService.createEvent(event).subscribe({
       next: (data: any) => {
-        console.log( data)
-        if (data.status == 204) {
+        if (data.status == 200) {
           this.commonService.openSnackBar(
             `El evento ${this.eventFG.value.name} se ha creado`,
             "OK"
           );
           this.dialogRef.close();
-          this.router.navigate(['/event', data.body.event_id])
+          /**Añadiendo compañías y categorías al evento */
+          this.getCategories()
+          this.getCompanies()
+          this.eventRelations(data.body[0])
+          this.router.navigate(['/event', data.body[0]])
         } else {
           this.commonService.openSnackBar(
             `Error al crear el evento: ${data.error}`,
@@ -168,10 +169,9 @@ export class EventCreateComponent implements OnInit {
 
   disableDialog(): boolean {
     if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined  ||
-    (this.allDay == false && this.final_date== undefined) || 
-    (this.allDay == true && this.initial_time == undefined) || 
-    (this.allDay == true && this.final_time == undefined ) || 
-    (this.allDay == true && this.common_date == undefined) || this.allCategories.length === 0) {
+    (this.allDay == false && this.final_date== undefined) || (this.allDay == true && this.initial_time == undefined) || 
+    (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) 
+    || this.allCategories.length === 0 || (this.initial_time >= this.final_time)) {
       return true
     }
     return false
@@ -246,6 +246,18 @@ export class EventCreateComponent implements OnInit {
       companyIDs.push(this.allCompanies[i].company_id)
     }
     this.allCompanies = companyIDs;
+  }
+
+  async eventRelations(event_id){
+    //compañías
+    for(let i=0; i<this.allCompanies.length; i++){
+      await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise()
+    }
+
+    //Categorias
+    for(let i=0; i<this.allCategories.length; i++){
+      await this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise()
+    }
   }
 
 }

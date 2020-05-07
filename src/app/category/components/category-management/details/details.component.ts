@@ -29,7 +29,7 @@ export class DetailsComponent implements OnInit {
     private commonService: CommonService
   ) {
     this.categoryFG = new FormGroup({
-      name: new FormControl(null, Validators.required)
+      name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")])
     })
    }
 

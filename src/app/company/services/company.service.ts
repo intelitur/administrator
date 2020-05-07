@@ -52,8 +52,13 @@ export class CompanyService {
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/`, company ,{observe: "response"})
   }
 
-  
-
+  /**
+   * @function to get companies related to a specific event
+   * @param event_id 
+   */
+  getCompaniesByEvent(event_id){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/getCompaniesByEvent/${event_id}`)
+  }
 
 
 }

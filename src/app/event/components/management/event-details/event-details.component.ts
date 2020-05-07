@@ -33,16 +33,23 @@ export class EventDetailsComponent implements OnInit {
   subscription: Subscription
   subscription2: Subscription
   subscription3: Subscription
+  subscription4: Subscription
+
+
   //chipList
   visible = true;
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  filteredCategories: any;//Contiene todos los tags activos
-  allCategories: Array<any> = [];//Almacena los tags seleccionados
+  filteredCategories: any;
+  allCategories: Array<any> = [];
   filteredCompanies: any;
   allCompanies: Array<any> = [];
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
+
+
+  allOldCategories: Array<any> = [];
+  allOldCompanies: Array<any> = [];
 
   constructor(
     public commonService: CommonService,
@@ -53,9 +60,9 @@ export class EventDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.eventFG = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
-      address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
-      detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]),
+      name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+      address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+      detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
       cost: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
       categories: new FormControl(null),
       companies: new FormControl(null) 
@@ -72,13 +79,11 @@ export class EventDetailsComponent implements OnInit {
     this.subscription2 = this.companyService.getCompanies()
     .subscribe({
       next: (data: any) => {
-        console.log(data)
         this.filteredCompanies = data;
-        this.subscription.unsubscribe();
+        this.subscription2.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
 
-    console.log(this.event)
     this.setData();
   }
 
@@ -107,11 +112,12 @@ export class EventDetailsComponent implements OnInit {
   }
 
   disableDialog(): boolean {
-    if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || 
-    (this.allDay == false && this.final_date== undefined) || 
-    (this.allDay == true && this.initial_time == undefined) || 
-    (this.allDay == true && this.final_time == undefined ) || 
-    (this.allDay == true && this.common_date == undefined))  {
+    if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined  ||
+    (this.allDay == false && this.final_date== undefined) || (this.allDay == true && this.initial_time == undefined) || 
+    (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) 
+    || this.allCategories.length === 0 || (this.initial_time >= this.final_time)) {
+      console.log(this.initial_time)
+      console.log(this.final_time)
       return true
     }
     return false
@@ -129,12 +135,20 @@ export class EventDetailsComponent implements OnInit {
     this.initial_time = this.event.initial_time
     this.final_time = this.event.final_time
     this.allDay?  this.common_date = this.event.date_range.initial_date : this.common_date = undefined; 
-    //añadir el endpoint para obtener todas la categorías del evento  
+    //categorias
     this.subscription3 = this.categoryService.getEventCategories(this.event.event_id).subscribe({
       next: (data: any) => {
-        console.log(data)
-        this.allCategories = data;
-        this.subscription.unsubscribe();
+        data.forEach(val => this.allCategories .push(val));
+        this.allCategories.forEach(val => this.allOldCategories.push(val.category_id));
+        this.subscription3.unsubscribe();
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+    });
+    //compañías
+    this.subscription4 = this.companyService.getCompaniesByEvent(this.event.event_id).subscribe({
+      next: (data: any) => {
+        data.forEach(val => this.allCompanies.push(val));
+        this.allCompanies.forEach(val => this.allOldCompanies.push(val.company_id));
+        this.subscription4.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
     
@@ -153,6 +167,17 @@ export class EventDetailsComponent implements OnInit {
    * @param event 
    */
   selected(event: MatAutocompleteSelectedEvent): void {
+    
+    for(let i=0; i<this.allCategories.length; i++){
+      if(this.allCategories[i].category_id === event.option.value.category_id){
+        this.commonService.openSnackBar(
+          "¡La categoría ya ha sido agregada!",
+          "OK"
+        );
+        return
+      }
+    }
+
     let index = this.allCategories.indexOf(event.option.value);
     if (index < 0) {
       this.allCategories.push(event.option.value)
@@ -177,6 +202,17 @@ export class EventDetailsComponent implements OnInit {
    * @param event 
    */
   selectedCompany(event: MatAutocompleteSelectedEvent): void {
+
+    for(let i=0; i<this.allCompanies.length; i++){
+      if(this.allCompanies[i].company_id === event.option.value.company_id){
+        this.commonService.openSnackBar(
+          "¡La compañía ya ha sido agregada!",
+          "OK"
+        );
+        return
+      }
+    }
+
     let index = this.allCompanies.indexOf(event.option.value);
     if (index < 0) {
       this.allCompanies.push(event.option.value)
@@ -188,18 +224,6 @@ export class EventDetailsComponent implements OnInit {
       );
     }
   }
-
-  /**
-   * Metodo para obtener únicamente los ids de los tags que se guardaron 
-   */
-  getCategories() {
-    let categoryIDs: Array<any> = [];
-    for (let i = 0; i < this.allCategories.length; i++) {
-      categoryIDs.push(this.allCategories[i].category_id)
-    }
-    this.allCategories = categoryIDs;
-  }
-
 
   modifyEvent(){
 
@@ -232,16 +256,24 @@ export class EventDetailsComponent implements OnInit {
       "longuitude": this.event.longitude
     } 
 
-    console.log(json)
     this.eventService.modifyEvent(json).subscribe({
       next: (data: any) => {
         if (data.status == 200) {
           this.loading = false;
           this.eventFG.enable()
           this.event= event;
-          this.commonService.openSnackBar(
-            `El evento ${this.event.name} ha sido cambiado`,
-            "OK")
+
+          /**Añadiendo compañías y categorías al evento */
+          this.getCategoriesID();
+          this.getCompaniesID();
+
+          this.addCategoriesToEvent(this.event.event_id);
+          this.deleteCategroyFromEvent(this.event.event_id);
+          this.addCompanyToEvent(this.event.event_id);
+          this.deleteCompanyFromEvent(this.event.event_id);
+
+          this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`,"OK")
+          location.reload();
         }
         else {
           this.commonService.openSnackBar(
@@ -288,6 +320,61 @@ export class EventDetailsComponent implements OnInit {
         source.checked = event.is_active
       }
     });
+  }
+
+  /**
+   * Metodo para obtener únicamente los ids de las categorías que se seleccionaron 
+   */
+  getCategoriesID() {
+    let categoryIDs: Array<any> = [];
+    for (let i = 0; i < this.allCategories.length; i++) {
+      categoryIDs.push(this.allCategories[i].category_id)
+    }
+    this.allCategories = categoryIDs;
+  }
+
+  /**
+   * Metodo para obtener únicamente los ids de los compañías que se seleccionaron
+   */
+  getCompaniesID() {
+    let companyIDs: Array<any> = [];
+    for (let i = 0; i < this.allCompanies.length; i++) {
+      companyIDs.push(this.allCompanies[i].company_id)
+    }
+    this.allCompanies = companyIDs;
+  }
+
+
+  async addCategoriesToEvent(event_id){
+    for(let i=0; i<this.allCategories.length; i++){
+      if(this.allOldCategories.indexOf(this.allCategories[i]) === -1){
+        await this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise()
+      }
+    }
+  }
+
+  async deleteCategroyFromEvent(event_id){
+    for(let i=0; i<this.allOldCategories.length; i++){
+      if(this.allCategories.indexOf(this.allOldCategories[i]) === -1){
+        await this.categoryService.deleteCategoryFromEvent(this.allOldCategories[i], event_id).toPromise()
+      }
+    }
+  }
+
+  async addCompanyToEvent(event_id){
+    for(let i=0; i<this.allCompanies.length; i++){
+      if(this.allOldCompanies.indexOf(this.allCompanies[i]) === -1){
+        await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise()
+      }
+    }
+  }
+
+  async deleteCompanyFromEvent(event_id){
+    for(let i=0; i<this.allOldCompanies.length; i++){
+      if(this.allCompanies.indexOf(this.allOldCompanies[i]) === -1){
+        await this.eventService.deleteCompanyFromEvent(this.allOldCompanies[i], event_id).toPromise()
+      }
+    }
   }
 
 }
