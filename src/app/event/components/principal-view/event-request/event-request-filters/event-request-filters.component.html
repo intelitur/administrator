@@ -1,0 +1,26 @@
+<div class="container-fluid d-flex flex-column justify-content-sm-center">
+    <h4 class="text-muted text-center font-weight-light">
+      Seleccione la compañía para filtrar
+    </h4>
+    <hr>
+    <form [formGroup]="eventRequestFiltersFG">
+      <mat-form-field appearance="fill">
+        <mat-label>Compañía</mat-label>
+        <mat-select formControlName="companies">
+          <mat-option *ngFor="let c of companies" [value]="c.company_id">
+            {{c.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+     
+      <div class="buttonContainer">
+        <button (click)="submit(); false" mat-raised-button color="primary" [disabled]="!eventRequestFiltersFG.valid">
+          Aceptar<mat-icon>check</mat-icon>
+        </button>
+        <button (click)="closeDialog()" mat-raised-button color="warn">
+          Cerrar<mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </form>
+    
+  </div>

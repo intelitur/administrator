@@ -1,8 +1,8 @@
 import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { EventRootComponent } from "./event-root.component"
-import { EventsComponent } from './components/events/events.component';
 import { ManagementComponent } from './components/management/management.component';
+import { PrincipalViewComponent } from './components/principal-view/principal-view.component';
 
 const routes: Routes = [
     {
@@ -11,7 +11,7 @@ const routes: Routes = [
       children: [
         {
           path: "all",
-          component: EventsComponent
+          component: PrincipalViewComponent
         },
         {
           path: ":event_id",

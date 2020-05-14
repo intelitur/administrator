@@ -14,6 +14,9 @@ import { EventDetailsComponent } from './components/management/event-details/eve
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { EventFiltersComponent } from './components/events/event-filters/event-filters.component';
 import { DatePipe } from '@angular/common';
+import { PrincipalViewComponent } from './components/principal-view/principal-view.component';
+import { EventRequestComponent } from './components/principal-view/event-request/event-request.component';
+import { EventRequestFiltersComponent } from './components/principal-view/event-request/event-request-filters/event-request-filters.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +26,10 @@ import { DatePipe } from '@angular/common';
     EventRootComponent,
     LocationComponent,
     EventDetailsComponent,
-    EventFiltersComponent
+    EventFiltersComponent,
+    PrincipalViewComponent,
+    EventRequestComponent,
+    EventRequestFiltersComponent
   ],
     imports: [
       CommonModule,
@@ -37,7 +43,8 @@ import { DatePipe } from '@angular/common';
     providers: [DatePipe],
     entryComponents: [
       EventCreateComponent,
-      EventFiltersComponent
+      EventFiltersComponent,
+      EventRequestFiltersComponent
     ]
   })
   export class EventModule { }

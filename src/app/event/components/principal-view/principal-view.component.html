@@ -1,0 +1,11 @@
+<mat-tab-group>
+    <mat-tab label="Eventos" *ngIf="_auth.getUser().role_id !== 1">
+        <app-events></app-events>
+    </mat-tab>
+    <mat-tab label="Gestión de Eventos" *ngIf="_auth.getUser().role_id === 1">
+        <app-events></app-events>
+    </mat-tab>
+    <mat-tab label="Gestión de Peticiones de Eventos" *ngIf="_auth.getUser().role_id === 1">
+        <app-event-request></app-event-request>
+    </mat-tab>
+</mat-tab-group> 

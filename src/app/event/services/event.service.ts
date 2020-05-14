@@ -10,6 +10,7 @@ import { EventType } from '../models/Event';
 export class EventService{
 
   events: Array<EventType>
+  eventRequest = [{name:"a"}];
   module= 'events/'
   
   constructor(
@@ -97,5 +98,13 @@ export class EventService{
       "event_id": event_id
     }
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}AddCategoryToEvent`, json, {observe: 'response'})
+  }
+
+  obtainAllEventRequest(){
+
+  }
+
+  getEventRequestByCompany(id){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}`)
   }
 }

@@ -9,6 +9,7 @@ import { EventCreateComponent } from '../event-create/event-create.component'
 import { EventFiltersComponent } from './event-filters/event-filters.component';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { MatDialog } from '@angular/material';
+import { AuthService } from 'src/app/general-services/auth.service';
 
 @Component({
   selector: 'app-events',
@@ -27,7 +28,8 @@ export class EventsComponent implements OnInit {
     public eventService: EventService,
     public commonService: CommonService,
     public dialogService: MatDialog,
-    public categoryService: CategoryService
+    public categoryService: CategoryService,
+    public authService: AuthService
   ) { }
 
   ngOnInit() {
