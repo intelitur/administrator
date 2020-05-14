@@ -38,6 +38,9 @@ export class DetailsComponent implements OnInit {
     this.categoryFG.controls['name'].setValue(category_name)
   }
 
+  setData(){
+    this.categoryFG.controls['name'].setValue(this.category.name)
+  }
 
   changeState({source}: any){
     var id = this.category.category_id
