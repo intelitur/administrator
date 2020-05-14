@@ -13,6 +13,7 @@ import { LocationComponent } from './components/management/location/location.com
 import { EventDetailsComponent } from './components/management/event-details/event-details.component'; 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { EventFiltersComponent } from './components/events/event-filters/event-filters.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { EventFiltersComponent } from './components/events/event-filters/event-f
       FilterPipeModule,
       ColorCircleModule,
       LeafletModule
-    ],
+    ], 
+    providers: [DatePipe],
     entryComponents: [
       EventCreateComponent,
       EventFiltersComponent

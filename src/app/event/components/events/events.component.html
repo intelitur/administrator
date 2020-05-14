@@ -42,8 +42,8 @@
                 <td>{{event.cost}}</td>
                 <td *ngIf="event.all_day==true">Sí</td>
                 <td *ngIf="event.all_day==false">No</td>
-                <td>{{event.date_range.initial_date}}</td>
-                <td>{{event.date_range.final_date}}</td>
+                <td>{{event.date_range.initial_date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{event.date_range.final_date | date: 'dd/MM/yyyy'}}</td>
                 <td>
                     <section (click)="$event.stopPropagation()">
                         <mat-slide-toggle (change)="changeState(event, $event)" color="primary"
