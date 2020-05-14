@@ -116,8 +116,6 @@ export class EventDetailsComponent implements OnInit {
     (this.allDay == false && this.final_date== undefined) || (this.allDay == true && this.initial_time == undefined) || 
     (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) 
     || this.allCategories.length === 0 || (this.initial_time >= this.final_time)) {
-      console.log(this.initial_time)
-      console.log(this.final_time)
       return true
     }
     return false

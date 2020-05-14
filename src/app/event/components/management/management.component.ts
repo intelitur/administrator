@@ -13,7 +13,7 @@ export class ManagementComponent implements OnInit {
 
   eventSubscription: Subscription
   event_id: Number;
-  event: EventType; 
+  myEvent: EventType; 
 
   constructor(
     private route: ActivatedRoute,
@@ -33,7 +33,7 @@ export class ManagementComponent implements OnInit {
 
   recharge(){
     this.eventService.getEvent(Number(this.event_id)).subscribe((data: any) => {
-      this.event = <EventType> data;
+      this.myEvent = <EventType> data;
     })
   }
 

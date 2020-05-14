@@ -1,12 +1,12 @@
 <mat-tab-group>
     <mat-tab label="Detalles">
-        <app-event-details *ngIf="event; else null" [event]="event[0]"></app-event-details>
+        <app-event-details *ngIf="myEvent; else null" [event]="myEvent[0]"></app-event-details>
         <ng-template #loading>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </ng-template>
     </mat-tab>
     <mat-tab label="Ubicación">
-        <app-location *ngIf="event; else null" [event]="event"></app-location>
+        <app-location *ngIf="myEvent; else null" [myEvent]="myEvent"></app-location>
         <ng-template #loading>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </ng-template>

@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LocationComponent implements OnInit,  AfterViewInit {
 
-  @Input() event: EventType
+  @Input() myEvent: EventType
 
   map: Map
   refreshed = false
@@ -40,22 +40,23 @@ export class LocationComponent implements OnInit,  AfterViewInit {
     zoom: 16,
     center: latLng(10.471691479992346, -84.64503407478333)
   };
-  
   constructor(
     private cd: ChangeDetectorRef,
     private commonService: CommonService,
     private eventService: EventService,
     private route: ActivatedRoute
-  ) { }
+  ) { 
+    this.refreshMap = this.refreshMap.bind(this)
+  }
 
   ngOnInit() {
-
+    this.myEvent = this.myEvent[0]
   }
 
   ngAfterViewInit() {
     if(document.getElementById("mat-tab-label-0-2")){
-      (document.getElementById("mat-tab-label-0-2") as any).parameters = { map: this.map, event: this.event }
-      document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMapCallback, false);
+      (document.getElementById("mat-tab-label-0-2") as any).parameters = { map: this.map, event: this.myEvent }
+      document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMap, false);
     }
     setTimeout(() => this.map.invalidateSize(), 2000);
   }
@@ -64,45 +65,57 @@ export class LocationComponent implements OnInit,  AfterViewInit {
   onMapReady(map: Map) {
     this.map = map;
     map.addLayer(this.locationMarker)
-    if (this.event.latitude && this.event.longitude) {
-      this.locationMarker.setLatLng(latLng(this.event.latitude, this.event.longitude))
+    if (this.myEvent.latitude && this.myEvent.longitude) {
+      this.locationMarker.setLatLng(latLng(this.myEvent.latitude, this.myEvent.longitude))
     }
   }
 
   refreshMap(){
+    this.map.invalidateSize()
     if(!this.refreshed){
-      this.map.invalidateSize()
-      this.map.flyTo(latLng(this.event.latitude, this.event.longitude), 18)
       this.refreshed = true
+      if(this.myEvent.latitude && this.myEvent.longitude)
+        this.map.flyTo(latLng(this.myEvent.latitude, this.myEvent.longitude), 18)
     }
   }
 
-  refreshMapCallback(_event: any) {
-    let { map, event } = _event.currentTarget.parameters
-    map.invalidateSize();
-    setTimeout(() => map.flyTo(latLng(event.latitude, event.longitude), 18), 200)
-  }
-
-  putLocationMarker(_event: any) {
-    this.locationMarker.setLatLng(_event.latlng);
+  putLocationMarker(event: any) {
+    this.locationMarker.setLatLng(event.latlng);
   }
 
   updateEventLocation() {
 
+    console.log(this.myEvent)
+
+    let infoEvent: EventType = {
+      address: this.myEvent.address,
+      all_day: this.myEvent.all_day,
+      color: this.myEvent.color,
+      cost: this.myEvent.cost,
+      date_range: this.myEvent.date_range,
+      detail: this.myEvent.detail,
+      final_time: this.myEvent.final_time,
+      initial_time: this.myEvent.initial_time,
+      name: this.myEvent.name,
+      event_id: this.myEvent.event_id,
+    }
+
     let updatedEvent = {
-      ...this.event,
+      info: infoEvent,
       latitude: this.locationMarker.getLatLng().lat,
       longitude: this.locationMarker.getLatLng().lng
     }
     this.eventService.modifyEvent(updatedEvent)
       .subscribe({
         next: (data: any) => {
-          if (data.status == 204) {
-            this.event = updatedEvent;
+          if (data.status == 200) {
+            this.myEvent = updatedEvent.info;
+            this.myEvent.latitude = updatedEvent.latitude;
+            this.myEvent.longitude = updatedEvent.longitude;
             this.commonService.openSnackBar(
-              `La ubicación de ${this.event.name} ha sido actualizada`,
+              `La ubicación de ${this.myEvent.name} ha sido actualizada`,
               "OK")
-            this.map.flyTo(latLng(this.event.latitude, this.event.longitude), 18)
+            this.map.flyTo(latLng(this.myEvent.latitude, this.myEvent.longitude), 18)
           }
           else {
             this.commonService.openSnackBar(

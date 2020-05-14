@@ -8,7 +8,7 @@
         </label>
         <button mat-stroked-button color="primary" style="width: 60%; min-width: 200px; margin: 0 auto"
             matTooltip="Arrastre el marcador hasta la nueva ubicación y presione el botón para guardar"
-            [disabled]="event.latitude == locationMarker.getLatLng().lat && event.longitude == locationMarker.getLatLng().lng"
+            [disabled]="myEvent.latitude == locationMarker.getLatLng().lat && myEvent.longitude == locationMarker.getLatLng().lng"
             (click)="updateEventLocation()">
             Guardar ubicación
             <mat-icon style="margin-left: 5%;">check</mat-icon></button>
