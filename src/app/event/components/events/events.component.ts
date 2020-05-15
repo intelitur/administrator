@@ -4,13 +4,11 @@ import { EventType } from '../../models/Event';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/general-services/common.service';
-import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
 import { EventCreateComponent } from '../event-create/event-create.component'
 import { EventFiltersComponent } from './event-filters/event-filters.component';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { MatDialog } from '@angular/material';
 import { AuthService } from 'src/app/general-services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -31,7 +29,6 @@ export class EventsComponent implements OnInit {
     public dialogService: MatDialog,
     public categoryService: CategoryService,
     public authService: AuthService,
-    private router: Router
   ) { }
 
   ngOnInit() {
@@ -102,8 +99,4 @@ export class EventsComponent implements OnInit {
     })
   }
   
-  showEventRequest(){
-    console.log("AAA")
-    this.router.navigate(['/event/request']);
-  }
 }
