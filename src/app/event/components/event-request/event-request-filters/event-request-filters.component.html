@@ -1,11 +1,11 @@
 <div class="container-fluid d-flex flex-column justify-content-sm-center">
     <h4 class="text-muted text-center font-weight-light">
-      Seleccione la compañía para filtrar
+      Seleccione la empresa para filtrar
     </h4>
     <hr>
     <form [formGroup]="eventRequestFiltersFG">
       <mat-form-field appearance="fill">
-        <mat-label>Compañía</mat-label>
+        <mat-label>Empresa</mat-label>
         <mat-select formControlName="companies">
           <mat-option *ngFor="let c of companies" [value]="c.company_id">
             {{c.name}}
