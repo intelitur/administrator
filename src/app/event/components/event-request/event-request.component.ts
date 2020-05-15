@@ -26,6 +26,7 @@ export class EventRequestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("AAAA")
   }
 
   showEventDetails(){
