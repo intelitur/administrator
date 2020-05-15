@@ -15,12 +15,12 @@ const routes: Routes = [
           component: EventsComponent
         },
         {
-          path: ":event_id",
-          component: ManagementComponent
+          path: "request",
+          component: EventRequestComponent
         },
         {
-          path: "event_request",
-          component: EventRequestComponent
+          path: ":event_id",
+          component: ManagementComponent
         }
       ]
     }
