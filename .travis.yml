@@ -7,7 +7,7 @@ node_js:
 git: 
   depth: 3
 script:
-  - yarn build-prod
+  - yarn build
 deploy:
   provider: pages
   edge: true
