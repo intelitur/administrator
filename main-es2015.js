@@ -7119,6 +7119,7 @@ let LoginComponent = class LoginComponent {
                 this._router.navigate(["/itineraries/show-all"]);
             },
             error: (_err) => {
+                console.log(_err);
                 this.sessionService.commonService.openSnackBar(`Error en la autenticación`, "OK");
                 this.sessionService.loadingLogin = false;
             }
@@ -8618,7 +8619,7 @@ __webpack_require__.r(__webpack_exports__);
 const environment = {
     production: false,
     localstorage_key: 'key_user',
-    SERVER_BASE_URL: 'http://localhost:3001',
+    SERVER_BASE_URL: 'https://intelitur.sytes.net/',
     IMAGES_URL_BASE: 'http://localhost:3000/static/images/'
 };
 /*

@@ -12056,6 +12056,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               _this84._router.navigate(["/itineraries/show-all"]);
             },
             error: function error(_err) {
+              console.log(_err);
+
               _this84.sessionService.commonService.openSnackBar("Error en la autenticaci\xF3n", "OK");
 
               _this84.sessionService.loadingLogin = false;
@@ -14503,7 +14505,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var environment = {
       production: false,
       localstorage_key: 'key_user',
-      SERVER_BASE_URL: 'http://localhost:3001',
+      SERVER_BASE_URL: 'https://intelitur.sytes.net/',
       IMAGES_URL_BASE: 'http://localhost:3000/static/images/'
     };
     /*
