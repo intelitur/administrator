@@ -17,7 +17,7 @@ export class CreateEvenRequestComponent implements OnInit {
     filter: (request) => request.event_info.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
   }
 
-  loading = true;
+  loading = true; 
 
   eventRequests: any[]
 
