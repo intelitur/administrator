@@ -1,0 +1,41 @@
+textarea{
+    resize: none;
+}
+h1{
+    text-align: center;
+    margin: 0%;
+    margin-bottom: 1%;
+    font-size: larger;
+}
+
+.buttonContainer{
+    margin-top: 3%;
+    margin-bottom: 3%;
+    display: flex;
+    justify-content: space-around;
+}
+ 
+form{
+    width: 100%;
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+mat-form-field{
+    width: 45%;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+}
+
+.toggle,.color-picker{
+    width: 45%;
+    margin-left: 2%;
+}
+
+.chip-list{
+    width: 95%;
+}

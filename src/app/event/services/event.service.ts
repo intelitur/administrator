@@ -105,6 +105,10 @@ export class EventService{
   }
 
   getEventRequestByCompany(id){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}`)
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}`)//cambiar
+  }
+
+  getEventRequestsByUser(id, state?){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}`)//cambiar
   }
 }
