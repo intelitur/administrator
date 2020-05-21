@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/event/services/event.service';
 import { UserService } from 'src/app/users/services/user.service';
 import { MatDialog } from '@angular/material';
-import { EventCreateComponent } from 'src/app/event/components/event-create/event-create.component';
+import { AddEventRequestComponent } from '../add-event-request/add-event-request.component';
 
 @Component({
   selector: 'app-create-even-request',
@@ -49,7 +49,7 @@ export class CreateEvenRequestComponent implements OnInit {
   }
   
   submit(){
-    this.matDialog.open(EventCreateComponent, {height:"95%", width: "80%", minWidth: "280px", disableClose: true, data: this.userService.actualUser})
+    this.matDialog.open(AddEventRequestComponent, {height:"95%", width: "80%", minWidth: "280px", disableClose: true, data: this.userService.actualUser})
   }
   
 }

@@ -1,150 +1,174 @@
-<h1>Creación de Evento</h1>
-<form [formGroup]="eventFG"  class="container">
+<mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="eventFG" >
 
-    <div class="container">
-        <mat-form-field appearance="outline">
-            <mat-label>Nombre</mat-label>
-            <input matInput formControlName="name" matTooltip="Nombre del evento" required>
-        </mat-form-field>
+        <h1>Creación de Evento</h1>
+        <form [formGroup]="eventFG"  class="container">
 
-        <mat-form-field appearance="outline">
-            <mat-label>Costo</mat-label>
-            <input matInput formControlName="cost" required>
-        </mat-form-field>
-    
-        <mat-form-field appearance="outline">
-            <mat-label>Dirección</mat-label>
-            <textarea 
-                matInput 
-                formControlName="address" 
-                matTooltip="Dirección exacta del evento" 
-                type="text"
-                required></textarea>
-        </mat-form-field>
-    
-        <mat-form-field appearance="outline" >
-            <mat-label>Detalles</mat-label>
-            <textarea 
-                matInput 
-                formControlName="detail" 
-                matTooltip="Detalles del evento" 
-                type="text"
-                required></textarea>
-        </mat-form-field>
+            <div class="container">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name" matTooltip="Nombre del evento" required>
+                </mat-form-field>
 
-        <div  class="chip-list">
-            <mat-form-field class="chip-list" appearance="outline">
-              <mat-chip-list #chipList aria-label="Categories selection">
-                <mat-chip class="chip"
-                  *ngFor="let category of allCategories"
-                  [selectable]="selectable"
-                  [removable]="removable">
-                  {{category.name}}
-                  <i matChipRemove class="material-icons" (click)="removeCategory(category)">cancel</i>
-                </mat-chip>
-                <input
-                  placeholder="Seleccione las categorías"
-                  #tagInput
-                  formControlName="categories" 
-                  [matChipInputFor]="chipList"
-                  [matAutocomplete]="auto"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-              </mat-chip-list>
-              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCategory($event)">
-                <mat-option *ngFor="let c of filteredCategories " [value]="c">
-                  {{c.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-        </div>
-
-        <div  class="chip-list">
-            <mat-form-field class="chip-list" appearance="outline">
-              <mat-chip-list #chipList2 aria-label="Companies selection">
-                <mat-chip class="chip"
-                  *ngFor="let company of allCompanies"
-                  [selectable]="selectable"
-                  [removable]="removable">
-                  {{company.name}}
-                  <i matChipRemove class="material-icons" (click)="removeCompany(company)">cancel</i>
-                </mat-chip>
-                <input
-                  placeholder="Seleccione las compañías"
-                  #tagInput2
-                  formControlName="companies" 
-                  [matChipInputFor]="chipList"
-                  [matAutocomplete]="autoCompany"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-              </mat-chip-list>
-              <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
-                <mat-option *ngFor="let c of filteredCompanies " [value]="c">
-                  {{c.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-        </div>
-
-    </div>
-</form>
-
-<div class="container" style=" width: 95%; margin-left: 2.5%;">
-    <div class="color-picker">
-        <label>Selecciona un color </label>
-        <color-circle  (onChangeComplete)="changeComplete($event)" ></color-circle> 
-    </div>
-    
-    <div class="toggle" style=" margin-left: 3%;">
-        <label>Todo el día:</label>
-        <mat-slide-toggle style="margin-left: 3%;" (change)="changeState($event)" color="primary" [checked]= "false"></mat-slide-toggle>
-        <label style="margin-left: 5%; margin-right: 5%;"> {{!this.allDay? "No": "Sí"}} </label>
-    
-        <mat-form-field *ngIf="allDay== true" style="width: 45%; ">
-            <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="commonDate"  [min]="today"  placeholder="Fecha" [(ngModel)]="common_date" disabled >
-            <mat-datepicker-toggle matSuffix [for]="commonDate" ></mat-datepicker-toggle>
-            <mat-datepicker #commonDate disabled="false" ></mat-datepicker>
-        </mat-form-field>
-
-        <div style=" display: flex;">
-            <mat-form-field *ngIf="allDay== false" style="width: 45%; ">
-                <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="startDate" [min]="today"  placeholder="Fecha Inicial" [(ngModel)]="initial_date" disabled >
-                <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
-                <mat-datepicker #startDate disabled="false" ></mat-datepicker>
-            </mat-form-field>
-    
-            <mat-form-field *ngIf="allDay== false"  style="width: 45%; ">
-                <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha de Finalización" [(ngModel)]="final_date" disabled >
-                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-                <mat-datepicker  #endDate [disabled]="initial_date == undefined" [startAt]="initial_date"></mat-datepicker>
-            </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Costo</mat-label>
+                    <input matInput formControlName="cost" required>
+                </mat-form-field>
             
-            <div *ngIf="allDay == true">
-                <mat-form-field  appearance="outline">
-                    <mat-label>Hora Inicial</mat-label>
-                    <input type="time" matInput [(ngModel)]="initial_time" matToolTip="Hora de inicio" >
+                <mat-form-field appearance="outline">
+                    <mat-label>Dirección</mat-label>
+                    <textarea 
+                        matInput 
+                        formControlName="address" 
+                        matTooltip="Dirección exacta del evento" 
+                        type="text"
+                        required></textarea>
                 </mat-form-field>
-               
-                <mat-form-field  appearance="outline">
-                    <mat-label>Hora de finalización</mat-label>
-                    <input type="time"  [disabled]="initial_time == undefined" matToolTip="Hora de finalización" matInput [(ngModel)]="final_time">
+            
+                <mat-form-field appearance="outline" >
+                    <mat-label>Detalles</mat-label>
+                    <textarea 
+                        matInput 
+                        formControlName="detail" 
+                        matTooltip="Detalles del evento" 
+                        type="text"
+                        required></textarea>
                 </mat-form-field>
-                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>
+
+                <div  class="chip-list">
+                    <mat-form-field class="chip-list" appearance="outline">
+                    <mat-chip-list #chipList aria-label="Categories selection">
+                        <mat-chip class="chip"
+                        *ngFor="let category of allCategories"
+                        [selectable]="selectable"
+                        [removable]="removable">
+                        {{category.name}}
+                        <i matChipRemove class="material-icons" (click)="removeCategory(category)">cancel</i>
+                        </mat-chip>
+                        <input
+                        placeholder="Seleccione las categorías"
+                        #tagInput
+                        formControlName="categories" 
+                        [matChipInputFor]="chipList"
+                        [matAutocomplete]="auto"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCategory($event)">
+                        <mat-option *ngFor="let c of filteredCategories " [value]="c">
+                        {{c.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+                <div  class="chip-list">
+                    <mat-form-field class="chip-list" appearance="outline">
+                    <mat-chip-list #chipList2 aria-label="Companies selection">
+                        <mat-chip class="chip"
+                        *ngFor="let company of allCompanies"
+                        [selectable]="selectable"
+                        [removable]="removable">
+                        {{company.name}}
+                        <i matChipRemove class="material-icons" (click)="removeCompany(company)">cancel</i>
+                        </mat-chip>
+                        <input
+                        placeholder="Seleccione las compañías"
+                        #tagInput2
+                        formControlName="companies" 
+                        [matChipInputFor]="chipList"
+                        [matAutocomplete]="autoCompany"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+                    </mat-chip-list>
+                    <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
+                        <mat-option *ngFor="let c of filteredCompanies " [value]="c">
+                        {{c.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+            </div>
+        </form>
+
+        <div class="container" style=" width: 95%; margin-left: 2.5%;">
+            <div class="color-picker">
+                <label>Selecciona un color </label>
+                <color-circle  (onChangeComplete)="changeComplete($event)" ></color-circle> 
+            </div>
+            
+            <div class="toggle" style=" margin-left: 3%;">
+                <label>Todo el día:</label>
+                <mat-slide-toggle style="margin-left: 3%;" (change)="changeState($event)" color="primary" [checked]= "false"></mat-slide-toggle>
+                <label style="margin-left: 5%; margin-right: 5%;"> {{!this.allDay? "No": "Sí"}} </label>
+            
+                <mat-form-field *ngIf="allDay== true" style="width: 45%; ">
+                    <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="commonDate"  [min]="today"  placeholder="Fecha" [(ngModel)]="common_date" disabled >
+                    <mat-datepicker-toggle matSuffix [for]="commonDate" ></mat-datepicker-toggle>
+                    <mat-datepicker #commonDate disabled="false" ></mat-datepicker>
+                </mat-form-field>
+
+                <div style=" display: flex;">
+                    <mat-form-field *ngIf="allDay== false" style="width: 45%; ">
+                        <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="startDate" [min]="today"  placeholder="Fecha Inicial" [(ngModel)]="initial_date" disabled >
+                        <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
+                        <mat-datepicker #startDate disabled="false" ></mat-datepicker>
+                    </mat-form-field>
+            
+                    <mat-form-field *ngIf="allDay== false"  style="width: 45%; ">
+                        <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha de Finalización" [(ngModel)]="final_date" disabled >
+                        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                        <mat-datepicker  #endDate [disabled]="initial_date == undefined" [startAt]="initial_date"></mat-datepicker>
+                    </mat-form-field>
+                    
+                    <div *ngIf="allDay == true">
+                        <mat-form-field  appearance="outline">
+                            <mat-label>Hora Inicial</mat-label>
+                            <input type="time" matInput [(ngModel)]="initial_time" matToolTip="Hora de inicio" >
+                        </mat-form-field>
+                    
+                        <mat-form-field  appearance="outline">
+                            <mat-label>Hora de finalización</mat-label>
+                            <input type="time"  [disabled]="initial_time == undefined" matToolTip="Hora de finalización" matInput [(ngModel)]="final_time">
+                        </mat-form-field>
+                        <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>
+                    </div>
+                </div>
+                <mat-hint *ngIf="allDay== false">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>
             </div>
         </div>
-        <mat-hint *ngIf="allDay== false">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>
-    </div>
-</div>
 
 
 
-<div class="buttonContainer">
-    <button mat-raised-button  [disabled]="disableDialog()" color="primary" (click)="onSubmit()">
-        Continuar la Creacón
-    </button>
-    <button (click)="closeDialog()" mat-raised-button color="warn">
-        Cancelar<mat-icon>close</mat-icon>
-    </button>
-</div>
+        <div class="buttonContainer">
+            <button mat-raised-button   matStepperNext [disabled]="disableDialog()" color="primary" >
+                Continuar la Creación
+            </button>
+        </div>
+    </mat-step>
 
-<ng-template #loading>
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-template>
+    <mat-step>
+
+        <div class="m-3" style="height: calc(100vh - 150px); display: flex; flex-direction: column;" (mouseenter)="refreshMap()">
+            <div class="shadow-sm rounded" class="map container-fluid" leaflet (leafletMapReady)="onMapReady($event)"
+                [leafletOptions]="options" (leafletClick)="putLocationMarker($event)"></div>
+            <div style="width: 94%; height: 14%; display: flex; justify-content: space-between; margin: 3%; flex-wrap: wrap;">
+                <label style="font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;">
+                    Latitud: <b style="color: #dbb735;;">{{locationMarker.getLatLng().lat}}</b> <br> 
+                    Longitud: <b style="color: #ca382d;">{{locationMarker.getLatLng().lng}}</b>
+                </label>
+                <button mat-stroked-button color="primary" style="width: 60%; min-width: 200px; margin: 0 auto"
+                    matTooltip="Arrastre el marcador hasta la nueva ubicación y presione el botón para guardar"
+                    [disabled]="myEvent.latitude == locationMarker.getLatLng().lat && myEvent.longitude == locationMarker.getLatLng().lng"
+                    (click)="updateEventLocation()">
+                    Guardar ubicación
+                    <mat-icon style="margin-left: 5%;">check</mat-icon></button>
+            </div>
+        </div>
+
+
+
+        <button  mat-raised-button matStepperPrevious color="accent">
+            <mat-icon>reply</mat-icon>Atrás
+        </button>
+    </mat-step>
+</mat-horizontal-stepper>

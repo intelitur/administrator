@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -11,13 +11,14 @@ import { CompanyService } from 'src/app/company/services/company.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ColorEvent } from 'ngx-color';
 import { EventType } from 'src/app/event/models/Event';
+import { Marker, tileLayer, latLng, Map, Icon } from 'leaflet';
 
 @Component({
   selector: 'app-add-event-request',
   templateUrl: './add-event-request.component.html',
   styleUrls: ['./add-event-request.component.scss']
 })
-export class AddEventRequestComponent implements OnInit {
+export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
   eventFG: FormGroup
   allDay: boolean = false;
@@ -42,6 +43,49 @@ export class AddEventRequestComponent implements OnInit {
   allCompanies: Array<any> = [];
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
   
+  myEvent: EventType = {
+    name: null,
+    address: null,
+    detail: null,
+    color: null,
+    date_range: {
+        initial_date: null,
+        final_date: null
+    },
+    cost: null,
+    all_day: null,
+    initial_time: null,
+    final_time: null,
+    latitude: 10.471868647924616,
+    longitude: -84.64508235454561
+  }
+  map: Map
+  refreshed = false
+
+  locationMarker: Marker = new Marker(
+    latLng(10.471868647924616, -84.64508235454561)
+    , {
+      draggable: true,
+      icon: new Icon({
+        iconUrl: 'assets/marker-icon.png',
+        iconSize: [24, 41],
+        iconAnchor: [12, 41],
+        shadowUrl: 'assets/marker-shadow.png'
+      })
+    })
+
+  options = {
+    layers: [
+      tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "..."
+      })
+    ],
+    zoom: 16,
+    center: latLng(10.471691479992346, -84.64503407478333)
+  };
+
+
   constructor(
     public dialogRef: MatDialogRef<AddEventRequestComponent>,
     public commonService: CommonService,
@@ -49,7 +93,9 @@ export class AddEventRequestComponent implements OnInit {
     public router: Router,
     public categoryService: CategoryService,
     public companyService: CompanyService
-  ) { }
+  ) { 
+    this.refreshMap = this.refreshMap.bind(this)
+  }
 
   ngOnInit() {
     this.eventFG = new FormGroup({
@@ -259,4 +305,34 @@ export class AddEventRequestComponent implements OnInit {
     }
   }
 
+
+  ngAfterViewInit() {
+    if(document.getElementById("mat-tab-label-0-2")){
+      (document.getElementById("mat-tab-label-0-2") as any).parameters = { map: this.map, event: this.myEvent }
+      document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMap, false);
+    }
+    setTimeout(() => this.map.invalidateSize(), 2000);
+  }
+
+
+  onMapReady(map: Map) {
+    this.map = map;
+    map.addLayer(this.locationMarker)
+    if (this.myEvent.latitude && this.myEvent.longitude) {
+      this.locationMarker.setLatLng(latLng(this.myEvent.latitude, this.myEvent.longitude))
+    }
+  }
+
+  refreshMap(){
+    this.map.invalidateSize()
+    if(!this.refreshed){
+      this.refreshed = true
+      if(this.myEvent.latitude && this.myEvent.longitude)
+        this.map.flyTo(latLng(this.myEvent.latitude, this.myEvent.longitude), 18)
+    }
+  }
+
+  putLocationMarker(event: any) {
+    this.locationMarker.setLatLng(event.latlng);
+  }
 }

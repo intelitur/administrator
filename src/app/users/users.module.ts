@@ -20,6 +20,7 @@ import { CreateEvenRequestComponent } from './components/profile/create-even-req
 import { AddEventRequestComponent } from './components/profile/add-event-request/add-event-request.component';
 import { ProfileEventsComponent } from './components/profile/profile-events/profile-events.component';
 import { UnionEventRequestComponent } from './components/profile/union-event-request/union-event-request.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { UnionEventRequestComponent } from './components/profile/union-event-req
     FormsModule,
     UsersRoutingModule,
     FilterPipeModule,
-    ColorCircleModule
+    ColorCircleModule,
+    LeafletModule 
   ],
   exports: [UserRootComponent],
   entryComponents: [AddAdminComponent, AddRequestCompanyUnionComponent, AddEventRequestComponent]
