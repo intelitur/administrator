@@ -170,8 +170,8 @@ export class EventCreateComponent implements OnInit {
   disableDialog(): boolean {
     if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined  ||
     (this.allDay == false && this.final_date== undefined) || (this.allDay == true && this.initial_time == undefined) || 
-    (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) 
-    || this.allCategories.length === 0 || (this.initial_time >= this.final_time)) {
+    (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) || 
+    (this.initial_time >= this.final_time)) {
       return true
     }
     return false

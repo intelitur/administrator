@@ -9,7 +9,7 @@ import { EventType } from '../models/Event';
 })
 export class EventService{
 
-  events: Array<EventType>
+  events: Array<EventType> = [];
   eventRequest = [{name:"a"}];
   module= 'events/'
   
