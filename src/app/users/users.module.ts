@@ -19,6 +19,7 @@ import { AddRequestCompanyUnionComponent } from './components/profile/add-reques
 import { CreateEvenRequestComponent } from './components/profile/create-even-request/create-even-request.component';
 import { AddEventRequestComponent } from './components/profile/add-event-request/add-event-request.component';
 import { ProfileEventsComponent } from './components/profile/profile-events/profile-events.component';
+import { UnionEventRequestComponent } from './components/profile/union-event-request/union-event-request.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ProfileEventsComponent } from './components/profile/profile-events/prof
     CreateEvenRequestComponent,
     AddEventRequestComponent,
     ProfileEventsComponent,
+    UnionEventRequestComponent,
   ],
   imports: [
     CommonModule,

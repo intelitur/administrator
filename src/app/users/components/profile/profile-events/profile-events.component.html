@@ -5,7 +5,7 @@
     </mat-form-field>
 
     <div class="table-responsive" style="padding: 0 3%;">
-        <table class="table" *ngIf="this.eventService.events">
+        <table class="table">
         <thead class="thead-light">
             <tr>
             <th scope="col">Nombre</th>
@@ -40,12 +40,12 @@
             </tr>
         </tbody>   
         </table>
-        <div class="alert alert-info text-center" role="alert" *ngIf="(this.eventService.events | filterBy: filter).length === 0">
+        <div class="alert alert-info text-center" role="alert" *ngIf="(this.userEvents | filterBy: filter).length === 0">
             ¡El usuario <span class="text-danger">{{user.name}}</span> no tiene eventos asociados!
         </div>
 
         <div class="alert alert-info text-center" style="margin: auto 5%" role="alert"
-            *ngIf="!(this.userEvents.length === 0) && (this.eventService.events | filterBy: filter).length === 0">
+            *ngIf="!(this.userEvents.length === 0) && (this.userEvents| filterBy: filter).length === 0">
             ¡El usuario no está asociado a ningún evento con un nombre que coincida con <span
                 class="text-danger">{{filter.name}}</span>
         </div>

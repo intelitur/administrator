@@ -22,7 +22,6 @@ export class ProfileEventsComponent implements OnInit {
   private subscription: Subscription;
 
   constructor(
-    public eventService: EventService,
     public commonService: CommonService,
     public userService: UserService
   ) { }

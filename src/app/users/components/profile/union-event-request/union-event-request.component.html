@@ -1,0 +1,44 @@
+<div *ngIf="userRequest" style="padding: 0 5%;">
+    <mat-form-field class="container-fluid mb-3 mt-1" appearance="outline">
+        <mat-label>Buscar por nombre </mat-label>
+        <input matInput [(ngModel)]="filter.name" />
+    </mat-form-field>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Usuario</th>
+                    <th scope="col" >Evento</th>
+                    <th scope="col">Aceptar/Rechazar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of this.userRequest | filterBy: filter.filter">
+                    <td>{{ request.user.name }}</td>
+                    <td style="text-align: center;"> 
+                        <button mat-stroked-button (click)="showEventDetails()" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px;">
+                            Ver Detalles
+                        </button>
+                    </td>
+                    <td style="text-align: center;">
+                        <button mat-raised-button class="acceptBtn" color="primary" (click)="acceptEvent()">
+                            Aceptar
+                        </button>
+                        <button mat-raised-button class="denyBtn" color="warn" (click)="denyEvent()" >
+                            Rechazar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- in case you want to show empty message -->
+        <div class="alert alert-info text-center" role="alert" *ngIf="this.userRequest.length === 0">
+            ¡<span class="text-danger">{{user.name}}</span> no tienes ninguna petición!
+        </div>
+
+        <div class="alert alert-info text-center" style="margin: auto 5%" role="alert"
+            *ngIf="!(this.userRequest.length === 0) && (this.userRequest | filterBy: filter.filter).length === 0">
+            ¡El usuario no tiene ninguna petición de evento con un nombre que coincida con <span class="text-danger">{{filter.name}}</span>!
+        </div>
+    </div>
+</div>
