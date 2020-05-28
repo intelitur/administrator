@@ -36,26 +36,32 @@
         </form>
         
     </div>
-    <div
+    <div *ngIf="categoryImages"
         style="width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
-        <img style="margin: 5% auto; max-height: 450px; max-width: 90%;"
-            src="https://media-exp1.licdn.com/dms/image/C561BAQECpbD6BAejKg/company-background_10000/0?e=2159024400&v=beta&t=0OMsZud-rJoJIlHTUOuvOGPWNEZJBJDx7_mzKQI37UU">
+        <ngb-carousel #currSlide (click)="onSlideClicked(currSlide)" class="container-fluid" >
+            <ng-template *ngFor="let i of categoryImages; let index = index"  ngbSlide>
+              <div class="container-fluid text-center">
+                <img class="img img-fluid" src="{{url}}{{categoryImages[index]}}" alt="Image" />
+              </div>
+            </ng-template>
+          </ngb-carousel>
         <div style=" display: flex; height: 70px;">
-            <div
+            <div title="Añadir imagen a la categoría"
                 style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);">
-                <button mat-button matTooltip="Buscar nueva imagen" style="border-radius: 0 0 0 20px;"
-                    class="image-buttons" color="accent">
-                    <mat-icon>find_replace</mat-icon>
-
-                </button>
+                <label for="file-upload"  class="image-buttons" style="border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;" ><mat-icon>find_replace</mat-icon></label> 
+                <input  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;"/>   
             </div>
-            <div
+            <div title="Eliminar imagen de categoría"
                 style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);">
-                <button mat-button matTooltip="Eliminar imagen de categoría" style="border-radius: 0 0 20px 0"
+                <button mat-button style="border-radius: 0 0 20px 0" (click)="deleteImage(index);"
                     class="image-buttons" color="warn">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>
         </div>
+    </div>
+    <div *ngIf="!categoryImages" title="Añadir imagen a la categoría" class="noImageButton">
+        <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> Añadir Imagen </label> 
+        <input  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;"/>   
     </div>
 </div>

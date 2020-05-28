@@ -13,10 +13,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class DetailsComponent implements OnInit {
 
   @Input() category: Category
+  categoryImages;
 
   categoryFG: FormGroup;
   loading = false;
   
+  url="https://intelitur.sytes.net/files/images/"
+
   types = [
     {id:1, name:"Evento"},
     {id:2, name:"Itinerario"},
@@ -31,11 +34,23 @@ export class DetailsComponent implements OnInit {
     this.categoryFG = new FormGroup({
       name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")])
     })
-   }
+  }
+
+  onSlideClicked(value: any){
+    console.log(value.activeId);
+  }
 
   ngOnInit() {
     let category_name = this.category.name
     this.categoryFG.controls['name'].setValue(category_name)
+    /*
+    this.categoryService.getCategoryImages(this.category.category_id).subscribe({
+      next: (data: any) => {
+        console.log(data)
+        this.categoryImages = data
+      }
+    })
+    */
   }
 
   setData(){
@@ -126,5 +141,13 @@ export class DetailsComponent implements OnInit {
       url: ""
     }
     return !(JSON.stringify(oldCategory) === JSON.stringify(this.categoryFG.value))
+  }
+
+  uploadFile(files: FileList){
+    this.commonService.uploadFile(files[0])
+  }
+
+  deleteImage(name: string){
+    this.commonService.deleteImage(name)
   }
 }

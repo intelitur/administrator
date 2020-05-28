@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
 
   constructor(
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public http: HttpClient
   ) { }
 
   /**
@@ -35,4 +39,33 @@ export class CommonService {
       );
     }
   }
+
+
+  getImage(name: string){
+    return this.http.get(`${environment.IMAGES_URL_BASE}/files/images/${name}`).subscribe({
+      next: (data: any) =>{
+        console.log(data)
+      }
+    })
+  }
+
+  uploadFile(file: File){
+    console.log(file)
+    return this.http.post(`${environment.IMAGES_URL_BASE}/image`, file, { headers: {"content-type": "multipart/form-data; boundary=---011000010111000001101001" }})
+    .subscribe({
+      next: (data: any) =>{
+        console.log(data)
+      }
+    })
+  }
+
+  deleteImage(name: string){
+    console.log(name)
+    return this.http.delete(`${environment.IMAGES_URL_BASE}/image/${name}`).subscribe({
+      next: (data: any) => {
+        console.log(data)
+      }
+    })
+  }
+
 }
