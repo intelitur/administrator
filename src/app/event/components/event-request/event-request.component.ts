@@ -26,6 +26,12 @@ export class EventRequestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.subscription =  this.eventService.obtainAllEventRequest().subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.subscription.unsubscribe();
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+    })
   }
 
   showEventDetails(){

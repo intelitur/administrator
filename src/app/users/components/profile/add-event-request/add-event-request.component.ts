@@ -12,6 +12,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ColorEvent } from 'ngx-color';
 import { EventType } from 'src/app/event/models/Event';
 import { Marker, tileLayer, latLng, Map, Icon } from 'leaflet';
+import { User } from 'src/app/users/models/User.class';
+import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
   selector: 'app-add-event-request',
@@ -19,6 +21,8 @@ import { Marker, tileLayer, latLng, Map, Icon } from 'leaflet';
   styleUrls: ['./add-event-request.component.scss']
 })
 export class AddEventRequestComponent implements OnInit, AfterViewInit {
+
+  user: User;
 
   eventFG: FormGroup
   allDay: boolean = false;
@@ -92,7 +96,8 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     public eventService: EventService,
     public router: Router,
     public categoryService: CategoryService,
-    public companyService: CompanyService
+    public companyService: CompanyService,
+    public userService: UserService
   ) { 
     this.refreshMap = this.refreshMap.bind(this)
   }
@@ -122,6 +127,9 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
         this.subscription2.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
+
+    this.user = this.userService.actualUser
+    console.log(this.user)
   }
 
   /**
@@ -146,33 +154,33 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     this.allDay == true? (this.initial_date=this.common_date , this.final_date=this.common_date) : null; 
     this.initial_time == undefined? this.initial_time = null: null;
     this.final_time == undefined? this.final_time = null: null;
-
-    let event: EventType = {
-      name: this.eventFG.controls['name'].value,
-      cost: this.eventFG.controls['cost'].value,
-      address: this.eventFG.controls['address'].value,
-      detail: this.eventFG.controls['detail'].value,
-      all_day: this.allDay,
-      color:  this.color,
-      date_range: {
-        initial_date: this.initial_date,
-        final_date: this.final_date
-      },
-      initial_time: this.initial_time,
-      final_time: this.final_time,
+    
+    this.myEvent.name = this.eventFG.controls['name'].value;
+    this.myEvent.cost = this.eventFG.controls['cost'].value;
+    this.myEvent.address = this.eventFG.controls['address'].value;
+    this.myEvent.detail = this.eventFG.controls['detail'].value;
+    this.myEvent.all_day = this.allDay;
+    this.myEvent.color =  this.color;
+    this.myEvent.date_range = {
+      initial_date: this.initial_date,
+      final_date: this.final_date
     }
-    this.createEvent(event);
+    this.myEvent.initial_time = this.initial_time,
+    this.myEvent.final_time = this.final_time,
+    this.myEvent.latitude = this.locationMarker.getLatLng().lat,
+    this.myEvent.longitude = this.locationMarker.getLatLng().lng
+    this.createRequest(this.myEvent);
   }
 
-  createEvent(event: EventType){
+  createRequest(event: EventType){
 
     this.loading = true;
     this.eventFG.disable();
-    this.eventService.createEvent(event).subscribe({
+    this.eventService.createEvent(event, true, this.user.user_id).subscribe({
       next: (data: any) => {
         if (data.status == 200) {
           this.commonService.openSnackBar(
-            `El evento ${this.eventFG.value.name} se ha creado`,
+            `La petición del evento ${this.eventFG.value.name} se ha creado`,
             "OK"
           );
           this.dialogRef.close();
@@ -300,9 +308,11 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     }
 
     //Categorias
+    /*
     for(let i=0; i<this.allCategories.length; i++){
       await this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise()
     }
+    */
   }
 
 

@@ -38,12 +38,22 @@ export class EventService{
    * @function to create a new event
    * @param event to be added
    */
-  createEvent(event: EventType){
+  createEvent(event: EventType, request?: boolean, user_id?: Number){
   
-    let json ={
-      "info": event,
-      "latitude":  10.471681129073,
-      "longitude": -84.64514404535
+    let json;
+    if(request == true){
+      json ={
+        "info": event,
+        "latitude":  event.latitude,
+        "longitude": event.longitude,
+        "user_id": user_id
+      }  
+    }else{
+      json ={
+        "info": event,
+        "latitude":  10.471681129073,
+        "longitude": -84.64514404535
+      }
     }
     console.log(json)
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}`, json, {observe: 'response'})
@@ -101,7 +111,7 @@ export class EventService{
   }
 
   obtainAllEventRequest(){
-
+    return this.http.get(`${environment.SERVER_BASE_URL}petitions/undefined`)
   }
 
   getEventRequestByCompany(id){
