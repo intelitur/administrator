@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { EventRequestFiltersComponent } from './event-request-filters/event-request-filters.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/general-services/common.service';
+import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
   selector: 'app-event-request',
@@ -16,6 +17,7 @@ export class EventRequestComponent implements OnInit {
   filter = {
     name: ""
   }
+
   isFilters: boolean = false;
   private subscription: Subscription;
 
@@ -23,15 +25,21 @@ export class EventRequestComponent implements OnInit {
     private eventService: EventService,
     private dialogService: MatDialog,
     private commonService: CommonService,
+    private userService: UserService,
   ) { }
 
-  ngOnInit() {
-    this.subscription =  this.eventService.obtainAllEventRequest().subscribe({
-      next: (data: any) => {
-        console.log(data);
-        this.subscription.unsubscribe();
-      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+  async ngOnInit() {
+
+    await this.eventService.obtainAllEventRequest().toPromise().then( (data: any) => {
+      this.eventService.eventRequest = data
     })
+
+    this.eventService.eventRequest.forEach(async element => {
+      await this.userService.getUser(element.user_id).toPromise().then((data: any) => {
+        element.user = data.data[0]
+      })
+    })
+    console.log(this.eventService.eventRequest)
   }
 
   showEventDetails(){

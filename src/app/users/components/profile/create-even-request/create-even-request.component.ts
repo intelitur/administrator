@@ -14,12 +14,12 @@ export class CreateEvenRequestComponent implements OnInit {
   filter = {
     name: '',
     state: '',
-    filter: (request) => request.event_info.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
+    filter: (request) => request.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
   }
 
   loading = true; 
 
-  eventRequests: any[]
+  eventRequests: Array<any> = [];
 
   constructor(
     private eventService: EventService,
@@ -29,7 +29,9 @@ export class CreateEvenRequestComponent implements OnInit {
 
   refresh(){
     this.loading = true;
-    this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, Number(this.filter.state)).subscribe((data: any) =>{
+    let state = Number(this.filter.state)
+    state == 0? state = -1 : state = Number(this.filter.state)
+    this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, state).subscribe((data: any) =>{ 
       console.log(data)
       this.eventRequests = data;
       this.loading = false;
@@ -48,8 +50,12 @@ export class CreateEvenRequestComponent implements OnInit {
 
   }
   
-  submit(){
-    this.matDialog.open(AddEventRequestComponent, {height:"95%", width: "80%", minWidth: "280px", disableClose: true, data: this.userService.actualUser})
+  /**
+   * 
+   * @param action false to create true to show info
+   */
+  submit(_action: boolean, _event?: any){
+    this.matDialog.open(AddEventRequestComponent, {height:"95%", width: "80%", minWidth: "280px", disableClose: true, data: { action : _action, event: _event}})
   }
   
 }

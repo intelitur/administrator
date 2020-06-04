@@ -10,7 +10,7 @@ import { EventType } from '../models/Event';
 export class EventService{
 
   events: Array<EventType> = [];
-  eventRequest = [{name:"a"}];
+  eventRequest: Array<any>;
   module= 'events/'
   
   constructor(
@@ -37,8 +37,9 @@ export class EventService{
   /**
    * @function to create a new event
    * @param event to be added
+   * @param request false is just a normal event : true needs de user id who wants to create the event
    */
-  createEvent(event: EventType, request?: boolean, user_id?: Number){
+  createEvent(event: EventType, request?: boolean){
   
     let json;
     if(request == true){
@@ -46,7 +47,6 @@ export class EventService{
         "info": event,
         "latitude":  event.latitude,
         "longitude": event.longitude,
-        "user_id": user_id
       }  
     }else{
       json ={
@@ -111,7 +111,7 @@ export class EventService{
   }
 
   obtainAllEventRequest(){
-    return this.http.get(`${environment.SERVER_BASE_URL}petitions/undefined`)
+    return this.http.get(`${environment.SERVER_BASE_URL}petitions/-1/-1`)
   }
 
   getEventRequestByCompany(id){
@@ -119,6 +119,7 @@ export class EventService{
   }
 
   getEventRequestsByUser(id, state?){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}`)//cambiar
+    console.log(id + " " + state)
+    return this.http.get(`${environment.SERVER_BASE_URL}petitions/${id}/${state}`)
   }
 }

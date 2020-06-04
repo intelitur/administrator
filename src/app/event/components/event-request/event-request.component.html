@@ -24,7 +24,6 @@
             <table class="table" *ngIf="this.eventService.eventRequest">
             <thead class="thead-light">
                 <tr>
-                <th scope="col">Empresa</th>
                 <th scope="col">Usuario</th>
                 <th scope="col">Correo</th>
                 <th scope="col" style="text-align: center;">Detalles del Evento</th>
@@ -32,20 +31,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let obj of this.eventService.eventRequest | filterBy: filter">
-                <td>company name</td>
-                <td>name</td>
-                <td>email</td>
+                <tr *ngFor="let request of this.eventService.eventRequest | filterBy: filter ">
+                <td>{{ request.user.info.name + request.user.info.lastName}}</td>
+                <td>{{ request.user.info.email}}</td>
                 <td style="text-align: center;"> 
-                    <button mat-stroked-button (click)="showEventDetails()" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px;">
+                    <button mat-stroked-button (click)="showEventDetails(request)" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px;">
                         Ver Detalles
                     </button>
                 </td>
                 <td style="text-align: center;">
-                    <button mat-raised-button class="acceptBtn" color="primary" (click)="acceptEvent()">
+                    <button mat-raised-button class="acceptBtn" color="primary" (click)="acceptEvent(request)">
                         Aceptar
                     </button>
-                    <button mat-raised-button class="denyBtn" color="warn" (click)="denyEvent()" >
+                    <button mat-raised-button class="denyBtn" color="warn" (click)="denyEvent(request)" >
                         Rechazar
                     </button>
                 </td>

@@ -6,9 +6,9 @@
         <form [formGroup]="eventFG"  class="container">
 
             <div class="container">
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" >
                     <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="name" matTooltip="Nombre del evento" required>
+                    <input matInput formControlName="name" matTooltip="Nombre del evento"  required>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
@@ -138,9 +138,15 @@
             </div>
         </div>
 
-        <div class="buttonContainer">
+        <div class="buttonContainer" *ngIf="!showInfo">
             <button mat-raised-button  style="width: 40%; min-width: 200px; margin: 0 auto;" matStepperNext [disabled]="disableDialog()" color="primary" >
                 Continuar la Creación
+            </button>
+        </div>
+
+        <div class="buttonContainer" *ngIf="showInfo">
+            <button mat-raised-button  style="width: 40%; min-width: 200px; margin: 0 auto;" matStepperNext color="primary" >
+                Ver Ubicacion
             </button>
         </div>
     </mat-step>
@@ -167,7 +173,7 @@
                     <mat-icon>reply</mat-icon>Atrás
                 </button>
                 
-                <button mat-raised-button color="primary" style="width: 40%; min-width: 200px; margin: 0 auto"
+                <button *ngIf="!showInfo" mat-raised-button color="primary" style="width: 40%; min-width: 200px; margin: 0 auto"
                     [disabled]="myEvent.latitude == locationMarker.getLatLng().lat && myEvent.longitude == locationMarker.getLatLng().lng || loading"
                     (click)="onSubmit()">
                     Crear Petición de Evento

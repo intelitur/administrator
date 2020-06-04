@@ -12,6 +12,7 @@ import { CategoryService } from 'src/app/category/services/category.service';
 import { Category } from 'src/app/itinerary/models/Category';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CompanyService } from 'src/app/company/services/company.service';
+import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
   selector: 'app-event-create',
@@ -49,7 +50,8 @@ export class EventCreateComponent implements OnInit {
     public eventService: EventService,
     public router: Router,
     public categoryService: CategoryService,
-    public companyService: CompanyService
+    public companyService: CompanyService,
+    public userService: UserService
   ) { }
 
   ngOnInit() {
@@ -115,6 +117,7 @@ export class EventCreateComponent implements OnInit {
       },
       initial_time: this.initial_time,
       final_time: this.final_time,
+      user_id: this.userService.actualUser.user_id
     }
     this.createEvent(event);
   }

@@ -49,14 +49,26 @@ export class CommonService {
     })
   }
 
-  uploadFile(file: File){
-    console.log(file)
-    return this.http.post(`${environment.IMAGES_URL_BASE}/image`, file, { headers: {"content-type": "multipart/form-data; boundary=---011000010111000001101001" }})
-    .subscribe({
-      next: (data: any) =>{
-        console.log(data)
-      }
+  async uploadFile(file: File){
+    let data = new FormData();
+    data.append("file", file);
+
+    let promise = new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+  
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+          resolve(JSON.parse(this.response));
+        }
+      });
+  
+      xhr.open("POST", "https://intelitur.sytes.net/image");
+  
+      xhr.send(data);
+      
     })
+
+    return promise
   }
 
   deleteImage(name: string){

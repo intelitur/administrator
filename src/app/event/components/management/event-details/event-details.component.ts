@@ -136,7 +136,9 @@ export class EventDetailsComponent implements OnInit {
     //categorias
     this.subscription3 = this.categoryService.getEventCategories(this.event.event_id).subscribe({
       next: (data: any) => {
-        data.forEach(val => this.allCategories .push(val));
+        this.allCategories = []
+        this.allOldCategories = []
+        data.forEach(val => this.allCategories.push(val));
         this.allCategories.forEach(val => this.allOldCategories.push(val.category_id));
         this.subscription3.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
@@ -144,6 +146,8 @@ export class EventDetailsComponent implements OnInit {
     //compañías
     this.subscription4 = this.companyService.getCompaniesByEvent(this.event.event_id).subscribe({
       next: (data: any) => {
+        this.allCompanies = []
+        this.allOldCompanies = []
         data.forEach(val => this.allCompanies.push(val));
         this.allCompanies.forEach(val => this.allOldCompanies.push(val.company_id));
         this.subscription4.unsubscribe();
@@ -175,17 +179,8 @@ export class EventDetailsComponent implements OnInit {
         return
       }
     }
-
-    let index = this.allCategories.indexOf(event.option.value);
-    if (index < 0) {
-      this.allCategories.push(event.option.value)
-      this.eventFG.controls['categories'].setValue(null);
-    } else {
-      this.commonService.openSnackBar(
-        "¡La categoría ya ha sido agregada!",
-        "OK"
-      );
-    }
+    this.allCategories.push(event.option.value)
+    this.eventFG.controls['categories'].setValue(null);
   }
 
   removeCompany(company: string): void {
@@ -210,17 +205,8 @@ export class EventDetailsComponent implements OnInit {
         return
       }
     }
-
-    let index = this.allCompanies.indexOf(event.option.value);
-    if (index < 0) {
-      this.allCompanies.push(event.option.value)
-      this.eventFG.controls['companies'].setValue(null);
-    } else {
-      this.commonService.openSnackBar(
-        "¡La compañía ya ha sido agregada!",
-        "OK"
-      );
-    }
+    this.allCompanies.push(event.option.value)
+    this.eventFG.controls['companies'].setValue(null);
   }
 
   modifyEvent(){

@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatAutocomplete, MatDialogRef, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocomplete, MatDialogRef, MatAutocompleteSelectedEvent, MAT_DIALOG_DATA } from '@angular/material';
 import { CommonService } from 'src/app/general-services/common.service';
 import { EventService } from 'src/app/event/services/event.service';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { UserService } from 'src/app/users/services/user.service';
 export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
   user: User;
-
+  showInfo: boolean = false;
   eventFG: FormGroup
   allDay: boolean = false;
   loading: boolean = false;
@@ -36,10 +36,12 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   common_date: any = undefined;
   subscription: Subscription
   subscription2: Subscription
+  subscription3: Subscription
+  subscription4: Subscription
   //chipList
-  visible = true;
-  selectable = true;
-  removable = true;
+  visible;
+  selectable;
+  removable;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredCategories: any;
   allCategories: Array<any> = [];
@@ -60,8 +62,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     all_day: null,
     initial_time: null,
     final_time: null,
-    latitude: 10.471868647924616,
-    longitude: -84.64508235454561
+    user_id: null
   }
   map: Map
   refreshed = false
@@ -91,6 +92,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddEventRequestComponent>,
     public commonService: CommonService,
     public eventService: EventService,
@@ -104,13 +106,17 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.eventFG = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
-      address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
-      detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
-      cost: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
-      categories: new FormControl(null),
-      companies: new FormControl(null)
+      name: new FormControl({value: '', disabled: this.data.action}, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+      address: new FormControl({value: '', disabled: this.data.action}, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+      detail: new FormControl({value: '', disabled: this.data.action}, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+      cost: new FormControl({value: '', disabled: this.data.action}, [Validators.required, Validators.pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
+      categories: new FormControl({value: '', disabled: this.data.action}),
+      companies: new FormControl({value: '', disabled: this.data.action})
     });
+
+    this.data.action? this.selectable = false: this.selectable = true;
+    this.data.action? this.removable = false : this.removable = true ;
+    this.data.action? this.visible = false : this.visible = true;
     
     this.subscription = this.categoryService.getAllCategories(1)
     .subscribe({
@@ -127,9 +133,13 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
         this.subscription2.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
-
+    console.log(this.data)
     this.user = this.userService.actualUser
-    console.log(this.user)
+    this.showInfo = this.data.action 
+    this.showInfo? this.setData(this.data.event) : null;
+    this.showInfo? this.myEvent.latitude = this.data.event.latitude : null;
+    this.showInfo? this.myEvent.longitude = this.data.event.longitude : null;
+
   }
 
   /**
@@ -169,6 +179,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     this.myEvent.final_time = this.final_time,
     this.myEvent.latitude = this.locationMarker.getLatLng().lat,
     this.myEvent.longitude = this.locationMarker.getLatLng().lng
+    this.myEvent.user_id = this.user.user_id;
     this.createRequest(this.myEvent);
   }
 
@@ -176,7 +187,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
     this.loading = true;
     this.eventFG.disable();
-    this.eventService.createEvent(event, true, this.user.user_id).subscribe({
+    this.eventService.createEvent(event, true).subscribe({
       next: (data: any) => {
         if (data.status == 200) {
           this.commonService.openSnackBar(
@@ -243,16 +254,17 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
    * @param event 
    */
   selectedCategory(event: MatAutocompleteSelectedEvent): void {
-    let index = this.allCategories.indexOf(event.option.value);
-    if (index < 0) {
-      this.allCategories.push(event.option.value)
-      this.eventFG.controls['categories'].setValue(null);
-    } else {
-      this.commonService.openSnackBar(
-        "¡La categoría ya ha sido agregada!",
-        "OK"
-      );
+    for(let i=0; i<this.allCategories.length; i++){
+      if(this.allCategories[i].category_id === event.option.value.category_id){
+        this.commonService.openSnackBar(
+          "¡La categoría ya ha sido agregada!",
+          "OK"
+        );
+        return
+      }
     }
+    this.allCategories.push(event.option.value)
+    this.eventFG.controls['categories'].setValue(null);
   }
 
   removeCompany(company: string): void {
@@ -267,16 +279,17 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
    * @param event 
    */
   selectedCompany(event: MatAutocompleteSelectedEvent): void {
-    let index = this.allCompanies.indexOf(event.option.value);
-    if (index < 0) {
-      this.allCompanies.push(event.option.value)
-      this.eventFG.controls['companies'].setValue(null);
-    } else {
-      this.commonService.openSnackBar(
-        "¡La compañía ya ha sido agregada!",
-        "OK"
-      );
+    for(let i=0; i<this.allCompanies.length; i++){
+      if(this.allCompanies[i].company_id === event.option.value.company_id){
+        this.commonService.openSnackBar(
+          "¡La compañía ya ha sido agregada!",
+          "OK"
+        );
+        return
+      }
     }
+    this.allCompanies.push(event.option.value)
+    this.eventFG.controls['companies'].setValue(null);
   }
 
   /**
@@ -303,16 +316,18 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
   async eventRelations(event_id){
     //compañías
+    /*
     for(let i=0; i<this.allCompanies.length; i++){
       await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise()
     }
+    */
 
     //Categorias
-    /*
+    
     for(let i=0; i<this.allCategories.length; i++){
       await this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise()
     }
-    */
+    
   }
 
 
@@ -328,9 +343,13 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   onMapReady(map: Map) {
     this.map = map;
     map.addLayer(this.locationMarker)
+
+
     if (this.myEvent.latitude && this.myEvent.longitude) {
       this.locationMarker.setLatLng(latLng(this.myEvent.latitude, this.myEvent.longitude))
     }
+    console.log(this.myEvent.latitude)    
+    console.log(this.myEvent.longitude) 
   }
 
   refreshMap(){
@@ -344,5 +363,37 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
   putLocationMarker(event: any) {
     this.locationMarker.setLatLng(event.latlng);
+  }
+
+  setData(event){
+    this.eventFG.controls['name'].setValue(event.name)
+    this.eventFG.controls['address'].setValue(event.address)
+    this.eventFG.controls['detail'].setValue(event.detail)
+    this.eventFG.controls['cost'].setValue(event.cost)
+
+    this.allDay = event.all_day
+    this.color = event.color
+    this.initial_date = new Date(event.date_range.initial_date)
+    this.final_date = new Date(event.date_range.final_date)
+    this.initial_time = event.initial_time
+    this.final_time = event.final_time
+    this.allDay?  this.common_date = event.date_range.initial_date : this.common_date = undefined; 
+
+    //categorias
+    this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
+      next: (data: any) => {
+        this.allCategories = []
+        data.forEach(val => this.allCategories.push(val));
+        this.subscription3.unsubscribe();
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+    });
+    //compañías
+    this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
+      next: (data: any) => {
+        this.allCompanies = []
+        data.forEach(val => this.allCompanies.push(val));
+        this.subscription4.unsubscribe();
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+    });
   }
 }
