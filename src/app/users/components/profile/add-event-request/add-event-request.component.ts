@@ -366,6 +366,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   }
 
   setData(event){
+    console.log(event.color)
     this.eventFG.controls['name'].setValue(event.name)
     this.eventFG.controls['address'].setValue(event.address)
     this.eventFG.controls['detail'].setValue(event.detail)

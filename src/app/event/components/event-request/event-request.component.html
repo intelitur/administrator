@@ -5,6 +5,7 @@
         <mat-form-field class="container-fluid mb-3" appearance="outline">
             <mat-label>Buscar por nombre del usuario</mat-label>
             <input matInput [(ngModel)]="filter.name"/>
+            <!-- 
             <button
             mat-icon-button
             matSuffix
@@ -15,6 +16,7 @@
             <mat-icon>library_books</mat-icon>
           </button>
           <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por compañía.</mat-hint>
+          -->
       </mat-form-field>
       <div *ngIf="isFilters" class="container-text-left">
         <button  mat-raised-button color="primary" (click)="obtainAllEventRequest()">Limpiar filtro</button>
@@ -26,24 +28,26 @@
                 <tr>
                 <th scope="col">Usuario</th>
                 <th scope="col">Correo</th>
+                <th scope="col">Evento</th>
                 <th scope="col" style="text-align: center;">Detalles del Evento</th>
                 <th scope="col" style="text-align: center;">Aceptar/Rechazar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let request of this.eventService.eventRequest | filterBy: filter ">
-                <td>{{ request.user.info.name + request.user.info.lastName}}</td>
-                <td>{{ request.user.info.email}}</td>
+                <td>{{ request.user_name}}</td>
+                <td>{{ request.user_email}}</td>
+                <td>{{ request.name}}</td>
                 <td style="text-align: center;"> 
-                    <button mat-stroked-button (click)="showEventDetails(request)" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px;">
+                    <button mat-stroked-button (click)="showEventDetails(true, request)" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px;">
                         Ver Detalles
                     </button>
                 </td>
                 <td style="text-align: center;">
-                    <button mat-raised-button class="acceptBtn" color="primary" (click)="acceptEvent(request)">
+                    <button mat-raised-button class="acceptBtn" color="primary" (click)="changeStateRequest(request, 1)">
                         Aceptar
                     </button>
-                    <button mat-raised-button class="denyBtn" color="warn" (click)="denyEvent(request)" >
+                    <button mat-raised-button class="denyBtn" color="warn" (click)="changeStateRequest(request, 3)" >
                         Rechazar
                     </button>
                 </td>

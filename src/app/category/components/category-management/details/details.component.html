@@ -1,5 +1,8 @@
+<ng-container *ngIf="this.loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
 <div style="display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;">
-    <div style="width: 60%; min-width: 300px;">
+    <div style="width: 50%; min-width: 300px;">
         <div style="display: flex; justify-content: space-around;">
 
             <h2 style="color: #dbb735; text-align: center; margin: auto 0">{{category.name}}</h2>
@@ -21,14 +24,11 @@
             </mat-form-field>
 
             <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-                <button *ngIf="!loading; else loadingBar" mat-stroked-button color="primary"  [disabled]="!categoryFG.valid || !isChanged()"
+                <button mat-stroked-button color="primary"  [disabled]="!categoryFG.valid || !isChanged() || loading"
                     style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="modifyCategory()" >
                     Guardar cambios
                 </button>
-                <ng-template #loadingBar>
-                    <mat-progress-bar mode="indeterminate" style="width: 47%; margin: auto 0;"></mat-progress-bar>
-                </ng-template>
-                <button mat-stroked-button color="warn"
+                <button mat-stroked-button color="warn" [disabled]="loading"
                     style="width: 47%; min-width: fit-content;margin-top: 10px;" (click)="setData()">
                     Descartar cambios
                 </button>
@@ -36,32 +36,30 @@
         </form>
         
     </div>
-    <div *ngIf="categoryImages"
-        style="width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
-        <ngb-carousel #currSlide (click)="onSlideClicked(currSlide)" class="container-fluid" >
-            <ng-template *ngFor="let i of categoryImages; let index = index"  ngbSlide>
-              <div class="container-fluid text-center">
-                <img class="img img-fluid" src="{{url}}{{categoryImages[index]}}" alt="Image" />
-              </div>
+    <div *ngIf="categoryImages.length != 0"
+        style="width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
+        <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
+            <ng-template *ngFor="let i of categoryImages; let index = index" [id]="'slideId_' + index" ngbSlide>              
+                <img class="d-block w-100" style="height: 500px !important; border-radius: 10px;" src="{{url}}{{categoryImages[index]}}"/>
             </ng-template>
-          </ngb-carousel>
+        </ngb-carousel>
         <div style=" display: flex; height: 70px;">
             <div title="Añadir imagen a la categoría"
                 style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);">
                 <label for="file-upload"  class="image-buttons" style="border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;" ><mat-icon>find_replace</mat-icon></label> 
-                <input  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;"/>   
+                <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>   
             </div>
             <div title="Eliminar imagen de categoría"
                 style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);">
-                <button mat-button style="border-radius: 0 0 20px 0" (click)="deleteImage(index);"
+                <button [disabled]="loading" mat-button style="border-radius: 0 0 20px 0" (click)="deleteImage();"
                     class="image-buttons" color="warn">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>
         </div>
     </div>
-    <div *ngIf="!categoryImages" title="Añadir imagen a la categoría" class="noImageButton">
+    <div *ngIf="categoryImages.length == 0" title="Añadir imagen a la categoría" class="noImageButton">
         <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> Añadir Imagen </label> 
-        <input  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;"/>   
+        <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>   
     </div>
 </div>

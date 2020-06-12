@@ -110,8 +110,9 @@ export class EventService{
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}AddCategoryToEvent`, json, {observe: 'response'})
   }
 
-  obtainAllEventRequest(){
-    return this.http.get(`${environment.SERVER_BASE_URL}petitions/-1/-1`)
+  
+  getAllPendingEventRequests(){
+    return this.http.get(`${environment.SERVER_BASE_URL}petitions/2/-1`)
   }
 
   getEventRequestByCompany(id){
@@ -120,6 +121,14 @@ export class EventService{
 
   getEventRequestsByUser(id, state?){
     console.log(id + " " + state)
-    return this.http.get(`${environment.SERVER_BASE_URL}petitions/${id}/${state}`)
+    return this.http.get(`${environment.SERVER_BASE_URL}petitions/${state}/${id}`)
+  }
+
+  changeRequestState(event_id,state){
+    let json = {
+      "event_id": event_id, 
+	    "state": state
+    }
+    return this.http.put(`${environment.SERVER_BASE_URL}petitions/`,json, {observe: 'response'} ) 
   }
 }

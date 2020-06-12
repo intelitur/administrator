@@ -13,7 +13,7 @@ export class CreateEvenRequestComponent implements OnInit {
 
   filter = {
     name: '',
-    state: '',
+    state: '0',
     filter: (request) => request.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
   }
 
@@ -42,13 +42,14 @@ export class CreateEvenRequestComponent implements OnInit {
     this.refresh()
   }
 
-  deleteRequest(user_id, event_id){
-
+  deleteRequest(event){
+    this.eventService.changeRequestState(event.event_id, 3).subscribe({
+      next: (data: any) => {
+        data.status == 201? this.refresh() : null
+      }
+    })
   }
 
-  cancelEventRequest(user_id, event_id){
-
-  }
   
   /**
    * 

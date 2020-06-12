@@ -18,4 +18,5 @@ export interface EventType{
     longitude?: number
     is_active?: boolean
     user_id?: number
+    url?: any[]
 }

@@ -41,7 +41,7 @@ export class CategoryCreateComponent implements OnInit {
     let category: Category = {
       name: this.categoryFG.value.name,
       type: this.categoryFG.value.type,
-      url: ""
+      url: []
     }
     this.createCategory(category)
   }

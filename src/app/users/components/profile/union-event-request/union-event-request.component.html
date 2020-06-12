@@ -1,8 +1,30 @@
 <div *ngIf="userRequest" style="padding: 0 5%;">
-    <mat-form-field class="container-fluid mb-3 mt-1" appearance="outline">
-        <mat-label>Buscar por nombre </mat-label>
-        <input matInput [(ngModel)]="filter.name" />
-    </mat-form-field>
+
+    <div class="container-fluid mb-3 mt-1" style="display: flex; justify-content: space-between;">
+        <mat-form-field style="width: 50%;" appearance="outline">
+            <mat-label>Buscar por nombre de evento</mat-label>
+            <input matInput [(ngModel)]="filter.name"/>
+        </mat-form-field>
+
+
+        <mat-form-field style="width: 40%;" appearance="outline">
+            <mat-label>Empresa</mat-label>
+            <mat-select  [(ngModel)]="currentCompany">
+                <mat-option *ngFor="let c of companies" [value]="c.company_id">
+                {{c.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        
+        <div style="margin-top: 2%">
+            <button [disabled]="currentCompany == null" mat-raised-button class="filterBtn" color="primary" (click)="refresh()">
+                <i class="material-icons">search</i>
+            </button>
+        </div>
+    </div>
+    
+
     <div class="table-responsive">
         <table class="table">
             <thead class="thead-light">

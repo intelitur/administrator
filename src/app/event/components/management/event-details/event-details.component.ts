@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CompanyService } from 'src/app/company/services/company.service';
+import { User } from 'src/app/users/models/User.class';
+import { UserService } from 'src/app/users/services/user.service';
 
 
 @Component({
@@ -34,6 +36,10 @@ export class EventDetailsComponent implements OnInit {
   subscription2: Subscription
   subscription3: Subscription
   subscription4: Subscription
+  eventImages = [];
+  url="https://intelitur.sytes.net/files/images/";
+  imageIndex = 0;
+  user: User;
 
 
   //chipList
@@ -55,7 +61,8 @@ export class EventDetailsComponent implements OnInit {
     public commonService: CommonService,
     public eventService: EventService,
     public categoryService: CategoryService,
-    public companyService: CompanyService
+    public companyService: CompanyService,
+    public userService: UserService
   ) { }
 
   ngOnInit() {
@@ -83,7 +90,8 @@ export class EventDetailsComponent implements OnInit {
         this.subscription2.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
-
+    this.user = this.userService.actualUser
+    this.eventImages = this.event.url
     this.setData();
   }
 
@@ -232,6 +240,8 @@ export class EventDetailsComponent implements OnInit {
       },
       initial_time: this.initial_time,
       final_time: this.final_time,
+      user_id: this.user.user_id,
+      is_active: this.event.is_active
     }
      
     let json = {
@@ -361,4 +371,83 @@ export class EventDetailsComponent implements OnInit {
     }
   }
 
+  //Metodos de imagenes
+  onSlide(event){
+    this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+  }
+
+  async uploadFile(files: FileList){
+    this.loading = true;
+    this.eventFG.disable()
+    let images = [];
+    for(let i=0; i<files.length; i++){
+      await this.commonService.uploadFile(files[i]).then((data: any) => {
+          images.push(data.data)
+        }
+      )
+    }
+    this.eventImages.length != 0? images = images.concat(this.eventImages): null;
+    this.updateImages(images);
+  }
+
+  deleteImage(){
+    this.loading = true;
+    this.eventFG.disable()
+    this.eventImages.splice(this.imageIndex, 1);
+    this.updateImages(this.eventImages)
+  }
+
+  updateImages(images) {
+
+    let event: EventType = {
+      event_id: this.event.event_id,
+      name: this.event.name,
+      cost: this.event.cost,
+      address: this.event.address,
+      detail: this.event.detail,
+      all_day: this.event.all_day,
+      color:  this.event.color,
+      date_range: {
+        initial_date: this.event.date_range.initial_date,
+        final_date: this.event.date_range.final_date
+      },
+      initial_time: this.event.initial_time,
+      final_time: this.event.final_time,
+      user_id: this.event.user_id,
+      url: images,
+      is_active: this.event.is_active
+    }
+    console.log(event)
+    let json = {
+      "info": event,
+      "latitude": this.event.latitude,
+      "longuitude": this.event.longitude
+    } 
+
+    this.eventService.modifyEvent(json).subscribe({
+      next: (data: any) => {
+        if (data.status == 200) {
+          this.loading = false;
+          this.eventFG.enable()
+          this.event= event;
+          this.eventImages = images
+          this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`,"OK")
+        }
+        else {
+          this.commonService.openSnackBar(
+            `Error al cambiar el estado: ${data.error}`,
+            "OK"
+          );
+          this.loading = false;
+          this.eventFG.enable()
+        }
+
+      },
+      error: (err: HttpErrorResponse) => {
+        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        this.loading = false;
+        this.eventFG.enable()
+      }
+    })
+  }
 }

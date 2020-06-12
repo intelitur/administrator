@@ -13,7 +13,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class DetailsComponent implements OnInit {
 
   @Input() category: Category
-  categoryImages;
+  categoryImages = [];
+  imageIndex = 0;
 
   categoryFG: FormGroup;
   loading = false;
@@ -36,21 +37,16 @@ export class DetailsComponent implements OnInit {
     })
   }
 
-  onSlideClicked(value: any){
-    console.log(value.activeId);
+  onSlide(event){
+    this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
   }
 
   ngOnInit() {
     let category_name = this.category.name
     this.categoryFG.controls['name'].setValue(category_name)
-    /*
-    this.categoryService.getCategoryImages(this.category.category_id).subscribe({
-      next: (data: any) => {
-        console.log(data)
-        this.categoryImages = data
-      }
-    })
-    */
+    this.categoryImages = this.category.url
+    console.log(this.category)
+    
   }
 
   setData(){
@@ -111,7 +107,7 @@ export class DetailsComponent implements OnInit {
           this.categoryFG.enable()
           this.category = category;
           this.commonService.openSnackBar(
-            `La empresa ${this.category.name} ha sido cambiada`,
+            `La categoría ${this.category.name} ha sido cambiada`,
             "OK")
         }
         else {
@@ -138,16 +134,68 @@ export class DetailsComponent implements OnInit {
     let oldCategory = {
       name: this.category.name,
       type: this.category.type,
-      url: ""
+      url: this.category.url
     }
     return !(JSON.stringify(oldCategory) === JSON.stringify(this.categoryFG.value))
   }
 
-  uploadFile(files: FileList){
-    this.commonService.uploadFile(files[0])
+  async uploadFile(files: FileList){
+    this.loading = true;
+    this.categoryFG.disable()
+    let images = [];
+    for(let i=0; i<files.length; i++){
+      await this.commonService.uploadFile(files[i]).then((data: any) => {
+          images.push(data.data)
+        }
+      )
+    }
+    this.categoryImages.length != 0? images = images.concat(this.categoryImages): null;
+    this.updateImages(images);
   }
 
-  deleteImage(name: string){
-    this.commonService.deleteImage(name)
+  deleteImage(){
+    this.loading = true;
+    this.categoryFG.disable()
+    this.categoryImages.splice(this.imageIndex, 1);
+    this.updateImages(this.categoryImages)
+  }
+
+  updateImages(images) {
+
+    let category: Category = {
+      url: images,
+      name: this.category.name,
+      category_id: this.category.category_id,
+      type: this.category.type,
+      is_active: this.category.is_active
+    }
+    
+    this.categoryService.modifyCategory(category).subscribe({
+      next: (data: any) => {
+        if (data.status == 204) {
+          this.loading = false;
+          this.categoryFG.enable()
+          this.category = category;
+          this.categoryImages = images
+          this.commonService.openSnackBar(
+            `La categoría ${this.category.name} ha sido cambiada`,
+            "OK"
+          )
+        }
+        else {
+          this.commonService.openSnackBar(
+            `Error al cambiar: ${data.error}`,
+            "OK"
+          );
+        }
+
+      },
+      error: (err: HttpErrorResponse) => {
+        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        this.loading = false;
+        this.categoryFG.enable()
+      }
+
+    })
   }
 }

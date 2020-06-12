@@ -50,6 +50,7 @@ export class CommonService {
   }
 
   async uploadFile(file: File){
+    console.log(file)
     let data = new FormData();
     data.append("file", file);
 

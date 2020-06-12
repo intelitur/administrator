@@ -23,16 +23,18 @@ export class ProfileEventsComponent implements OnInit {
 
   constructor(
     public commonService: CommonService,
-    public userService: UserService
+    public userService: UserService,
+    public eventService: EventService
   ) { }
 
   ngOnInit() {
     this.user = this.userService.actualUser;
-    this.refresh(this.user);
-  }
-
-  refresh(user: User){
-    //obtener eventos del usuario 
+    this.eventService.getEventRequestsByUser(this.user.user_id, 1).subscribe({
+      next: (data:any) => {
+        console.log(data)
+        this.userEvents = data
+      }
+    })
   }
 
 }

@@ -9,6 +9,9 @@
             <input matInput [(ngModel)]="filter.name" />
         </mat-form-field>
         <mat-radio-group class="radio-button-group" color="primary" [(ngModel)]="filter.state" (change)="refresh()">
+            <mat-radio-button value="0" style="color: rgb(103,58,183);">
+                Todas
+            </mat-radio-button>
             <mat-radio-button value="1" style="color: rgb(0, 90, 0)">
                 Aceptadas
             </mat-radio-button>
@@ -24,37 +27,32 @@
         <table class="table">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col" style="text-align: center;">Fecha de solicitud</th>
+                    <th scope="col" >Fecha de solicitud</th>
                     <th scope="col">Evento</th>
-                    <th scope="col">Detalles de Evento</th>
-                    <th scope="col" matTooltip="Pendiente / Aceptada / Rechazada">Estado</th>
-                    <th scope="col" style="text-align: center;"> Acciones </th>
+                    <th scope="col" style="text-align: center;" >Detalles de Evento</th>
+                    <th scope="col" style="text-align: center;"   matTooltip="Pendiente / Aceptada / Rechazada" *ngIf="filter.state == '0'">Estado</th>
+                    <th scope="col" style="text-align: center;" *ngIf="filter.state == '0' || filter.state == '2'"> Acciones </th>
                 </tr>
             </thead>
             <tbody *ngIf="!this.loading">
                 <tr *ngFor="let request of eventRequests | filterBy: filter.filter">
-                    <td style="text-align: center;">{{request.petition_moment | date: 'dd/MM/yyyy'}}</td>
+                    <td >{{request.petition_moment | date: 'dd/MM/yyyy'}}</td>
                     <td>{{ request.name }}</td>
-                    <td>
+                    <td style="text-align: center;" >
                         <button mat-stroked-button matTooltip="Detalles del evento"  (click)="submit(true, request)" style="color: rgb(82, 82, 82); font-size: 14px; ">
                             Ver Detalles
                         </button>
                     </td>
-                    <td>
+                    <td *ngIf="filter.state == '0'" style="text-align: center;" >
                         <label color="primary" style="cursor: default;"
                             [style.color]="request.petition_state == 1?  'rgb(0, 90, 0)': request.petition_state ==  2? 'rgb(160, 105, 0)': 'rgb(90, 0, 0)'">
                             {{ request.petition_state == 1? 'Aceptado' : request.petition_state ==  2? 'Pendiente': 'Rechazado' }}
                         </label>
 
                     </td>
-                    <td class="buttonContainer">
-                        <div *ngIf="request.petition_state == 1">
-                            <button mat-raised-button color="warn" (click)="cancelEventRequest(request)" matTooltip="Eliminar solicitud">
-                                Eliminar
-                            </button>
-                        </div>
+                    <td class="buttonContainer"  *ngIf="filter.state == '2' || filter.state == '0'" style="text-align: center;" > 
                         <div *ngIf="request.petition_state == 2">
-                            <button mat-raised-button color="warn" (click)="deleteEventRequest(request)" matTooltip="Cancelar solicitud">
+                            <button mat-raised-button color="warn" (click)="deleteRequest(request)" matTooltip="Cancelar solicitud">
                                 Cancelar
                             </button>
                         </div>

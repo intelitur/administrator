@@ -94,7 +94,7 @@
         <div class="container" style=" width: 95%; margin-left: 2.5%; margin-bottom: 3%;">
             <div class="color-picker">
                 <label>Selecciona un color </label>
-                <color-circle  (onChangeComplete)="changeComplete($event)" ></color-circle> 
+                <color-circle [color]="color"   (onChangeComplete)="changeComplete($event)" ></color-circle> 
             </div>
             
             <div class="toggle" style=" margin-left: 3%;">

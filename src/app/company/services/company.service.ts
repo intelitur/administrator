@@ -61,4 +61,8 @@ export class CompanyService {
   }
 
 
+  getCompanyEventRequests(company_id){
+    return this.http.get(`${environment.SERVER_BASE_URL}`)
+  }
+
 }

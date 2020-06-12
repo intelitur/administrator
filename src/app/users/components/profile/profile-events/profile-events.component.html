@@ -10,28 +10,20 @@
             <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Costo</th>
-            <th scope="col">Todo el día</th>
+            <th scope="col" style="text-align: center;">Todo el día</th>
             <th scope="col">Fecha Inicio</th>
             <th scope="col">Fecha Fin</th>
-            <th scope="col">Activo</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" style="text-align: center;">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let event of userEvents | filterBy: filter">
             <td>{{event.name}}</td>
             <td>{{event.cost}}</td>
-            <td *ngIf="event.all_day==true">Sí</td>
-            <td *ngIf="event.all_day==false">No</td>
+            <td *ngIf="event.all_day==true"  style="text-align: center;">Sí</td>
+            <td *ngIf="event.all_day==false"  style="text-align: center;">No</td>
             <td>{{event.date_range.initial_date | date: 'dd/MM/yyyy'}}</td>
             <td>{{event.date_range.final_date | date: 'dd/MM/yyyy'}}</td>
-            <td style="text-align: center;">
-                <section (click)="$event.stopPropagation()">
-                    <mat-slide-toggle (change)="changeState(event, $event)" color="primary"
-                        [checked]= event.is_active>
-                    </mat-slide-toggle>
-                    </section>
-            </td>
             <td style="text-align: center;"> 
                 <button mat-stroked-button [routerLink]="['/event', event.event_id]" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px; ">
                     Ver Detalles
