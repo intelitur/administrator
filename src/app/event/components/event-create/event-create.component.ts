@@ -124,7 +124,7 @@ export class EventCreateComponent implements OnInit {
       initial_time: this.initial_time,
       final_time: this.final_time,
       user_id: this.userService.actualUser.user_id,
-      url: urlImages
+      images: urlImages
     }
     this.createEvent(event);
   }

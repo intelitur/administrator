@@ -64,7 +64,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     initial_time: null,
     final_time: null,
     user_id: null,
-    url: null
+    images: null
   }
   map: Map
   refreshed = false
@@ -184,7 +184,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     this.myEvent.latitude = this.locationMarker.getLatLng().lat,
     this.myEvent.longitude = this.locationMarker.getLatLng().lng
     this.myEvent.user_id = this.user.user_id;
-    this.myEvent.url = urlImages
+    this.myEvent.images = urlImages
     this.createRequest(this.myEvent);
   }
 

@@ -91,7 +91,7 @@ export class EventDetailsComponent implements OnInit {
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
     this.user = this.userService.actualUser
-    this.event.url  != undefined? this.eventImages = this.event.url : this.eventImages = []
+    this.event.images  != undefined? this.eventImages = this.event.images : this.eventImages = []
     this.setData();
   }
 
@@ -242,7 +242,7 @@ export class EventDetailsComponent implements OnInit {
       final_time: this.final_time,
       user_id: this.user.user_id,
       is_active: this.event.is_active,
-      url: this.event.url
+      images: this.event.images
     }
      
     let json = {
@@ -406,7 +406,7 @@ export class EventDetailsComponent implements OnInit {
       initial_time: this.event.initial_time,
       final_time: this.event.final_time,
       user_id: this.event.user_id,
-      url: images,
+      images: images,
       is_active: this.event.is_active
     }
     console.log(event)
