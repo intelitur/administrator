@@ -1,0 +1,73 @@
+<div class="container">
+    <h1 class="text-center font-weight-light mt-3">Solicitudes de unión de empresas a eventos</h1>
+    <div >
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 4rem 0 0 0">
+            <mat-form-field class="container-fluid" appearance="outline" style="width: 40%; min-width: 300px; margin: auto">
+                <mat-label>Buscar por nombre de empresa o usuario</mat-label>
+                <input matInput [(ngModel)]="filter.name" />
+            </mat-form-field>
+            <mat-radio-group class="radio-button-group" color="primary" [(ngModel)]="filter.state" (change)="refresh()">
+                <mat-radio-button value="0" style="color: rgb(103,58,183);">
+                    Todas
+                </mat-radio-button>
+                <mat-radio-button value="1" style="color: rgb(0, 90, 0)">
+                    Aceptadas
+                </mat-radio-button>
+                <mat-radio-button value="2" style="color: rgb(160, 105, 0) ">
+                    Pendientes
+                </mat-radio-button>
+                <mat-radio-button value="3" style="color: rgb(90, 0, 0)">
+                    Rechazadas
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="table-responsive" style="padding: 0 3%;">
+        <table class="table" >
+            <thead class="thead-light">
+            <tr>
+                <th scope="col" style="text-align: center;">Fecha de solicitud</th>
+                <th scope="col" matTooltip="Nombre de persona que solicitó la unión">Solicitante</th>
+                <th scope="col" matTooltip="Nombre la empresa a la que se envió la solicitud">Empresa</th>
+                <th scope="col" matTooltip="Evento al que se desea unir la empresa">Evento</th>
+                <th scope="col" matTooltip="Pendiente / Aceptada / Rechazada">Estado</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="!this.loading">
+            <tr *ngFor="let request of eventRequests | filterBy: filter.filter">
+                <td style="text-align: center;">{{ dateString(request.request_date) }} <br>
+                {{ timeString(request.request_date) }}</td>
+                <td>{{ request.user_info.name }}</td>
+                <td>{{ request.user_info.email }}</td>
+                <td>{{ request.company_info.name }}</td>
+                <td>
+                    <label color="primary" style="cursor: default;"
+                        [style.color]="request.state == 1? 'rgb(160, 105, 0)': request.state == 2? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'">
+                        {{ request.state == 1? 'Pendiente': request.state == 2? 'Aceptado': 'Rechazado' }}
+                    </label>
+                </td>
+                <td>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" *ngIf="request.state == 1">
+                        <button mat-stroked-button color="primary" style="min-width: fit-content; margin: 1px; color: green;" (click)="allowUnion(request)" matTooltip="Aceptar solicitud">
+                            <mat-icon>done</mat-icon>
+                        </button>
+                        <button mat-stroked-button color="warn" style="margin: 1px; min-width: fit-content;" (click)="denyUnion(request)" matTooltip="Rechazar solicitud">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <ng-container *ngIf="this.loading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-container>
+        <!-- in case you want to show empty message -->
+        <div class="alert alert-info text-center" role="alert" *ngIf="!this.loading && (eventRequests| filterBy: filter.filter).length === 0 ">
+            No se encuentra ninguna solicitud
+        </div>
+        </div>
+    </div>
+</div>
+  

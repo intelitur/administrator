@@ -5,6 +5,8 @@ textarea{
 .buttonContainer{
     display: flex;
     justify-content: space-around;
+    margin-top: 3%;
+    margin-bottom: 3
 }
  
 form{
@@ -14,7 +16,7 @@ form{
 .container{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 mat-form-field{
@@ -23,13 +25,38 @@ mat-form-field{
     margin-left: 2.5%;
 }
 
-.toggle,.color-picker{
-    width: 45%;
-    margin-left: 2%;
+.color-picker{
+    width: 30%;
+    padding-left: 5%;
+    align-self: center;
+}
+
+.toggle{
+    width: 40%;
 }
 
 .chip-list{
-    width: 95%;
+    width: -webkit-fill-available; 
+}
+
+.file{
+    align-self: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 20%;
+}
+
+.uploadFile{
+    text-align: center;
+    width: -webkit-fill-available; 
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    margin-bottom: 2%;
+    border: solid 1.5px rgb(220, 220, 220);
+}
+
+.chip-list{
+    width: -webkit-fill-available; 
 }
 
 .map {

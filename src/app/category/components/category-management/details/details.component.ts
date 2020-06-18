@@ -145,7 +145,7 @@ export class DetailsComponent implements OnInit {
     let images = [];
     for(let i=0; i<files.length; i++){
       await this.commonService.uploadFile(files[i]).then((data: any) => {
-          images.push(data.data)
+          images.push(data.filename)
         }
       )
     }

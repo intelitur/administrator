@@ -21,6 +21,7 @@ import { AddEventRequestComponent } from './components/profile/add-event-request
 import { ProfileEventsComponent } from './components/profile/profile-events/profile-events.component';
 import { UnionEventRequestComponent } from './components/profile/union-event-request/union-event-request.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { PetitionsFilterComponent } from './components/profile/union-event-request/petitions-filter/petitions-filter.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     AddEventRequestComponent,
     ProfileEventsComponent,
     UnionEventRequestComponent,
+    PetitionsFilterComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,6 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     LeafletModule 
   ],
   exports: [UserRootComponent],
-  entryComponents: [AddAdminComponent, AddRequestCompanyUnionComponent, AddEventRequestComponent]
+  entryComponents: [AddAdminComponent, AddRequestCompanyUnionComponent, AddEventRequestComponent,PetitionsFilterComponent]
 })
 export class UsersModule {}

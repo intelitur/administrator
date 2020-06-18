@@ -87,51 +87,63 @@
     </div>
 </form>
 
-<div class="container" style=" width: 95%; margin-left: 2.5%;">
-    <div class="color-picker">
-        <label>Selecciona un color </label>
-        <color-circle  (onChangeComplete)="changeComplete($event)" ></color-circle> 
-    </div>
+<div class="container">
     
-    <div class="toggle" style=" margin-left: 3%;">
-        <label>Todo el día:</label>
-        <mat-slide-toggle style="margin-left: 3%;" (change)="changeState($event)" color="primary" [checked]= "false"></mat-slide-toggle>
-        <label style="margin-left: 5%; margin-right: 5%;"> {{!this.allDay? "No": "Sí"}} </label>
-    
-        <mat-form-field *ngIf="allDay== true" style="width: 45%; ">
-            <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="commonDate"  [min]="today"  placeholder="Fecha" [(ngModel)]="common_date" disabled >
-            <mat-datepicker-toggle matSuffix [for]="commonDate" ></mat-datepicker-toggle>
-            <mat-datepicker #commonDate disabled="false" ></mat-datepicker>
-        </mat-form-field>
+    <div class="toggle">
+        <div style="text-align: center;">
+            <label>Todo el día:</label>
+            <mat-slide-toggle style="margin-left: 3%;" (change)="changeState($event)" color="primary" [checked]= "false"></mat-slide-toggle>
+            <label style="margin-left: 5%; margin-right: 3%;"> {{!this.allDay? "No": "Sí"}} </label>
+            <mat-form-field *ngIf="this.allDay" style="width: 50%;"  appearance="outline">
+                <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="commonDate"  [min]="today"  placeholder="Fecha" [(ngModel)]="common_date" disabled >
+                <mat-datepicker-toggle matSuffix [for]="commonDate" ></mat-datepicker-toggle>
+                <mat-datepicker #commonDate disabled="false" ></mat-datepicker>
+            </mat-form-field>
+        </div>
 
         <div style=" display: flex;">
-            <mat-form-field *ngIf="allDay== false" style="width: 45%; ">
+            <mat-form-field *ngIf="allDay== false" style="width: 50%; " appearance="outline">
                 <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="startDate" [min]="today"  placeholder="Fecha Inicial" [(ngModel)]="initial_date" disabled >
                 <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
                 <mat-datepicker #startDate disabled="false" ></mat-datepicker>
             </mat-form-field>
     
-            <mat-form-field *ngIf="allDay== false"  style="width: 45%; ">
+            <mat-form-field *ngIf="allDay== false"  style="width: 50%; " appearance="outline">
                 <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha de Finalización" [(ngModel)]="final_date" disabled >
                 <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                 <mat-datepicker  #endDate [disabled]="initial_date == undefined" [startAt]="initial_date"></mat-datepicker>
             </mat-form-field>
             
             <div *ngIf="allDay == true">
-                <mat-form-field  appearance="outline">
+                <mat-form-field  appearance="outline" style="width: 45%;">
                     <mat-label>Hora Inicial</mat-label>
                     <input type="time" matInput [(ngModel)]="initial_time" matToolTip="Hora de inicio" >
                 </mat-form-field>
                
-                <mat-form-field  appearance="outline">
+                <mat-form-field  appearance="outline" style="width: 45%;">
                     <mat-label>Hora de finalización</mat-label>
                     <input type="time"  [disabled]="initial_time == undefined" matToolTip="Hora de finalización" matInput [(ngModel)]="final_time">
                 </mat-form-field>
-                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>
+                <mat-hint style="padding-left: 2.5%;">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>
             </div>
         </div>
-        <mat-hint *ngIf="allDay== false">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>
+        <mat-hint *ngIf="allDay== false" style="padding-left: 2.5%;">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>
     </div>
+
+    <div class="color-picker">
+        <label>Selecciona un color </label>
+        <color-circle  (onChangeComplete)="changeComplete($event)" ></color-circle> 
+    </div>
+
+    <div class="file">
+        <div class="uploadFile">
+            <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> Añadir Imágenes </label> 
+            <input [disabled]="loading"  id="file-upload" (change)="getFiles($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>
+        </div>
+        <mat-hint *ngIf="this.eventImages.length == 0" style="padding-left: 2.5%; color: crimson;">¡Debes añadir imagenes!</mat-hint>
+        <mat-hint *ngIf="this.eventImages.length != 0" style="padding-left: 2.5%;">Imágenes añadidas: {{this.eventImages.length}}</mat-hint>
+    </div>
+
 </div>
 
 
@@ -140,11 +152,11 @@
     <button mat-raised-button  [disabled]="disableDialog()" color="primary" (click)="onSubmit()">
         Continuar la Creacón
     </button>
-    <button (click)="closeDialog()" mat-raised-button color="warn">
+    <button (click)="closeDialog()" mat-raised-button color="warn" [disabled]="loading">
         Cancelar<mat-icon>close</mat-icon>
     </button>
 </div>
 
-<ng-template #loading>
+<ng-container *ngIf="this.loading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-template>
+</ng-container>

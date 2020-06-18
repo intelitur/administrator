@@ -38,6 +38,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   subscription2: Subscription
   subscription3: Subscription
   subscription4: Subscription
+  eventImages = [];
   //chipList
   visible;
   selectable;
@@ -62,7 +63,8 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     all_day: null,
     initial_time: null,
     final_time: null,
-    user_id: null
+    user_id: null,
+    url: null
   }
   map: Map
   refreshed = false
@@ -133,7 +135,6 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
         this.subscription2.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
-    console.log(this.data)
     this.user = this.userService.actualUser
     this.showInfo = this.data.action 
     this.showInfo? this.setData(this.data.event) : null;
@@ -149,6 +150,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   changeState({source}: any){
     this.allDay == false ? this.allDay=true : this.allDay=false;
     source.checked = this.allDay;
+    console.log(this.allDay)
   }
 
   /**
@@ -159,12 +161,14 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     this.color = event.color.hex;
   }
 
-  onSubmit(){
+  async onSubmit(){
 
     this.allDay == true? (this.initial_date=this.common_date , this.final_date=this.common_date) : null; 
     this.initial_time == undefined? this.initial_time = null: null;
     this.final_time == undefined? this.final_time = null: null;
     
+    let urlImages = await this.uploadFiles()
+
     this.myEvent.name = this.eventFG.controls['name'].value;
     this.myEvent.cost = this.eventFG.controls['cost'].value;
     this.myEvent.address = this.eventFG.controls['address'].value;
@@ -180,6 +184,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     this.myEvent.latitude = this.locationMarker.getLatLng().lat,
     this.myEvent.longitude = this.locationMarker.getLatLng().lng
     this.myEvent.user_id = this.user.user_id;
+    this.myEvent.url = urlImages
     this.createRequest(this.myEvent);
   }
 
@@ -235,7 +240,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined  ||
     (this.allDay == false && this.final_date== undefined) || (this.allDay == true && this.initial_time == undefined) || 
     (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) 
-    || this.allCategories.length === 0 || (this.initial_time >= this.final_time)) {
+    || this.allCategories.length === 0 || (this.initial_time >= this.final_time) || this.eventImages.length == 0) {
       return true
     }
     return false
@@ -396,5 +401,20 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
         this.subscription4.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
+  }
+
+  getFiles(files){
+    this.eventImages = files;
+  }
+
+  async uploadFiles() {
+    let images = [];
+    for(let i=0; i<this.eventImages.length; i++){
+          await this.commonService.uploadFile(this.eventImages[i]).then((data: any) => {
+          images.push(data.filename)
+        }
+      )
+    }
+    return images
   }
 }

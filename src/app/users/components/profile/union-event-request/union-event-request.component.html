@@ -1,27 +1,36 @@
 <div *ngIf="userRequest" style="padding: 0 5%;">
-
-    <div class="container-fluid mb-3 mt-1" style="display: flex; justify-content: space-between;">
-        <mat-form-field style="width: 50%;" appearance="outline">
-            <mat-label>Buscar por nombre de evento</mat-label>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 1rem 0 0 0">
+        <mat-form-field class="container-fluid mb-3" appearance="outline"  style="width: 50%; min-width: 300px; margin: auto">
+            <mat-label>Buscar por nombre del evento</mat-label>
             <input matInput [(ngModel)]="filter.name"/>
-        </mat-form-field>
-
-
-        <mat-form-field style="width: 40%;" appearance="outline">
-            <mat-label>Empresa</mat-label>
-            <mat-select  [(ngModel)]="currentCompany">
-                <mat-option *ngFor="let c of companies" [value]="c.company_id">
-                {{c.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        
-        <div style="margin-top: 2%">
-            <button [disabled]="currentCompany == null" mat-raised-button class="filterBtn" color="primary" (click)="refresh()">
-                <i class="material-icons">search</i>
+            <button
+                mat-icon-button
+                matSuffix
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+                (click)="openShowFilterOptionsDialog()"
+            >
+                <mat-icon>library_books</mat-icon>
             </button>
-        </div>
+            <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por otros valores.</mat-hint>
+        </mat-form-field>
+        <mat-radio-group class="radio-button-group" color="primary" [(ngModel)]="filter.state" (change)="refresh()">
+            <mat-radio-button value="0" style="color: rgb(103,58,183);">
+                Todas
+            </mat-radio-button>
+            <mat-radio-button value="1" style="color: rgb(0, 90, 0)">
+                Aceptadas
+            </mat-radio-button>
+            <mat-radio-button value="2" style="color: rgb(160, 105, 0) ">
+                Pendientes
+            </mat-radio-button>
+            <mat-radio-button value="3" style="color: rgb(90, 0, 0)">
+                Rechazadas
+            </mat-radio-button>
+        </mat-radio-group>
+        <div *ngIf="isFilters" class="container-text-left">
+            <button  mat-raised-button color="primary" (click)="refreshAll()">Limpiar filtro</button>
+        </div> 
     </div>
     
 

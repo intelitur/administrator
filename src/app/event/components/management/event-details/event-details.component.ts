@@ -47,9 +47,9 @@ export class EventDetailsComponent implements OnInit {
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  filteredCategories: any;
+  filteredCategories: any = [];
   allCategories: Array<any> = [];
-  filteredCompanies: any;
+  filteredCompanies: any = [];
   allCompanies: Array<any> = [];
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
@@ -91,7 +91,7 @@ export class EventDetailsComponent implements OnInit {
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
     this.user = this.userService.actualUser
-    this.eventImages = this.event.url
+    this.event.url  != undefined? this.eventImages = this.event.url : this.eventImages = []
     this.setData();
   }
 
@@ -123,7 +123,7 @@ export class EventDetailsComponent implements OnInit {
     if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined  ||
     (this.allDay == false && this.final_date== undefined) || (this.allDay == true && this.initial_time == undefined) || 
     (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) 
-    || (this.allDay == true && (this.initial_time >= this.final_time))) {
+    || (this.allDay == true && (this.initial_time >= this.final_time)) || this.loading == true ) {
       return true
     }
     return false
@@ -241,7 +241,8 @@ export class EventDetailsComponent implements OnInit {
       initial_time: this.initial_time,
       final_time: this.final_time,
       user_id: this.user.user_id,
-      is_active: this.event.is_active
+      is_active: this.event.is_active,
+      url: this.event.url
     }
      
     let json = {
@@ -251,9 +252,8 @@ export class EventDetailsComponent implements OnInit {
     } 
 
     this.eventService.modifyEvent(json).subscribe({
-      next: (data: any) => {
+      next: async (data: any) => {
         if (data.status == 200) {
-          this.loading = false;
           this.eventFG.enable()
           this.event= event;
 
@@ -261,12 +261,10 @@ export class EventDetailsComponent implements OnInit {
           this.getCategoriesID();
           this.getCompaniesID();
 
-          this.addCategoriesToEvent(this.event.event_id);
-          this.deleteCategroyFromEvent(this.event.event_id);
-          this.addCompanyToEvent(this.event.event_id);
-          this.deleteCompanyFromEvent(this.event.event_id);
+          await this.eventRelations(this.event.event_id);
 
           this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`,"OK")
+          this.loading = false;
           location.reload();
         }
         else {
@@ -338,38 +336,32 @@ export class EventDetailsComponent implements OnInit {
     this.allCompanies = companyIDs;
   }
 
-
-  async addCategoriesToEvent(event_id){
+  async eventRelations(event_id){
     for(let i=0; i<this.allCategories.length; i++){
       if(this.allOldCategories.indexOf(this.allCategories[i]) === -1){
         await this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise()
       }
     }
-  }
 
-  async deleteCategroyFromEvent(event_id){
     for(let i=0; i<this.allOldCategories.length; i++){
       if(this.allCategories.indexOf(this.allOldCategories[i]) === -1){
         await this.categoryService.deleteCategoryFromEvent(this.allOldCategories[i], event_id).toPromise()
       }
     }
-  }
 
-  async addCompanyToEvent(event_id){
     for(let i=0; i<this.allCompanies.length; i++){
       if(this.allOldCompanies.indexOf(this.allCompanies[i]) === -1){
         await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise()
       }
     }
-  }
 
-  async deleteCompanyFromEvent(event_id){
     for(let i=0; i<this.allOldCompanies.length; i++){
       if(this.allCompanies.indexOf(this.allOldCompanies[i]) === -1){
         await this.eventService.deleteCompanyFromEvent(this.allOldCompanies[i], event_id).toPromise()
       }
     }
   }
+
 
   //Metodos de imagenes
   onSlide(event){
@@ -381,8 +373,8 @@ export class EventDetailsComponent implements OnInit {
     this.eventFG.disable()
     let images = [];
     for(let i=0; i<files.length; i++){
-      await this.commonService.uploadFile(files[i]).then((data: any) => {
-          images.push(data.data)
+          await this.commonService.uploadFile(files[i]).then((data: any) => {
+          images.push(data.filename)
         }
       )
     }
@@ -429,7 +421,7 @@ export class EventDetailsComponent implements OnInit {
         if (data.status == 200) {
           this.loading = false;
           this.eventFG.enable()
-          this.event= event;
+          this.event = event;
           this.eventImages = images
           this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`,"OK")
         }

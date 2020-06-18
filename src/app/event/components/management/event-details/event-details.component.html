@@ -186,15 +186,12 @@
 </div>
 
 <div class="buttonContainer">
-    <button *ngIf="!loading; else loadingBar" mat-stroked-button color="primary"  [disabled]="disableDialog()"
+    <button mat-stroked-button color="primary"  [disabled]="disableDialog()"
         style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="modifyEvent()" >
         Guardar cambios
     </button>
 
-    <ng-template #loadingBar>
-        <mat-progress-bar mode="indeterminate" style="width: 47%; margin: auto 0;"></mat-progress-bar>
-    </ng-template>
-    <button mat-stroked-button color="warn"
+    <button mat-stroked-button color="warn" [disabled]="loading"
         style="width: 47%; min-width: fit-content;margin-top: 10px;" (click)="setData()">
         Descartar cambios
     </button>

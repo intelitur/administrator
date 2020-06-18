@@ -15,6 +15,8 @@ import { CompanyRequestsComponent } from './components/management/company-reques
 import { CompanyCreateComponent } from './components/company-create/company-create.component';
 import { CompanyAddUserComponent } from './components/management/company-users/company-add-user/company-add-user.component';
 import { RequestsComponent } from './components/requests/requests.component';
+import { RequestTabsComponent } from './components/request-tabs/request-tabs.component';
+import { UnionEventRequestComponent } from './components/union-event-request/union-event-request.component';
 
 
 
@@ -28,7 +30,7 @@ import { RequestsComponent } from './components/requests/requests.component';
     CompanyMapComponent, 
     CompanyRequestsComponent, 
     CompanyCreateComponent, 
-    CompanyAddUserComponent, RequestsComponent
+    CompanyAddUserComponent, RequestsComponent, RequestTabsComponent, UnionEventRequestComponent
   ],
   imports: [
     CommonModule,

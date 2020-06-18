@@ -44,6 +44,7 @@ export class EventsComponent implements OnInit {
         this.subscription.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
+    
   }
 
   openCreateEventDialog(){
