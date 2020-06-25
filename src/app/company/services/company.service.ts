@@ -61,8 +61,13 @@ export class CompanyService {
   }
 
 
-  getCompanyEventRequests(user_id, company_id?, state?){
-    return this.http.get(`${environment.SERVER_BASE_URL}`)
+  getCompanyEventRequests(user_id?, company_id?, state?){
+    return this.http.get(`${environment.SERVER_BASE_URL}petitions/petitions_add_to_company/${state}/${user_id}/${company_id}`)
+  }
+
+  changeCompanyEventRequestState(event_company_id, status){
+
+    return this.http.put(`${environment.SERVER_BASE_URL}petitions/${event_company_id}/${status}`,{observe: 'response'})
   }
 
 }

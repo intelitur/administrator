@@ -1,11 +1,10 @@
-.denyBtn, .acceptBtn {
-    margin-left: 1%;
-    font-size: 14px;
-}
-
 th{
     font-size: 14px;
     font-weight: 600;
+    text-align: center;
+}
+
+td{
     text-align: center;
 }
 
@@ -23,8 +22,7 @@ button{
 }
 
 .container-text-left{
-    margin-bottom: 2%;
-    margin-left: 2%;
+    margin: 1% 0 2% 0;
 }
 
 .radio-button-group{

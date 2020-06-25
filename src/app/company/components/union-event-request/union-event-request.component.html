@@ -1,10 +1,23 @@
 <div class="container">
     <h1 class="text-center font-weight-light mt-3">Solicitudes de unión de empresas a eventos</h1>
     <div >
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 4rem 0 0 0">
+        <ng-container *ngIf="this.loading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-container>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 4rem 0 0 0">
             <mat-form-field class="container-fluid" appearance="outline" style="width: 40%; min-width: 300px; margin: auto">
-                <mat-label>Buscar por nombre de empresa o usuario</mat-label>
-                <input matInput [(ngModel)]="filter.name" />
+                <mat-label>Buscar por nombre del evento o usuario</mat-label>
+                <input matInput [(ngModel)]="filter.name"/>
+                <button
+                    mat-icon-button
+                    matSuffix
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide"
+                    (click)="openShowFilterOptionsDialog()"
+                >
+                    <mat-icon>library_books</mat-icon>
+                </button>
+                <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por otros valores.</mat-hint>
             </mat-form-field>
             <mat-radio-group class="radio-button-group" color="primary" [(ngModel)]="filter.state" (change)="refresh()">
                 <mat-radio-button value="0" style="color: rgb(103,58,183);">
@@ -20,38 +33,47 @@
                     Rechazadas
                 </mat-radio-button>
             </mat-radio-group>
+            <div *ngIf="isFilters" class="container-text-left">
+                <button  mat-raised-button color="primary" (click)="refreshAll()" [disabled]="loading">Limpiar filtro</button>
+            </div> 
+            <label *ngIf="isFilters && currentCompanyName != undefined" color="primary" style="cursor: default;">
+                Empresa Filtrada: {{currentCompanyName}}
+            </label>
         </div>
         <div class="table-responsive" style="padding: 0 3%;">
         <table class="table" >
             <thead class="thead-light">
             <tr>
-                <th scope="col" style="text-align: center;">Fecha de solicitud</th>
                 <th scope="col" matTooltip="Nombre de persona que solicitó la unión">Solicitante</th>
                 <th scope="col" matTooltip="Nombre la empresa a la que se envió la solicitud">Empresa</th>
                 <th scope="col" matTooltip="Evento al que se desea unir la empresa">Evento</th>
-                <th scope="col" matTooltip="Pendiente / Aceptada / Rechazada">Estado</th>
-                <th scope="col">Acciones</th>
+                <th scope="col" matTooltip="Detalles del evento al que se desea unir la empresa">Detalles</th>
+                <th scope="col" matTooltip="Pendiente / Aceptada / Rechazada" *ngIf="filter.state == '0'">Estado</th>
+                <th scope="col" *ngIf="filter.state == '0' || filter.state == '2'">Acciones</th>
             </tr>
             </thead>
             <tbody *ngIf="!this.loading">
             <tr *ngFor="let request of eventRequests | filterBy: filter.filter">
-                <td style="text-align: center;">{{ dateString(request.request_date) }} <br>
-                {{ timeString(request.request_date) }}</td>
-                <td>{{ request.user_info.name }}</td>
-                <td>{{ request.user_info.email }}</td>
-                <td>{{ request.company_info.name }}</td>
+                <td>{{ request.user_name }}</td>
+                <td>{{request.company_name}}</td>
+                <td>{{request.event_info.info.name}}</td>
                 <td>
+                    <button mat-stroked-button (click)="showEventDetails(true, request.event_info.info)" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px;">
+                        Ver Detalles
+                    </button>
+                </td>
+                <td *ngIf="filter.state == '0'" >
                     <label color="primary" style="cursor: default;"
-                        [style.color]="request.state == 1? 'rgb(160, 105, 0)': request.state == 2? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'">
-                        {{ request.state == 1? 'Pendiente': request.state == 2? 'Aceptado': 'Rechazado' }}
+                        [style.color]="request.petition_state_company == 2? 'rgb(160, 105, 0)': request.petition_state_company == 1? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'">
+                        {{ request.petition_state_company == 2? 'Pendiente': request.petition_state_company == 1? 'Aceptado': 'Rechazado' }}
                     </label>
                 </td>
                 <td>
-                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" *ngIf="request.state == 1">
-                        <button mat-stroked-button color="primary" style="min-width: fit-content; margin: 1px; color: green;" (click)="allowUnion(request)" matTooltip="Aceptar solicitud">
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" *ngIf="request.petition_state_company == 2">
+                        <button mat-stroked-button color="primary" style="min-width: fit-content; margin: 1px; color: green;" (click)="changeStatus(request.petition_id, 1)" matTooltip="Aceptar solicitud">
                             <mat-icon>done</mat-icon>
                         </button>
-                        <button mat-stroked-button color="warn" style="margin: 1px; min-width: fit-content;" (click)="denyUnion(request)" matTooltip="Rechazar solicitud">
+                        <button mat-stroked-button color="warn" style="margin: 1px; min-width: fit-content;" (click)="changeStatus(request.petition_id, 3)" matTooltip="Rechazar solicitud">
                             <mat-icon>clear</mat-icon>
                         </button>
                     </div>
@@ -60,9 +82,6 @@
 
             </tbody>
         </table>
-        <ng-container *ngIf="this.loading">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </ng-container>
         <!-- in case you want to show empty message -->
         <div class="alert alert-info text-center" role="alert" *ngIf="!this.loading && (eventRequests| filterBy: filter.filter).length === 0 ">
             No se encuentra ninguna solicitud

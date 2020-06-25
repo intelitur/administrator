@@ -36,7 +36,7 @@
                         required></textarea>
                 </mat-form-field>
 
-                <div  class="chip-list">
+                <div  class="chip-list" [hidden]="petition">
                     <mat-form-field class="chip-list" appearance="outline">
                     <mat-chip-list #chipList aria-label="Categories selection">
                         <mat-chip class="chip"
@@ -62,7 +62,7 @@
                     </mat-form-field>
                 </div>
 
-                <div  class="chip-list">
+                <div  class="chip-list" [hidden]="petition">
                     <mat-form-field class="chip-list" appearance="outline">
                     <mat-chip-list #chipList2 aria-label="Companies selection">
                         <mat-chip class="chip"
@@ -135,7 +135,7 @@
         
             <div class="color-picker">
                 <label>Selecciona un color </label>
-                <color-circle  (onChangeComplete)="changeComplete($event)" ></color-circle> 
+                <color-circle  (onChangeComplete)="changeComplete($event)"  [color]="color"></color-circle> 
             </div>
         
             <div class="file" *ngIf="!this.data.action">

@@ -23,6 +23,7 @@ import { UserService } from 'src/app/users/services/user.service';
 export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
   user: User;
+  petition:boolean = false;
   showInfo: boolean = false;
   eventFG: FormGroup
   allDay: boolean = false;
@@ -137,6 +138,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     });
     this.user = this.userService.actualUser
     this.showInfo = this.data.action 
+    this.petition = this.data.petition;
     this.showInfo? this.setData(this.data.event) : null;
     this.showInfo? this.myEvent.latitude = this.data.event.latitude : null;
     this.showInfo? this.myEvent.longitude = this.data.event.longitude : null;
@@ -321,11 +323,11 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
   async eventRelations(event_id){
     //compañías
-    /*
+    
     for(let i=0; i<this.allCompanies.length; i++){
-      await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise()
+      await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise()
     }
-    */
+    
 
     //Categorias
     
@@ -386,21 +388,24 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     this.allDay?  this.common_date = event.date_range.initial_date : this.common_date = undefined; 
 
     //categorias
-    this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
-      next: (data: any) => {
-        this.allCategories = []
-        data.forEach(val => this.allCategories.push(val));
-        this.subscription3.unsubscribe();
-      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-    });
-    //compañías
-    this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
-      next: (data: any) => {
-        this.allCompanies = []
-        data.forEach(val => this.allCompanies.push(val));
-        this.subscription4.unsubscribe();
-      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-    });
+    console.log(this.petition)
+    if(!this.petition){
+      this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
+        next: (data: any) => {
+          this.allCategories = []
+          data.forEach(val => this.allCategories.push(val));
+          this.subscription3.unsubscribe();
+        }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+      });
+      //compañías
+      this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
+        next: (data: any) => {
+          this.allCompanies = []
+          data.forEach(val => this.allCompanies.push(val));
+          this.subscription4.unsubscribe();
+        }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+      });
+    }
   }
 
   getFiles(files){

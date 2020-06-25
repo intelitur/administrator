@@ -7,6 +7,7 @@ import { CompanyUsersService } from 'src/app/company/services/company-users.serv
 import { CompanyService } from 'src/app/company/services/company.service';
 import { MatDialog } from '@angular/material';
 import { PetitionsFilterComponent } from './petitions-filter/petitions-filter.component';
+import { AddEventRequestComponent } from '../add-event-request/add-event-request.component';
 
 @Component({
   selector: 'app-union-event-request',
@@ -19,12 +20,14 @@ export class UnionEventRequestComponent implements OnInit {
   user: any
   userRequest: any[] = [];
   isFilters: boolean = false;
-  currentCompany;
+  currentCompanyId = undefined;
+  currentCompanyName;
+  loading: boolean = false;
 
   filter = {
-    name: "",
+    name: '',
     state: '0',
-    filter: (request) => request.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
+    filter: (request) => request.event_info.info.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
   }
 
   constructor(
@@ -42,40 +45,51 @@ export class UnionEventRequestComponent implements OnInit {
     this.refresh()
   }
 
-  refresh(company_id?){
-
+  refresh(){
+    this.loading = true;
     let state = Number(this.filter.state)
     state == 0? state = -1 : state = Number(this.filter.state)
 
-    if(company_id == null && state == -1){
+    if(this.currentCompanyId == undefined && state == -1){
+      this.currentCompanyId = -1;
       this.isFilters = false
     }
     state != -1? this.isFilters = true : null;
     
-    this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, company_id, state).subscribe({
+    this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
       next: (data: any) => {
+        console.log(data)
         this.userRequest = data
         this.subscription.unsubscribe();
+        this.loading = false;
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     })
   }
 
   refreshAll(){
     this.filter.state = '0'
+    this.currentCompanyId = undefined;
+    this.currentCompanyName = undefined;
     this.refresh()
   }
 
   openShowFilterOptionsDialog(){
     const  dialog = this.dialogService.open(PetitionsFilterComponent, {width: "50", minWidth: "280px", disableClose: true})
 
-    dialog.afterClosed().subscribe( company_id => {
-      if(company_id != undefined){
+    dialog.afterClosed().subscribe( company => {
+      if(company != undefined){
+        this.currentCompanyId = company.company_id;
+        this.currentCompanyName = company.name;
         this.isFilters = true
-        this.currentCompany = company_id
-        this.refresh(company_id)
+        this.refresh()
       }
     })
   }
+
+  showEventDetails(_action: boolean, _event?: any){
+    this.dialogService.open(AddEventRequestComponent, {height:"95%", width: "80%", minWidth: "280px", disableClose: true, data: { action : _action, event: _event, petition: true}})
+  }
+
 }
 
 

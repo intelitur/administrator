@@ -7,6 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CompanyUsersService } from 'src/app/company/services/company-users.service';
 import { User } from 'src/app/users/models/User.class';
 import { UserService } from 'src/app/users/services/user.service';
+import { Company } from 'src/app/company/models/Company';
+import { CompanyService } from 'src/app/company/services/company.service';
 
 @Component({
   selector: 'app-petitions-filter',
@@ -23,7 +25,7 @@ export class PetitionsFilterComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<PetitionsFilterComponent>,
     public commonService: CommonService,
-    public userCompanySerice: CompanyUsersService,
+    public companyService: CompanyService,
     public userService: UserService
   ) { }
 
@@ -34,7 +36,7 @@ export class PetitionsFilterComponent implements OnInit {
 
     this.user = this.userService.actualUser
 
-    this.subscription = this.userCompanySerice.getUserCompanies(this.user.user_id).subscribe({
+    this.subscription = this.companyService.getCompanies().subscribe({
       next: (data: any) => {
         this.companies = data
         this.subscription.unsubscribe();

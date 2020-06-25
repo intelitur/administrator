@@ -7,7 +7,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Empresa</mat-label>
         <mat-select formControlName="companies">
-          <mat-option *ngFor="let c of companies" [value]="c.company_id">
+          <mat-option *ngFor="let c of companies" [value]="c">
             {{c.name}}
           </mat-option>
         </mat-select>

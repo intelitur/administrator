@@ -80,10 +80,11 @@ export class EventService{
    * @param company_id
    * @param event_id
    */
-  addCompanyToEvent(company_id, event_id){
+  addCompanyToEvent(company_id, event_id, user_id){
     let json = {
-      "company_id": company_id,
-      "event_id": event_id
+      company_id,
+      event_id,
+      user_id
     }
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}EventToCompany`, json, {observe: 'response'})
   }

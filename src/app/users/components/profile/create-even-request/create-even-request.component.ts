@@ -56,7 +56,7 @@ export class CreateEvenRequestComponent implements OnInit {
    * @param action false to create true to show info
    */
   submit(_action: boolean, _event?: any){
-    this.matDialog.open(AddEventRequestComponent, {height:"95%", width: "80%", minWidth: "280px", disableClose: true, data: { action : _action, event: _event}})
+    this.matDialog.open(AddEventRequestComponent, {height:"95%", width: "80%", minWidth: "280px", disableClose: true, data: { action : _action, event: _event, petition: false}})
   }
   
 }

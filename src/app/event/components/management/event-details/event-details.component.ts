@@ -351,7 +351,7 @@ export class EventDetailsComponent implements OnInit {
 
     for(let i=0; i<this.allCompanies.length; i++){
       if(this.allOldCompanies.indexOf(this.allCompanies[i]) === -1){
-        await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise()
+        await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise()
       }
     }
 

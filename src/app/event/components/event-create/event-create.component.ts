@@ -13,6 +13,7 @@ import { Category } from 'src/app/itinerary/models/Category';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CompanyService } from 'src/app/company/services/company.service';
 import { UserService } from 'src/app/users/services/user.service';
+import { User } from 'src/app/users/models/User.class';
 
 @Component({
   selector: 'app-event-create',
@@ -20,7 +21,7 @@ import { UserService } from 'src/app/users/services/user.service';
   styleUrls: ['./event-create.component.scss']
 })
 export class EventCreateComponent implements OnInit {
-
+  user: User
   eventFG: FormGroup
   allDay: boolean = false;
   loading: boolean = false;
@@ -65,6 +66,8 @@ export class EventCreateComponent implements OnInit {
       companies: new FormControl(null),
     });
     
+    this.user = this.userService.actualUser
+
     this.subscription = this.categoryService.getAllCategories(1)
     .subscribe({
       next: (data: any) => {
@@ -259,7 +262,7 @@ export class EventCreateComponent implements OnInit {
   async eventRelations(event_id){
     //compañías
     for(let i=0; i<this.allCompanies.length; i++){
-      await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise()
+      await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id,this.user.user_id).toPromise()
     }
 
     //Categorias
