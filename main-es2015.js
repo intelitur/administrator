@@ -71,7 +71,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <h1>Creación de Categoría</h1>\n   \n    <mat-form-field appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input matInput formControlName=\"name\" matTooltip=\"Nombre de la categoría\" required>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"fill\">\n        <mat-label>Tipo de categoría</mat-label>\n        <mat-select formControlName=\"type\">\n          <mat-option *ngFor=\"let t of types\" [value]=\"t.id\">\n            {{t.name}}\n          </mat-option>\n        </mat-select>\n    </mat-form-field>\n\n    <mat-label class=\"image-upload-container btn btn-bwm\">\n        <span>Seleccione una imagen</span>\n        <input #imageInput\n               type=\"file\"\n               accept=\"image/*\"\n               (change)=\"processFile(imageInput)\">\n    </mat-label>\n\n    <div class=\"buttonContainer\">\n        <button mat-raised-button [disabled]=\"!categoryFG.valid\" color=\"primary\" (click)=\"onSubmit()\">\n            Crear Categoría\n        </button>\n        <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n            Cerrar<mat-icon>close</mat-icon>\n          </button>\n    </div>\n</form>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <h1>Creación de Categoría</h1>\n   \n    <mat-form-field appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input matInput formControlName=\"name\" matTooltip=\"Nombre de la categoría\" required>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"fill\">\n        <mat-label>Tipo de categoría</mat-label>\n        <mat-select formControlName=\"type\">\n          <mat-option *ngFor=\"let t of types\" [value]=\"t.id\">\n            {{t.name}}\n          </mat-option>\n        </mat-select>\n    </mat-form-field>\n\n    <div class=\"buttonContainer\">\n        <button mat-raised-button [disabled]=\"!categoryFG.valid\" color=\"primary\" (click)=\"onSubmit()\">\n            Crear Categoría\n        </button>\n        <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n            Cerrar<mat-icon>close</mat-icon>\n          </button>\n    </div>\n</form>");
 
 /***/ }),
 
@@ -97,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 60%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{category.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"category.is_active? '#673ab7': 'gray'\">\n                    {{category.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=category.is_active>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input formControlName=\"name\" matInput  matTooltip=\"Nombre de la categoría\" required>\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button *ngIf=\"!loading; else loadingBar\" mat-stroked-button color=\"primary\"  [disabled]=\"!categoryFG.valid || !isChanged()\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyCategory()\" >\n                    Guardar cambios\n                </button>\n                <ng-template #loadingBar>\n                    <mat-progress-bar mode=\"indeterminate\" style=\"width: 47%; margin: auto 0;\"></mat-progress-bar>\n                </ng-template>\n                <button mat-stroked-button color=\"warn\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n                    Descartar cambios\n                </button>\n            </div>\n        </form>\n        \n    </div>\n    <div\n        style=\"width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <img style=\"margin: 5% auto; max-height: 450px; max-width: 90%;\"\n            src=\"https://media-exp1.licdn.com/dms/image/C561BAQECpbD6BAejKg/company-background_10000/0?e=2159024400&v=beta&t=0OMsZud-rJoJIlHTUOuvOGPWNEZJBJDx7_mzKQI37UU\">\n        <div style=\" display: flex; height: 70px;\">\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <button mat-button matTooltip=\"Buscar nueva imagen\" style=\"border-radius: 0 0 0 20px;\"\n                    class=\"image-buttons\" color=\"accent\">\n                    <mat-icon>find_replace</mat-icon>\n\n                </button>\n            </div>\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button mat-button matTooltip=\"Eliminar imagen de categoría\" style=\"border-radius: 0 0 20px 0\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{category.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"category.is_active? '#673ab7': 'gray'\">\n                    {{category.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=category.is_active>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input formControlName=\"name\" matInput  matTooltip=\"Nombre de la categoría\" required>\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button color=\"primary\"  [disabled]=\"!categoryFG.valid || !isChanged() || loading\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyCategory()\" >\n                    Guardar cambios\n                </button>\n                <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n                    Descartar cambios\n                </button>\n            </div>\n        </form>\n        \n    </div>\n    <div *ngIf=\"categoryImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of categoryImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"height: 500px !important; border-radius: 10px;\" src=\"{{url}}{{categoryImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen de categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div *ngIf=\"categoryImages.length == 0\" title=\"Añadir imagen a la categoría\" class=\"noImageButton\">\n        <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imagen </label> \n        <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n    </div>\n</div>\n");
 
 /***/ }),
 
@@ -205,6 +205,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/request-tabs/request-tabs.component.html":
+/*!*******************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/request-tabs/request-tabs.component.html ***!
+  \*******************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-tab-group>\n\n    <mat-tab label=\"Usuarios\">\n      <div class=\"container justify-content\">\n        <app-requests></app-requests>\n      </div>    \n    </mat-tab>\n\n    <mat-tab label=\"Evento\">\n        <div class=\"container justify-content\">\n          <app-union-event-request></app-union-event-request>\n        </div>    \n    </mat-tab>\n</mat-tab-group>\n");
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/requests/requests.component.html":
 /*!***********************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/requests/requests.component.html ***!
@@ -218,6 +231,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/union-event-request/union-event-request.component.html":
+/*!*********************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/union-event-request/union-event-request.component.html ***!
+  \*********************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Solicitudes de unión de empresas a eventos</h1>\n    <div >\n        <ng-container *ngIf=\"this.loading\">\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-container>\n        <div style=\"display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 4rem 0 0 0\">\n            <mat-form-field class=\"container-fluid\" appearance=\"outline\" style=\"width: 40%; min-width: 300px; margin: auto\">\n                <mat-label>Buscar por nombre del evento o usuario</mat-label>\n                <input matInput [(ngModel)]=\"filter.name\"/>\n                <button\n                    mat-icon-button\n                    matSuffix\n                    [attr.aria-label]=\"'Hide password'\"\n                    [attr.aria-pressed]=\"hide\"\n                    (click)=\"openShowFilterOptionsDialog()\"\n                >\n                    <mat-icon>library_books</mat-icon>\n                </button>\n                <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por otros valores.</mat-hint>\n            </mat-form-field>\n            <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"filter.state\" (change)=\"refresh()\">\n                <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                    Todas\n                </mat-radio-button>\n                <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                    Aceptadas\n                </mat-radio-button>\n                <mat-radio-button value=\"2\" style=\"color: rgb(160, 105, 0) \">\n                    Pendientes\n                </mat-radio-button>\n                <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                    Rechazadas\n                </mat-radio-button>\n            </mat-radio-group>\n            <div *ngIf=\"isFilters\" class=\"container-text-left\">\n                <button  mat-raised-button color=\"primary\" (click)=\"refreshAll()\" [disabled]=\"loading\">Limpiar filtro</button>\n            </div> \n            <label *ngIf=\"isFilters && currentCompanyName != undefined\" color=\"primary\" style=\"cursor: default;\">\n                Empresa Filtrada: {{currentCompanyName}}\n            </label>\n        </div>\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\" >\n            <thead class=\"thead-light\">\n            <tr>\n                <th scope=\"col\" matTooltip=\"Nombre de persona que solicitó la unión\">Solicitante</th>\n                <th scope=\"col\" matTooltip=\"Nombre la empresa a la que se envió la solicitud\">Empresa</th>\n                <th scope=\"col\" matTooltip=\"Evento al que se desea unir la empresa\">Evento</th>\n                <th scope=\"col\" matTooltip=\"Detalles del evento al que se desea unir la empresa\">Detalles</th>\n                <th scope=\"col\" matTooltip=\"Pendiente / Aceptada / Rechazada\" *ngIf=\"filter.state == '0'\">Estado</th>\n                <th scope=\"col\" *ngIf=\"filter.state == '0' || filter.state == '2'\">Acciones</th>\n            </tr>\n            </thead>\n            <tbody *ngIf=\"!this.loading\">\n            <tr *ngFor=\"let request of eventRequests | filterBy: filter.filter\">\n                <td>{{ request.user_name }}</td>\n                <td>{{request.company_name}}</td>\n                <td>{{request.event_info.info.name}}</td>\n                <td>\n                    <button mat-stroked-button (click)=\"showEventDetails(true, request.event_info.info)\" matTooltip=\"Detalles del evento\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                <td *ngIf=\"filter.state == '0'\" >\n                    <label color=\"primary\" style=\"cursor: default;\"\n                        [style.color]=\"request.petition_state_company == 2? 'rgb(160, 105, 0)': request.petition_state_company == 1? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'\">\n                        {{ request.petition_state_company == 2? 'Pendiente': request.petition_state_company == 1? 'Aceptado': 'Rechazado' }}\n                    </label>\n                </td>\n                <td>\n                    <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\" *ngIf=\"request.petition_state_company == 2\">\n                        <button mat-stroked-button color=\"primary\" style=\"min-width: fit-content; margin: 1px; color: green;\" (click)=\"changeStatus(request.petition_id, 1)\" matTooltip=\"Aceptar solicitud\">\n                            <mat-icon>done</mat-icon>\n                        </button>\n                        <button mat-stroked-button color=\"warn\" style=\"margin: 1px; min-width: fit-content;\" (click)=\"changeStatus(request.petition_id, 3)\" matTooltip=\"Rechazar solicitud\">\n                            <mat-icon>clear</mat-icon>\n                        </button>\n                    </div>\n                </td>\n            </tr>\n\n            </tbody>\n        </table>\n        <!-- in case you want to show empty message -->\n        <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"!this.loading && (eventRequests| filterBy: filter.filter).length === 0 \">\n            No se encuentra ninguna solicitud\n        </div>\n        </div>\n    </div>\n</div>\n  \n");
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/event-create/event-create.component.html":
 /*!*****************************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/event-create/event-create.component.html ***!
@@ -227,7 +253,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1>Creación de Evento</h1>\n<form [formGroup]=\"eventFG\"  class=\"container\">\n\n    <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Costo</mat-label>\n            <input matInput formControlName=\"cost\" required>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\">\n            <mat-label>Dirección</mat-label>\n            <textarea \n                matInput \n                formControlName=\"address\" \n                matTooltip=\"Dirección exacta del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\" >\n            <mat-label>Detalles</mat-label>\n            <textarea \n                matInput \n                formControlName=\"detail\" \n                matTooltip=\"Detalles del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList aria-label=\"Categories selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let category of allCategories\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{category.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las categorías\"\n                  #tagInput\n                  formControlName=\"categories\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"auto\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let company of allCompanies\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{company.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las compañías\"\n                  #tagInput2\n                  formControlName=\"companies\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"autoCompany\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n    </div>\n</form>\n\n<div class=\"container\" style=\" width: 95%; margin-left: 2.5%;\">\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n    \n    <div class=\"toggle\" style=\" margin-left: 3%;\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n    \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\" display: flex;\">\n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; \">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n            \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n</div>\n\n\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button  [disabled]=\"disableDialog()\" color=\"primary\" (click)=\"onSubmit()\">\n        Continuar la Creacón\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n        Cancelar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-template #loading>\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1>Creación de Evento</h1>\n<form [formGroup]=\"eventFG\"  class=\"container\">\n\n    <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Costo</mat-label>\n            <input matInput formControlName=\"cost\" required>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\">\n            <mat-label>Dirección</mat-label>\n            <textarea \n                matInput \n                formControlName=\"address\" \n                matTooltip=\"Dirección exacta del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\" >\n            <mat-label>Detalles</mat-label>\n            <textarea \n                matInput \n                formControlName=\"detail\" \n                matTooltip=\"Detalles del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList aria-label=\"Categories selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let category of allCategories\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{category.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las categorías\"\n                  #tagInput\n                  formControlName=\"categories\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"auto\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let company of allCompanies\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{company.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las compañías\"\n                  #tagInput2\n                  formControlName=\"companies\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"autoCompany\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n    </div>\n</form>\n\n<div class=\"container\">\n    \n    <div class=\"toggle\">\n        <div style=\"text-align: center;\">\n            <label>Todo el día:</label>\n            <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n            <label style=\"margin-left: 5%; margin-right: 3%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n            <mat-form-field *ngIf=\"this.allDay\" style=\"width: 50%;\"  appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n        </div>\n\n        <div style=\" display: flex;\">\n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n            \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n\n    <div class=\"file\">\n        <div class=\"uploadFile\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n        </div>\n        <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson;\">¡Debes añadir imagenes!</mat-hint>\n        <mat-hint *ngIf=\"this.eventImages.length != 0\" style=\"padding-left: 2.5%;\">Imágenes añadidas: {{this.eventImages.length}}</mat-hint>\n    </div>\n\n</div>\n\n\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button  [disabled]=\"disableDialog()\" color=\"primary\" (click)=\"onSubmit()\">\n        Continuar la Creacón\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\" [disabled]=\"loading\">\n        Cancelar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>");
 
 /***/ }),
 
@@ -253,7 +279,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Peticiones de Eventos</h1>\n\n    <div *ngIf=\"this.eventService.eventRequest; else loading\" >\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del usuario</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n            <button\n            mat-icon-button\n            matSuffix\n            [attr.aria-label]=\"'Hide password'\"\n            [attr.aria-pressed]=\"hide\"\n            (click)=\"openFilterOptionsDialog()\"\n          >\n            <mat-icon>library_books</mat-icon>\n          </button>\n          <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por compañía.</mat-hint>\n      </mat-form-field>\n      <div *ngIf=\"isFilters\" class=\"container-text-left\">\n        <button  mat-raised-button color=\"primary\" (click)=\"obtainAllEventRequest()\">Limpiar filtro</button>\n      </div> \n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.eventService.eventRequest\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Empresa</th>\n                <th scope=\"col\">Usuario</th>\n                <th scope=\"col\">Correo</th>\n                <th scope=\"col\" style=\"text-align: center;\">Detalles del Evento</th>\n                <th scope=\"col\" style=\"text-align: center;\">Aceptar/Rechazar</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let obj of this.eventService.eventRequest | filterBy: filter\">\n                <td>company name</td>\n                <td>name</td>\n                <td>email</td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button (click)=\"showEventDetails()\" matTooltip=\"Detalles del evento\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                <td style=\"text-align: center;\">\n                    <button mat-raised-button class=\"acceptBtn\" color=\"primary\" (click)=\"acceptEvent()\">\n                        Aceptar\n                    </button>\n                    <button mat-raised-button class=\"denyBtn\" color=\"warn\" (click)=\"denyEvent()\" >\n                        Rechazar\n                    </button>\n                </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\"   *ngIf=\"(this.eventService.eventRequest | filterBy: filter).length === 0\">\n              ¡No hay peticiones pendientes<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Peticiones de Eventos</h1>\n\n    <div *ngIf=\"this.eventService.eventRequest; else loading\" >\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del usuario</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n            <!-- \n            <button\n            mat-icon-button\n            matSuffix\n            [attr.aria-label]=\"'Hide password'\"\n            [attr.aria-pressed]=\"hide\"\n            (click)=\"openFilterOptionsDialog()\"\n          >\n            <mat-icon>library_books</mat-icon>\n          </button>\n          <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por compañía.</mat-hint>\n          -->\n      </mat-form-field>\n      <div *ngIf=\"isFilters\" class=\"container-text-left\">\n        <button  mat-raised-button color=\"primary\" (click)=\"obtainAllEventRequest()\">Limpiar filtro</button>\n      </div> \n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.eventService.eventRequest\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Usuario</th>\n                <th scope=\"col\">Correo</th>\n                <th scope=\"col\">Evento</th>\n                <th scope=\"col\" style=\"text-align: center;\">Detalles del Evento</th>\n                <th scope=\"col\" style=\"text-align: center;\">Aceptar/Rechazar</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let request of this.eventService.eventRequest | filterBy: filter \">\n                <td>{{ request.user_name}}</td>\n                <td>{{ request.user_email}}</td>\n                <td>{{ request.name}}</td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button (click)=\"showEventDetails(true, request)\" matTooltip=\"Detalles del evento\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                <td style=\"text-align: center;\">\n                    <button mat-raised-button class=\"acceptBtn\" color=\"primary\" (click)=\"changeStateRequest(request, 1)\">\n                        Aceptar\n                    </button>\n                    <button mat-raised-button class=\"denyBtn\" color=\"warn\" (click)=\"changeStateRequest(request, 3)\" >\n                        Rechazar\n                    </button>\n                </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\"   *ngIf=\"(this.eventService.eventRequest | filterBy: filter).length === 0\">\n              ¡No hay peticiones pendientes<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>");
 
 /***/ }),
 
@@ -292,7 +318,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<div style=\"display: flex; justify-content: space-around;\">\n\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{event.name}}</h2>\n    <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n        <h2 style=\"margin: auto\" [style.color]=\"event.is_active? '#673ab7': 'gray'\">\n            {{event.is_active? \"Activo\": \"Inactivo\"}}</h2>\n        <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n            color=\"primary\" [checked]=event.is_active>\n        </mat-slide-toggle>\n    </div>\n\n</div>\n\n\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 60%; min-width: 300px;\">\n        \n        <form [formGroup]=\"eventFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field  appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n            </mat-form-field>\n    \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Costo</mat-label>\n                <input matInput formControlName=\"cost\" required>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Dirección</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"address\" \n                    matTooltip=\"Dirección exacta del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n        \n            <mat-form-field  appearance=\"outline\" >\n                <mat-label>Detalles</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"detail\" \n                    matTooltip=\"Detalles del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList aria-label=\"Categories selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let category of allCategories\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{category.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"remove(category)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las categorías\"\n                      #tagInput\n                      formControlName=\"categories\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"auto\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\n                    <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput2\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n        </form>\n    </div>\n\n    <div\n        style=\"width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <img style=\"margin: 5% auto; max-height: 450px; max-width: 90%;\"\n            src=\"https://media-exp1.licdn.com/dms/image/C561BAQECpbD6BAejKg/company-background_10000/0?e=2159024400&v=beta&t=0OMsZud-rJoJIlHTUOuvOGPWNEZJBJDx7_mzKQI37UU\">\n        <div style=\" display: flex; height: 70px;\">\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <button mat-button matTooltip=\"Buscar nueva imagen\" style=\"border-radius: 0 0 0 20px;\"\n                    class=\"image-buttons\" color=\"accent\">\n                    <mat-icon>find_replace</mat-icon>\n\n                </button>\n            </div>\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button mat-button matTooltip=\"Eliminar imagen de categoría\" style=\"border-radius: 0 0 20px 0\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    \n</div>\n\n\n<div class=\"container\" style=\" width: 95%; padding-top: 2%; margin-left: 2.5%;\">\n    \n    <div class=\"toggle\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"allDay\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n        \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\"display: flex;\">\n    \n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; margin-left: 3%;\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n    \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  style=\"margin-left: 3%;\" appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  [color]=\"color\" (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button *ngIf=\"!loading; else loadingBar\" mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyEvent()\" >\n        Guardar cambios\n    </button>\n\n    <ng-template #loadingBar>\n        <mat-progress-bar mode=\"indeterminate\" style=\"width: 47%; margin: auto 0;\"></mat-progress-bar>\n    </ng-template>\n    <button mat-stroked-button color=\"warn\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; justify-content: space-around;\">\n\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{event.name}}</h2>\n    <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n        <h2 style=\"margin: auto\" [style.color]=\"event.is_active? '#673ab7': 'gray'\">\n            {{event.is_active? \"Activo\": \"Inactivo\"}}</h2>\n        <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n            color=\"primary\" [checked]=event.is_active>\n        </mat-slide-toggle>\n    </div>\n\n</div>\n\n\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        \n        <form [formGroup]=\"eventFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field  appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n            </mat-form-field>\n    \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Costo</mat-label>\n                <input matInput formControlName=\"cost\" required>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Dirección</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"address\" \n                    matTooltip=\"Dirección exacta del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n        \n            <mat-form-field  appearance=\"outline\" >\n                <mat-label>Detalles</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"detail\" \n                    matTooltip=\"Detalles del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList aria-label=\"Categories selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let category of allCategories\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{category.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"remove(category)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las categorías\"\n                      #tagInput\n                      formControlName=\"categories\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"auto\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\n                    <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput2\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n        </form>\n    </div>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"height: 500px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div *ngIf=\"eventImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\">\n        <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imagen </label> \n        <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n    </div>\n    \n</div>\n\n\n<div class=\"container\" style=\" width: 95%; padding-top: 2%; margin-left: 2.5%;\">\n    \n    <div class=\"toggle\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"allDay\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n        \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\"display: flex;\">\n    \n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; margin-left: 3%;\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n    \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  style=\"margin-left: 3%;\" appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  [color]=\"color\" (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyEvent()\" >\n        Guardar cambios\n    </button>\n\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n");
 
 /***/ }),
 
@@ -552,7 +578,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de usuarios</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de itinerarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de Categorías</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\">\n        <mat-icon mat-list-icon>power_settings_new</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de usuarios</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de itinerarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de Categorías</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
 
 /***/ }),
 
@@ -578,7 +604,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1>Creación de Evento</h1>\n<form [formGroup]=\"eventFG\"  class=\"container\">\n\n    <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Costo</mat-label>\n            <input matInput formControlName=\"cost\" required>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\">\n            <mat-label>Dirección</mat-label>\n            <textarea \n                matInput \n                formControlName=\"address\" \n                matTooltip=\"Dirección exacta del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\" >\n            <mat-label>Detalles</mat-label>\n            <textarea \n                matInput \n                formControlName=\"detail\" \n                matTooltip=\"Detalles del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList aria-label=\"Categories selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let category of allCategories\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{category.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las categorías\"\n                  #tagInput\n                  formControlName=\"categories\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"auto\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let company of allCompanies\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{company.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las compañías\"\n                  #tagInput2\n                  formControlName=\"companies\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"autoCompany\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n    </div>\n</form>\n\n<div class=\"container\" style=\" width: 95%; margin-left: 2.5%;\">\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n    \n    <div class=\"toggle\" style=\" margin-left: 3%;\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n    \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\" display: flex;\">\n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; \">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n            \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n</div>\n\n\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button  [disabled]=\"disableDialog()\" color=\"primary\" (click)=\"onSubmit()\">\n        Continuar la Creacón\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n        Cancelar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-template #loading>\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<button mat-mini-fab id=\"exit\" ><i (click)=\"closeDialog()\" style=\"color: black;\" class=\"material-icons\"> clear </i></button>\n<mat-horizontal-stepper linear #stepper>\n    <mat-step [stepControl]=\"eventFG\" >\n        <ng-template matStepLabel>Datos Básicos</ng-template>\n\n        <form [formGroup]=\"eventFG\"  class=\"container\">\n\n            <div class=\"container\">\n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Nombre</mat-label>\n                    <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\"  required>\n                </mat-form-field>\n\n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Costo</mat-label>\n                    <input matInput formControlName=\"cost\" required>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Dirección</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"address\" \n                        matTooltip=\"Dirección exacta del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Detalles</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"detail\" \n                        matTooltip=\"Detalles del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList aria-label=\"Categories selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let category of allCategories\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{category.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las categorías\"\n                        #tagInput\n                        formControlName=\"categories\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"auto\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                        <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let company of allCompanies\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{company.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las compañías\"\n                        #tagInput2\n                        formControlName=\"companies\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"autoCompany\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                        <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n            </div>\n        </form>\n\n        <div class=\"container\">\n            <div class=\"toggle\">\n                <div style=\"text-align: center;\">\n                    <label>Todo el día:</label>\n                    <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n                    <label style=\"margin-left: 5%; margin-right: 6%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n                    <mat-form-field *ngIf=\"this.allDay\" style=\"width: 45%;\"  appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n                </div>\n        \n                <div style=\" display: flex;\">\n                    <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n            \n                    <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                        <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                        <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n                    </mat-form-field>\n                    \n                    <div *ngIf=\"allDay == true\">\n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora Inicial</mat-label>\n                            <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                        </mat-form-field>\n                       \n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora de finalización</mat-label>\n                            <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                        </mat-form-field>\n                        <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n                    </div>\n                </div>\n                <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n            </div>\n        \n            <div class=\"color-picker\">\n                <label>Selecciona un color </label>\n                <color-circle  (onChangeComplete)=\"changeComplete($event)\"  [color]=\"color\"></color-circle> \n            </div>\n        \n            <div class=\"file\" *ngIf=\"!this.data.action\">\n                <div class=\"uploadFile\">\n                    <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n                    <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n                </div>\n                <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson;\">¡Debes añadir imagenes!</mat-hint>\n                <mat-hint *ngIf=\"this.eventImages.length != 0\" style=\"padding-left: 2.5%;\">Imágenes añadidas: {{this.eventImages.length}}</mat-hint>\n            </div>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"!showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext [disabled]=\"disableDialog()\" color=\"primary\" >\n                Continuar la Creación\n            </button>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext color=\"primary\" >\n                Ver Ubicacion\n            </button>\n        </div>\n    </mat-step>\n\n    <mat-step>\n        <ng-template matStepLabel>Ubicación</ng-template>\n\n        <div class=\"m-3\" style=\"height: calc(100vh - 150px); display: flex; flex-direction: column; justify-content:space-around;\" (mouseenter)=\"refreshMap()\">\n            <div class=\"shadow-sm rounded\" class=\"map container-fluid\" leaflet (leafletMapReady)=\"onMapReady($event)\"\n                [leafletOptions]=\"options\" (leafletClick)=\"putLocationMarker($event)\">\n            </div>\n\n            <div style=\"width: 94%; height: 14%; display: flex; justify-content: space-between; margin: 3%; flex-wrap: wrap;\">\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Latitud: <b style=\"color: #dbb735;;\">{{locationMarker.getLatLng().lat}}</b> \n                </label>\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Longitud: <b style=\"color: #ca382d;\">{{locationMarker.getLatLng().lng}}</b>\n                </label>\n            </div>\n\n            <div style=\"width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button  mat-raised-button matStepperPrevious color=\"accent\" [disabled]=\"loading\">\n                    <mat-icon>reply</mat-icon>Atrás\n                </button>\n                \n                <button *ngIf=\"!showInfo\" mat-raised-button color=\"primary\" style=\"width: 40%; min-width: 200px; margin: 0 auto\"\n                    [disabled]=\"myEvent.latitude == locationMarker.getLatLng().lat && myEvent.longitude == locationMarker.getLatLng().lng || loading\"\n                    (click)=\"onSubmit()\">\n                    Crear Petición de Evento\n                    <mat-icon style=\"margin-left: 5%;\">check</mat-icon>\n                </button>\n            </div>\n        </div>        \n    </mat-step>\n</mat-horizontal-stepper>");
 
 /***/ }),
 
@@ -604,7 +630,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div>\n    <div style=\"display:flex; justify-content: end; margin-top: 1rem;\">\n        <button mat-raised-button color=\"primary\" class=\"btn-add mr-3 mt-3\" style=\"margin:auto\"\n          matTooltip=\"Agregar solicitud de creación de evento\" (click)=\"submit()\">Solicitar Evento</button>\n      </div>\n    <div style=\"display: flex; flex-wrap: wrap; justify-content: space-between; margin: 1rem 0 0 0\">\n        <mat-form-field class=\"container-fluid\" appearance=\"outline\" style=\"width: 40%; min-width: 300px; margin: auto\">\n            <mat-label>Buscar por nombre de evento</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\" />\n        </mat-form-field>\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"filter.state\" (change)=\"refresh()\">\n            <mat-radio-button value=\"1\" style=\"color: rgb(160, 105, 0)\">\n                Pendientes\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(0, 90, 0)\">\n                Aceptadas\n            </mat-radio-button>\n            <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                Rechazadas\n            </mat-radio-button>\n        </mat-radio-group>\n    </div>\n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\" style=\"text-align: center;\">Fecha de solicitud</th>\n                    <th scope=\"col\">Evento</th>\n                    <th scope=\"col\" matTooltip=\"Pendiente / Aceptada / Rechazada\">Estado</th>\n                    <th scope=\"col\"> Acciones </th>\n                </tr>\n            </thead>\n            <tbody *ngIf=\"!this.loading\">\n                <tr *ngFor=\"let request of this.eventRequests | filterBy: filter.filter\">\n                    <td style=\"text-align: center;\">{{ dateString(request.request_date) }} <br>\n                        {{ timeString(request.request_date) }}</td>\n                    <td>{{ request.event_info.name }}</td>\n                    <td>\n                        <label color=\"primary\" style=\"cursor: default;\"\n                            [style.color]=\"request.state == 1? 'rgb(160, 105, 0)': request.state == 2? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'\">\n                            {{ request.state == 1? 'Pendiente': request.state == 2? 'Aceptado': 'Rechazado' }}\n                        </label>\n\n                    </td>\n                    <td>\n                        <div style=\"display: flex; justify-content: center; flex-wrap: wrap;\"\n                            *ngIf=\"request.state == 1\">\n                            <button mat-raised-button color=\"accent\" style=\"min-width: fit-content;\"\n                                (click)=\"cancelEventRequest(request)\" matTooltip=\"Eliminar solicitud\">\n                                <mat-icon>cancel</mat-icon>\n                            </button>\n                        </div>\n                        <div style=\"display: flex; justify-content: center; flex-wrap: wrap;\"\n                            *ngIf=\"request.state == 2\">\n                            <button mat-raised-button color=\"warn\" style=\"min-width: fit-content;\"\n                                (click)=\"deleteEventRequest(request)\" matTooltip=\"Eliminar solicitud\">\n                                <mat-icon>clear</mat-icon>\n                            </button>\n                        </div>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n        <ng-container *ngIf=\"this.loading\">\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-container>\n        <!-- in case you want to show empty message -->\n        <div class=\"alert alert-info text-center\" role=\"alert\"\n            *ngIf=\"!this.loading && (this.eventRequests | filterBy: filter.filter).length === 0 \">\n            No se encuentra ninguna solicitud a su nombre\n        </div>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\n    <div style=\"display:flex; justify-content: end; margin-top: 1rem;\">\n        <button mat-raised-button color=\"primary\" class=\"btn-add mr-3 mt-3\" style=\"margin:auto\"\n          matTooltip=\"Agregar solicitud de creación de evento\" (click)=\"submit(false)\">Solicitar Evento</button>\n      </div>\n    <div style=\"display: flex; flex-wrap: wrap; justify-content: space-between; margin: 1rem 0 0 0\">\n        <mat-form-field class=\"container-fluid\" appearance=\"outline\" style=\"width: 40%; min-width: 300px; margin: auto\">\n            <mat-label>Buscar por nombre de evento</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\" />\n        </mat-form-field>\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"filter.state\" (change)=\"refresh()\">\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                Aceptadas\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(160, 105, 0) \">\n                Pendientes\n            </mat-radio-button>\n            <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                Rechazadas\n            </mat-radio-button>\n        </mat-radio-group>\n    </div>\n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\" >Fecha de solicitud</th>\n                    <th scope=\"col\">Evento</th>\n                    <th scope=\"col\" style=\"text-align: center;\" >Detalles de Evento</th>\n                    <th scope=\"col\" style=\"text-align: center;\"   matTooltip=\"Pendiente / Aceptada / Rechazada\" *ngIf=\"filter.state == '0'\">Estado</th>\n                    <th scope=\"col\" style=\"text-align: center;\" *ngIf=\"filter.state == '0' || filter.state == '2'\"> Acciones </th>\n                </tr>\n            </thead>\n            <tbody *ngIf=\"!this.loading\">\n                <tr *ngFor=\"let request of eventRequests | filterBy: filter.filter\">\n                    <td >{{request.petition_moment | date: 'dd/MM/yyyy'}}</td>\n                    <td>{{ request.name }}</td>\n                    <td style=\"text-align: center;\" >\n                        <button mat-stroked-button matTooltip=\"Detalles del evento\"  (click)=\"submit(true, request)\" style=\"color: rgb(82, 82, 82); font-size: 14px; \">\n                            Ver Detalles\n                        </button>\n                    </td>\n                    <td *ngIf=\"filter.state == '0'\" style=\"text-align: center;\" >\n                        <label color=\"primary\" style=\"cursor: default;\"\n                            [style.color]=\"request.petition_state == 1?  'rgb(0, 90, 0)': request.petition_state ==  2? 'rgb(160, 105, 0)': 'rgb(90, 0, 0)'\">\n                            {{ request.petition_state == 1? 'Aceptado' : request.petition_state ==  2? 'Pendiente': 'Rechazado' }}\n                        </label>\n\n                    </td>\n                    <td class=\"buttonContainer\"  *ngIf=\"filter.state == '2' || filter.state == '0'\" style=\"text-align: center;\" > \n                        <div *ngIf=\"request.petition_state == 2\">\n                            <button mat-raised-button color=\"warn\" (click)=\"deleteRequest(request)\" matTooltip=\"Cancelar solicitud\">\n                                Cancelar\n                            </button>\n                        </div>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n        <ng-container *ngIf=\"this.loading\">\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-container>\n        <!-- in case you want to show empty message -->\n        <div class=\"alert alert-info text-center\" role=\"alert\"\n            *ngIf=\"!this.loading && (this.eventRequests | filterBy: filter.filter).length === 0 \">\n            No se encuentra ninguna solicitud a su nombre\n        </div>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -647,6 +673,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/profile-events/profile-events.component.html":
+/*!*****************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/profile-events/profile-events.component.html ***!
+  \*****************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"userEvents\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n        <mat-label>Buscar por nombre del evento</mat-label>\n        <input matInput [(ngModel)]=\"filter.name\"/>\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\">\n        <thead class=\"thead-light\">\n            <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\">Costo</th>\n            <th scope=\"col\" style=\"text-align: center;\">Todo el día</th>\n            <th scope=\"col\">Fecha Inicio</th>\n            <th scope=\"col\">Fecha Fin</th>\n            <th scope=\"col\" style=\"text-align: center;\">Acciones</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr *ngFor=\"let event of userEvents | filterBy: filter\">\n            <td>{{event.name}}</td>\n            <td>{{event.cost}}</td>\n            <td *ngIf=\"event.all_day==true\"  style=\"text-align: center;\">Sí</td>\n            <td *ngIf=\"event.all_day==false\"  style=\"text-align: center;\">No</td>\n            <td>{{event.date_range.initial_date | date: 'dd/MM/yyyy'}}</td>\n            <td>{{event.date_range.final_date | date: 'dd/MM/yyyy'}}</td>\n            <td style=\"text-align: center;\"> \n                <button mat-stroked-button [routerLink]=\"['/event', event.event_id]\" matTooltip=\"Detalles del evento\" style=\"color: rgb(82, 82, 82); font-size: 14px; \">\n                    Ver Detalles\n                </button>\n            </td>\n            </tr>\n        </tbody>   \n        </table>\n        <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.userEvents | filterBy: filter).length === 0\">\n            ¡El usuario <span class=\"text-danger\">{{user.name}}</span> no tiene eventos asociados!\n        </div>\n\n        <div class=\"alert alert-info text-center\" style=\"margin: auto 5%\" role=\"alert\"\n            *ngIf=\"!(this.userEvents.length === 0) && (this.userEvents| filterBy: filter).length === 0\">\n            ¡El usuario no está asociado a ningún evento con un nombre que coincida con <span\n                class=\"text-danger\">{{filter.name}}</span>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>");
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/profile-info/profile-info.component.html":
 /*!*************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/profile-info/profile-info.component.html ***!
@@ -669,7 +708,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<mat-tab-group>\n\n  <mat-tab label=\"Perfil\">\n    <div class=\"container justify-content\">\n      <app-profile-info></app-profile-info>\n    </div>    \n  </mat-tab>\n\n  <mat-tab label=\"Itinerarios favoritos\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Ver itinerarios favoritos</h2> \n      <app-favorite-itinerary></app-favorite-itinerary>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Ofertas favoritos\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Ver ofertas favoritos</h2> \n      <app-favorite-offer></app-favorite-offer>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Mis empresas\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Mis empresas asociadas</h2> \n      <app-profile-companies></app-profile-companies>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Mis solicitudes de Empresas\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Mis solicitudes de unión a empresas</h2> \n      <app-request-company-union></app-request-company-union>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Mis solicitudes de Eventos\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Mis solicitudes de creación de eventos</h2> \n      <app-create-even-request></app-create-even-request>\n    </div> \n  </mat-tab>\n</mat-tab-group>\n\n\n \n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-tab-group>\n\n  <mat-tab label=\"Perfil\">\n    <div class=\"container justify-content\">\n      <app-profile-info></app-profile-info>\n    </div>    \n  </mat-tab>\n\n  <mat-tab label=\"Itinerarios favoritos\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Ver itinerarios favoritos</h2> \n      <app-favorite-itinerary></app-favorite-itinerary>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Ofertas favoritos\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Ver ofertas favoritos</h2> \n      <app-favorite-offer></app-favorite-offer>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Mis empresas\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Mis empresas asociadas</h2> \n      <app-profile-companies></app-profile-companies>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Mis solicitudes de Empresas\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Mis solicitudes de unión a empresas</h2> \n      <app-request-company-union></app-request-company-union>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Mis Eventos\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Mis eventos asociados</h2> \n      <app-profile-events></app-profile-events>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Mis solicitudes de Eventos\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Mis solicitudes de creación de eventos</h2> \n      <app-create-even-request></app-create-even-request>\n    </div> \n  </mat-tab>\n\n  <mat-tab label=\"Peticiones\">\n    <div class=\"container justify-content\">\n      <h2 class=\"text-center font-weight-light mt-3\">Mis solicitudes de unión de empresa a evento</h2> \n      <app-union-event-request></app-union-event-request>\n    </div> \n  </mat-tab>\n</mat-tab-group>\n\n\n \n\n");
 
 /***/ }),
 
@@ -683,6 +722,32 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div>\n    <div style=\"display:flex; justify-content: end; margin-top: 1rem;\">\n        <button mat-raised-button color=\"primary\" class=\"btn-add mr-3 mt-3\" style=\"margin:auto\"\n          matTooltip=\"Agregar una nueva solicitud a empresa\" (click)=\"addRequestUnion()\">Solicitar unión</button>\n      </div>\n    <div style=\"display: flex; flex-wrap: wrap; justify-content: space-between; margin: 1rem 0 0 0\">\n        <mat-form-field class=\"container-fluid\" appearance=\"outline\" style=\"width: 40%; min-width: 300px; margin: auto\">\n            <mat-label>Buscar por nombre de empresa</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\" />\n        </mat-form-field>\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"filter.state\" (change)=\"refresh()\">\n            <mat-radio-button value=\"1\" style=\"color: rgb(160, 105, 0)\">\n                Pendientes\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(0, 90, 0)\">\n                Aceptadas\n            </mat-radio-button>\n            <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                Rechazadas\n            </mat-radio-button>\n        </mat-radio-group>\n    </div>\n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\" style=\"text-align: center;\">Fecha de solicitud</th>\n                    <th scope=\"col\" matTooltip=\"Nombre la empresa a la que se envió la solicitud\">Empresa</th>\n                    <th scope=\"col\" matTooltip=\"Correo electrónico de persona que solicitó la unión\">Email de la empresa</th>\n                    <th scope=\"col\" matTooltip=\"Pendiente / Aceptada / Rechazada\">Estado</th>\n                    <th scope=\"col\"></th>\n                </tr>\n            </thead>\n            <tbody *ngIf=\"!this.loading\">\n                <tr *ngFor=\"let request of this.userRequests | filterBy: filter.filter\">\n                    <td style=\"text-align: center;\">{{ dateString(request.request_date) }} <br>\n                        {{ timeString(request.request_date) }}</td>\n                        <td>{{ request.company_info.name }}</td>\n                        <td>{{ request.company_info.email }}</td>\n                    <td>\n                        <label color=\"primary\" style=\"cursor: default;\"\n                            [style.color]=\"request.state == 1? 'rgb(160, 105, 0)': request.state == 2? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'\">\n                            {{ request.state == 1? 'Pendiente': request.state == 2? 'Aceptado': 'Rechazado' }}\n                        </label>\n\n                    </td>\n                    <td>\n                        <div style=\"display: flex; justify-content: center; flex-wrap: wrap;\"\n                            *ngIf=\"request.state == 1\">\n                            <button mat-stroked-button color=\"warn\" style=\"min-width: fit-content;\"\n                                (click)=\"deleteRequest(request)\" matTooltip=\"Eliminar solicitud\">\n                                <mat-icon>clear</mat-icon>\n                            </button>\n                        </div>\n                    </td>\n                </tr>\n\n            </tbody>\n        </table>\n        <ng-container *ngIf=\"this.loading\">\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-container>\n        <!-- in case you want to show empty message -->\n        <div class=\"alert alert-info text-center\" role=\"alert\"\n            *ngIf=\"!this.loading && (this.userRequests | filterBy: filter.filter).length === 0 \">\n            No se encuentra ninguna solicitud a su nombre\n        </div>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.html":
+/*!*****************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.html ***!
+  \*****************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container-fluid d-flex flex-column justify-content-sm-center\">\n    <h4 class=\"text-muted text-center font-weight-light\">\n      Seleccione la empresa para filtrar\n    </h4>\n    <hr>\n    <form [formGroup]=\"petitionsFiltersFG\">\n      <mat-form-field appearance=\"fill\">\n        <mat-label>Empresa</mat-label>\n        <mat-select formControlName=\"companies\">\n          <mat-option *ngFor=\"let c of companies\" [value]=\"c\">\n            {{c.name}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n     \n      <div class=\"buttonContainer\">\n        <button (click)=\"submit(); false\" mat-raised-button color=\"primary\" [disabled]=\"!petitionsFiltersFG.valid\">\n          Aceptar<mat-icon>check</mat-icon>\n        </button>\n        <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n          Cerrar<mat-icon>close</mat-icon>\n        </button>\n      </div>\n    </form>\n    \n  </div>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/union-event-request/union-event-request.component.html":
+/*!***************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/union-event-request/union-event-request.component.html ***!
+  \***************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div *ngIf=\"userRequest\" style=\"padding: 0 5%;\">\n    <div style=\"display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 1rem 0 0 0\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\"  style=\"width: 50%; min-width: 300px; margin: auto\">\n            <mat-label>Buscar por nombre del evento</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n            <button\n                mat-icon-button\n                matSuffix\n                [attr.aria-label]=\"'Hide password'\"\n                [attr.aria-pressed]=\"hide\"\n                (click)=\"openShowFilterOptionsDialog()\"\n            >\n                <mat-icon>library_books</mat-icon>\n            </button>\n            <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por otros valores.</mat-hint>\n        </mat-form-field>\n        <mat-radio-group  class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"filter.state\" (change)=\"refresh()\">\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\" >\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                Aceptadas\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(160, 105, 0) \">\n                Pendientes\n            </mat-radio-button>\n            <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                Rechazadas\n            </mat-radio-button>\n        </mat-radio-group>\n        <div *ngIf=\"isFilters\" class=\"container-text-left\">\n            <button  mat-raised-button color=\"primary\" (click)=\"refreshAll()\" [disabled]=\"loading\">Limpiar filtro</button>\n        </div> \n        <label *ngIf=\"isFilters && currentCompanyName != undefined\"  color=\"primary\" style=\"cursor: default;\">\n            Empresa Filtrada: {{currentCompanyName}}\n        </label>\n    </div>\n    \n\n    <div class=\"table-responsive\">\n        <table class=\"table\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\" >Empresa</th>\n                    <th scope=\"col\" style=\"text-align: center;\">Evento</th>\n                    <th scope=\"col\" *ngIf=\"filter.state == '0'\">Estado</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let request of this.userRequest | filterBy: filter.filter\">\n                    <td> {{request.company_name}}</td>\n                    <td> \n                        <button mat-stroked-button (click)=\"showEventDetails(true, request.event_info.info)\" matTooltip=\"Detalles del evento\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                            Ver Detalles\n                        </button>\n                    </td>\n                    <td *ngIf=\"filter.state == '0'\">\n                        <label color=\"primary\" style=\"cursor: default;\"\n                            [style.color]=\"request.petition_state_company == 2? 'rgb(160, 105, 0)': request.petition_state_company == 1? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'\">\n                            {{ request.petition_state_company == 2? 'Pendiente': request.petition_state_company == 1? 'Aceptado': 'Rechazado' }}\n                        </label>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n        <!-- in case you want to show empty message -->\n        <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"this.userRequest.length === 0\">\n            ¡<span class=\"text-danger\">{{user.name}}</span> no tienes ninguna petición!\n        </div>\n\n        <div class=\"alert alert-info text-center\" style=\"margin: auto 5%\" role=\"alert\"\n            *ngIf=\"!(this.userRequest.length === 0) && (this.userRequest | filterBy: filter.filter).length === 0\">\n            ¡El usuario no tiene ninguna petición de evento con un nombre que coincida con <span class=\"text-danger\">{{filter.name}}</span>!\n        </div>\n    </div>\n</div>\n");
 
 /***/ }),
 
@@ -1002,7 +1067,7 @@ let AppRoutingModule = class AppRoutingModule {
 };
 AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes)],
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, { useHash: true })],
         exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
     })
 ], AppRoutingModule);
@@ -1557,7 +1622,7 @@ let CategoryCreateComponent = class CategoryCreateComponent {
         let category = {
             name: this.categoryFG.value.name,
             type: this.categoryFG.value.type,
-            url: ""
+            url: []
         };
         this.createCategory(category);
     }
@@ -1585,10 +1650,6 @@ let CategoryCreateComponent = class CategoryCreateComponent {
                 this.categoryFG.enable();
             }
         });
-    }
-    getFile(files) {
-        this.fileToUpload = files.item(0);
-        console.log(files.item(0));
     }
     closeDialog() {
         this.dialogRef.close();
@@ -1688,7 +1749,7 @@ CategoryManagementComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".image-buttons {\n  width: 100%;\n  height: 100%;\n}\n\n.image-buttons:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksd0JBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9jYXRlZ29yeS9jb21wb25lbnRzL2NhdGVnb3J5LW1hbmFnZW1lbnQvZGV0YWlscy9kZXRhaWxzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmltYWdlLWJ1dHRvbnN7XG4gICAgd2lkdGg6IDEwMCU7IFxuICAgIGhlaWdodDogMTAwJTtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXN7XG4gICAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICAgIGJvcmRlcjogMC41cHggc29saWQgcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbntcbiAgICBmb250LXNpemU6IDQwcHg7IFxuICAgIHdpZHRoOiA0MHB4OyBcbiAgICBoZWlnaHQ6IDQwcHg7XG59IiwiLmltYWdlLWJ1dHRvbnMge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5pbWFnZS1idXR0b25zIG1hdC1pY29uIHtcbiAgZm9udC1zaXplOiA0MHB4O1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".image-buttons {\n  width: 100%;\n  height: 100%;\n  cursor: pointer;\n}\n\n.image-buttons:focus mat-icon:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.noImageButton {\n  align-self: center;\n  text-align: center;\n  width: 20%;\n  height: 35%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n  cursor: pointer;\n}\n\nngb-carousel.container-fluid.carousel.slide {\n  padding: 0%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLHdCQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxXQUFBO0VBQ0EsNkJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW1hZ2UtYnV0dG9uc3tcbiAgICB3aWR0aDogMTAwJTsgXG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXMgbWF0LWljb246Zm9jdXN7XG4gICAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICAgIGJvcmRlcjogMC41cHggc29saWQgcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbntcbiAgICBmb250LXNpemU6IDQwcHg7IFxuICAgIHdpZHRoOiA0MHB4OyBcbiAgICBoZWlnaHQ6IDQwcHg7XG59XG5cbi5ub0ltYWdlQnV0dG9uIHtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyOyBcbiAgICB3aWR0aDogMjAlOyBcbiAgICBoZWlnaHQ6IDM1JTsgXG4gICAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7IFxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbm5nYi1jYXJvdXNlbC5jb250YWluZXItZmx1aWQuY2Fyb3VzZWwuc2xpZGUge1xuICAgIHBhZGRpbmc6IDAlO1xufSIsIi5pbWFnZS1idXR0b25zIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyBtYXQtaWNvbjpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5pbWFnZS1idXR0b25zIG1hdC1pY29uIHtcbiAgZm9udC1zaXplOiA0MHB4O1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xufVxuXG4ubm9JbWFnZUJ1dHRvbiB7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogMjAlO1xuICBoZWlnaHQ6IDM1JTtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCBnYWluc2Jvcm87XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG5uZ2ItY2Fyb3VzZWwuY29udGFpbmVyLWZsdWlkLmNhcm91c2VsLnNsaWRlIHtcbiAgcGFkZGluZzogMCU7XG59Il19 */");
 
 /***/ }),
 
@@ -1716,7 +1777,10 @@ let DetailsComponent = class DetailsComponent {
     constructor(categoryService, commonService) {
         this.categoryService = categoryService;
         this.commonService = commonService;
+        this.categoryImages = [];
+        this.imageIndex = 0;
         this.loading = false;
+        this.url = "https://intelitur.sytes.net/files/images/";
         this.types = [
             { id: 1, name: "Evento" },
             { id: 2, name: "Itinerario" },
@@ -1727,9 +1791,14 @@ let DetailsComponent = class DetailsComponent {
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")])
         });
     }
+    onSlide(event) {
+        this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+    }
     ngOnInit() {
         let category_name = this.category.name;
         this.categoryFG.controls['name'].setValue(category_name);
+        this.categoryImages = this.category.url;
+        console.log(this.category);
     }
     setData() {
         this.categoryFG.controls['name'].setValue(this.category.name);
@@ -1773,7 +1842,7 @@ let DetailsComponent = class DetailsComponent {
                     this.loading = false;
                     this.categoryFG.enable();
                     this.category = category;
-                    this.commonService.openSnackBar(`La empresa ${this.category.name} ha sido cambiada`, "OK");
+                    this.commonService.openSnackBar(`La categoría ${this.category.name} ha sido cambiada`, "OK");
                 }
                 else {
                     this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
@@ -1790,9 +1859,57 @@ let DetailsComponent = class DetailsComponent {
         let oldCategory = {
             name: this.category.name,
             type: this.category.type,
-            url: ""
+            url: this.category.url
         };
         return !(JSON.stringify(oldCategory) === JSON.stringify(this.categoryFG.value));
+    }
+    uploadFile(files) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.loading = true;
+            this.categoryFG.disable();
+            let images = [];
+            for (let i = 0; i < files.length; i++) {
+                yield this.commonService.uploadFile(files[i]).then((data) => {
+                    images.push(data.filename);
+                });
+            }
+            this.categoryImages.length != 0 ? images = images.concat(this.categoryImages) : null;
+            this.updateImages(images);
+        });
+    }
+    deleteImage() {
+        this.loading = true;
+        this.categoryFG.disable();
+        this.categoryImages.splice(this.imageIndex, 1);
+        this.updateImages(this.categoryImages);
+    }
+    updateImages(images) {
+        let category = {
+            url: images,
+            name: this.category.name,
+            category_id: this.category.category_id,
+            type: this.category.type,
+            is_active: this.category.is_active
+        };
+        this.categoryService.modifyCategory(category).subscribe({
+            next: (data) => {
+                if (data.status == 204) {
+                    this.loading = false;
+                    this.categoryFG.enable();
+                    this.category = category;
+                    this.categoryImages = images;
+                    this.commonService.openSnackBar(`La categoría ${this.category.name} ha sido cambiada`, "OK");
+                }
+                else {
+                    this.commonService.openSnackBar(`Error al cambiar: ${data.error}`, "OK");
+                }
+            },
+            error: (err) => {
+                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                this.loading = false;
+                this.categoryFG.enable();
+            }
+        });
     }
 };
 DetailsComponent.ctorParameters = () => [
@@ -1897,6 +2014,9 @@ let CategoryService = class CategoryService {
     deleteCategoryFromEvent(category_id, event_id) {
         return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}/RemoveCategoryInEvent/${category_id}/${event_id}`, { observe: 'response' });
     }
+    getCategoryImages(category_id) {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}/${category_id}/images/10`);
+    }
 };
 CategoryService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
@@ -1959,7 +2079,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_companies_companies_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/companies/companies.component */ "./src/app/company/components/companies/companies.component.ts");
 /* harmony import */ var _company_root_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./company-root.component */ "./src/app/company/company-root.component.ts");
 /* harmony import */ var _components_management_management_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/management/management.component */ "./src/app/company/components/management/management.component.ts");
-/* harmony import */ var _components_requests_requests_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/requests/requests.component */ "./src/app/company/components/requests/requests.component.ts");
+/* harmony import */ var _components_request_tabs_request_tabs_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/request-tabs/request-tabs.component */ "./src/app/company/components/request-tabs/request-tabs.component.ts");
 
 
 
@@ -1977,7 +2097,7 @@ const routes = [
             },
             {
                 path: "requests",
-                component: _components_requests_requests_component__WEBPACK_IMPORTED_MODULE_5__["RequestsComponent"]
+                component: _components_request_tabs_request_tabs_component__WEBPACK_IMPORTED_MODULE_5__["RequestTabsComponent"]
             },
             {
                 path: ":company_id",
@@ -2019,6 +2139,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_company_create_company_create_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/company-create/company-create.component */ "./src/app/company/components/company-create/company-create.component.ts");
 /* harmony import */ var _components_management_company_users_company_add_user_company_add_user_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/management/company-users/company-add-user/company-add-user.component */ "./src/app/company/components/management/company-users/company-add-user/company-add-user.component.ts");
 /* harmony import */ var _components_requests_requests_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/requests/requests.component */ "./src/app/company/components/requests/requests.component.ts");
+/* harmony import */ var _components_request_tabs_request_tabs_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/request-tabs/request-tabs.component */ "./src/app/company/components/request-tabs/request-tabs.component.ts");
+/* harmony import */ var _components_union_event_request_union_event_request_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/union-event-request/union-event-request.component */ "./src/app/company/components/union-event-request/union-event-request.component.ts");
+
+
 
 
 
@@ -2050,7 +2174,7 @@ CompanyModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _components_management_company_map_company_map_component__WEBPACK_IMPORTED_MODULE_12__["CompanyMapComponent"],
             _components_management_company_requests_company_requests_component__WEBPACK_IMPORTED_MODULE_14__["CompanyRequestsComponent"],
             _components_company_create_company_create_component__WEBPACK_IMPORTED_MODULE_15__["CompanyCreateComponent"],
-            _components_management_company_users_company_add_user_company_add_user_component__WEBPACK_IMPORTED_MODULE_16__["CompanyAddUserComponent"], _components_requests_requests_component__WEBPACK_IMPORTED_MODULE_17__["RequestsComponent"]
+            _components_management_company_users_company_add_user_company_add_user_component__WEBPACK_IMPORTED_MODULE_16__["CompanyAddUserComponent"], _components_requests_requests_component__WEBPACK_IMPORTED_MODULE_17__["RequestsComponent"], _components_request_tabs_request_tabs_component__WEBPACK_IMPORTED_MODULE_18__["RequestTabsComponent"], _components_union_event_request_union_event_request_component__WEBPACK_IMPORTED_MODULE_19__["UnionEventRequestComponent"]
         ],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -2901,6 +3025,50 @@ ManagementComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/company/components/request-tabs/request-tabs.component.scss":
+/*!*****************************************************************************!*\
+  !*** ./src/app/company/components/request-tabs/request-tabs.component.scss ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBhbnkvY29tcG9uZW50cy9yZXF1ZXN0LXRhYnMvcmVxdWVzdC10YWJzLmNvbXBvbmVudC5zY3NzIn0= */");
+
+/***/ }),
+
+/***/ "./src/app/company/components/request-tabs/request-tabs.component.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/company/components/request-tabs/request-tabs.component.ts ***!
+  \***************************************************************************/
+/*! exports provided: RequestTabsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestTabsComponent", function() { return RequestTabsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let RequestTabsComponent = class RequestTabsComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+RequestTabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-request-tabs',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./request-tabs.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/request-tabs/request-tabs.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./request-tabs.component.scss */ "./src/app/company/components/request-tabs/request-tabs.component.scss")).default]
+    })
+], RequestTabsComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/company/components/requests/requests.component.scss":
 /*!*********************************************************************!*\
   !*** ./src/app/company/components/requests/requests.component.scss ***!
@@ -2994,6 +3162,138 @@ RequestsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./requests.component.scss */ "./src/app/company/components/requests/requests.component.scss")).default]
     })
 ], RequestsComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/company/components/union-event-request/union-event-request.component.scss":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/company/components/union-event-request/union-event-request.component.scss ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\n.container-text-left {\n  margin: 1% 0 2% 0;\n}\n\nth, td {\n  text-align: center;\n}\n\ntr {\n  font-size: 15px;\n}\n\n.radio-button-group {\n  width: 50%;\n  justify-content: space-around;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n\n.denyBtn, .acceptBtn {\n  margin-left: 1%;\n  font-size: 14px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NvbXBhbnkvY29tcG9uZW50cy91bmlvbi1ldmVudC1yZXF1ZXN0L3VuaW9uLWV2ZW50LXJlcXVlc3QuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBhbnkvY29tcG9uZW50cy91bmlvbi1ldmVudC1yZXF1ZXN0L3VuaW9uLWV2ZW50LXJlcXVlc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLDZCQUFBO0VBQ0EsYUFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLGVBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2NvbXBhbnkvY29tcG9uZW50cy91bmlvbi1ldmVudC1yZXF1ZXN0L3VuaW9uLWV2ZW50LXJlcXVlc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0aHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnR7XG4gICAgbWFyZ2luOiAxJSAwIDIlIDA7XG59XG5cbnRoLCB0ZCB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG50cntcbiAgICBmb250LXNpemU6IDE1cHg7XG59XG5cbi5yYWRpby1idXR0b24tZ3JvdXB7XG4gICAgd2lkdGg6IDUwJTtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBtaW4td2lkdGg6IDMwMHB4O1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBwYWRkaW5nLWJvdHRvbTogMS4zNDM3NWVtO1xufVxuXG4uZGVueUJ0biwgLmFjY2VwdEJ0biB7XG4gICAgbWFyZ2luLWxlZnQ6IDElO1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbn0iLCJ0aCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW46IDElIDAgMiUgMDtcbn1cblxudGgsIHRkIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG50ciB7XG4gIGZvbnQtc2l6ZTogMTVweDtcbn1cblxuLnJhZGlvLWJ1dHRvbi1ncm91cCB7XG4gIHdpZHRoOiA1MCU7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIG1pbi13aWR0aDogMzAwcHg7XG4gIG1hcmdpbjogYXV0bztcbiAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn1cblxuLmRlbnlCdG4sIC5hY2NlcHRCdG4ge1xuICBtYXJnaW4tbGVmdDogMSU7XG4gIGZvbnQtc2l6ZTogMTRweDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/company/components/union-event-request/union-event-request.component.ts":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/company/components/union-event-request/union-event-request.component.ts ***!
+  \*****************************************************************************************/
+/*! exports provided: UnionEventRequestComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnionEventRequestComponent", function() { return UnionEventRequestComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/users/services/user.service */ "./src/app/users/services/user.service.ts");
+/* harmony import */ var _services_company_users_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/company-users.service */ "./src/app/company/services/company-users.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _services_company_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/company.service */ "./src/app/company/services/company.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var src_app_users_components_profile_union_event_request_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component */ "./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.ts");
+/* harmony import */ var src_app_users_components_profile_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/users/components/profile/add-event-request/add-event-request.component */ "./src/app/users/components/profile/add-event-request/add-event-request.component.ts");
+
+
+
+
+
+
+
+
+
+let UnionEventRequestComponent = class UnionEventRequestComponent {
+    constructor(userService, companyUserService, commonService, companyService, dialogService) {
+        this.userService = userService;
+        this.companyUserService = companyUserService;
+        this.commonService = commonService;
+        this.companyService = companyService;
+        this.dialogService = dialogService;
+        this.eventRequests = [];
+        this.isFilters = false;
+        this.loading = false;
+        this.filter = {
+            name: '',
+            state: '0',
+            filter: (request) => (request.event_info.info.name + ' ' + request.user_name).toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
+        };
+    }
+    ngOnInit() {
+        this.user = this.userService.actualUser;
+        console.log(this.user);
+        this.refresh();
+    }
+    refresh() {
+        this.loading = true;
+        let state = Number(this.filter.state);
+        state == 0 ? state = -1 : state = Number(this.filter.state);
+        if (this.currentCompanyId == undefined && state == -1) {
+            this.currentCompanyId = -1;
+            this.isFilters = false;
+        }
+        state != -1 ? this.isFilters = true : null;
+        this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
+            next: (data) => {
+                console.log(data);
+                this.eventRequests = data;
+                this.subscription.unsubscribe();
+                this.loading = false;
+            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
+    }
+    refreshAll() {
+        this.filter.state = '0';
+        this.currentCompanyId = undefined;
+        this.currentCompanyName = undefined;
+        this.refresh();
+    }
+    openShowFilterOptionsDialog() {
+        const dialog = this.dialogService.open(src_app_users_components_profile_union_event_request_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__["PetitionsFilterComponent"], { width: "50", minWidth: "280px", disableClose: true });
+        dialog.afterClosed().subscribe(company => {
+            if (company != undefined) {
+                this.currentCompanyId = company.company_id;
+                this.currentCompanyName = company.name;
+                this.isFilters = true;
+                this.refresh();
+            }
+        });
+    }
+    showEventDetails(_action, _event) {
+        this.dialogService.open(src_app_users_components_profile_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_8__["AddEventRequestComponent"], { height: "95%", width: "80%", minWidth: "280px", disableClose: true, data: { action: _action, event: _event, petition: true } });
+    }
+    changeStatus(request_id, status) {
+        this.companyService.changeCompanyEventRequestState(request_id, status).subscribe({
+            next: (data) => {
+                if (status == 1) {
+                    this.commonService.openSnackBar("¡Se ha aceptado la petición!", 'Ok');
+                }
+                else if (status == 3) {
+                    this.commonService.openSnackBar("¡Se ha rechazado la petición!", 'Ok');
+                }
+            }
+        });
+    }
+};
+UnionEventRequestComponent.ctorParameters = () => [
+    { type: src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"] },
+    { type: _services_company_users_service__WEBPACK_IMPORTED_MODULE_3__["CompanyUsersService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] },
+    { type: _services_company_service__WEBPACK_IMPORTED_MODULE_5__["CompanyService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"] }
+];
+UnionEventRequestComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-union-event-request',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./union-event-request.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/union-event-request/union-event-request.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./union-event-request.component.scss */ "./src/app/company/components/union-event-request/union-event-request.component.scss")).default]
+    })
+], UnionEventRequestComponent);
 
 
 
@@ -3139,6 +3439,12 @@ let CompanyService = class CompanyService {
     getCompaniesByEvent(event_id) {
         return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}/getCompaniesByEvent/${event_id}`);
     }
+    getCompanyEventRequests(user_id, company_id, state) {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}petitions/petitions_add_to_company/${state}/${user_id}/${company_id}`);
+    }
+    changeCompanyEventRequestState(event_company_id, status) {
+        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}petitions/${event_company_id}/${status}`, { observe: 'response' });
+    }
 };
 CompanyService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
@@ -3163,7 +3469,7 @@ CompanyService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.toggle, .color-picker {\n  width: 45%;\n  margin-left: 2%;\n}\n\n.chip-list {\n  width: 95%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnQtY3JlYXRlL2V2ZW50LWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9ldmVudC1jcmVhdGUvZXZlbnQtY3JlYXRlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBRENBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0VKOztBRENBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDRUo7O0FEQ0E7RUFDSSxXQUFBO0FDRUo7O0FEQ0E7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLHVCQUFBO0FDRUo7O0FEQ0E7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0VKOztBRENBO0VBQ0ksVUFBQTtFQUNBLGVBQUE7QUNFSjs7QURDQTtFQUNJLFVBQUE7QUNFSiIsImZpbGUiOiJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnQtY3JlYXRlL2V2ZW50LWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhe1xuICAgIHJlc2l6ZTogbm9uZTtcbn1cbmgxe1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW46IDAlO1xuICAgIG1hcmdpbi1ib3R0b206IDElO1xuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDMlO1xuICAgIG1hcmdpbi1ib3R0b206IDMlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG4gXG5mb3Jte1xuICAgIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVye1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC13cmFwOiB3cmFwO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogNDUlO1xuICAgIG1hcmdpbi1yaWdodDogMi41JTtcbiAgICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuLnRvZ2dsZSwuY29sb3ItcGlja2Vye1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuXG4uY2hpcC1saXN0e1xuICAgIHdpZHRoOiA5NSU7XG59IiwidGV4dGFyZWEge1xuICByZXNpemU6IG5vbmU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgbWFyZ2luLWJvdHRvbTogMyU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG5mb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiA0NSU7XG4gIG1hcmdpbi1yaWdodDogMi41JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi50b2dnbGUsIC5jb2xvci1waWNrZXIge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tbGVmdDogMiU7XG59XG5cbi5jaGlwLWxpc3Qge1xuICB3aWR0aDogOTUlO1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.color-picker {\n  width: 30%;\n  padding-left: 5%;\n  align-self: center;\n}\n\n.toggle {\n  width: 40%;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n\n.file {\n  align-self: center;\n  flex-direction: column;\n  justify-content: center;\n  width: 20%;\n}\n\n.uploadFile {\n  text-align: center;\n  width: -webkit-fill-available;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n  margin-bottom: 2%;\n  border: solid 1.5px gainsboro;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnQtY3JlYXRlL2V2ZW50LWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9ldmVudC1jcmVhdGUvZXZlbnQtY3JlYXRlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLHNCQUFBO0VBQ0EsdUJBQUE7RUFDQSxVQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLDZCQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0VBQ0EsNkJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnQtY3JlYXRlL2V2ZW50LWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhe1xuICAgIHJlc2l6ZTogbm9uZTtcbn1cblxuaDF7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMSU7XG4gICAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXJ7XG4gICAgbWFyZ2luLXRvcDogMyU7XG4gICAgbWFyZ2luLWJvdHRvbTogMyU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cbiBcbmZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXJ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxke1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2Vye1xuICAgIHdpZHRoOiAzMCU7XG4gICAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59XG5cbi50b2dnbGV7XG4gICAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdHtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG59XG5cbi5maWxle1xuICAgIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIHdpZHRoOiAyMCU7XG59XG5cbi51cGxvYWRGaWxle1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xuICAgIG1hcmdpbi1ib3R0b206IDIlO1xuICAgIGJvcmRlcjogc29saWQgMS41cHggcmdiKDIyMCwgMjIwLCAyMjApO1xufSIsInRleHRhcmVhIHtcbiAgcmVzaXplOiBub25lO1xufVxuXG5oMSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiAwJTtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG4gIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMyU7XG4gIG1hcmdpbi1ib3R0b206IDMlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2VyIHtcbiAgd2lkdGg6IDMwJTtcbiAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xufVxuXG4udG9nZ2xlIHtcbiAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdCB7XG4gIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlO1xufVxuXG4uZmlsZSB7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIHdpZHRoOiAyMCU7XG59XG5cbi51cGxvYWRGaWxlIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG4gIGJvcmRlcjogc29saWQgMS41cHggZ2FpbnNib3JvO1xufSJdfQ== */");
 
 /***/ }),
 
@@ -3187,6 +3493,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/category/services/category.service */ "./src/app/category/services/category.service.ts");
 /* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm2015/keycodes.js");
 /* harmony import */ var src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/company/services/company.service */ "./src/app/company/services/company.service.ts");
+/* harmony import */ var src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/users/services/user.service */ "./src/app/users/services/user.service.ts");
+
 
 
 
@@ -3198,13 +3506,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let EventCreateComponent = class EventCreateComponent {
-    constructor(dialogRef, commonService, eventService, router, categoryService, companyService) {
+    constructor(dialogRef, commonService, eventService, router, categoryService, companyService, userService) {
         this.dialogRef = dialogRef;
         this.commonService = commonService;
         this.eventService = eventService;
         this.router = router;
         this.categoryService = categoryService;
         this.companyService = companyService;
+        this.userService = userService;
         this.allDay = false;
         this.loading = false;
         this.initial_date = undefined;
@@ -3213,6 +3522,7 @@ let EventCreateComponent = class EventCreateComponent {
         this.initial_time = undefined;
         this.final_time = undefined;
         this.common_date = undefined;
+        this.eventImages = [];
         //chipList
         this.visible = true;
         this.selectable = true;
@@ -3234,8 +3544,9 @@ let EventCreateComponent = class EventCreateComponent {
             detail: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
             cost: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
             categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null),
-            companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
+            companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null),
         });
+        this.user = this.userService.actualUser;
         this.subscription = this.categoryService.getAllCategories(1)
             .subscribe({
             next: (data) => {
@@ -3267,44 +3578,50 @@ let EventCreateComponent = class EventCreateComponent {
         this.color = event.color.hex;
     }
     onSubmit() {
-        this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
-        this.initial_time == undefined ? this.initial_time = null : null;
-        this.final_time == undefined ? this.final_time = null : null;
-        let event = {
-            name: this.eventFG.controls['name'].value,
-            cost: this.eventFG.controls['cost'].value,
-            address: this.eventFG.controls['address'].value,
-            detail: this.eventFG.controls['detail'].value,
-            all_day: this.allDay,
-            color: this.color,
-            date_range: {
-                initial_date: this.initial_date,
-                final_date: this.final_date
-            },
-            initial_time: this.initial_time,
-            final_time: this.final_time,
-        };
-        this.createEvent(event);
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.loading = true;
+            this.eventFG.disable();
+            this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
+            this.initial_time == undefined ? this.initial_time = null : null;
+            this.final_time == undefined ? this.final_time = null : null;
+            let urlImages = yield this.uploadFiles();
+            console.log(urlImages);
+            let event = {
+                name: this.eventFG.controls['name'].value,
+                cost: this.eventFG.controls['cost'].value,
+                address: this.eventFG.controls['address'].value,
+                detail: this.eventFG.controls['detail'].value,
+                all_day: this.allDay,
+                color: this.color,
+                date_range: {
+                    initial_date: this.initial_date,
+                    final_date: this.final_date
+                },
+                initial_time: this.initial_time,
+                final_time: this.final_time,
+                user_id: this.userService.actualUser.user_id,
+                images: urlImages
+            };
+            this.createEvent(event);
+        });
     }
     createEvent(event) {
-        this.loading = true;
-        this.eventFG.disable();
         this.eventService.createEvent(event).subscribe({
-            next: (data) => {
+            next: (data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
                 if (data.status == 200) {
-                    this.commonService.openSnackBar(`El evento ${this.eventFG.value.name} se ha creado`, "OK");
-                    this.dialogRef.close();
                     /**Añadiendo compañías y categorías al evento */
                     this.getCategories();
                     this.getCompanies();
-                    this.eventRelations(data.body[0]);
+                    yield this.eventRelations(data.body[0]);
+                    this.commonService.openSnackBar(`El evento ${this.eventFG.value.name} se ha creado`, "OK");
+                    this.dialogRef.close();
                     this.router.navigate(['/event', data.body[0]]);
                 }
                 else {
                     this.commonService.openSnackBar(`Error al crear el evento: ${data.error}`, "OK");
                     this.eventFG.enable();
                 }
-            },
+            }),
             error: (err) => {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.loading = false;
@@ -3321,8 +3638,8 @@ let EventCreateComponent = class EventCreateComponent {
     disableDialog() {
         if (!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined ||
             (this.allDay == false && this.final_date == undefined) || (this.allDay == true && this.initial_time == undefined) ||
-            (this.allDay == true && this.final_time == undefined) || (this.allDay == true && this.common_date == undefined)
-            || this.allCategories.length === 0 || (this.initial_time >= this.final_time)) {
+            (this.allDay == true && this.final_time == undefined) || (this.allDay == true && this.common_date == undefined) ||
+            (this.initial_time >= this.final_time) || this.eventImages.length == 0 || this.loading == true) {
             return true;
         }
         return false;
@@ -3392,12 +3709,26 @@ let EventCreateComponent = class EventCreateComponent {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             //compañías
             for (let i = 0; i < this.allCompanies.length; i++) {
-                yield this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise();
+                yield this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise();
             }
             //Categorias
             for (let i = 0; i < this.allCategories.length; i++) {
                 yield this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise();
             }
+        });
+    }
+    getFiles(files) {
+        this.eventImages = files;
+    }
+    uploadFiles() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            let images = [];
+            for (let i = 0; i < this.eventImages.length; i++) {
+                yield this.commonService.uploadFile(this.eventImages[i]).then((data) => {
+                    images.push(data.filename);
+                });
+            }
+            return images;
         });
     }
 };
@@ -3407,7 +3738,8 @@ EventCreateComponent.ctorParameters = () => [
     { type: _services_event_service__WEBPACK_IMPORTED_MODULE_5__["EventService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
     { type: src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_7__["CategoryService"] },
-    { type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_9__["CompanyService"] }
+    { type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_9__["CompanyService"] },
+    { type: src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('auto', { static: false })
@@ -3532,8 +3864,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/event/services/event.service */ "./src/app/event/services/event.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
-/* harmony import */ var _event_request_filters_event_request_filters_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./event-request-filters/event-request-filters.component */ "./src/app/event/components/event-request/event-request-filters/event-request-filters.component.ts");
-/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_users_components_profile_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/users/components/profile/add-event-request/add-event-request.component */ "./src/app/users/components/profile/add-event-request/add-event-request.component.ts");
 
 
 
@@ -3541,35 +3873,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let EventRequestComponent = class EventRequestComponent {
-    constructor(eventService, dialogService, commonService) {
+    constructor(eventService, dialogService, commonService, matDialog) {
         this.eventService = eventService;
         this.dialogService = dialogService;
         this.commonService = commonService;
+        this.matDialog = matDialog;
         this.filter = {
             name: ""
         };
         this.isFilters = false;
     }
     ngOnInit() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            yield this.eventService.getAllPendingEventRequests().toPromise().then((data) => {
+                this.eventService.eventRequest = data;
+            });
+            console.log(this.eventService.eventRequest);
+        });
     }
-    showEventDetails() {
+    showEventDetails(_action, _event) {
+        this.matDialog.open(src_app_users_components_profile_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_5__["AddEventRequestComponent"], { height: "95%", width: "80%", minWidth: "280px", disableClose: true, data: { action: _action, event: _event } });
     }
-    acceptEvent() {
-    }
-    denyEvent() {
-    }
-    openFilterOptionsDialog() {
-        const dialog = this.dialogService.open(_event_request_filters_event_request_filters_component__WEBPACK_IMPORTED_MODULE_4__["EventRequestFiltersComponent"], { width: "50", minWidth: "280px", disableClose: true });
-        dialog.afterClosed().subscribe(company_id => {
-            if (company_id != undefined) {
-                this.isFilters = true;
-                this.subscription = this.eventService.getEventRequestByCompany(company_id)
-                    .subscribe({
-                    next: (data) => {
-                        this.eventService.eventRequest = data;
-                        this.subscription.unsubscribe();
-                    }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-                });
+    changeStateRequest(event, state) {
+        this.eventService.changeRequestState(event.event_id, state).subscribe({
+            next: (data) => {
+                data.status == 201 ? this.eventService.getAllPendingEventRequests() : null;
             }
         });
     }
@@ -3577,7 +3905,8 @@ let EventRequestComponent = class EventRequestComponent {
 EventRequestComponent.ctorParameters = () => [
     { type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_2__["EventService"] },
     { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"] },
-    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"] }
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"] }
 ];
 EventRequestComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -3805,7 +4134,7 @@ EventsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".image-buttons {\n  width: 100%;\n  height: 100%;\n}\n\n.image-buttons:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.toggle, .color-picker {\n  width: 45%;\n  margin-left: 2.5%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksd0JBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURHQTtFQUNJLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7QUNBSjs7QURHQTtFQUNJLGNBQUE7RUFDQSxpQkFBQTtFQUNBLGFBQUE7RUFDQSw2QkFBQTtBQ0FKIiwiZmlsZSI6InNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9tYW5hZ2VtZW50L2V2ZW50LWRldGFpbHMvZXZlbnQtZGV0YWlscy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5pbWFnZS1idXR0b25ze1xuICAgIHdpZHRoOiAxMDAlOyBcbiAgICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3Vze1xuICAgIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgICBib3JkZXI6IDAuNXB4IHNvbGlkIHJnYigyMjAsIDIyMCwgMjIwKTtcbn1cblxuLmltYWdlLWJ1dHRvbnMgbWF0LWljb257XG4gICAgZm9udC1zaXplOiA0MHB4OyBcbiAgICB3aWR0aDogNDBweDsgXG4gICAgaGVpZ2h0OiA0MHB4O1xufVxuXG4udG9nZ2xlLC5jb2xvci1waWNrZXJ7XG4gICAgd2lkdGg6IDQ1JTtcbiAgICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuXG4uY29udGFpbmVye1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC13cmFwOiB3cmFwO1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDMlO1xuICAgIG1hcmdpbi1ib3R0b206IDMlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59IiwiLmltYWdlLWJ1dHRvbnMge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5pbWFnZS1idXR0b25zIG1hdC1pY29uIHtcbiAgZm9udC1zaXplOiA0MHB4O1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xufVxuXG4udG9nZ2xlLCAuY29sb3ItcGlja2VyIHtcbiAgd2lkdGg6IDQ1JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMyU7XG4gIG1hcmdpbi1ib3R0b206IDMlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".image-buttons {\n  width: 100%;\n  height: 100%;\n  cursor: pointer;\n}\n\n.image-buttons:focus mat-icon:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.noImageButton {\n  align-self: center;\n  text-align: center;\n  width: 20%;\n  height: 45%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n  cursor: pointer;\n  margin-left: 15%;\n}\n\nngb-carousel.container-fluid.carousel.slide {\n  padding: 0%;\n}\n\n.image-buttons:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.toggle, .color-picker {\n  width: 45%;\n  margin-left: 2.5%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLHdCQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxXQUFBO0VBQ0EsNkJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtBQ0NKOztBREVBO0VBQ0ksd0JBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FER0E7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQUo7O0FER0E7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNBSiIsImZpbGUiOiJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW1hZ2UtYnV0dG9uc3tcbiAgICB3aWR0aDogMTAwJTsgXG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXMgbWF0LWljb246Zm9jdXN7XG4gICAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICAgIGJvcmRlcjogMC41cHggc29saWQgcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbntcbiAgICBmb250LXNpemU6IDQwcHg7IFxuICAgIHdpZHRoOiA0MHB4OyBcbiAgICBoZWlnaHQ6IDQwcHg7XG59XG5cbi5ub0ltYWdlQnV0dG9uIHtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyOyBcbiAgICB3aWR0aDogMjAlOyBcbiAgICBoZWlnaHQ6IDQ1JTsgXG4gICAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7IFxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IDE1JTtcbn1cblxubmdiLWNhcm91c2VsLmNvbnRhaW5lci1mbHVpZC5jYXJvdXNlbC5zbGlkZSB7XG4gICAgcGFkZGluZzogMCU7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3Vze1xuICAgIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgICBib3JkZXI6IDAuNXB4IHNvbGlkIHJnYigyMjAsIDIyMCwgMjIwKTtcbn1cblxuLnRvZ2dsZSwuY29sb3ItcGlja2Vye1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBtYXJnaW4tdG9wOiAzJTtcbiAgICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufSIsIi5pbWFnZS1idXR0b25zIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyBtYXQtaWNvbjpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5pbWFnZS1idXR0b25zIG1hdC1pY29uIHtcbiAgZm9udC1zaXplOiA0MHB4O1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xufVxuXG4ubm9JbWFnZUJ1dHRvbiB7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogMjAlO1xuICBoZWlnaHQ6IDQ1JTtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCBnYWluc2Jvcm87XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBtYXJnaW4tbGVmdDogMTUlO1xufVxuXG5uZ2ItY2Fyb3VzZWwuY29udGFpbmVyLWZsdWlkLmNhcm91c2VsLnNsaWRlIHtcbiAgcGFkZGluZzogMCU7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICBib3JkZXI6IDAuNXB4IHNvbGlkIGdhaW5zYm9ybztcbn1cblxuLnRvZ2dsZSwgLmNvbG9yLXBpY2tlciB7XG4gIHdpZHRoOiA0NSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59Il19 */");
 
 /***/ }),
 
@@ -3827,6 +4156,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm2015/keycodes.js");
 /* harmony import */ var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/category/services/category.service */ "./src/app/category/services/category.service.ts");
 /* harmony import */ var src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/company/services/company.service */ "./src/app/company/services/company.service.ts");
+/* harmony import */ var src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/users/services/user.service */ "./src/app/users/services/user.service.ts");
+
 
 
 
@@ -3836,11 +4167,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let EventDetailsComponent = class EventDetailsComponent {
-    constructor(commonService, eventService, categoryService, companyService) {
+    constructor(commonService, eventService, categoryService, companyService, userService) {
         this.commonService = commonService;
         this.eventService = eventService;
         this.categoryService = categoryService;
         this.companyService = companyService;
+        this.userService = userService;
         this.allDay = false;
         this.loading = false;
         this.initial_date = undefined;
@@ -3849,12 +4181,17 @@ let EventDetailsComponent = class EventDetailsComponent {
         this.initial_time = undefined;
         this.final_time = undefined;
         this.common_date = undefined;
+        this.eventImages = [];
+        this.url = "https://intelitur.sytes.net/files/images/";
+        this.imageIndex = 0;
         //chipList
         this.visible = true;
         this.selectable = true;
         this.removable = true;
         this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__["COMMA"]];
+        this.filteredCategories = [];
         this.allCategories = [];
+        this.filteredCompanies = [];
         this.allCompanies = [];
         this.allOldCategories = [];
         this.allOldCompanies = [];
@@ -3888,6 +4225,8 @@ let EventDetailsComponent = class EventDetailsComponent {
                 this.subscription2.unsubscribe();
             }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
         });
+        this.user = this.userService.actualUser;
+        this.event.images != undefined ? this.eventImages = this.event.images : this.eventImages = [];
         this.setData();
     }
     /**
@@ -3909,7 +4248,7 @@ let EventDetailsComponent = class EventDetailsComponent {
         if (!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined ||
             (this.allDay == false && this.final_date == undefined) || (this.allDay == true && this.initial_time == undefined) ||
             (this.allDay == true && this.final_time == undefined) || (this.allDay == true && this.common_date == undefined)
-            || (this.allDay == true && (this.initial_time >= this.final_time))) {
+            || (this.allDay == true && (this.initial_time >= this.final_time)) || this.loading == true) {
             return true;
         }
         return false;
@@ -3929,6 +4268,8 @@ let EventDetailsComponent = class EventDetailsComponent {
         //categorias
         this.subscription3 = this.categoryService.getEventCategories(this.event.event_id).subscribe({
             next: (data) => {
+                this.allCategories = [];
+                this.allOldCategories = [];
                 data.forEach(val => this.allCategories.push(val));
                 this.allCategories.forEach(val => this.allOldCategories.push(val.category_id));
                 this.subscription3.unsubscribe();
@@ -3937,6 +4278,8 @@ let EventDetailsComponent = class EventDetailsComponent {
         //compañías
         this.subscription4 = this.companyService.getCompaniesByEvent(this.event.event_id).subscribe({
             next: (data) => {
+                this.allCompanies = [];
+                this.allOldCompanies = [];
                 data.forEach(val => this.allCompanies.push(val));
                 this.allCompanies.forEach(val => this.allOldCompanies.push(val.company_id));
                 this.subscription4.unsubscribe();
@@ -3961,14 +4304,8 @@ let EventDetailsComponent = class EventDetailsComponent {
                 return;
             }
         }
-        let index = this.allCategories.indexOf(event.option.value);
-        if (index < 0) {
-            this.allCategories.push(event.option.value);
-            this.eventFG.controls['categories'].setValue(null);
-        }
-        else {
-            this.commonService.openSnackBar("¡La categoría ya ha sido agregada!", "OK");
-        }
+        this.allCategories.push(event.option.value);
+        this.eventFG.controls['categories'].setValue(null);
     }
     removeCompany(company) {
         let index = this.allCompanies.indexOf(company);
@@ -3987,14 +4324,8 @@ let EventDetailsComponent = class EventDetailsComponent {
                 return;
             }
         }
-        let index = this.allCompanies.indexOf(event.option.value);
-        if (index < 0) {
-            this.allCompanies.push(event.option.value);
-            this.eventFG.controls['companies'].setValue(null);
-        }
-        else {
-            this.commonService.openSnackBar("¡La compañía ya ha sido agregada!", "OK");
-        }
+        this.allCompanies.push(event.option.value);
+        this.eventFG.controls['companies'].setValue(null);
     }
     modifyEvent() {
         this.loading = true;
@@ -4016,6 +4347,9 @@ let EventDetailsComponent = class EventDetailsComponent {
             },
             initial_time: this.initial_time,
             final_time: this.final_time,
+            user_id: this.user.user_id,
+            is_active: this.event.is_active,
+            images: this.event.images
         };
         let json = {
             "info": event,
@@ -4023,25 +4357,22 @@ let EventDetailsComponent = class EventDetailsComponent {
             "longuitude": this.event.longitude
         };
         this.eventService.modifyEvent(json).subscribe({
-            next: (data) => {
+            next: (data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
                 if (data.status == 200) {
-                    this.loading = false;
                     this.eventFG.enable();
                     this.event = event;
                     /**Añadiendo compañías y categorías al evento */
                     this.getCategoriesID();
                     this.getCompaniesID();
-                    this.addCategoriesToEvent(this.event.event_id);
-                    this.deleteCategroyFromEvent(this.event.event_id);
-                    this.addCompanyToEvent(this.event.event_id);
-                    this.deleteCompanyFromEvent(this.event.event_id);
+                    yield this.eventRelations(this.event.event_id);
                     this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`, "OK");
+                    this.loading = false;
                     location.reload();
                 }
                 else {
                     this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
                 }
-            },
+            }),
             error: (err) => {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.loading = false;
@@ -4090,39 +4421,98 @@ let EventDetailsComponent = class EventDetailsComponent {
         }
         this.allCompanies = companyIDs;
     }
-    addCategoriesToEvent(event_id) {
+    eventRelations(event_id) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             for (let i = 0; i < this.allCategories.length; i++) {
                 if (this.allOldCategories.indexOf(this.allCategories[i]) === -1) {
                     yield this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise();
                 }
             }
-        });
-    }
-    deleteCategroyFromEvent(event_id) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             for (let i = 0; i < this.allOldCategories.length; i++) {
                 if (this.allCategories.indexOf(this.allOldCategories[i]) === -1) {
                     yield this.categoryService.deleteCategoryFromEvent(this.allOldCategories[i], event_id).toPromise();
                 }
             }
-        });
-    }
-    addCompanyToEvent(event_id) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             for (let i = 0; i < this.allCompanies.length; i++) {
                 if (this.allOldCompanies.indexOf(this.allCompanies[i]) === -1) {
-                    yield this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise();
+                    yield this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise();
                 }
             }
-        });
-    }
-    deleteCompanyFromEvent(event_id) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             for (let i = 0; i < this.allOldCompanies.length; i++) {
                 if (this.allCompanies.indexOf(this.allOldCompanies[i]) === -1) {
                     yield this.eventService.deleteCompanyFromEvent(this.allOldCompanies[i], event_id).toPromise();
                 }
+            }
+        });
+    }
+    //Metodos de imagenes
+    onSlide(event) {
+        this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+    }
+    uploadFile(files) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.loading = true;
+            this.eventFG.disable();
+            let images = [];
+            for (let i = 0; i < files.length; i++) {
+                yield this.commonService.uploadFile(files[i]).then((data) => {
+                    images.push(data.filename);
+                });
+            }
+            this.eventImages.length != 0 ? images = images.concat(this.eventImages) : null;
+            this.updateImages(images);
+        });
+    }
+    deleteImage() {
+        this.loading = true;
+        this.eventFG.disable();
+        this.eventImages.splice(this.imageIndex, 1);
+        this.updateImages(this.eventImages);
+    }
+    updateImages(images) {
+        let event = {
+            event_id: this.event.event_id,
+            name: this.event.name,
+            cost: this.event.cost,
+            address: this.event.address,
+            detail: this.event.detail,
+            all_day: this.event.all_day,
+            color: this.event.color,
+            date_range: {
+                initial_date: this.event.date_range.initial_date,
+                final_date: this.event.date_range.final_date
+            },
+            initial_time: this.event.initial_time,
+            final_time: this.event.final_time,
+            user_id: this.event.user_id,
+            images: images,
+            is_active: this.event.is_active
+        };
+        console.log(event);
+        let json = {
+            "info": event,
+            "latitude": this.event.latitude,
+            "longuitude": this.event.longitude
+        };
+        this.eventService.modifyEvent(json).subscribe({
+            next: (data) => {
+                if (data.status == 200) {
+                    this.loading = false;
+                    this.eventFG.enable();
+                    this.event = event;
+                    this.eventImages = images;
+                    this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`, "OK");
+                }
+                else {
+                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                    this.loading = false;
+                    this.eventFG.enable();
+                }
+            },
+            error: (err) => {
+                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                this.loading = false;
+                this.eventFG.enable();
             }
         });
     }
@@ -4131,7 +4521,8 @@ EventDetailsComponent.ctorParameters = () => [
     { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_2__["CommonService"] },
     { type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_3__["EventService"] },
     { type: src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_6__["CategoryService"] },
-    { type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_7__["CompanyService"] }
+    { type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_7__["CompanyService"] },
+    { type: src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
@@ -4557,7 +4948,7 @@ let EventService = class EventService {
     constructor(http, commonService) {
         this.http = http;
         this.commonService = commonService;
-        this.eventRequest = [{ name: "a" }];
+        this.events = [];
         this.module = 'events/';
     }
     /**
@@ -4576,13 +4967,24 @@ let EventService = class EventService {
     /**
      * @function to create a new event
      * @param event to be added
+     * @param request false is just a normal event : true needs de user id who wants to create the event
      */
-    createEvent(event) {
-        let json = {
-            "info": event,
-            "latitude": 10.471681129073,
-            "longitude": -84.64514404535
-        };
+    createEvent(event, request) {
+        let json;
+        if (request == true) {
+            json = {
+                "info": event,
+                "latitude": event.latitude,
+                "longitude": event.longitude,
+            };
+        }
+        else {
+            json = {
+                "info": event,
+                "latitude": 10.471681129073,
+                "longitude": -84.64514404535
+            };
+        }
         console.log(json);
         return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}`, json, { observe: 'response' });
     }
@@ -4605,10 +5007,11 @@ let EventService = class EventService {
      * @param company_id
      * @param event_id
      */
-    addCompanyToEvent(company_id, event_id) {
+    addCompanyToEvent(company_id, event_id, user_id) {
         let json = {
-            "company_id": company_id,
-            "event_id": event_id
+            company_id,
+            event_id,
+            user_id
         };
         return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}EventToCompany`, json, { observe: 'response' });
     }
@@ -4632,13 +5035,22 @@ let EventService = class EventService {
         };
         return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}AddCategoryToEvent`, json, { observe: 'response' });
     }
-    obtainAllEventRequest() {
+    getAllPendingEventRequests() {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}petitions/2/-1`);
     }
     getEventRequestByCompany(id) {
         return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}/${id}`); //cambiar
     }
     getEventRequestsByUser(id, state) {
-        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}/${id}`); //cambiar
+        console.log(id + " " + state);
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}petitions/${state}/${id}`);
+    }
+    changeRequestState(event_id, state) {
+        let json = {
+            "event_id": event_id,
+            "state": state
+        };
+        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}petitions/`, json, { observe: 'response' });
     }
 };
 EventService.ctorParameters = () => [
@@ -4736,12 +5148,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
+
 
 
 
 let CommonService = class CommonService {
-    constructor(snackBar) {
+    constructor(snackBar, http) {
         this.snackBar = snackBar;
+        this.http = http;
     }
     /**
      * @Function Open Snackbar
@@ -4764,9 +5181,43 @@ let CommonService = class CommonService {
             console.log(`Backend returned code ${err.status}, body was: ${JSON.stringify(err.error)}`);
         }
     }
+    getImage(name) {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].IMAGES_URL_BASE}/files/images/${name}`).subscribe({
+            next: (data) => {
+                console.log(data);
+            }
+        });
+    }
+    uploadFile(file) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            console.log(file);
+            let data = new FormData();
+            data.append("file", file);
+            let promise = new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.addEventListener("readystatechange", function () {
+                    if (this.readyState === this.DONE) {
+                        resolve(JSON.parse(this.response));
+                    }
+                });
+                xhr.open("POST", "https://intelitur.sytes.net/image");
+                xhr.send(data);
+            });
+            return promise;
+        });
+    }
+    deleteImage(name) {
+        console.log(name);
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].IMAGES_URL_BASE}/image/${name}`).subscribe({
+            next: (data) => {
+                console.log(data);
+            }
+        });
+    }
 };
 CommonService.ctorParameters = () => [
-    { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"] }
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
 ];
 CommonService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -7414,7 +7865,8 @@ SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             ng2_file_upload__WEBPACK_IMPORTED_MODULE_7__["FileUploadModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatProgressBarModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatExpansionModule"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatAutocompleteModule"]
+            _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatAutocompleteModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatStepperModule"]
         ],
         exports: [
             _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_3__["LayoutModule"],
@@ -7446,7 +7898,8 @@ SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatProgressBarModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatExpansionModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatRadioModule"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatAutocompleteModule"]
+            _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatAutocompleteModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatStepperModule"]
         ]
     })
 ], SharedModule);
@@ -7574,7 +8027,7 @@ AddAdminComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.toggle, .color-picker {\n  width: 45%;\n  margin-left: 2%;\n}\n\n.chip-list {\n  width: 95%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9hZGQtZXZlbnQtcmVxdWVzdC9hZGQtZXZlbnQtcmVxdWVzdC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdXNlcnMvY29tcG9uZW50cy9wcm9maWxlL2FkZC1ldmVudC1yZXF1ZXN0L2FkZC1ldmVudC1yZXF1ZXN0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBRENBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0VKOztBRENBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDRUo7O0FEQ0E7RUFDSSxXQUFBO0FDRUo7O0FEQ0E7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLHVCQUFBO0FDRUo7O0FEQ0E7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0VKOztBRENBO0VBQ0ksVUFBQTtFQUNBLGVBQUE7QUNFSjs7QURDQTtFQUNJLFVBQUE7QUNFSiIsImZpbGUiOiJzcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9hZGQtZXZlbnQtcmVxdWVzdC9hZGQtZXZlbnQtcmVxdWVzdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhe1xuICAgIHJlc2l6ZTogbm9uZTtcbn1cbmgxe1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW46IDAlO1xuICAgIG1hcmdpbi1ib3R0b206IDElO1xuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDMlO1xuICAgIG1hcmdpbi1ib3R0b206IDMlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG4gXG5mb3Jte1xuICAgIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVye1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC13cmFwOiB3cmFwO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogNDUlO1xuICAgIG1hcmdpbi1yaWdodDogMi41JTtcbiAgICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuLnRvZ2dsZSwuY29sb3ItcGlja2Vye1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuXG4uY2hpcC1saXN0e1xuICAgIHdpZHRoOiA5NSU7XG59IiwidGV4dGFyZWEge1xuICByZXNpemU6IG5vbmU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgbWFyZ2luLWJvdHRvbTogMyU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG5mb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiA0NSU7XG4gIG1hcmdpbi1yaWdodDogMi41JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi50b2dnbGUsIC5jb2xvci1waWNrZXIge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tbGVmdDogMiU7XG59XG5cbi5jaGlwLWxpc3Qge1xuICB3aWR0aDogOTUlO1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("textarea {\n  resize: none;\n}\n\n.buttonContainer {\n  display: flex;\n  justify-content: space-around;\n  margin-top: 3%;\n  margin-bottom: 3;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.color-picker {\n  width: 30%;\n  padding-left: 5%;\n  align-self: center;\n}\n\n.toggle {\n  width: 40%;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n\n.file {\n  align-self: center;\n  flex-direction: column;\n  justify-content: center;\n  width: 20%;\n}\n\n.uploadFile {\n  text-align: center;\n  width: -webkit-fill-available;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n  margin-bottom: 2%;\n  border: solid 1.5px gainsboro;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n\n.map {\n  height: 500px;\n  padding: 0;\n  margin: auto;\n}\n\n::ng-deep .mat-horizontal-stepper-header {\n  pointer-events: none !important;\n}\n\n#exit {\n  float: right;\n  background-color: transparent;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9hZGQtZXZlbnQtcmVxdWVzdC9hZGQtZXZlbnQtcmVxdWVzdC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdXNlcnMvY29tcG9uZW50cy9wcm9maWxlL2FkZC1ldmVudC1yZXF1ZXN0L2FkZC1ldmVudC1yZXF1ZXN0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBREVBO0VBQ0ksYUFBQTtFQUNBLDZCQUFBO0VBQ0EsY0FBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLHNCQUFBO0VBQ0EsdUJBQUE7RUFDQSxVQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLDZCQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsVUFBQTtFQUNBLFlBQUE7QUNDSjs7QURFQTtFQUNJLCtCQUFBO0FDQ0o7O0FERUE7RUFDSSxZQUFBO0VBQ0EsNkJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9hZGQtZXZlbnQtcmVxdWVzdC9hZGQtZXZlbnQtcmVxdWVzdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhe1xuICAgIHJlc2l6ZTogbm9uZTtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICAgIG1hcmdpbi10b3A6IDMlO1xuICAgIG1hcmdpbi1ib3R0b206IDNcbn1cbiBcbmZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXJ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxke1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2Vye1xuICAgIHdpZHRoOiAzMCU7XG4gICAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59XG5cbi50b2dnbGV7XG4gICAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdHtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG59XG5cbi5maWxle1xuICAgIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIHdpZHRoOiAyMCU7XG59XG5cbi51cGxvYWRGaWxle1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xuICAgIG1hcmdpbi1ib3R0b206IDIlO1xuICAgIGJvcmRlcjogc29saWQgMS41cHggcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uY2hpcC1saXN0e1xuICAgIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlOyBcbn1cblxuLm1hcCB7XG4gICAgaGVpZ2h0OiA1MDBweDtcbiAgICBwYWRkaW5nOiAwO1xuICAgIG1hcmdpbjogYXV0b1xufVxuXG46Om5nLWRlZXAgLm1hdC1ob3Jpem9udGFsLXN0ZXBwZXItaGVhZGVye1xuICAgIHBvaW50ZXItZXZlbnRzOiBub25lICFpbXBvcnRhbnQ7XG59XG5cbiNleGl0e1xuICAgIGZsb2F0OiByaWdodDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDtcbn0iLCJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgbWFyZ2luLWJvdHRvbTogMztcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2VyIHtcbiAgd2lkdGg6IDMwJTtcbiAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xufVxuXG4udG9nZ2xlIHtcbiAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdCB7XG4gIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlO1xufVxuXG4uZmlsZSB7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIHdpZHRoOiAyMCU7XG59XG5cbi51cGxvYWRGaWxlIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG4gIGJvcmRlcjogc29saWQgMS41cHggZ2FpbnNib3JvO1xufVxuXG4uY2hpcC1saXN0IHtcbiAgd2lkdGg6IC13ZWJraXQtZmlsbC1hdmFpbGFibGU7XG59XG5cbi5tYXAge1xuICBoZWlnaHQ6IDUwMHB4O1xuICBwYWRkaW5nOiAwO1xuICBtYXJnaW46IGF1dG87XG59XG5cbjo6bmctZGVlcCAubWF0LWhvcml6b250YWwtc3RlcHBlci1oZWFkZXIge1xuICBwb2ludGVyLWV2ZW50czogbm9uZSAhaW1wb3J0YW50O1xufVxuXG4jZXhpdCB7XG4gIGZsb2F0OiByaWdodDtcbiAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59Il19 */");
 
 /***/ }),
 
@@ -7598,6 +8051,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/category/services/category.service */ "./src/app/category/services/category.service.ts");
 /* harmony import */ var src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/company/services/company.service */ "./src/app/company/services/company.service.ts");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/users/services/user.service */ "./src/app/users/services/user.service.ts");
+
+
 
 
 
@@ -7609,13 +8067,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AddEventRequestComponent = class AddEventRequestComponent {
-    constructor(dialogRef, commonService, eventService, router, categoryService, companyService) {
+    constructor(data, dialogRef, commonService, eventService, router, categoryService, companyService, userService) {
+        this.data = data;
         this.dialogRef = dialogRef;
         this.commonService = commonService;
         this.eventService = eventService;
         this.router = router;
         this.categoryService = categoryService;
         this.companyService = companyService;
+        this.userService = userService;
+        this.petition = false;
+        this.showInfo = false;
         this.allDay = false;
         this.loading = false;
         this.initial_date = undefined;
@@ -7624,29 +8086,66 @@ let AddEventRequestComponent = class AddEventRequestComponent {
         this.initial_time = undefined;
         this.final_time = undefined;
         this.common_date = undefined;
-        //chipList
-        this.visible = true;
-        this.selectable = true;
-        this.removable = true;
+        this.eventImages = [];
         this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["COMMA"]];
         this.allCategories = [];
         this.allCompanies = [];
+        this.myEvent = {
+            name: null,
+            address: null,
+            detail: null,
+            color: null,
+            date_range: {
+                initial_date: null,
+                final_date: null
+            },
+            cost: null,
+            all_day: null,
+            initial_time: null,
+            final_time: null,
+            user_id: null,
+            images: null
+        };
+        this.refreshed = false;
+        this.locationMarker = new leaflet__WEBPACK_IMPORTED_MODULE_10__["Marker"](Object(leaflet__WEBPACK_IMPORTED_MODULE_10__["latLng"])(10.471868647924616, -84.64508235454561), {
+            draggable: true,
+            icon: new leaflet__WEBPACK_IMPORTED_MODULE_10__["Icon"]({
+                iconUrl: 'assets/marker-icon.png',
+                iconSize: [24, 41],
+                iconAnchor: [12, 41],
+                shadowUrl: 'assets/marker-shadow.png'
+            })
+        });
+        this.options = {
+            layers: [
+                Object(leaflet__WEBPACK_IMPORTED_MODULE_10__["tileLayer"])("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    maxZoom: 19,
+                    attribution: "..."
+                })
+            ],
+            zoom: 16,
+            center: Object(leaflet__WEBPACK_IMPORTED_MODULE_10__["latLng"])(10.471691479992346, -84.64503407478333)
+        };
         /**
          * Metodo para flitar que la fecha final sea mayor o igual a la de inicio
          */
         this.dateFilter = (date) => {
             return date >= this.initial_date;
         };
+        this.refreshMap = this.refreshMap.bind(this);
     }
     ngOnInit() {
         this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
-            address: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
-            detail: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
-            cost: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
-            categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null),
-            companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
+            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: '', disabled: this.data.action }, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+            address: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: '', disabled: this.data.action }, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+            detail: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: '', disabled: this.data.action }, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+            cost: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: '', disabled: this.data.action }, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
+            categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: '', disabled: this.data.action }),
+            companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: '', disabled: this.data.action })
         });
+        this.data.action ? this.selectable = false : this.selectable = true;
+        this.data.action ? this.removable = false : this.removable = true;
+        this.data.action ? this.visible = false : this.visible = true;
         this.subscription = this.categoryService.getAllCategories(1)
             .subscribe({
             next: (data) => {
@@ -7661,6 +8160,12 @@ let AddEventRequestComponent = class AddEventRequestComponent {
                 this.subscription2.unsubscribe();
             }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
         });
+        this.user = this.userService.actualUser;
+        this.showInfo = this.data.action;
+        this.petition = this.data.petition;
+        this.showInfo ? this.setData(this.data.event) : null;
+        this.showInfo ? this.myEvent.latitude = this.data.event.latitude : null;
+        this.showInfo ? this.myEvent.longitude = this.data.event.longitude : null;
     }
     /**
      * Toogle
@@ -7669,6 +8174,7 @@ let AddEventRequestComponent = class AddEventRequestComponent {
     changeState({ source }) {
         this.allDay == false ? this.allDay = true : this.allDay = false;
         source.checked = this.allDay;
+        console.log(this.allDay);
     }
     /**
      * Color picker
@@ -7678,32 +8184,37 @@ let AddEventRequestComponent = class AddEventRequestComponent {
         this.color = event.color.hex;
     }
     onSubmit() {
-        this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
-        this.initial_time == undefined ? this.initial_time = null : null;
-        this.final_time == undefined ? this.final_time = null : null;
-        let event = {
-            name: this.eventFG.controls['name'].value,
-            cost: this.eventFG.controls['cost'].value,
-            address: this.eventFG.controls['address'].value,
-            detail: this.eventFG.controls['detail'].value,
-            all_day: this.allDay,
-            color: this.color,
-            date_range: {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
+            this.initial_time == undefined ? this.initial_time = null : null;
+            this.final_time == undefined ? this.final_time = null : null;
+            let urlImages = yield this.uploadFiles();
+            this.myEvent.name = this.eventFG.controls['name'].value;
+            this.myEvent.cost = this.eventFG.controls['cost'].value;
+            this.myEvent.address = this.eventFG.controls['address'].value;
+            this.myEvent.detail = this.eventFG.controls['detail'].value;
+            this.myEvent.all_day = this.allDay;
+            this.myEvent.color = this.color;
+            this.myEvent.date_range = {
                 initial_date: this.initial_date,
                 final_date: this.final_date
-            },
-            initial_time: this.initial_time,
-            final_time: this.final_time,
-        };
-        this.createEvent(event);
+            };
+            this.myEvent.initial_time = this.initial_time,
+                this.myEvent.final_time = this.final_time,
+                this.myEvent.latitude = this.locationMarker.getLatLng().lat,
+                this.myEvent.longitude = this.locationMarker.getLatLng().lng;
+            this.myEvent.user_id = this.user.user_id;
+            this.myEvent.images = urlImages;
+            this.createRequest(this.myEvent);
+        });
     }
-    createEvent(event) {
+    createRequest(event) {
         this.loading = true;
         this.eventFG.disable();
-        this.eventService.createEvent(event).subscribe({
+        this.eventService.createEvent(event, true).subscribe({
             next: (data) => {
                 if (data.status == 200) {
-                    this.commonService.openSnackBar(`El evento ${this.eventFG.value.name} se ha creado`, "OK");
+                    this.commonService.openSnackBar(`La petición del evento ${this.eventFG.value.name} se ha creado`, "OK");
                     this.dialogRef.close();
                     /**Añadiendo compañías y categorías al evento */
                     this.getCategories();
@@ -7733,7 +8244,7 @@ let AddEventRequestComponent = class AddEventRequestComponent {
         if (!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined ||
             (this.allDay == false && this.final_date == undefined) || (this.allDay == true && this.initial_time == undefined) ||
             (this.allDay == true && this.final_time == undefined) || (this.allDay == true && this.common_date == undefined)
-            || this.allCategories.length === 0 || (this.initial_time >= this.final_time)) {
+            || this.allCategories.length === 0 || (this.initial_time >= this.final_time) || this.eventImages.length == 0) {
             return true;
         }
         return false;
@@ -7750,14 +8261,14 @@ let AddEventRequestComponent = class AddEventRequestComponent {
      * @param event
      */
     selectedCategory(event) {
-        let index = this.allCategories.indexOf(event.option.value);
-        if (index < 0) {
-            this.allCategories.push(event.option.value);
-            this.eventFG.controls['categories'].setValue(null);
+        for (let i = 0; i < this.allCategories.length; i++) {
+            if (this.allCategories[i].category_id === event.option.value.category_id) {
+                this.commonService.openSnackBar("¡La categoría ya ha sido agregada!", "OK");
+                return;
+            }
         }
-        else {
-            this.commonService.openSnackBar("¡La categoría ya ha sido agregada!", "OK");
-        }
+        this.allCategories.push(event.option.value);
+        this.eventFG.controls['categories'].setValue(null);
     }
     removeCompany(company) {
         let index = this.allCompanies.indexOf(company);
@@ -7770,14 +8281,14 @@ let AddEventRequestComponent = class AddEventRequestComponent {
      * @param event
      */
     selectedCompany(event) {
-        let index = this.allCompanies.indexOf(event.option.value);
-        if (index < 0) {
-            this.allCompanies.push(event.option.value);
-            this.eventFG.controls['companies'].setValue(null);
+        for (let i = 0; i < this.allCompanies.length; i++) {
+            if (this.allCompanies[i].company_id === event.option.value.company_id) {
+                this.commonService.openSnackBar("¡La compañía ya ha sido agregada!", "OK");
+                return;
+            }
         }
-        else {
-            this.commonService.openSnackBar("¡La compañía ya ha sido agregada!", "OK");
-        }
+        this.allCompanies.push(event.option.value);
+        this.eventFG.controls['companies'].setValue(null);
     }
     /**
      * Metodo para obtener únicamente los ids de los tags que se guardaron
@@ -7803,7 +8314,7 @@ let AddEventRequestComponent = class AddEventRequestComponent {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             //compañías
             for (let i = 0; i < this.allCompanies.length; i++) {
-                yield this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise();
+                yield this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise();
             }
             //Categorias
             for (let i = 0; i < this.allCategories.length; i++) {
@@ -7811,14 +8322,90 @@ let AddEventRequestComponent = class AddEventRequestComponent {
             }
         });
     }
+    ngAfterViewInit() {
+        if (document.getElementById("mat-tab-label-0-2")) {
+            document.getElementById("mat-tab-label-0-2").parameters = { map: this.map, event: this.myEvent };
+            document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMap, false);
+        }
+        setTimeout(() => this.map.invalidateSize(), 2000);
+    }
+    onMapReady(map) {
+        this.map = map;
+        map.addLayer(this.locationMarker);
+        if (this.myEvent.latitude && this.myEvent.longitude) {
+            this.locationMarker.setLatLng(Object(leaflet__WEBPACK_IMPORTED_MODULE_10__["latLng"])(this.myEvent.latitude, this.myEvent.longitude));
+        }
+        console.log(this.myEvent.latitude);
+        console.log(this.myEvent.longitude);
+    }
+    refreshMap() {
+        this.map.invalidateSize();
+        if (!this.refreshed) {
+            this.refreshed = true;
+            if (this.myEvent.latitude && this.myEvent.longitude)
+                this.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_10__["latLng"])(this.myEvent.latitude, this.myEvent.longitude), 18);
+        }
+    }
+    putLocationMarker(event) {
+        this.locationMarker.setLatLng(event.latlng);
+    }
+    setData(event) {
+        console.log(event.color);
+        this.eventFG.controls['name'].setValue(event.name);
+        this.eventFG.controls['address'].setValue(event.address);
+        this.eventFG.controls['detail'].setValue(event.detail);
+        this.eventFG.controls['cost'].setValue(event.cost);
+        this.allDay = event.all_day;
+        this.color = event.color;
+        this.initial_date = new Date(event.date_range.initial_date);
+        this.final_date = new Date(event.date_range.final_date);
+        this.initial_time = event.initial_time;
+        this.final_time = event.final_time;
+        this.allDay ? this.common_date = event.date_range.initial_date : this.common_date = undefined;
+        //categorias
+        console.log(this.petition);
+        if (!this.petition) {
+            this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
+                next: (data) => {
+                    this.allCategories = [];
+                    data.forEach(val => this.allCategories.push(val));
+                    this.subscription3.unsubscribe();
+                }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            });
+            //compañías
+            this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
+                next: (data) => {
+                    this.allCompanies = [];
+                    data.forEach(val => this.allCompanies.push(val));
+                    this.subscription4.unsubscribe();
+                }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            });
+        }
+    }
+    getFiles(files) {
+        this.eventImages = files;
+    }
+    uploadFiles() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            let images = [];
+            for (let i = 0; i < this.eventImages.length; i++) {
+                yield this.commonService.uploadFile(this.eventImages[i]).then((data) => {
+                    images.push(data.filename);
+                });
+            }
+            return images;
+        });
+    }
 };
 AddEventRequestComponent.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material__WEBPACK_IMPORTED_MODULE_4__["MAT_DIALOG_DATA"],] }] },
     { type: _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogRef"] },
     { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"] },
     { type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_6__["EventService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] },
     { type: src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_8__["CategoryService"] },
-    { type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_9__["CompanyService"] }
+    { type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_9__["CompanyService"] },
+    { type: src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('auto', { static: false })
@@ -7828,7 +8415,8 @@ AddEventRequestComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         selector: 'app-add-event-request',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./add-event-request.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/add-event-request/add-event-request.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./add-event-request.component.scss */ "./src/app/users/components/profile/add-event-request/add-event-request.component.scss")).default]
-    })
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_4__["MAT_DIALOG_DATA"]))
 ], AddEventRequestComponent);
 
 
@@ -7951,7 +8539,7 @@ AddRequestCompanyUnionComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n}\n\n.radio-button-group {\n  width: 50%;\n  justify-content: space-around;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9jcmVhdGUtZXZlbi1yZXF1ZXN0L2NyZWF0ZS1ldmVuLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9jcmVhdGUtZXZlbi1yZXF1ZXN0L2NyZWF0ZS1ldmVuLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7RUFDQSw2QkFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EseUJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9jcmVhdGUtZXZlbi1yZXF1ZXN0L2NyZWF0ZS1ldmVuLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0aHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHJ7XG4gICAgZm9udC1zaXplOiAxNXB4O1xufVxuXG4ucmFkaW8tYnV0dG9uLWdyb3Vwe1xuICAgIHdpZHRoOiA1MCU7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAgbWluLXdpZHRoOiAzMDBweDtcbiAgICBtYXJnaW46IGF1dG87XG4gICAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn0iLCJ0aCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHIge1xuICBmb250LXNpemU6IDE1cHg7XG59XG5cbi5yYWRpby1idXR0b24tZ3JvdXAge1xuICB3aWR0aDogNTAlO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBtaW4td2lkdGg6IDMwMHB4O1xuICBtYXJnaW46IGF1dG87XG4gIHBhZGRpbmctYm90dG9tOiAxLjM0Mzc1ZW07XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = ("th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n}\n\n.radio-button-group {\n  width: 50%;\n  justify-content: space-around;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n\n.buttonContainer {\n  display: flex;\n  justify-content: space-around;\n  flex-wrap: wrap;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9jcmVhdGUtZXZlbi1yZXF1ZXN0L2NyZWF0ZS1ldmVuLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9jcmVhdGUtZXZlbi1yZXF1ZXN0L2NyZWF0ZS1ldmVuLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7RUFDQSw2QkFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EseUJBQUE7QUNDSjs7QURFQTtFQUNJLGFBQUE7RUFDQSw2QkFBQTtFQUNBLGVBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9jcmVhdGUtZXZlbi1yZXF1ZXN0L2NyZWF0ZS1ldmVuLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0aHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHJ7XG4gICAgZm9udC1zaXplOiAxNXB4O1xufVxuXG4ucmFkaW8tYnV0dG9uLWdyb3Vwe1xuICAgIHdpZHRoOiA1MCU7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAgbWluLXdpZHRoOiAzMDBweDtcbiAgICBtYXJnaW46IGF1dG87XG4gICAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4OyBcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDsgXG4gICAgZmxleC13cmFwOiB3cmFwOyBcbn0iLCJ0aCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHIge1xuICBmb250LXNpemU6IDE1cHg7XG59XG5cbi5yYWRpby1idXR0b24tZ3JvdXAge1xuICB3aWR0aDogNTAlO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBtaW4td2lkdGg6IDMwMHB4O1xuICBtYXJnaW46IGF1dG87XG4gIHBhZGRpbmctYm90dG9tOiAxLjM0Mzc1ZW07XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgZmxleC13cmFwOiB3cmFwO1xufSJdfQ== */");
 
 /***/ }),
 
@@ -7970,7 +8558,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/event/services/event.service */ "./src/app/event/services/event.service.ts");
 /* harmony import */ var src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/users/services/user.service */ "./src/app/users/services/user.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
-/* harmony import */ var src_app_event_components_event_create_event_create_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/event/components/event-create/event-create.component */ "./src/app/event/components/event-create/event-create.component.ts");
+/* harmony import */ var _add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../add-event-request/add-event-request.component */ "./src/app/users/components/profile/add-event-request/add-event-request.component.ts");
 
 
 
@@ -7984,14 +8572,17 @@ let CreateEvenRequestComponent = class CreateEvenRequestComponent {
         this.matDialog = matDialog;
         this.filter = {
             name: '',
-            state: '',
-            filter: (request) => request.event_info.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
+            state: '0',
+            filter: (request) => request.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
         };
         this.loading = true;
+        this.eventRequests = [];
     }
     refresh() {
         this.loading = true;
-        this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, Number(this.filter.state)).subscribe((data) => {
+        let state = Number(this.filter.state);
+        state == 0 ? state = -1 : state = Number(this.filter.state);
+        this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, state).subscribe((data) => {
             console.log(data);
             this.eventRequests = data;
             this.loading = false;
@@ -8000,12 +8591,19 @@ let CreateEvenRequestComponent = class CreateEvenRequestComponent {
     ngOnInit() {
         this.refresh();
     }
-    deleteRequest(user_id, event_id) {
+    deleteRequest(event) {
+        this.eventService.changeRequestState(event.event_id, 3).subscribe({
+            next: (data) => {
+                data.status == 201 ? this.refresh() : null;
+            }
+        });
     }
-    cancelEventRequest(user_id, event_id) {
-    }
-    submit() {
-        this.matDialog.open(src_app_event_components_event_create_event_create_component__WEBPACK_IMPORTED_MODULE_5__["EventCreateComponent"], { height: "95%", width: "80%", minWidth: "280px", disableClose: true, data: this.userService.actualUser });
+    /**
+     *
+     * @param action false to create true to show info
+     */
+    submit(_action, _event) {
+        this.matDialog.open(_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_5__["AddEventRequestComponent"], { height: "95%", width: "80%", minWidth: "280px", disableClose: true, data: { action: _action, event: _event, petition: false } });
     }
 };
 CreateEvenRequestComponent.ctorParameters = () => [
@@ -8311,6 +8909,77 @@ ProfileCompaniesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/users/components/profile/profile-events/profile-events.component.scss":
+/*!***************************************************************************************!*\
+  !*** ./src/app/users/components/profile/profile-events/profile-events.component.scss ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\nbutton {\n  margin-right: 3%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9wcm9maWxlLWV2ZW50cy9wcm9maWxlLWV2ZW50cy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdXNlcnMvY29tcG9uZW50cy9wcm9maWxlL3Byb2ZpbGUtZXZlbnRzL3Byb2ZpbGUtZXZlbnRzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsZUFBQTtBQ0NKOztBREVBO0VBQ0kseUJBQUE7QUNDSjs7QURFQTtFQUNJLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxpQkFBQTtFQUNBLGVBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9wcm9maWxlLWV2ZW50cy9wcm9maWxlLWV2ZW50cy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRoe1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICBmb250LXdlaWdodDogNjAwO1xufVxuXG50cntcbiAgICBmb250LXNpemU6IDE1cHg7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG50cjpob3ZlcntcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQ3LCAyNDcsIDI0Nyk7XG59XG5cbmJ1dHRvbntcbiAgICBtYXJnaW4tcmlnaHQ6IDMlO1xufVxuXG4uY29udGFpbmVyLXRleHQtbGVmdHtcbiAgICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgICBtYXJnaW4tbGVmdDogMiU7XG59IiwidGgge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbnRyIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnRyOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y3ZjdmNztcbn1cblxuYnV0dG9uIHtcbiAgbWFyZ2luLXJpZ2h0OiAzJTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufSJdfQ== */");
+
+/***/ }),
+
+/***/ "./src/app/users/components/profile/profile-events/profile-events.component.ts":
+/*!*************************************************************************************!*\
+  !*** ./src/app/users/components/profile/profile-events/profile-events.component.ts ***!
+  \*************************************************************************************/
+/*! exports provided: ProfileEventsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileEventsComponent", function() { return ProfileEventsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/event/services/event.service */ "./src/app/event/services/event.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/users/services/user.service */ "./src/app/users/services/user.service.ts");
+
+
+
+
+
+let ProfileEventsComponent = class ProfileEventsComponent {
+    constructor(commonService, userService, eventService) {
+        this.commonService = commonService;
+        this.userService = userService;
+        this.eventService = eventService;
+        this.userEvents = [];
+        this.isFilters = false;
+        this.filter = {
+            name: ""
+        };
+    }
+    ngOnInit() {
+        this.user = this.userService.actualUser;
+        this.eventService.getEventRequestsByUser(this.user.user_id, 1).subscribe({
+            next: (data) => {
+                console.log(data);
+                this.userEvents = data;
+            }
+        });
+    }
+};
+ProfileEventsComponent.ctorParameters = () => [
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] },
+    { type: src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"] },
+    { type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_2__["EventService"] }
+];
+ProfileEventsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-profile-events',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./profile-events.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/profile-events/profile-events.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./profile-events.component.scss */ "./src/app/users/components/profile/profile-events/profile-events.component.scss")).default]
+    })
+], ProfileEventsComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/users/components/profile/profile-info/profile-info.component.scss":
 /*!***********************************************************************************!*\
   !*** ./src/app/users/components/profile/profile-info/profile-info.component.scss ***!
@@ -8552,6 +9221,214 @@ RequestCompanyUnionComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"](
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./request-company-union.component.scss */ "./src/app/users/components/profile/request-company-union/request-company-union.component.scss")).default]
     })
 ], RequestCompanyUnionComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.scss":
+/*!***************************************************************************************************************!*\
+  !*** ./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.scss ***!
+  \***************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".buttonContainer {\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS91bmlvbi1ldmVudC1yZXF1ZXN0L3BldGl0aW9ucy1maWx0ZXIvcGV0aXRpb25zLWZpbHRlci5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdXNlcnMvY29tcG9uZW50cy9wcm9maWxlL3VuaW9uLWV2ZW50LXJlcXVlc3QvcGV0aXRpb25zLWZpbHRlci9wZXRpdGlvbnMtZmlsdGVyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC91c2Vycy9jb21wb25lbnRzL3Byb2ZpbGUvdW5pb24tZXZlbnQtcmVxdWVzdC9wZXRpdGlvbnMtZmlsdGVyL3BldGl0aW9ucy1maWx0ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYnV0dG9uQ29udGFpbmVye1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbn0iLCIuYnV0dG9uQ29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59Il19 */");
+
+/***/ }),
+
+/***/ "./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.ts":
+/*!*************************************************************************************************************!*\
+  !*** ./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.ts ***!
+  \*************************************************************************************************************/
+/*! exports provided: PetitionsFilterComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PetitionsFilterComponent", function() { return PetitionsFilterComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/users/services/user.service */ "./src/app/users/services/user.service.ts");
+/* harmony import */ var src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/company/services/company.service */ "./src/app/company/services/company.service.ts");
+
+
+
+
+
+
+
+let PetitionsFilterComponent = class PetitionsFilterComponent {
+    constructor(dialogRef, commonService, companyService, userService) {
+        this.dialogRef = dialogRef;
+        this.commonService = commonService;
+        this.companyService = companyService;
+        this.userService = userService;
+    }
+    ngOnInit() {
+        this.petitionsFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+        });
+        this.user = this.userService.actualUser;
+        this.subscription = this.companyService.getCompanies().subscribe({
+            next: (data) => {
+                this.companies = data;
+                this.subscription.unsubscribe();
+            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
+    }
+    onNoClick() {
+        this.dialogRef.close();
+    }
+    submit() {
+        var company_id = this.petitionsFiltersFG.controls['companies'].value;
+        this.dialogRef.close(company_id);
+    }
+    closeDialog() {
+        this.dialogRef.close();
+    }
+};
+PetitionsFilterComponent.ctorParameters = () => [
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] },
+    { type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_6__["CompanyService"] },
+    { type: src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] }
+];
+PetitionsFilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-petitions-filter',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./petitions-filter.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./petitions-filter.component.scss */ "./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.scss")).default]
+    })
+], PetitionsFilterComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/users/components/profile/union-event-request/union-event-request.component.scss":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/users/components/profile/union-event-request/union-event-request.component.scss ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("th {\n  font-size: 14px;\n  font-weight: 600;\n  text-align: center;\n}\n\ntd {\n  text-align: center;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\nbutton {\n  margin-right: 3%;\n}\n\n.container-text-left {\n  margin: 1% 0 2% 0;\n}\n\n.radio-button-group {\n  width: 50%;\n  justify-content: space-around;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n\n.buttonContainer {\n  display: flex;\n  justify-content: space-around;\n  flex-wrap: wrap;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS91bmlvbi1ldmVudC1yZXF1ZXN0L3VuaW9uLWV2ZW50LXJlcXVlc3QuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS91bmlvbi1ldmVudC1yZXF1ZXN0L3VuaW9uLWV2ZW50LXJlcXVlc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxlQUFBO0FDQ0o7O0FERUE7RUFDSSx5QkFBQTtBQ0NKOztBREVBO0VBQ0ksZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0EsNkJBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtFQUNBLHlCQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsNkJBQUE7RUFDQSxlQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC91c2Vycy9jb21wb25lbnRzL3Byb2ZpbGUvdW5pb24tZXZlbnQtcmVxdWVzdC91bmlvbi1ldmVudC1yZXF1ZXN0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGh7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGZvbnQtd2VpZ2h0OiA2MDA7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG50ZHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbnRye1xuICAgIGZvbnQtc2l6ZTogMTVweDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnRyOmhvdmVye1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDcsIDI0NywgMjQ3KTtcbn1cblxuYnV0dG9ue1xuICAgIG1hcmdpbi1yaWdodDogMyU7XG59XG5cbi5jb250YWluZXItdGV4dC1sZWZ0e1xuICAgIG1hcmdpbjogMSUgMCAyJSAwO1xufVxuXG4ucmFkaW8tYnV0dG9uLWdyb3Vwe1xuICAgIHdpZHRoOiA1MCU7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAgbWluLXdpZHRoOiAzMDBweDtcbiAgICBtYXJnaW46IGF1dG87XG4gICAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4OyBcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDsgXG4gICAgZmxleC13cmFwOiB3cmFwOyBcbn0iLCJ0aCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG50ZCB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxudHIge1xuICBmb250LXNpemU6IDE1cHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxudHI6aG92ZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjdmN2Y3O1xufVxuXG5idXR0b24ge1xuICBtYXJnaW4tcmlnaHQ6IDMlO1xufVxuXG4uY29udGFpbmVyLXRleHQtbGVmdCB7XG4gIG1hcmdpbjogMSUgMCAyJSAwO1xufVxuXG4ucmFkaW8tYnV0dG9uLWdyb3VwIHtcbiAgd2lkdGg6IDUwJTtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAgbWluLXdpZHRoOiAzMDBweDtcbiAgbWFyZ2luOiBhdXRvO1xuICBwYWRkaW5nLWJvdHRvbTogMS4zNDM3NWVtO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gIGZsZXgtd3JhcDogd3JhcDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/users/components/profile/union-event-request/union-event-request.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/users/components/profile/union-event-request/union-event-request.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: UnionEventRequestComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnionEventRequestComponent", function() { return UnionEventRequestComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/users/services/user.service */ "./src/app/users/services/user.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_company_services_company_users_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/company/services/company-users.service */ "./src/app/company/services/company-users.service.ts");
+/* harmony import */ var src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/company/services/company.service */ "./src/app/company/services/company.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./petitions-filter/petitions-filter.component */ "./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.ts");
+/* harmony import */ var _add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../add-event-request/add-event-request.component */ "./src/app/users/components/profile/add-event-request/add-event-request.component.ts");
+
+
+
+
+
+
+
+
+
+let UnionEventRequestComponent = class UnionEventRequestComponent {
+    constructor(userService, companyUserService, commonService, companyService, dialogService) {
+        this.userService = userService;
+        this.companyUserService = companyUserService;
+        this.commonService = commonService;
+        this.companyService = companyService;
+        this.dialogService = dialogService;
+        this.userRequest = [];
+        this.isFilters = false;
+        this.currentCompanyId = undefined;
+        this.loading = false;
+        this.filter = {
+            name: '',
+            state: '0',
+            filter: (request) => request.event_info.info.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) > -1
+        };
+    }
+    ngOnInit() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.user = this.userService.actualUser;
+            console.log(this.user);
+            this.refresh();
+        });
+    }
+    refresh() {
+        this.loading = true;
+        let state = Number(this.filter.state);
+        state == 0 ? state = -1 : state = Number(this.filter.state);
+        if (this.currentCompanyId == undefined && state == -1) {
+            this.currentCompanyId = -1;
+            this.isFilters = false;
+        }
+        state != -1 ? this.isFilters = true : null;
+        this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
+            next: (data) => {
+                console.log(data);
+                this.userRequest = data;
+                this.subscription.unsubscribe();
+                this.loading = false;
+            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
+    }
+    refreshAll() {
+        this.filter.state = '0';
+        this.currentCompanyId = undefined;
+        this.currentCompanyName = undefined;
+        this.refresh();
+    }
+    openShowFilterOptionsDialog() {
+        const dialog = this.dialogService.open(_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__["PetitionsFilterComponent"], { width: "50", minWidth: "280px", disableClose: true });
+        dialog.afterClosed().subscribe(company => {
+            if (company != undefined) {
+                this.currentCompanyId = company.company_id;
+                this.currentCompanyName = company.name;
+                this.isFilters = true;
+                this.refresh();
+            }
+        });
+    }
+    showEventDetails(_action, _event) {
+        this.dialogService.open(_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_8__["AddEventRequestComponent"], { height: "95%", width: "80%", minWidth: "280px", disableClose: true, data: { action: _action, event: _event, petition: true } });
+    }
+};
+UnionEventRequestComponent.ctorParameters = () => [
+    { type: src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"] },
+    { type: src_app_company_services_company_users_service__WEBPACK_IMPORTED_MODULE_4__["CompanyUsersService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] },
+    { type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_5__["CompanyService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"] }
+];
+UnionEventRequestComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-union-event-request',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./union-event-request.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/users/components/profile/union-event-request/union-event-request.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./union-event-request.component.scss */ "./src/app/users/components/profile/union-event-request/union-event-request.component.scss")).default]
+    })
+], UnionEventRequestComponent);
 
 
 
@@ -8937,6 +9814,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_profile_add_request_company_union_add_request_company_union_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/profile/add-request-company-union/add-request-company-union.component */ "./src/app/users/components/profile/add-request-company-union/add-request-company-union.component.ts");
 /* harmony import */ var _components_profile_create_even_request_create_even_request_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/profile/create-even-request/create-even-request.component */ "./src/app/users/components/profile/create-even-request/create-even-request.component.ts");
 /* harmony import */ var _components_profile_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/profile/add-event-request/add-event-request.component */ "./src/app/users/components/profile/add-event-request/add-event-request.component.ts");
+/* harmony import */ var _components_profile_profile_events_profile_events_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/profile/profile-events/profile-events.component */ "./src/app/users/components/profile/profile-events/profile-events.component.ts");
+/* harmony import */ var _components_profile_union_event_request_union_event_request_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/profile/union-event-request/union-event-request.component */ "./src/app/users/components/profile/union-event-request/union-event-request.component.ts");
+/* harmony import */ var _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @asymmetrik/ngx-leaflet */ "./node_modules/@asymmetrik/ngx-leaflet/dist/index.js");
+/* harmony import */ var _components_profile_union_event_request_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/profile/union-event-request/petitions-filter/petitions-filter.component */ "./src/app/users/components/profile/union-event-request/petitions-filter/petitions-filter.component.ts");
+
+
+
+
 
 
 
@@ -8974,6 +9859,9 @@ UsersModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _components_profile_add_request_company_union_add_request_company_union_component__WEBPACK_IMPORTED_MODULE_17__["AddRequestCompanyUnionComponent"],
             _components_profile_create_even_request_create_even_request_component__WEBPACK_IMPORTED_MODULE_18__["CreateEvenRequestComponent"],
             _components_profile_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_19__["AddEventRequestComponent"],
+            _components_profile_profile_events_profile_events_component__WEBPACK_IMPORTED_MODULE_20__["ProfileEventsComponent"],
+            _components_profile_union_event_request_union_event_request_component__WEBPACK_IMPORTED_MODULE_21__["UnionEventRequestComponent"],
+            _components_profile_union_event_request_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_23__["PetitionsFilterComponent"],
         ],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -8981,10 +9869,11 @@ UsersModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormsModule"],
             _users_routing_module__WEBPACK_IMPORTED_MODULE_9__["UsersRoutingModule"],
             ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_10__["FilterPipeModule"],
-            ngx_color_circle__WEBPACK_IMPORTED_MODULE_7__["ColorCircleModule"]
+            ngx_color_circle__WEBPACK_IMPORTED_MODULE_7__["ColorCircleModule"],
+            _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_22__["LeafletModule"]
         ],
         exports: [_user_root_component__WEBPACK_IMPORTED_MODULE_11__["UserRootComponent"]],
-        entryComponents: [_components_add_admin_add_admin_component__WEBPACK_IMPORTED_MODULE_6__["AddAdminComponent"], _components_profile_add_request_company_union_add_request_company_union_component__WEBPACK_IMPORTED_MODULE_17__["AddRequestCompanyUnionComponent"], _components_profile_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_19__["AddEventRequestComponent"]]
+        entryComponents: [_components_add_admin_add_admin_component__WEBPACK_IMPORTED_MODULE_6__["AddAdminComponent"], _components_profile_add_request_company_union_add_request_company_union_component__WEBPACK_IMPORTED_MODULE_17__["AddRequestCompanyUnionComponent"], _components_profile_add_event_request_add_event_request_component__WEBPACK_IMPORTED_MODULE_19__["AddEventRequestComponent"], _components_profile_union_event_request_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_23__["PetitionsFilterComponent"]]
     })
 ], UsersModule);
 
@@ -9011,7 +9900,7 @@ const environment = {
     production: false,
     localstorage_key: 'key_user',
     SERVER_BASE_URL: 'https://intelitur.sytes.net/',
-    IMAGES_URL_BASE: 'http://localhost:3000/static/images/'
+    IMAGES_URL_BASE: 'https://intelitur.sytes.net/files/images/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
