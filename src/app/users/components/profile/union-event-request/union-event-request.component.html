@@ -1,0 +1,79 @@
+<ng-container *ngIf="this.loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+<div *ngIf="userRequest" style="padding: 0 5%;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 1rem 0 0 0">
+        <mat-form-field class="container-fluid mb-3" appearance="outline"  style="width: 50%; min-width: 300px; margin: auto">
+            <mat-label>Buscar por nombre del evento</mat-label>
+            <input matInput [(ngModel)]="filter.name"/>
+            <button
+                mat-icon-button
+                matSuffix
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+                (click)="openShowFilterOptionsDialog()"
+            >
+                <mat-icon>library_books</mat-icon>
+            </button>
+            <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por otros valores.</mat-hint>
+        </mat-form-field>
+        <mat-radio-group  class="radio-button-group" color="primary" [(ngModel)]="filter.state" (change)="refresh()">
+            <mat-radio-button value="0" style="color: rgb(103,58,183);" >
+                Todas
+            </mat-radio-button>
+            <mat-radio-button value="1" style="color: rgb(0, 90, 0)">
+                Aceptadas
+            </mat-radio-button>
+            <mat-radio-button value="2" style="color: rgb(160, 105, 0) ">
+                Pendientes
+            </mat-radio-button>
+            <mat-radio-button value="3" style="color: rgb(90, 0, 0)">
+                Rechazadas
+            </mat-radio-button>
+        </mat-radio-group>
+        <div *ngIf="isFilters" class="container-text-left">
+            <button  mat-raised-button color="primary" (click)="refreshAll()" [disabled]="loading">Limpiar filtro</button>
+        </div> 
+        <label *ngIf="isFilters && currentCompanyName != undefined"  color="primary" style="cursor: default;">
+            Empresa Filtrada: {{currentCompanyName}}
+        </label>
+    </div>
+    
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" >Empresa</th>
+                    <th scope="col" style="text-align: center;">Evento</th>
+                    <th scope="col" *ngIf="filter.state == '0'">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of this.userRequest | filterBy: filter.filter">
+                    <td> {{request.company_name}}</td>
+                    <td> 
+                        <button mat-stroked-button (click)="showEventDetails(true, request.event_info.info)" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px;">
+                            Ver Detalles
+                        </button>
+                    </td>
+                    <td *ngIf="filter.state == '0'">
+                        <label color="primary" style="cursor: default;"
+                            [style.color]="request.petition_state_company == 2? 'rgb(160, 105, 0)': request.petition_state_company == 1? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'">
+                            {{ request.petition_state_company == 2? 'Pendiente': request.petition_state_company == 1? 'Aceptado': 'Rechazado' }}
+                        </label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- in case you want to show empty message -->
+        <div class="alert alert-info text-center" role="alert" *ngIf="this.userRequest.length === 0">
+            ¡<span class="text-danger">{{user.name}}</span> no tienes ninguna petición!
+        </div>
+
+        <div class="alert alert-info text-center" style="margin: auto 5%" role="alert"
+            *ngIf="!(this.userRequest.length === 0) && (this.userRequest | filterBy: filter.filter).length === 0">
+            ¡El usuario no tiene ninguna petición de evento con un nombre que coincida con <span class="text-danger">{{filter.name}}</span>!
+        </div>
+    </div>
+</div>

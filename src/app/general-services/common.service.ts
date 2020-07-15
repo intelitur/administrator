@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
 
   constructor(
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public http: HttpClient
   ) { }
 
   /**
@@ -35,4 +39,46 @@ export class CommonService {
       );
     }
   }
+
+
+  getImage(name: string){
+    return this.http.get(`${environment.IMAGES_URL_BASE}/files/images/${name}`).subscribe({
+      next: (data: any) =>{
+        console.log(data)
+      }
+    })
+  }
+
+  async uploadFile(file: File){
+    console.log(file)
+    let data = new FormData();
+    data.append("file", file);
+
+    let promise = new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+  
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+          resolve(JSON.parse(this.response));
+        }
+      });
+  
+      xhr.open("POST", "https://intelitur.sytes.net/image");
+  
+      xhr.send(data);
+      
+    })
+
+    return promise
+  }
+
+  deleteImage(name: string){
+    console.log(name)
+    return this.http.delete(`${environment.IMAGES_URL_BASE}/image/${name}`).subscribe({
+      next: (data: any) => {
+        console.log(data)
+      }
+    })
+  }
+
 }

@@ -18,14 +18,6 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-label class="image-upload-container btn btn-bwm">
-        <span>Seleccione una imagen</span>
-        <input #imageInput
-               type="file"
-               accept="image/*"
-               (change)="processFile(imageInput)">
-    </mat-label>
-
     <div class="buttonContainer">
         <button mat-raised-button [disabled]="!categoryFG.valid" color="primary" (click)="onSubmit()">
             Crear Categoría

@@ -1,10 +1,28 @@
 th{
     font-size: 14px;
     font-weight: 600;
+    text-align: center;
+}
+
+td{
+    text-align: center;
 }
 
 tr{
     font-size: 15px;
+    cursor: pointer;
+}
+
+tr:hover{
+    background-color: rgb(247, 247, 247);
+}
+
+button{
+    margin-right: 3%;
+}
+
+.container-text-left{
+    margin: 1% 0 2% 0;
 }
 
 .radio-button-group{

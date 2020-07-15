@@ -1,0 +1,49 @@
+<div *ngIf="userEvents">
+    <mat-form-field class="container-fluid mb-3" appearance="outline">
+        <mat-label>Buscar por nombre del evento</mat-label>
+        <input matInput [(ngModel)]="filter.name"/>
+    </mat-form-field>
+
+    <div class="table-responsive" style="padding: 0 3%;">
+        <table class="table">
+        <thead class="thead-light">
+            <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Costo</th>
+            <th scope="col" style="text-align: center;">Todo el día</th>
+            <th scope="col">Fecha Inicio</th>
+            <th scope="col">Fecha Fin</th>
+            <th scope="col" style="text-align: center;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let event of userEvents | filterBy: filter">
+            <td>{{event.name}}</td>
+            <td>{{event.cost}}</td>
+            <td *ngIf="event.all_day==true"  style="text-align: center;">Sí</td>
+            <td *ngIf="event.all_day==false"  style="text-align: center;">No</td>
+            <td>{{event.date_range.initial_date | date: 'dd/MM/yyyy'}}</td>
+            <td>{{event.date_range.final_date | date: 'dd/MM/yyyy'}}</td>
+            <td style="text-align: center;"> 
+                <button mat-stroked-button [routerLink]="['/event', event.event_id]" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px; ">
+                    Ver Detalles
+                </button>
+            </td>
+            </tr>
+        </tbody>   
+        </table>
+        <div class="alert alert-info text-center" role="alert" *ngIf="(this.userEvents | filterBy: filter).length === 0">
+            ¡El usuario <span class="text-danger">{{user.name}}</span> no tiene eventos asociados!
+        </div>
+
+        <div class="alert alert-info text-center" style="margin: auto 5%" role="alert"
+            *ngIf="!(this.userEvents.length === 0) && (this.userEvents| filterBy: filter).length === 0">
+            ¡El usuario no está asociado a ningún evento con un nombre que coincida con <span
+                class="text-danger">{{filter.name}}</span>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

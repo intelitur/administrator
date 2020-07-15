@@ -9,8 +9,8 @@ import { EventType } from '../models/Event';
 })
 export class EventService{
 
-  events: Array<EventType>
-  eventRequest = [{name:"a"}];
+  events: Array<EventType> = [];
+  eventRequest: Array<any>;
   module= 'events/'
   
   constructor(
@@ -37,13 +37,23 @@ export class EventService{
   /**
    * @function to create a new event
    * @param event to be added
+   * @param request false is just a normal event : true needs de user id who wants to create the event
    */
-  createEvent(event: EventType){
+  createEvent(event: EventType, request?: boolean){
   
-    let json ={
-      "info": event,
-      "latitude":  10.471681129073,
-      "longitude": -84.64514404535
+    let json;
+    if(request == true){
+      json ={
+        "info": event,
+        "latitude":  event.latitude,
+        "longitude": event.longitude,
+      }  
+    }else{
+      json ={
+        "info": event,
+        "latitude":  10.471681129073,
+        "longitude": -84.64514404535
+      }
     }
     console.log(json)
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}`, json, {observe: 'response'})
@@ -70,10 +80,11 @@ export class EventService{
    * @param company_id
    * @param event_id
    */
-  addCompanyToEvent(company_id, event_id){
+  addCompanyToEvent(company_id, event_id, user_id){
     let json = {
-      "company_id": company_id,
-      "event_id": event_id
+      company_id,
+      event_id,
+      user_id
     }
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}EventToCompany`, json, {observe: 'response'})
   }
@@ -100,8 +111,9 @@ export class EventService{
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}AddCategoryToEvent`, json, {observe: 'response'})
   }
 
-  obtainAllEventRequest(){
-
+  
+  getAllPendingEventRequests(){
+    return this.http.get(`${environment.SERVER_BASE_URL}petitions/2/-1`)
   }
 
   getEventRequestByCompany(id){
@@ -109,6 +121,15 @@ export class EventService{
   }
 
   getEventRequestsByUser(id, state?){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}`)//cambiar
+    console.log(id + " " + state)
+    return this.http.get(`${environment.SERVER_BASE_URL}petitions/${state}/${id}`)
+  }
+
+  changeRequestState(event_id,state){
+    let json = {
+      "event_id": event_id, 
+	    "state": state
+    }
+    return this.http.put(`${environment.SERVER_BASE_URL}petitions/`,json, {observe: 'response'} ) 
   }
 }

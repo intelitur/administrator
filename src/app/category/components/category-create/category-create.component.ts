@@ -41,7 +41,7 @@ export class CategoryCreateComponent implements OnInit {
     let category: Category = {
       name: this.categoryFG.value.name,
       type: this.categoryFG.value.type,
-      url: ""
+      url: []
     }
     this.createCategory(category)
   }
@@ -77,13 +77,7 @@ export class CategoryCreateComponent implements OnInit {
       }
     });
   }
-
-
-  getFile(files: FileList) {
-    this.fileToUpload = files.item(0);
-    console.log(files.item(0))
-  }
-
+  
   closeDialog(){
     this.dialogRef.close()
   }

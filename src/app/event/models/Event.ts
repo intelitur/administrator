@@ -17,4 +17,6 @@ export interface EventType{
     latitude?: number, 
     longitude?: number
     is_active?: boolean
+    user_id?: number
+    images?: any[]
 }

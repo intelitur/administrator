@@ -4,6 +4,7 @@ import { CompaniesComponent } from "./components/companies/companies.component";
 import { CompanyRootComponent } from './company-root.component';
 import { ManagementComponent } from './components/management/management.component';
 import { RequestsComponent } from './components/requests/requests.component';
+import { RequestTabsComponent } from './components/request-tabs/request-tabs.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: "requests",
-        component: RequestsComponent
+        component: RequestTabsComponent
       },
       {
         path: ":company_id",

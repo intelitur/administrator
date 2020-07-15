@@ -12,6 +12,8 @@ import { CategoryService } from 'src/app/category/services/category.service';
 import { Category } from 'src/app/itinerary/models/Category';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CompanyService } from 'src/app/company/services/company.service';
+import { UserService } from 'src/app/users/services/user.service';
+import { User } from 'src/app/users/models/User.class';
 
 @Component({
   selector: 'app-event-create',
@@ -19,7 +21,7 @@ import { CompanyService } from 'src/app/company/services/company.service';
   styleUrls: ['./event-create.component.scss']
 })
 export class EventCreateComponent implements OnInit {
-
+  user: User
   eventFG: FormGroup
   allDay: boolean = false;
   loading: boolean = false;
@@ -32,6 +34,7 @@ export class EventCreateComponent implements OnInit {
   common_date: any = undefined;
   subscription: Subscription
   subscription2: Subscription
+  eventImages = [];
   //chipList
   visible = true;
   selectable = true;
@@ -49,7 +52,8 @@ export class EventCreateComponent implements OnInit {
     public eventService: EventService,
     public router: Router,
     public categoryService: CategoryService,
-    public companyService: CompanyService
+    public companyService: CompanyService,
+    public userService: UserService
   ) { }
 
   ngOnInit() {
@@ -59,9 +63,11 @@ export class EventCreateComponent implements OnInit {
       detail: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
       cost: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{1,}[.]{0,1}[0-9]{1,})*$")]),
       categories: new FormControl(null),
-      companies: new FormControl(null)
+      companies: new FormControl(null),
     });
     
+    this.user = this.userService.actualUser
+
     this.subscription = this.categoryService.getAllCategories(1)
     .subscribe({
       next: (data: any) => {
@@ -96,11 +102,16 @@ export class EventCreateComponent implements OnInit {
     this.color = event.color.hex;
   }
 
-  onSubmit(){
+  async onSubmit(){
+    this.loading = true;
+    this.eventFG.disable();
 
     this.allDay == true? (this.initial_date=this.common_date , this.final_date=this.common_date) : null; 
     this.initial_time == undefined? this.initial_time = null: null;
     this.final_time == undefined? this.final_time = null: null;
+
+    let urlImages = await this.uploadFiles()
+    console.log(urlImages)
 
     let event: EventType = {
       name: this.eventFG.controls['name'].value,
@@ -115,26 +126,26 @@ export class EventCreateComponent implements OnInit {
       },
       initial_time: this.initial_time,
       final_time: this.final_time,
+      user_id: this.userService.actualUser.user_id,
+      images: urlImages
     }
     this.createEvent(event);
   }
 
   createEvent(event: EventType){
-
-    this.loading = true;
-    this.eventFG.disable();
     this.eventService.createEvent(event).subscribe({
-      next: (data: any) => {
+      next: async (data: any) => {
         if (data.status == 200) {
+          
+          /**Añadiendo compañías y categorías al evento */
+          this.getCategories()
+          this.getCompanies()
+          await this.eventRelations(data.body[0])
           this.commonService.openSnackBar(
             `El evento ${this.eventFG.value.name} se ha creado`,
             "OK"
           );
           this.dialogRef.close();
-          /**Añadiendo compañías y categorías al evento */
-          this.getCategories()
-          this.getCompanies()
-          this.eventRelations(data.body[0])
           this.router.navigate(['/event', data.body[0]])
         } else {
           this.commonService.openSnackBar(
@@ -170,8 +181,8 @@ export class EventCreateComponent implements OnInit {
   disableDialog(): boolean {
     if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined  ||
     (this.allDay == false && this.final_date== undefined) || (this.allDay == true && this.initial_time == undefined) || 
-    (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) 
-    || this.allCategories.length === 0 || (this.initial_time >= this.final_time)) {
+    (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) || 
+    (this.initial_time >= this.final_time) || this.eventImages.length == 0  || this.loading == true ) {
       return true
     }
     return false
@@ -251,7 +262,7 @@ export class EventCreateComponent implements OnInit {
   async eventRelations(event_id){
     //compañías
     for(let i=0; i<this.allCompanies.length; i++){
-      await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id).toPromise()
+      await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id,this.user.user_id).toPromise()
     }
 
     //Categorias
@@ -260,4 +271,18 @@ export class EventCreateComponent implements OnInit {
     }
   }
 
+  getFiles(files){
+    this.eventImages = files;
+  }
+
+  async uploadFiles() {
+    let images = [];
+    for(let i=0; i<this.eventImages.length; i++){
+          await this.commonService.uploadFile(this.eventImages[i]).then((data: any) => {
+          images.push(data.filename)
+        }
+      )
+    }
+    return images
+  }
 }

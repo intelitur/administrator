@@ -18,6 +18,10 @@ import { RequestCompanyUnionComponent } from './components/profile/request-compa
 import { AddRequestCompanyUnionComponent } from './components/profile/add-request-company-union/add-request-company-union.component';
 import { CreateEvenRequestComponent } from './components/profile/create-even-request/create-even-request.component';
 import { AddEventRequestComponent } from './components/profile/add-event-request/add-event-request.component';
+import { ProfileEventsComponent } from './components/profile/profile-events/profile-events.component';
+import { UnionEventRequestComponent } from './components/profile/union-event-request/union-event-request.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { PetitionsFilterComponent } from './components/profile/union-event-request/petitions-filter/petitions-filter.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,9 @@ import { AddEventRequestComponent } from './components/profile/add-event-request
     AddRequestCompanyUnionComponent,
     CreateEvenRequestComponent,
     AddEventRequestComponent,
+    ProfileEventsComponent,
+    UnionEventRequestComponent,
+    PetitionsFilterComponent,
   ],
   imports: [
     CommonModule,
@@ -40,9 +47,10 @@ import { AddEventRequestComponent } from './components/profile/add-event-request
     FormsModule,
     UsersRoutingModule,
     FilterPipeModule,
-    ColorCircleModule
+    ColorCircleModule,
+    LeafletModule 
   ],
   exports: [UserRootComponent],
-  entryComponents: [AddAdminComponent, AddRequestCompanyUnionComponent, AddEventRequestComponent]
+  entryComponents: [AddAdminComponent, AddRequestCompanyUnionComponent, AddEventRequestComponent,PetitionsFilterComponent]
 })
 export class UsersModule {}
