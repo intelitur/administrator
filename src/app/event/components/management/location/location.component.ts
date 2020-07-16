@@ -98,6 +98,9 @@ export class LocationComponent implements OnInit,  AfterViewInit {
       initial_time: this.myEvent.initial_time,
       name: this.myEvent.name,
       event_id: this.myEvent.event_id,
+      user_id: this.myEvent.user_id,
+      images: this.myEvent.images,
+      is_active: this.myEvent.is_active
     }
 
     let updatedEvent = {
