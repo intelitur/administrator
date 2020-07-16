@@ -35,6 +35,7 @@ export class EventCreateComponent implements OnInit {
   subscription: Subscription
   subscription2: Subscription
   eventImages = [];
+  eventImagesFinal = [];
   //chipList
   visible = true;
   selectable = true;
@@ -271,14 +272,31 @@ export class EventCreateComponent implements OnInit {
     }
   }
 
-  getFiles(files){
-    this.eventImages = files;
+  getFiles(event: any){
+    this.eventImages = []
+    this.eventImagesFinal = []
+    this.eventImagesFinal = event.target.files;
+    if(event.target.files){
+      for(let i=0; i<event.target.files.length; i++){
+        if (event.target.files[i]) {
+          var reader = new FileReader();
+          
+          reader.readAsDataURL(event.target.files[i]);
+
+          reader.onload = (event:any) => {
+            this.eventImages.push(event.target.result);
+          } 
+          
+        }
+      }
+      console.log(this.eventImagesFinal)
+    }
   }
 
   async uploadFiles() {
     let images = [];
-    for(let i=0; i<this.eventImages.length; i++){
-          await this.commonService.uploadFile(this.eventImages[i]).then((data: any) => {
+    for(let i=0; i<this.eventImagesFinal.length; i++){
+          await this.commonService.uploadFile(this.eventImagesFinal[i]).then((data: any) => {
           images.push(data.filename)
         }
       )
