@@ -16,13 +16,12 @@
 }
 
 .noImageButton {
-    align-self: center;
     text-align: center; 
     width: 20%; 
-    height: 35%; 
     border: solid 1.5px rgb(220, 220, 220); 
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 15%;
 }
 
 ngb-carousel.container-fluid.carousel.slide {

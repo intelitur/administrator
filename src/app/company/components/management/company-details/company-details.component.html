@@ -1,3 +1,6 @@
+<ng-container *ngIf="this.loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
 <div style="display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;">
     <div style="width: 60%; min-width: 300px;">
         <div style="display: flex; justify-content: space-around;">
@@ -42,14 +45,11 @@
             </mat-form-field>
 
             <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-                <button *ngIf="!loading; else loadingBar" mat-stroked-button [disabled]="!companyForm.valid || !isChanged()" color="primary"
+                <button mat-stroked-button [disabled]="!companyForm.valid || !isChanged() || loading" color="primary"
                     style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="applyChanges()">
                     Guardar cambios
                 </button>
-                <ng-template #loadingBar>
-                    <mat-progress-bar mode="indeterminate" style="width: 47%; margin: auto 0;"></mat-progress-bar>
-                </ng-template>
-                <button mat-stroked-button [disabled]="!isChanged() || loading" color="warn"
+                <button  mat-stroked-button [disabled]="!isChanged() || loading" color="warn"
                     style="width: 47%; min-width: fit-content;margin-top: 10px;"
                     (click)="companyForm.patchValue(company)">
                     Descartar cambios
@@ -59,26 +59,31 @@
 
         </form>
     </div>
-    <div
+    <div *ngIf="company.url != '' && company.url != undefined"
         style="width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
         <img style="margin: 5% auto; max-height: 450px; max-width: 90%;"
-            src="https://media-exp1.licdn.com/dms/image/C561BAQECpbD6BAejKg/company-background_10000/0?e=2159024400&v=beta&t=0OMsZud-rJoJIlHTUOuvOGPWNEZJBJDx7_mzKQI37UU">
+            src="{{company.url}}">
         <div style=" display: flex; height: 70px;">
-            <div
-                style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);">
-                <button mat-button matTooltip="Buscar nueva imagen" style="border-radius: 0 0 0 20px;"
-                    class="image-buttons" color="accent">
-                    <mat-icon>find_replace</mat-icon>
-
-                </button>
+            <div title="Añadir imagen a la categoría"
+            style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);">
+                <label for="file-upload"  class="image-buttons" style="border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;" ><mat-icon>find_replace</mat-icon></label> 
+                <input [disabled]="loading"  id="file-upload" (change)="addImg($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>   
             </div>
             <div
                 style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);">
-                <button mat-button matTooltip="Eliminar imagen de empresa" style="border-radius: 0 0 20px 0"
-                    class="image-buttons" color="warn">
+                <button [disabled]="loading" mat-button matTooltip="Eliminar imagen de empresa" style="border-radius: 0 0 20px 0"
+                    class="image-buttons" color="warn" (click)="deleteImg()">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>
+        </div>
+    </div>
+    <div style="width: 40%; display: flex; justify-content: center; align-items: center;">
+        <div *ngIf="company.url == '' || company.url == undefined" title="Añadir imagen a la empresa" class="noImageButton">
+            <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> 
+                <mat-icon style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%;">add_photo_alternate</mat-icon>
+            </label> 
+            <input [disabled]="loading"  id="file-upload" (change)="addImg($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>   
         </div>
     </div>
 </div>
