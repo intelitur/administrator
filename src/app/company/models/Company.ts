@@ -10,5 +10,4 @@ export interface Company {
   location: string,
   image: string,
   state: boolean,
-  url: string
 }

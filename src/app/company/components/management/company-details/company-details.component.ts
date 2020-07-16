@@ -40,7 +40,7 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     console.log(this.company)
-    console.log(this.company.url)
+    console.log(this.company.image)
     this.companyForm.patchValue(this.company);
     this.cd.detectChanges();
   }
@@ -136,19 +136,19 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
   async addImg(files: FileList){
     this.loading = true;
     this.companyForm.disable()
-    let img = this.company.url
+    let img = this.company.image
     await this.commonService.uploadFile(files[0]).then(
       (data: any) => {
-        this.company.url = "https://intelitur.sytes.net/files/images/" + data.filename
+        this.company.image = "https://intelitur.sytes.net/files/images/" + data.filename
       }
     )
-    console.log(this.company.url)
+    console.log(this.company.image)
     this.imageChanges(img)
   }
 
   deleteImg(){
-    let img = this.company.url
-    this.company.url = ''
+    let img = this.company.image
+    this.company.image = ''
     this.imageChanges(img)
   }
 
@@ -168,7 +168,7 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
             "OK")
         }
         else {
-          this.company.url = oldImg
+          this.company.image = oldImg
           this.commonService.openSnackBar(
             `Error al cambiar el estado: ${data.error}`,
             "OK"
