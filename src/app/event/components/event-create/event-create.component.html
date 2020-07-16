@@ -149,11 +149,18 @@
 
     <div *ngIf="eventImages.length != 0"
         style="max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
-        <ngb-carousel class="container-fluid" >
+        <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
             <ng-template *ngFor="let i of eventImages; let index = index" [id]="'slideId_' + index" ngbSlide>              
                 <img class="d-block w-100" style="max-height: 450px !important; border-radius: 10px;" src="{{url}}{{eventImages[index]}}"/>
+                <div class="carousel-caption">
+                    <button [disabled]="loading" mat-button style="border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;" (click)="deleteImage();"
+                        class="image-buttons" color="warn">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
             </ng-template>
         </ngb-carousel>
+
     </div>
 </div>
 

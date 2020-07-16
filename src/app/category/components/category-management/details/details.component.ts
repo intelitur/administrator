@@ -154,6 +154,9 @@ export class DetailsComponent implements OnInit {
   }
 
   deleteImage(){
+    if(this.categoryImages.length == 1){
+      this.imageIndex = 0;
+    }
     this.loading = true;
     this.categoryFG.disable()
     this.categoryImages.splice(this.imageIndex, 1);

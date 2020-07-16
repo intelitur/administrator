@@ -32,6 +32,7 @@ export class EventCreateComponent implements OnInit {
   initial_time: any = undefined;
   final_time: any =  undefined;
   common_date: any = undefined;
+  imageIndex = 0;
   subscription: Subscription
   subscription2: Subscription
   eventImages = [];
@@ -275,10 +276,11 @@ export class EventCreateComponent implements OnInit {
   getFiles(event: any){
     this.eventImages = []
     this.eventImagesFinal = []
-    this.eventImagesFinal = event.target.files;
     if(event.target.files){
       for(let i=0; i<event.target.files.length; i++){
         if (event.target.files[i]) {
+          this.eventImagesFinal.push(event.target.files[i])
+
           var reader = new FileReader();
           
           reader.readAsDataURL(event.target.files[i]);
@@ -303,4 +305,19 @@ export class EventCreateComponent implements OnInit {
     }
     return images
   }
+
+  onSlide(event){
+    this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+  }
+
+  deleteImage(){
+    if(this.eventImages.length == 1){
+      this.imageIndex = 0;
+    }
+    this.eventImages.splice(this.imageIndex, 1);
+    this.eventImagesFinal.splice(this.imageIndex, 1);
+    console.log(this.eventImages)
+    console.log(this.eventImagesFinal)
+  }
+
 }
