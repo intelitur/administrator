@@ -79,6 +79,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this._router.navigate(["/itineraries/show-all"]);
         },
         error: (_err: HttpErrorResponse) => {
+          console.log(_err)
           this.sessionService.commonService.openSnackBar(
             `Error en la autenticación`,
             "OK"
