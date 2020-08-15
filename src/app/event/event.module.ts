@@ -16,6 +16,9 @@ import { EventFiltersComponent } from './components/events/event-filters/event-f
 import { DatePipe } from '@angular/common';
 import { EventRequestComponent } from './components/event-request/event-request.component';
 import { EventRequestFiltersComponent } from './components/event-request/event-request-filters/event-request-filters.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MainTabsComponent } from './components/main-tabs/main-tabs.component';
+import { EventsStadisticsComponent } from './components/events-stadistics/events-stadistics.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +30,9 @@ import { EventRequestFiltersComponent } from './components/event-request/event-r
     EventDetailsComponent,
     EventFiltersComponent,
     EventRequestComponent,
-    EventRequestFiltersComponent
+    EventRequestFiltersComponent,
+    MainTabsComponent,
+    EventsStadisticsComponent
   ],
     imports: [
       CommonModule,
@@ -36,7 +41,8 @@ import { EventRequestFiltersComponent } from './components/event-request/event-r
       EventRoutingModule,
       FilterPipeModule,
       ColorCircleModule,
-      LeafletModule
+      LeafletModule,
+      NgbModule
     ], 
     providers: [DatePipe],
     entryComponents: [

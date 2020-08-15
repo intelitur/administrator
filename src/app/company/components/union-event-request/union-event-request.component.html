@@ -68,7 +68,7 @@
                         {{ request.petition_state_company == 2? 'Pendiente': request.petition_state_company == 1? 'Aceptado': 'Rechazado' }}
                     </label>
                 </td>
-                <td>
+                <td *ngIf="filter.state == '0' || filter.state == '2'">
                     <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" *ngIf="request.petition_state_company == 2">
                         <button mat-stroked-button color="primary" style="min-width: fit-content; margin: 1px; color: green;" (click)="changeStatus(request.petition_id, 1)" matTooltip="Aceptar solicitud">
                             <mat-icon>done</mat-icon>

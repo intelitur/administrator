@@ -18,5 +18,8 @@ export interface EventType{
     longitude?: number
     is_active?: boolean
     user_id?: number
-    images?: any[]
+    images?: any[],
+    visits?: Number,
+    rating?: Number,
+    publications?: Number
 }

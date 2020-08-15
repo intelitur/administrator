@@ -2,8 +2,8 @@ import { ModuleWithProviders, Component } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { EventRootComponent } from "./event-root.component"
 import { ManagementComponent } from './components/management/management.component';
-import { EventsComponent } from './components/events/events.component';
 import { EventRequestComponent } from './components/event-request/event-request.component';
+import { MainTabsComponent } from './components/main-tabs/main-tabs.component';
 
 const routes: Routes = [
     {
@@ -12,7 +12,7 @@ const routes: Routes = [
       children: [
         {
           path: "all",
-          component: EventsComponent
+          component: MainTabsComponent
         },
         {
           path: "request",

@@ -15,7 +15,14 @@ export class EventFiltersComponent implements OnInit {
 
   eventFiltersFG: FormGroup
   categories: any;
+  currentRate = 0;
   private subscription: Subscription;
+
+
+  start_DateI = undefined;
+  end_DateI = undefined;
+  start_DateF = undefined;
+  end_DateF = undefined;
   
   constructor(
     public dialogRef: MatDialogRef<EventFiltersComponent>,
@@ -25,7 +32,8 @@ export class EventFiltersComponent implements OnInit {
 
   ngOnInit() {
     this.eventFiltersFG = new FormGroup({
-      categories: new FormControl(null, Validators.required)
+      categories: new FormControl(null, Validators.required),
+      rate: new FormControl(null, Validators.pattern("^([0-5]{1}([.]{1}[0-9]){0,1})"))
     })
 
     this.subscription = this.categoryService.getAllCategories().subscribe({
@@ -42,11 +50,40 @@ export class EventFiltersComponent implements OnInit {
   }
 
   submit(){
-    var category_id = this.eventFiltersFG.controls['categories'].value
-    this.dialogRef.close(category_id)
+    let info = {
+      startDateI: this.start_DateI,
+      endDateI: this.end_DateI,
+      startDateF: this.start_DateF,
+      endDateF: this.end_DateF,
+      category_id: this.eventFiltersFG.controls['categories'].value,
+      rate: this.currentRate
+    }
+    this.dialogRef.close(info)
   }
 
   closeDialog(){
     this.dialogRef.close()
+  }
+
+  dateFilterI = (date: Date): boolean => {
+    return date >= this.start_DateI
+  }
+
+  dateFilterF = (date: Date): boolean => {
+    return date >= this.start_DateF
+  }
+
+  disableDialog(): boolean {
+    if(!this.eventFiltersFG.valid && this.start_DateI  == undefined && this.start_DateF == undefined && this.end_DateI == undefined && 
+      this.end_DateF == undefined && this.currentRate == 0 || (this.start_DateI != undefined && this.end_DateI == undefined) || 
+      (this.start_DateF != undefined && this.end_DateF == undefined) || this.start_DateI > this.end_DateI || this.start_DateF > this.end_DateF ){
+        return true;
+    }
+    return false;
+  }
+
+  updateInput(rate){
+    !Number(rate) ? this.currentRate = 0 : 
+    rate <= 5 ?  this.currentRate = +parseFloat(rate).toFixed(1) : this.currentRate = 0;  
   }
 }

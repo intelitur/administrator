@@ -1,0 +1,76 @@
+<div>
+    <h1 style="text-align: center; margin:1% 0 1% 0;">Estadísticas de Eventos</h1>
+    <div class="dates">
+        <mat-form-field appearance="outline">
+          <input matTooltip="Presione el Icono" matInput [matDatepicker]="startDate" placeholder="Fecha Inicial" [(ngModel)]="start_Date" disabled >
+          <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
+          <mat-datepicker #startDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+      
+      
+        <mat-form-field appearance="outline">
+          <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha Final" [(ngModel)]="end_Date" disabled >
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker  #endDate [disabled]="start_Date == undefined" [startAt]="start_Date"></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary"matTooltip="Realizar el filtro" (click)="filterByDate()" [disabled]="start_Date == undefined || end_Date == undefined || start_Date > end_Date">
+            <i class="material-icons">search</i>
+        </button>
+
+        <button mat-raised-button color="warn"matTooltip="Realizar el filtro" (click)="obtainAllEvents()" [disabled]="!isFilterd">
+            <i class="material-icons">youtube_searched_for</i>
+        </button>
+    </div>
+    <mat-hint *ngIf="start_Date > end_Date" style="width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;">
+        Fecha inicial mayor a la final*
+    </mat-hint>
+
+    <div style="display: flex; flex-wrap: wrap; margin: 1rem 0 0 0">
+        <label>Ordenar por:</label>
+        <mat-radio-group class="radio-button-group" color="primary" [(ngModel)]="filter.state" (change)="refresh()">
+            <mat-radio-button value="0" style="color: rgb(66, 252, 19);">
+                Vistas
+            </mat-radio-button>
+            <mat-radio-button value="1" style="color: rgb(236, 240, 1) ">
+                Calificación
+            </mat-radio-button>
+            <mat-radio-button value="2" style="color: rgb(0, 180, 150)">
+                Num. Publicaciones en Redes
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    
+    <div class="table-responsive" style="padding: 0 3%;">
+        <table class="table" *ngIf="this.eventService.events">
+        <thead class="thead-light">
+            <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Costo</th>
+            <th scope="col">Fechas</th>
+            <th scope="col" *ngIf="this.authService.getUser().role_id === 1" style="text-align: center;">Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let event of this.eventService.events">
+            <td>{{event.name}}</td>
+            <td>{{event.cost}}</td>
+            <td>
+                Inicio: {{event.date_range.initial_date | date: 'dd/MM/yyyy'}}
+                <br>
+                Fin:    {{event.date_range.final_date | date: 'dd/MM/yyyy'}}
+            </td>            
+            <td style="text-align: center;" *ngIf="this.authService.getUser().role_id === 1"> 
+                <button mat-stroked-button [routerLink]="['/event', event.event_id]" matTooltip="Detalles del evento" style="color: rgb(82, 82, 82); font-size: 14px; ">
+                    Ver Detalles
+                </button>
+            </td>
+            </tr>
+        </tbody>   
+        </table>
+        <div class="alert alert-info text-center" role="alert" *ngIf="this.eventService.events.length === 0">
+          ¡No hay eventos disponibles<span class="text-danger"></span>!
+        </div>
+    </div>
+    
+</div>
