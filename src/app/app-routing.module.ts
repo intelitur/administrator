@@ -41,6 +41,14 @@ const routes: Routes = [
         i => i.CategoryModule
       ),
     canActivateChild: [LoggedInGuard]
+  },
+  {
+    path: "ads",
+    loadChildren: () =>
+      import("./ads/ads.module").then(
+        i => i.AdsModule
+      ),
+    canActivateChild: [LoggedInGuard]
   }
 ];
 

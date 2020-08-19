@@ -53,10 +53,11 @@ export class EventsStadisticsComponent implements OnInit {
     if(this.filter.state == '0'){
       this.eventService.events = this.eventService.events.sort((a, b) => a.visits < b.visits ? -1 : a.visits > b.visits ? 1 : 0)
     }else if(this.filter.state == '1'){
-      this.eventService.events = this.eventService.events.sort((a, b) => a.rating < b.rating ? -1 : a.rating > b.rating ? 1 : 0)
-    }else{
-      this.eventService.events = this.eventService.events.sort((a, b) => a.publications < b.publications ? -1 : a.publications > b.publications ? 1 : 0)
+      this.eventService.events = this.eventService.events.sort((a, b) => a.score < b.score ? -1 : a.score > b.score ? 1 : 0)
     }
+    // else{
+    //   this.eventService.events = this.eventService.events.sort((a, b) => a.publications < b.publications ? -1 : a.publications > b.publications ? 1 : 0)
+    // }
   }
 
   filterByDate(){

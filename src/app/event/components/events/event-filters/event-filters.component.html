@@ -1,81 +1,83 @@
 <div class="container-fluid d-flex flex-column justify-content-sm-center">
-    <h4 class="text-muted text-center font-weight-light">
-      Rellene los espacios por los que desea filtar
-    </h4>
-    <hr style="width: 100%;">
+  <h4 class="text-muted text-center font-weight-light">
+    Rellene los espacios por los que desea filtar
+  </h4>
+  <hr style="width: 100%;">
 
-    <div class="dates">
-      <h6 style="width: 20%;">Fecha de Inicio</h6>
-      <mat-form-field appearance="outline">
-        <input matTooltip="Presione el Icono" matInput [matDatepicker]="startDateI" placeholder="Fecha Inicial" [(ngModel)]="start_DateI" disabled >
-        <mat-datepicker-toggle matSuffix [for]="startDateI" ></mat-datepicker-toggle>
-        <mat-datepicker #startDateI disabled="false"></mat-datepicker>
-      </mat-form-field>
-    
-      <mat-form-field appearance="outline">
-        <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDateI" [matDatepickerFilter]="dateFilterI" placeholder="Fecha Final" [(ngModel)]="end_DateI" disabled >
-        <mat-datepicker-toggle matSuffix [for]="endDateI"></mat-datepicker-toggle>
-        <mat-datepicker  #endDateI [disabled]="start_DateI == undefined" [startAt]="start_DateI"></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <mat-hint *ngIf="start_DateI > end_DateI" style="width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;">
-      Fecha inicial mayor a la final*
-    </mat-hint>
+  <div class="dates">
+    <mat-form-field appearance="outline">
+      <input matTooltip="Presione el Icono" matInput [matDatepicker]="startDate" placeholder="Fecha Inicial" [(ngModel)]="start_Date" disabled >
+      <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
+      <mat-datepicker #startDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha Final" [(ngModel)]="end_Date" disabled >
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker  #endDate [disabled]="start_Date == undefined" [startAt]="start_Date"></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <mat-hint *ngIf="start_Date > end_Date" style="width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;">
+    Fecha inicial mayor a la final*
+  </mat-hint>
 
-    <div class="dates">
-      <h6 style="width: 20%;">Fecha de Finalización</h6>
-      <mat-form-field appearance="outline">
-        <input matTooltip="Presione el Icono" matInput [matDatepicker]="startDateF" placeholder="Fecha Inicial" [(ngModel)]="start_DateF" disabled >
-        <mat-datepicker-toggle matSuffix [for]="startDateF" ></mat-datepicker-toggle>
-        <mat-datepicker #startDateF disabled="false"></mat-datepicker>
-      </mat-form-field>
-    
-      <mat-form-field appearance="outline">
-        <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDateF" [matDatepickerFilter]="dateFilterF" placeholder="Fecha Final" [(ngModel)]="end_DateF" disabled >
-        <mat-datepicker-toggle matSuffix [for]="endDateF"></mat-datepicker-toggle>
-        <mat-datepicker  #endDateF [disabled]="start_DateF == undefined" [startAt]="start_DateF"></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <mat-hint *ngIf="start_DateF > end_DateF" style=" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;">
-      Fecha inicial mayor a la final*
-    </mat-hint>
+  <form [formGroup]="eventFiltersFG" style="display: flex; justify-content: space-evenly; align-items: center;">
+    <mat-form-field >
+      <mat-label>Tipo de categoría</mat-label>
+      <mat-select formControlName="categories">
+        <mat-option *ngFor="let c of categories" [value]="c.category_id">
+          {{c.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <hr style="width: 100%;">
-
-    <form [formGroup]="eventFiltersFG" style="display: flex; justify-content: space-evenly; align-items: center;">
-      <mat-form-field >
-        <mat-label>Tipo de categoría</mat-label>
-        <mat-select formControlName="categories">
-          <mat-option *ngFor="let c of categories" [value]="c.category_id">
-            {{c.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <div style="display: flex; flex-direction: column;">
-        <div style="align-items: center;">
-          <label style="margin-right: 2%;">Valoración:</label>
-          <mat-form-field style="width: 30%;">
-            <mat-label>Ej:1.5</mat-label>
-            <input matInput formControlName="rate" (input)="updateInput($event.target.value)">
-          </mat-form-field>
-        </div>
-        <ngb-rating [(rate)]="currentRate" [max]="5" [readonly]="true">
-          <ng-template let-fill="fill" let-index="index">
-            <span class="star" [class.filled]="fill === 100" >
-              <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-            </span>
-          </ng-template>
-        </ngb-rating>
+    <div style="display: flex; ">
+      <div style="align-items: center;">
+        <label style="margin-right: 2%;">Valoración:</label>
+        <mat-form-field style="width: 30%;">
+          <mat-label>Ej:1.5</mat-label>
+          <input matInput formControlName="rate" (input)="updateRateInput($event.target.value)">
+        </mat-form-field>
       </div>
-    </form>
+      <ngb-rating [(rate)]="currentRate" [max]="5" [readonly]="true">
+        <ng-template let-fill="fill" let-index="index">
+          <span class="star" [class.filled]="fill === 100" >
+            <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+          </span>
+        </ng-template>
+      </ngb-rating>
+    </div>
+  </form>
 
-    <div class="buttonContainer">
-      <button (click)="submit(); false" mat-raised-button color="primary" [disabled]="disableDialog()">
-        Aceptar<mat-icon>check</mat-icon>
-      </button>
-      <button (click)="closeDialog()" mat-raised-button color="warn">
-        Cerrar<mat-icon>close</mat-icon>
-      </button>
+  <hr style="width: 100%;">
+
+  <div [formGroup]="eventFiltersFG" class="m-3" style="display: flex;" (mouseenter)="refreshMap()">
+    <div class="shadow-sm rounded" class="map container-fluid" leaflet (leafletMapReady)="onMapReady($event)"
+      [leafletOptions]="options" (leafletClick)="putLocationMarker($event)">
+    </div>
+    <div style="width: 40%; align-items: center; display: flex; flex-direction: column; justify-content: center;">
+      <h6>Ubicación</h6>
+      <label style="font-size: 15px; min-width:  30% ;  margin-bottom: 15px;">
+        Latitud: <b style="color: #dbb735;;">{{locationMarker.getLatLng().lat}}</b> <br> 
+        Longitud: <b style="color: #ca382d;">{{locationMarker.getLatLng().lng}}</b>
+      </label>
+      <mat-form-field appearance="fill" (input)="updateUbicationInput($event.target.value)">
+        <mat-label>Radio de búsqueda</mat-label>
+        <input matInput formControlName="ratio" >
+        <span matSuffix>Km</span>
+      </mat-form-field>
+      <mat-hint style="font-style: italic; text-align: center;">
+        Rango de 1-3*
+      </mat-hint>
     </div>
   </div>
+
+  <div class="buttonContainer">
+    <button (click)="submit(); false" mat-raised-button color="primary" [disabled]="disableDialog()">
+      Aceptar<mat-icon>check</mat-icon>
+    </button>
+    <button (click)="closeDialog()" mat-raised-button color="warn">
+      Cerrar<mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>

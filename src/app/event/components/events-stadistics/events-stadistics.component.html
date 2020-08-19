@@ -26,18 +26,18 @@
         Fecha inicial mayor a la final*
     </mat-hint>
 
-    <div style="display: flex; flex-wrap: wrap; margin: 1rem 0 0 0">
+    <div style="display: flex; flex-wrap: wrap; margin: 1rem 0 0 0; padding: 0 3%;">
         <label>Ordenar por:</label>
         <mat-radio-group class="radio-button-group" color="primary" [(ngModel)]="filter.state" (change)="refresh()">
             <mat-radio-button value="0" style="color: rgb(66, 252, 19);">
-                Vistas
+                Visitas
             </mat-radio-button>
             <mat-radio-button value="1" style="color: rgb(236, 240, 1) ">
-                Calificación
+                Valoración
             </mat-radio-button>
-            <mat-radio-button value="2" style="color: rgb(0, 180, 150)">
+            <!-- <mat-radio-button value="2" style="color: rgb(0, 180, 150)">
                 Num. Publicaciones en Redes
-            </mat-radio-button>
+            </mat-radio-button> WISH-->
         </mat-radio-group>
     </div>
     

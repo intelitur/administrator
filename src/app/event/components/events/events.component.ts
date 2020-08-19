@@ -83,7 +83,7 @@ export class EventsComponent implements OnInit {
   }
 
   openShowFilterOptionsDialog(){
-    const  dialog = this.dialogService.open(EventFiltersComponent, {width: "70%", minWidth: "280px", disableClose: true})
+    const  dialog = this.dialogService.open(EventFiltersComponent, {width: "70%", height:"90%" ,minWidth: "280px", disableClose: true})
 
     dialog.afterClosed().subscribe( info => {
       if(info != undefined){

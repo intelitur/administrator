@@ -1,0 +1,52 @@
+<div style="height: 20px;">
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+</div>
+<form [formGroup]="adsFG" class="container-fluid d-flex flex-column justify-content-center">
+    <h1>Creación del Anuncio</h1>
+   
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input #Name matInput formControlName="name" matTooltip="Nombre del anuncio" maxlength="50" required>
+        <mat-hint align="end">{{Name.value.length}}/50</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <textarea style="resize: none;" matInput formControlName="description" placeholder="Descripción" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Empresa Asociada</mat-label>
+        <mat-select formControlName="company">
+          <mat-option *ngFor="let c of companies" [value]="c.company_id">
+            {{c.name}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+
+
+<div class="dates">
+    <mat-form-field  style="width: 40%; " appearance="outline">
+        <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="startDate" [min]="today"  placeholder="Fecha Inicial" [(ngModel)]="start_Date" disabled >
+        <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
+        <mat-datepicker #startDate disabled="false" ></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-form-field style="width: 40%;" appearance="outline">
+      <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha de finalización" [(ngModel)]="end_Date" disabled >
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker  #endDate [disabled]="start_Date == undefined" [startAt]="start_Date"></mat-datepicker>
+    </mat-form-field>
+</div>
+<mat-hint *ngIf="start_Date > end_Date" style=" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;">
+    Fecha inicial mayor a la final*
+</mat-hint>
+
+<div class="buttonContainer">
+    <button mat-raised-button [disabled]="!adsFG.valid || start_Date == undefined || end_Date == undefined || start_Date > end_Date" color="primary" (click)="onSubmit()">
+        Crear Anuncio
+    </button>
+    <button (click)="closeDialog()" mat-raised-button color="warn">
+        Cerrar<mat-icon>close</mat-icon>
+      </button>
+</div>

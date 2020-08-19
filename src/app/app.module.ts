@@ -15,6 +15,7 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { CompanyModule } from './company/company.module';
 import { EventModule } from './event/event.module';
 import { CategoryModule } from './category/category.module';
+import { AdsModule } from './ads/ads.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CategoryModule } from './category/category.module';
     HttpClientModule,
     CompanyModule,
     EventModule,
-    CategoryModule
+    CategoryModule,
+    AdsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/general-services/common.service';
+import { Marker, tileLayer, latLng, Map, Icon } from 'leaflet';
 
 @Component({
   selector: 'app-event-filters',
@@ -16,24 +17,56 @@ export class EventFiltersComponent implements OnInit {
   eventFiltersFG: FormGroup
   categories: any;
   currentRate = 0;
+  ubcationRatio = 0;
   private subscription: Subscription;
+  start_Date = undefined;
+  end_Date = undefined;
 
+  //Map
+  map: Map
+  refreshed = false
 
-  start_DateI = undefined;
-  end_DateI = undefined;
-  start_DateF = undefined;
-  end_DateF = undefined;
+  myEvent = {
+    latitude: 10.471691479992346,
+    longitude: -84.64503407478333
+  }
+
+  locationMarker: Marker = new Marker(
+    latLng(10.471868647924616, -84.64508235454561)
+    , {
+      draggable: true,
+      icon: new Icon({
+        iconUrl: 'assets/marker-icon.png',
+        iconSize: [24, 41],
+        iconAnchor: [12, 41],
+        shadowUrl: 'assets/marker-shadow.png'
+      })
+    })
+
+  options = {
+    layers: [
+      tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "..."
+      })
+    ],
+    zoom: 16,
+    center: latLng(10.471691479992346, -84.64503407478333)
+  };
   
   constructor(
     public dialogRef: MatDialogRef<EventFiltersComponent>,
     public categoryService: CategoryService,
     public commonService: CommonService
-  ) { }
+  ) {
+    this.refreshMap = this.refreshMap.bind(this)
+   }
 
   ngOnInit() {
     this.eventFiltersFG = new FormGroup({
       categories: new FormControl(null, Validators.required),
-      rate: new FormControl(null, Validators.pattern("^([0-5]{1}([.]{1}[0-9]){0,1})"))
+      rate: new FormControl(null, Validators.pattern("^([0-5]{1}([.]{1}[0-9]){0,1})")),
+      ratio: new FormControl(null, Validators.pattern("^([0-3]{1})"))
     })
 
     this.subscription = this.categoryService.getAllCategories().subscribe({
@@ -44,6 +77,35 @@ export class EventFiltersComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit() {
+    if(document.getElementById("mat-tab-label-0-2")){
+      (document.getElementById("mat-tab-label-0-2") as any).parameters = { map: this.map, event: this.myEvent }
+      document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMap, false);
+    }
+    setTimeout(() => this.map.invalidateSize(), 2000);
+  }
+
+
+  onMapReady(map: Map) {
+    this.map = map;
+    map.addLayer(this.locationMarker)
+    if (this.myEvent.latitude && this.myEvent.longitude) {
+      this.locationMarker.setLatLng(latLng(this.myEvent.latitude, this.myEvent.longitude))
+    }
+  }
+
+  refreshMap(){
+    this.map.invalidateSize()
+    if(!this.refreshed){
+      this.refreshed = true
+      if(this.myEvent.latitude && this.myEvent.longitude)
+        this.map.flyTo(latLng(this.myEvent.latitude, this.myEvent.longitude), 18)
+    }
+  }
+
+  putLocationMarker(event: any) {
+    this.locationMarker.setLatLng(event.latlng);
+  }
 
   onNoClick(){
     this.dialogRef.close()
@@ -51,10 +113,8 @@ export class EventFiltersComponent implements OnInit {
 
   submit(){
     let info = {
-      startDateI: this.start_DateI,
-      endDateI: this.end_DateI,
-      startDateF: this.start_DateF,
-      endDateF: this.end_DateF,
+      initial_date: this.start_Date,
+      final_date: this.end_Date,
       category_id: this.eventFiltersFG.controls['categories'].value,
       rate: this.currentRate
     }
@@ -65,25 +125,25 @@ export class EventFiltersComponent implements OnInit {
     this.dialogRef.close()
   }
 
-  dateFilterI = (date: Date): boolean => {
-    return date >= this.start_DateI
-  }
-
-  dateFilterF = (date: Date): boolean => {
-    return date >= this.start_DateF
+  dateFilter = (date: Date): boolean => {
+    return date >= this.start_Date
   }
 
   disableDialog(): boolean {
-    if(!this.eventFiltersFG.valid && this.start_DateI  == undefined && this.start_DateF == undefined && this.end_DateI == undefined && 
-      this.end_DateF == undefined && this.currentRate == 0 || (this.start_DateI != undefined && this.end_DateI == undefined) || 
-      (this.start_DateF != undefined && this.end_DateF == undefined) || this.start_DateI > this.end_DateI || this.start_DateF > this.end_DateF ){
+    if((!this.eventFiltersFG.valid && this.start_Date  == undefined && this.start_Date == undefined && this.currentRate == 0  && this.ubcationRatio == 0) || (this.start_Date != undefined && this.end_Date == undefined) || 
+      this.ubcationRatio > 3 || this.start_Date > this.end_Date){
         return true;
     }
     return false;
   }
 
-  updateInput(rate){
+  updateRateInput(rate){
     !Number(rate) ? this.currentRate = 0 : 
     rate <= 5 ?  this.currentRate = +parseFloat(rate).toFixed(1) : this.currentRate = 0;  
+  }
+
+  updateUbicationInput(ratio){
+    !Number(ratio) ? this.ubcationRatio = 0 : 
+    ratio <= 5 ?  this.ubcationRatio = +parseInt(ratio) : this.ubcationRatio = 0;  
   }
 }

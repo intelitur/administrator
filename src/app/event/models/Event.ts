@@ -20,6 +20,6 @@ export interface EventType{
     user_id?: number
     images?: any[],
     visits?: Number,
-    rating?: Number,
-    publications?: Number
+    score?: Number,
+    //publications?: Number
 }
