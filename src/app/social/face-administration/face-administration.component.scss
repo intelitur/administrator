@@ -1,0 +1,122 @@
+.permissionsManagement{
+    margin-top: 20px;
+    overflow-y: scroll;
+    max-height: 500px;
+    
+
+    -webkit-box-shadow: 9px -10px 12px -9px rgba(0,0,0,0.77);
+    -moz-box-shadow: 9px -10px 12px -9px rgba(0,0,0,0.77);
+    box-shadow: 9px -10px 12px -9px rgba(0,0,0,0.77);
+}
+.permissionTable{
+    clear: left;
+    display: block;
+    overflow-x: scroll;
+}
+
+.addPermission{
+    display: block;
+    float: left;
+    padding: 5px;
+}
+.addPermission svg{
+    color: #0074D9;
+}
+.addPermission :hover{
+    cursor: pointer;
+}
+.addPermission svg :hover{
+    color: #7FDBFF;
+    
+}
+
+
+.pagesManagement{
+    margin-top: 20px;
+   
+    max-height: 500px;
+    overflow-y: scroll;
+
+    -webkit-box-shadow: 9px -10px 12px -9px rgba(0,0,0,0.77);
+    -moz-box-shadow: 9px -10px 12px -9px rgba(0,0,0,0.77);
+    box-shadow: 9px -10px 12px -9px rgba(0,0,0,0.77);
+}
+.addPage{
+    float: left;
+    padding: 5px;
+}
+.addPage svg{
+    color: #0074D9;
+}
+.addPage :hover{
+    cursor: pointer;
+}
+.addPage svg :hover{
+    color: #7FDBFF;
+    
+}
+
+
+
+//DIV pageUserValidation
+.pageValidation{
+    z-index: 1;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.pageValidation button{
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+mat-radio-button{
+    display: block;
+}
+.validationContainer{
+    position: fixed;
+    padding: 20px;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  
+    width: 300px;
+    max-height: 300px;
+    overflow-y: scroll;
+
+    background-color: rgb(250, 240, 240);
+}
+.blocker {
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: ' ';
+    background: rgba(0,0,0,.5);
+  }
+
+@media only screen and (max-width: 800px) {
+    .pageValidation {
+     width: 95%;
+    }
+  }
+
+//stepper
+.stepper{
+    position: absolute;
+    width: 95%;
+    margin: auto;
+    top: 0;
+}
+.stepperSelector{
+    height: 300px;
+    min-width: 100vw;
+    overflow-y: scroll;
+    
+}

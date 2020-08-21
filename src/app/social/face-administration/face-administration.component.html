@@ -1,0 +1,224 @@
+
+<h1 class="text-center font-weight-light mt-3">Gestión de permisos y páginas <span style="cursor: pointer;" (click)="openDialog()" class="material-icons">
+  help_outline
+  </span></h1>
+   <!--in case the post array is not ready-->
+   <mat-spinner style="margin: auto; margin-top: 10px;" class="spinner " *ngIf="!this.socialDB.permissionsCount && !this.socialDB.posts && !this.socialDB.pages && !this.userS.users && !this.socialDB.permissions"></mat-spinner>
+
+
+   <div *ngIf="this.userS.actualUser.role_id != 1"> 
+      <h2  class="text-center ">Solo para usuarios administradores</h2>
+   </div>
+
+   <div class="permissionsManagement" *ngIf="this.socialDB.permissionsCount != null && this.socialDB.pages != null && this.socialDB.permissions != null && this.userS.users != null && this.userS.actualUser.role_id == 1">
+
+    <h3>Permisos</h3>
+    <div>
+      <div class="addPermission" (click)="stepperShowTrigger()">
+        <svg class="bi bi-plus-circle-fill" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
+          </svg>
+      </div>
+    </div>
+      
+  
+    
+    
+    <div class="permissionTable">
+        <table class="table">
+
+            <thead>
+                <tr>
+                  <th scope="col">Página</th>
+                  <th scope="col">Usuario</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Cambiar estado</th>
+              
+                </tr>
+            </thead>
+
+            <tbody >
+                <tr *ngFor="let item of this.socialDB.permissions">
+         
+                  <td > {{ this.pageNameFind(item.get_permissions.website_id) }} </td>
+
+                  <td > {{ this.pageUserFullName(item.get_permissions.user_id) }} </td>
+
+                  <td *ngIf="item.get_permissions.is_active"> Disponible </td>
+                  <td *ngIf="!item.get_permissions.is_active"> No disponible  </td>
+
+                  <td *ngIf="item.get_permissions.is_active"><button  (click)="permissionChangeState(item.get_permissions.permission_id,item.get_permissions.is_active)" type="button" class="btn btn-success">Activo</button></td>
+                  <td *ngIf="!item.get_permissions.is_active"><button (click)="permissionChangeState(item.get_permissions.permission_id,item.get_permissions.is_active)" type="button" class="btn btn-danger">Inactivo</button></td>
+                </tr>
+               
+              </tbody>
+
+
+        </table>
+        
+
+    </div>
+    <mat-paginator class="paginator"  [length]="this.socialDB.permissionsCount"
+              [pageSize]="paginatorPermissionListPageZise"
+              [pageSizeOptions]="[5,10,20]"
+              [pageIndex]="paginatorPermissionListIndex"
+              (page)="pageEvent = loadPaginatorChanges($event)">
+        </mat-paginator>
+
+
+</div>
+
+<div class="pagesManagement" *ngIf="this.socialDB.pages != null && this.userS.actualUser.role_id == 1">
+
+    <h3>Páginas</h3>
+    <div class="addPage" (click)="getNewPageFromFacebook()">
+        <svg class="bi bi-plus-circle-fill" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
+          </svg>
+    </div>
+
+    <div class="pageTable">
+        <table class="table">
+
+            <thead>
+                <tr>
+                  <th scope="col">Página</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Cambiar estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor="let item of this.socialDB.pages">
+                  <td> {{ item.name }} </td>
+                  <td *ngIf="item.is_Active == 1"> Disponible </td>
+                  <td *ngIf="item.is_Active != 1"> No Disponible </td>
+
+                  <td *ngIf="item.is_Active == 1" ><button (click)="pageChangeState(item.website_id,false)" type="button" class="btn btn-success">Activo</button></td>
+                  <td *ngIf="item.is_Active != 1" ><button (click)="pageChangeState(item.website_id,true)" type="button" class="btn btn-danger">Inactivo</button></td>
+                </tr>
+               
+              </tbody>
+        </table>
+        
+    </div>
+
+
+</div>
+
+<div *ngIf="pageListValidationShow" class="pageValidation">
+    
+  <div class="blocker" (click)="closeAddNewPage()"></div>
+    <div class="validationContainer">
+
+      <div>
+        <h3>Selecciona una página</h3>
+        <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        [(ngModel)]="newPageSelected">
+        <mat-radio-button class="example-radio-button" *ngFor="let item of listPageValidation" [value]="item">
+            {{item.name}}
+        </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    
+    <button (click)="closeAddNewPage()" type="button" class="btn btn-warning">Cancelar</button>
+    <button (click)="addNewPage()" type="button" class="btn btn-primary">Continuar</button>
+
+    </div>
+
+    
+</div>
+
+<div class="stepper" *ngIf="stepperShow">
+  <mat-vertical-stepper [linear]="false" #stepper>
+
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+
+        <ng-template matStepLabel>Selecciona un usuario</ng-template>
+
+        <mat-form-field >
+          
+          <input matInput  formControlName="firstCtrl" style="display: none;"><!--para que no pida form group-->
+
+          <div class="stepperSelector">
+            <mat-radio-group
+            *ngFor="let item of this.userS.users" 
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="userSelectec" [ngModelOptions]="{standalone: true}">
+            <mat-radio-button  class="example-radio-button" [value]="item" *ngIf="item.role_id != 1">
+              Nombre: {{item.info.name}} Apellido: {{item.info.lastName}} Empresa: {{ item.info.businessName }}  
+            </mat-radio-button>
+            </mat-radio-group>
+          </div>
+         
+
+
+        </mat-form-field>
+
+        <div class="userSelector">
+         
+      </div>
+
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Selecciona una pagina</ng-template>
+
+        <mat-form-field>
+
+          <input matInput  formControlName="secondCtrl" style="display: none;"><!--para que no pida form group-->
+
+          <div class="stepperSelector">
+            <mat-radio-group
+            *ngFor="let item of this.socialDB.pages" 
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="pageSelected" [ngModelOptions]="{standalone: true}">
+            <mat-radio-button  class="example-radio-button" [value]="item" *ngIf="item.is_Active == 1">
+              ID: {{item.website_id}} Pagina: {{item.name}}   
+            </mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+        
+
+
+        </mat-form-field>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+
+      <p>Confirmacion de permiso</p>
+      Pagina:
+      <p *ngIf='pageSelected != ""'> {{ pageSelected.name }} </p>
+      <p *ngIf='pageSelected == ""'> No seleccionada </p>
+      Usuario:
+      <p *ngIf='userSelectec != ""'> {{ userSelectec.info.name }} </p>
+      <p *ngIf='userSelectec == ""'> No seleccionada </p>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepperShowTrigger()">Cancelar</button>
+        <button mat-button (click)="sendNewPermissionInfo()">Confirmar</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+  
+</div>
