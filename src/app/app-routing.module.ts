@@ -41,6 +41,16 @@ const routes: Routes = [
         i => i.CategoryModule
       ),
     canActivateChild: [LoggedInGuard]
+  },
+  //SOCIAL
+  {
+    path: "social",
+    loadChildren:()=>
+      import("./social/social.module").then(
+        i => i.SocialModule
+      ),
+    canActivateChild: [LoggedInGuard]
+    
   }
 ];
 

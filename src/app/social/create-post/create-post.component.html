@@ -1,0 +1,78 @@
+
+<!--in case the post array is not ready-->
+<mat-spinner style="margin: auto; margin-top: 10px;" class="spinner " *ngIf="!this.socialDB.permissionsActualUser && !this.socialDB.pages"></mat-spinner>
+<div class="container" *ngIf="this.socialDB.permissionsActualUser != null && this.socialDB.pages != null">
+
+    <h1 class="text-center font-weight-light mt-3">Creación de publicaciones <span style="cursor: pointer;" (click)="openDialog()" class="material-icons">
+        help_outline
+        </span> </h1>
+
+    <div class="textarea-div">
+        <textarea (change)="checkPost()" [(ngModel)]="textoTextField" name="" id="" cols="30" rows="10"></textarea>
+    </div>
+
+    <div class="emoji_piker">
+
+        <emoji-mart (emojiSelect)='addEmoji($event)' title="Pick your emoji…" emoji="point_up"></emoji-mart>
+            
+    </div>
+
+
+    <div class="date-selector" style="text-align: center; margin-top: 10px;">
+        <label for="" style="display: block;">Selecciona la fecha para obtener el feedback de Facebook</label>
+        <mat-form-field>
+            <mat-label>Selecciona una fecha</mat-label>
+            <input matInput [matDatepicker]="picker" (dateChange)="getUpdateDate( $event)" disabled>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+    </div>
+    
+    
+    <div id="input-file" class="input-group mb-3">
+        
+        <div class="custom-file">
+        <input #fillespost id="filles-post" [style.display]="!pageListValidationShow ? 'block' : 'none'" (change)="loadFile($event)" accept="image/*" type="file" [(ngModel)]='imagenPost' class="custom-file-input"  aria-describedby="inputGroupFileAddon03">
+        <label class="custom-file-label" for="inputGroupFile03">Escoja una imagen de menos de 10Mb</label>
+        </div>
+    </div>
+
+    <div>
+        <img id="output" [src]="imagenPostPreview" alt="imagen-prueba" *ngIf="imagenPostPreview">
+    </div>
+
+    
+
+
+    <div class="buttons">
+        <!--1 y 2 son los tipos de posteo (igual se valida en base de datos)-->
+        <button (click)="post(fillespost,1)" class="btn btn-primary" [disabled]='this.postCheckBool' >Posteo Admin</button>
+        <button (click)="post(fillespost,2)" class="btn btn-primary" [disabled]='this.postCheckBool'>Posteo pendiente</button>
+    </div>
+    
+
+    
+    <div *ngIf="pageListValidationShow" class="pageValidation">
+
+        <div class="blocker" (click)="closePageSelection()"></div>
+        <div class="validationContainer">
+
+            <h3>¿Dónde desea publicar?</h3>
+        
+            <div *ngFor="let item of listPageValidation">
+            <mat-checkbox [(ngModel)]="item.selected" >{{item.name}}</mat-checkbox>
+            </div>
+        
+            
+
+            <button (click)="closePageSelection()" type="button" class="btn btn-warning">Cancelar</button>
+            <button (click)="checkPagesValidationListPost()" type="button" class="btn btn-primary">Continuar</button>
+
+        </div>
+
+        
+    </div>
+
+
+</div>

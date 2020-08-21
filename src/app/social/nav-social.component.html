@@ -1,0 +1,32 @@
+
+<mat-tab-group>
+
+    <mat-tab label="Crear post">
+      <div class="container justify-content">
+        <app-create-post></app-create-post>
+      </div>    
+    </mat-tab>
+  
+    <mat-tab label="Posteos realizados">
+      <div class="container justify-content"> 
+        <app-list-post></app-list-post>
+      </div> 
+    </mat-tab>
+
+    <mat-tab label="Estadisticas">
+      <div class="container justify-content"> 
+        
+      </div> 
+    </mat-tab>
+
+    <mat-tab label="Administracion">
+      <div class="container justify-content"> 
+        <app-face-administration></app-face-administration>
+      </div> 
+    </mat-tab>
+
+
+
+  </mat-tab-group>
+  
+<router-outlet></router-outlet>
