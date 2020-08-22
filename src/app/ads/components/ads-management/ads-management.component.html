@@ -1,1 +1,14 @@
-<p>ads-management works!</p>
+<mat-tab-group>
+    <mat-tab label="Detalles">
+        <app-ads-details *ngIf="myAd; else null" [myAd]="myAd[0]"></app-ads-details>
+        <ng-template #loading>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Ubicación">
+        <app-ads-location *ngIf="myAd; else null" [myAd]="myAd"></app-ads-location>
+        <ng-template #loading>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group> 

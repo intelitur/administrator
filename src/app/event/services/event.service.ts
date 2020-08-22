@@ -134,6 +134,6 @@ export class EventService{
   }
 
   getFilteredEvents(name, initial_date, final_date, category_id, score){
-    this.http.get(`${environment.SERVER_BASE_URL}${this.module}Filtered/${name}/${initial_date}/${final_date}/${category_id}/${score}`)
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}Filtered/${name}/${initial_date}/${final_date}/${category_id}/${score}`)
   }
 }

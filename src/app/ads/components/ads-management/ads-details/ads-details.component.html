@@ -1,0 +1,69 @@
+<ng-container *ngIf="this.loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+<div style="display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap; justify-content: center;">
+    <div style="width: 80%; min-width: 300px;">
+        <div style="display: flex; justify-content: space-around;">
+
+            <h2 style="color: #dbb735; text-align: center; margin: auto 0">{{myAd.name}}</h2>
+            <div style="display: flex; flex-direction: column; margin: auto 0; padding: 0 20px">
+                <div style="margin: auto" [style.color]="myAd.is_active? '#673ab7': 'gray'">
+                    {{myAd.is_active? "Activa": "Inactiva"}}</div>
+                <mat-slide-toggle style="width: min-content; margin: auto;" (change)="changeState($event)"
+                    color="primary" [checked]=myAd.is_active>
+                </mat-slide-toggle>
+            </div>
+        </div>
+        <hr style="width: 100%;">
+        <div class="dates">
+            <mat-form-field  style="width: 40%; " appearance="outline">
+                <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="startDate" placeholder="Fecha Inicial" [(ngModel)]="start_Date" disabled >
+                <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
+                <mat-datepicker #startDate disabled="false" ></mat-datepicker>
+            </mat-form-field>
+          
+            <mat-form-field style="width: 40%;" appearance="outline">
+              <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha de finalización" [(ngModel)]="end_Date" disabled >
+              <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+              <mat-datepicker  #endDate [disabled]="start_Date == undefined" [startAt]="start_Date"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <mat-hint *ngIf="start_Date > end_Date" style=" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;">
+            Fecha inicial mayor a la final*
+        </mat-hint>
+
+        <form [formGroup]="adFG" class="container-fluid d-flex flex-column justify-content-center" >
+
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input #Name matInput formControlName="name" matTooltip="Nombre del anuncio" maxlength="50" required>
+                <mat-hint align="end">{{Name.value.length}}/50</mat-hint>
+            </mat-form-field>
+        
+            <mat-form-field appearance="outline">
+                <textarea style="resize: none;" matInput formControlName="description" placeholder="Descripción" required></textarea>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+                <mat-label>Empresa Asociada</mat-label>
+                <mat-select formControlName="company">
+                  <mat-option *ngFor="let c of companies" [value]="c.company_id">
+                    {{c.name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <button mat-stroked-button color="primary"  [disabled]="!adFG.valid || !isChanged() || loading"
+                style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="modifyAd()" >
+                Guardar cambios
+            </button>
+            <button mat-stroked-button color="warn" [disabled]="loading"
+                style="width: 47%; min-width: fit-content;margin-top: 10px;" (click)="setData()">
+                Descartar cambios
+            </button>
+        </div>
+    </div>
+
+</div>

@@ -2,12 +2,12 @@ export interface Ads {
     ad_id?: Number,
     name: String,
     description: String,
-    initial_date: Date,
-    final_date: Date,
-    ubication?: {
-        longuitude: Number,
-        latitude: Number
+    date_range:{
+        initial_date: Date,
+        final_date: Date,
     },
+    longitude?: number,
+    latitude?: number,
     company_id: Number
     is_active?: boolean
 

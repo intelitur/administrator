@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AdsService {
 
-  ads: Array<Ads>;
+  ads: Array<Ads> = []; //quitar el = []
   module = "ads"
   constructor(
     private http: HttpClient,
@@ -29,6 +29,23 @@ export class AdsService {
   }
 
   createAd(ad: Ads){
-    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/CreateAd`, ad, {observe: 'response'})
+    let json = {
+      "info": ad,
+      "latitude":  10.471681129073,
+      "longitude": -84.64514404535
+    }
+    console.log(json)
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/CreateAd`, json, {observe: 'response'})
+  }
+
+  modifyAd(ad: any){
+    return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}/${ad.ad_id}`,ad, {observe: 'response'})
+  }
+
+  getStadisticsAds(company_id?: number){
+    if(company_id){ 
+      return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/stadistics/${company_id}`)
+    }
+    return  this.http.get(`${environment.SERVER_BASE_URL}${this.module}/stadistics/`)
   }
 }

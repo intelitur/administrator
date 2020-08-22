@@ -62,8 +62,10 @@ export class AdsCreateComponent implements OnInit {
       name: this.adsFG.controls['name'].value,
       description: this.adsFG.controls['description'].value,
       company_id: this.adsFG.controls['company'].value,
-      initial_date: this.start_Date,
-      final_date: this.end_Date
+      date_range: {
+        initial_date: this.start_Date,
+        final_date: this.end_Date
+      }
     }
     this.createAd(ad);
   }

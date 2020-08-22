@@ -66,10 +66,10 @@ export class EventFiltersComponent implements OnInit {
     this.eventFiltersFG = new FormGroup({
       categories: new FormControl(null, Validators.required),
       rate: new FormControl(null, Validators.pattern("^([0-5]{1}([.]{1}[0-9]){0,1})")),
-      ratio: new FormControl(null, Validators.pattern("^([0-3]{1})"))
+      ratio: new FormControl(null,[Validators.max(3), Validators.min(0)])
     })
 
-    this.subscription = this.categoryService.getAllCategories().subscribe({
+    this.subscription = this.categoryService.getAllCategories(1).subscribe({
       next: (data: any) => {
         this.categories = data
         this.subscription.unsubscribe();
@@ -116,7 +116,10 @@ export class EventFiltersComponent implements OnInit {
       initial_date: this.start_Date,
       final_date: this.end_Date,
       category_id: this.eventFiltersFG.controls['categories'].value,
-      rate: this.currentRate
+      rate: this.currentRate,
+      latitude: this.locationMarker.getLatLng().lat,
+      longitude: this.locationMarker.getLatLng().lng,
+      ratio: this.ubcationRatio
     }
     this.dialogRef.close(info)
   }

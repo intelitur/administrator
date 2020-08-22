@@ -9,11 +9,22 @@ import { SharedModule } from '../shared.module';
 import { FormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-
-
+import { AdsTabsComponent } from './components/ads-tabs/ads-tabs.component';
+import { AdsStadisticsComponent } from './components/ads-stadistics/ads-stadistics.component';
+import { AdsDetailsComponent } from './components/ads-management/ads-details/ads-details.component';
+import { AdsLocationComponent } from './components/ads-management/ads-location/ads-location.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [AdsRootComponent,AdsManagementComponent, AdsMainComponent, AdsCreateComponent],
+  declarations: [
+    AdsRootComponent,
+    AdsManagementComponent, 
+    AdsMainComponent, 
+    AdsCreateComponent, 
+    AdsTabsComponent, 
+    AdsStadisticsComponent, 
+    AdsDetailsComponent, 
+    AdsLocationComponent],
   imports: [
     CommonModule,
     AdsRoutingModule,
@@ -22,6 +33,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     FilterPipeModule,
     LeafletModule, 
   ],
+  providers: [DatePipe],
   entryComponents: [AdsCreateComponent]
 })
 export class AdsModule { }

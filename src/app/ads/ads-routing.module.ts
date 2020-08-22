@@ -1,8 +1,8 @@
 import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AdsRootComponent } from './ads-root.component';
-import { AdsMainComponent } from './components/ads-main/ads-main.component';
 import { AdsManagementComponent } from './components/ads-management/ads-management.component';
+import { AdsTabsComponent } from './components/ads-tabs/ads-tabs.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: "all",
-        component: AdsMainComponent
+        component: AdsTabsComponent
       },
       {
         path: ":ads_id",

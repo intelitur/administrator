@@ -45,8 +45,6 @@ export class DetailsComponent implements OnInit {
     let category_name = this.category.name
     this.categoryFG.controls['name'].setValue(category_name)
     this.categoryImages = this.category.url
-    console.log(this.category)
-    
   }
 
   setData(){

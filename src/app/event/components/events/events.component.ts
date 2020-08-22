@@ -88,15 +88,15 @@ export class EventsComponent implements OnInit {
     dialog.afterClosed().subscribe( info => {
       if(info != undefined){
         this.isFilters = true
-        this.subscription = this.categoryService.getEventsByCategory(info.category_id)
+        this.subscription = this.eventService.getFilteredEvents(null, info.initial_date, info.final_date, info.category_id, info.rate)
         .subscribe({
           next: (data: any) => {
+            console.log(data)
             this.eventService.events = data;
             this.subscription.unsubscribe();
           }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
         });
       }
-
     })
   }
   
