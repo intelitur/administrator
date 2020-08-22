@@ -385,6 +385,9 @@ export class EventDetailsComponent implements OnInit {
   deleteImage(){
     this.loading = true;
     this.eventFG.disable()
+    if(this.eventImages.length == 1){
+      this.imageIndex = 0;
+    }
     this.eventImages.splice(this.imageIndex, 1);
     this.updateImages(this.eventImages)
   }

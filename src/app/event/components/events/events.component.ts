@@ -83,20 +83,20 @@ export class EventsComponent implements OnInit {
   }
 
   openShowFilterOptionsDialog(){
-    const  dialog = this.dialogService.open(EventFiltersComponent, {width: "50", minWidth: "280px", disableClose: true})
+    const  dialog = this.dialogService.open(EventFiltersComponent, {width: "70%", height:"90%" ,minWidth: "280px", disableClose: true})
 
-    dialog.afterClosed().subscribe( category_id => {
-      if(category_id != undefined){
+    dialog.afterClosed().subscribe( info => {
+      if(info != undefined){
         this.isFilters = true
-        this.subscription = this.categoryService.getEventsByCategory(category_id)
+        this.subscription = this.eventService.getFilteredEvents(null, info.initial_date, info.final_date, info.category_id, info.rate)
         .subscribe({
           next: (data: any) => {
+            console.log(data)
             this.eventService.events = data;
             this.subscription.unsubscribe();
           }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
         });
       }
-
     })
   }
   

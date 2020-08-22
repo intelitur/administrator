@@ -132,4 +132,8 @@ export class EventService{
     }
     return this.http.put(`${environment.SERVER_BASE_URL}petitions/`,json, {observe: 'response'} ) 
   }
+
+  getFilteredEvents(name, initial_date, final_date, category_id, score){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}Filtered/${name}/${initial_date}/${final_date}/${category_id}/${score}`)
+  }
 }

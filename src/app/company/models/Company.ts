@@ -9,5 +9,5 @@ export interface Company {
   longitude: number,
   location: string,
   image: string,
-  state: boolean
+  state: boolean,
 }

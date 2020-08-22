@@ -14,7 +14,6 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
 
 
   @Input() company: Company;
-
   companyForm: FormGroup
 
   loading = false;
@@ -41,6 +40,7 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     console.log(this.company)
+    console.log(this.company.image)
     this.companyForm.patchValue(this.company);
     this.cd.detectChanges();
   }
@@ -133,5 +133,55 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
   }
 
 
+  async addImg(files: FileList){
+    this.loading = true;
+    this.companyForm.disable()
+    let img = this.company.image
+    await this.commonService.uploadFile(files[0]).then(
+      (data: any) => {
+        this.company.image = "https://intelitur.sytes.net/files/images/" + data.filename
+      }
+    )
+    console.log(this.company.image)
+    this.imageChanges(img)
+  }
+
+  deleteImg(){
+    let img = this.company.image
+    this.company.image = ''
+    this.imageChanges(img)
+  }
+
+  imageChanges(oldImg){
+    this.loading = true;
+    this.companyForm.disable()
+    console.log(this.company)
+
+    this.companyService.updateCompany(this.company).subscribe({
+      next: (data: any) => {
+        if (data.status == 204) {
+          console.log(data)
+          this.loading = false;
+          this.companyForm.enable()
+          this.commonService.openSnackBar(
+            `La empresa ${this.company.name} ha sido cambiada`,
+            "OK")
+        }
+        else {
+          this.company.image = oldImg
+          this.commonService.openSnackBar(
+            `Error al cambiar el estado: ${data.error}`,
+            "OK"
+          );
+        }
+
+      },
+      error: (err: HttpErrorResponse) => {
+        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        this.loading = false;
+        this.companyForm.enable()
+      }
+    })
+  }
 
 }

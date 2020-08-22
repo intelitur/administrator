@@ -134,19 +134,35 @@
         <label>Selecciona un color </label>
         <color-circle  (onChangeComplete)="changeComplete($event)" ></color-circle> 
     </div>
+</div>
 
+<div style="width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;">
     <div class="file">
         <div class="uploadFile">
             <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> Añadir Imágenes </label> 
-            <input [disabled]="loading"  id="file-upload" (change)="getFiles($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>
+            <input [disabled]="loading"  id="file-upload" (change)="getFiles($event)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>
         </div>
-        <mat-hint *ngIf="this.eventImages.length == 0" style="padding-left: 2.5%; color: crimson;">¡Debes añadir imagenes!</mat-hint>
-        <mat-hint *ngIf="this.eventImages.length != 0" style="padding-left: 2.5%;">Imágenes añadidas: {{this.eventImages.length}}</mat-hint>
     </div>
 
+    <mat-hint *ngIf="this.eventImages.length == 0" style="padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;">Debes añadir imagenes*</mat-hint>
+    <mat-hint *ngIf="this.eventImages.length != 0" style="padding-left: 2.5%; align-self: center; font-style: italic;">Si pulsa en "Añadir imágenes" nuevamente deberá seleccionar todas las imágenes.</mat-hint>
+
+    <div *ngIf="eventImages.length != 0"
+        style="max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
+        <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
+            <ng-template *ngFor="let i of eventImages; let index = index" [id]="'slideId_' + index" ngbSlide>              
+                <img class="d-block w-100" style="max-height: 450px !important; border-radius: 10px;" src="{{url}}{{eventImages[index]}}"/>
+                <div class="carousel-caption">
+                    <button [disabled]="loading" mat-button style="border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;" (click)="deleteImage();"
+                        class="image-buttons" color="warn">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </ng-template>
+        </ngb-carousel>
+
+    </div>
 </div>
-
-
 
 <div class="buttonContainer">
     <button mat-raised-button  [disabled]="disableDialog()" color="primary" (click)="onSubmit()">

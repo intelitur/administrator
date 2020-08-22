@@ -3,6 +3,31 @@
     justify-content: space-around;;
 }
 
-mat-form-field{
-    width: 100%;
+.dates{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 32px;
+    color: #868686;
+}
+.filled {
+    color: #f1f503;
+}
+
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #f1f503;
+}
+
+.map {
+    height: 500px;
+    padding: 0;
+    width: 60%;
 }

@@ -32,9 +32,11 @@ export class EventCreateComponent implements OnInit {
   initial_time: any = undefined;
   final_time: any =  undefined;
   common_date: any = undefined;
+  imageIndex = 0;
   subscription: Subscription
   subscription2: Subscription
   eventImages = [];
+  eventImagesFinal = [];
   //chipList
   visible = true;
   selectable = true;
@@ -271,18 +273,51 @@ export class EventCreateComponent implements OnInit {
     }
   }
 
-  getFiles(files){
-    this.eventImages = files;
+  getFiles(event: any){
+    this.eventImages = []
+    this.eventImagesFinal = []
+    if(event.target.files){
+      for(let i=0; i<event.target.files.length; i++){
+        if (event.target.files[i]) {
+          this.eventImagesFinal.push(event.target.files[i])
+
+          var reader = new FileReader();
+          
+          reader.readAsDataURL(event.target.files[i]);
+
+          reader.onload = (event:any) => {
+            this.eventImages.push(event.target.result);
+          } 
+          
+        }
+      }
+      console.log(this.eventImagesFinal)
+    }
   }
 
   async uploadFiles() {
     let images = [];
-    for(let i=0; i<this.eventImages.length; i++){
-          await this.commonService.uploadFile(this.eventImages[i]).then((data: any) => {
+    for(let i=0; i<this.eventImagesFinal.length; i++){
+          await this.commonService.uploadFile(this.eventImagesFinal[i]).then((data: any) => {
           images.push(data.filename)
         }
       )
     }
     return images
   }
+
+  onSlide(event){
+    this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+  }
+
+  deleteImage(){
+    if(this.eventImages.length == 1){
+      this.imageIndex = 0;
+    }
+    this.eventImages.splice(this.imageIndex, 1);
+    this.eventImagesFinal.splice(this.imageIndex, 1);
+    console.log(this.eventImages)
+    console.log(this.eventImagesFinal)
+  }
+
 }

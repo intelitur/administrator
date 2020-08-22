@@ -40,7 +40,7 @@
         style="width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
         <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
             <ng-template *ngFor="let i of categoryImages; let index = index" [id]="'slideId_' + index" ngbSlide>              
-                <img class="d-block w-100" style="height: 500px !important; border-radius: 10px;" src="{{url}}{{categoryImages[index]}}"/>
+                <img class="d-block w-100"  style="max-height: 450px !important; border-radius: 10px;" src="{{url}}{{categoryImages[index]}}"/>
             </ng-template>
         </ngb-carousel>
         <div style=" display: flex; height: 70px;">
@@ -58,8 +58,12 @@
             </div>
         </div>
     </div>
-    <div *ngIf="categoryImages.length == 0" title="Añadir imagen a la categoría" class="noImageButton">
-        <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> Añadir Imagen </label> 
-        <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>   
+    <div style="width: 50%; display: flex; justify-content: center; align-items: center;">
+        <div *ngIf="categoryImages.length == 0" title="Añadir imagen a la categoría" class="noImageButton">
+            <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> 
+                <mat-icon style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%;">add_photo_alternate</mat-icon>
+            </label> 
+            <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>   
+        </div>
     </div>
 </div>
