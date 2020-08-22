@@ -197,7 +197,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<app-main-nav *ngIf=\"_auth.isLoggedIn()\"></app-main-nav>\n<app-login *ngIf=\"!_auth.isLoggedIn()\"></app-login>\n";
+    __webpack_exports__["default"] = "<app-main-nav *ngIf=\"_auth.isLoggedIn()\"></app-main-nav>\n<app-login *ngIf=\"!_auth.isLoggedIn()\"></app-login>\n<img src=\"assets/Facebook_reactions/angry-count.jpg\" alt=\"\" style=\"\n    position: absolute;\n    width: 100px;\n    height: 100px;\n    z-index: 100000;\n    top: 0;\n\">\n";
     /***/
   },
 
