@@ -4,11 +4,11 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"], {
   /***/
@@ -38,6 +38,146 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
     module.exports = webpackEmptyAsyncContext;
     webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-create/ads-create.component.html":
+  /*!***********************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-create/ads-create.component.html ***!
+    \***********************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppAdsComponentsAdsCreateAdsCreateComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<form [formGroup]=\"adsFG\" class=\"container-fluid d-flex flex-column justify-content-center\">\n    <h1>Creación del Anuncio</h1>\n   \n    <mat-form-field appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n        <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <textarea style=\"resize: none;\" matInput formControlName=\"description\" placeholder=\"Descripción\" required></textarea>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"fill\">\n        <mat-label>Empresa Asociada</mat-label>\n        <mat-select formControlName=\"company\">\n          <mat-option *ngFor=\"let c of companies\" [value]=\"c.company_id\">\n            {{c.name}}\n          </mat-option>\n        </mat-select>\n    </mat-form-field>\n</form>\n\n\n<div class=\"dates\">\n    <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n        <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n        <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n    </mat-form-field>\n  \n    <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n      <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n      <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n      <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n    </mat-form-field>\n</div>\n<mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n    Fecha inicial mayor a la final*\n</mat-hint>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button [disabled]=\"!adsFG.valid || start_Date == undefined || end_Date == undefined || start_Date > end_Date\" color=\"primary\" (click)=\"onSubmit()\">\n        Crear Anuncio\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n        Cerrar<mat-icon>close</mat-icon>\n      </button>\n</div>";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-main/ads-main.component.html":
+  /*!*******************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-main/ads-main.component.html ***!
+    \*******************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppAdsComponentsAdsMainAdsMainComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Anuncios</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar un anuncio\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar Anuncio</button>\n    </div>\n    <div *ngIf=\"this.adsService.ads; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del anuncio</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n            <!--<button\n              mat-icon-button\n              matSuffix\n              [attr.aria-label]=\"'Hide password'\"\n              [attr.aria-pressed]=\"hide\"\n              (click)=\"openShowFilterOptionsDialog()\"\n            >\n              <mat-icon>library_books</mat-icon>\n            </button>\n            <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar los anuncios por tipo</mat-hint>\n            -->\n        </mat-form-field>\n        <div *ngIf=\"isFilters\" class=\"container-text-left\">\n          <button  mat-raised-button color=\"primary\" (click)=\"obtainAllAds()\">Limpiar filtro</button>\n        </div> \n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.adsService.ads\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Descripción</th>\n                <th scope=\"col\">Fecha</th>\n                <th scope=\"col\">Activa</th>\n                <th scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let ad of this.adsService.ads | filterBy: filter\">\n                <td>{{ad.name}}</td>\n                <td>{{ad.description}}</td>\n                <td>{{ad.date | date: 'dd/MM/yyyy' }}</td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(ad, $event)\" color=\"primary\"\n                          [checked]= ad.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td > \n                    <button mat-stroked-button [routerLink]=\"['/ads', ad.ad_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.adsService.ads | filterBy: filter).length === 0\">\n              ¡No hay categorías disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-details/ads-details.component.html":
+  /*!****************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-details/ads-details.component.html ***!
+    \****************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppAdsComponentsAdsManagementAdsDetailsAdsDetailsComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap; justify-content: center;\">\n    <div style=\"width: 80%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{myAd.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"myAd.is_active? '#673ab7': 'gray'\">\n                    {{myAd.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=myAd.is_active>\n                </mat-slide-toggle>\n            </div>\n        </div>\n        <hr style=\"width: 100%;\">\n        <div class=\"dates\">\n            <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n          \n            <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n              <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n              <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n              <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n            </mat-form-field>\n        </div>\n        <mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n            Fecha inicial mayor a la final*\n        </mat-hint>\n\n        <form [formGroup]=\"adFG\" class=\"container-fluid d-flex flex-column justify-content-center\" >\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n                <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <textarea style=\"resize: none;\" matInput formControlName=\"description\" placeholder=\"Descripción\" required></textarea>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"fill\">\n                <mat-label>Empresa Asociada</mat-label>\n                <mat-select formControlName=\"company\">\n                  <mat-option *ngFor=\"let c of companies\" [value]=\"c.company_id\">\n                    {{c.name}}\n                  </mat-option>\n                </mat-select>\n            </mat-form-field>\n        </form>\n\n        <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n            <button mat-stroked-button color=\"primary\"  [disabled]=\"!adFG.valid || !isChanged() || loading\"\n                style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyAd()\" >\n                Guardar cambios\n            </button>\n            <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n                Descartar cambios\n            </button>\n        </div>\n    </div>\n\n</div>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-location/ads-location.component.html":
+  /*!******************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-location/ads-location.component.html ***!
+    \******************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppAdsComponentsAdsManagementAdsLocationAdsLocationComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div class=\"m-3\" style=\"height: calc(100vh - 150px); display: flex; flex-direction: column;\" (mouseenter)=\"refreshMap()\">\n    <div class=\"shadow-sm rounded\" class=\"map container-fluid\" leaflet (leafletMapReady)=\"onMapReady($event)\"\n        [leafletOptions]=\"options\" (leafletClick)=\"putLocationMarker($event)\"></div>\n    <div style=\"width: 94%; height: 14%; display: flex; justify-content: space-between; margin: 3%; flex-wrap: wrap;\">\n        <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n            Latitud: <b style=\"color: #dbb735;;\">{{locationMarker.getLatLng().lat}}</b> <br> \n            Longitud: <b style=\"color: #ca382d;\">{{locationMarker.getLatLng().lng}}</b>\n        </label>\n        <button mat-stroked-button color=\"primary\" style=\"width: 60%; min-width: 200px; margin: 0 auto\"\n            matTooltip=\"Arrastre el marcador hasta la nueva ubicación y presione el botón para guardar\"\n            [disabled]=\"myAd.latitude == locationMarker.getLatLng().lat && myAd.longitude == locationMarker.getLatLng().lng\"\n            (click)=\"updateEventLocation()\">\n            Guardar ubicación\n            <mat-icon style=\"margin-left: 5%;\">check</mat-icon></button>\n    </div>\n</div>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-management.component.html":
+  /*!*******************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-management.component.html ***!
+    \*******************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppAdsComponentsAdsManagementAdsManagementComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<mat-tab-group>\n    <mat-tab label=\"Detalles\">\n        <app-ads-details *ngIf=\"myAd; else null\" [myAd]=\"myAd[0]\"></app-ads-details>\n        <ng-template #loading>\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-template>\n    </mat-tab>\n    <mat-tab label=\"Ubicación\">\n        <app-ads-location *ngIf=\"myAd; else null\" [myAd]=\"myAd\"></app-ads-location>\n        <ng-template #loading>\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-template>\n    </mat-tab>\n</mat-tab-group> ";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-stadistics/ads-stadistics.component.html":
+  /*!*******************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-stadistics/ads-stadistics.component.html ***!
+    \*******************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppAdsComponentsAdsStadisticsAdsStadisticsComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div>\n    <h1 style=\"text-align: center; margin:2% 0 2% 0;\" class=\"text-center font-weight-light mt-3\">Estadísticas de Anuncios</h1>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\" *ngIf=\"this.adService.ads\">\n        <thead class=\"thead-light\">\n            <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\">Empresa</th>\n            <th scope=\"col\">Fechas</th>\n            <th scope=\"col\"style=\"text-align: center;\">Detalles</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr *ngFor=\"let ad of this.adService.ads\">\n            <td>{{ad.name}}</td>\n            <td>{{ad.company_id}}</td>\n            <td>\n                Inicio: {{ad.date_range.initial_date | date: 'dd/MM/yyyy'}}\n                <br>\n                Fin:    {{ad.date_range.final_date | date: 'dd/MM/yyyy'}}\n            </td>            \n            <td style=\"text-align: center;\"> \n                <button mat-stroked-button [routerLink]=\"['/ad', ad.ad_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px; \">\n                    Ver Detalles\n                </button>\n            </td>\n            </tr>\n        </tbody>   \n        </table>\n        <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"this.adService.ads.length === 0\">\n          ¡No hay anuncios disponibles<span class=\"text-danger\"></span>!\n        </div>\n    </div>\n    \n</div>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-tabs/ads-tabs.component.html":
+  /*!*******************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-tabs/ads-tabs.component.html ***!
+    \*******************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppAdsComponentsAdsTabsAdsTabsComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<mat-tab-group>\n    <mat-tab label=\"Estadísticas\">\n      <div class=\"container justify-content\">\n        <app-ads-stadistics></app-ads-stadistics>\n      </div>    \n    </mat-tab>\n\n    <mat-tab label=\"Administración\">\n        <div class=\"container justify-content\">\n          <app-ads-main></app-ads-main>\n        </div>    \n    </mat-tab>\n</mat-tab-group>\n";
     /***/
   },
 
@@ -157,7 +297,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{category.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"category.is_active? '#673ab7': 'gray'\">\n                    {{category.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=category.is_active>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input formControlName=\"name\" matInput  matTooltip=\"Nombre de la categoría\" required>\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button color=\"primary\"  [disabled]=\"!categoryFG.valid || !isChanged() || loading\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyCategory()\" >\n                    Guardar cambios\n                </button>\n                <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n                    Descartar cambios\n                </button>\n            </div>\n        </form>\n        \n    </div>\n    <div *ngIf=\"categoryImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of categoryImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"height: 500px !important; border-radius: 10px;\" src=\"{{url}}{{categoryImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen de categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div *ngIf=\"categoryImages.length == 0\" title=\"Añadir imagen a la categoría\" class=\"noImageButton\">\n        <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imagen </label> \n        <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n    </div>\n</div>\n";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{category.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"category.is_active? '#673ab7': 'gray'\">\n                    {{category.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=category.is_active>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input formControlName=\"name\" matInput  matTooltip=\"Nombre de la categoría\" required>\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button color=\"primary\"  [disabled]=\"!categoryFG.valid || !isChanged() || loading\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyCategory()\" >\n                    Guardar cambios\n                </button>\n                <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n                    Descartar cambios\n                </button>\n            </div>\n        </form>\n        \n    </div>\n    <div *ngIf=\"categoryImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of categoryImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\"  style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{categoryImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen de categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 50%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"categoryImages.length == 0\" title=\"Añadir imagen a la categoría\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>\n";
     /***/
   },
 
@@ -177,7 +317,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">Gestión de empresas</h1>\n  <div class=\"float-right mb-3 \">\n    <button mat-raised-button color=\"primary\" class=\"btn-add mr-3 mt-3\" style=\"margin:auto\"\n      matTooltip=\"Agregar una nueva empresa\" (click)=\"openCreateCompanyDialog()\">Agregar empresa</button>\n    <button mat-raised-button color=\"accent\" class=\"btn-add mr-3 mt-3\" style=\"margin:auto\"\n      matTooltip=\"Ver las solicitudes de unión a empresas\" [routerLink]=\"['/company', 'requests']\">\n      Solicitudes de unión\n    </button>\n  </div>\n  <div *ngIf=\"this.companyService.companies; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de empresa</mat-label>\n      <input matInput [(ngModel)]=\"filter.name\" />\n    </mat-form-field>\n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n      <table class=\"table\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\">Cédula Jurídica</th>\n            <th scope=\"col\">Email</th>\n            <th scope=\"col\">Teléfono</th>\n            <th scope=\"col\">Activa</th>\n            <th scope=\"col\"></th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let company of this.companyService.companies | filterBy: filter\"\n            [routerLink]=\"['/company', company.company_id]\">\n            <td>{{ company.name }}</td>\n            <td>{{ company.legal_id }}</td>\n            <td>{{ company.email? company.email: \"No registrado\" }}</td>\n            <td>{{ company.phone_number? company.phone_number: \"No registrado\" }}</td>\n            <td>\n              <section (click)=\"$event.stopPropagation()\">\n                <mat-slide-toggle (change)=\"changeState(company, $event)\" color=\"primary\" [checked]=company.state>\n                </mat-slide-toggle>\n              </section>\n            </td>\n            <td>\n              <button mat-stroked-button matTooltip=\"Detalles de la empresa\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                Ver detalles\n              </button>\n            </td>\n          </tr>\n\n        </tbody>\n      </table>\n      <!-- in case you want to show empty message -->\n      <div class=\"alert alert-info text-center\" role=\"alert\"\n        *ngIf=\"(this.companyService.companies | filterBy: filter).length === 0\">\n        No se encuentra el usuario con el id <span class=\"text-danger\">{{filter.user_id}}</span>!\n      </div>\n    </div>\n  </div>\n</div>\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>";
+    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">Gestión de empresas</h1>\n  <div class=\"float-right mb-3 \">\n    <button mat-raised-button color=\"primary\" class=\"btn-add mr-3 mt-3\" style=\"margin:auto\"\n      matTooltip=\"Agregar una nueva empresa\" (click)=\"openCreateCompanyDialog()\">\n      <i class=\"material-icons\">add</i> Agregar empresa\n    </button>\n    <button mat-raised-button color=\"accent\" class=\"btn-add mr-3 mt-3\" style=\"margin:auto\"\n      matTooltip=\"Ver las solicitudes de unión a empresas\" [routerLink]=\"['/company', 'requests']\">\n      <i class=\"material-icons\">list</i> Solicitudes de unión\n    </button>\n  </div>\n  <div *ngIf=\"this.companyService.companies; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de empresa</mat-label>\n      <input matInput [(ngModel)]=\"filter.name\" />\n    </mat-form-field>\n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n      <table class=\"table\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\">Cédula Jurídica</th>\n            <th scope=\"col\">Email</th>\n            <th scope=\"col\">Teléfono</th>\n            <th scope=\"col\">Activa</th>\n            <th scope=\"col\"></th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let company of this.companyService.companies | filterBy: filter\"\n            [routerLink]=\"['/company', company.company_id]\">\n            <td>{{ company.name }}</td>\n            <td>{{ company.legal_id }}</td>\n            <td>{{ company.email? company.email: \"No registrado\" }}</td>\n            <td>{{ company.phone_number? company.phone_number: \"No registrado\" }}</td>\n            <td>\n              <section (click)=\"$event.stopPropagation()\">\n                <mat-slide-toggle (change)=\"changeState(company, $event)\" color=\"primary\" [checked]=company.state>\n                </mat-slide-toggle>\n              </section>\n            </td>\n            <td>\n              <button mat-stroked-button matTooltip=\"Detalles de la empresa\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                Ver detalles\n              </button>\n            </td>\n          </tr>\n\n        </tbody>\n      </table>\n      <!-- in case you want to show empty message -->\n      <div class=\"alert alert-info text-center\" role=\"alert\"\n        *ngIf=\"(this.companyService.companies | filterBy: filter).length === 0\">\n        No se encuentra el usuario con el id <span class=\"text-danger\">{{filter.user_id}}</span>!\n      </div>\n    </div>\n  </div>\n</div>\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>";
     /***/
   },
 
@@ -217,7 +357,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 60%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{company.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"company.state? '#673ab7': 'gray'\">\n                    {{company.state? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=company.state>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\"\n            style=\"padding: 25px\">\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Cédula Jurídica</mat-label>\n                <input matInput formControlName=\"legal_id\">\n                <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Teléfono</mat-label>\n                <input matInput formControlName=\"phone_number\">\n                <mat-hint align=\"end\">Formato: 8888 8888</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Email</mat-label>\n                <input matInput formControlName=\"email\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Ubicación descrita</mat-label>\n                <input matInput formControlName=\"location\">\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button *ngIf=\"!loading; else loadingBar\" mat-stroked-button [disabled]=\"!companyForm.valid || !isChanged()\" color=\"primary\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"applyChanges()\">\n                    Guardar cambios\n                </button>\n                <ng-template #loadingBar>\n                    <mat-progress-bar mode=\"indeterminate\" style=\"width: 47%; margin: auto 0;\"></mat-progress-bar>\n                </ng-template>\n                <button mat-stroked-button [disabled]=\"!isChanged() || loading\" color=\"warn\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\"\n                    (click)=\"companyForm.patchValue(company)\">\n                    Descartar cambios\n                </button>\n            </div>\n\n\n        </form>\n    </div>\n    <div\n        style=\"width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <img style=\"margin: 5% auto; max-height: 450px; max-width: 90%;\"\n            src=\"https://media-exp1.licdn.com/dms/image/C561BAQECpbD6BAejKg/company-background_10000/0?e=2159024400&v=beta&t=0OMsZud-rJoJIlHTUOuvOGPWNEZJBJDx7_mzKQI37UU\">\n        <div style=\" display: flex; height: 70px;\">\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <button mat-button matTooltip=\"Buscar nueva imagen\" style=\"border-radius: 0 0 0 20px;\"\n                    class=\"image-buttons\" color=\"accent\">\n                    <mat-icon>find_replace</mat-icon>\n\n                </button>\n            </div>\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button mat-button matTooltip=\"Eliminar imagen de empresa\" style=\"border-radius: 0 0 20px 0\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 60%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{company.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"company.state? '#673ab7': 'gray'\">\n                    {{company.state? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=company.state>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\"\n            style=\"padding: 25px\">\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Cédula Jurídica</mat-label>\n                <input matInput formControlName=\"legal_id\">\n                <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Teléfono</mat-label>\n                <input matInput formControlName=\"phone_number\">\n                <mat-hint align=\"end\">Formato: 8888 8888</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Email</mat-label>\n                <input matInput formControlName=\"email\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Ubicación descrita</mat-label>\n                <input matInput formControlName=\"location\">\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button [disabled]=\"!companyForm.valid || !isChanged() || loading\" color=\"primary\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"applyChanges()\">\n                    Guardar cambios\n                </button>\n                <button  mat-stroked-button [disabled]=\"!isChanged() || loading\" color=\"warn\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\"\n                    (click)=\"companyForm.patchValue(company)\">\n                    Descartar cambios\n                </button>\n            </div>\n\n\n        </form>\n    </div>\n    <div *ngIf=\"company.image != '' && company.image != undefined\"\n        style=\"width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <img style=\"margin: 5% auto; max-height: 450px; max-width: 90%;\"\n            src=\"{{company.image}}\">\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n            style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%; cursor: pointer;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button matTooltip=\"Eliminar imagen de empresa\" style=\"border-radius: 0 0 20px 0\"\n                    class=\"image-buttons\" color=\"warn\" (click)=\"deleteImg()\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"company.image == '' || company.image == undefined\" title=\"Añadir imagen a la empresa\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>";
     /***/
   },
 
@@ -377,7 +517,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Solicitudes de unión de empresas a eventos</h1>\n    <div >\n        <ng-container *ngIf=\"this.loading\">\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-container>\n        <div style=\"display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 4rem 0 0 0\">\n            <mat-form-field class=\"container-fluid\" appearance=\"outline\" style=\"width: 40%; min-width: 300px; margin: auto\">\n                <mat-label>Buscar por nombre del evento o usuario</mat-label>\n                <input matInput [(ngModel)]=\"filter.name\"/>\n                <button\n                    mat-icon-button\n                    matSuffix\n                    [attr.aria-label]=\"'Hide password'\"\n                    [attr.aria-pressed]=\"hide\"\n                    (click)=\"openShowFilterOptionsDialog()\"\n                >\n                    <mat-icon>library_books</mat-icon>\n                </button>\n                <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por otros valores.</mat-hint>\n            </mat-form-field>\n            <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"filter.state\" (change)=\"refresh()\">\n                <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                    Todas\n                </mat-radio-button>\n                <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                    Aceptadas\n                </mat-radio-button>\n                <mat-radio-button value=\"2\" style=\"color: rgb(160, 105, 0) \">\n                    Pendientes\n                </mat-radio-button>\n                <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                    Rechazadas\n                </mat-radio-button>\n            </mat-radio-group>\n            <div *ngIf=\"isFilters\" class=\"container-text-left\">\n                <button  mat-raised-button color=\"primary\" (click)=\"refreshAll()\" [disabled]=\"loading\">Limpiar filtro</button>\n            </div> \n            <label *ngIf=\"isFilters && currentCompanyName != undefined\" color=\"primary\" style=\"cursor: default;\">\n                Empresa Filtrada: {{currentCompanyName}}\n            </label>\n        </div>\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\" >\n            <thead class=\"thead-light\">\n            <tr>\n                <th scope=\"col\" matTooltip=\"Nombre de persona que solicitó la unión\">Solicitante</th>\n                <th scope=\"col\" matTooltip=\"Nombre la empresa a la que se envió la solicitud\">Empresa</th>\n                <th scope=\"col\" matTooltip=\"Evento al que se desea unir la empresa\">Evento</th>\n                <th scope=\"col\" matTooltip=\"Detalles del evento al que se desea unir la empresa\">Detalles</th>\n                <th scope=\"col\" matTooltip=\"Pendiente / Aceptada / Rechazada\" *ngIf=\"filter.state == '0'\">Estado</th>\n                <th scope=\"col\" *ngIf=\"filter.state == '0' || filter.state == '2'\">Acciones</th>\n            </tr>\n            </thead>\n            <tbody *ngIf=\"!this.loading\">\n            <tr *ngFor=\"let request of eventRequests | filterBy: filter.filter\">\n                <td>{{ request.user_name }}</td>\n                <td>{{request.company_name}}</td>\n                <td>{{request.event_info.info.name}}</td>\n                <td>\n                    <button mat-stroked-button (click)=\"showEventDetails(true, request.event_info.info)\" matTooltip=\"Detalles del evento\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                <td *ngIf=\"filter.state == '0'\" >\n                    <label color=\"primary\" style=\"cursor: default;\"\n                        [style.color]=\"request.petition_state_company == 2? 'rgb(160, 105, 0)': request.petition_state_company == 1? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'\">\n                        {{ request.petition_state_company == 2? 'Pendiente': request.petition_state_company == 1? 'Aceptado': 'Rechazado' }}\n                    </label>\n                </td>\n                <td>\n                    <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\" *ngIf=\"request.petition_state_company == 2\">\n                        <button mat-stroked-button color=\"primary\" style=\"min-width: fit-content; margin: 1px; color: green;\" (click)=\"changeStatus(request.petition_id, 1)\" matTooltip=\"Aceptar solicitud\">\n                            <mat-icon>done</mat-icon>\n                        </button>\n                        <button mat-stroked-button color=\"warn\" style=\"margin: 1px; min-width: fit-content;\" (click)=\"changeStatus(request.petition_id, 3)\" matTooltip=\"Rechazar solicitud\">\n                            <mat-icon>clear</mat-icon>\n                        </button>\n                    </div>\n                </td>\n            </tr>\n\n            </tbody>\n        </table>\n        <!-- in case you want to show empty message -->\n        <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"!this.loading && (eventRequests| filterBy: filter.filter).length === 0 \">\n            No se encuentra ninguna solicitud\n        </div>\n        </div>\n    </div>\n</div>\n  \n";
+    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Solicitudes de unión de empresas a eventos</h1>\n    <div >\n        <ng-container *ngIf=\"this.loading\">\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-container>\n        <div style=\"display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 4rem 0 0 0\">\n            <mat-form-field class=\"container-fluid\" appearance=\"outline\" style=\"width: 40%; min-width: 300px; margin: auto\">\n                <mat-label>Buscar por nombre del evento o usuario</mat-label>\n                <input matInput [(ngModel)]=\"filter.name\"/>\n                <button\n                    mat-icon-button\n                    matSuffix\n                    [attr.aria-label]=\"'Hide password'\"\n                    [attr.aria-pressed]=\"hide\"\n                    (click)=\"openShowFilterOptionsDialog()\"\n                >\n                    <mat-icon>library_books</mat-icon>\n                </button>\n                <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por otros valores.</mat-hint>\n            </mat-form-field>\n            <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"filter.state\" (change)=\"refresh()\">\n                <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                    Todas\n                </mat-radio-button>\n                <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                    Aceptadas\n                </mat-radio-button>\n                <mat-radio-button value=\"2\" style=\"color: rgb(160, 105, 0) \">\n                    Pendientes\n                </mat-radio-button>\n                <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                    Rechazadas\n                </mat-radio-button>\n            </mat-radio-group>\n            <div *ngIf=\"isFilters\" class=\"container-text-left\">\n                <button  mat-raised-button color=\"primary\" (click)=\"refreshAll()\" [disabled]=\"loading\">Limpiar filtro</button>\n            </div> \n            <label *ngIf=\"isFilters && currentCompanyName != undefined\" color=\"primary\" style=\"cursor: default;\">\n                Empresa Filtrada: {{currentCompanyName}}\n            </label>\n        </div>\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\" >\n            <thead class=\"thead-light\">\n            <tr>\n                <th scope=\"col\" matTooltip=\"Nombre de persona que solicitó la unión\">Solicitante</th>\n                <th scope=\"col\" matTooltip=\"Nombre la empresa a la que se envió la solicitud\">Empresa</th>\n                <th scope=\"col\" matTooltip=\"Evento al que se desea unir la empresa\">Evento</th>\n                <th scope=\"col\" matTooltip=\"Detalles del evento al que se desea unir la empresa\">Detalles</th>\n                <th scope=\"col\" matTooltip=\"Pendiente / Aceptada / Rechazada\" *ngIf=\"filter.state == '0'\">Estado</th>\n                <th scope=\"col\" *ngIf=\"filter.state == '0' || filter.state == '2'\">Acciones</th>\n            </tr>\n            </thead>\n            <tbody *ngIf=\"!this.loading\">\n            <tr *ngFor=\"let request of eventRequests | filterBy: filter.filter\">\n                <td>{{ request.user_name }}</td>\n                <td>{{request.company_name}}</td>\n                <td>{{request.event_info.info.name}}</td>\n                <td>\n                    <button mat-stroked-button (click)=\"showEventDetails(true, request.event_info.info)\" matTooltip=\"Detalles del evento\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                <td *ngIf=\"filter.state == '0'\" >\n                    <label color=\"primary\" style=\"cursor: default;\"\n                        [style.color]=\"request.petition_state_company == 2? 'rgb(160, 105, 0)': request.petition_state_company == 1? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'\">\n                        {{ request.petition_state_company == 2? 'Pendiente': request.petition_state_company == 1? 'Aceptado': 'Rechazado' }}\n                    </label>\n                </td>\n                <td *ngIf=\"filter.state == '0' || filter.state == '2'\">\n                    <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\" *ngIf=\"request.petition_state_company == 2\">\n                        <button mat-stroked-button color=\"primary\" style=\"min-width: fit-content; margin: 1px; color: green;\" (click)=\"changeStatus(request.petition_id, 1)\" matTooltip=\"Aceptar solicitud\">\n                            <mat-icon>done</mat-icon>\n                        </button>\n                        <button mat-stroked-button color=\"warn\" style=\"margin: 1px; min-width: fit-content;\" (click)=\"changeStatus(request.petition_id, 3)\" matTooltip=\"Rechazar solicitud\">\n                            <mat-icon>clear</mat-icon>\n                        </button>\n                    </div>\n                </td>\n            </tr>\n\n            </tbody>\n        </table>\n        <!-- in case you want to show empty message -->\n        <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"!this.loading && (eventRequests| filterBy: filter.filter).length === 0 \">\n            No se encuentra ninguna solicitud\n        </div>\n        </div>\n    </div>\n</div>\n  \n";
     /***/
   },
 
@@ -397,7 +537,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<h1>Creación de Evento</h1>\n<form [formGroup]=\"eventFG\"  class=\"container\">\n\n    <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Costo</mat-label>\n            <input matInput formControlName=\"cost\" required>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\">\n            <mat-label>Dirección</mat-label>\n            <textarea \n                matInput \n                formControlName=\"address\" \n                matTooltip=\"Dirección exacta del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\" >\n            <mat-label>Detalles</mat-label>\n            <textarea \n                matInput \n                formControlName=\"detail\" \n                matTooltip=\"Detalles del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList aria-label=\"Categories selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let category of allCategories\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{category.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las categorías\"\n                  #tagInput\n                  formControlName=\"categories\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"auto\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let company of allCompanies\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{company.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las compañías\"\n                  #tagInput2\n                  formControlName=\"companies\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"autoCompany\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n    </div>\n</form>\n\n<div class=\"container\">\n    \n    <div class=\"toggle\">\n        <div style=\"text-align: center;\">\n            <label>Todo el día:</label>\n            <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n            <label style=\"margin-left: 5%; margin-right: 3%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n            <mat-form-field *ngIf=\"this.allDay\" style=\"width: 50%;\"  appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n        </div>\n\n        <div style=\" display: flex;\">\n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n            \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n\n    <div class=\"file\">\n        <div class=\"uploadFile\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n        </div>\n        <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson;\">¡Debes añadir imagenes!</mat-hint>\n        <mat-hint *ngIf=\"this.eventImages.length != 0\" style=\"padding-left: 2.5%;\">Imágenes añadidas: {{this.eventImages.length}}</mat-hint>\n    </div>\n\n</div>\n\n\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button  [disabled]=\"disableDialog()\" color=\"primary\" (click)=\"onSubmit()\">\n        Continuar la Creacón\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\" [disabled]=\"loading\">\n        Cancelar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>";
+    __webpack_exports__["default"] = "<h1>Creación de Evento</h1>\n<form [formGroup]=\"eventFG\"  class=\"container\">\n\n    <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Costo</mat-label>\n            <input matInput formControlName=\"cost\" required>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\">\n            <mat-label>Dirección</mat-label>\n            <textarea \n                matInput \n                formControlName=\"address\" \n                matTooltip=\"Dirección exacta del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\" >\n            <mat-label>Detalles</mat-label>\n            <textarea \n                matInput \n                formControlName=\"detail\" \n                matTooltip=\"Detalles del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList aria-label=\"Categories selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let category of allCategories\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{category.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las categorías\"\n                  #tagInput\n                  formControlName=\"categories\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"auto\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let company of allCompanies\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{company.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las compañías\"\n                  #tagInput2\n                  formControlName=\"companies\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"autoCompany\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n    </div>\n</form>\n\n<div class=\"container\">\n    \n    <div class=\"toggle\">\n        <div style=\"text-align: center;\">\n            <label>Todo el día:</label>\n            <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n            <label style=\"margin-left: 5%; margin-right: 3%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n            <mat-form-field *ngIf=\"this.allDay\" style=\"width: 50%;\"  appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n        </div>\n\n        <div style=\" display: flex;\">\n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n            \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;\">\n    <div class=\"file\">\n        <div class=\"uploadFile\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n        </div>\n    </div>\n\n    <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;\">Debes añadir imagenes*</mat-hint>\n    <mat-hint *ngIf=\"this.eventImages.length != 0\" style=\"padding-left: 2.5%; align-self: center; font-style: italic;\">Si pulsa en \"Añadir imágenes\" nuevamente deberá seleccionar todas las imágenes.</mat-hint>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n                <div class=\"carousel-caption\">\n                    <button [disabled]=\"loading\" mat-button style=\"border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;\" (click)=\"deleteImage();\"\n                        class=\"image-buttons\" color=\"warn\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </div>\n            </ng-template>\n        </ngb-carousel>\n\n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button  [disabled]=\"disableDialog()\" color=\"primary\" (click)=\"onSubmit()\">\n        Continuar la Creacón\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\" [disabled]=\"loading\">\n        Cancelar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>";
     /***/
   },
 
@@ -442,6 +582,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/events-stadistics/events-stadistics.component.html":
+  /*!***************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/events-stadistics/events-stadistics.component.html ***!
+    \***************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppEventComponentsEventsStadisticsEventsStadisticsComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div>\n    <h1 style=\"text-align: center; margin:1% 0 1% 0;\" class=\"text-center font-weight-light mt-3\">Estadísticas de Eventos</h1>\n    <div class=\"dates\">\n        <mat-form-field appearance=\"outline\">\n          <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n          <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n          <mat-datepicker #startDate disabled=\"false\"></mat-datepicker>\n        </mat-form-field>\n      \n      \n        <mat-form-field appearance=\"outline\">\n          <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha Final\" [(ngModel)]=\"end_Date\" disabled >\n          <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n          <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n        </mat-form-field>\n\n        <button mat-raised-button color=\"primary\"matTooltip=\"Realizar el filtro\" (click)=\"filterByDate()\" [disabled]=\"start_Date == undefined || end_Date == undefined || start_Date > end_Date\">\n            <i class=\"material-icons\">search</i>\n        </button>\n\n        <button mat-raised-button color=\"warn\"matTooltip=\"Realizar el filtro\" (click)=\"obtainAllEvents()\" [disabled]=\"!isFilterd\">\n            <i class=\"material-icons\">youtube_searched_for</i>\n        </button>\n    </div>\n    <mat-hint *ngIf=\"start_Date > end_Date\" style=\"width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n        Fecha inicial mayor a la final*\n    </mat-hint>\n\n    <div style=\"display: flex; flex-wrap: wrap; margin: 1rem 0 0 0; padding: 0 3%;\">\n        <label>Ordenar por:</label>\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"filter.state\" (change)=\"refresh()\">\n            <mat-radio-button value=\"0\" style=\"color: rgb(66, 252, 19);\">\n                Visitas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(236, 240, 1) \">\n                Valoración\n            </mat-radio-button>\n            <!-- <mat-radio-button value=\"2\" style=\"color: rgb(0, 180, 150)\">\n                Num. Publicaciones en Redes\n            </mat-radio-button> WISH-->\n        </mat-radio-group>\n    </div>\n    \n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\" *ngIf=\"this.eventService.events\">\n        <thead class=\"thead-light\">\n            <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\">Costo</th>\n            <th scope=\"col\">Fechas</th>\n            <th scope=\"col\" *ngIf=\"this.authService.getUser().role_id === 1\" style=\"text-align: center;\">Detalles</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr *ngFor=\"let event of this.eventService.events\">\n            <td>{{event.name}}</td>\n            <td>{{event.cost}}</td>\n            <td>\n                Inicio: {{event.date_range.initial_date | date: 'dd/MM/yyyy'}}\n                <br>\n                Fin:    {{event.date_range.final_date | date: 'dd/MM/yyyy'}}\n            </td>            \n            <td style=\"text-align: center;\" *ngIf=\"this.authService.getUser().role_id === 1\"> \n                <button mat-stroked-button [routerLink]=\"['/event', event.event_id]\" matTooltip=\"Detalles del evento\" style=\"color: rgb(82, 82, 82); font-size: 14px; \">\n                    Ver Detalles\n                </button>\n            </td>\n            </tr>\n        </tbody>   \n        </table>\n        <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"this.eventService.events.length === 0\">\n          ¡No hay eventos disponibles<span class=\"text-danger\"></span>!\n        </div>\n    </div>\n    \n</div>\n";
+    /***/
+  },
+
+  /***/
   "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/events/event-filters/event-filters.component.html":
   /*!**************************************************************************************************************************!*\
     !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/events/event-filters/event-filters.component.html ***!
@@ -457,7 +617,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container-fluid d-flex flex-column justify-content-sm-center\">\n    <h4 class=\"text-muted text-center font-weight-light\">\n      Seleccione la categoría para filtrar\n    </h4>\n    <hr>\n    <form [formGroup]=\"eventFiltersFG\">\n      <mat-form-field appearance=\"fill\">\n        <mat-label>Tipo de categoría</mat-label>\n        <mat-select formControlName=\"categories\">\n          <mat-option *ngFor=\"let c of categories\" [value]=\"c.category_id\">\n            {{c.name}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n     \n      <div class=\"buttonContainer\">\n        <button (click)=\"submit(); false\" mat-raised-button color=\"primary\" [disabled]=\"!eventFiltersFG.valid\">\n          Aceptar<mat-icon>check</mat-icon>\n        </button>\n        <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n          Cerrar<mat-icon>close</mat-icon>\n        </button>\n      </div>\n    </form>\n    \n  </div>\n";
+    __webpack_exports__["default"] = "<div class=\"container-fluid d-flex flex-column justify-content-sm-center\">\n  <h4 class=\"text-muted text-center font-weight-light\">\n    Rellene los espacios por los que desea filtar\n  </h4>\n  <hr style=\"width: 100%;\">\n\n  <div class=\"dates\">\n    <mat-form-field appearance=\"outline\">\n      <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n      <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n      <mat-datepicker #startDate disabled=\"false\"></mat-datepicker>\n    </mat-form-field>\n  \n    <mat-form-field appearance=\"outline\">\n      <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha Final\" [(ngModel)]=\"end_Date\" disabled >\n      <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n      <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n    </mat-form-field>\n  </div>\n  <mat-hint *ngIf=\"start_Date > end_Date\" style=\"width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n    Fecha inicial mayor a la final*\n  </mat-hint>\n\n  <form [formGroup]=\"eventFiltersFG\" style=\"display: flex; justify-content: space-evenly; align-items: center;\">\n    <mat-form-field >\n      <mat-label>Tipo de categoría</mat-label>\n      <mat-select formControlName=\"categories\">\n        <mat-option *ngFor=\"let c of categories\" [value]=\"c.category_id\">\n          {{c.name}}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n\n    <div style=\"display: flex; \">\n      <div style=\"align-items: center;\">\n        <label style=\"margin-right: 2%;\">Valoración:</label>\n        <mat-form-field style=\"width: 30%;\">\n          <mat-label>Ej:1.5</mat-label>\n          <input matInput formControlName=\"rate\" (input)=\"updateRateInput($event.target.value)\">\n        </mat-form-field>\n      </div>\n      <ngb-rating [(rate)]=\"currentRate\" [max]=\"5\" [readonly]=\"true\">\n        <ng-template let-fill=\"fill\" let-index=\"index\">\n          <span class=\"star\" [class.filled]=\"fill === 100\" >\n            <span class=\"half\" [style.width.%]=\"fill\">&#9733;</span>&#9733;\n          </span>\n        </ng-template>\n      </ngb-rating>\n    </div>\n  </form>\n\n  <hr style=\"width: 100%;\">\n\n  <div [formGroup]=\"eventFiltersFG\" class=\"m-3\" style=\"display: flex;\" (mouseenter)=\"refreshMap()\">\n    <div class=\"shadow-sm rounded\" class=\"map container-fluid\" leaflet (leafletMapReady)=\"onMapReady($event)\"\n      [leafletOptions]=\"options\" (leafletClick)=\"putLocationMarker($event)\">\n    </div>\n    <div style=\"width: 40%; align-items: center; display: flex; flex-direction: column; justify-content: center;\">\n      <h6>Ubicación</h6>\n      <label style=\"font-size: 15px; min-width:  30% ;  margin-bottom: 15px;\">\n        Latitud: <b style=\"color: #dbb735;;\">{{locationMarker.getLatLng().lat}}</b> <br> \n        Longitud: <b style=\"color: #ca382d;\">{{locationMarker.getLatLng().lng}}</b>\n      </label>\n      <mat-form-field appearance=\"fill\" (input)=\"updateUbicationInput($event.target.value)\">\n        <mat-label>Radio de búsqueda</mat-label>\n        <input matInput formControlName=\"ratio\" type=\"number\" min=\"0\" max=\"3\">\n        <span matSuffix>Km</span>\n      </mat-form-field>\n      <mat-hint style=\"font-style: italic; text-align: center;\">\n        Rango de 1-3*\n      </mat-hint>\n    </div>\n  </div>\n\n  <div class=\"buttonContainer\">\n    <button (click)=\"submit(); false\" mat-raised-button color=\"primary\" [disabled]=\"disableDialog()\">\n      Aceptar<mat-icon>check</mat-icon>\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n      Cerrar<mat-icon>close</mat-icon>\n    </button>\n  </div>\n</div>";
     /***/
   },
 
@@ -482,6 +642,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/main-tabs/main-tabs.component.html":
+  /*!***********************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/main-tabs/main-tabs.component.html ***!
+    \***********************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppEventComponentsMainTabsMainTabsComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<mat-tab-group>\n\n    <mat-tab label=\"Estadísticas\">\n      <div class=\"container justify-content\">\n        <app-events-stadistics></app-events-stadistics>\n      </div>    \n    </mat-tab>\n\n    <mat-tab label=\"Administración\">\n        <div class=\"container justify-content\">\n          <app-events></app-events>\n        </div>    \n    </mat-tab>\n</mat-tab-group>";
+    /***/
+  },
+
+  /***/
   "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/management/event-details/event-details.component.html":
   /*!******************************************************************************************************************************!*\
     !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/management/event-details/event-details.component.html ***!
@@ -497,7 +677,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; justify-content: space-around;\">\n\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{event.name}}</h2>\n    <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n        <h2 style=\"margin: auto\" [style.color]=\"event.is_active? '#673ab7': 'gray'\">\n            {{event.is_active? \"Activo\": \"Inactivo\"}}</h2>\n        <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n            color=\"primary\" [checked]=event.is_active>\n        </mat-slide-toggle>\n    </div>\n\n</div>\n\n\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        \n        <form [formGroup]=\"eventFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field  appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n            </mat-form-field>\n    \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Costo</mat-label>\n                <input matInput formControlName=\"cost\" required>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Dirección</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"address\" \n                    matTooltip=\"Dirección exacta del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n        \n            <mat-form-field  appearance=\"outline\" >\n                <mat-label>Detalles</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"detail\" \n                    matTooltip=\"Detalles del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList aria-label=\"Categories selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let category of allCategories\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{category.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"remove(category)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las categorías\"\n                      #tagInput\n                      formControlName=\"categories\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"auto\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\n                    <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput2\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n        </form>\n    </div>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"height: 500px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div *ngIf=\"eventImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\">\n        <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imagen </label> \n        <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n    </div>\n    \n</div>\n\n\n<div class=\"container\" style=\" width: 95%; padding-top: 2%; margin-left: 2.5%;\">\n    \n    <div class=\"toggle\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"allDay\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n        \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\"display: flex;\">\n    \n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; margin-left: 3%;\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n    \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  style=\"margin-left: 3%;\" appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  [color]=\"color\" (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyEvent()\" >\n        Guardar cambios\n    </button>\n\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; justify-content: space-around;\">\n\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{event.name}}</h2>\n    <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n        <h2 style=\"margin: auto\" [style.color]=\"event.is_active? '#673ab7': 'gray'\">\n            {{event.is_active? \"Activo\": \"Inactivo\"}}</h2>\n        <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n            color=\"primary\" [checked]=event.is_active>\n        </mat-slide-toggle>\n    </div>\n\n</div>\n\n\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        \n        <form [formGroup]=\"eventFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field  appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n            </mat-form-field>\n    \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Costo</mat-label>\n                <input matInput formControlName=\"cost\" required>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Dirección</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"address\" \n                    matTooltip=\"Dirección exacta del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n        \n            <mat-form-field  appearance=\"outline\" >\n                <mat-label>Detalles</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"detail\" \n                    matTooltip=\"Detalles del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList aria-label=\"Categories selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let category of allCategories\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{category.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"remove(category)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las categorías\"\n                      #tagInput\n                      formControlName=\"categories\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"auto\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\n                    <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput2\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n        </form>\n    </div>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"eventImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\" title=\"Añadir imagenes al evento\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n    \n</div>\n\n\n<div class=\"container\" style=\" width: 95%; padding-top: 2%; margin-left: 2.5%;\">\n    \n    <div class=\"toggle\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"allDay\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n        \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\"display: flex;\">\n    \n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; margin-left: 3%;\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n    \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  style=\"margin-left: 3%;\" appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  [color]=\"color\" (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyEvent()\" >\n        Guardar cambios\n    </button>\n\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n";
     /***/
   },
 
@@ -897,7 +1077,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de usuarios</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de itinerarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de Categorías</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n";
+    __webpack_exports__["default"] = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de usuarios</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de itinerarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Gestión de Anuncios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n";
     /***/
   },
 
@@ -1786,6 +1966,1576 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
+  "./src/app/ads/ads-root.component.ts":
+  /*!*******************************************!*\
+    !*** ./src/app/ads/ads-root.component.ts ***!
+    \*******************************************/
+
+  /*! exports provided: AdsRootComponent */
+
+  /***/
+  function srcAppAdsAdsRootComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsRootComponent", function () {
+      return AdsRootComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var AdsRootComponent = /*#__PURE__*/function () {
+      function AdsRootComponent() {
+        _classCallCheck(this, AdsRootComponent);
+      }
+
+      _createClass(AdsRootComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return AdsRootComponent;
+    }();
+
+    AdsRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-ads-root',
+      template: "\n    <router-outlet></router-outlet>\n  "
+    })], AdsRootComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/ads-routing.module.ts":
+  /*!*******************************************!*\
+    !*** ./src/app/ads/ads-routing.module.ts ***!
+    \*******************************************/
+
+  /*! exports provided: AdsRoutingModule */
+
+  /***/
+  function srcAppAdsAdsRoutingModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsRoutingModule", function () {
+      return AdsRoutingModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _ads_root_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./ads-root.component */
+    "./src/app/ads/ads-root.component.ts");
+    /* harmony import */
+
+
+    var _components_ads_management_ads_management_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./components/ads-management/ads-management.component */
+    "./src/app/ads/components/ads-management/ads-management.component.ts");
+    /* harmony import */
+
+
+    var _components_ads_tabs_ads_tabs_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./components/ads-tabs/ads-tabs.component */
+    "./src/app/ads/components/ads-tabs/ads-tabs.component.ts");
+
+    var routes = [{
+      path: "ads",
+      component: _ads_root_component__WEBPACK_IMPORTED_MODULE_2__["AdsRootComponent"],
+      children: [{
+        path: "all",
+        component: _components_ads_tabs_ads_tabs_component__WEBPACK_IMPORTED_MODULE_4__["AdsTabsComponent"]
+      }, {
+        path: ":ads_id",
+        component: _components_ads_management_ads_management_component__WEBPACK_IMPORTED_MODULE_3__["AdsManagementComponent"]
+      }]
+    }];
+
+    var AdsRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes);
+    /***/
+
+  },
+
+  /***/
+  "./src/app/ads/ads.module.ts":
+  /*!***********************************!*\
+    !*** ./src/app/ads/ads.module.ts ***!
+    \***********************************/
+
+  /*! exports provided: AdsModule */
+
+  /***/
+  function srcAppAdsAdsModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsModule", function () {
+      return AdsModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _ads_root_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./ads-root.component */
+    "./src/app/ads/ads-root.component.ts");
+    /* harmony import */
+
+
+    var _ads_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./ads-routing.module */
+    "./src/app/ads/ads-routing.module.ts");
+    /* harmony import */
+
+
+    var _components_ads_management_ads_management_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ./components/ads-management/ads-management.component */
+    "./src/app/ads/components/ads-management/ads-management.component.ts");
+    /* harmony import */
+
+
+    var _components_ads_main_ads_main_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ./components/ads-main/ads-main.component */
+    "./src/app/ads/components/ads-main/ads-main.component.ts");
+    /* harmony import */
+
+
+    var _components_ads_create_ads_create_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ./components/ads-create/ads-create.component */
+    "./src/app/ads/components/ads-create/ads-create.component.ts");
+    /* harmony import */
+
+
+    var _shared_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ../shared.module */
+    "./src/app/shared.module.ts");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! ngx-filter-pipe */
+    "./node_modules/ngx-filter-pipe/esm2015/ngx-filter-pipe.js");
+    /* harmony import */
+
+
+    var _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    /*! @asymmetrik/ngx-leaflet */
+    "./node_modules/@asymmetrik/ngx-leaflet/dist/index.js");
+    /* harmony import */
+
+
+    var _components_ads_tabs_ads_tabs_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    /*! ./components/ads-tabs/ads-tabs.component */
+    "./src/app/ads/components/ads-tabs/ads-tabs.component.ts");
+    /* harmony import */
+
+
+    var _components_ads_stadistics_ads_stadistics_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    /*! ./components/ads-stadistics/ads-stadistics.component */
+    "./src/app/ads/components/ads-stadistics/ads-stadistics.component.ts");
+    /* harmony import */
+
+
+    var _components_ads_management_ads_details_ads_details_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    /*! ./components/ads-management/ads-details/ads-details.component */
+    "./src/app/ads/components/ads-management/ads-details/ads-details.component.ts");
+    /* harmony import */
+
+
+    var _components_ads_management_ads_location_ads_location_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+    /*! ./components/ads-management/ads-location/ads-location.component */
+    "./src/app/ads/components/ads-management/ads-location/ads-location.component.ts");
+
+    var AdsModule = function AdsModule() {
+      _classCallCheck(this, AdsModule);
+    };
+
+    AdsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+      declarations: [_ads_root_component__WEBPACK_IMPORTED_MODULE_3__["AdsRootComponent"], _components_ads_management_ads_management_component__WEBPACK_IMPORTED_MODULE_5__["AdsManagementComponent"], _components_ads_main_ads_main_component__WEBPACK_IMPORTED_MODULE_6__["AdsMainComponent"], _components_ads_create_ads_create_component__WEBPACK_IMPORTED_MODULE_7__["AdsCreateComponent"], _components_ads_tabs_ads_tabs_component__WEBPACK_IMPORTED_MODULE_12__["AdsTabsComponent"], _components_ads_stadistics_ads_stadistics_component__WEBPACK_IMPORTED_MODULE_13__["AdsStadisticsComponent"], _components_ads_management_ads_details_ads_details_component__WEBPACK_IMPORTED_MODULE_14__["AdsDetailsComponent"], _components_ads_management_ads_location_ads_location_component__WEBPACK_IMPORTED_MODULE_15__["AdsLocationComponent"]],
+      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _ads_routing_module__WEBPACK_IMPORTED_MODULE_4__["AdsRoutingModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"], ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_10__["FilterPipeModule"], _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_11__["LeafletModule"]],
+      providers: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["DatePipe"]],
+      entryComponents: [_components_ads_create_ads_create_component__WEBPACK_IMPORTED_MODULE_7__["AdsCreateComponent"]]
+    })], AdsModule);
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-create/ads-create.component.scss":
+  /*!*********************************************************************!*\
+    !*** ./src/app/ads/components/ads-create/ads-create.component.scss ***!
+    \*********************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppAdsComponentsAdsCreateAdsCreateComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "form {\n  width: 100%;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n\n.dates {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy1jcmVhdGUvYWRzLWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYWRzL2NvbXBvbmVudHMvYWRzLWNyZWF0ZS9hZHMtY3JlYXRlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGFBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtBQ0NKOztBREVBO0VBQ0ksYUFBQTtFQUNBLDZCQUFBO0VBQ0EsbUJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy1jcmVhdGUvYWRzLWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbmgxe1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW46IDAlO1xuICAgIG1hcmdpbi1ib3R0b206IDElO1xuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmRhdGVze1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cbiIsImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDIlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmRhdGVzIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59Il19 */";
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-create/ads-create.component.ts":
+  /*!*******************************************************************!*\
+    !*** ./src/app/ads/components/ads-create/ads-create.component.ts ***!
+    \*******************************************************************/
+
+  /*! exports provided: AdsCreateComponent */
+
+  /***/
+  function srcAppAdsComponentsAdsCreateAdsCreateComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsCreateComponent", function () {
+      return AdsCreateComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/company/services/company.service */
+    "./src/app/company/services/company.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var _services_ads_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../services/ads.service */
+    "./src/app/ads/services/ads.service.ts");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+
+    var AdsCreateComponent = /*#__PURE__*/function () {
+      function AdsCreateComponent(dialogRef, companyService, commonService, adsService, router) {
+        var _this = this;
+
+        _classCallCheck(this, AdsCreateComponent);
+
+        this.dialogRef = dialogRef;
+        this.companyService = companyService;
+        this.commonService = commonService;
+        this.adsService = adsService;
+        this.router = router;
+        this.start_Date = undefined;
+        this.end_Date = undefined;
+        this.today = new Date();
+
+        this.dateFilter = function (date) {
+          return date >= _this.start_Date;
+        };
+
+        this.adsFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
+          name: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required),
+          description: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required),
+          company: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required)
+        });
+      }
+
+      _createClass(AdsCreateComponent, [{
+        key: "onNoClick",
+        value: function onNoClick() {
+          this.dialogRef.close();
+        }
+      }, {
+        key: "closeDialog",
+        value: function closeDialog() {
+          this.dialogRef.close();
+        }
+      }, {
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var _this2 = this;
+
+          //Carga las compañías
+          this.subscription = this.companyService.getCompanies().subscribe({
+            next: function next(data) {
+              _this2.companies = data;
+
+              _this2.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this2.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
+      }, {
+        key: "onSubmit",
+        value: function onSubmit() {
+          var ad = {
+            name: this.adsFG.controls['name'].value,
+            description: this.adsFG.controls['description'].value,
+            company_id: this.adsFG.controls['company'].value,
+            date_range: {
+              initial_date: this.start_Date,
+              final_date: this.end_Date
+            }
+          };
+          this.createAd(ad);
+        }
+      }, {
+        key: "createAd",
+        value: function createAd(ad) {
+          var _this3 = this;
+
+          this.adsFG.disable();
+          this.adsService.createAd(ad).subscribe({
+            next: function next(data) {
+              if (data.status == 204) {
+                _this3.commonService.openSnackBar("La categor\xEDa ".concat(_this3.adsFG.value.name, " se ha creado"), "OK");
+
+                _this3.dialogRef.close();
+
+                _this3.router.navigate(["/category/all"]);
+              } else {
+                _this3.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
+
+                _this3.adsFG.enable();
+              }
+            },
+            error: function error(err) {
+              _this3.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              _this3.adsFG.enable();
+            }
+          });
+        }
+      }]);
+
+      return AdsCreateComponent;
+    }();
+
+    AdsCreateComponent.ctorParameters = function () {
+      return [{
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialogRef"]
+      }, {
+        type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_2__["CompanyService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }, {
+        type: _services_ads_service__WEBPACK_IMPORTED_MODULE_6__["AdsService"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]
+      }];
+    };
+
+    AdsCreateComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-ads-create',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./ads-create.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-create/ads-create.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./ads-create.component.scss */
+      "./src/app/ads/components/ads-create/ads-create.component.scss"))["default"]]
+    })], AdsCreateComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-main/ads-main.component.scss":
+  /*!*****************************************************************!*\
+    !*** ./src/app/ads/components/ads-main/ads-main.component.scss ***!
+    \*****************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppAdsComponentsAdsMainAdsMainComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\nbutton {\n  margin-right: 3%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy1tYWluL2Fkcy1tYWluLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hZHMvY29tcG9uZW50cy9hZHMtbWFpbi9hZHMtbWFpbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQUE7RUFDQSxnQkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLHlCQUFBO0FDQ0o7O0FERUE7RUFDSSxnQkFBQTtBQ0NKOztBREVBO0VBQ0ksaUJBQUE7RUFDQSxlQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hZHMvY29tcG9uZW50cy9hZHMtbWFpbi9hZHMtbWFpbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRoe1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICBmb250LXdlaWdodDogNjAwO1xufVxuXG50cntcbiAgICBmb250LXNpemU6IDE1cHg7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG50cjpob3ZlcntcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQ3LCAyNDcsIDI0Nyk7XG59XG5cbmJ1dHRvbntcbiAgICBtYXJnaW4tcmlnaHQ6IDMlO1xufVxuXG4uY29udGFpbmVyLXRleHQtbGVmdHtcbiAgICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgICBtYXJnaW4tbGVmdDogMiU7XG59IiwidGgge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbnRyIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnRyOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y3ZjdmNztcbn1cblxuYnV0dG9uIHtcbiAgbWFyZ2luLXJpZ2h0OiAzJTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufSJdfQ== */";
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-main/ads-main.component.ts":
+  /*!***************************************************************!*\
+    !*** ./src/app/ads/components/ads-main/ads-main.component.ts ***!
+    \***************************************************************/
+
+  /*! exports provided: AdsMainComponent */
+
+  /***/
+  function srcAppAdsComponentsAdsMainAdsMainComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsMainComponent", function () {
+      return AdsMainComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _services_ads_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../../services/ads.service */
+    "./src/app/ads/services/ads.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var _ads_create_ads_create_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../ads-create/ads-create.component */
+    "./src/app/ads/components/ads-create/ads-create.component.ts");
+
+    var AdsMainComponent = /*#__PURE__*/function () {
+      function AdsMainComponent(commonService, dialogService, adsService) {
+        _classCallCheck(this, AdsMainComponent);
+
+        this.commonService = commonService;
+        this.dialogService = dialogService;
+        this.adsService = adsService;
+        this.filter = {
+          name: ""
+        };
+        this.isFilters = false;
+      }
+
+      _createClass(AdsMainComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {//this.obtainAllAds()
+        }
+      }, {
+        key: "obtainAllAds",
+        value: function obtainAllAds() {
+          var _this4 = this;
+
+          this.isFilters = false;
+          this.subscription = this.adsService.getAllAds().subscribe({
+            next: function next(data) {
+              _this4.adsService.ads = data;
+
+              _this4.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this4.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
+      }, {
+        key: "changeState",
+        value: function changeState(ad, _ref) {
+          var _this5 = this;
+
+          var source = _ref.source;
+          var id = {
+            ad_id: ad.ad_id
+          };
+          this.adsService.changeStateAd(id).subscribe({
+            next: function next(data) {
+              if (data.status == 200) {
+                ad.is_active = !ad.is_active;
+                source.checked = ad.is_active;
+                if (ad.is_active) _this5.commonService.openSnackBar("La categor\xEDa ".concat(ad.name, " ha sido activada"), "OK");else _this5.commonService.openSnackBar("La categor\xEDa ".concat(ad.name, " ha sido desactivada"), "OK");
+              } else {
+                _this5.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+              }
+            },
+            error: function error(err) {
+              _this5.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              source.checked = ad.is_active;
+            }
+          });
+        }
+      }, {
+        key: "openCreateDialog",
+        value: function openCreateDialog() {
+          var dialog = this.dialogService.open(_ads_create_ads_create_component__WEBPACK_IMPORTED_MODULE_5__["AdsCreateComponent"], {
+            width: "60%",
+            minWidth: "280px",
+            disableClose: true
+          });
+          dialog.afterClosed().subscribe(function (data) {
+            console.log(data);
+          });
+        }
+      }]);
+
+      return AdsMainComponent;
+    }();
+
+    AdsMainComponent.ctorParameters = function () {
+      return [{
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }, {
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialog"]
+      }, {
+        type: _services_ads_service__WEBPACK_IMPORTED_MODULE_2__["AdsService"]
+      }];
+    };
+
+    AdsMainComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-ads-main',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./ads-main.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-main/ads-main.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./ads-main.component.scss */
+      "./src/app/ads/components/ads-main/ads-main.component.scss"))["default"]]
+    })], AdsMainComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-management/ads-details/ads-details.component.scss":
+  /*!**************************************************************************************!*\
+    !*** ./src/app/ads/components/ads-management/ads-details/ads-details.component.scss ***!
+    \**************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppAdsComponentsAdsManagementAdsDetailsAdsDetailsComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = ".dates {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy1tYW5hZ2VtZW50L2Fkcy1kZXRhaWxzL2Fkcy1kZXRhaWxzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hZHMvY29tcG9uZW50cy9hZHMtbWFuYWdlbWVudC9hZHMtZGV0YWlscy9hZHMtZGV0YWlscy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGFBQUE7RUFDQSw2QkFBQTtFQUNBLG1CQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hZHMvY29tcG9uZW50cy9hZHMtbWFuYWdlbWVudC9hZHMtZGV0YWlscy9hZHMtZGV0YWlscy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kYXRlc3tcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cblxuIiwiLmRhdGVzIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59Il19 */";
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-management/ads-details/ads-details.component.ts":
+  /*!************************************************************************************!*\
+    !*** ./src/app/ads/components/ads-management/ads-details/ads-details.component.ts ***!
+    \************************************************************************************/
+
+  /*! exports provided: AdsDetailsComponent */
+
+  /***/
+  function srcAppAdsComponentsAdsManagementAdsDetailsAdsDetailsComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsDetailsComponent", function () {
+      return AdsDetailsComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/company/services/company.service */
+    "./src/app/company/services/company.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var src_app_ads_services_ads_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/ads/services/ads.service */
+    "./src/app/ads/services/ads.service.ts");
+
+    var AdsDetailsComponent = /*#__PURE__*/function () {
+      function AdsDetailsComponent(companyService, commonService, adsService) {
+        _classCallCheck(this, AdsDetailsComponent);
+
+        this.companyService = companyService;
+        this.commonService = commonService;
+        this.adsService = adsService;
+        this.start_Date = undefined;
+        this.end_Date = undefined;
+        this.loading = false;
+        this.adFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
+          name: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required),
+          description: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required),
+          company: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required)
+        });
+      }
+
+      _createClass(AdsDetailsComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var _this6 = this;
+
+          this.subscription = this.companyService.getCompanies().subscribe({
+            next: function next(data) {
+              _this6.companies = data;
+
+              _this6.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this6.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+          this.setData();
+        }
+      }, {
+        key: "setData",
+        value: function setData() {
+          this.adFG.controls['name'].setValue(this.myAd.name);
+          this.adFG.controls['description'].setValue(this.myAd.description);
+          this.adFG.controls['company'].setValue(this.myAd.company_id);
+          this.start_Date = this.myAd.date_range.initial_date;
+          this.end_Date = this.myAd.date_range.final_date;
+        }
+      }, {
+        key: "changeState",
+        value: function changeState(_ref2) {
+          var _this7 = this;
+
+          var source = _ref2.source;
+          var id = this.myAd.ad_id;
+          this.adsService.changeStateAd(id).subscribe({
+            next: function next(data) {
+              if (data.status == 204) {
+                _this7.myAd.is_active = !_this7.myAd.is_active;
+                source.checked = _this7.myAd.is_active;
+                if (_this7.myAd.is_active) _this7.commonService.openSnackBar("El anuncio ".concat(_this7.myAd.name, " ha sido activado"), "OK");else _this7.commonService.openSnackBar("El anuncio ".concat(_this7.myAd.name, " ha sido desactivado"), "OK");
+              } else {
+                _this7.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+              }
+            },
+            error: function error(err) {
+              _this7.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              source.checked = _this7.myAd.is_active;
+            }
+          });
+        }
+      }, {
+        key: "modifyAd",
+        value: function modifyAd() {
+          var _this8 = this;
+
+          this.loading = true;
+          this.adFG.disable();
+          var ad = {
+            ad_id: this.myAd.ad_id,
+            name: this.adFG.controls['name'].value,
+            description: this.adFG.controls['description'].value,
+            company_id: this.adFG.controls['company'].value,
+            date_range: {
+              initial_date: this.myAd.date_range.initial_date,
+              final_date: this.myAd.date_range.final_date
+            },
+            is_active: this.myAd.is_active,
+            latitude: this.myAd.latitude,
+            longitude: this.myAd.longitude
+          };
+          this.adsService.modifyAd(ad).subscribe({
+            next: function next(data) {
+              if (data.status == 204) {
+                _this8.loading = false;
+
+                _this8.adFG.enable();
+
+                _this8.myAd = ad;
+
+                _this8.commonService.openSnackBar("El anuncio ".concat(_this8.myAd.name, " ha sido cambiado"), "OK");
+              } else {
+                _this8.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+              }
+            },
+            error: function error(err) {
+              _this8.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              _this8.loading = false;
+
+              _this8.adFG.enable();
+            }
+          });
+        }
+      }, {
+        key: "isChanged",
+        value: function isChanged() {
+          var ad = {
+            ad_id: this.myAd.ad_id,
+            name: this.adFG.controls['name'].value,
+            description: this.adFG.controls['description'].value,
+            company_id: this.adFG.controls['company'].value,
+            date_range: {
+              initial_date: this.myAd.date_range.initial_date,
+              final_date: this.myAd.date_range.final_date
+            },
+            is_active: this.myAd.is_active,
+            latitude: this.myAd.latitude,
+            longitude: this.myAd.longitude
+          };
+          return !(JSON.stringify(this.myAd) === JSON.stringify(ad));
+        }
+      }]);
+
+      return AdsDetailsComponent;
+    }();
+
+    AdsDetailsComponent.ctorParameters = function () {
+      return [{
+        type: src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_2__["CompanyService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }, {
+        type: src_app_ads_services_ads_service__WEBPACK_IMPORTED_MODULE_5__["AdsService"]
+      }];
+    };
+
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], AdsDetailsComponent.prototype, "myAd", void 0);
+    AdsDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-ads-details',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./ads-details.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-details/ads-details.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./ads-details.component.scss */
+      "./src/app/ads/components/ads-management/ads-details/ads-details.component.scss"))["default"]]
+    })], AdsDetailsComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-management/ads-location/ads-location.component.scss":
+  /*!****************************************************************************************!*\
+    !*** ./src/app/ads/components/ads-management/ads-location/ads-location.component.scss ***!
+    \****************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppAdsComponentsAdsManagementAdsLocationAdsLocationComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = ".map {\n  height: 500px;\n  padding: 0;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy1tYW5hZ2VtZW50L2Fkcy1sb2NhdGlvbi9hZHMtbG9jYXRpb24uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy1tYW5hZ2VtZW50L2Fkcy1sb2NhdGlvbi9hZHMtbG9jYXRpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUFBO0VBQ0EsVUFBQTtFQUNBLFlBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy1tYW5hZ2VtZW50L2Fkcy1sb2NhdGlvbi9hZHMtbG9jYXRpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWFwIHtcbiAgICBoZWlnaHQ6IDUwMHB4O1xuICAgIHBhZGRpbmc6IDA7XG4gICAgbWFyZ2luOiBhdXRvXG59IiwiLm1hcCB7XG4gIGhlaWdodDogNTAwcHg7XG4gIHBhZGRpbmc6IDA7XG4gIG1hcmdpbjogYXV0bztcbn0iXX0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-management/ads-location/ads-location.component.ts":
+  /*!**************************************************************************************!*\
+    !*** ./src/app/ads/components/ads-management/ads-location/ads-location.component.ts ***!
+    \**************************************************************************************/
+
+  /*! exports provided: AdsLocationComponent */
+
+  /***/
+  function srcAppAdsComponentsAdsManagementAdsLocationAdsLocationComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsLocationComponent", function () {
+      return AdsLocationComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var leaflet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! leaflet */
+    "./node_modules/leaflet/dist/leaflet-src.js");
+    /* harmony import */
+
+
+    var leaflet__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_2__);
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_app_ads_services_ads_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/ads/services/ads.service */
+    "./src/app/ads/services/ads.service.ts");
+
+    var AdsLocationComponent = /*#__PURE__*/function () {
+      function AdsLocationComponent(commonService, adsService) {
+        _classCallCheck(this, AdsLocationComponent);
+
+        this.commonService = commonService;
+        this.adsService = adsService;
+        this.refreshed = false;
+        this.locationMarker = new leaflet__WEBPACK_IMPORTED_MODULE_2__["Marker"](Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(10.471868647924616, -84.64508235454561), {
+          draggable: true,
+          icon: new leaflet__WEBPACK_IMPORTED_MODULE_2__["Icon"]({
+            iconUrl: 'assets/marker-icon.png',
+            iconSize: [24, 41],
+            iconAnchor: [12, 41],
+            shadowUrl: 'assets/marker-shadow.png'
+          })
+        });
+        this.options = {
+          layers: [Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["tileLayer"])("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: "..."
+          })],
+          zoom: 16,
+          center: Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(10.471691479992346, -84.64503407478333)
+        };
+      }
+
+      _createClass(AdsLocationComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }, {
+        key: "ngAfterViewInit",
+        value: function ngAfterViewInit() {
+          var _this9 = this;
+
+          if (document.getElementById("mat-tab-label-0-2")) {
+            document.getElementById("mat-tab-label-0-2").parameters = {
+              map: this.map,
+              event: this.myAd
+            };
+            document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMap, false);
+          }
+
+          setTimeout(function () {
+            return _this9.map.invalidateSize();
+          }, 2000);
+        }
+      }, {
+        key: "onMapReady",
+        value: function onMapReady(map) {
+          this.map = map;
+          map.addLayer(this.locationMarker);
+
+          if (this.myAd.latitude && this.myAd.longitude) {
+            this.locationMarker.setLatLng(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(this.myAd.latitude, this.myAd.longitude));
+          }
+        }
+      }, {
+        key: "refreshMap",
+        value: function refreshMap() {
+          this.map.invalidateSize();
+
+          if (!this.refreshed) {
+            this.refreshed = true;
+            if (this.myAd.latitude && this.myAd.longitude) this.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(this.myAd.latitude, this.myAd.longitude), 18);
+          }
+        }
+      }, {
+        key: "putLocationMarker",
+        value: function putLocationMarker(event) {
+          this.locationMarker.setLatLng(event.latlng);
+        }
+      }, {
+        key: "updateEventLocation",
+        value: function updateEventLocation() {
+          var _this10 = this;
+
+          console.log(this.myAd);
+          var infoAd = {
+            ad_id: this.myAd.ad_id,
+            name: this.myAd.name,
+            description: this.myAd.description,
+            company_id: this.myAd.company_id,
+            date_range: {
+              initial_date: this.myAd.date_range.initial_date,
+              final_date: this.myAd.date_range.final_date
+            },
+            is_active: this.myAd.is_active
+          };
+          var updatedAd = {
+            info: infoAd,
+            latitude: this.locationMarker.getLatLng().lat,
+            longitude: this.locationMarker.getLatLng().lng
+          };
+          this.adsService.modifyAd(updatedAd).subscribe({
+            next: function next(data) {
+              if (data.status == 200) {
+                _this10.myAd = updatedAd.info;
+                _this10.myAd.latitude = updatedAd.latitude;
+                _this10.myAd.longitude = updatedAd.longitude;
+
+                _this10.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this10.myAd.name, " ha sido actualizada"), "OK");
+
+                _this10.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this10.myAd.latitude, _this10.myAd.longitude), 18);
+              } else {
+                _this10.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
+              }
+            },
+            error: function error(err) {
+              _this10.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+            }
+          });
+        }
+      }]);
+
+      return AdsLocationComponent;
+    }();
+
+    AdsLocationComponent.ctorParameters = function () {
+      return [{
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }, {
+        type: src_app_ads_services_ads_service__WEBPACK_IMPORTED_MODULE_4__["AdsService"]
+      }];
+    };
+
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], AdsLocationComponent.prototype, "myAd", void 0);
+    AdsLocationComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-ads-location',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./ads-location.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-location/ads-location.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./ads-location.component.scss */
+      "./src/app/ads/components/ads-management/ads-location/ads-location.component.scss"))["default"]]
+    })], AdsLocationComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-management/ads-management.component.scss":
+  /*!*****************************************************************************!*\
+    !*** ./src/app/ads/components/ads-management/ads-management.component.scss ***!
+    \*****************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppAdsComponentsAdsManagementAdsManagementComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy1tYW5hZ2VtZW50L2Fkcy1tYW5hZ2VtZW50LmNvbXBvbmVudC5zY3NzIn0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-management/ads-management.component.ts":
+  /*!***************************************************************************!*\
+    !*** ./src/app/ads/components/ads-management/ads-management.component.ts ***!
+    \***************************************************************************/
+
+  /*! exports provided: AdsManagementComponent */
+
+  /***/
+  function srcAppAdsComponentsAdsManagementAdsManagementComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsManagementComponent", function () {
+      return AdsManagementComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _services_ads_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../services/ads.service */
+    "./src/app/ads/services/ads.service.ts");
+
+    var AdsManagementComponent = /*#__PURE__*/function () {
+      function AdsManagementComponent(route, adsService) {
+        _classCallCheck(this, AdsManagementComponent);
+
+        this.route = route;
+        this.adsService = adsService;
+      }
+
+      _createClass(AdsManagementComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var _this11 = this;
+
+          this.subscription = this.route.paramMap.subscribe(function (params) {
+            _this11.ad_id = Number(params.get("ad_id"));
+
+            _this11.recharge();
+          });
+        }
+      }, {
+        key: "ngOnDestroy",
+        value: function ngOnDestroy() {
+          this.subscription.unsubscribe();
+        }
+      }, {
+        key: "recharge",
+        value: function recharge() {
+          var _this12 = this;
+
+          this.adsService.getAd(Number(this.ad_id)).subscribe(function (data) {
+            _this12.myAd = data;
+          });
+        }
+      }]);
+
+      return AdsManagementComponent;
+    }();
+
+    AdsManagementComponent.ctorParameters = function () {
+      return [{
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]
+      }, {
+        type: _services_ads_service__WEBPACK_IMPORTED_MODULE_3__["AdsService"]
+      }];
+    };
+
+    AdsManagementComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-ads-management',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./ads-management.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-management.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./ads-management.component.scss */
+      "./src/app/ads/components/ads-management/ads-management.component.scss"))["default"]]
+    })], AdsManagementComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-stadistics/ads-stadistics.component.scss":
+  /*!*****************************************************************************!*\
+    !*** ./src/app/ads/components/ads-stadistics/ads-stadistics.component.scss ***!
+    \*****************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppAdsComponentsAdsStadisticsAdsStadisticsComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy1zdGFkaXN0aWNzL2Fkcy1zdGFkaXN0aWNzLmNvbXBvbmVudC5zY3NzIn0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-stadistics/ads-stadistics.component.ts":
+  /*!***************************************************************************!*\
+    !*** ./src/app/ads/components/ads-stadistics/ads-stadistics.component.ts ***!
+    \***************************************************************************/
+
+  /*! exports provided: AdsStadisticsComponent */
+
+  /***/
+  function srcAppAdsComponentsAdsStadisticsAdsStadisticsComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsStadisticsComponent", function () {
+      return AdsStadisticsComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/general-services/auth.service */
+    "./src/app/general-services/auth.service.ts");
+    /* harmony import */
+
+
+    var _services_ads_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../services/ads.service */
+    "./src/app/ads/services/ads.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_app_company_services_company_users_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/company/services/company-users.service */
+    "./src/app/company/services/company-users.service.ts");
+
+    var AdsStadisticsComponent = /*#__PURE__*/function () {
+      function AdsStadisticsComponent(authService, commonService, adService, companyUsersService) {
+        _classCallCheck(this, AdsStadisticsComponent);
+
+        this.authService = authService;
+        this.commonService = commonService;
+        this.adService = adService;
+        this.companyUsersService = companyUsersService;
+      }
+
+      _createClass(AdsStadisticsComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          this.obtainAllEvents();
+        }
+      }, {
+        key: "obtainAllEvents",
+        value: function obtainAllEvents() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var _this13 = this;
+
+            var user;
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    user = this.authService.getUser();
+
+                    if (user.role_id == 2) {
+                      this.subscription = this.adService.getStadisticsAds(user.user_id).subscribe({
+                        next: function next(data) {
+                          _this13.adService.ads = data;
+
+                          _this13.subscription.unsubscribe();
+                        },
+                        error: function error(err) {
+                          return _this13.commonService.openSnackBar("Error: ".concat(err), "OK");
+                        }
+                      });
+                    } else if (user.role_id == 1) {
+                      this.subscription = this.adService.getStadisticsAds().subscribe({
+                        next: function next(data) {
+                          _this13.adService.ads = data;
+
+                          _this13.subscription.unsubscribe();
+                        },
+                        error: function error(err) {
+                          return _this13.commonService.openSnackBar("Error: ".concat(err), "OK");
+                        }
+                      });
+                    }
+
+                  case 2:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee, this);
+          }));
+        }
+      }]);
+
+      return AdsStadisticsComponent;
+    }();
+
+    AdsStadisticsComponent.ctorParameters = function () {
+      return [{
+        type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
+      }, {
+        type: _services_ads_service__WEBPACK_IMPORTED_MODULE_3__["AdsService"]
+      }, {
+        type: src_app_company_services_company_users_service__WEBPACK_IMPORTED_MODULE_5__["CompanyUsersService"]
+      }];
+    };
+
+    AdsStadisticsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-ads-stadistics',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./ads-stadistics.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-stadistics/ads-stadistics.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./ads-stadistics.component.scss */
+      "./src/app/ads/components/ads-stadistics/ads-stadistics.component.scss"))["default"]]
+    })], AdsStadisticsComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-tabs/ads-tabs.component.scss":
+  /*!*****************************************************************!*\
+    !*** ./src/app/ads/components/ads-tabs/ads-tabs.component.scss ***!
+    \*****************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppAdsComponentsAdsTabsAdsTabsComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Fkcy9jb21wb25lbnRzL2Fkcy10YWJzL2Fkcy10YWJzLmNvbXBvbmVudC5zY3NzIn0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/components/ads-tabs/ads-tabs.component.ts":
+  /*!***************************************************************!*\
+    !*** ./src/app/ads/components/ads-tabs/ads-tabs.component.ts ***!
+    \***************************************************************/
+
+  /*! exports provided: AdsTabsComponent */
+
+  /***/
+  function srcAppAdsComponentsAdsTabsAdsTabsComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsTabsComponent", function () {
+      return AdsTabsComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var AdsTabsComponent = /*#__PURE__*/function () {
+      function AdsTabsComponent() {
+        _classCallCheck(this, AdsTabsComponent);
+      }
+
+      _createClass(AdsTabsComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return AdsTabsComponent;
+    }();
+
+    AdsTabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-ads-tabs',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./ads-tabs.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-tabs/ads-tabs.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./ads-tabs.component.scss */
+      "./src/app/ads/components/ads-tabs/ads-tabs.component.scss"))["default"]]
+    })], AdsTabsComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/ads/services/ads.service.ts":
+  /*!*********************************************!*\
+    !*** ./src/app/ads/services/ads.service.ts ***!
+    \*********************************************/
+
+  /*! exports provided: AdsService */
+
+  /***/
+  function srcAppAdsServicesAdsServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdsService", function () {
+      return AdsService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
+
+    var AdsService = /*#__PURE__*/function () {
+      function AdsService(http, commonService) {
+        _classCallCheck(this, AdsService);
+
+        this.http = http;
+        this.commonService = commonService;
+        this.ads = []; //quitar el = []
+
+        this.module = "ads";
+      }
+
+      _createClass(AdsService, [{
+        key: "getAllAds",
+        value: function getAllAds() {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/"));
+        }
+      }, {
+        key: "getAd",
+        value: function getAd(ad_id) {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(ad_id));
+        }
+      }, {
+        key: "changeStateAd",
+        value: function changeStateAd(id) {
+          return this.http.patch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(id, "/state"), null, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "createAd",
+        value: function createAd(ad) {
+          var json = {
+            "info": ad,
+            "latitude": 10.471681129073,
+            "longitude": -84.64514404535
+          };
+          console.log(json);
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/CreateAd"), json, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "modifyAd",
+        value: function modifyAd(ad) {
+          return this.http.patch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(ad.ad_id), ad, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "getStadisticsAds",
+        value: function getStadisticsAds(company_id) {
+          if (company_id) {
+            return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/stadistics/").concat(company_id));
+          }
+
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/stadistics/"));
+        }
+      }]);
+
+      return AdsService;
+    }();
+
+    AdsService.ctorParameters = function () {
+      return [{
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }];
+    };
+
+    AdsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+      providedIn: 'root'
+    })], AdsService);
+    /***/
+  },
+
+  /***/
   "./src/app/app-routing.module.ts":
   /*!***************************************!*\
     !*** ./src/app/app-routing.module.ts ***!
@@ -1889,6 +3639,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         /*! ./social/social.module */
         "./src/app/social/social.module.ts")).then(function (i) {
           return i.SocialModule;
+        });
+      },
+      canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
+    }, {
+      path: "ads",
+      loadChildren: function loadChildren() {
+        return Promise.resolve().then(__webpack_require__.bind(null,
+        /*! ./ads/ads.module */
+        "./src/app/ads/ads.module.ts")).then(function (i) {
+          return i.AdsModule;
         });
       },
       canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
@@ -2135,6 +3895,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _category_category_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
     /*! ./category/category.module */
     "./src/app/category/category.module.ts");
+    /* harmony import */
+
+
+    var _ads_ads_module__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
+    /*! ./ads/ads.module */
+    "./src/app/ads/ads.module.ts");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -2142,7 +3908,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
       declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _main_nav_main_nav_component__WEBPACK_IMPORTED_MODULE_7__["MainNavComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"], _login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]],
-      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _itinerary_itinerary_module__WEBPACK_IMPORTED_MODULE_9__["ItineraryModule"], _users_users_module__WEBPACK_IMPORTED_MODULE_10__["UsersModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _company_company_module__WEBPACK_IMPORTED_MODULE_15__["CompanyModule"], _event_event_module__WEBPACK_IMPORTED_MODULE_16__["EventModule"], _category_category_module__WEBPACK_IMPORTED_MODULE_17__["CategoryModule"]],
+      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _itinerary_itinerary_module__WEBPACK_IMPORTED_MODULE_9__["ItineraryModule"], _users_users_module__WEBPACK_IMPORTED_MODULE_10__["UsersModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _company_company_module__WEBPACK_IMPORTED_MODULE_15__["CompanyModule"], _event_event_module__WEBPACK_IMPORTED_MODULE_16__["EventModule"], _category_category_module__WEBPACK_IMPORTED_MODULE_17__["CategoryModule"], _ads_ads_module__WEBPACK_IMPORTED_MODULE_18__["AdsModule"]],
       providers: [],
       bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
       entryComponents: [_login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]]
@@ -2503,10 +4269,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       }, {
         key: "changeState",
-        value: function changeState(category, _ref) {
-          var _this = this;
+        value: function changeState(category, _ref3) {
+          var _this14 = this;
 
-          var source = _ref.source;
+          var source = _ref3.source;
           var id = {
             category_id: category.category_id
           };
@@ -2515,13 +4281,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               if (data.status == 200) {
                 category.is_active = !category.is_active;
                 source.checked = category.is_active;
-                if (category.is_active) _this.commonService.openSnackBar("La categor\xEDa ".concat(category.name, " ha sido activada"), "OK");else _this.commonService.openSnackBar("La categor\xEDa ".concat(category.name, " ha sido desactivada"), "OK");
+                if (category.is_active) _this14.commonService.openSnackBar("La categor\xEDa ".concat(category.name, " ha sido activada"), "OK");else _this14.commonService.openSnackBar("La categor\xEDa ".concat(category.name, " ha sido desactivada"), "OK");
               } else {
-                _this.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this14.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this14.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
               source.checked = category.is_active;
             }
@@ -2534,7 +4300,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this2 = this;
+          var _this15 = this;
 
           var dialog = this.dialogService.open(_category_filters_category_filters_component__WEBPACK_IMPORTED_MODULE_5__["CategoryFiltersComponent"], {
             width: "50",
@@ -2543,15 +4309,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
           dialog.afterClosed().subscribe(function (type_id) {
             if (type_id != undefined) {
-              _this2.isFilters = true;
-              _this2.subscription = _this2.categoryService.getAllCategories(type_id).subscribe({
+              _this15.isFilters = true;
+              _this15.subscription = _this15.categoryService.getAllCategories(type_id).subscribe({
                 next: function next(data) {
-                  _this2.categoryService.categories = data;
+                  _this15.categoryService.categories = data;
 
-                  _this2.subscription.unsubscribe();
+                  _this15.subscription.unsubscribe();
                 },
                 error: function error(err) {
-                  return _this2.commonService.openSnackBar("Error: ".concat(err), "OK");
+                  return _this15.commonService.openSnackBar("Error: ".concat(err), "OK");
                 }
               });
             }
@@ -2564,17 +4330,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "obtainAllCategories",
         value: function obtainAllCategories() {
-          var _this3 = this;
+          var _this16 = this;
 
           this.isFilters = false;
           this.subscription = this.categoryService.getAllCategories().subscribe({
             next: function next(data) {
-              _this3.categoryService.categories = data;
+              _this16.categoryService.categories = data;
 
-              _this3.subscription.unsubscribe();
+              _this16.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this3.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this16.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -2862,30 +4628,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "createCategory",
         value: function createCategory(category) {
-          var _this4 = this;
+          var _this17 = this;
 
           this.loading = true;
           this.categoryFG.disable();
           this.categoryService.createCategory(category).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this4.commonService.openSnackBar("La categor\xEDa ".concat(_this4.categoryFG.value.name, " se ha creado"), "OK");
+                _this17.commonService.openSnackBar("La categor\xEDa ".concat(_this17.categoryFG.value.name, " se ha creado"), "OK");
 
-                _this4.dialogRef.close();
+                _this17.dialogRef.close();
 
-                _this4.router.navigate(["/category/all"]);
+                _this17.router.navigate(["/category/all"]);
               } else {
-                _this4.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
+                _this17.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
 
-                _this4.categoryFG.enable();
+                _this17.categoryFG.enable();
               }
             },
             error: function error(err) {
-              _this4.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this17.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this4.loading = false;
+              _this17.loading = false;
 
-              _this4.categoryFG.enable();
+              _this17.categoryFG.enable();
             }
           });
         }
@@ -2998,12 +4764,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(CategoryManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this5 = this;
+          var _this18 = this;
 
           this.categorySubscription = this.route.paramMap.subscribe(function (params) {
-            _this5.category_id = Number(params.get("category_id"));
+            _this18.category_id = Number(params.get("category_id"));
 
-            _this5.recharge();
+            _this18.recharge();
           });
         }
       }, {
@@ -3014,10 +4780,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this6 = this;
+          var _this19 = this;
 
           this.categoryService.getCategory(Number(this.category_id)).subscribe(function (data) {
-            _this6.category = data;
+            _this19.category = data;
           });
         }
       }]);
@@ -3061,7 +4827,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".image-buttons {\n  width: 100%;\n  height: 100%;\n  cursor: pointer;\n}\n\n.image-buttons:focus mat-icon:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.noImageButton {\n  align-self: center;\n  text-align: center;\n  width: 20%;\n  height: 35%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n  cursor: pointer;\n}\n\nngb-carousel.container-fluid.carousel.slide {\n  padding: 0%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLHdCQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxXQUFBO0VBQ0EsNkJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW1hZ2UtYnV0dG9uc3tcbiAgICB3aWR0aDogMTAwJTsgXG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXMgbWF0LWljb246Zm9jdXN7XG4gICAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICAgIGJvcmRlcjogMC41cHggc29saWQgcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbntcbiAgICBmb250LXNpemU6IDQwcHg7IFxuICAgIHdpZHRoOiA0MHB4OyBcbiAgICBoZWlnaHQ6IDQwcHg7XG59XG5cbi5ub0ltYWdlQnV0dG9uIHtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyOyBcbiAgICB3aWR0aDogMjAlOyBcbiAgICBoZWlnaHQ6IDM1JTsgXG4gICAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7IFxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbm5nYi1jYXJvdXNlbC5jb250YWluZXItZmx1aWQuY2Fyb3VzZWwuc2xpZGUge1xuICAgIHBhZGRpbmc6IDAlO1xufSIsIi5pbWFnZS1idXR0b25zIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyBtYXQtaWNvbjpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5pbWFnZS1idXR0b25zIG1hdC1pY29uIHtcbiAgZm9udC1zaXplOiA0MHB4O1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xufVxuXG4ubm9JbWFnZUJ1dHRvbiB7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogMjAlO1xuICBoZWlnaHQ6IDM1JTtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCBnYWluc2Jvcm87XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG5uZ2ItY2Fyb3VzZWwuY29udGFpbmVyLWZsdWlkLmNhcm91c2VsLnNsaWRlIHtcbiAgcGFkZGluZzogMCU7XG59Il19 */";
+    __webpack_exports__["default"] = ".image-buttons {\n  width: 100%;\n  height: 100%;\n  cursor: pointer;\n}\n\n.image-buttons:focus mat-icon:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.noImageButton {\n  text-align: center;\n  width: 20%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n  cursor: pointer;\n  margin-left: 15%;\n}\n\nngb-carousel.container-fluid.carousel.slide {\n  padding: 0%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NhdGVnb3J5L2NvbXBvbmVudHMvY2F0ZWdvcnktbWFuYWdlbWVudC9kZXRhaWxzL2RldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLHdCQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsNkJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY2F0ZWdvcnkvY29tcG9uZW50cy9jYXRlZ29yeS1tYW5hZ2VtZW50L2RldGFpbHMvZGV0YWlscy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5pbWFnZS1idXR0b25ze1xuICAgIHdpZHRoOiAxMDAlOyBcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyBtYXQtaWNvbjpmb2N1c3tcbiAgICBvdXRsaW5lOiBub25lICFpbXBvcnRhbnQ7XG4gICAgYm9yZGVyOiAwLjVweCBzb2xpZCByZ2IoMjIwLCAyMjAsIDIyMCk7XG59XG5cbi5pbWFnZS1idXR0b25zIG1hdC1pY29ue1xuICAgIGZvbnQtc2l6ZTogNDBweDsgXG4gICAgd2lkdGg6IDQwcHg7IFxuICAgIGhlaWdodDogNDBweDtcbn1cblxuLm5vSW1hZ2VCdXR0b24ge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjsgXG4gICAgd2lkdGg6IDIwJTsgXG4gICAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7IFxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IDE1JTtcbn1cblxubmdiLWNhcm91c2VsLmNvbnRhaW5lci1mbHVpZC5jYXJvdXNlbC5zbGlkZSB7XG4gICAgcGFkZGluZzogMCU7XG59IiwiLmltYWdlLWJ1dHRvbnMge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3VzIG1hdC1pY29uOmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICBib3JkZXI6IDAuNXB4IHNvbGlkIGdhaW5zYm9ybztcbn1cblxuLmltYWdlLWJ1dHRvbnMgbWF0LWljb24ge1xuICBmb250LXNpemU6IDQwcHg7XG4gIHdpZHRoOiA0MHB4O1xuICBoZWlnaHQ6IDQwcHg7XG59XG5cbi5ub0ltYWdlQnV0dG9uIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogMjAlO1xuICBib3JkZXI6IHNvbGlkIDEuNXB4IGdhaW5zYm9ybztcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIG1hcmdpbi1sZWZ0OiAxNSU7XG59XG5cbm5nYi1jYXJvdXNlbC5jb250YWluZXItZmx1aWQuY2Fyb3VzZWwuc2xpZGUge1xuICBwYWRkaW5nOiAwJTtcbn0iXX0= */";
     /***/
   },
 
@@ -3152,7 +4918,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var category_name = this.category.name;
           this.categoryFG.controls['name'].setValue(category_name);
           this.categoryImages = this.category.url;
-          console.log(this.category);
         }
       }, {
         key: "setData",
@@ -3161,32 +4926,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "changeState",
-        value: function changeState(_ref2) {
-          var _this7 = this;
+        value: function changeState(_ref4) {
+          var _this20 = this;
 
-          var source = _ref2.source;
+          var source = _ref4.source;
           var id = this.category.category_id;
           this.categoryService.changeStateCategory(id).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this7.category.is_active = !_this7.category.is_active;
-                source.checked = _this7.category.is_active;
-                if (_this7.category.is_active) _this7.commonService.openSnackBar("La categor\xEDa ".concat(_this7.category.name, " ha sido activada"), "OK");else _this7.commonService.openSnackBar("La categor\xEDa ".concat(_this7.category.name, " ha sido desactivada"), "OK");
+                _this20.category.is_active = !_this20.category.is_active;
+                source.checked = _this20.category.is_active;
+                if (_this20.category.is_active) _this20.commonService.openSnackBar("La categor\xEDa ".concat(_this20.category.name, " ha sido activada"), "OK");else _this20.commonService.openSnackBar("La categor\xEDa ".concat(_this20.category.name, " ha sido desactivada"), "OK");
               } else {
-                _this7.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this20.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this7.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this20.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              source.checked = _this7.category.is_active;
+              source.checked = _this20.category.is_active;
             }
           });
         }
       }, {
         key: "modifyCategory",
         value: function modifyCategory() {
-          var _this8 = this;
+          var _this21 = this;
 
           this.loading = true;
           this.categoryFG.disable();
@@ -3199,23 +4964,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.categoryService.modifyCategory(values).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this8.loading = false;
+                _this21.loading = false;
 
-                _this8.categoryFG.enable();
+                _this21.categoryFG.enable();
 
-                _this8.category = category;
+                _this21.category = category;
 
-                _this8.commonService.openSnackBar("La categor\xEDa ".concat(_this8.category.name, " ha sido cambiada"), "OK");
+                _this21.commonService.openSnackBar("La categor\xEDa ".concat(_this21.category.name, " ha sido cambiada"), "OK");
               } else {
-                _this8.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this21.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this8.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this21.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this8.loading = false;
+              _this21.loading = false;
 
-              _this8.categoryFG.enable();
+              _this21.categoryFG.enable();
             }
           });
         }
@@ -3232,11 +4997,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "uploadFile",
         value: function uploadFile(files) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee$(_context) {
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
-                switch (_context.prev = _context.next) {
+                switch (_context2.prev = _context2.next) {
                   case 0:
                     this.loading = true;
                     this.categoryFG.disable();
@@ -3245,18 +5010,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 4:
                     if (!(i < files.length)) {
-                      _context.next = 10;
+                      _context2.next = 10;
                       break;
                     }
 
-                    _context.next = 7;
+                    _context2.next = 7;
                     return this.commonService.uploadFile(files[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 7:
                     i++;
-                    _context.next = 4;
+                    _context2.next = 4;
                     break;
 
                   case 10:
@@ -3265,15 +5030,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 12:
                   case "end":
-                    return _context.stop();
+                    return _context2.stop();
                 }
               }
-            }, _callee, this);
+            }, _callee2, this);
           }));
         }
       }, {
         key: "deleteImage",
         value: function deleteImage() {
+          if (this.categoryImages.length == 1) {
+            this.imageIndex = 0;
+          }
+
           this.loading = true;
           this.categoryFG.disable();
           this.categoryImages.splice(this.imageIndex, 1);
@@ -3282,7 +5051,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "updateImages",
         value: function updateImages(images) {
-          var _this9 = this;
+          var _this22 = this;
 
           var category = {
             url: images,
@@ -3294,24 +5063,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.categoryService.modifyCategory(category).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this9.loading = false;
+                _this22.loading = false;
 
-                _this9.categoryFG.enable();
+                _this22.categoryFG.enable();
 
-                _this9.category = category;
-                _this9.categoryImages = images;
+                _this22.category = category;
+                _this22.categoryImages = images;
 
-                _this9.commonService.openSnackBar("La categor\xEDa ".concat(_this9.category.name, " ha sido cambiada"), "OK");
+                _this22.commonService.openSnackBar("La categor\xEDa ".concat(_this22.category.name, " ha sido cambiada"), "OK");
               } else {
-                _this9.commonService.openSnackBar("Error al cambiar: ".concat(data.error), "OK");
+                _this22.commonService.openSnackBar("Error al cambiar: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this9.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this22.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this9.loading = false;
+              _this22.loading = false;
 
-              _this9.categoryFG.enable();
+              _this22.categoryFG.enable();
             }
           });
         }
@@ -3888,17 +5657,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(CompaniesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this10 = this;
+          var _this23 = this;
 
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
               console.log(data);
-              _this10.companyService.companies = data;
+              _this23.companyService.companies = data;
 
-              _this10.subscription.unsubscribe();
+              _this23.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this10.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this23.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -3914,22 +5683,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       }, {
         key: "changeState",
-        value: function changeState(company, _ref3) {
-          var _this11 = this;
+        value: function changeState(company, _ref5) {
+          var _this24 = this;
 
-          var source = _ref3.source;
+          var source = _ref5.source;
           this.companyService.chageCompanyState(company).subscribe({
             next: function next(data) {
               if (data.status == 204) {
                 company.state = !company.state;
                 source.checked = company.state;
-                if (company.state) _this11.commonService.openSnackBar("La empresa ".concat(company.name, " ha sido activada"), "OK");else _this11.commonService.openSnackBar("La empresa ".concat(company.name, " ha sido desactivada"), "OK");
+                if (company.state) _this24.commonService.openSnackBar("La empresa ".concat(company.name, " ha sido activada"), "OK");else _this24.commonService.openSnackBar("La empresa ".concat(company.name, " ha sido desactivada"), "OK");
               } else {
-                _this11.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this24.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this11.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this24.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
               source.checked = company.state;
             }
@@ -4077,32 +5846,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "createCompany",
         value: function createCompany() {
-          var _this12 = this;
+          var _this25 = this;
 
           this.loading = true;
           this.companyForm.disable();
           this.companyService.createCompany(this.companyForm.value).subscribe({
             next: function next(data) {
-              _this12.loading = false;
+              _this25.loading = false;
 
               if (data.status == 200) {
                 console.log(data);
 
-                _this12.commonService.openSnackBar("La empresa ".concat(_this12.companyForm.value.name, " se ha creado"), "OK");
+                _this25.commonService.openSnackBar("La empresa ".concat(_this25.companyForm.value.name, " se ha creado"), "OK");
 
-                _this12.router.navigate(['/company', data.body.company_id]);
+                _this25.router.navigate(['/company', data.body.company_id]);
 
-                _this12.dialog.closeAll();
+                _this25.dialog.closeAll();
               } else {
-                _this12.commonService.openSnackBar("Error al crear la empresa: ".concat(data.error), "OK");
+                _this25.commonService.openSnackBar("Error al crear la empresa: ".concat(data.error), "OK");
 
-                _this12.companyForm.enable();
+                _this25.companyForm.enable();
               }
             },
             error: function error(err) {
-              _this12.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this25.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this12.loading = false;
+              _this25.loading = false;
             }
           });
         }
@@ -4151,7 +5920,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".image-buttons {\n  width: 100%;\n  height: 100%;\n}\n\n.image-buttons:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NvbXBhbnkvY29tcG9uZW50cy9tYW5hZ2VtZW50L2NvbXBhbnktZGV0YWlscy9jb21wYW55LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBhbnkvY29tcG9uZW50cy9tYW5hZ2VtZW50L2NvbXBhbnktZGV0YWlscy9jb21wYW55LWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksd0JBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9jb21wYW55L2NvbXBvbmVudHMvbWFuYWdlbWVudC9jb21wYW55LWRldGFpbHMvY29tcGFueS1kZXRhaWxzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmltYWdlLWJ1dHRvbnN7XG4gICAgd2lkdGg6IDEwMCU7IFxuICAgIGhlaWdodDogMTAwJTtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXN7XG4gICAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICAgIGJvcmRlcjogMC41cHggc29saWQgcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbntcbiAgICBmb250LXNpemU6IDQwcHg7IFxuICAgIHdpZHRoOiA0MHB4OyBcbiAgICBoZWlnaHQ6IDQwcHg7XG59IiwiLmltYWdlLWJ1dHRvbnMge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5pbWFnZS1idXR0b25zIG1hdC1pY29uIHtcbiAgZm9udC1zaXplOiA0MHB4O1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xufSJdfQ== */";
+    __webpack_exports__["default"] = ".image-buttons {\n  width: 100%;\n  height: 100%;\n}\n\n.image-buttons:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.noImageButton {\n  text-align: center;\n  width: 20%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n  cursor: pointer;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NvbXBhbnkvY29tcG9uZW50cy9tYW5hZ2VtZW50L2NvbXBhbnktZGV0YWlscy9jb21wYW55LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBhbnkvY29tcG9uZW50cy9tYW5hZ2VtZW50L2NvbXBhbnktZGV0YWlscy9jb21wYW55LWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksd0JBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSw2QkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcGFueS9jb21wb25lbnRzL21hbmFnZW1lbnQvY29tcGFueS1kZXRhaWxzL2NvbXBhbnktZGV0YWlscy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5pbWFnZS1idXR0b25ze1xuICAgIHdpZHRoOiAxMDAlOyBcbiAgICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3Vze1xuICAgIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgICBib3JkZXI6IDAuNXB4IHNvbGlkIHJnYigyMjAsIDIyMCwgMjIwKTtcbn1cblxuLmltYWdlLWJ1dHRvbnMgbWF0LWljb257XG4gICAgZm9udC1zaXplOiA0MHB4OyBcbiAgICB3aWR0aDogNDBweDsgXG4gICAgaGVpZ2h0OiA0MHB4O1xufVxuXG4ubm9JbWFnZUJ1dHRvbiB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHdpZHRoOiAyMCU7IFxuICAgIGJvcmRlcjogc29saWQgMS41cHggcmdiKDIyMCwgMjIwLCAyMjApOyBcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xufVxuIiwiLmltYWdlLWJ1dHRvbnMge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5pbWFnZS1idXR0b25zIG1hdC1pY29uIHtcbiAgZm9udC1zaXplOiA0MHB4O1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xufVxuXG4ubm9JbWFnZUJ1dHRvbiB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgd2lkdGg6IDIwJTtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCBnYWluc2Jvcm87XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xufSJdfQ== */";
     /***/
   },
 
@@ -4229,45 +5998,46 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
           console.log(this.company);
+          console.log(this.company.image);
           this.companyForm.patchValue(this.company);
           this.cd.detectChanges();
         }
       }, {
         key: "changeState",
-        value: function changeState(_ref4) {
-          var _this13 = this;
+        value: function changeState(_ref6) {
+          var _this26 = this;
 
-          var source = _ref4.source;
+          var source = _ref6.source;
           this.loading = true;
           this.companyForm.disable();
           this.companyService.chageCompanyState(this.company).subscribe({
             next: function next(data) {
-              _this13.loading = false;
+              _this26.loading = false;
 
-              _this13.companyForm.enable();
+              _this26.companyForm.enable();
 
               if (data.status == 204) {
-                _this13.company.state = !_this13.company.state;
-                source.checked = _this13.company.state;
-                if (_this13.company.state) _this13.commonService.openSnackBar("La empresa ".concat(_this13.company.name, " ha sido activada"), "OK");else _this13.commonService.openSnackBar("La empresa ".concat(_this13.company.name, " ha sido desactivada"), "OK");
+                _this26.company.state = !_this26.company.state;
+                source.checked = _this26.company.state;
+                if (_this26.company.state) _this26.commonService.openSnackBar("La empresa ".concat(_this26.company.name, " ha sido activada"), "OK");else _this26.commonService.openSnackBar("La empresa ".concat(_this26.company.name, " ha sido desactivada"), "OK");
               } else {
-                _this13.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this26.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this13.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this26.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              source.checked = _this13.company.state;
-              _this13.loading = false;
+              source.checked = _this26.company.state;
+              _this26.loading = false;
 
-              _this13.companyForm.enable();
+              _this26.companyForm.enable();
             }
           });
         }
       }, {
         key: "applyChanges",
         value: function applyChanges() {
-          var _this14 = this;
+          var _this27 = this;
 
           this.loading = true;
           this.companyForm.disable();
@@ -4275,23 +6045,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.companyService.updateCompany(company).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this14.loading = false;
+                _this27.loading = false;
 
-                _this14.companyForm.enable();
+                _this27.companyForm.enable();
 
-                _this14.company = company;
+                _this27.company = company;
 
-                _this14.commonService.openSnackBar("La empresa ".concat(_this14.company.name, " ha sido cambiada"), "OK");
+                _this27.commonService.openSnackBar("La empresa ".concat(_this27.company.name, " ha sido cambiada"), "OK");
               } else {
-                _this14.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this27.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this14.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this27.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this14.loading = false;
+              _this27.loading = false;
 
-              _this14.companyForm.enable();
+              _this27.companyForm.enable();
             }
           });
         }
@@ -4306,6 +6076,76 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             location: this.company.location
           };
           return !(JSON.stringify(old) === JSON.stringify(this.companyForm.value));
+        }
+      }, {
+        key: "addImg",
+        value: function addImg(files) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            var _this28 = this;
+
+            var img;
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    this.loading = true;
+                    this.companyForm.disable();
+                    img = this.company.image;
+                    _context3.next = 5;
+                    return this.commonService.uploadFile(files[0]).then(function (data) {
+                      _this28.company.image = "https://intelitur.sytes.net/files/images/" + data.filename;
+                    });
+
+                  case 5:
+                    console.log(this.company.image);
+                    this.imageChanges(img);
+
+                  case 7:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            }, _callee3, this);
+          }));
+        }
+      }, {
+        key: "deleteImg",
+        value: function deleteImg() {
+          var img = this.company.image;
+          this.company.image = '';
+          this.imageChanges(img);
+        }
+      }, {
+        key: "imageChanges",
+        value: function imageChanges(oldImg) {
+          var _this29 = this;
+
+          this.loading = true;
+          this.companyForm.disable();
+          console.log(this.company);
+          this.companyService.updateCompany(this.company).subscribe({
+            next: function next(data) {
+              if (data.status == 204) {
+                console.log(data);
+                _this29.loading = false;
+
+                _this29.companyForm.enable();
+
+                _this29.commonService.openSnackBar("La empresa ".concat(_this29.company.name, " ha sido cambiada"), "OK");
+              } else {
+                _this29.company.image = oldImg;
+
+                _this29.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+              }
+            },
+            error: function error(err) {
+              _this29.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              _this29.loading = false;
+
+              _this29.companyForm.enable();
+            }
+          });
         }
       }]);
 
@@ -4450,7 +6290,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this15 = this;
+          var _this30 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -4461,7 +6301,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
 
           setTimeout(function () {
-            return _this15.map.invalidateSize();
+            return _this30.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -4492,7 +6332,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "updateCompanyLocation",
         value: function updateCompanyLocation() {
-          var _this16 = this;
+          var _this31 = this;
 
           var updatedCompany = Object.assign({}, this.company, {
             latitude: this.locationMarker.getLatLng().lat,
@@ -4502,17 +6342,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.companyService.updateCompany(updatedCompany).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this16.company = updatedCompany;
+                _this31.company = updatedCompany;
 
-                _this16.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this16.company.name, " ha sido actualizada"), "OK");
+                _this31.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this31.company.name, " ha sido actualizada"), "OK");
 
-                _this16.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this16.company.latitude, _this16.company.longitude), 18);
+                _this31.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this31.company.latitude, _this31.company.longitude), 18);
               } else {
-                _this16.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
+                _this31.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this16.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this31.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -4612,7 +6452,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var CompanyRequestsComponent = /*#__PURE__*/function () {
       function CompanyRequestsComponent(companyUsersService, commonService) {
-        var _this17 = this;
+        var _this32 = this;
 
         _classCallCheck(this, CompanyRequestsComponent);
 
@@ -4620,9 +6460,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.commonService = commonService;
         this.filter = {
           input: "",
-          filter: function filter(_ref5) {
-            var user_info = _ref5.user_info;
-            return (user_info.name.toLowerCase() + ' ' + user_info.lastName.toLowerCase()).indexOf(_this17.filter.input.toLowerCase()) > -1;
+          filter: function filter(_ref7) {
+            var user_info = _ref7.user_info;
+            return (user_info.name.toLowerCase() + ' ' + user_info.lastName.toLowerCase()).indexOf(_this32.filter.input.toLowerCase()) > -1;
           }
         };
 
@@ -4635,11 +6475,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         };
 
         this.allowUnion = function (request) {
-          return _this17.updateRequestState(request, 2);
+          return _this32.updateRequestState(request, 2);
         };
 
         this.denyUnion = function (request) {
-          return _this17.updateRequestState(request, 3);
+          return _this32.updateRequestState(request, 3);
         };
       }
 
@@ -4651,32 +6491,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refreshRequests",
         value: function refreshRequests() {
-          var _this18 = this;
+          var _this33 = this;
 
           this.companyUsersService.getCompanyRequests(this.company.company_id, 1).subscribe(function (data) {
-            _this18.companyRequests = data;
-            console.log(_this18.companyRequests);
+            _this33.companyRequests = data;
+            console.log(_this33.companyRequests);
           });
         }
       }, {
         key: "updateRequestState",
         value: function updateRequestState(request, state) {
-          var _this19 = this;
+          var _this34 = this;
 
           this.companyUsersService.updateRequesState(request, state).subscribe({
             next: function next(data) {
               if (data.status == 204) {
                 request.state = state;
 
-                _this19.refreshRequests();
+                _this34.refreshRequests();
 
-                if (state == 2) _this19.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido aceptada"), "OK");else _this19.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido rechazada"), "OK");
+                if (state == 2) _this34.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido aceptada"), "OK");else _this34.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido rechazada"), "OK");
               } else {
-                _this19.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this34.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this19.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this34.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -4784,7 +6624,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var CompanyAddUserComponent = /*#__PURE__*/function () {
       function CompanyAddUserComponent(usersService, companyUsersService, commonService, dialogRef, data) {
-        var _this20 = this;
+        var _this35 = this;
 
         _classCallCheck(this, CompanyAddUserComponent);
 
@@ -4796,9 +6636,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.loading = false;
         this.filter = {
           input: '',
-          filter: function filter(_ref6) {
-            var info = _ref6.info;
-            return (info.name.toLowerCase() + ' ' + info.lastName.toLowerCase()).indexOf(_this20.filter.input.toLowerCase()) > -1;
+          filter: function filter(_ref8) {
+            var info = _ref8.info;
+            return (info.name.toLowerCase() + ' ' + info.lastName.toLowerCase()).indexOf(_this35.filter.input.toLowerCase()) > -1;
           }
         };
       }
@@ -4806,21 +6646,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(CompanyAddUserComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this21 = this;
+          var _this36 = this;
 
-          this.usersService.getAllUser().subscribe(function (_ref7) {
-            var code = _ref7.code,
-                data = _ref7.data;
+          this.usersService.getAllUser().subscribe(function (_ref9) {
+            var code = _ref9.code,
+                data = _ref9.data;
 
             if (code == 200) {
               console.log(data);
-              _this21.users = data;
+              _this36.users = data;
 
-              var companyUsers = _this21.data.users.map(function (user) {
+              var companyUsers = _this36.data.users.map(function (user) {
                 return user.user_id;
               });
 
-              _this21.users = _this21.users.filter(function (user) {
+              _this36.users = _this36.users.filter(function (user) {
                 return !companyUsers.includes(user.user_id);
               });
             }
@@ -4829,7 +6669,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addUserToCompany",
         value: function addUserToCompany(user) {
-          var _this22 = this;
+          var _this37 = this;
 
           var isAdmin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
           this.loading = true;
@@ -4837,23 +6677,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.companyUsersService.addUserToCompany(user.user_id, this.data.company.company_id, isAdmin).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this22.users = _this22.users.filter(function (u) {
+                _this37.users = _this37.users.filter(function (u) {
                   return u != user;
                 });
 
-                _this22.commonService.openSnackBar("Se ha asociado el usuario ".concat(user.info.name, " a la empresa ").concat(_this22.data.company.name, " como ").concat(isAdmin ? 'administrador' : 'empleado'), "OK");
+                _this37.commonService.openSnackBar("Se ha asociado el usuario ".concat(user.info.name, " a la empresa ").concat(_this37.data.company.name, " como ").concat(isAdmin ? 'administrador' : 'empleado'), "OK");
               } else {
-                _this22.commonService.openSnackBar("Error al asociar el usuario: ".concat(data.error), "OK");
+                _this37.commonService.openSnackBar("Error al asociar el usuario: ".concat(data.error), "OK");
               }
 
-              _this22.loading = false;
+              _this37.loading = false;
             },
             error: function error(err) {
               console.log(err);
 
-              _this22.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this37.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this22.loading = false;
+              _this37.loading = false;
             }
           });
         }
@@ -4970,7 +6810,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var CompanyUsersComponent = /*#__PURE__*/function () {
       function CompanyUsersComponent(companyUsersService, commonService, dialogService) {
-        var _this23 = this;
+        var _this38 = this;
 
         _classCallCheck(this, CompanyUsersComponent);
 
@@ -4979,10 +6819,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.dialogService = dialogService;
         this.filter = {
           input: "",
-          filter: function filter(_ref8) {
-            var name = _ref8.name,
-                lastName = _ref8.lastName;
-            return (name.toLowerCase() + ' ' + lastName.toLowerCase()).indexOf(_this23.filter.input.toLowerCase()) > -1;
+          filter: function filter(_ref10) {
+            var name = _ref10.name,
+                lastName = _ref10.lastName;
+            return (name.toLowerCase() + ' ' + lastName.toLowerCase()).indexOf(_this38.filter.input.toLowerCase()) > -1;
           }
         };
       }
@@ -4995,37 +6835,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this24 = this;
+          var _this39 = this;
 
           this.companyUsersService.getCompanyUsers(this.company.company_id).subscribe(function (data) {
             console.log(data);
-            _this24.companyUsers = data;
+            _this39.companyUsers = data;
           });
         }
       }, {
         key: "deleteUserFromCompany",
         value: function deleteUserFromCompany(user) {
-          var _this25 = this;
+          var _this40 = this;
 
           this.companyUsersService.deleteUserFromCompany(user).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this25.refresh();
+                _this40.refresh();
 
-                _this25.commonService.openSnackBar("Se ha desasociado el usuario ".concat(user.name, " de la empresa ").concat(_this25.company.name), "OK");
+                _this40.commonService.openSnackBar("Se ha desasociado el usuario ".concat(user.name, " de la empresa ").concat(_this40.company.name), "OK");
               } else {
-                _this25.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
+                _this40.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this25.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this40.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
       }, {
         key: "openAddUserToCompanyDialog",
         value: function openAddUserToCompanyDialog() {
-          var _this26 = this;
+          var _this41 = this;
 
           this.dialogService.open(_company_add_user_company_add_user_component__WEBPACK_IMPORTED_MODULE_5__["CompanyAddUserComponent"], {
             width: "90%",
@@ -5036,7 +6876,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               users: this.companyUsers
             }
           }).subscribe(function () {
-            return _this26.refresh();
+            return _this41.refresh();
           });
         }
       }]);
@@ -5149,12 +6989,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this27 = this;
+          var _this42 = this;
 
           this.companySubscription = this.route.paramMap.subscribe(function (params) {
-            _this27.company_id = Number(params.get("company_id"));
+            _this42.company_id = Number(params.get("company_id"));
 
-            _this27.recharge();
+            _this42.recharge();
           });
         }
       }, {
@@ -5165,10 +7005,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this28 = this;
+          var _this43 = this;
 
           this.companyService.getCompany(Number(this.company_id)).subscribe(function (data) {
-            _this28.company = data;
+            _this43.company = data;
           });
         }
       }]);
@@ -5341,7 +7181,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var RequestsComponent = /*#__PURE__*/function () {
       function RequestsComponent(companyUsersService, commonService) {
-        var _this29 = this;
+        var _this44 = this;
 
         _classCallCheck(this, RequestsComponent);
 
@@ -5351,7 +7191,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           state: '',
           name: '',
           filter: function filter(request) {
-            return (request.user_info.name + ' ' + request.user_info.lastName + " " + request.company_info.name).toLowerCase().indexOf(_this29.filter.name.toLowerCase()) > -1;
+            return (request.user_info.name + ' ' + request.user_info.lastName + " " + request.company_info.name).toLowerCase().indexOf(_this44.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = false;
@@ -5365,11 +7205,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         };
 
         this.allowUnion = function (request) {
-          return _this29.updateRequestState(request, 2);
+          return _this44.updateRequestState(request, 2);
         };
 
         this.denyUnion = function (request) {
-          return _this29.updateRequestState(request, 3);
+          return _this44.updateRequestState(request, 3);
         };
 
         this.refresh = this.refresh.bind(this);
@@ -5383,38 +7223,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this30 = this;
+          var _this45 = this;
 
           this.loading = true;
           this.companyUsersService.getRequests(this.filter.state).subscribe(function (data) {
-            _this30.companyUsersService.requests = data;
-            _this30.loading = false;
+            _this45.companyUsersService.requests = data;
+            _this45.loading = false;
           });
         }
       }, {
         key: "updateRequestState",
         value: function updateRequestState(request, state) {
-          var _this31 = this;
+          var _this46 = this;
 
           this.loading = true;
           this.companyUsersService.updateRequesState(request, state).subscribe({
             next: function next(data) {
-              _this31.loading = false;
+              _this46.loading = false;
 
               if (data.status == 204) {
                 request.state = state;
 
-                _this31.refresh();
+                _this46.refresh();
 
-                if (state == 2) _this31.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido aceptada"), "OK");else _this31.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido rechazada"), "OK");
+                if (state == 2) _this46.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido aceptada"), "OK");else _this46.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido rechazada"), "OK");
               } else {
-                _this31.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this46.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this31.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this46.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this31.loading = false;
+              _this46.loading = false;
             }
           });
         }
@@ -5539,7 +7379,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var UnionEventRequestComponent = /*#__PURE__*/function () {
       function UnionEventRequestComponent(userService, companyUserService, commonService, companyService, dialogService) {
-        var _this32 = this;
+        var _this47 = this;
 
         _classCallCheck(this, UnionEventRequestComponent);
 
@@ -5555,7 +7395,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           name: '',
           state: '0',
           filter: function filter(request) {
-            return (request.event_info.info.name + ' ' + request.user_name).toLowerCase().indexOf(_this32.filter.name.toLowerCase()) > -1;
+            return (request.event_info.info.name + ' ' + request.user_name).toLowerCase().indexOf(_this47.filter.name.toLowerCase()) > -1;
           }
         };
       }
@@ -5570,7 +7410,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this33 = this;
+          var _this48 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
@@ -5585,14 +7425,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
             next: function next(data) {
               console.log(data);
-              _this33.eventRequests = data;
+              _this48.eventRequests = data;
 
-              _this33.subscription.unsubscribe();
+              _this48.subscription.unsubscribe();
 
-              _this33.loading = false;
+              _this48.loading = false;
             },
             error: function error(err) {
-              return _this33.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this48.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -5607,7 +7447,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this34 = this;
+          var _this49 = this;
 
           var dialog = this.dialogService.open(src_app_users_components_profile_union_event_request_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__["PetitionsFilterComponent"], {
             width: "50",
@@ -5616,11 +7456,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
           dialog.afterClosed().subscribe(function (company) {
             if (company != undefined) {
-              _this34.currentCompanyId = company.company_id;
-              _this34.currentCompanyName = company.name;
-              _this34.isFilters = true;
+              _this49.currentCompanyId = company.company_id;
+              _this49.currentCompanyName = company.name;
+              _this49.isFilters = true;
 
-              _this34.refresh();
+              _this49.refresh();
             }
           });
         }
@@ -5642,14 +7482,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "changeStatus",
         value: function changeStatus(request_id, status) {
-          var _this35 = this;
+          var _this50 = this;
 
           this.companyService.changeCompanyEventRequestState(request_id, status).subscribe({
             next: function next(data) {
               if (status == 1) {
-                _this35.commonService.openSnackBar("¡Se ha aceptado la petición!", 'Ok');
+                _this50.commonService.openSnackBar("¡Se ha aceptado la petición!", 'Ok');
               } else if (status == 3) {
-                _this35.commonService.openSnackBar("¡Se ha rechazado la petición!", 'Ok');
+                _this50.commonService.openSnackBar("¡Se ha rechazado la petición!", 'Ok');
               }
             }
           });
@@ -5770,8 +7610,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "updateRequesState",
-        value: function updateRequesState(_ref9, state) {
-          var user_company_id = _ref9.user_company_id;
+        value: function updateRequesState(_ref11, state) {
+          var user_company_id = _ref11.user_company_id;
           var is_admin = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
           var body = {
             state: state,
@@ -5783,8 +7623,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "deleteUserFromCompany",
-        value: function deleteUserFromCompany(_ref10) {
-          var user_company_id = _ref10.user_company_id;
+        value: function deleteUserFromCompany(_ref12) {
+          var user_company_id = _ref12.user_company_id;
           return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL).concat(this.requestModule, "/").concat(user_company_id, "/"), {
             observe: 'response'
           });
@@ -5932,8 +7772,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         /**
          * @funtion Change company state
          */
-        value: function chageCompanyState(_ref11) {
-          var company_id = _ref11.company_id;
+        value: function chageCompanyState(_ref13) {
+          var company_id = _ref13.company_id;
           return this.http.patch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(company_id, "/state"), undefined, {
             observe: "response"
           });
@@ -6009,7 +7849,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.color-picker {\n  width: 30%;\n  padding-left: 5%;\n  align-self: center;\n}\n\n.toggle {\n  width: 40%;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n\n.file {\n  align-self: center;\n  flex-direction: column;\n  justify-content: center;\n  width: 20%;\n}\n\n.uploadFile {\n  text-align: center;\n  width: -webkit-fill-available;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n  margin-bottom: 2%;\n  border: solid 1.5px gainsboro;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnQtY3JlYXRlL2V2ZW50LWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9ldmVudC1jcmVhdGUvZXZlbnQtY3JlYXRlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLHNCQUFBO0VBQ0EsdUJBQUE7RUFDQSxVQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLDZCQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0VBQ0EsNkJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnQtY3JlYXRlL2V2ZW50LWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhe1xuICAgIHJlc2l6ZTogbm9uZTtcbn1cblxuaDF7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMSU7XG4gICAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXJ7XG4gICAgbWFyZ2luLXRvcDogMyU7XG4gICAgbWFyZ2luLWJvdHRvbTogMyU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cbiBcbmZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXJ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxke1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2Vye1xuICAgIHdpZHRoOiAzMCU7XG4gICAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59XG5cbi50b2dnbGV7XG4gICAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdHtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG59XG5cbi5maWxle1xuICAgIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIHdpZHRoOiAyMCU7XG59XG5cbi51cGxvYWRGaWxle1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xuICAgIG1hcmdpbi1ib3R0b206IDIlO1xuICAgIGJvcmRlcjogc29saWQgMS41cHggcmdiKDIyMCwgMjIwLCAyMjApO1xufSIsInRleHRhcmVhIHtcbiAgcmVzaXplOiBub25lO1xufVxuXG5oMSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiAwJTtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG4gIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMyU7XG4gIG1hcmdpbi1ib3R0b206IDMlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2VyIHtcbiAgd2lkdGg6IDMwJTtcbiAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xufVxuXG4udG9nZ2xlIHtcbiAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdCB7XG4gIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlO1xufVxuXG4uZmlsZSB7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIHdpZHRoOiAyMCU7XG59XG5cbi51cGxvYWRGaWxlIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG4gIGJvcmRlcjogc29saWQgMS41cHggZ2FpbnNib3JvO1xufSJdfQ== */";
+    __webpack_exports__["default"] = "textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.color-picker {\n  width: 30%;\n  padding-left: 5%;\n  align-self: center;\n}\n\n.toggle {\n  width: 40%;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n\n.file {\n  margin-top: 2%;\n  align-self: center;\n  flex-direction: column;\n  justify-content: center;\n  width: 30%;\n}\n\n.uploadFile {\n  text-align: center;\n  width: -webkit-fill-available;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n  margin-bottom: 2%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnQtY3JlYXRlL2V2ZW50LWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9ldmVudC1jcmVhdGUvZXZlbnQtY3JlYXRlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSxzQkFBQTtFQUNBLHVCQUFBO0VBQ0EsVUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSw2QkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtFQUNBLDZCQUFBO0VBQ0Esa0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnQtY3JlYXRlL2V2ZW50LWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhe1xuICAgIHJlc2l6ZTogbm9uZTtcbn1cblxuaDF7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMSU7XG4gICAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXJ7XG4gICAgbWFyZ2luLXRvcDogMyU7XG4gICAgbWFyZ2luLWJvdHRvbTogMyU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cbiBcbmZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXJ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxke1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2Vye1xuICAgIHdpZHRoOiAzMCU7XG4gICAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59XG5cbi50b2dnbGV7XG4gICAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdHtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG59XG5cbi5maWxle1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIHdpZHRoOiAzMCU7XG59XG5cbi51cGxvYWRGaWxle1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xuICAgIG1hcmdpbi1ib3R0b206IDIlO1xuICAgIGJvcmRlcjogc29saWQgMS41cHggcmdiKDIyMCwgMjIwLCAyMjApO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbn0iLCJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDQ1JTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuLmNvbG9yLXBpY2tlciB7XG4gIHdpZHRoOiAzMCU7XG4gIHBhZGRpbmctbGVmdDogNSU7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbn1cblxuLnRvZ2dsZSB7XG4gIHdpZHRoOiA0MCU7XG59XG5cbi5jaGlwLWxpc3Qge1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbn1cblxuLmZpbGUge1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgd2lkdGg6IDMwJTtcbn1cblxuLnVwbG9hZEZpbGUge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCBnYWluc2Jvcm87XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbn0iXX0= */";
     /***/
   },
 
@@ -6101,7 +7941,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var EventCreateComponent = /*#__PURE__*/function () {
       function EventCreateComponent(dialogRef, commonService, eventService, router, categoryService, companyService, userService) {
-        var _this36 = this;
+        var _this51 = this;
 
         _classCallCheck(this, EventCreateComponent);
 
@@ -6120,7 +7960,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.initial_time = undefined;
         this.final_time = undefined;
         this.common_date = undefined;
-        this.eventImages = []; //chipList
+        this.imageIndex = 0;
+        this.eventImages = [];
+        this.eventImagesFinal = []; //chipList
 
         this.visible = true;
         this.selectable = true;
@@ -6133,14 +7975,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
          */
 
         this.dateFilter = function (date) {
-          return date >= _this36.initial_date;
+          return date >= _this51.initial_date;
         };
       }
 
       _createClass(EventCreateComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this37 = this;
+          var _this52 = this;
 
           this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
@@ -6153,22 +7995,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.user = this.userService.actualUser;
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this37.filteredCategories = data;
+              _this52.filteredCategories = data;
 
-              _this37.subscription.unsubscribe();
+              _this52.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this37.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this52.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription2 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this37.filteredCompanies = data;
+              _this52.filteredCompanies = data;
 
-              _this37.subscription2.unsubscribe();
+              _this52.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this37.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this52.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -6179,8 +8021,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       }, {
         key: "changeState",
-        value: function changeState(_ref12) {
-          var source = _ref12.source;
+        value: function changeState(_ref14) {
+          var source = _ref14.source;
           this.allDay == false ? this.allDay = true : this.allDay = false;
           source.checked = this.allDay;
         }
@@ -6197,22 +8039,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
             var urlImages, event;
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
                     this.loading = true;
                     this.eventFG.disable();
                     this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
                     this.initial_time == undefined ? this.initial_time = null : null;
                     this.final_time == undefined ? this.final_time = null : null;
-                    _context2.next = 7;
+                    _context4.next = 7;
                     return this.uploadFiles();
 
                   case 7:
-                    urlImages = _context2.sent;
+                    urlImages = _context4.sent;
                     console.log(urlImages);
                     event = {
                       name: this.eventFG.controls['name'].value,
@@ -6234,40 +8076,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 11:
                   case "end":
-                    return _context2.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee2, this);
+            }, _callee4, this);
           }));
         }
       }, {
         key: "createEvent",
         value: function createEvent(event) {
-          var _this38 = this;
+          var _this53 = this;
 
           this.eventService.createEvent(event).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this38, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this53, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+                return regeneratorRuntime.wrap(function _callee5$(_context5) {
                   while (1) {
-                    switch (_context3.prev = _context3.next) {
+                    switch (_context5.prev = _context5.next) {
                       case 0:
                         if (!(data.status == 200)) {
-                          _context3.next = 10;
+                          _context5.next = 10;
                           break;
                         }
 
                         /**Añadiendo compañías y categorías al evento */
                         this.getCategories();
                         this.getCompanies();
-                        _context3.next = 5;
+                        _context5.next = 5;
                         return this.eventRelations(data.body[0]);
 
                       case 5:
                         this.commonService.openSnackBar("El evento ".concat(this.eventFG.value.name, " se ha creado"), "OK");
                         this.dialogRef.close();
                         this.router.navigate(['/event', data.body[0]]);
-                        _context3.next = 12;
+                        _context5.next = 12;
                         break;
 
                       case 10:
@@ -6276,18 +8118,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                       case 12:
                       case "end":
-                        return _context3.stop();
+                        return _context5.stop();
                     }
                   }
-                }, _callee3, this);
+                }, _callee5, this);
               }));
             },
             error: function error(err) {
-              _this38.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this53.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this38.loading = false;
+              _this53.loading = false;
 
-              _this38.eventFG.enable();
+              _this53.eventFG.enable();
             }
           });
         }
@@ -6396,27 +8238,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "eventRelations",
         value: function eventRelations(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
             var i, _i;
 
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < this.allCompanies.length)) {
-                      _context4.next = 7;
+                      _context6.next = 7;
                       break;
                     }
 
-                    _context4.next = 4;
+                    _context6.next = 4;
                     return this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise();
 
                   case 4:
                     i++;
-                    _context4.next = 1;
+                    _context6.next = 1;
                     break;
 
                   case 7:
@@ -6424,69 +8266,105 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 8:
                     if (!(_i < this.allCategories.length)) {
-                      _context4.next = 14;
+                      _context6.next = 14;
                       break;
                     }
 
-                    _context4.next = 11;
+                    _context6.next = 11;
                     return this.eventService.addCategoryToEvent(this.allCategories[_i], event_id).toPromise();
 
                   case 11:
                     _i++;
-                    _context4.next = 8;
+                    _context6.next = 8;
                     break;
 
                   case 14:
                   case "end":
-                    return _context4.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee4, this);
+            }, _callee6, this);
           }));
         }
       }, {
         key: "getFiles",
-        value: function getFiles(files) {
-          this.eventImages = files;
+        value: function getFiles(event) {
+          var _this54 = this;
+
+          this.eventImages = [];
+          this.eventImagesFinal = [];
+
+          if (event.target.files) {
+            for (var i = 0; i < event.target.files.length; i++) {
+              if (event.target.files[i]) {
+                this.eventImagesFinal.push(event.target.files[i]);
+                var reader = new FileReader();
+                reader.readAsDataURL(event.target.files[i]);
+
+                reader.onload = function (event) {
+                  _this54.eventImages.push(event.target.result);
+                };
+              }
+            }
+
+            console.log(this.eventImagesFinal);
+          }
         }
       }, {
         key: "uploadFiles",
         value: function uploadFiles() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            return regeneratorRuntime.wrap(function _callee7$(_context7) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context7.prev = _context7.next) {
                   case 0:
                     images = [];
                     i = 0;
 
                   case 2:
-                    if (!(i < this.eventImages.length)) {
-                      _context5.next = 8;
+                    if (!(i < this.eventImagesFinal.length)) {
+                      _context7.next = 8;
                       break;
                     }
 
-                    _context5.next = 5;
-                    return this.commonService.uploadFile(this.eventImages[i]).then(function (data) {
+                    _context7.next = 5;
+                    return this.commonService.uploadFile(this.eventImagesFinal[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 5:
                     i++;
-                    _context5.next = 2;
+                    _context7.next = 2;
                     break;
 
                   case 8:
-                    return _context5.abrupt("return", images);
+                    return _context7.abrupt("return", images);
 
                   case 9:
                   case "end":
-                    return _context5.stop();
+                    return _context7.stop();
                 }
               }
-            }, _callee5, this);
+            }, _callee7, this);
           }));
+        }
+      }, {
+        key: "onSlide",
+        value: function onSlide(event) {
+          this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+        }
+      }, {
+        key: "deleteImage",
+        value: function deleteImage() {
+          if (this.eventImages.length == 1) {
+            this.imageIndex = 0;
+          }
+
+          this.eventImages.splice(this.imageIndex, 1);
+          this.eventImagesFinal.splice(this.imageIndex, 1);
+          console.log(this.eventImages);
+          console.log(this.eventImagesFinal);
         }
       }]);
 
@@ -6614,19 +8492,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(EventRequestFiltersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this39 = this;
+          var _this55 = this;
 
           this.eventRequestFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
           });
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this39.companies = data;
+              _this55.companies = data;
 
-              _this39.subscription.unsubscribe();
+              _this55.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this39.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this55.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -6767,16 +8645,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(EventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-            var _this40 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+            var _this56 = this;
 
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context8.prev = _context8.next) {
                   case 0:
-                    _context6.next = 2;
+                    _context8.next = 2;
                     return this.eventService.getAllPendingEventRequests().toPromise().then(function (data) {
-                      _this40.eventService.eventRequest = data;
+                      _this56.eventService.eventRequest = data;
                     });
 
                   case 2:
@@ -6784,10 +8662,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 3:
                   case "end":
-                    return _context6.stop();
+                    return _context8.stop();
                 }
               }
-            }, _callee6, this);
+            }, _callee8, this);
           }));
         }
       }, {
@@ -6807,11 +8685,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "changeStateRequest",
         value: function changeStateRequest(event, state) {
-          var _this41 = this;
+          var _this57 = this;
 
           this.eventService.changeRequestState(event.event_id, state).subscribe({
             next: function next(data) {
-              data.status == 201 ? _this41.eventService.getAllPendingEventRequests() : null;
+              data.status == 201 ? _this57.eventService.getAllPendingEventRequests() : null;
             }
           });
         }
@@ -6845,6 +8723,171 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
+  "./src/app/event/components/events-stadistics/events-stadistics.component.scss":
+  /*!*************************************************************************************!*\
+    !*** ./src/app/event/components/events-stadistics/events-stadistics.component.scss ***!
+    \*************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppEventComponentsEventsStadisticsEventsStadisticsComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = ".radio-button-group {\n  width: 50%;\n  justify-content: space-around;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  padding-bottom: 1.34375em;\n}\n\n.dates {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n}\n\nmat-form-field {\n  width: 30%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnRzLXN0YWRpc3RpY3MvZXZlbnRzLXN0YWRpc3RpY3MuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnRzLXN0YWRpc3RpY3MvZXZlbnRzLXN0YWRpc3RpY3MuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFBO0VBQ0EsNkJBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EseUJBQUE7QUNDSjs7QURFQTtFQUNJLGFBQUE7RUFDQSw2QkFBQTtFQUNBLG1CQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9ldmVudC9jb21wb25lbnRzL2V2ZW50cy1zdGFkaXN0aWNzL2V2ZW50cy1zdGFkaXN0aWNzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJhZGlvLWJ1dHRvbi1ncm91cHtcbiAgICB3aWR0aDogNTAlO1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC13cmFwOiB3cmFwO1xuICAgIG1pbi13aWR0aDogMzAwcHg7XG4gICAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn1cblxuLmRhdGVze1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxubWF0LWZvcm0tZmllbGR7XG4gICAgd2lkdGg6IDMwJTtcbn0iLCIucmFkaW8tYnV0dG9uLWdyb3VwIHtcbiAgd2lkdGg6IDUwJTtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAgbWluLXdpZHRoOiAzMDBweDtcbiAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn1cblxuLmRhdGVzIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDMwJTtcbn0iXX0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/event/components/events-stadistics/events-stadistics.component.ts":
+  /*!***********************************************************************************!*\
+    !*** ./src/app/event/components/events-stadistics/events-stadistics.component.ts ***!
+    \***********************************************************************************/
+
+  /*! exports provided: EventsStadisticsComponent */
+
+  /***/
+  function srcAppEventComponentsEventsStadisticsEventsStadisticsComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "EventsStadisticsComponent", function () {
+      return EventsStadisticsComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _services_event_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../../services/event.service */
+    "./src/app/event/services/event.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/auth.service */
+    "./src/app/general-services/auth.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+
+    var EventsStadisticsComponent = /*#__PURE__*/function () {
+      function EventsStadisticsComponent(eventService, authService, commonService) {
+        var _this58 = this;
+
+        _classCallCheck(this, EventsStadisticsComponent);
+
+        this.eventService = eventService;
+        this.authService = authService;
+        this.commonService = commonService;
+        this.filter = {
+          state: '0'
+        };
+        this.start_Date = undefined;
+        this.end_Date = undefined;
+        this.isFilterd = false;
+
+        this.dateFilter = function (date) {
+          return date >= _this58.start_Date;
+        };
+      }
+
+      _createClass(EventsStadisticsComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }, {
+        key: "obtainAllEvents",
+        value: function obtainAllEvents() {
+          var _this59 = this;
+
+          this.isFilterd = false;
+          this.subscription = this.eventService.getAllEvents().subscribe({
+            next: function next(data) {
+              _this59.eventService.events = data;
+
+              _this59.subscription.unsubscribe();
+
+              _this59.refresh();
+            },
+            error: function error(err) {
+              return _this59.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
+      }, {
+        key: "refresh",
+        value: function refresh() {
+          if (this.eventService.events == []) {
+            this.obtainAllEvents();
+          }
+
+          if (this.filter.state == '0') {
+            this.eventService.events = this.eventService.events.sort(function (a, b) {
+              return a.visits < b.visits ? -1 : a.visits > b.visits ? 1 : 0;
+            });
+          } else if (this.filter.state == '1') {
+            this.eventService.events = this.eventService.events.sort(function (a, b) {
+              return a.score < b.score ? -1 : a.score > b.score ? 1 : 0;
+            });
+          } // else{
+          //   this.eventService.events = this.eventService.events.sort((a, b) => a.publications < b.publications ? -1 : a.publications > b.publications ? 1 : 0)
+          // }
+
+        }
+      }, {
+        key: "filterByDate",
+        value: function filterByDate() {
+          this.isFilterd = true; //llamar endpiont con star_date y end_date 
+        }
+      }]);
+
+      return EventsStadisticsComponent;
+    }();
+
+    EventsStadisticsComponent.ctorParameters = function () {
+      return [{
+        type: _services_event_service__WEBPACK_IMPORTED_MODULE_2__["EventService"]
+      }, {
+        type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
+      }];
+    };
+
+    EventsStadisticsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-events-stadistics',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./events-stadistics.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/events-stadistics/events-stadistics.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./events-stadistics.component.scss */
+      "./src/app/event/components/events-stadistics/events-stadistics.component.scss"))["default"]]
+    })], EventsStadisticsComponent);
+    /***/
+  },
+
+  /***/
   "./src/app/event/components/events/event-filters/event-filters.component.scss":
   /*!************************************************************************************!*\
     !*** ./src/app/event/components/events/event-filters/event-filters.component.scss ***!
@@ -6860,7 +8903,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".buttonContainer {\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnRzL2V2ZW50LWZpbHRlcnMvZXZlbnQtZmlsdGVycy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9ldmVudHMvZXZlbnQtZmlsdGVycy9ldmVudC1maWx0ZXJzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9ldmVudC9jb21wb25lbnRzL2V2ZW50cy9ldmVudC1maWx0ZXJzL2V2ZW50LWZpbHRlcnMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYnV0dG9uQ29udGFpbmVye1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbn0iLCIuYnV0dG9uQ29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59Il19 */";
+    __webpack_exports__["default"] = ".buttonContainer {\n  display: flex;\n  justify-content: space-around;\n}\n\n.dates {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n}\n\n.star {\n  position: relative;\n  display: inline-block;\n  font-size: 32px;\n  color: #868686;\n}\n\n.filled {\n  color: #f1f503;\n}\n\n.half {\n  position: absolute;\n  display: inline-block;\n  overflow: hidden;\n  color: #f1f503;\n}\n\n.map {\n  height: 500px;\n  padding: 0;\n  width: 60%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnRzL2V2ZW50LWZpbHRlcnMvZXZlbnQtZmlsdGVycy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9ldmVudHMvZXZlbnQtZmlsdGVycy9ldmVudC1maWx0ZXJzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsNkJBQUE7RUFDQSxtQkFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxxQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0FDQ0o7O0FEQ0E7RUFDSSxjQUFBO0FDRUo7O0FEQ0E7RUFDSSxrQkFBQTtFQUNBLHFCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxjQUFBO0FDRUo7O0FEQ0E7RUFDSSxhQUFBO0VBQ0EsVUFBQTtFQUNBLFVBQUE7QUNFSiIsImZpbGUiOiJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvZXZlbnRzL2V2ZW50LWZpbHRlcnMvZXZlbnQtZmlsdGVycy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5idXR0b25Db250YWluZXJ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDs7XG59XG5cbi5kYXRlc3tcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbi5zdGFyIHtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIGZvbnQtc2l6ZTogMzJweDtcbiAgICBjb2xvcjogIzg2ODY4Njtcbn1cbi5maWxsZWQge1xuICAgIGNvbG9yOiAjZjFmNTAzO1xufVxuXG4uaGFsZiB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgIGNvbG9yOiAjZjFmNTAzO1xufVxuXG4ubWFwIHtcbiAgICBoZWlnaHQ6IDUwMHB4O1xuICAgIHBhZGRpbmc6IDA7XG4gICAgd2lkdGg6IDYwJTtcbn0iLCIuYnV0dG9uQ29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbi5kYXRlcyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG4uc3RhciB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICBmb250LXNpemU6IDMycHg7XG4gIGNvbG9yOiAjODY4Njg2O1xufVxuXG4uZmlsbGVkIHtcbiAgY29sb3I6ICNmMWY1MDM7XG59XG5cbi5oYWxmIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGNvbG9yOiAjZjFmNTAzO1xufVxuXG4ubWFwIHtcbiAgaGVpZ2h0OiA1MDBweDtcbiAgcGFkZGluZzogMDtcbiAgd2lkdGg6IDYwJTtcbn0iXX0= */";
     /***/
   },
 
@@ -6919,34 +8962,122 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! src/app/general-services/common.service */
     "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var leaflet__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! leaflet */
+    "./node_modules/leaflet/dist/leaflet-src.js");
+    /* harmony import */
+
+
+    var leaflet__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_6__);
 
     var EventFiltersComponent = /*#__PURE__*/function () {
       function EventFiltersComponent(dialogRef, categoryService, commonService) {
+        var _this60 = this;
+
         _classCallCheck(this, EventFiltersComponent);
 
         this.dialogRef = dialogRef;
         this.categoryService = categoryService;
         this.commonService = commonService;
+        this.currentRate = 0;
+        this.ubcationRatio = 0;
+        this.start_Date = undefined;
+        this.end_Date = undefined;
+        this.refreshed = false;
+        this.myEvent = {
+          latitude: 10.471691479992346,
+          longitude: -84.64503407478333
+        };
+        this.locationMarker = new leaflet__WEBPACK_IMPORTED_MODULE_6__["Marker"](Object(leaflet__WEBPACK_IMPORTED_MODULE_6__["latLng"])(10.471868647924616, -84.64508235454561), {
+          draggable: true,
+          icon: new leaflet__WEBPACK_IMPORTED_MODULE_6__["Icon"]({
+            iconUrl: 'assets/marker-icon.png',
+            iconSize: [24, 41],
+            iconAnchor: [12, 41],
+            shadowUrl: 'assets/marker-shadow.png'
+          })
+        });
+        this.options = {
+          layers: [Object(leaflet__WEBPACK_IMPORTED_MODULE_6__["tileLayer"])("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: "..."
+          })],
+          zoom: 16,
+          center: Object(leaflet__WEBPACK_IMPORTED_MODULE_6__["latLng"])(10.471691479992346, -84.64503407478333)
+        };
+
+        this.dateFilter = function (date) {
+          return date >= _this60.start_Date;
+        };
+
+        this.refreshMap = this.refreshMap.bind(this);
       }
 
       _createClass(EventFiltersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this42 = this;
+          var _this61 = this;
 
           this.eventFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
-            categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required)
+            categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            rate: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("^([0-5]{1}([.]{1}[0-9]){0,1})")),
+            ratio: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].max(3), _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].min(0)])
           });
-          this.subscription = this.categoryService.getAllCategories().subscribe({
+          this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this42.categories = data;
+              _this61.categories = data;
 
-              _this42.subscription.unsubscribe();
+              _this61.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this42.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this61.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
+        }
+      }, {
+        key: "ngAfterViewInit",
+        value: function ngAfterViewInit() {
+          var _this62 = this;
+
+          if (document.getElementById("mat-tab-label-0-2")) {
+            document.getElementById("mat-tab-label-0-2").parameters = {
+              map: this.map,
+              event: this.myEvent
+            };
+            document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMap, false);
+          }
+
+          setTimeout(function () {
+            return _this62.map.invalidateSize();
+          }, 2000);
+        }
+      }, {
+        key: "onMapReady",
+        value: function onMapReady(map) {
+          this.map = map;
+          map.addLayer(this.locationMarker);
+
+          if (this.myEvent.latitude && this.myEvent.longitude) {
+            this.locationMarker.setLatLng(Object(leaflet__WEBPACK_IMPORTED_MODULE_6__["latLng"])(this.myEvent.latitude, this.myEvent.longitude));
+          }
+        }
+      }, {
+        key: "refreshMap",
+        value: function refreshMap() {
+          this.map.invalidateSize();
+
+          if (!this.refreshed) {
+            this.refreshed = true;
+            if (this.myEvent.latitude && this.myEvent.longitude) this.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_6__["latLng"])(this.myEvent.latitude, this.myEvent.longitude), 18);
+          }
+        }
+      }, {
+        key: "putLocationMarker",
+        value: function putLocationMarker(event) {
+          this.locationMarker.setLatLng(event.latlng);
         }
       }, {
         key: "onNoClick",
@@ -6956,13 +9087,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "submit",
         value: function submit() {
-          var category_id = this.eventFiltersFG.controls['categories'].value;
-          this.dialogRef.close(category_id);
+          var info = {
+            initial_date: this.start_Date,
+            final_date: this.end_Date,
+            category_id: this.eventFiltersFG.controls['categories'].value,
+            rate: this.currentRate,
+            latitude: this.locationMarker.getLatLng().lat,
+            longitude: this.locationMarker.getLatLng().lng,
+            ratio: this.ubcationRatio
+          };
+          this.dialogRef.close(info);
         }
       }, {
         key: "closeDialog",
         value: function closeDialog() {
           this.dialogRef.close();
+        }
+      }, {
+        key: "disableDialog",
+        value: function disableDialog() {
+          if (!this.eventFiltersFG.valid && this.start_Date == undefined && this.start_Date == undefined && this.currentRate == 0 && this.ubcationRatio == 0 || this.start_Date != undefined && this.end_Date == undefined || this.ubcationRatio > 3 || this.start_Date > this.end_Date) {
+            return true;
+          }
+
+          return false;
+        }
+      }, {
+        key: "updateRateInput",
+        value: function updateRateInput(rate) {
+          !Number(rate) ? this.currentRate = 0 : rate <= 5 ? this.currentRate = +parseFloat(rate).toFixed(1) : this.currentRate = 0;
+        }
+      }, {
+        key: "updateUbicationInput",
+        value: function updateUbicationInput(ratio) {
+          !Number(ratio) ? this.ubcationRatio = 0 : ratio <= 5 ? this.ubcationRatio = +parseInt(ratio) : this.ubcationRatio = 0;
         }
       }]);
 
@@ -7108,17 +9266,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "obtainAllEvents",
         value: function obtainAllEvents() {
-          var _this43 = this;
+          var _this63 = this;
 
           this.isFilters = false;
           this.subscription = this.eventService.getAllEvents().subscribe({
             next: function next(data) {
-              _this43.eventService.events = data;
+              _this63.eventService.events = data;
 
-              _this43.subscription.unsubscribe();
+              _this63.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this43.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this63.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -7134,22 +9292,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "changeState",
-        value: function changeState(event, _ref13) {
-          var _this44 = this;
+        value: function changeState(event, _ref15) {
+          var _this64 = this;
 
-          var source = _ref13.source;
+          var source = _ref15.source;
           this.eventService.changeEventState(event.event_id).subscribe({
             next: function next(data) {
               if (data.status == 200) {
                 event.is_active = !event.is_active;
                 source.checked = event.is_active;
-                if (event.is_active) _this44.commonService.openSnackBar("El evento ".concat(event.name, " ha sido activado"), "OK");else _this44.commonService.openSnackBar("El evento ".concat(event.name, " ha sido desactivado"), "OK");
+                if (event.is_active) _this64.commonService.openSnackBar("El evento ".concat(event.name, " ha sido activado"), "OK");else _this64.commonService.openSnackBar("El evento ".concat(event.name, " ha sido desactivado"), "OK");
               } else {
-                _this44.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this64.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this44.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this64.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
               source.checked = event.is_active;
             }
@@ -7158,24 +9316,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this45 = this;
+          var _this65 = this;
 
           var dialog = this.dialogService.open(_event_filters_event_filters_component__WEBPACK_IMPORTED_MODULE_5__["EventFiltersComponent"], {
-            width: "50",
+            width: "70%",
+            height: "90%",
             minWidth: "280px",
             disableClose: true
           });
-          dialog.afterClosed().subscribe(function (category_id) {
-            if (category_id != undefined) {
-              _this45.isFilters = true;
-              _this45.subscription = _this45.categoryService.getEventsByCategory(category_id).subscribe({
+          dialog.afterClosed().subscribe(function (info) {
+            if (info != undefined) {
+              _this65.isFilters = true;
+              _this65.subscription = _this65.eventService.getFilteredEvents(null, info.initial_date, info.final_date, info.category_id, info.rate).subscribe({
                 next: function next(data) {
-                  _this45.eventService.events = data;
+                  console.log(data);
+                  _this65.eventService.events = data;
 
-                  _this45.subscription.unsubscribe();
+                  _this65.subscription.unsubscribe();
                 },
                 error: function error(err) {
-                  return _this45.commonService.openSnackBar("Error: ".concat(err), "OK");
+                  return _this65.commonService.openSnackBar("Error: ".concat(err), "OK");
                 }
               });
             }
@@ -7213,6 +9373,83 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
+  "./src/app/event/components/main-tabs/main-tabs.component.scss":
+  /*!*********************************************************************!*\
+    !*** ./src/app/event/components/main-tabs/main-tabs.component.scss ***!
+    \*********************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppEventComponentsMainTabsMainTabsComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFpbi10YWJzL21haW4tdGFicy5jb21wb25lbnQuc2NzcyJ9 */";
+    /***/
+  },
+
+  /***/
+  "./src/app/event/components/main-tabs/main-tabs.component.ts":
+  /*!*******************************************************************!*\
+    !*** ./src/app/event/components/main-tabs/main-tabs.component.ts ***!
+    \*******************************************************************/
+
+  /*! exports provided: MainTabsComponent */
+
+  /***/
+  function srcAppEventComponentsMainTabsMainTabsComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "MainTabsComponent", function () {
+      return MainTabsComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var MainTabsComponent = /*#__PURE__*/function () {
+      function MainTabsComponent() {
+        _classCallCheck(this, MainTabsComponent);
+      }
+
+      _createClass(MainTabsComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return MainTabsComponent;
+    }();
+
+    MainTabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-main-tabs',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./main-tabs.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/main-tabs/main-tabs.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./main-tabs.component.scss */
+      "./src/app/event/components/main-tabs/main-tabs.component.scss"))["default"]]
+    })], MainTabsComponent);
+    /***/
+  },
+
+  /***/
   "./src/app/event/components/management/event-details/event-details.component.scss":
   /*!****************************************************************************************!*\
     !*** ./src/app/event/components/management/event-details/event-details.component.scss ***!
@@ -7228,7 +9465,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".image-buttons {\n  width: 100%;\n  height: 100%;\n  cursor: pointer;\n}\n\n.image-buttons:focus mat-icon:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.noImageButton {\n  align-self: center;\n  text-align: center;\n  width: 20%;\n  height: 45%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n  cursor: pointer;\n  margin-left: 15%;\n}\n\nngb-carousel.container-fluid.carousel.slide {\n  padding: 0%;\n}\n\n.image-buttons:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.toggle, .color-picker {\n  width: 45%;\n  margin-left: 2.5%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLHdCQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxXQUFBO0VBQ0EsNkJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtBQ0NKOztBREVBO0VBQ0ksd0JBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FER0E7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQUo7O0FER0E7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNBSiIsImZpbGUiOiJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW1hZ2UtYnV0dG9uc3tcbiAgICB3aWR0aDogMTAwJTsgXG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXMgbWF0LWljb246Zm9jdXN7XG4gICAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICAgIGJvcmRlcjogMC41cHggc29saWQgcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbntcbiAgICBmb250LXNpemU6IDQwcHg7IFxuICAgIHdpZHRoOiA0MHB4OyBcbiAgICBoZWlnaHQ6IDQwcHg7XG59XG5cbi5ub0ltYWdlQnV0dG9uIHtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyOyBcbiAgICB3aWR0aDogMjAlOyBcbiAgICBoZWlnaHQ6IDQ1JTsgXG4gICAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7IFxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IDE1JTtcbn1cblxubmdiLWNhcm91c2VsLmNvbnRhaW5lci1mbHVpZC5jYXJvdXNlbC5zbGlkZSB7XG4gICAgcGFkZGluZzogMCU7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3Vze1xuICAgIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgICBib3JkZXI6IDAuNXB4IHNvbGlkIHJnYigyMjAsIDIyMCwgMjIwKTtcbn1cblxuLnRvZ2dsZSwuY29sb3ItcGlja2Vye1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBtYXJnaW4tdG9wOiAzJTtcbiAgICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufSIsIi5pbWFnZS1idXR0b25zIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyBtYXQtaWNvbjpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5pbWFnZS1idXR0b25zIG1hdC1pY29uIHtcbiAgZm9udC1zaXplOiA0MHB4O1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xufVxuXG4ubm9JbWFnZUJ1dHRvbiB7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogMjAlO1xuICBoZWlnaHQ6IDQ1JTtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCBnYWluc2Jvcm87XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBtYXJnaW4tbGVmdDogMTUlO1xufVxuXG5uZ2ItY2Fyb3VzZWwuY29udGFpbmVyLWZsdWlkLmNhcm91c2VsLnNsaWRlIHtcbiAgcGFkZGluZzogMCU7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICBib3JkZXI6IDAuNXB4IHNvbGlkIGdhaW5zYm9ybztcbn1cblxuLnRvZ2dsZSwgLmNvbG9yLXBpY2tlciB7XG4gIHdpZHRoOiA0NSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59Il19 */";
+    __webpack_exports__["default"] = ".image-buttons {\n  width: 100%;\n  height: 100%;\n  cursor: pointer;\n}\n\n.image-buttons:focus mat-icon:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.noImageButton {\n  text-align: center;\n  width: 20%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n  cursor: pointer;\n  margin-left: 15%;\n}\n\nngb-carousel.container-fluid.carousel.slide {\n  padding: 0%;\n}\n\n.image-buttons:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.toggle, .color-picker {\n  width: 45%;\n  margin-left: 2.5%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLHdCQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsNkJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtBQ0NKOztBREVBO0VBQ0ksd0JBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FER0E7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQUo7O0FER0E7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNBSiIsImZpbGUiOiJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9ldmVudC1kZXRhaWxzL2V2ZW50LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW1hZ2UtYnV0dG9uc3tcbiAgICB3aWR0aDogMTAwJTsgXG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXMgbWF0LWljb246Zm9jdXN7XG4gICAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICAgIGJvcmRlcjogMC41cHggc29saWQgcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbntcbiAgICBmb250LXNpemU6IDQwcHg7IFxuICAgIHdpZHRoOiA0MHB4OyBcbiAgICBoZWlnaHQ6IDQwcHg7XG59XG5cbi5ub0ltYWdlQnV0dG9uIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7IFxuICAgIHdpZHRoOiAyMCU7IFxuICAgIGJvcmRlcjogc29saWQgMS41cHggcmdiKDIyMCwgMjIwLCAyMjApOyBcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIG1hcmdpbi1sZWZ0OiAxNSU7XG59XG5cbm5nYi1jYXJvdXNlbC5jb250YWluZXItZmx1aWQuY2Fyb3VzZWwuc2xpZGUge1xuICAgIHBhZGRpbmc6IDAlO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1c3tcbiAgICBvdXRsaW5lOiBub25lICFpbXBvcnRhbnQ7XG4gICAgYm9yZGVyOiAwLjVweCBzb2xpZCByZ2IoMjIwLCAyMjAsIDIyMCk7XG59XG5cbi50b2dnbGUsLmNvbG9yLXBpY2tlcntcbiAgICB3aWR0aDogNDUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG5cbi5jb250YWluZXJ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbi5idXR0b25Db250YWluZXJ7XG4gICAgbWFyZ2luLXRvcDogMyU7XG4gICAgbWFyZ2luLWJvdHRvbTogMyU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn0iLCIuaW1hZ2UtYnV0dG9ucyB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXMgbWF0LWljb246Zm9jdXMge1xuICBvdXRsaW5lOiBub25lICFpbXBvcnRhbnQ7XG4gIGJvcmRlcjogMC41cHggc29saWQgZ2FpbnNib3JvO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbiB7XG4gIGZvbnQtc2l6ZTogNDBweDtcbiAgd2lkdGg6IDQwcHg7XG4gIGhlaWdodDogNDBweDtcbn1cblxuLm5vSW1hZ2VCdXR0b24ge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHdpZHRoOiAyMCU7XG4gIGJvcmRlcjogc29saWQgMS41cHggZ2FpbnNib3JvO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgbWFyZ2luLWxlZnQ6IDE1JTtcbn1cblxubmdiLWNhcm91c2VsLmNvbnRhaW5lci1mbHVpZC5jYXJvdXNlbC5zbGlkZSB7XG4gIHBhZGRpbmc6IDAlO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi50b2dnbGUsIC5jb2xvci1waWNrZXIge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgbWFyZ2luLWJvdHRvbTogMyU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufSJdfQ== */";
     /***/
   },
 
@@ -7308,7 +9545,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var EventDetailsComponent = /*#__PURE__*/function () {
       function EventDetailsComponent(commonService, eventService, categoryService, companyService, userService) {
-        var _this46 = this;
+        var _this66 = this;
 
         _classCallCheck(this, EventDetailsComponent);
 
@@ -7344,14 +9581,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
          */
 
         this.dateFilter = function (date) {
-          return date >= _this46.initial_date;
+          return date >= _this66.initial_date;
         };
       }
 
       _createClass(EventDetailsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this47 = this;
+          var _this67 = this;
 
           this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
@@ -7363,22 +9600,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this47.filteredCategories = data;
+              _this67.filteredCategories = data;
 
-              _this47.subscription.unsubscribe();
+              _this67.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this47.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this67.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription2 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this47.filteredCompanies = data;
+              _this67.filteredCompanies = data;
 
-              _this47.subscription2.unsubscribe();
+              _this67.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this47.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this67.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.user = this.userService.actualUser;
@@ -7392,8 +9629,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       }, {
         key: "changeState",
-        value: function changeState(_ref14) {
-          var source = _ref14.source;
+        value: function changeState(_ref16) {
+          var source = _ref16.source;
           this.allDay == false ? this.allDay = true : this.allDay = false;
           source.checked = this.allDay;
         }
@@ -7419,7 +9656,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setData",
         value: function setData() {
-          var _this48 = this;
+          var _this68 = this;
 
           this.eventFG.controls['name'].setValue(this.event.name);
           this.eventFG.controls['cost'].setValue(this.event.cost);
@@ -7435,39 +9672,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           this.subscription3 = this.categoryService.getEventCategories(this.event.event_id).subscribe({
             next: function next(data) {
-              _this48.allCategories = [];
-              _this48.allOldCategories = [];
+              _this68.allCategories = [];
+              _this68.allOldCategories = [];
               data.forEach(function (val) {
-                return _this48.allCategories.push(val);
+                return _this68.allCategories.push(val);
               });
 
-              _this48.allCategories.forEach(function (val) {
-                return _this48.allOldCategories.push(val.category_id);
+              _this68.allCategories.forEach(function (val) {
+                return _this68.allOldCategories.push(val.category_id);
               });
 
-              _this48.subscription3.unsubscribe();
+              _this68.subscription3.unsubscribe();
             },
             error: function error(err) {
-              return _this48.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this68.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           }); //compañías
 
           this.subscription4 = this.companyService.getCompaniesByEvent(this.event.event_id).subscribe({
             next: function next(data) {
-              _this48.allCompanies = [];
-              _this48.allOldCompanies = [];
+              _this68.allCompanies = [];
+              _this68.allOldCompanies = [];
               data.forEach(function (val) {
-                return _this48.allCompanies.push(val);
+                return _this68.allCompanies.push(val);
               });
 
-              _this48.allCompanies.forEach(function (val) {
-                return _this48.allOldCompanies.push(val.company_id);
+              _this68.allCompanies.forEach(function (val) {
+                return _this68.allOldCompanies.push(val.company_id);
               });
 
-              _this48.subscription4.unsubscribe();
+              _this68.subscription4.unsubscribe();
             },
             error: function error(err) {
-              return _this48.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this68.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         } //chipList 
@@ -7529,7 +9766,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "modifyEvent",
         value: function modifyEvent() {
-          var _this49 = this;
+          var _this69 = this;
 
           this.loading = true;
           this.eventFG.disable();
@@ -7561,13 +9798,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           };
           this.eventService.modifyEvent(json).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this49, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-                return regeneratorRuntime.wrap(function _callee7$(_context7) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this69, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+                return regeneratorRuntime.wrap(function _callee9$(_context9) {
                   while (1) {
-                    switch (_context7.prev = _context7.next) {
+                    switch (_context9.prev = _context9.next) {
                       case 0:
                         if (!(data.status == 200)) {
-                          _context7.next = 12;
+                          _context9.next = 12;
                           break;
                         }
 
@@ -7577,14 +9814,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                         this.getCategoriesID();
                         this.getCompaniesID();
-                        _context7.next = 7;
+                        _context9.next = 7;
                         return this.eventRelations(this.event.event_id);
 
                       case 7:
                         this.commonService.openSnackBar("El evento ".concat(this.event.name, " ha sido cambiado"), "OK");
                         this.loading = false;
                         location.reload();
-                        _context7.next = 13;
+                        _context9.next = 13;
                         break;
 
                       case 12:
@@ -7592,39 +9829,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                       case 13:
                       case "end":
-                        return _context7.stop();
+                        return _context9.stop();
                     }
                   }
-                }, _callee7, this);
+                }, _callee9, this);
               }));
             },
             error: function error(err) {
-              _this49.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this69.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this49.loading = false;
+              _this69.loading = false;
 
-              _this49.eventFG.enable();
+              _this69.eventFG.enable();
             }
           });
         }
       }, {
         key: "changeEventState",
-        value: function changeEventState(event, _ref15) {
-          var _this50 = this;
+        value: function changeEventState(event, _ref17) {
+          var _this70 = this;
 
-          var source = _ref15.source;
+          var source = _ref17.source;
           this.eventService.changeEventState(event.event_id).subscribe({
             next: function next(data) {
               if (data.status == 200) {
                 event.is_active = !event.is_active;
                 source.checked = event.is_active;
-                if (event.is_active) _this50.commonService.openSnackBar("El evento ".concat(event.name, " ha sido activado"), "OK");else _this50.commonService.openSnackBar("El evento ".concat(event.name, " ha sido desactivado"), "OK");
+                if (event.is_active) _this70.commonService.openSnackBar("El evento ".concat(event.name, " ha sido activado"), "OK");else _this70.commonService.openSnackBar("El evento ".concat(event.name, " ha sido desactivado"), "OK");
               } else {
-                _this50.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this70.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this50.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this70.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
               source.checked = event.is_active;
             }
@@ -7663,32 +9900,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "eventRelations",
         value: function eventRelations(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
             var i, _i2, _i3, _i4;
 
-            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            return regeneratorRuntime.wrap(function _callee10$(_context10) {
               while (1) {
-                switch (_context8.prev = _context8.next) {
+                switch (_context10.prev = _context10.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < this.allCategories.length)) {
-                      _context8.next = 8;
+                      _context10.next = 8;
                       break;
                     }
 
                     if (!(this.allOldCategories.indexOf(this.allCategories[i]) === -1)) {
-                      _context8.next = 5;
+                      _context10.next = 5;
                       break;
                     }
 
-                    _context8.next = 5;
+                    _context10.next = 5;
                     return this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise();
 
                   case 5:
                     i++;
-                    _context8.next = 1;
+                    _context10.next = 1;
                     break;
 
                   case 8:
@@ -7696,21 +9933,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 9:
                     if (!(_i2 < this.allOldCategories.length)) {
-                      _context8.next = 16;
+                      _context10.next = 16;
                       break;
                     }
 
                     if (!(this.allCategories.indexOf(this.allOldCategories[_i2]) === -1)) {
-                      _context8.next = 13;
+                      _context10.next = 13;
                       break;
                     }
 
-                    _context8.next = 13;
+                    _context10.next = 13;
                     return this.categoryService.deleteCategoryFromEvent(this.allOldCategories[_i2], event_id).toPromise();
 
                   case 13:
                     _i2++;
-                    _context8.next = 9;
+                    _context10.next = 9;
                     break;
 
                   case 16:
@@ -7718,21 +9955,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 17:
                     if (!(_i3 < this.allCompanies.length)) {
-                      _context8.next = 24;
+                      _context10.next = 24;
                       break;
                     }
 
                     if (!(this.allOldCompanies.indexOf(this.allCompanies[_i3]) === -1)) {
-                      _context8.next = 21;
+                      _context10.next = 21;
                       break;
                     }
 
-                    _context8.next = 21;
+                    _context10.next = 21;
                     return this.eventService.addCompanyToEvent(this.allCompanies[_i3], event_id, this.user.user_id).toPromise();
 
                   case 21:
                     _i3++;
-                    _context8.next = 17;
+                    _context10.next = 17;
                     break;
 
                   case 24:
@@ -7740,29 +9977,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 25:
                     if (!(_i4 < this.allOldCompanies.length)) {
-                      _context8.next = 32;
+                      _context10.next = 32;
                       break;
                     }
 
                     if (!(this.allCompanies.indexOf(this.allOldCompanies[_i4]) === -1)) {
-                      _context8.next = 29;
+                      _context10.next = 29;
                       break;
                     }
 
-                    _context8.next = 29;
+                    _context10.next = 29;
                     return this.eventService.deleteCompanyFromEvent(this.allOldCompanies[_i4], event_id).toPromise();
 
                   case 29:
                     _i4++;
-                    _context8.next = 25;
+                    _context10.next = 25;
                     break;
 
                   case 32:
                   case "end":
-                    return _context8.stop();
+                    return _context10.stop();
                 }
               }
-            }, _callee8, this);
+            }, _callee10, this);
           }));
         } //Metodos de imagenes
 
@@ -7774,11 +10011,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "uploadFile",
         value: function uploadFile(files) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee9$(_context9) {
+            return regeneratorRuntime.wrap(function _callee11$(_context11) {
               while (1) {
-                switch (_context9.prev = _context9.next) {
+                switch (_context11.prev = _context11.next) {
                   case 0:
                     this.loading = true;
                     this.eventFG.disable();
@@ -7787,18 +10024,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 4:
                     if (!(i < files.length)) {
-                      _context9.next = 10;
+                      _context11.next = 10;
                       break;
                     }
 
-                    _context9.next = 7;
+                    _context11.next = 7;
                     return this.commonService.uploadFile(files[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 7:
                     i++;
-                    _context9.next = 4;
+                    _context11.next = 4;
                     break;
 
                   case 10:
@@ -7807,10 +10044,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 12:
                   case "end":
-                    return _context9.stop();
+                    return _context11.stop();
                 }
               }
-            }, _callee9, this);
+            }, _callee11, this);
           }));
         }
       }, {
@@ -7818,13 +10055,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function deleteImage() {
           this.loading = true;
           this.eventFG.disable();
+
+          if (this.eventImages.length == 1) {
+            this.imageIndex = 0;
+          }
+
           this.eventImages.splice(this.imageIndex, 1);
           this.updateImages(this.eventImages);
         }
       }, {
         key: "updateImages",
         value: function updateImages(images) {
-          var _this51 = this;
+          var _this71 = this;
 
           var event = {
             event_id: this.event.event_id,
@@ -7853,28 +10095,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.eventService.modifyEvent(json).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this51.loading = false;
+                _this71.loading = false;
 
-                _this51.eventFG.enable();
+                _this71.eventFG.enable();
 
-                _this51.event = event;
-                _this51.eventImages = images;
+                _this71.event = event;
+                _this71.eventImages = images;
 
-                _this51.commonService.openSnackBar("El evento ".concat(_this51.event.name, " ha sido cambiado"), "OK");
+                _this71.commonService.openSnackBar("El evento ".concat(_this71.event.name, " ha sido cambiado"), "OK");
               } else {
-                _this51.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this71.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
 
-                _this51.loading = false;
+                _this71.loading = false;
 
-                _this51.eventFG.enable();
+                _this71.eventFG.enable();
               }
             },
             error: function error(err) {
-              _this51.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this71.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this51.loading = false;
+              _this71.loading = false;
 
-              _this51.eventFG.enable();
+              _this71.eventFG.enable();
             }
           });
         }
@@ -7929,7 +10171,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".map {\n  height: 500px;\n  padding: 0;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9sb2NhdGlvbi9sb2NhdGlvbi5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9tYW5hZ2VtZW50L2xvY2F0aW9uL2xvY2F0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBQTtFQUNBLFVBQUE7RUFDQSxZQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9ldmVudC9jb21wb25lbnRzL21hbmFnZW1lbnQvbG9jYXRpb24vbG9jYXRpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWFwIHtcbiAgICBoZWlnaHQ6IDUwMHB4O1xuICAgIHBhZGRpbmc6IDA7XG4gICAgbWFyZ2luOiBhdXRvXG4gIH0iLCIubWFwIHtcbiAgaGVpZ2h0OiA1MDBweDtcbiAgcGFkZGluZzogMDtcbiAgbWFyZ2luOiBhdXRvO1xufSJdfQ== */";
+    __webpack_exports__["default"] = ".map {\n  height: 500px;\n  padding: 0;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9sb2NhdGlvbi9sb2NhdGlvbi5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9tYW5hZ2VtZW50L2xvY2F0aW9uL2xvY2F0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBQTtFQUNBLFVBQUE7RUFDQSxZQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9ldmVudC9jb21wb25lbnRzL21hbmFnZW1lbnQvbG9jYXRpb24vbG9jYXRpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWFwIHtcbiAgaGVpZ2h0OiA1MDBweDtcbiAgcGFkZGluZzogMDtcbiAgbWFyZ2luOiBhdXRvXG59IiwiLm1hcCB7XG4gIGhlaWdodDogNTAwcHg7XG4gIHBhZGRpbmc6IDA7XG4gIG1hcmdpbjogYXV0bztcbn0iXX0= */";
     /***/
   },
 
@@ -8030,7 +10272,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this52 = this;
+          var _this72 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -8041,7 +10283,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
 
           setTimeout(function () {
-            return _this52.map.invalidateSize();
+            return _this72.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -8072,7 +10314,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "updateEventLocation",
         value: function updateEventLocation() {
-          var _this53 = this;
+          var _this73 = this;
 
           console.log(this.myEvent);
           var infoEvent = {
@@ -8085,7 +10327,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             final_time: this.myEvent.final_time,
             initial_time: this.myEvent.initial_time,
             name: this.myEvent.name,
-            event_id: this.myEvent.event_id
+            event_id: this.myEvent.event_id,
+            user_id: this.myEvent.user_id,
+            images: this.myEvent.images,
+            is_active: this.myEvent.is_active
           };
           var updatedEvent = {
             info: infoEvent,
@@ -8095,19 +10340,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.eventService.modifyEvent(updatedEvent).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this53.myEvent = updatedEvent.info;
-                _this53.myEvent.latitude = updatedEvent.latitude;
-                _this53.myEvent.longitude = updatedEvent.longitude;
+                _this73.myEvent = updatedEvent.info;
+                _this73.myEvent.latitude = updatedEvent.latitude;
+                _this73.myEvent.longitude = updatedEvent.longitude;
 
-                _this53.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this53.myEvent.name, " ha sido actualizada"), "OK");
+                _this73.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this73.myEvent.name, " ha sido actualizada"), "OK");
 
-                _this53.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this53.myEvent.latitude, _this53.myEvent.longitude), 18);
+                _this73.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this73.myEvent.latitude, _this73.myEvent.longitude), 18);
               } else {
-                _this53.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
+                _this73.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this53.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this73.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -8216,12 +10461,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this54 = this;
+          var _this74 = this;
 
           this.eventSubscription = this.route.paramMap.subscribe(function (params) {
-            _this54.event_id = Number(params.get("event_id"));
+            _this74.event_id = Number(params.get("event_id"));
 
-            _this54.recharge();
+            _this74.recharge();
           });
         }
       }, {
@@ -8232,10 +10477,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this55 = this;
+          var _this75 = this;
 
           this.eventService.getEvent(Number(this.event_id)).subscribe(function (data) {
-            _this55.myEvent = data;
+            _this75.myEvent = data;
           });
         }
       }]);
@@ -8361,25 +10606,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _components_events_events_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ./components/events/events.component */
-    "./src/app/event/components/events/events.component.ts");
+    var _components_event_request_event_request_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./components/event-request/event-request.component */
+    "./src/app/event/components/event-request/event-request.component.ts");
     /* harmony import */
 
 
-    var _components_event_request_event_request_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! ./components/event-request/event-request.component */
-    "./src/app/event/components/event-request/event-request.component.ts");
+    var _components_main_tabs_main_tabs_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ./components/main-tabs/main-tabs.component */
+    "./src/app/event/components/main-tabs/main-tabs.component.ts");
 
     var routes = [{
       path: "event",
       component: _event_root_component__WEBPACK_IMPORTED_MODULE_2__["EventRootComponent"],
       children: [{
         path: "all",
-        component: _components_events_events_component__WEBPACK_IMPORTED_MODULE_4__["EventsComponent"]
+        component: _components_main_tabs_main_tabs_component__WEBPACK_IMPORTED_MODULE_5__["MainTabsComponent"]
       }, {
         path: "request",
-        component: _components_event_request_event_request_component__WEBPACK_IMPORTED_MODULE_5__["EventRequestComponent"]
+        component: _components_event_request_event_request_component__WEBPACK_IMPORTED_MODULE_4__["EventRequestComponent"]
       }, {
         path: ":event_id",
         component: _components_management_management_component__WEBPACK_IMPORTED_MODULE_3__["ManagementComponent"]
@@ -8518,14 +10763,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _components_event_request_event_request_filters_event_request_filters_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
     /*! ./components/event-request/event-request-filters/event-request-filters.component */
     "./src/app/event/components/event-request/event-request-filters/event-request-filters.component.ts");
+    /* harmony import */
+
+
+    var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
+    /*! @ng-bootstrap/ng-bootstrap */
+    "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+    /* harmony import */
+
+
+    var _components_main_tabs_main_tabs_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
+    /*! ./components/main-tabs/main-tabs.component */
+    "./src/app/event/components/main-tabs/main-tabs.component.ts");
+    /* harmony import */
+
+
+    var _components_events_stadistics_events_stadistics_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
+    /*! ./components/events-stadistics/events-stadistics.component */
+    "./src/app/event/components/events-stadistics/events-stadistics.component.ts");
 
     var EventModule = function EventModule() {
       _classCallCheck(this, EventModule);
     };
 
     EventModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-      declarations: [_components_events_events_component__WEBPACK_IMPORTED_MODULE_5__["EventsComponent"], _components_event_create_event_create_component__WEBPACK_IMPORTED_MODULE_6__["EventCreateComponent"], _components_management_management_component__WEBPACK_IMPORTED_MODULE_7__["ManagementComponent"], _event_root_component__WEBPACK_IMPORTED_MODULE_8__["EventRootComponent"], _components_management_location_location_component__WEBPACK_IMPORTED_MODULE_12__["LocationComponent"], _components_management_event_details_event_details_component__WEBPACK_IMPORTED_MODULE_13__["EventDetailsComponent"], _components_events_event_filters_event_filters_component__WEBPACK_IMPORTED_MODULE_15__["EventFiltersComponent"], _components_event_request_event_request_component__WEBPACK_IMPORTED_MODULE_16__["EventRequestComponent"], _components_event_request_event_request_filters_event_request_filters_component__WEBPACK_IMPORTED_MODULE_17__["EventRequestFiltersComponent"]],
-      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _event_rounting_module__WEBPACK_IMPORTED_MODULE_9__["EventRoutingModule"], ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_10__["FilterPipeModule"], ngx_color_circle__WEBPACK_IMPORTED_MODULE_11__["ColorCircleModule"], _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_14__["LeafletModule"]],
+      declarations: [_components_events_events_component__WEBPACK_IMPORTED_MODULE_5__["EventsComponent"], _components_event_create_event_create_component__WEBPACK_IMPORTED_MODULE_6__["EventCreateComponent"], _components_management_management_component__WEBPACK_IMPORTED_MODULE_7__["ManagementComponent"], _event_root_component__WEBPACK_IMPORTED_MODULE_8__["EventRootComponent"], _components_management_location_location_component__WEBPACK_IMPORTED_MODULE_12__["LocationComponent"], _components_management_event_details_event_details_component__WEBPACK_IMPORTED_MODULE_13__["EventDetailsComponent"], _components_events_event_filters_event_filters_component__WEBPACK_IMPORTED_MODULE_15__["EventFiltersComponent"], _components_event_request_event_request_component__WEBPACK_IMPORTED_MODULE_16__["EventRequestComponent"], _components_event_request_event_request_filters_event_request_filters_component__WEBPACK_IMPORTED_MODULE_17__["EventRequestFiltersComponent"], _components_main_tabs_main_tabs_component__WEBPACK_IMPORTED_MODULE_19__["MainTabsComponent"], _components_events_stadistics_events_stadistics_component__WEBPACK_IMPORTED_MODULE_20__["EventsStadisticsComponent"]],
+      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _event_rounting_module__WEBPACK_IMPORTED_MODULE_9__["EventRoutingModule"], ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_10__["FilterPipeModule"], ngx_color_circle__WEBPACK_IMPORTED_MODULE_11__["ColorCircleModule"], _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_14__["LeafletModule"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_18__["NgbModule"]],
       providers: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["DatePipe"]],
       entryComponents: [_components_event_create_event_create_component__WEBPACK_IMPORTED_MODULE_6__["EventCreateComponent"], _components_events_event_filters_event_filters_component__WEBPACK_IMPORTED_MODULE_15__["EventFiltersComponent"], _components_event_request_event_request_filters_event_request_filters_component__WEBPACK_IMPORTED_MODULE_17__["EventRequestFiltersComponent"]]
     })], EventModule);
@@ -8739,6 +11002,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL, "petitions/"), json, {
             observe: 'response'
           });
+        }
+      }, {
+        key: "getFilteredEvents",
+        value: function getFilteredEvents(name, initial_date, final_date, category_id, score) {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL).concat(this.module, "Filtered/").concat(name, "/").concat(initial_date, "/").concat(final_date, "/").concat(category_id, "/").concat(score));
         }
       }]);
 
@@ -8973,11 +11241,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "uploadFile",
         value: function uploadFile(file) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
             var data, promise;
-            return regeneratorRuntime.wrap(function _callee10$(_context10) {
+            return regeneratorRuntime.wrap(function _callee12$(_context12) {
               while (1) {
-                switch (_context10.prev = _context10.next) {
+                switch (_context12.prev = _context12.next) {
                   case 0:
                     console.log(file);
                     data = new FormData();
@@ -8992,14 +11260,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       xhr.open("POST", "https://intelitur.sytes.net/image");
                       xhr.send(data);
                     });
-                    return _context10.abrupt("return", promise);
+                    return _context12.abrupt("return", promise);
 
                   case 5:
                   case "end":
-                    return _context10.stop();
+                    return _context12.stop();
                 }
               }
-            }, _callee10);
+            }, _callee12);
           }));
         }
       }, {
@@ -9390,24 +11658,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(FilterOptionsDialogComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this56 = this;
+          var _this76 = this;
 
           this.filters.role = this._session.actualUser.role_id;
           this.filters.user_id = this._session.actualUser.user_id;
           this.categorySubs = this._itineray.getCategories().subscribe({
             next: function next(response) {
-              return _this56.categories = response.data;
+              return _this76.categories = response.data;
             },
             error: function error(err) {
-              return _this56._common.handleError(err);
+              return _this76._common.handleError(err);
             }
           });
           this.groupTypeSubs = this._itineray.getGroupTypes().subscribe({
             next: function next(response) {
-              return _this56.groupTypes = response.data;
+              return _this76.groupTypes = response.data;
             },
             error: function error(err) {
-              return _this56._common.handleError(err);
+              return _this76._common.handleError(err);
             }
           });
         }
@@ -9570,14 +11838,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getItinerariesMinimalInfo",
         value: function getItinerariesMinimalInfo() {
-          var _this57 = this;
+          var _this77 = this;
 
           this.subscription = this._itinerary.getItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this57.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data.data);
+              _this77.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this57._common.handleError(err);
+              return _this77._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -9589,20 +11857,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this58 = this;
+          var _this78 = this;
 
           this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
             next: function next(filters) {
               if (filters) {
-                _this58.filterItinerariesSubs = _this58._itinerary.filterItineraries(filters).subscribe({
+                _this78.filterItinerariesSubs = _this78._itinerary.filterItineraries(filters).subscribe({
                   next: function next(response) {
-                    _this58.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](response.data);
+                    _this78.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](response.data);
                   },
                   error: function error(err) {
-                    return _this58._common.handleError(err);
+                    return _this78._common.handleError(err);
                   }
                 });
-                _this58.isFilters = true;
+                _this78.isFilters = true;
               }
             }
           });
@@ -9901,16 +12169,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setupEndDate",
         value: function setupEndDate() {
-          var _this59 = this;
+          var _this79 = this;
 
           this.itineraryFG.get("startDate").valueChanges.subscribe(function (val) {
-            if (_this59.itineraryFG.get("startDate").value) {
+            if (_this79.itineraryFG.get("startDate").value) {
               var date = new Date(val);
 
-              if (_this59.itineraryFG.get("duration").value) {
-                date.setDate(date.getDate() + _this59.itineraryFG.get("duration").value);
+              if (_this79.itineraryFG.get("duration").value) {
+                date.setDate(date.getDate() + _this79.itineraryFG.get("duration").value);
 
-                _this59.itineraryFG.get('endDate').setValue(date);
+                _this79.itineraryFG.get('endDate').setValue(date);
               }
             }
           });
@@ -9922,20 +12190,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setupValueChangesTotalPrice",
         value: function setupValueChangesTotalPrice() {
-          var _this60 = this;
+          var _this80 = this;
 
           this.itineraryFG.get("pricePerDay").valueChanges.subscribe(function (val) {
-            if (_this60.itineraryFG.get("duration").value) {
-              var duration = _this60.itineraryFG.get("duration").value;
+            if (_this80.itineraryFG.get("duration").value) {
+              var duration = _this80.itineraryFG.get("duration").value;
 
-              _this60.itineraryFG.controls["totalPrice"].setValue(val * duration);
+              _this80.itineraryFG.controls["totalPrice"].setValue(val * duration);
             }
           });
           this.itineraryFG.get("duration").valueChanges.subscribe(function (val) {
-            if (_this60.itineraryFG.get("pricePerDay").value) {
-              var pricePerDay = _this60.itineraryFG.get("pricePerDay").value;
+            if (_this80.itineraryFG.get("pricePerDay").value) {
+              var pricePerDay = _this80.itineraryFG.get("pricePerDay").value;
 
-              _this60.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
+              _this80.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
             }
           });
         }
@@ -9946,7 +12214,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setupUploader",
         value: function setupUploader() {
-          var _this61 = this;
+          var _this81 = this;
 
           this._image.uploader.onAfterAddingFile = function (file) {
             file.withCredentials = false;
@@ -9955,14 +12223,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this._image.uploader.onSuccessItem = function (item, response, status, headers) {
             var path = JSON.parse(response).data;
 
-            _this61.savedImagePaths.push(path);
+            _this81.savedImagePaths.push(path);
           };
 
           this._image.uploader.onCompleteAll = function () {
-            _this61.savedImagePaths.forEach(function (e) {
-              _this61.subscription = _this61._itinerary.saveImageUrl(_this61.savedIt, e).subscribe({
+            _this81.savedImagePaths.forEach(function (e) {
+              _this81.subscription = _this81._itinerary.saveImageUrl(_this81.savedIt, e).subscribe({
                 error: function error(err) {
-                  return _this61._common.handleError(err);
+                  return _this81._common.handleError(err);
                 }
               });
             });
@@ -9993,17 +12261,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getGroupTypes",
         value: function getGroupTypes() {
-          var _this62 = this;
+          var _this82 = this;
 
           this.subscription = this._itinerary.getGroupTypes().subscribe({
             next: function next(data) {
-              _this62.groupTypes = [];
+              _this82.groupTypes = [];
               data.data.forEach(function (el) {
-                _this62.groupTypes.unshift(el);
+                _this82.groupTypes.unshift(el);
               });
             },
             error: function error(err) {
-              return _this62._common.handleError(err);
+              return _this82._common.handleError(err);
             }
           });
         }
@@ -10014,14 +12282,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this63 = this;
+          var _this83 = this;
 
           this.subscription = this._itinerary.getCategories().subscribe({
             next: function next(result) {
-              _this63.categories = result.data;
+              _this83.categories = result.data;
             },
             error: function error(err) {
-              return _this63._common.handleError(err);
+              return _this83._common.handleError(err);
             }
           });
         }
@@ -10032,7 +12300,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "catchSelectedImages",
         value: function catchSelectedImages(files) {
-          var _this64 = this;
+          var _this84 = this;
 
           for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
@@ -10040,9 +12308,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             reader.onload = function (event) {
               // called once readAsDataURL is completed
-              _this64.images.push(event.target.result);
+              _this84.images.push(event.target.result);
 
-              _this64.data.images = _this64.images;
+              _this84.data.images = _this84.images;
             };
           }
         }
@@ -10058,7 +12326,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this65 = this;
+          var _this85 = this;
 
           var fv = this.itineraryFG.value;
           this.subscription = this._itinerary.saveItinerary(new src_app_itinerary_models_Itinerary__WEBPACK_IMPORTED_MODULE_4__["Itinerary"]({
@@ -10077,14 +12345,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             return e.category_id;
           })).subscribe({
             next: function next(result) {
-              _this65._common.openSnackBar("Itinerario guardado con éxito", "Ok");
+              _this85._common.openSnackBar("Itinerario guardado con éxito", "Ok");
 
-              _this65.savedIt = result.data;
+              _this85.savedIt = result.data;
 
-              _this65.uploadImages();
+              _this85.uploadImages();
             },
             error: function error(err) {
-              return _this65._common.handleError(err);
+              return _this85._common.handleError(err);
             }
           });
         }
@@ -10309,14 +12577,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ItineraryDashboardComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this66 = this;
+          var _this86 = this;
 
           if (!this._itinerary.itinerary_id) this._router.navigate(["itineraries/show-all"]);else this.subscription = this._itinerary.getItineraryFullInfo(this._itinerary.itinerary_id).subscribe({
             next: function next(data) {
-              _this66.itinerary = data.data;
+              _this86.itinerary = data.data;
             },
             error: function error(err) {
-              return _this66._common.handleError(err);
+              return _this86._common.handleError(err);
             }
           });
         }
@@ -10528,16 +12796,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "save",
         value: function save() {
-          var _this67 = this;
+          var _this87 = this;
 
           this.subscription = this._itinerary.addDay(this.data.id_itinerary, this.data.day_number, this.data.details, this.data.duration + 1).subscribe({
             next: function next(result) {
-              _this67._common.openSnackBar(result.message, "Ok");
+              _this87._common.openSnackBar(result.message, "Ok");
 
-              return _this67.dialogRef.close(_this67.data);
+              return _this87.dialogRef.close(_this87.data);
             },
             error: function error(err) {
-              return _this67._common.handleError(err);
+              return _this87._common.handleError(err);
             }
           });
         }
@@ -10674,16 +12942,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ItineraryDistributionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this68 = this;
+          var _this88 = this;
 
           this.subscription = this.itineraryService.getFavoriteItinerary(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
               if (data.data.length > 0) {
-                _this68.favorites = data.data[0].get_favorite_itinerary;
+                _this88.favorites = data.data[0].get_favorite_itinerary;
               }
             },
             error: function error(err) {
-              return _this68.commonService.handleError(err);
+              return _this88.commonService.handleError(err);
             }
           });
         }
@@ -10697,22 +12965,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setAvailable",
         value: function setAvailable(state, itineraryID, info) {
-          var _this69 = this;
+          var _this89 = this;
 
           var modifyInfo = info;
           modifyInfo.active = state;
           this.subscription = this.itineraryService.changeActiveState(itineraryID, modifyInfo).subscribe({
             next: function next() {
               if (state) {
-                _this69.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido habilitado"), "OK");
+                _this89.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido habilitado"), "OK");
               } else {
-                _this69.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido desabilitado"), "OK");
+                _this89.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido desabilitado"), "OK");
               }
 
-              _this69.subscription.unsubscribe();
+              _this89.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this69.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this89.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -10724,18 +12992,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addFavoriteItinerary",
         value: function addFavoriteItinerary(itineraryID) {
-          var _this70 = this;
+          var _this90 = this;
 
           this.favorites.push(itineraryID);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this.itineraryService.addFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this70.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido agregado a favoritos"), "OK");
+              _this90.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido agregado a favoritos"), "OK");
 
-              _this70.subscription.unsubscribe();
+              _this90.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this70.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this90.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -10747,18 +13015,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "removeFavoriteItinerary",
         value: function removeFavoriteItinerary(itineraryID) {
-          var _this71 = this;
+          var _this91 = this;
 
           this.favorites.splice(this.favorites.indexOf(itineraryID, 0), 1);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this.itineraryService.removeFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this71.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido removido de favoritos"), "OK");
+              _this91.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido removido de favoritos"), "OK");
 
-              _this71.subscription.unsubscribe();
+              _this91.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this71.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this91.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -10928,30 +13196,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(OffersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this72 = this;
+          var _this92 = this;
 
           this.days = new Array(this.it.info["duration"]);
           this.days = this.fillArray(this.it.info["duration"]);
           this.subscription = this._itinerary.getFavoriteOffer(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              if (data.data[0]) _this72.favorites = data.data[0].get_favorite_offer;
+              if (data.data[0]) _this92.favorites = data.data[0].get_favorite_offer;
             },
             error: function error(err) {
-              return _this72.commonService.handleError(err);
+              return _this92.commonService.handleError(err);
             }
           });
 
           if (this.it) {
             this.getDaysInfo();
             this.searchOffersCTRL.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
-              _this72.filteredOffers = [];
-              _this72.isLoading = true;
+              _this92.filteredOffers = [];
+              _this92.isLoading = true;
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["switchMap"])(function (value) {
-              return _this72.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].SERVER_BASE_URL, "itinerary/filterOffers?value=").concat(value, "&it_id=").concat(_this72.it["itinerary_id"])).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["finalize"])(function () {
-                _this72.isLoading = false;
+              return _this92.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].SERVER_BASE_URL, "itinerary/filterOffers?value=").concat(value, "&it_id=").concat(_this92.it["itinerary_id"])).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["finalize"])(function () {
+                _this92.isLoading = false;
               }));
             })).subscribe(function (result) {
-              _this72.filteredOffers = result.data;
+              _this92.filteredOffers = result.data;
             });
           }
         }
@@ -10981,18 +13249,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addOfferFavorite",
         value: function addOfferFavorite(offerID) {
-          var _this73 = this;
+          var _this93 = this;
 
           this.favorites.push(offerID);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.addFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this73.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido agregado a favoritos"), "OK");
+              _this93.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido agregado a favoritos"), "OK");
 
-              _this73.subscription.unsubscribe();
+              _this93.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this73.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this93.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -11004,18 +13272,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "removeOfferFavorite",
         value: function removeOfferFavorite(offerID) {
-          var _this74 = this;
+          var _this94 = this;
 
           this.favorites.splice(this.favorites.indexOf(offerID, 0), 1);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this74.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
+              _this94.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
 
-              _this74.subscription.unsubscribe();
+              _this94.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this74.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this94.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -11027,11 +13295,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "updateDayDistribution",
         value: function updateDayDistribution(day_number, index) {
-          var _this75 = this;
+          var _this95 = this;
 
           var distArray = this.days[index].items.map(function (e) {
             return {
-              it: _this75.it["itinerary_id"],
+              it: _this95.it["itinerary_id"],
               offer_id: e.offer_id,
               day_number: day_number,
               initial_time: "21:40:12.585447",
@@ -11045,10 +13313,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }];
           this.subscription = this._itinerary.updateDayDistribution(distArray).subscribe({
             next: function next(result) {
-              return _this75.commonService.openSnackBar(result.message, "Ok");
+              return _this95.commonService.openSnackBar(result.message, "Ok");
             },
             error: function error(err) {
-              return _this75.commonService.handleError(err);
+              return _this95.commonService.handleError(err);
             }
           });
         }
@@ -11059,38 +13327,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getDaysInfo",
         value: function getDaysInfo() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-            var _this76 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+            var _this96 = this;
 
-            return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            return regeneratorRuntime.wrap(function _callee13$(_context13) {
               while (1) {
-                switch (_context11.prev = _context11.next) {
+                switch (_context13.prev = _context13.next) {
                   case 0:
-                    _context11.next = 2;
+                    _context13.next = 2;
                     return this._itinerary.getDayInfo(this.it["itinerary_id"]).toPromise().then(function (data) {
                       if (data.data.day !== null) {
-                        _this76.formatDaysArray(data.data.day);
+                        _this96.formatDaysArray(data.data.day);
                       }
                     })["catch"](function (err) {
-                      return _this76.commonService.handleError(err);
+                      return _this96.commonService.handleError(err);
                     });
 
                   case 2:
                     this.subscription = this._itinerary.getDaysDetails(this.it["itinerary_id"]).subscribe({
                       next: function next(result) {
-                        return _this76.daysDetails = result.data;
+                        return _this96.daysDetails = result.data;
                       },
                       error: function error(err) {
-                        return _this76.commonService.handleError(err);
+                        return _this96.commonService.handleError(err);
                       }
                     });
 
                   case 3:
                   case "end":
-                    return _context11.stop();
+                    return _context13.stop();
                 }
               }
-            }, _callee11, this);
+            }, _callee13, this);
           }));
         }
         /**
@@ -11101,7 +13369,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "formatDaysArray",
         value: function formatDaysArray(data) {
-          var _this77 = this;
+          var _this97 = this;
 
           var source = Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["from"])(data);
           var obs = source.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["groupBy"])(function (d) {
@@ -11112,7 +13380,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
           this.formatArraySubscription = obs.subscribe({
             next: function next(val) {
-              if (_this77.days[val[0].day_number - 1]) _this77.days[val[0].day_number - 1].items = val;
+              if (_this97.days[val[0].day_number - 1]) _this97.days[val[0].day_number - 1].items = val;
             }
           });
         }
@@ -11167,16 +13435,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "deleteDay",
         value: function deleteDay(day_number, index) {
-          var _this78 = this;
+          var _this98 = this;
 
           this.deleteDaySubs = this._itinerary.deleteDay(this.it["itinerary_id"], day_number).subscribe({
             next: function next(result) {
-              _this78.commonService.openSnackBar(result.message, "Ok");
+              _this98.commonService.openSnackBar(result.message, "Ok");
 
-              _this78.days.splice(index, 1);
+              _this98.days.splice(index, 1);
             },
             error: function error(err) {
-              return _this78.commonService.handleError(err);
+              return _this98.commonService.handleError(err);
             }
           });
         }
@@ -11187,7 +13455,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addDay",
         value: function addDay() {
-          var _this79 = this;
+          var _this99 = this;
 
           this._dialog.openCreateDay({
             details: "",
@@ -11196,12 +13464,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             duration: this.it.info["duration"]
           }).subscribe({
             next: function next(createdDay) {
-              _this79.days.push({
+              _this99.days.push({
                 day_number: createdDay.day_number,
                 items: []
               });
 
-              _this79.daysDetails.push({
+              _this99.daysDetails.push({
                 details: createdDay.details
               });
             }
@@ -11218,16 +13486,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "unlinkOffer",
         value: function unlinkOffer(offer_id, day_number, offer_index, day_index) {
-          var _this80 = this;
+          var _this100 = this;
 
           this.subscription = this._itinerary.unlinkOffer(offer_id, this.it["itinerary_id"], day_number).subscribe({
             next: function next(result) {
-              _this80.commonService.openSnackBar(result.message, "Ok");
+              _this100.commonService.openSnackBar(result.message, "Ok");
 
-              _this80.days[day_index].items.splice(offer_index, 1);
+              _this100.days[day_index].items.splice(offer_index, 1);
             },
             error: function error(err) {
-              return _this80.commonService.handleError(err);
+              return _this100.commonService.handleError(err);
             }
           });
         }
@@ -11380,17 +13648,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getPromotionByItineraryID",
         value: function getPromotionByItineraryID() {
-          var _this81 = this;
+          var _this101 = this;
 
           this.subscriptionAddedPromotion = this.itineraryService.getPromotionByItineraryID().subscribe({
             next: function next(data) {
-              _this81.addedPromotions = data.data.rows;
-              _this81.addedPromotionLoading = false;
+              _this101.addedPromotions = data.data.rows;
+              _this101.addedPromotionLoading = false;
 
-              _this81.subscriptionAddedPromotion.unsubscribe();
+              _this101.subscriptionAddedPromotion.unsubscribe();
             },
             error: function error(err) {
-              return _this81.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this101.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -11401,17 +13669,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getAllPromotions",
         value: function getAllPromotions() {
-          var _this82 = this;
+          var _this102 = this;
 
           this.subscriptionPromotion = this.itineraryService.getAllPromotions().subscribe({
             next: function next(data) {
-              _this82.promotions = data.data;
-              _this82.promotionLoading = false;
+              _this102.promotions = data.data;
+              _this102.promotionLoading = false;
 
-              _this82.subscriptionPromotion.unsubscribe();
+              _this102.subscriptionPromotion.unsubscribe();
             },
             error: function error(err) {
-              return _this82.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this102.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -11423,18 +13691,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addPromotionInItinerary",
         value: function addPromotionInItinerary(promotion_id) {
-          var _this83 = this;
+          var _this103 = this;
 
           this.subscription = this.itineraryService.addPromotionInItinerary(promotion_id).subscribe({
             next: function next(data) {
-              _this83.addPromotionToListAddedPromotion(promotion_id);
+              _this103.addPromotionToListAddedPromotion(promotion_id);
 
-              _this83.commonService.openSnackBar("Se ha agregado la promoción correctamente", "OK");
+              _this103.commonService.openSnackBar("Se ha agregado la promoción correctamente", "OK");
 
-              _this83.subscription.unsubscribe();
+              _this103.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this83.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this103.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -11468,18 +13736,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "deletePromotionOfItinerary",
         value: function deletePromotionOfItinerary(promotion_id) {
-          var _this84 = this;
+          var _this104 = this;
 
           this.subscription = this.itineraryService.deletePromotionOfItinerary(promotion_id).subscribe({
             next: function next(data) {
-              _this84.returnPromotionToPromotions(promotion_id);
+              _this104.returnPromotionToPromotions(promotion_id);
 
-              _this84.commonService.openSnackBar("Se ha eliminado la promoción correctamente", "OK");
+              _this104.commonService.openSnackBar("Se ha eliminado la promoción correctamente", "OK");
 
-              _this84.subscription.unsubscribe();
+              _this104.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this84.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this104.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -11726,17 +13994,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ItineraryMapComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this85 = this;
+          var _this105 = this;
 
           this.itineraryService.itinerary_id !== undefined ? this.itineraryService.getEventGeomByItineraryID().subscribe({
             next: function next(data) {
-              _this85.markers = data.data;
+              _this105.markers = data.data;
 
-              _this85.fillMarkers(); // Fill info
+              _this105.fillMarkers(); // Fill info
 
             },
             error: function error(err) {
-              return _this85._common.handleError(err);
+              return _this105._common.handleError(err);
             }
           }) : null;
         }
@@ -11747,10 +14015,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "fillMarkers",
         value: function fillMarkers() {
-          var _this86 = this;
+          var _this106 = this;
 
           this.markers.forEach(function (mark) {
-            _this86.layers.push(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["marker"])([mark.lat, mark.lon], {
+            _this106.layers.push(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["marker"])([mark.lat, mark.lon], {
               icon: Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["icon"])({
                 iconSize: [25, 41],
                 iconAnchor: [13, 41],
@@ -12681,14 +14949,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ForgotPasswordComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this87 = this;
+          var _this107 = this;
 
           // Trigger to change icon
           this.forgotPasswordForm.valueChanges.subscribe(function () {
-            if (_this87.forgotPasswordForm.invalid == false) _this87.icon = "done";else _this87.icon = "warning";
+            if (_this107.forgotPasswordForm.invalid == false) _this107.icon = "done";else _this107.icon = "warning";
           });
           this.changePasswordForm.valueChanges.subscribe(function () {
-            if (_this87.forgotPasswordForm.invalid == false) _this87.icon = "done";else _this87.icon = "warning";
+            if (_this107.forgotPasswordForm.invalid == false) _this107.icon = "done";else _this107.icon = "warning";
           });
         }
         /**
@@ -12698,21 +14966,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "sendCodePassword",
         value: function sendCodePassword() {
-          var _this88 = this;
+          var _this108 = this;
 
           this.loading = true;
           this.subscribeForgotPassword = this.sessionService.sendCodePassword(this.forgotPasswordForm.get("email").value).subscribe({
             next: function next(data) {
-              _this88.loading = false;
+              _this108.loading = false;
 
-              _this88.commonService.openSnackBar("Verifique su correo electrónico", "OK");
+              _this108.commonService.openSnackBar("Verifique su correo electrónico", "OK");
 
-              _this88.isSendEmail = true;
+              _this108.isSendEmail = true;
             },
             error: function error(err) {
-              _this88.loading = false;
+              _this108.loading = false;
 
-              _this88.commonService.openSnackBar(err.error.message, "OK");
+              _this108.commonService.openSnackBar(err.error.message, "OK");
             }
           });
         }
@@ -12723,7 +14991,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "changePasswordByCode",
         value: function changePasswordByCode() {
-          var _this89 = this;
+          var _this109 = this;
 
           this.loading = true;
 
@@ -12734,16 +15002,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           } else {
             this.subscribeForgotPassword = this.sessionService.changePasswordByCode(this.changePasswordForm.get("password").value, this.changePasswordForm.get("code").value).subscribe({
               next: function next(data) {
-                _this89.loading = false;
+                _this109.loading = false;
 
-                _this89.commonService.openSnackBar("Las contraseña ha sido actualizada!", "OK");
+                _this109.commonService.openSnackBar("Las contraseña ha sido actualizada!", "OK");
 
-                _this89.dialog.closeAll();
+                _this109.dialog.closeAll();
               },
               error: function error(err) {
-                _this89.loading = false;
+                _this109.loading = false;
 
-                _this89.commonService.openSnackBar(err.error.message, "OK");
+                _this109.commonService.openSnackBar(err.error.message, "OK");
               }
             });
           }
@@ -12887,12 +15155,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(LoginComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this90 = this;
+          var _this110 = this;
 
           document.body.classList.add("bg-img"); // Trigger to change icon
 
           this.loginForm.valueChanges.subscribe(function () {
-            if (_this90.loginForm.invalid == false) _this90.icon = "done";else _this90.icon = "warning";
+            if (_this110.loginForm.invalid == false) _this110.icon = "done";else _this110.icon = "warning";
           });
         }
         /**
@@ -12920,31 +15188,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "loginUser",
         value: function loginUser() {
-          var _this91 = this;
+          var _this111 = this;
 
           this.sessionService.loadingLogin = true;
           this.subscribeLogin = this.sessionService.login(this.loginForm.get("email").value, this.loginForm.get("password").value).subscribe({
             next: function next(data) {
-              _this91.sessionService.loadingLogin = false;
+              _this111.sessionService.loadingLogin = false;
 
-              _this91._auth.login({
+              _this111._auth.login({
                 name: data.data.name,
                 user_id: data.data.user_id,
                 role_id: data.data.role_id
               });
 
-              _this91.sessionService.actualUser = _this91._auth.getUser();
+              _this111.sessionService.actualUser = _this111._auth.getUser();
 
-              _this91.sessionService.commonService.openSnackBar("Bienvenido ".concat(_this91.sessionService.actualUser.name), "OK");
+              _this111.sessionService.commonService.openSnackBar("Bienvenido ".concat(_this111.sessionService.actualUser.name), "OK");
 
-              _this91._router.navigate(["/itineraries/show-all"]);
+              _this111._router.navigate(["/itineraries/show-all"]);
             },
             error: function error(_err) {
               console.log(_err);
 
-              _this91.sessionService.commonService.openSnackBar("Error en la autenticaci\xF3n", "OK");
+              _this111.sessionService.commonService.openSnackBar("Error en la autenticaci\xF3n", "OK");
 
-              _this91.sessionService.loadingLogin = false;
+              _this111.sessionService.loadingLogin = false;
             }
           });
         }
@@ -13086,11 +15354,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(RegisterBusinessManComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this92 = this;
+          var _this112 = this;
 
           // Trigger to change icon
           this.addBusinessmanForm.valueChanges.subscribe(function () {
-            if (_this92.addBusinessmanForm.invalid == false) _this92.icon = "done";else _this92.icon = "warning";
+            if (_this112.addBusinessmanForm.invalid == false) _this112.icon = "done";else _this112.icon = "warning";
           });
         }
         /**
@@ -13100,7 +15368,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addBusinessman",
         value: function addBusinessman() {
-          var _this93 = this;
+          var _this113 = this;
 
           this.loading = true; // Charge loading
 
@@ -13115,16 +15383,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           };
           this.subscription = this.sessionService.saveUser(info, 2).subscribe({
             next: function next(_data) {
-              _this93.loading = false;
+              _this113.loading = false;
 
-              _this93.commonService.openSnackBar("Se ha registrado ".concat(info.name, ", espere la validaci\xF3n de su cuenta"), "OK");
+              _this113.commonService.openSnackBar("Se ha registrado ".concat(info.name, ", espere la validaci\xF3n de su cuenta"), "OK");
 
-              _this93.dialog.closeAll();
+              _this113.dialog.closeAll();
             },
             error: function error(err) {
-              _this93.commonService.openSnackBar("Error: ".concat(err), "OK");
+              _this113.commonService.openSnackBar("Error: ".concat(err), "OK");
 
-              _this93.subscription.unsubscribe();
+              _this113.subscription.unsubscribe();
             }
           });
         }
@@ -13467,11 +15735,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AddAdminComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this94 = this;
+          var _this114 = this;
 
           // Trigger to change icon
           this.addAdminForm.valueChanges.subscribe(function () {
-            if (_this94.addAdminForm.invalid == false) _this94.icon = "done";else _this94.icon = "warning";
+            if (_this114.addAdminForm.invalid == false) _this114.icon = "done";else _this114.icon = "warning";
           });
         }
         /**
@@ -13481,7 +15749,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addAdmin",
         value: function addAdmin() {
-          var _this95 = this;
+          var _this115 = this;
 
           this.loading = true; // Charge loading
 
@@ -13495,14 +15763,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           };
           this.subscription = this.sessionService.saveUserAdmi(info, 1).subscribe({
             next: function next() {
-              _this95.loading = false;
+              _this115.loading = false;
 
-              _this95.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
+              _this115.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
 
-              _this95.dialog.closeAll();
+              _this115.dialog.closeAll();
             },
             error: function error(err) {
-              _this95.commonService.openSnackBar("Error: ".concat(err), "OK");
+              _this115.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -13559,7 +15827,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "textarea {\n  resize: none;\n}\n\n.buttonContainer {\n  display: flex;\n  justify-content: space-around;\n  margin-top: 3%;\n  margin-bottom: 3;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.color-picker {\n  width: 30%;\n  padding-left: 5%;\n  align-self: center;\n}\n\n.toggle {\n  width: 40%;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n\n.file {\n  align-self: center;\n  flex-direction: column;\n  justify-content: center;\n  width: 20%;\n}\n\n.uploadFile {\n  text-align: center;\n  width: -webkit-fill-available;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n  margin-bottom: 2%;\n  border: solid 1.5px gainsboro;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n\n.map {\n  height: 500px;\n  padding: 0;\n  margin: auto;\n}\n\n::ng-deep .mat-horizontal-stepper-header {\n  pointer-events: none !important;\n}\n\n#exit {\n  float: right;\n  background-color: transparent;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9hZGQtZXZlbnQtcmVxdWVzdC9hZGQtZXZlbnQtcmVxdWVzdC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdXNlcnMvY29tcG9uZW50cy9wcm9maWxlL2FkZC1ldmVudC1yZXF1ZXN0L2FkZC1ldmVudC1yZXF1ZXN0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBREVBO0VBQ0ksYUFBQTtFQUNBLDZCQUFBO0VBQ0EsY0FBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLHNCQUFBO0VBQ0EsdUJBQUE7RUFDQSxVQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLDZCQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsVUFBQTtFQUNBLFlBQUE7QUNDSjs7QURFQTtFQUNJLCtCQUFBO0FDQ0o7O0FERUE7RUFDSSxZQUFBO0VBQ0EsNkJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9hZGQtZXZlbnQtcmVxdWVzdC9hZGQtZXZlbnQtcmVxdWVzdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhe1xuICAgIHJlc2l6ZTogbm9uZTtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICAgIG1hcmdpbi10b3A6IDMlO1xuICAgIG1hcmdpbi1ib3R0b206IDNcbn1cbiBcbmZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXJ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxke1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2Vye1xuICAgIHdpZHRoOiAzMCU7XG4gICAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59XG5cbi50b2dnbGV7XG4gICAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdHtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG59XG5cbi5maWxle1xuICAgIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIHdpZHRoOiAyMCU7XG59XG5cbi51cGxvYWRGaWxle1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xuICAgIG1hcmdpbi1ib3R0b206IDIlO1xuICAgIGJvcmRlcjogc29saWQgMS41cHggcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uY2hpcC1saXN0e1xuICAgIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlOyBcbn1cblxuLm1hcCB7XG4gICAgaGVpZ2h0OiA1MDBweDtcbiAgICBwYWRkaW5nOiAwO1xuICAgIG1hcmdpbjogYXV0b1xufVxuXG46Om5nLWRlZXAgLm1hdC1ob3Jpem9udGFsLXN0ZXBwZXItaGVhZGVye1xuICAgIHBvaW50ZXItZXZlbnRzOiBub25lICFpbXBvcnRhbnQ7XG59XG5cbiNleGl0e1xuICAgIGZsb2F0OiByaWdodDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDtcbn0iLCJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgbWFyZ2luLWJvdHRvbTogMztcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2VyIHtcbiAgd2lkdGg6IDMwJTtcbiAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xufVxuXG4udG9nZ2xlIHtcbiAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdCB7XG4gIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlO1xufVxuXG4uZmlsZSB7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIHdpZHRoOiAyMCU7XG59XG5cbi51cGxvYWRGaWxlIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG4gIGJvcmRlcjogc29saWQgMS41cHggZ2FpbnNib3JvO1xufVxuXG4uY2hpcC1saXN0IHtcbiAgd2lkdGg6IC13ZWJraXQtZmlsbC1hdmFpbGFibGU7XG59XG5cbi5tYXAge1xuICBoZWlnaHQ6IDUwMHB4O1xuICBwYWRkaW5nOiAwO1xuICBtYXJnaW46IGF1dG87XG59XG5cbjo6bmctZGVlcCAubWF0LWhvcml6b250YWwtc3RlcHBlci1oZWFkZXIge1xuICBwb2ludGVyLWV2ZW50czogbm9uZSAhaW1wb3J0YW50O1xufVxuXG4jZXhpdCB7XG4gIGZsb2F0OiByaWdodDtcbiAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59Il19 */";
+    __webpack_exports__["default"] = "textarea {\n  resize: none;\n}\n\n.buttonContainer {\n  display: flex;\n  justify-content: space-around;\n  margin-top: 3%;\n  margin-bottom: 3;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.color-picker {\n  width: 30%;\n  padding-left: 5%;\n  align-self: center;\n}\n\n.toggle {\n  width: 40%;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n\n.file {\n  align-self: center;\n  flex-direction: column;\n  justify-content: center;\n  width: 20%;\n}\n\n.uploadFile {\n  text-align: center;\n  width: -webkit-fill-available;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n  margin-bottom: 2%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n\n.map {\n  height: 500px;\n  padding: 0;\n  margin: auto;\n}\n\n::ng-deep .mat-horizontal-stepper-header {\n  pointer-events: none !important;\n}\n\n#exit {\n  float: right;\n  background-color: transparent;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3VzZXJzL2NvbXBvbmVudHMvcHJvZmlsZS9hZGQtZXZlbnQtcmVxdWVzdC9hZGQtZXZlbnQtcmVxdWVzdC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdXNlcnMvY29tcG9uZW50cy9wcm9maWxlL2FkZC1ldmVudC1yZXF1ZXN0L2FkZC1ldmVudC1yZXF1ZXN0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBREVBO0VBQ0ksYUFBQTtFQUNBLDZCQUFBO0VBQ0EsY0FBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLHNCQUFBO0VBQ0EsdUJBQUE7RUFDQSxVQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLDZCQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0VBQ0EsNkJBQUE7RUFDQSxrQkFBQTtBQ0NKOztBREVBO0VBQ0ksNkJBQUE7QUNDSjs7QURFQTtFQUNJLGFBQUE7RUFDQSxVQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksK0JBQUE7QUNDSjs7QURFQTtFQUNJLFlBQUE7RUFDQSw2QkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvdXNlcnMvY29tcG9uZW50cy9wcm9maWxlL2FkZC1ldmVudC1yZXF1ZXN0L2FkZC1ldmVudC1yZXF1ZXN0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGV4dGFyZWF7XG4gICAgcmVzaXplOiBub25lO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gICAgbWFyZ2luLXRvcDogMyU7XG4gICAgbWFyZ2luLWJvdHRvbTogM1xufVxuIFxuZm9ybXtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGR7XG4gICAgd2lkdGg6IDQ1JTtcbiAgICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi5jb2xvci1waWNrZXJ7XG4gICAgd2lkdGg6IDMwJTtcbiAgICBwYWRkaW5nLWxlZnQ6IDUlO1xuICAgIGFsaWduLXNlbGY6IGNlbnRlcjtcbn1cblxuLnRvZ2dsZXtcbiAgICB3aWR0aDogNDAlO1xufVxuXG4uY2hpcC1saXN0e1xuICAgIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlOyBcbn1cblxuLmZpbGV7XG4gICAgYWxpZ24tc2VsZjogY2VudGVyO1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgd2lkdGg6IDIwJTtcbn1cblxuLnVwbG9hZEZpbGV7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlOyBcbiAgICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG4gICAgbWFyZ2luLWJvdHRvbTogMiU7XG4gICAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7XG4gICAgYm9yZGVyLXJhZGl1czogNXB4O1xufVxuXG4uY2hpcC1saXN0e1xuICAgIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlOyBcbn1cblxuLm1hcCB7XG4gICAgaGVpZ2h0OiA1MDBweDtcbiAgICBwYWRkaW5nOiAwO1xuICAgIG1hcmdpbjogYXV0b1xufVxuXG46Om5nLWRlZXAgLm1hdC1ob3Jpem9udGFsLXN0ZXBwZXItaGVhZGVye1xuICAgIHBvaW50ZXItZXZlbnRzOiBub25lICFpbXBvcnRhbnQ7XG59XG5cbiNleGl0e1xuICAgIGZsb2F0OiByaWdodDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDtcbn0iLCJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgbWFyZ2luLWJvdHRvbTogMztcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29sb3ItcGlja2VyIHtcbiAgd2lkdGg6IDMwJTtcbiAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xufVxuXG4udG9nZ2xlIHtcbiAgd2lkdGg6IDQwJTtcbn1cblxuLmNoaXAtbGlzdCB7XG4gIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlO1xufVxuXG4uZmlsZSB7XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIHdpZHRoOiAyMCU7XG59XG5cbi51cGxvYWRGaWxlIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG4gIGJvcmRlcjogc29saWQgMS41cHggZ2FpbnNib3JvO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG59XG5cbi5jaGlwLWxpc3Qge1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbn1cblxuLm1hcCB7XG4gIGhlaWdodDogNTAwcHg7XG4gIHBhZGRpbmc6IDA7XG4gIG1hcmdpbjogYXV0bztcbn1cblxuOjpuZy1kZWVwIC5tYXQtaG9yaXpvbnRhbC1zdGVwcGVyLWhlYWRlciB7XG4gIHBvaW50ZXItZXZlbnRzOiBub25lICFpbXBvcnRhbnQ7XG59XG5cbiNleGl0IHtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDtcbn0iXX0= */";
     /***/
   },
 
@@ -13661,7 +15929,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var AddEventRequestComponent = /*#__PURE__*/function () {
       function AddEventRequestComponent(data, dialogRef, commonService, eventService, router, categoryService, companyService, userService) {
-        var _this96 = this;
+        var _this116 = this;
 
         _classCallCheck(this, AddEventRequestComponent);
 
@@ -13726,7 +15994,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
          */
 
         this.dateFilter = function (date) {
-          return date >= _this96.initial_date;
+          return date >= _this116.initial_date;
         };
 
         this.refreshMap = this.refreshMap.bind(this);
@@ -13735,7 +16003,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AddEventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this97 = this;
+          var _this117 = this;
 
           this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({
@@ -13768,22 +16036,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.data.action ? this.visible = false : this.visible = true;
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this97.filteredCategories = data;
+              _this117.filteredCategories = data;
 
-              _this97.subscription.unsubscribe();
+              _this117.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this97.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this117.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription2 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this97.filteredCompanies = data;
+              _this117.filteredCompanies = data;
 
-              _this97.subscription2.unsubscribe();
+              _this117.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this97.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this117.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.user = this.userService.actualUser;
@@ -13800,8 +16068,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       }, {
         key: "changeState",
-        value: function changeState(_ref16) {
-          var source = _ref16.source;
+        value: function changeState(_ref18) {
+          var source = _ref18.source;
           this.allDay == false ? this.allDay = true : this.allDay = false;
           source.checked = this.allDay;
           console.log(this.allDay);
@@ -13819,20 +16087,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
             var urlImages;
-            return regeneratorRuntime.wrap(function _callee12$(_context12) {
+            return regeneratorRuntime.wrap(function _callee14$(_context14) {
               while (1) {
-                switch (_context12.prev = _context12.next) {
+                switch (_context14.prev = _context14.next) {
                   case 0:
                     this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
                     this.initial_time == undefined ? this.initial_time = null : null;
                     this.final_time == undefined ? this.final_time = null : null;
-                    _context12.next = 5;
+                    _context14.next = 5;
                     return this.uploadFiles();
 
                   case 5:
-                    urlImages = _context12.sent;
+                    urlImages = _context14.sent;
                     this.myEvent.name = this.eventFG.controls['name'].value;
                     this.myEvent.cost = this.eventFG.controls['cost'].value;
                     this.myEvent.address = this.eventFG.controls['address'].value;
@@ -13850,47 +16118,47 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 17:
                   case "end":
-                    return _context12.stop();
+                    return _context14.stop();
                 }
               }
-            }, _callee12, this);
+            }, _callee14, this);
           }));
         }
       }, {
         key: "createRequest",
         value: function createRequest(event) {
-          var _this98 = this;
+          var _this118 = this;
 
           this.loading = true;
           this.eventFG.disable();
           this.eventService.createEvent(event, true).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this98.commonService.openSnackBar("La petici\xF3n del evento ".concat(_this98.eventFG.value.name, " se ha creado"), "OK");
+                _this118.commonService.openSnackBar("La petici\xF3n del evento ".concat(_this118.eventFG.value.name, " se ha creado"), "OK");
 
-                _this98.dialogRef.close();
+                _this118.dialogRef.close();
                 /**Añadiendo compañías y categorías al evento */
 
 
-                _this98.getCategories();
+                _this118.getCategories();
 
-                _this98.getCompanies();
+                _this118.getCompanies();
 
-                _this98.eventRelations(data.body[0]);
+                _this118.eventRelations(data.body[0]);
 
-                _this98.router.navigate(['/event', data.body[0]]);
+                _this118.router.navigate(['/event', data.body[0]]);
               } else {
-                _this98.commonService.openSnackBar("Error al crear el evento: ".concat(data.error), "OK");
+                _this118.commonService.openSnackBar("Error al crear el evento: ".concat(data.error), "OK");
 
-                _this98.eventFG.enable();
+                _this118.eventFG.enable();
               }
             },
             error: function error(err) {
-              _this98.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this118.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this98.loading = false;
+              _this118.loading = false;
 
-              _this98.eventFG.enable();
+              _this118.eventFG.enable();
             }
           });
         }
@@ -14001,27 +16269,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "eventRelations",
         value: function eventRelations(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
             var i, _i5;
 
-            return regeneratorRuntime.wrap(function _callee13$(_context13) {
+            return regeneratorRuntime.wrap(function _callee15$(_context15) {
               while (1) {
-                switch (_context13.prev = _context13.next) {
+                switch (_context15.prev = _context15.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < this.allCompanies.length)) {
-                      _context13.next = 7;
+                      _context15.next = 7;
                       break;
                     }
 
-                    _context13.next = 4;
+                    _context15.next = 4;
                     return this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise();
 
                   case 4:
                     i++;
-                    _context13.next = 1;
+                    _context15.next = 1;
                     break;
 
                   case 7:
@@ -14029,30 +16297,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 8:
                     if (!(_i5 < this.allCategories.length)) {
-                      _context13.next = 14;
+                      _context15.next = 14;
                       break;
                     }
 
-                    _context13.next = 11;
+                    _context15.next = 11;
                     return this.eventService.addCategoryToEvent(this.allCategories[_i5], event_id).toPromise();
 
                   case 11:
                     _i5++;
-                    _context13.next = 8;
+                    _context15.next = 8;
                     break;
 
                   case 14:
                   case "end":
-                    return _context13.stop();
+                    return _context15.stop();
                 }
               }
-            }, _callee13, this);
+            }, _callee15, this);
           }));
         }
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this99 = this;
+          var _this119 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -14063,7 +16331,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
 
           setTimeout(function () {
-            return _this99.map.invalidateSize();
+            return _this119.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -14097,7 +16365,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setData",
         value: function setData(event) {
-          var _this100 = this;
+          var _this120 = this;
 
           console.log(event.color);
           this.eventFG.controls['name'].setValue(event.name);
@@ -14117,29 +16385,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!this.petition) {
             this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
               next: function next(data) {
-                _this100.allCategories = [];
+                _this120.allCategories = [];
                 data.forEach(function (val) {
-                  return _this100.allCategories.push(val);
+                  return _this120.allCategories.push(val);
                 });
 
-                _this100.subscription3.unsubscribe();
+                _this120.subscription3.unsubscribe();
               },
               error: function error(err) {
-                return _this100.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this120.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             }); //compañías
 
             this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
               next: function next(data) {
-                _this100.allCompanies = [];
+                _this120.allCompanies = [];
                 data.forEach(function (val) {
-                  return _this100.allCompanies.push(val);
+                  return _this120.allCompanies.push(val);
                 });
 
-                _this100.subscription4.unsubscribe();
+                _this120.subscription4.unsubscribe();
               },
               error: function error(err) {
-                return _this100.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this120.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           }
@@ -14152,40 +16420,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "uploadFiles",
         value: function uploadFiles() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee14$(_context14) {
+            return regeneratorRuntime.wrap(function _callee16$(_context16) {
               while (1) {
-                switch (_context14.prev = _context14.next) {
+                switch (_context16.prev = _context16.next) {
                   case 0:
                     images = [];
                     i = 0;
 
                   case 2:
                     if (!(i < this.eventImages.length)) {
-                      _context14.next = 8;
+                      _context16.next = 8;
                       break;
                     }
 
-                    _context14.next = 5;
+                    _context16.next = 5;
                     return this.commonService.uploadFile(this.eventImages[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 5:
                     i++;
-                    _context14.next = 2;
+                    _context16.next = 2;
                     break;
 
                   case 8:
-                    return _context14.abrupt("return", images);
+                    return _context16.abrupt("return", images);
 
                   case 9:
                   case "end":
-                    return _context14.stop();
+                    return _context16.stop();
                 }
               }
-            }, _callee14, this);
+            }, _callee16, this);
           }));
         }
       }]);
@@ -14342,14 +16610,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AddRequestCompanyUnionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this101 = this;
+          var _this121 = this;
 
           this.companyService.getCompanies().subscribe(function (data) {
             console.log(data);
-            _this101.companies = data;
+            _this121.companies = data;
           });
           this.filteredCompanies = this.companyControl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (value) {
-            return _this101._filter(value);
+            return _this121._filter(value);
           }));
         }
       }, {
@@ -14365,24 +16633,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "requestUnion",
         value: function requestUnion() {
-          var _this102 = this;
+          var _this122 = this;
 
           this.loading = true;
           var company_id = Number(this.companyControl.value.split(" | ")[0]);
           this.companyUsersService.requesUnion(this.user.user_id, company_id).subscribe({
             next: function next(response) {
               if (response.status == 204) {
-                _this102.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
+                _this122.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
 
-                _this102.loading = false;
+                _this122.loading = false;
 
-                _this102.dialog.close();
+                _this122.dialog.close();
               }
             },
             error: function error(err) {
               console.log(err);
-              if (err.status == 400) _this102.commonService.snackBar.open(err.error, "Ok");else _this102.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
-              _this102.loading = false;
+              if (err.status == 400) _this122.commonService.snackBar.open(err.error, "Ok");else _this122.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
+              _this122.loading = false;
             }
           });
         }
@@ -14499,7 +16767,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var CreateEvenRequestComponent = /*#__PURE__*/function () {
       function CreateEvenRequestComponent(eventService, userService, matDialog) {
-        var _this103 = this;
+        var _this123 = this;
 
         _classCallCheck(this, CreateEvenRequestComponent);
 
@@ -14510,7 +16778,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.name.toLowerCase().indexOf(_this103.filter.name.toLowerCase()) > -1;
+            return request.name.toLowerCase().indexOf(_this123.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -14520,15 +16788,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(CreateEvenRequestComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this104 = this;
+          var _this124 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
           state == 0 ? state = -1 : state = Number(this.filter.state);
           this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, state).subscribe(function (data) {
             console.log(data);
-            _this104.eventRequests = data;
-            _this104.loading = false;
+            _this124.eventRequests = data;
+            _this124.loading = false;
           });
         }
       }, {
@@ -14539,11 +16807,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "deleteRequest",
         value: function deleteRequest(event) {
-          var _this105 = this;
+          var _this125 = this;
 
           this.eventService.changeRequestState(event.event_id, 3).subscribe({
             next: function next(data) {
-              data.status == 201 ? _this105.refresh() : null;
+              data.status == 201 ? _this125.refresh() : null;
             }
           });
         }
@@ -14683,14 +16951,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(FavoriteItineraryComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this106 = this;
+          var _this126 = this;
 
           this.subscription = this._itinerary.getFavoriteItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this106.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this126.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this106._common.handleError(err);
+              return _this126._common.handleError(err);
             }
           });
         }
@@ -14710,17 +16978,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "removeItineraryFavorite",
         value: function removeItineraryFavorite(itineraryID, elementIndex) {
-          var _this107 = this;
+          var _this127 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this107._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
+              _this127._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this107._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this127._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -14855,14 +17123,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(FavoriteOfferComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this108 = this;
+          var _this128 = this;
 
           this.subscription = this._itinerary.getFavoriteOfferInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this108.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this128.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this108._common.handleError(err);
+              return _this128._common.handleError(err);
             }
           });
         }
@@ -14887,17 +17155,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "removeOfferFavorite",
         value: function removeOfferFavorite(offerID, elementIndex) {
-          var _this109 = this;
+          var _this129 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this109._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
+              _this129._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this109._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this129._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -15000,7 +17268,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var ProfileCompaniesComponent = /*#__PURE__*/function () {
       function ProfileCompaniesComponent(companyUsersService, commonService, sessionService) {
-        var _this110 = this;
+        var _this130 = this;
 
         _classCallCheck(this, ProfileCompaniesComponent);
 
@@ -15009,9 +17277,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.sessionService = sessionService;
         this.filter = {
           input: "",
-          filter: function filter(_ref17) {
-            var name = _ref17.name;
-            return name.toLowerCase().indexOf(_this110.filter.input.toLowerCase()) > -1;
+          filter: function filter(_ref19) {
+            var name = _ref19.name;
+            return name.toLowerCase().indexOf(_this130.filter.input.toLowerCase()) > -1;
           }
         };
       }
@@ -15025,30 +17293,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this111 = this;
+          var _this131 = this;
 
           this.companyUsersService.getUserCompanies(this.user.user_id).subscribe(function (data) {
-            _this111.userCompanies = data;
-            console.log(_this111.userCompanies);
+            _this131.userCompanies = data;
+            console.log(_this131.userCompanies);
           });
         }
       }, {
         key: "deleteUserFromCompany",
         value: function deleteUserFromCompany(company) {
-          var _this112 = this;
+          var _this132 = this;
 
           this.companyUsersService.deleteUserFromCompany(company).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this112.refresh();
+                _this132.refresh();
 
-                _this112.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
+                _this132.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
               } else {
-                _this112.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
+                _this132.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this112.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this132.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -15166,13 +17434,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ProfileEventsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this113 = this;
+          var _this133 = this;
 
           this.user = this.userService.actualUser;
           this.eventService.getEventRequestsByUser(this.user.user_id, 1).subscribe({
             next: function next(data) {
               console.log(data);
-              _this113.userEvents = data;
+              _this133.userEvents = data;
             }
           });
         }
@@ -15290,18 +17558,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ProfileInfoComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this114 = this;
+          var _this134 = this;
 
           this.subscriptionUserProfile = this.userService.getUser(this.userService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this114.user = data.data[0];
+              _this134.user = data.data[0];
 
-              _this114.subscriptionUserProfile.unsubscribe();
+              _this134.subscriptionUserProfile.unsubscribe();
 
-              _this114.loadUser();
+              _this134.loadUser();
             },
             error: function error(err) {
-              return _this114.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this134.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -15312,7 +17580,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "loadUser",
         value: function loadUser() {
-          var _this115 = this;
+          var _this135 = this;
 
           this.editProfileForm = this._fb.group({
             name: [this.user.info.name, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
@@ -15321,7 +17589,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             password: [""]
           });
           this.editProfileForm.valueChanges.subscribe(function () {
-            if (_this115.editProfileForm.invalid == false) _this115.icon = "done";else _this115.icon = "warning";
+            if (_this135.editProfileForm.invalid == false) _this135.icon = "done";else _this135.icon = "warning";
           });
         }
         /**
@@ -15331,7 +17599,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "saveChanges",
         value: function saveChanges() {
-          var _this116 = this;
+          var _this136 = this;
 
           var passChanged = false;
 
@@ -15345,12 +17613,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.user.info.email = this.editProfileForm.get("email").value;
           this.subscriptionUserProfile = this.userService.updateUser(this.user.user_id, this.user.info, passChanged).subscribe({
             next: function next(data) {
-              _this116.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this116.user.info.name), "OK");
+              _this136.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this136.user.info.name), "OK");
 
-              _this116.subscriptionUserProfile.unsubscribe();
+              _this136.subscriptionUserProfile.unsubscribe();
             },
             error: function error(err) {
-              return _this116.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this136.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -15542,7 +17810,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var RequestCompanyUnionComponent = /*#__PURE__*/function () {
       function RequestCompanyUnionComponent(companyUserService, userService, matDialog) {
-        var _this117 = this;
+        var _this137 = this;
 
         _classCallCheck(this, RequestCompanyUnionComponent);
 
@@ -15553,7 +17821,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           name: '',
           state: '',
           filter: function filter(request) {
-            return request.company_info.name.toLowerCase().indexOf(_this117.filter.name.toLowerCase()) > -1;
+            return request.company_info.name.toLowerCase().indexOf(_this137.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -15570,13 +17838,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(RequestCompanyUnionComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this118 = this;
+          var _this138 = this;
 
           this.loading = true;
           this.companyUserService.getUserRequests(this.userService.actualUser.user_id, Number(this.filter.state)).subscribe(function (data) {
             console.log(data);
-            _this118.userRequests = data;
-            _this118.loading = false;
+            _this138.userRequests = data;
+            _this138.loading = false;
           });
         }
       }, {
@@ -15717,7 +17985,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(PetitionsFilterComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this119 = this;
+          var _this139 = this;
 
           this.petitionsFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
@@ -15725,12 +17993,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.user = this.userService.actualUser;
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this119.companies = data;
+              _this139.companies = data;
 
-              _this119.subscription.unsubscribe();
+              _this139.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this119.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this139.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -15875,7 +18143,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var UnionEventRequestComponent = /*#__PURE__*/function () {
       function UnionEventRequestComponent(userService, companyUserService, commonService, companyService, dialogService) {
-        var _this120 = this;
+        var _this140 = this;
 
         _classCallCheck(this, UnionEventRequestComponent);
 
@@ -15892,7 +18160,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.event_info.info.name.toLowerCase().indexOf(_this120.filter.name.toLowerCase()) > -1;
+            return request.event_info.info.name.toLowerCase().indexOf(_this140.filter.name.toLowerCase()) > -1;
           }
         };
       }
@@ -15900,10 +18168,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(UnionEventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
-            return regeneratorRuntime.wrap(function _callee15$(_context15) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+            return regeneratorRuntime.wrap(function _callee17$(_context17) {
               while (1) {
-                switch (_context15.prev = _context15.next) {
+                switch (_context17.prev = _context17.next) {
                   case 0:
                     this.user = this.userService.actualUser;
                     console.log(this.user);
@@ -15911,16 +18179,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 3:
                   case "end":
-                    return _context15.stop();
+                    return _context17.stop();
                 }
               }
-            }, _callee15, this);
+            }, _callee17, this);
           }));
         }
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this121 = this;
+          var _this141 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
@@ -15935,14 +18203,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
             next: function next(data) {
               console.log(data);
-              _this121.userRequest = data;
+              _this141.userRequest = data;
 
-              _this121.subscription.unsubscribe();
+              _this141.subscription.unsubscribe();
 
-              _this121.loading = false;
+              _this141.loading = false;
             },
             error: function error(err) {
-              return _this121.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this141.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -15957,7 +18225,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this122 = this;
+          var _this142 = this;
 
           var dialog = this.dialogService.open(_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__["PetitionsFilterComponent"], {
             width: "50",
@@ -15966,11 +18234,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
           dialog.afterClosed().subscribe(function (company) {
             if (company != undefined) {
-              _this122.currentCompanyId = company.company_id;
-              _this122.currentCompanyName = company.name;
-              _this122.isFilters = true;
+              _this142.currentCompanyId = company.company_id;
+              _this142.currentCompanyName = company.name;
+              _this142.isFilters = true;
 
-              _this122.refresh();
+              _this142.refresh();
             }
           });
         }
@@ -16114,16 +18382,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(UsersManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this123 = this;
+          var _this143 = this;
 
           this.subscription = this.userManagmentService.getAllUser().subscribe({
             next: function next(data) {
-              _this123.userManagmentService.users = data.data;
+              _this143.userManagmentService.users = data.data;
 
-              _this123.subscription.unsubscribe();
+              _this143.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this123.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this143.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -16140,28 +18408,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setAvailable",
         value: function setAvailable(state, userID, info) {
-          var _this124 = this;
+          var _this144 = this;
 
           var modifyInfo = info;
           modifyInfo.available = state;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
               if (state) {
-                _this124.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
+                _this144.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
               } else {
-                _this124.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
+                _this144.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
               }
 
-              _this124.subscription.unsubscribe();
+              _this144.subscription.unsubscribe();
 
-              var idx = _this124.userManagmentService.users.findIndex(function (user) {
+              var idx = _this144.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this124.userManagmentService.users[idx].info.available = state;
+              _this144.userManagmentService.users[idx].info.available = state;
             },
             error: function error(err) {
-              return _this124.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this144.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -16174,24 +18442,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setAcceptance",
         value: function setAcceptance(userID, info) {
-          var _this125 = this;
+          var _this145 = this;
 
           var modifyInfo = info;
           modifyInfo.state = true;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
-              _this125.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
+              _this145.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
 
-              _this125.subscription.unsubscribe();
+              _this145.subscription.unsubscribe();
 
-              var idx = _this125.userManagmentService.users.findIndex(function (user) {
+              var idx = _this145.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this125.userManagmentService.users[idx].info.state = true;
+              _this145.userManagmentService.users[idx].info.state = true;
             },
             error: function error(err) {
-              return _this125.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this145.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
