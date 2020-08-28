@@ -14,6 +14,7 @@ import { AdsStadisticsComponent } from './components/ads-stadistics/ads-stadisti
 import { AdsDetailsComponent } from './components/ads-management/ads-details/ads-details.component';
 import { AdsLocationComponent } from './components/ads-management/ads-location/ads-location.component';
 import { DatePipe } from '@angular/common';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -24,14 +25,16 @@ import { DatePipe } from '@angular/common';
     AdsTabsComponent, 
     AdsStadisticsComponent, 
     AdsDetailsComponent, 
-    AdsLocationComponent],
+    AdsLocationComponent 
+  ],
   imports: [
     CommonModule,
     AdsRoutingModule,
     SharedModule,
     FormsModule,
     FilterPipeModule,
-    LeafletModule, 
+    LeafletModule,
+    ChartsModule
   ],
   providers: [DatePipe],
   entryComponents: [AdsCreateComponent]

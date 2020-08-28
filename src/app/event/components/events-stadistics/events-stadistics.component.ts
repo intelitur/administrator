@@ -12,9 +12,6 @@ import { CommonService } from 'src/app/general-services/common.service';
 })
 export class EventsStadisticsComponent implements OnInit {
 
-  filter = {
-    state: '0'
-  }
   private subscription: Subscription;
   start_Date = undefined;
   end_Date = undefined;
@@ -27,16 +24,17 @@ export class EventsStadisticsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.obtainAllEvents()
   }
 
   obtainAllEvents(){
     this.isFilterd = false;
-    this.subscription = this.eventService.getAllEvents()
+    this.subscription = this.eventService.getFilteredEvents()
     .subscribe({
       next: (data: any) => {
         this.eventService.events = data;
+        this.eventService.sort();
         this.subscription.unsubscribe();
-        this.refresh();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
   }
@@ -45,23 +43,29 @@ export class EventsStadisticsComponent implements OnInit {
     return date >= this.start_Date
   }
 
-  refresh(){
-    if(this.eventService.events == []){
-      this.obtainAllEvents();
-    }
-
-    if(this.filter.state == '0'){
-      this.eventService.events = this.eventService.events.sort((a, b) => a.visits < b.visits ? -1 : a.visits > b.visits ? 1 : 0)
-    }else if(this.filter.state == '1'){
-      this.eventService.events = this.eventService.events.sort((a, b) => a.score < b.score ? -1 : a.score > b.score ? 1 : 0)
-    }
-    // else{
-    //   this.eventService.events = this.eventService.events.sort((a, b) => a.publications < b.publications ? -1 : a.publications > b.publications ? 1 : 0)
-    // }
-  }
 
   filterByDate(){
     this.isFilterd = true;
-    //llamar endpiont con star_date y end_date 
+    let initialDate = this.formatDate(this.start_Date)
+    let finalDate = this.formatDate(this.end_Date)
+    this.subscription = this.eventService.getFilteredEvents(undefined,initialDate,finalDate)
+    .subscribe({
+      next: (data: any) => {
+        this.eventService.events = data;
+        this.subscription.unsubscribe();
+        this.eventService.sort();
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+    });
+  }
+
+  formatDate(date: Date){
+    if(date != undefined){
+      date.setTime( date.getTime() + date.getTimezoneOffset()*60*1000 )
+
+      let year = date.getFullYear()
+      let month = (date.getMonth()+1) >= 10? (date.getMonth()+1) : "0"+(date.getMonth()+1) 
+      let day = date.getDate() >= 10? date.getDate(): "0"+date.getDate()
+      return year+"-"+month+"-"+day 
+    }
   }
 }

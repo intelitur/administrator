@@ -32,12 +32,13 @@ export class EventDetailsComponent implements OnInit {
   initial_time: any = undefined;
   final_time: any =  undefined;
   common_date: any = undefined;
+  currentRate:any = 0;
   subscription: Subscription
   subscription2: Subscription
   subscription3: Subscription
   subscription4: Subscription
   eventImages = [];
-  url="https://intelitur.sytes.net/files/images/";
+  url="https://intelitur.sytes.net/files/";
   imageIndex = 0;
   user: User;
 
@@ -90,6 +91,7 @@ export class EventDetailsComponent implements OnInit {
         this.subscription2.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
+    console.log(this.event)
     this.user = this.userService.actualUser
     this.event.images  != undefined? this.eventImages = this.event.images : this.eventImages = []
     this.setData();
@@ -136,6 +138,7 @@ export class EventDetailsComponent implements OnInit {
     this.eventFG.controls['detail'].setValue(this.event.detail)
     this.allDay = this.event.all_day
     this.color = this.event.color
+    this.currentRate = this.event.score
     this.initial_date = new Date(this.event.date_range.initial_date)
     this.final_date = new Date(this.event.date_range.final_date)
     this.initial_time = this.event.initial_time
@@ -226,6 +229,9 @@ export class EventDetailsComponent implements OnInit {
     this.initial_time == undefined? this.initial_time = null: null;
     this.final_time == undefined? this.final_time = null: null;
 
+    let allCategories = this.getCategoriesID();
+    let allCompanies = this.getCompaniesID();
+
     let event: EventType = {
       event_id: this.event.event_id,
       name: this.eventFG.controls['name'].value,
@@ -248,7 +254,7 @@ export class EventDetailsComponent implements OnInit {
     let json = {
       "info": event,
       "latitude": this.event.latitude,
-      "longuitude": this.event.longitude
+      "longitude": this.event.longitude
     } 
 
     this.eventService.modifyEvent(json).subscribe({
@@ -257,15 +263,10 @@ export class EventDetailsComponent implements OnInit {
           this.eventFG.enable()
           this.event= event;
 
-          /**Añadiendo compañías y categorías al evento */
-          this.getCategoriesID();
-          this.getCompaniesID();
-
-          await this.eventRelations(this.event.event_id);
+          await this.eventRelations(allCategories, allCompanies, this.event.event_id);
 
           this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`,"OK")
           this.loading = false;
-          location.reload();
         }
         else {
           this.commonService.openSnackBar(
@@ -322,7 +323,7 @@ export class EventDetailsComponent implements OnInit {
     for (let i = 0; i < this.allCategories.length; i++) {
       categoryIDs.push(this.allCategories[i].category_id)
     }
-    this.allCategories = categoryIDs;
+    return categoryIDs;
   }
 
   /**
@@ -333,33 +334,35 @@ export class EventDetailsComponent implements OnInit {
     for (let i = 0; i < this.allCompanies.length; i++) {
       companyIDs.push(this.allCompanies[i].company_id)
     }
-    this.allCompanies = companyIDs;
+    return companyIDs;
   }
 
-  async eventRelations(event_id){
-    for(let i=0; i<this.allCategories.length; i++){
-      if(this.allOldCategories.indexOf(this.allCategories[i]) === -1){
-        await this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise()
+  async eventRelations(allCategories, allCompanies, event_id){
+    for(let i=0; i<allCategories.length; i++){
+      if(this.allOldCategories.indexOf(allCategories[i]) === -1){
+        await this.eventService.addCategoryToEvent(allCategories[i], event_id).toPromise()
       }
     }
 
     for(let i=0; i<this.allOldCategories.length; i++){
-      if(this.allCategories.indexOf(this.allOldCategories[i]) === -1){
+      if(allCategories.indexOf(this.allOldCategories[i]) === -1){
         await this.categoryService.deleteCategoryFromEvent(this.allOldCategories[i], event_id).toPromise()
       }
     }
 
-    for(let i=0; i<this.allCompanies.length; i++){
-      if(this.allOldCompanies.indexOf(this.allCompanies[i]) === -1){
-        await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise()
+    for(let i=0; i<allCompanies.length; i++){
+      if(this.allOldCompanies.indexOf(allCompanies[i]) === -1){
+        await this.eventService.addCompanyToEvent(allCompanies[i], event_id, this.user.user_id).toPromise()
       }
     }
 
     for(let i=0; i<this.allOldCompanies.length; i++){
-      if(this.allCompanies.indexOf(this.allOldCompanies[i]) === -1){
+      if(allCompanies.indexOf(this.allOldCompanies[i]) === -1){
         await this.eventService.deleteCompanyFromEvent(this.allOldCompanies[i], event_id).toPromise()
       }
     }
+    this.allOldCategories = allCategories;
+    this.allOldCompanies = allCompanies;
   }
 
 
@@ -409,7 +412,7 @@ export class EventDetailsComponent implements OnInit {
       initial_time: this.event.initial_time,
       final_time: this.event.final_time,
       user_id: this.event.user_id,
-      images: images,
+      //images: images,
       is_active: this.event.is_active
     }
     console.log(event)

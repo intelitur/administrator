@@ -25,7 +25,7 @@ export class AdsService {
   }
 
   changeStateAd(id){  
-    return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}/${id}/state`, null ,{observe: 'response'})
+    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}/${id}`, {observe: 'response'})
   }
 
   createAd(ad: Ads){
@@ -34,18 +34,29 @@ export class AdsService {
       "latitude":  10.471681129073,
       "longitude": -84.64514404535
     }
-    console.log(json)
-    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/CreateAd`, json, {observe: 'response'})
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/`, json, {observe: 'response'})
   }
 
   modifyAd(ad: any){
-    return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}/${ad.ad_id}`,ad, {observe: 'response'})
+    return this.http.put(`${environment.SERVER_BASE_URL}${this.module}/${ad.info.ad_id}`,ad, {observe: 'response'})
   }
 
-  getStadisticsAds(company_id?: number){
-    if(company_id){ 
-      return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/stadistics/${company_id}`)
+  getStadisticsAds(user_id?: number){
+    if(user_id){ 
+      return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${user_id}`)
     }
-    return  this.http.get(`${environment.SERVER_BASE_URL}${this.module}/stadistics/`)
+    return  this.http.get(`${environment.SERVER_BASE_URL}${this.module}/`)
+  }
+
+  addAdToCompany(ad_id, company_id){
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/${ad_id}/companies/${company_id}`, {observe: 'response'})
+  }
+
+  getCompaniesByAd(ad_id){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${ad_id}/companies`)
+  }
+
+  deleteAdFromCompany(company_id, ad_id){
+    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}/${ad_id}/companies/${company_id}`, {observe: 'response'})
   }
 }

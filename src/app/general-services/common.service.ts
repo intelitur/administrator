@@ -42,7 +42,7 @@ export class CommonService {
 
 
   getImage(name: string){
-    return this.http.get(`${environment.IMAGES_URL_BASE}/files/images/${name}`).subscribe({
+    return this.http.get(`${environment.IMAGES_URL_BASE}/files/${name}`).subscribe({
       next: (data: any) =>{
         console.log(data)
       }
@@ -63,7 +63,7 @@ export class CommonService {
         }
       });
   
-      xhr.open("POST", "https://intelitur.sytes.net/image");
+      xhr.open("POST", "https://intelitur.sytes.net/adminfiles");
   
       xhr.send(data);
       

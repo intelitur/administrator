@@ -19,7 +19,7 @@ export class DetailsComponent implements OnInit {
   categoryFG: FormGroup;
   loading = false;
   
-  url="https://intelitur.sytes.net/files/images/"
+  url="https://intelitur.sytes.net/files/"
 
   types = [
     {id:1, name:"Evento"},

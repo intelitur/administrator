@@ -27,37 +27,22 @@ export class AdsMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.obtainAllAds()
-  }
-
-  obtainAllAds(){
-    this.isFilters = false
-    this.subscription = this.adsService.getAllAds()
-    .subscribe({
-      next: (data: any) => {
-        this.adsService.ads = data;
-        this.subscription.unsubscribe();
-      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-    });
   }
 
   changeState(ad: Ads, {source}: any){
-    var id = {
-      ad_id: ad.ad_id
-    }
-    this.adsService.changeStateAd(id).subscribe({
+    this.adsService.changeStateAd(ad.ad_id).subscribe({
       next: (data: any) => {
-        if (data.status == 200) {
+        if (data.status == 204) {
           ad.is_active = !ad.is_active;
           source.checked = ad.is_active
           if (ad.is_active)
             this.commonService.openSnackBar(
-              `La categoría ${ad.name} ha sido activada`,
+              `El anuncio ${ad.name} ha sido activado`,
               "OK"
             );
           else
             this.commonService.openSnackBar(
-              `La categoría ${ad.name} ha sido desactivada`,
+              `El anuncio ${ad.name} ha sido desactivado`,
               "OK"
             );
         } else {
@@ -75,9 +60,6 @@ export class AdsMainComponent implements OnInit {
   }
 
   openCreateDialog(){
-    const dialog = this.dialogService.open(AdsCreateComponent, {width: "60%", minWidth: "280px", disableClose: true})
-    dialog.afterClosed().subscribe( data =>{
-      console.log(data)
-    })
+    this.dialogService.open(AdsCreateComponent, {width: "60%", minWidth: "280px", disableClose: true})
   }
 }

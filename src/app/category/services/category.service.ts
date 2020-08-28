@@ -81,7 +81,7 @@ export class CategoryService {
    * @param event_id 
    */
   deleteCategoryFromEvent(category_id, event_id){
-    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}/RemoveCategoryInEvent/${category_id}/${event_id}`, {observe: 'response'})
+    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}/${category_id}/events/${event_id}`, {observe: 'response'})
   }
 
   getCategoryImages(category_id){

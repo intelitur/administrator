@@ -1,29 +1,7 @@
 <div style="height: 20px;">
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 </div>
-<form [formGroup]="adsFG" class="container-fluid d-flex flex-column justify-content-center">
-    <h1>Creación del Anuncio</h1>
-   
-    <mat-form-field appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input #Name matInput formControlName="name" matTooltip="Nombre del anuncio" maxlength="50" required>
-        <mat-hint align="end">{{Name.value.length}}/50</mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-        <textarea style="resize: none;" matInput formControlName="description" placeholder="Descripción" required></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-        <mat-label>Empresa Asociada</mat-label>
-        <mat-select formControlName="company">
-          <mat-option *ngFor="let c of companies" [value]="c.company_id">
-            {{c.name}}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>
-</form>
-
+<h1>Creación del Anuncio</h1>
 
 <div class="dates">
     <mat-form-field  style="width: 40%; " appearance="outline">
@@ -42,8 +20,47 @@
     Fecha inicial mayor a la final*
 </mat-hint>
 
+<form [formGroup]="adsFG" class="container-fluid d-flex flex-column justify-content-center">
+   
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input #Name matInput formControlName="name" matTooltip="Nombre del anuncio" maxlength="50" required>
+        <mat-hint align="end">{{Name.value.length}}/50</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <textarea style="resize: none;" matInput formControlName="description" placeholder="Descripción" required></textarea>
+    </mat-form-field>
+
+    <div  class="chip-list">
+        <mat-form-field class="chip-list" appearance="outline">
+          <mat-chip-list #chipList aria-label="Companies selection">
+            <mat-chip class="chip"
+              *ngFor="let company of allCompanies"
+              [selectable]="selectable"
+              [removable]="removable">
+              {{company.name}}
+              <i matChipRemove class="material-icons" (click)="removeCompany(company)">cancel</i>
+            </mat-chip>
+            <input
+              placeholder="Seleccione las compañías"
+              #tagInput
+              formControlName="companies" 
+              [matChipInputFor]="chipList"
+              [matAutocomplete]="autoCompany"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+          </mat-chip-list>
+          <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
+            <mat-option *ngFor="let c of filteredCompanies " [value]="c">
+              {{c.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+    </div>
+</form>
+
 <div class="buttonContainer">
-    <button mat-raised-button [disabled]="!adsFG.valid || start_Date == undefined || end_Date == undefined || start_Date > end_Date" color="primary" (click)="onSubmit()">
+    <button mat-raised-button [disabled]="!adsFG.valid || this.allCompanies.length == 0 || start_Date == undefined || end_Date == undefined || start_Date > end_Date" color="primary" (click)="onSubmit()">
         Crear Anuncio
     </button>
     <button (click)="closeDialog()" mat-raised-button color="warn">

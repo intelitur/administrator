@@ -85,12 +85,12 @@ export class AdsLocationComponent implements OnInit,  AfterViewInit {
       ad_id: this.myAd.ad_id,
       name: this.myAd.name,
       description: this.myAd.description,
-      company_id: this.myAd.company_id,
-      date_range: {
-        initial_date: this.myAd.date_range.initial_date,
-        final_date: this.myAd.date_range.final_date
+      active_range: {
+        start: this.myAd.active_range.start,
+        end: this.myAd.active_range.end
       },
-      is_active: this.myAd.is_active
+      is_active: this.myAd.is_active,
+      is_up: this.myAd.is_up
     }
 
     let updatedAd = {
@@ -101,7 +101,7 @@ export class AdsLocationComponent implements OnInit,  AfterViewInit {
     this.adsService.modifyAd(updatedAd)
       .subscribe({
         next: (data: any) => {
-          if (data.status == 200) {
+          if (data.status == 204) {
             this.myAd = updatedAd.info;
             this.myAd.latitude = updatedAd.latitude;
             this.myAd.longitude = updatedAd.longitude;

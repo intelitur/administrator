@@ -1,6 +1,6 @@
 <mat-tab-group>
     <mat-tab label="Detalles">
-        <app-ads-details *ngIf="myAd; else null" [myAd]="myAd[0]"></app-ads-details>
+        <app-ads-details *ngIf="myAd; else null" [myAd]="myAd"></app-ads-details>
         <ng-template #loading>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </ng-template>

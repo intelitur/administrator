@@ -12,7 +12,10 @@ export class EventService{
   events: Array<EventType> = [];
   eventRequest: Array<any>;
   module= 'events/'
-  
+  filter = {
+    state: '0'
+  }
+  isFilters: boolean = false;
   constructor(
     private http: HttpClient,
     public commonService: CommonService
@@ -31,7 +34,7 @@ export class EventService{
    * @param event_id event's id to be obtained
    */
   getEvent(event_id){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${event_id}`)
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}${event_id}`)
   }
 
   /**
@@ -86,6 +89,7 @@ export class EventService{
       event_id,
       user_id
     }
+    console.log(json)
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}EventToCompany`, json, {observe: 'response'})
   }
 
@@ -95,7 +99,7 @@ export class EventService{
    * @param event_id 
    */
   deleteCompanyFromEvent(company_id, event_id){
-    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}RemoveEventFromCompany/${company_id}/${event_id}`, {observe: 'response'})
+    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}${event_id}/companies/${company_id}`, {observe: 'response'})
   }
 
   /**
@@ -117,7 +121,7 @@ export class EventService{
   }
 
   getEventRequestByCompany(id){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}`)//cambiar
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${id}`)
   }
 
   getEventRequestsByUser(id, state?){
@@ -133,7 +137,28 @@ export class EventService{
     return this.http.put(`${environment.SERVER_BASE_URL}petitions/`,json, {observe: 'response'} ) 
   }
 
-  getFilteredEvents(name, initial_date, final_date, category_id, score){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}Filtered/${name}/${initial_date}/${final_date}/${category_id}/${score}`)
+  getFilteredEvents(name?, initial_date?, final_date?, category_id?, score?, ratio?, latitude?, longitude?){
+    let params:any = {}
+    name != undefined? params.name = name : null 
+    initial_date != undefined? params.initial_date = initial_date: null
+    final_date != undefined? params.final_date = final_date: null
+    category_id != undefined? params.category_id = category_id: null
+    score != undefined? params.score = score: null
+    ratio != undefined? params.meters = ratio: null
+    latitude != undefined? params.latitude = latitude: null
+    longitude != undefined? params.longitude = longitude: null
+    
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`, {params})
+  }
+
+  sort(){
+    if(this.filter.state == '0'){
+      this.events = this.events.sort((a, b) => a.visits > b.visits ? -1 : a.visits < b.visits ? 1 : 0)
+    }else if(this.filter.state == '1'){
+      this.events = this.events.sort((a, b) => a.score > b.score ? -1 : a.score < b.score ? 1 : 0)
+    }
+    // else{
+    //  rvice.events = this.events.sort((a, b) => a.publications > b.publications ? -1 : a.publications < b.publications ? 1 : 0)
+    // }
   }
 }

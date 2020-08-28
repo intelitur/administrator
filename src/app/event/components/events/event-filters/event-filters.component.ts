@@ -66,7 +66,7 @@ export class EventFiltersComponent implements OnInit {
     this.eventFiltersFG = new FormGroup({
       categories: new FormControl(null, Validators.required),
       rate: new FormControl(null, Validators.pattern("^([0-5]{1}([.]{1}[0-9]){0,1})")),
-      ratio: new FormControl(null,[Validators.max(3), Validators.min(0)])
+      ratio: new FormControl(null,[Validators.max(3), Validators.min(1)])
     })
 
     this.subscription = this.categoryService.getAllCategories(1).subscribe({
@@ -112,20 +112,34 @@ export class EventFiltersComponent implements OnInit {
   }
 
   submit(){
+    let initialDate = this.formatDates(this.start_Date)
+    let finalDate = this.formatDates(this.end_Date)
     let info = {
-      initial_date: this.start_Date,
-      final_date: this.end_Date,
-      category_id: this.eventFiltersFG.controls['categories'].value,
-      rate: this.currentRate,
-      latitude: this.locationMarker.getLatLng().lat,
-      longitude: this.locationMarker.getLatLng().lng,
-      ratio: this.ubcationRatio
+      initial_date: initialDate,
+      final_date: finalDate,
+      category_id: this.eventFiltersFG.controls['categories'].value != null? this.eventFiltersFG.controls['categories'].value: undefined,
+      rate: this.currentRate != 0? this.currentRate: undefined,
+      latitude: this.ubcationRatio != 0? this.locationMarker.getLatLng().lat: undefined,
+      longitude: this.ubcationRatio != 0? this.locationMarker.getLatLng().lng: undefined,
+      ratio: this.ubcationRatio != 0? this.ubcationRatio*1000: undefined
     }
+    console.log(info)
     this.dialogRef.close(info)
   }
 
   closeDialog(){
     this.dialogRef.close()
+  }
+
+  formatDates(date: Date){
+    if(date != undefined){
+      date.setTime( date.getTime() + date.getTimezoneOffset()*60*1000 )
+
+      let year = date.getFullYear()
+      let month = (date.getMonth()+1) >= 10? (date.getMonth()+1) : "0"+(date.getMonth()+1) 
+      let day = date.getDate() >= 10? date.getDate(): "0"+date.getDate()
+      return year+"-"+month+"-"+day 
+    }
   }
 
   dateFilter = (date: Date): boolean => {
