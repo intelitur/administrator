@@ -49,7 +49,15 @@ const routes: Routes = [
         i => i.AdsModule
       ),
     canActivateChild: [LoggedInGuard]
-  }
+  },
+  { 
+    path: "offers",
+    loadChildren: () =>
+      import("./offers/offer.module").then(
+        i => i.OfferModule
+      ),
+    canActivateChild: [LoggedInGuard]
+  },
 ];
 
 @NgModule({
