@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 import { MatTableDataSource } from "@angular/material/table"; 
-import { OfferService } from "src/app/offers/services/offer.service";
+import { ServiceService } from "src/app/services/services/service.service";
 import { Subscription } from "rxjs";
 import { CommonService } from "src/app/general-services/common.service";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -9,9 +9,9 @@ import { UserService } from "src/app/users/services/user.service";
 import { Filter } from "src/app/itinerary/models/Filter.interface";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
 @Component({
-  selector: "app-offers-table",
-  templateUrl: "./offers-table.component.html",
-  styleUrls: ["./offers-table.component.scss"]
+  selector: "app-services-table",
+  templateUrl: "./services-table.component.html",
+  styleUrls: ["./services-table.component.scss"]
 })
 export class OffersTableComponent implements OnInit {
   displayedColumns: string[] = ["position", "name", "actions"];
@@ -27,19 +27,39 @@ export class OffersTableComponent implements OnInit {
   favorite:boolean = true;
   constructor(
     private _dialog: DialogManagerService,
-    private _offers : OfferService,
+    private _service : ServiceService,
     private _common: CommonService,
     public sesionService: UserService
   ) {}
 
   ngOnInit() {
-    this.getOffersByUser();
+    this.getServices();
   }
+
+    /**
+   * @function get minimal info of itinerary
+   */
+  getServices() {
+    this.subscription = this._service
+      .getServices()
+      .subscribe({
+        next: (data: any) => {
+          console.log(data);
+          
+          this.dataSource = new MatTableDataSource(data);
+        },
+        error: (err: HttpErrorResponse) => this._common.handleError(err)
+      });
+    this.isFilters = false;
+  }
+
+
+
   /**
    * @function get minimal info of itinerary
    */
   getOffersByUser() {
-    this.subscription = this._offers
+    this.subscription = this._service
       .getOffersByUser(this.sesionService.actualUser.user_id,this.liked, this.viewed,this.reserved,this.favorite)
       .subscribe({
         next: (data: any) => {
@@ -52,6 +72,9 @@ export class OffersTableComponent implements OnInit {
     this.isFilters = false;
   }
 
+
+
+
   /**
    * @function open filter dialog
    */
@@ -59,7 +82,7 @@ export class OffersTableComponent implements OnInit {
     this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
       next: (filters: Filter) => {
         if(filters) {
-          this.filterItinerariesSubs = this._offers
+          this.filterItinerariesSubs = this._service
             .filterItineraries(filters)
             .subscribe({
               next: (response: ResponseInterface) => {
@@ -89,8 +112,8 @@ export class OffersTableComponent implements OnInit {
    * @param id
    */
   assignOfferId(id: number, name:string, descrpcion:string) {
-    this._offers.offer_id = id;
-    this._offers.offer_name = name;
-    this._offers.offer_descripcion = descrpcion;
+    this._service.offer_id = id;
+    this._service.offer_name = name;
+    this._service.offer_descripcion = descrpcion;
   }
 }

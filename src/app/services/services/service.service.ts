@@ -11,14 +11,16 @@ import { User } from 'src/app/users/models/User.class';
 @Injectable({
   providedIn: "root"
 })
-export class OfferService {
+export class ServiceService {
   offer_id: number;
   offer_name: string;
   offer_descripcion: string;
   constructor(private _http: HttpClient, private _auth: AuthService) {}
 
 
-  
+  getServices(): Observable<any> {
+    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}services/`);
+  }
 
 
 
@@ -130,9 +132,10 @@ export class OfferService {
       `${environment.SERVER_BASE_URL}groupType/getAll`);
   }
 
-  getCategories(): Observable<ResponseInterface> {
+  getCategories(state:number): Observable<ResponseInterface> {
+    let query:any = {state};
     return this._http.get<ResponseInterface>(
-      `${environment.SERVER_BASE_URL}category/getAll`);
+      `${environment.SERVER_BASE_URL}categories/`,{params: query});
   }
 
   /**

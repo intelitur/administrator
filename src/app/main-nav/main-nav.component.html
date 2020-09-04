@@ -10,6 +10,7 @@
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/category/all']" routerLinkActive="router-link-active" href="#">Gestión de Categorías</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/ads/all']" routerLinkActive="router-link-active" href="#">Gestión de Anuncios</a>
       <a mat-list-item  [routerLink]="['/offers/all']" routerLinkActive="router-link-active" href="#">Gestión de Ofertas</a>
+      <a mat-list-item  [routerLink]="['/services/all']" routerLinkActive="router-link-active" href="#">Gestión de Servicios</a>
       <a mat-list-item [routerLink]="['user/profile']" routerLinkActive="router-link-active" href="#">Cuenta</a>
     </mat-nav-list>
   </mat-sidenav>

@@ -14,7 +14,7 @@ export class Offers_ServicesComponent implements OnInit {
   }
 
   openItineraryDialog() {
-    //this._dialog.openItineraryFormDialog();
+    this._dialog.openOfferFormDialog();
   }
 
 }

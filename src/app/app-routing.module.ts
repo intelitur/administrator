@@ -58,6 +58,14 @@ const routes: Routes = [
       ),
     canActivateChild: [LoggedInGuard]
   },
+  { 
+    path: "services",
+    loadChildren: () =>
+      import("./services/service.module").then(
+        i => i.ServiceModule
+      ),
+    canActivateChild: [LoggedInGuard]
+  },
 ];
 
 @NgModule({

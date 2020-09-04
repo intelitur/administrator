@@ -14,12 +14,12 @@ import { FileUploader } from "ng2-file-upload";
 import { environment } from "src/environments/environment";
 
 @Component({
-  selector: "app-itinerary-form-dialog",
+  selector: "app-offer-form-dialog",
   templateUrl: "./itinerary-form-dialog.component.html",
   styleUrls: ["./itinerary-form-dialog.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
-export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
+export class OfferFormDialogComponent implements OnInit, OnDestroy {
   itineraryFG: FormGroup;
   categories: Array<Category>;
   linkedCategories: Array<Category> = [];
@@ -33,7 +33,7 @@ export class ItineraryFormDialogComponent implements OnInit, OnDestroy {
   savedIt: number;
   savedImagePaths: Array<string> = [];
   constructor(
-    public dialogRef: MatDialogRef<ItineraryFormDialogComponent>,
+    public dialogRef: MatDialogRef<OfferFormDialogComponent>,
     private _fb: FormBuilder,
     private _itinerary: ItineraryService,
     private _common: CommonService,
