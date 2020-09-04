@@ -18,7 +18,6 @@ export class AdsMainComponent implements OnInit {
     name: ""
   };
   isFilters: boolean = false;
-  private subscription: Subscription;
 
   constructor(
     public commonService: CommonService,

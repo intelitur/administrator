@@ -4,7 +4,6 @@ import { AdsService } from '../../services/ads.service';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/general-services/common.service';
-import { UserService } from 'src/app/users/services/user.service';
 import { CompanyUsersService } from 'src/app/company/services/company-users.service';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -35,7 +34,6 @@ export class AdsStadisticsComponent implements OnInit {
 
   lineChartColors: Color[] = [
     {
-      borderColor: 'black',
       backgroundColor: 'rgba(91, 93, 217, 0.6)',
     },
   ];
@@ -75,7 +73,9 @@ export class AdsStadisticsComponent implements OnInit {
           initialDate.setDate(initialDate.getDate() + 1);
           initialDate = this.formatDates(initialDate)
         }
-
+        /**Último día activo */
+        labels.push(initialDate)
+        visits.push(data.visits.initialDate)
         this.lineChartLabels = labels
         this.lineChartData = [{data: visits, label: 'Visitas por fecha' }]
         this.loading = false;
@@ -111,6 +111,7 @@ export class AdsStadisticsComponent implements OnInit {
       this.subscription = this.adService.getStadisticsAds()
       .subscribe({
         next: (data: any) => {
+          console.log(data)
           this.adService.ads = data;
           this.adsFG.controls['ads'].setValue(this.adService.ads[0].ad_id)
           this.subscription.unsubscribe();

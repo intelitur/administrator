@@ -9,6 +9,7 @@ import { AdsService } from 'src/app/ads/services/ads.service';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { DatePipe } from '@angular/common';
+import { MultimediaService } from 'src/app/general-services/multimedia.service';
 
 @Component({
   selector: 'app-ads-details',
@@ -21,11 +22,13 @@ export class AdsDetailsComponent implements OnInit {
   adFG: FormGroup;
   private subscription: Subscription;
   private subscription2: Subscription;
+  private subscription3: Subscription;
 
   start_Date = undefined;
   end_Date = undefined;
   loading = false;
   adImages = [];
+  oldAdImages = [];
   url="https://intelitur.sytes.net/files/";
   imageIndex = 0;
 
@@ -41,8 +44,9 @@ export class AdsDetailsComponent implements OnInit {
   constructor(
     public companyService: CompanyService,
     public commonService: CommonService,
-    private datePipe: DatePipe,
-    public adsService: AdsService
+    public datePipe: DatePipe,
+    public adsService: AdsService,
+    public multimediaService: MultimediaService
   ) {
     this.adFG = new FormGroup({
       name: new FormControl(null, Validators.required),
@@ -74,6 +78,17 @@ export class AdsDetailsComponent implements OnInit {
         this.subscription2.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     })
+
+    this.subscription3 = this.multimediaService.getImages(this.myAd.ad_id, 4).subscribe({
+      next: (data: any) => {
+        if(data != undefined){
+          data.forEach(elem => this.adImages.push(elem));
+          data.forEach(elem => this.oldAdImages.push(elem));
+        }
+        this.subscription2.unsubscribe();
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+    })
+
   }
 
   changeState({source}: any){
@@ -238,65 +253,45 @@ export class AdsDetailsComponent implements OnInit {
     this.updateImages(images);
   }
 
-  deleteImage(){
+  async deleteImage(){
     this.loading = true;
     this.adFG.disable()
     if(this.adImages.length == 1){
       this.imageIndex = 0;
     }
-    this.adImages.splice(this.imageIndex, 1);
-    this.updateImages(this.adImages)
-  }
 
-  updateImages(images) {
-
-    this.loading = true;
-    let startDate = this.formatDates(this.start_Date)
-    let endDate = this.formatDates(this.end_Date)
-    this.adFG.disable()
-
-    let ad: Ads = {
-      ad_id: this.myAd.ad_id,
-      name: this.adFG.controls['name'].value,
-      description : this.adFG.controls['description'].value,
-      active_range: {
-        start: startDate,
-        end: endDate
-      },
-      is_active: this.myAd.is_active,
-      is_up: this.myAd.is_up
-    }
-    
-    let json = {
-      "info": ad,
-      "latitude": this.myAd.latitude,
-      "longitude": this.myAd.longitude
-    } 
-
-    this.adsService.modifyAd(json).subscribe({
-      next: (data: any) => {
-        if (data.status == 200) {
-          this.loading = false;
-          this.adFG.enable()
-          this.myAd = ad;
-          this.adImages = images
-          this.commonService.openSnackBar(`El evento ${this.myAd.name} ha sido cambiado`,"OK")
-        }
-        else {
+    await this.multimediaService.deleteImage(this.adImages[this.imageIndex].image_id).toPromise().then(
+      (data: any) => {
+        if(data.status == 204){
           this.commonService.openSnackBar(
-            `Error al cambiar el estado: ${data.error}`,
+            `La imagen se ha eleminado`,
             "OK"
           );
-          this.loading = false;
-          this.adFG.enable()
         }
+      }
+    )
+    this.adImages.splice(this.imageIndex, 1)
+    this.loading = false
+    this.adFG.enable()
+  }
 
-      },
-      error: (err: HttpErrorResponse) => {
-        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
-        this.loading = false;
-        this.adFG.enable()
+  async updateImages(images) {
+    for(let i=0; i<images.length; i++){
+      if(this.oldAdImages.indexOf(images[i]) === -1){
+        await this.multimediaService.addImage(this.myAd.ad_id, 4, images[i]).toPromise()
+      }
+    }
+
+    this.multimediaService.getImages(this.myAd.ad_id, 4).subscribe({
+      next: (data: any) => {
+        this.adImages = data
+        this.commonService.openSnackBar(
+          "Se han agregado las imágenes",
+          "OK"
+        );
       }
     })
+    this.adFG.enable()
+    this.loading = false;
   }
 }

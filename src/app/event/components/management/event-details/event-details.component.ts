@@ -396,20 +396,19 @@ export class EventDetailsComponent implements OnInit {
       this.imageIndex = 0;
     }
 
-    if(this.oldEventImages.indexOf(this.eventImages[this.imageIndex]) > -1){
-      await this.multimediaService.deleteImage(this.eventImages[this.imageIndex].image_id).toPromise().then(
-        (data: any) => {
-          if(data.status == 204){
-            this.commonService.openSnackBar(
-              `La imagen se ha eleminado`,
-              "OK"
-            );
-          }
+    await this.multimediaService.deleteImage(this.eventImages[this.imageIndex].image_id).toPromise().then(
+      (data: any) => {
+        if(data.status == 204){
+          this.commonService.openSnackBar(
+            `La imagen se ha eleminado`,
+            "OK"
+          );
         }
-      )
-    }
+      }
+    )
     this.eventImages.splice(this.imageIndex, 1)
     this.loading = false
+    this.eventFG.enable()
   }
 
   async updateImages(images) {
@@ -424,7 +423,7 @@ export class EventDetailsComponent implements OnInit {
         this.eventImages = data
       }
     })
-
+    this.eventFG.enable()
     this.loading = false;
   }
 }

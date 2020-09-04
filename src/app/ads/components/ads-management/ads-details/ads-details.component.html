@@ -76,7 +76,7 @@
         style="width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
         <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
             <ng-template *ngFor="let i of adImages; let index = index" [id]="'slideId_' + index" ngbSlide>              
-                <img class="d-block w-100" style="max-height: 450px !important; border-radius: 10px;" src="{{url}}{{adImages[index]}}"/>
+                <img class="d-block w-100" style="max-height: 450px !important; border-radius: 10px;" src="{{url}}{{adImages[index].name}}"/>
             </ng-template>
         </ngb-carousel>
         <div style=" display: flex; height: 70px;">
