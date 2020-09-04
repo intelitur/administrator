@@ -16,6 +16,7 @@ import { CompanyModule } from './company/company.module';
 import { EventModule } from './event/event.module';
 import { CategoryModule } from './category/category.module';
 import { AdsModule } from './ads/ads.module';
+import { FrecuentQustionsModule } from './frequent-questions/frequent-questions.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AdsModule } from './ads/ads.module';
     CompanyModule,
     EventModule,
     CategoryModule,
-    AdsModule
+    AdsModule,
+    FrecuentQustionsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

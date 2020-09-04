@@ -49,6 +49,14 @@ const routes: Routes = [
         i => i.AdsModule
       ),
     canActivateChild: [LoggedInGuard]
+  },
+  {
+    path: "questions",
+    loadChildren: () =>
+      import("./frequent-questions/frequent-questions.module").then(
+        i => i.FrecuentQustionsModule
+      ),
+    canActivateChild: [LoggedInGuard]
   }
 ];
 

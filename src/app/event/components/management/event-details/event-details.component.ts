@@ -12,6 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CompanyService } from 'src/app/company/services/company.service';
 import { User } from 'src/app/users/models/User.class';
 import { UserService } from 'src/app/users/services/user.service';
+import { MultimediaService } from 'src/app/general-services/multimedia.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class EventDetailsComponent implements OnInit {
   subscription3: Subscription
   subscription4: Subscription
   eventImages = [];
+  oldEventImages = [];
   url="https://intelitur.sytes.net/files/";
   imageIndex = 0;
   user: User;
@@ -63,7 +65,8 @@ export class EventDetailsComponent implements OnInit {
     public eventService: EventService,
     public categoryService: CategoryService,
     public companyService: CompanyService,
-    public userService: UserService
+    public userService: UserService,
+    public multimediaService: MultimediaService
   ) { }
 
   ngOnInit() {
@@ -94,6 +97,7 @@ export class EventDetailsComponent implements OnInit {
     console.log(this.event)
     this.user = this.userService.actualUser
     this.event.images  != undefined? this.eventImages = this.event.images : this.eventImages = []
+    this.event.images  != undefined? this.event.images.forEach(val => this.oldEventImages.push(val)) : null
     this.setData();
   }
 
@@ -385,67 +389,42 @@ export class EventDetailsComponent implements OnInit {
     this.updateImages(images);
   }
 
-  deleteImage(){
+  async deleteImage(){
     this.loading = true;
     this.eventFG.disable()
     if(this.eventImages.length == 1){
       this.imageIndex = 0;
     }
-    this.eventImages.splice(this.imageIndex, 1);
-    this.updateImages(this.eventImages)
+
+    if(this.oldEventImages.indexOf(this.eventImages[this.imageIndex]) > -1){
+      await this.multimediaService.deleteImage(this.eventImages[this.imageIndex].image_id).toPromise().then(
+        (data: any) => {
+          if(data.status == 204){
+            this.commonService.openSnackBar(
+              `La imagen se ha eleminado`,
+              "OK"
+            );
+          }
+        }
+      )
+    }
+    this.eventImages.splice(this.imageIndex, 1)
+    this.loading = false
   }
 
-  updateImages(images) {
-
-    let event: EventType = {
-      event_id: this.event.event_id,
-      name: this.event.name,
-      cost: this.event.cost,
-      address: this.event.address,
-      detail: this.event.detail,
-      all_day: this.event.all_day,
-      color:  this.event.color,
-      date_range: {
-        initial_date: this.event.date_range.initial_date,
-        final_date: this.event.date_range.final_date
-      },
-      initial_time: this.event.initial_time,
-      final_time: this.event.final_time,
-      user_id: this.event.user_id,
-      //images: images,
-      is_active: this.event.is_active
+  async updateImages(images) {
+    for(let i=0; i<images.length; i++){
+      if(this.oldEventImages.indexOf(images[i]) === -1){
+        await this.multimediaService.addImage(this.event.event_id, 1, images[i]).toPromise()
+      }
     }
-    console.log(event)
-    let json = {
-      "info": event,
-      "latitude": this.event.latitude,
-      "longuitude": this.event.longitude
-    } 
 
-    this.eventService.modifyEvent(json).subscribe({
+    this.multimediaService.getImages(this.event.event_id, 1).subscribe({
       next: (data: any) => {
-        if (data.status == 200) {
-          this.loading = false;
-          this.eventFG.enable()
-          this.event = event;
-          this.eventImages = images
-          this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`,"OK")
-        }
-        else {
-          this.commonService.openSnackBar(
-            `Error al cambiar el estado: ${data.error}`,
-            "OK"
-          );
-          this.loading = false;
-          this.eventFG.enable()
-        }
-
-      },
-      error: (err: HttpErrorResponse) => {
-        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
-        this.loading = false;
-        this.eventFG.enable()
+        this.eventImages = data
       }
     })
+
+    this.loading = false;
   }
 }

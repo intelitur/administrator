@@ -28,7 +28,6 @@ export class RequestCompanyUnionComponent implements OnInit {
   refresh(){
     this.loading = true;
     this.companyUserService.getUserRequests(this.userService.actualUser.user_id, Number(this.filter.state)).subscribe((data: any) =>{
-      console.log(data)
       this.userRequests = data;
       this.loading = false;
     })

@@ -32,7 +32,6 @@ export class CreateEvenRequestComponent implements OnInit {
     let state = Number(this.filter.state)
     state == 0? state = -1 : state = Number(this.filter.state)
     this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, state).subscribe((data: any) =>{ 
-      console.log(data)
       this.eventRequests = data;
       this.loading = false;
     })

@@ -12,7 +12,8 @@ export class CategoryFiltersComponent implements OnInit {
   types = [
     {id: 1, name:"Evento"},
     {id: 2, name:"Itinerario"},
-    {id: 3, name:"Servicio"}
+    {id: 3, name:"Servicio"},
+    {id: 4, name:"Anuncios"}
   ]
   categoryFiltersFG: FormGroup
 

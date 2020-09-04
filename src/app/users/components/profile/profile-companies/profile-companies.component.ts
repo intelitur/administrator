@@ -36,7 +36,6 @@ export class ProfileCompaniesComponent implements OnInit {
     this.companyUsersService.getUserCompanies(this.user.user_id).subscribe(
       (data: any) => {
         this.userCompanies = data
-        console.log(this.userCompanies)
       }
     )
   }

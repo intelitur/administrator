@@ -58,7 +58,6 @@ export class EventService{
         "longitude": -84.64514404535
       }
     }
-    console.log(json)
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}`, json, {observe: 'response'})
   }
 
@@ -89,7 +88,6 @@ export class EventService{
       event_id,
       user_id
     }
-    console.log(json)
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}EventToCompany`, json, {observe: 'response'})
   }
 
@@ -125,7 +123,6 @@ export class EventService{
   }
 
   getEventRequestsByUser(id, state?){
-    console.log(id + " " + state)
     return this.http.get(`${environment.SERVER_BASE_URL}petitions/${state}/${id}`)
   }
 

@@ -1,0 +1,22 @@
+<form [formGroup]="questionFG" class="container-fluid d-flex flex-column justify-content-center" style="padding: 25px">
+    <h1>Creación de Preguntas Frecuentes</h1>
+   
+    <mat-form-field appearance="outline" >
+        <mat-label>Pregunta</mat-label>
+        <textarea style="resize: none; height: 80px;" matInput formControlName="question" matTooltip="Pregunta frecuente" type="text" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" >
+        <mat-label>Respuesta</mat-label>
+        <textarea style="resize: none; height: 80px;" matInput formControlName="answer" matTooltip="Respuesta detallada a la pregunta" type="text" required></textarea>
+    </mat-form-field>
+
+    <div class="buttonContainer">
+        <button mat-raised-button [disabled]="!questionFG.valid" color="primary" (click)="onSubmit()">
+            {{this.authService.getUser().role_id === 1? 'Crear Pregunta' : 'Solicitar Pregunta'}}
+        </button>
+        <button (click)="closeDialog()" mat-raised-button color="warn">
+            Cerrar<mat-icon>close</mat-icon>
+          </button>
+    </div>
+</form>

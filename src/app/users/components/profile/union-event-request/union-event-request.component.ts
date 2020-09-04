@@ -41,7 +41,6 @@ export class UnionEventRequestComponent implements OnInit {
   async ngOnInit() {
 
     this.user = this.userService.actualUser
-    console.log(this.user)
     this.refresh()
   }
 
@@ -58,7 +57,6 @@ export class UnionEventRequestComponent implements OnInit {
     
     this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
       next: (data: any) => {
-        console.log(data)
         this.userRequest = data
         this.subscription.unsubscribe();
         this.loading = false;

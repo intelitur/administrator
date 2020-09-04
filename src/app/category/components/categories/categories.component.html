@@ -26,19 +26,20 @@
         <div class="table-responsive" style="padding: 0 3%;">
             <table class="table" *ngIf="this.categoryService.categories">
             <thead class="thead-light">
-                <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Tipo</th>
+              <tr>
+                <th style="width: 30%;" scope="col">Nombre</th>
+                <th style="width: 30%;" scope="col">Tipo</th>
                 <th scope="col">Activa</th>
-                <th scope="col">Acciones</th>
-                </tr>
+                <th style="text-align: center;" scope="col">Acciones</th>
+              </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let category of this.categoryService.categories | filterBy: filter">
-                <td>{{category.name}}</td>
-                <td *ngIf="category.type === 1">Evento</td>
-                <td *ngIf="category.type === 2">Itinerario</td>
-                <td *ngIf="category.type === 3">Servicio</td>
+              <tr *ngFor="let category of this.categoryService.categories | filterBy: filter">
+                <td style="width: 30%;">{{category.name}}</td>
+                <td style="width: 30%;" *ngIf="category.type === 1">Evento</td>
+                <td style="width: 30%;" *ngIf="category.type === 2">Itinerario</td>
+                <td style="width: 30%;" *ngIf="category.type === 3">Servicio</td>
+                <td style="width: 30%;" *ngIf="category.type === 4">Anuncios</td>
                 <td>
                     <section (click)="$event.stopPropagation()">
                         <mat-slide-toggle (change)="changeState(category, $event)" color="primary"
@@ -46,12 +47,12 @@
                         </mat-slide-toggle>
                       </section>
                 </td>
-                <td > 
-                    <button mat-stroked-button [routerLink]="['/category', category.category_id]" matTooltip="Detalles de la Categoría" style="color: rgb(82, 82, 82); font-size: 14px;">
-                        Ver Detalles
-                    </button>
+                <td style="text-align: center;"> 
+                  <button mat-stroked-button [routerLink]="['/category', category.category_id]" matTooltip="Detalles de la Categoría" style="color: rgb(82, 82, 82); font-size: 14px;">
+                      Ver Detalles
+                  </button>
                 </td>
-                </tr>
+              </tr>
             </tbody>
             </table>
             <div class="alert alert-info text-center" role="alert" *ngIf="(this.categoryService.categories | filterBy: filter).length === 0">
