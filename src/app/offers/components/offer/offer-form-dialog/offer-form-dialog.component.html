@@ -1,5 +1,5 @@
 <form
-  [formGroup]="itineraryFG"
+  [formGroup]="offerFG"
   (ngSubmit)="onSubmit()"
   class="p-0 container-fluid d-flex flex-column justify-content-center"
 >
@@ -8,7 +8,7 @@
   <div class="containerCentral">
     <mat-form-field appearance="outline">
       <mat-label>Nombre</mat-label>
-      <input [formControl]="itineraryFG.get('name')" matInput type="text" />
+      <input [formControl]="offerFG.get('name')" matInput type="text" />
     </mat-form-field>
   
   
@@ -16,7 +16,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Descripción</mat-label>
       <input
-        [formControl]="itineraryFG.get('description')"
+        [formControl]="offerFG.get('description')"
         matInput
         type="text"
       />

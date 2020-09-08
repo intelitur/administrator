@@ -10,6 +10,7 @@ import { CommonService } from "src/app/general-services/common.service";
 import { GroupType } from "src/app/itinerary/models/GroupType";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
 import { Category } from "src/app/services/models/Category";
+import { Service } from "src/app/services/models/Service";
 import { ImageService } from "src/app/itinerary/services/image.service";
 import { FileUploader } from "ng2-file-upload";
 import { environment } from "src/environments/environment";
@@ -59,7 +60,14 @@ export class ServiceFormDialogComponent implements OnInit, OnDestroy {
 
 
   
-
+  change(){
+    if(this.serviceFG.get('name').value == "" || this.serviceFG.get('category').value == ""){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
   /**
    * @function get categories
@@ -76,53 +84,23 @@ export class ServiceFormDialogComponent implements OnInit, OnDestroy {
   }
 
 
-
-  /**
-   * @function catch deleted image
-   */
-  catchDeletedImage(index: number) {
-    this._image.uploader.removeFromQueue(this._image.uploader.queue[index]);
-  }
-
   onSubmit() {
-    let fv = this.serviceFG.value;
-    this.subscription = this._itinerary
-      .saveItinerary(
-        new Itinerary(
-          {
-            name: fv.name,
-            total_price: this.serviceFG.get('totalPrice').value,
-            price_per_day: fv.pricePerDay,
-            adult_number: fv.adultsQuantity,
-            child_number: fv.childrenQuantity,
-            description: fv.description,
-            duration: fv.duration,
-            active: false,
-            public: fv.status,
-            initial_date: fv.startDate,
-            final_date: fv.endDate
-          },
-          fv.groupType
-        ),
-        this.linkedCategories.map(e => e.category_id)
+    this.subscription = this._service
+      .addService(new Service(
+        this.serviceFG.get('name').value,
+       this.serviceFG.get('category').value
       )
-      .subscribe({
+    ).subscribe({
         next: (result: ResponseInterface) => {
-          this._common.openSnackBar("Itinerario guardado con éxito", "Ok");
-          this.savedIt = result.data;
-          this.uploadImages();
+          this._common.openSnackBar("Servicio creado", "Ok");
+          this.onNoClick();
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
   }
-
-  /**
-   * @function upload images
-   */
-  uploadImages() {
-    this._image.uploader.uploadAll();
+  onNoClick(){
+    this.dialogRef.close()
   }
-
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

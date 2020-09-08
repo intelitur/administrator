@@ -52,7 +52,18 @@ export class OffersTableComponent implements OnInit {
       });
     this.isFilters = false;
   }
-
+  /**
+   * @function delete service
+   */
+  changeState(service_id:number){
+    console.log(service_id);
+    this.subscription = this._service.deleteService(service_id).subscribe({
+        next: (result: ResponseInterface) => {
+          this._common.openSnackBar("Servicio eliminado", "Ok");
+        },
+        error: (err: HttpErrorResponse) => this._common.handleError(err)
+      });
+  }
 
 
   /**

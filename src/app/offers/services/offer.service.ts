@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Itinerary } from "../models/Itinerary";
+import { Offer } from "../models/Offer";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
@@ -31,7 +32,11 @@ export class OfferService {
     return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}offers/${user_id}`, {params: query});
   }
 
-
+  addOffer(offer: Offer): Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}offers/`, {
+      info: offer
+    });
+  }
 
 
   getFavoriteItinerary(user_id: number): Observable<any> {

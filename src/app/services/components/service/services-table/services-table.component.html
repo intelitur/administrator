@@ -34,18 +34,13 @@
         {{ element.name }}
       </td>
     </ng-container>
-  
     <!-- Weight Column -->
     <ng-container class="text-center" matColumnDef="actions">
       <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
       <td class="text-center" mat-cell *matCellDef="let element">
-        <button [routerLink]="['/offers/dashboard']"
-          (click)="assignOfferId(element.offer_id, element.name, element.descripcion)"
-          mat-stroked-button
-          color="primary"
-        >
-          Ver más
-      </button>
+        <button mat-icon-button color="warn" (click)="changeState(element.service_id)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
   
