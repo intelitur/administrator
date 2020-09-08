@@ -51,3 +51,20 @@ ngb-carousel.container-fluid.carousel.slide {
     display: flex;
     justify-content: space-around;
 }
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 32px;
+    color: #868686;
+}
+.filled {
+    color: #f1f503;
+}
+
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #f1f503;
+}

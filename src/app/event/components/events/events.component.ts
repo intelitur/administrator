@@ -20,7 +20,6 @@ export class EventsComponent implements OnInit {
   filter = {
     name: ""
   }
-  isFilters: boolean = false;
   private subscription: Subscription;
 
   constructor(
@@ -32,15 +31,15 @@ export class EventsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.obtainAllEvents()
   }
 
   obtainAllEvents(){
-    this.isFilters = false
-    this.subscription = this.eventService.getAllEvents()
+    this.eventService.isFilters = false
+    this.subscription = this.eventService.getFilteredEvents()
     .subscribe({
       next: (data: any) => {
         this.eventService.events = data;
+        this.eventService.sort()
         this.subscription.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
@@ -87,12 +86,13 @@ export class EventsComponent implements OnInit {
 
     dialog.afterClosed().subscribe( info => {
       if(info != undefined){
-        this.isFilters = true
-        this.subscription = this.eventService.getFilteredEvents(null, info.initial_date, info.final_date, info.category_id, info.rate)
+        this.eventService.isFilters = true
+        console.log(info)
+        this.subscription = this.eventService.getFilteredEvents(undefined, info.initial_date, info.final_date, info.category_id, info.rate, info.ratio, info.latitude, info.longitude)
         .subscribe({
           next: (data: any) => {
-            console.log(data)
             this.eventService.events = data;
+            this.eventService.sort()
             this.subscription.unsubscribe();
           }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
         });

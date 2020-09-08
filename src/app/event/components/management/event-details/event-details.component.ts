@@ -12,6 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CompanyService } from 'src/app/company/services/company.service';
 import { User } from 'src/app/users/models/User.class';
 import { UserService } from 'src/app/users/services/user.service';
+import { MultimediaService } from 'src/app/general-services/multimedia.service';
 
 
 @Component({
@@ -32,12 +33,14 @@ export class EventDetailsComponent implements OnInit {
   initial_time: any = undefined;
   final_time: any =  undefined;
   common_date: any = undefined;
+  currentRate:any = 0;
   subscription: Subscription
   subscription2: Subscription
   subscription3: Subscription
   subscription4: Subscription
   eventImages = [];
-  url="https://intelitur.sytes.net/files/images/";
+  oldEventImages = [];
+  url="https://intelitur.sytes.net/files/";
   imageIndex = 0;
   user: User;
 
@@ -62,7 +65,8 @@ export class EventDetailsComponent implements OnInit {
     public eventService: EventService,
     public categoryService: CategoryService,
     public companyService: CompanyService,
-    public userService: UserService
+    public userService: UserService,
+    public multimediaService: MultimediaService
   ) { }
 
   ngOnInit() {
@@ -90,8 +94,10 @@ export class EventDetailsComponent implements OnInit {
         this.subscription2.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
+    console.log(this.event)
     this.user = this.userService.actualUser
     this.event.images  != undefined? this.eventImages = this.event.images : this.eventImages = []
+    this.event.images  != undefined? this.event.images.forEach(val => this.oldEventImages.push(val)) : null
     this.setData();
   }
 
@@ -136,6 +142,7 @@ export class EventDetailsComponent implements OnInit {
     this.eventFG.controls['detail'].setValue(this.event.detail)
     this.allDay = this.event.all_day
     this.color = this.event.color
+    this.currentRate = this.event.score
     this.initial_date = new Date(this.event.date_range.initial_date)
     this.final_date = new Date(this.event.date_range.final_date)
     this.initial_time = this.event.initial_time
@@ -226,6 +233,9 @@ export class EventDetailsComponent implements OnInit {
     this.initial_time == undefined? this.initial_time = null: null;
     this.final_time == undefined? this.final_time = null: null;
 
+    let allCategories = this.getCategoriesID();
+    let allCompanies = this.getCompaniesID();
+
     let event: EventType = {
       event_id: this.event.event_id,
       name: this.eventFG.controls['name'].value,
@@ -248,7 +258,7 @@ export class EventDetailsComponent implements OnInit {
     let json = {
       "info": event,
       "latitude": this.event.latitude,
-      "longuitude": this.event.longitude
+      "longitude": this.event.longitude
     } 
 
     this.eventService.modifyEvent(json).subscribe({
@@ -257,15 +267,10 @@ export class EventDetailsComponent implements OnInit {
           this.eventFG.enable()
           this.event= event;
 
-          /**Añadiendo compañías y categorías al evento */
-          this.getCategoriesID();
-          this.getCompaniesID();
-
-          await this.eventRelations(this.event.event_id);
+          await this.eventRelations(allCategories, allCompanies, this.event.event_id);
 
           this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`,"OK")
           this.loading = false;
-          location.reload();
         }
         else {
           this.commonService.openSnackBar(
@@ -322,7 +327,7 @@ export class EventDetailsComponent implements OnInit {
     for (let i = 0; i < this.allCategories.length; i++) {
       categoryIDs.push(this.allCategories[i].category_id)
     }
-    this.allCategories = categoryIDs;
+    return categoryIDs;
   }
 
   /**
@@ -333,33 +338,35 @@ export class EventDetailsComponent implements OnInit {
     for (let i = 0; i < this.allCompanies.length; i++) {
       companyIDs.push(this.allCompanies[i].company_id)
     }
-    this.allCompanies = companyIDs;
+    return companyIDs;
   }
 
-  async eventRelations(event_id){
-    for(let i=0; i<this.allCategories.length; i++){
-      if(this.allOldCategories.indexOf(this.allCategories[i]) === -1){
-        await this.eventService.addCategoryToEvent(this.allCategories[i], event_id).toPromise()
+  async eventRelations(allCategories, allCompanies, event_id){
+    for(let i=0; i<allCategories.length; i++){
+      if(this.allOldCategories.indexOf(allCategories[i]) === -1){
+        await this.eventService.addCategoryToEvent(allCategories[i], event_id).toPromise()
       }
     }
 
     for(let i=0; i<this.allOldCategories.length; i++){
-      if(this.allCategories.indexOf(this.allOldCategories[i]) === -1){
+      if(allCategories.indexOf(this.allOldCategories[i]) === -1){
         await this.categoryService.deleteCategoryFromEvent(this.allOldCategories[i], event_id).toPromise()
       }
     }
 
-    for(let i=0; i<this.allCompanies.length; i++){
-      if(this.allOldCompanies.indexOf(this.allCompanies[i]) === -1){
-        await this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise()
+    for(let i=0; i<allCompanies.length; i++){
+      if(this.allOldCompanies.indexOf(allCompanies[i]) === -1){
+        await this.eventService.addCompanyToEvent(allCompanies[i], event_id, this.user.user_id).toPromise()
       }
     }
 
     for(let i=0; i<this.allOldCompanies.length; i++){
-      if(this.allCompanies.indexOf(this.allOldCompanies[i]) === -1){
+      if(allCompanies.indexOf(this.allOldCompanies[i]) === -1){
         await this.eventService.deleteCompanyFromEvent(this.allOldCompanies[i], event_id).toPromise()
       }
     }
+    this.allOldCategories = allCategories;
+    this.allOldCompanies = allCompanies;
   }
 
 
@@ -382,67 +389,41 @@ export class EventDetailsComponent implements OnInit {
     this.updateImages(images);
   }
 
-  deleteImage(){
+  async deleteImage(){
     this.loading = true;
     this.eventFG.disable()
     if(this.eventImages.length == 1){
       this.imageIndex = 0;
     }
-    this.eventImages.splice(this.imageIndex, 1);
-    this.updateImages(this.eventImages)
-  }
 
-  updateImages(images) {
-
-    let event: EventType = {
-      event_id: this.event.event_id,
-      name: this.event.name,
-      cost: this.event.cost,
-      address: this.event.address,
-      detail: this.event.detail,
-      all_day: this.event.all_day,
-      color:  this.event.color,
-      date_range: {
-        initial_date: this.event.date_range.initial_date,
-        final_date: this.event.date_range.final_date
-      },
-      initial_time: this.event.initial_time,
-      final_time: this.event.final_time,
-      user_id: this.event.user_id,
-      images: images,
-      is_active: this.event.is_active
-    }
-    console.log(event)
-    let json = {
-      "info": event,
-      "latitude": this.event.latitude,
-      "longuitude": this.event.longitude
-    } 
-
-    this.eventService.modifyEvent(json).subscribe({
-      next: (data: any) => {
-        if (data.status == 200) {
-          this.loading = false;
-          this.eventFG.enable()
-          this.event = event;
-          this.eventImages = images
-          this.commonService.openSnackBar(`El evento ${this.event.name} ha sido cambiado`,"OK")
-        }
-        else {
+    await this.multimediaService.deleteImage(this.eventImages[this.imageIndex].image_id).toPromise().then(
+      (data: any) => {
+        if(data.status == 204){
           this.commonService.openSnackBar(
-            `Error al cambiar el estado: ${data.error}`,
+            `La imagen se ha eleminado`,
             "OK"
           );
-          this.loading = false;
-          this.eventFG.enable()
         }
+      }
+    )
+    this.eventImages.splice(this.imageIndex, 1)
+    this.loading = false
+    this.eventFG.enable()
+  }
 
-      },
-      error: (err: HttpErrorResponse) => {
-        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
-        this.loading = false;
-        this.eventFG.enable()
+  async updateImages(images) {
+    for(let i=0; i<images.length; i++){
+      if(this.oldEventImages.indexOf(images[i]) === -1){
+        await this.multimediaService.addImage(this.event.event_id, 1, images[i]).toPromise()
+      }
+    }
+
+    this.multimediaService.getImages(this.event.event_id, 1).subscribe({
+      next: (data: any) => {
+        this.eventImages = data
       }
     })
+    this.eventFG.enable()
+    this.loading = false;
   }
 }

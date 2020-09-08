@@ -21,7 +21,7 @@
             </button>
             <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar por otros valores.</mat-hint>
         </mat-form-field>
-        <div *ngIf="isFilters" class="container-text-left">
+        <div *ngIf="this.eventService.isFilters" class="container-text-left">
           <button  mat-raised-button color="primary" (click)="obtainAllEvents()">Limpiar filtro</button>
         </div> 
         

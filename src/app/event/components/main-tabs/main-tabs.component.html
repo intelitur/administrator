@@ -1,14 +1,13 @@
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="changeTab($event)"> 
+  <mat-tab label="Estadísticas">
+    <div class="container justify-content">
+      <app-events-stadistics></app-events-stadistics>
+    </div>    
+  </mat-tab>
 
-    <mat-tab label="Estadísticas">
+  <mat-tab label="Administración">
       <div class="container justify-content">
-        <app-events-stadistics></app-events-stadistics>
+        <app-events></app-events>
       </div>    
-    </mat-tab>
-
-    <mat-tab label="Administración">
-        <div class="container justify-content">
-          <app-events></app-events>
-        </div>    
-    </mat-tab>
+  </mat-tab>
 </mat-tab-group>

@@ -16,3 +16,20 @@
 mat-form-field{
     width: 30%;
 }
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 32px;
+    color: #868686;
+}
+.filled {
+    color: #f1f503;
+}
+
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #f1f503;
+}

@@ -35,7 +35,6 @@ export class AddRequestCompanyUnionComponent implements OnInit {
 
   ngOnInit() {
     this.companyService.getCompanies().subscribe((data: Company[]) => {
-      console.log(data)
       this.companies = data
     })
 
@@ -67,7 +66,6 @@ export class AddRequestCompanyUnionComponent implements OnInit {
         }
       },
       error: (err: HttpErrorResponse) => {
-        console.log(err)
         if(err.status == 400)
           this.commonService.snackBar.open(err.error, "Ok")
         else

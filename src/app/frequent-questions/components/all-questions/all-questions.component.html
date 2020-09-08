@@ -1,0 +1,69 @@
+<div class="container">
+    <h1 class="text-center font-weight-light mt-3">Gestión de Preguntas Frequentes</h1>
+
+    <div class="float-right mb-3 " style="width: 40%; text-align: end;">
+        <button mat-raised-button color="primary" matTooltip="Agregar una pregunta" (click)="openCreateQuestionDialog()">
+          <i class="material-icons">add</i>
+          {{this.authService.getUser().role_id === 1? 'Agregar Pregunta' : 'Solicitar Pregunta'}}
+        </button>
+    </div>
+
+    <div *ngIf="this.frequentQuestionService.frequentQuestions; else loading">
+        <div class="table-responsive" style="padding: 0 3%;">
+            <table class="table allquestions" *ngIf="this.frequentQuestionService.frequentQuestions">
+            <thead class="thead-light">
+                <tr>
+                    <th style="width: 60%;" scope="col">Pregunta</th>
+                    <th style="width: 15%; text-align: center;" scope="col">Estado</th>
+                    <th style="text-align: center;" *ngIf="authService.getUser().role_id === 1" scope="col">Aceptar/Rechazar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let fq of this.frequentQuestionService.frequentQuestions">
+                    <td style="width: 60%;">
+                        <mat-accordion>
+                            <mat-expansion-panel hideToggle>
+                              <mat-expansion-panel-header style="height: auto !important;">
+                                    <mat-panel-title style="margin: 0">
+                                        <mat-card class="my-card">
+                                            <textarea class="textInfo" matInput disabled>{{fq.question}}</textarea>
+                                        </mat-card>
+                                    </mat-panel-title>
+                              </mat-expansion-panel-header>
+                                <label>Respuesta</label>
+                                <mat-card class="my-card">
+                                    <textarea class="textInfo" style="height: 90px;" matInput disabled>{{fq.answer}}</textarea>
+                                </mat-card> 
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </td>
+                    <td style="width: 15%; text-align: center;">
+                        <label color="primary" style="cursor: default;" [style.color]="fq.state == 1?  'rgb(0, 90, 0)': fq.state ==  2? 'rgb(160, 105, 0)': 'rgb(90, 0, 0)'">
+                            {{ fq.state == 1? 'Aceptado' : fq.state ==  2? 'Pendiente': 'Rechazado' }}
+                        </label>
+                    </td>
+                    <td *ngIf="authService.getUser().role_id === 1" style="text-align: center;" >
+                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" *ngIf="fq.state == 2">
+                            <button mat-stroked-button color="primary" class="acceptBtn" (click)="changeStateRequest(fq, 1)" matTooltip="Aceptar pregunta">
+                              <mat-icon>done</mat-icon>
+                            </button>
+                            <button mat-stroked-button color="warn" class="denyBtn" (click)="changeStateRequest(fq, 3)"
+                              matTooltip="Rechazar pregunta">
+                              <mat-icon>clear</mat-icon>
+                            </button>
+                          </div>
+                    </td>
+                </tr>
+            </tbody>   
+            </table>
+            <div class="alert alert-info text-center" role="alert" *ngIf="this.frequentQuestionService.frequentQuestions.length === 0">
+              ¡No hay preguntas disponibles<span class="text-danger"></span>!
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
+

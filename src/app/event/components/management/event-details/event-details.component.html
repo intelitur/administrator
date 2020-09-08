@@ -3,7 +3,16 @@
 </ng-container>
 <div style="display: flex; justify-content: space-around;">
 
-    <h2 style="color: #dbb735; text-align: center; margin: auto 0">{{event.name}}</h2>
+    <h2 style="color: #dbb735; text-align: center; margin: auto 0">
+        {{event.name}}
+        <ngb-rating [(rate)]="currentRate" [max]="5" [readonly]="true">
+            <ng-template let-fill="fill" let-index="index">
+            <span class="star" [class.filled]="fill === 100" >
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+            </span>
+            </ng-template>
+        </ngb-rating>
+    </h2>
     <div style="display: flex;  margin: auto 0; padding: 0 20px">
         <h2 style="margin: auto" [style.color]="event.is_active? '#673ab7': 'gray'">
             {{event.is_active? "Activo": "Inactivo"}}</h2>
@@ -110,7 +119,7 @@
         style="width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
         <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
             <ng-template *ngFor="let i of eventImages; let index = index" [id]="'slideId_' + index" ngbSlide>              
-                <img class="d-block w-100" style="max-height: 450px !important; border-radius: 10px;" src="{{url}}{{eventImages[index]}}"/>
+                <img class="d-block w-100" style="max-height: 450px !important; border-radius: 10px;" src="{{url}}{{eventImages[index].name}}"/>
             </ng-template>
         </ngb-carousel>
         <div style=" display: flex; height: 70px;">

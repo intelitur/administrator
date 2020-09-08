@@ -14,7 +14,7 @@ const routes: Routes = [
         component: AdsTabsComponent
       },
       {
-        path: ":ads_id",
+        path: ":ad_id",
         component: AdsManagementComponent
       }
     ]

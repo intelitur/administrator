@@ -93,7 +93,7 @@
         <div style="text-align: center;">
             <label>Todo el día:</label>
             <mat-slide-toggle style="margin-left: 3%;" (change)="changeState($event)" color="primary" [checked]= "false"></mat-slide-toggle>
-            <label style="margin-left: 5%; margin-right: 3%;"> {{!this.allDay? "No": "Sí"}} </label>
+            <label style="margin-left: 5%;"> {{!this.allDay? "No": "Sí"}} </label>
             <mat-form-field *ngIf="this.allDay" style="width: 50%;"  appearance="outline">
                 <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="commonDate"  [min]="today"  placeholder="Fecha" [(ngModel)]="common_date" disabled >
                 <mat-datepicker-toggle matSuffix [for]="commonDate" ></mat-datepicker-toggle>

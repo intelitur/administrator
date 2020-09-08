@@ -31,7 +31,6 @@ export class ProfileEventsComponent implements OnInit {
     this.user = this.userService.actualUser;
     this.eventService.getEventRequestsByUser(this.user.user_id, 1).subscribe({
       next: (data:any) => {
-        console.log(data)
         this.userEvents = data
       }
     })

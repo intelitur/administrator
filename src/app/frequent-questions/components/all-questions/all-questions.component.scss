@@ -1,0 +1,45 @@
+th{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+tr{
+    font-size: 15px;
+    cursor: pointer;
+}
+
+tr:hover{
+    background-color: rgb(247, 247, 247);
+}
+
+
+.container-text-left{
+    margin-bottom: 2%;
+    margin-left: 2%;
+}
+
+.textInfo{
+    vertical-align: middle;
+    resize: none; 
+    width: calc(100% - 20px);
+    border: none; 
+    color: #585858;
+    padding: 10px;
+}
+
+.acceptBtn, .denyBtn {
+    min-width: fit-content; 
+    margin: 1px; 
+}
+
+.acceptBtn{
+    color: green;
+}
+
+.my-card {
+    padding: 0;
+    width: 98%; 
+    height: 98%; 
+    margin: 0 1%; 
+    background-color: white;
+}

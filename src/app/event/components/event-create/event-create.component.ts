@@ -14,6 +14,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CompanyService } from 'src/app/company/services/company.service';
 import { UserService } from 'src/app/users/services/user.service';
 import { User } from 'src/app/users/models/User.class';
+import { MultimediaService } from 'src/app/general-services/multimedia.service';
 
 @Component({
   selector: 'app-event-create',
@@ -55,7 +56,8 @@ export class EventCreateComponent implements OnInit {
     public router: Router,
     public categoryService: CategoryService,
     public companyService: CompanyService,
-    public userService: UserService
+    public userService: UserService,
+    public multimediaService: MultimediaService
   ) { }
 
   ngOnInit() {
@@ -112,9 +114,6 @@ export class EventCreateComponent implements OnInit {
     this.initial_time == undefined? this.initial_time = null: null;
     this.final_time == undefined? this.final_time = null: null;
 
-    let urlImages = await this.uploadFiles()
-    console.log(urlImages)
-
     let event: EventType = {
       name: this.eventFG.controls['name'].value,
       cost: this.eventFG.controls['cost'].value,
@@ -128,8 +127,7 @@ export class EventCreateComponent implements OnInit {
       },
       initial_time: this.initial_time,
       final_time: this.final_time,
-      user_id: this.userService.actualUser.user_id,
-      images: urlImages
+      user_id: this.userService.actualUser.user_id
     }
     this.createEvent(event);
   }
@@ -143,6 +141,8 @@ export class EventCreateComponent implements OnInit {
           this.getCategories()
           this.getCompanies()
           await this.eventRelations(data.body[0])
+          /**Añadiendo imagenes */
+          await this.addImagesToEvent(data.body[0])
           this.commonService.openSnackBar(
             `El evento ${this.eventFG.value.name} se ha creado`,
             "OK"
@@ -291,7 +291,6 @@ export class EventCreateComponent implements OnInit {
           
         }
       }
-      console.log(this.eventImagesFinal)
     }
   }
 
@@ -316,8 +315,15 @@ export class EventCreateComponent implements OnInit {
     }
     this.eventImages.splice(this.imageIndex, 1);
     this.eventImagesFinal.splice(this.imageIndex, 1);
-    console.log(this.eventImages)
-    console.log(this.eventImagesFinal)
+  }
+
+  async addImagesToEvent(event_id){
+    let urlImages = await this.uploadFiles()
+    
+    for(let i=0; i<urlImages.length; i++){
+      await this.multimediaService.addImage(event_id, 1, urlImages[i]).toPromise()
+    }
+
   }
 
 }

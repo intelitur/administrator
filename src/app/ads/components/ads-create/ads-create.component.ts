@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CompanyService } from 'src/app/company/services/company.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/general-services/common.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import { Ads } from '../../models/Ads';
 import { AdsService } from '../../services/ads.service';
 import { Router } from '@angular/router';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-ads-create',
@@ -17,12 +18,18 @@ import { Router } from '@angular/router';
 export class AdsCreateComponent implements OnInit {
 
   adsFG: FormGroup;
-  companies: any;
   private subscription: Subscription;
 
   start_Date = undefined;
   end_Date = undefined;
   today: any = new Date();
+  visible = true;
+  selectable = true;
+  removable = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  filteredCompanies: any;
+  allCompanies: Array<any> = [];
+  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   constructor(
     public dialogRef: MatDialogRef<AdsCreateComponent>,
@@ -34,7 +41,7 @@ export class AdsCreateComponent implements OnInit {
     this.adsFG = new FormGroup({
       name: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
-      company: new FormControl(null, Validators.required),
+      companies: new FormControl(null),
     })
   }
 
@@ -47,24 +54,24 @@ export class AdsCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    //Carga las compañías
     this.subscription = this.companyService.getCompanies().subscribe({
       next: (data: any) => {
-        this.companies = data
+        this.filteredCompanies = data
         this.subscription.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     })
   }
 
   onSubmit(){
+    this.getCompanies()
+    let initalDate = this.formatDates(this.start_Date)
+    let finalDate = this.formatDates(this.end_Date)
     let ad: Ads = {
       name: this.adsFG.controls['name'].value,
       description: this.adsFG.controls['description'].value,
-      company_id: this.adsFG.controls['company'].value,
-      date_range: {
-        initial_date: this.start_Date,
-        final_date: this.end_Date
+      active_range: {
+        start: initalDate,
+        end: finalDate
       }
     }
     this.createAd(ad);
@@ -77,17 +84,18 @@ export class AdsCreateComponent implements OnInit {
   createAd(ad: Ads){
     this.adsFG.disable();
     this.adsService.createAd(ad).subscribe({
-      next: (data: any) => {
-        if (data.status == 204) {
+      next: async (data: any) => {
+        if (data.status == 200) {
+          await this.addAdToCompany(data.body.ad_id)
           this.commonService.openSnackBar(
-            `La categoría ${this.adsFG.value.name} se ha creado`,
+            `El anuncio ${this.adsFG.value.name} se ha creado`,
             "OK"
           );
           this.dialogRef.close();
-          this.router.navigate([`/category/all`])
+          this.router.navigate([`/ads/${data.body.ad_id}`])
         } else {  
           this.commonService.openSnackBar(
-            `Error al crear la categoría: ${data.error}`,
+            `Error al crear el anuncio: ${data.error}`,
             "OK"
           );
           this.adsFG.enable()
@@ -98,5 +106,56 @@ export class AdsCreateComponent implements OnInit {
         this.adsFG.enable()
       }
     });
+  }
+
+  formatDates(date: Date){
+    if(date != undefined){
+      date.setTime( date.getTime() + date.getTimezoneOffset()*60*1000 )
+
+      let year = date.getFullYear()
+      let month = (date.getMonth()+1) >= 10? (date.getMonth()+1) : "0"+(date.getMonth()+1) 
+      let day = date.getDate() >= 10? date.getDate(): "0"+date.getDate()
+      return year+"-"+month+"-"+day 
+    }
+  }
+
+  async addAdToCompany(ad_id){
+    for(let i=0; i<this.allCompanies.length; i++){
+      await this.adsService.addAdToCompany(ad_id, this.allCompanies[i]).toPromise()
+    }
+
+    
+  }
+
+  removeCompany(company: string): void {
+    let index = this.allCompanies.indexOf(company)
+    if (index >= 0) {
+      this.allCompanies.splice(index, 1);
+    }
+  }
+
+  /**
+   * Añade el tag seleccionado a la lista para mostarlo y lo guarda
+   * @param event 
+   */
+  selectedCompany(event: MatAutocompleteSelectedEvent): void {
+    let index = this.allCompanies.indexOf(event.option.value);
+    if (index < 0) {
+      this.allCompanies.push(event.option.value)
+      this.adsFG.controls['companies'].setValue(null);
+    } else {
+      this.commonService.openSnackBar(
+        "¡La compañía ya ha sido agregada!",
+        "OK"
+      );
+    }
+  }
+
+  getCompanies() {
+    let companyIDs: Array<any> = [];
+    for (let i = 0; i < this.allCompanies.length; i++) {
+      companyIDs.push(this.allCompanies[i].company_id)
+    }
+    this.allCompanies = companyIDs;
   }
 }

@@ -14,6 +14,7 @@ import { EventType } from 'src/app/event/models/Event';
 import { Marker, tileLayer, latLng, Map, Icon } from 'leaflet';
 import { User } from 'src/app/users/models/User.class';
 import { UserService } from 'src/app/users/services/user.service';
+import { MultimediaService } from 'src/app/general-services/multimedia.service';
 
 @Component({
   selector: 'app-add-event-request',
@@ -28,7 +29,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   eventFG: FormGroup
   allDay: boolean = false;
   loading: boolean = false;
-  color: string;
+  color: string ="";
   initial_date: any = undefined;
   final_date: any = undefined;
   today: any = new Date();
@@ -40,6 +41,8 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   subscription3: Subscription
   subscription4: Subscription
   eventImages = [];
+  eventImagesFinal = [];
+  imageIndex = 0;
   //chipList
   visible;
   selectable;
@@ -102,7 +105,8 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     public router: Router,
     public categoryService: CategoryService,
     public companyService: CompanyService,
-    public userService: UserService
+    public userService: UserService,
+    public multimediaService: MultimediaService
   ) { 
     this.refreshMap = this.refreshMap.bind(this)
   }
@@ -145,6 +149,72 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
 
   }
 
+  ngAfterViewInit() {
+    if(document.getElementById("mat-tab-label-0-2")){
+      (document.getElementById("mat-tab-label-0-2") as any).parameters = { map: this.map, event: this.myEvent }
+      document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMap, false);
+    }
+    setTimeout(() => this.map.invalidateSize(), 2000);
+  }
+
+
+  onMapReady(map: Map) {
+    this.map = map;
+    map.addLayer(this.locationMarker)
+
+
+    if (this.myEvent.latitude && this.myEvent.longitude) {
+      this.locationMarker.setLatLng(latLng(this.myEvent.latitude, this.myEvent.longitude))
+    }
+  }
+
+  refreshMap(){
+    this.map.invalidateSize()
+    if(!this.refreshed){
+      this.refreshed = true
+      if(this.myEvent.latitude && this.myEvent.longitude)
+        this.map.flyTo(latLng(this.myEvent.latitude, this.myEvent.longitude), 18)
+    }
+  }
+
+  putLocationMarker(event: any) {
+    this.locationMarker.setLatLng(event.latlng);
+  }
+
+  setData(event){
+    this.eventFG.controls['name'].setValue(event.name)
+    this.eventFG.controls['address'].setValue(event.address)
+    this.eventFG.controls['detail'].setValue(event.detail)
+    this.eventFG.controls['cost'].setValue(event.cost)
+
+    this.allDay = event.all_day
+    this.color = event.color
+    this.initial_date = new Date(event.date_range.initial_date)
+    this.final_date = new Date(event.date_range.final_date)
+    this.initial_time = event.initial_time
+    this.final_time = event.final_time
+    this.allDay?  this.common_date = event.date_range.initial_date : this.common_date = undefined; 
+
+    //categorias
+    if(!this.petition){
+      this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
+        next: (data: any) => {
+          this.allCategories = []
+          data.forEach(val => this.allCategories.push(val));
+          this.subscription3.unsubscribe();
+        }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+      });
+      //compañías
+      this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
+        next: (data: any) => {
+          this.allCompanies = []
+          data.forEach(val => this.allCompanies.push(val));
+          this.subscription4.unsubscribe();
+        }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+      });
+    }
+  }
+
   /**
    * Toogle
    * @param param0 
@@ -152,7 +222,6 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   changeState({source}: any){
     this.allDay == false ? this.allDay=true : this.allDay=false;
     source.checked = this.allDay;
-    console.log(this.allDay)
   }
 
   /**
@@ -195,17 +264,20 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     this.loading = true;
     this.eventFG.disable();
     this.eventService.createEvent(event, true).subscribe({
-      next: (data: any) => {
+      next: async (data: any) => {
         if (data.status == 200) {
+
+          /**Añadiendo compañías y categorías al evento */
+          this.getCategories()
+          this.getCompanies()
+          await this.eventRelations(data.body[0])
+          /**Añadiendo las imágenes al evento*/
+          await this.addImagesToEvent(data.body[0])
           this.commonService.openSnackBar(
             `La petición del evento ${this.eventFG.value.name} se ha creado`,
             "OK"
           );
           this.dialogRef.close();
-          /**Añadiendo compañías y categorías al evento */
-          this.getCategories()
-          this.getCompanies()
-          this.eventRelations(data.body[0])
           this.router.navigate(['/event', data.body[0]])
         } else {
           this.commonService.openSnackBar(
@@ -239,10 +311,11 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   }
 
   disableDialog(): boolean {
-    if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == undefined  ||
+    if(!this.eventFG.valid || (this.allDay == false && this.initial_date == undefined) || this.color == ""  ||
     (this.allDay == false && this.final_date== undefined) || (this.allDay == true && this.initial_time == undefined) || 
-    (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) 
-    || this.allCategories.length === 0 || (this.initial_time >= this.final_time) || this.eventImages.length == 0) {
+    (this.allDay == true && this.final_time == undefined ) || (this.allDay == true && this.common_date == undefined) || 
+    this.allCategories.length === 0 || (this.allDay == true && this.initial_time >= this.final_time) ||
+    this.loading == true || (this.allDay == false && this.initial_date > this.final_date) || this.eventImages.length == 0) {
       return true
     }
     return false
@@ -337,89 +410,56 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
     
   }
 
+  getFiles(event: any){
+    this.eventImages = []
+    this.eventImagesFinal = []
+    if(event.target.files){
+      for(let i=0; i<event.target.files.length; i++){
+        if (event.target.files[i]) {
+          this.eventImagesFinal.push(event.target.files[i])
 
-  ngAfterViewInit() {
-    if(document.getElementById("mat-tab-label-0-2")){
-      (document.getElementById("mat-tab-label-0-2") as any).parameters = { map: this.map, event: this.myEvent }
-      document.getElementById("mat-tab-label-0-2").addEventListener("click", this.refreshMap, false);
+          var reader = new FileReader();
+          
+          reader.readAsDataURL(event.target.files[i]);
+
+          reader.onload = (event:any) => {
+            this.eventImages.push(event.target.result);
+          } 
+          
+        }
+      }
     }
-    setTimeout(() => this.map.invalidateSize(), 2000);
-  }
-
-
-  onMapReady(map: Map) {
-    this.map = map;
-    map.addLayer(this.locationMarker)
-
-
-    if (this.myEvent.latitude && this.myEvent.longitude) {
-      this.locationMarker.setLatLng(latLng(this.myEvent.latitude, this.myEvent.longitude))
-    }
-    console.log(this.myEvent.latitude)    
-    console.log(this.myEvent.longitude) 
-  }
-
-  refreshMap(){
-    this.map.invalidateSize()
-    if(!this.refreshed){
-      this.refreshed = true
-      if(this.myEvent.latitude && this.myEvent.longitude)
-        this.map.flyTo(latLng(this.myEvent.latitude, this.myEvent.longitude), 18)
-    }
-  }
-
-  putLocationMarker(event: any) {
-    this.locationMarker.setLatLng(event.latlng);
-  }
-
-  setData(event){
-    console.log(event.color)
-    this.eventFG.controls['name'].setValue(event.name)
-    this.eventFG.controls['address'].setValue(event.address)
-    this.eventFG.controls['detail'].setValue(event.detail)
-    this.eventFG.controls['cost'].setValue(event.cost)
-
-    this.allDay = event.all_day
-    this.color = event.color
-    this.initial_date = new Date(event.date_range.initial_date)
-    this.final_date = new Date(event.date_range.final_date)
-    this.initial_time = event.initial_time
-    this.final_time = event.final_time
-    this.allDay?  this.common_date = event.date_range.initial_date : this.common_date = undefined; 
-
-    //categorias
-    console.log(this.petition)
-    if(!this.petition){
-      this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
-        next: (data: any) => {
-          this.allCategories = []
-          data.forEach(val => this.allCategories.push(val));
-          this.subscription3.unsubscribe();
-        }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-      });
-      //compañías
-      this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
-        next: (data: any) => {
-          this.allCompanies = []
-          data.forEach(val => this.allCompanies.push(val));
-          this.subscription4.unsubscribe();
-        }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-      });
-    }
-  }
-
-  getFiles(files){
-    this.eventImages = files;
   }
 
   async uploadFiles() {
     let images = [];
-    for(let i=0; i<this.eventImages.length; i++){
-          await this.commonService.uploadFile(this.eventImages[i]).then((data: any) => {
+    for(let i=0; i<this.eventImagesFinal.length; i++){
+          await this.commonService.uploadFile(this.eventImagesFinal[i]).then((data: any) => {
           images.push(data.filename)
         }
       )
     }
     return images
+  }
+
+  onSlide(event){
+    this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+  }
+
+  deleteImage(){
+    if(this.eventImages.length == 1){
+      this.imageIndex = 0;
+    }
+    this.eventImages.splice(this.imageIndex, 1);
+    this.eventImagesFinal.splice(this.imageIndex, 1);
+  }
+
+  async addImagesToEvent(event_id){
+    let urlImages = await this.uploadFiles()
+    
+    for(let i=0; i<urlImages.length; i++){
+      await this.multimediaService.addImage(event_id, 1, urlImages[i]).toPromise()
+    }
+
   }
 }
