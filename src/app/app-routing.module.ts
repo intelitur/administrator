@@ -67,7 +67,23 @@ const routes: Routes = [
         i => i.FrecuentQustionsModule
       ),
     canActivateChild: [LoggedInGuard]
-  }
+  },
+  { 
+    path: "offers",
+    loadChildren: () =>
+      import("./offers/offer.module").then(
+        i => i.OfferModule
+      ),
+    canActivateChild: [LoggedInGuard]
+  },
+  { 
+    path: "services",
+    loadChildren: () =>
+      import("./services/service.module").then(
+        i => i.ServiceModule
+      ),
+    canActivateChild: [LoggedInGuard]
+  },
 ];
 
 @NgModule({

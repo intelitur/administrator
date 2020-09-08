@@ -126,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "AdministratorModule"
+  "defaultProject": "AdministratorModule",
+  "cli": {
+    "analytics": false
+  }
 }

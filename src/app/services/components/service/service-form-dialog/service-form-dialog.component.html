@@ -1,0 +1,30 @@
+<form
+  [formGroup]="serviceFG"
+  (ngSubmit)="onSubmit()"
+  class="p-0 container-fluid d-flex flex-column justify-content-center"
+>
+  <h5 class="font-weight-light text-center">Agregar nuevo servicio</h5>
+  <hr />
+  <div class="containerCentral">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input [formControl]="serviceFG.get('name')" matInput type="text" />
+    </mat-form-field>
+  
+  
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Categoría</mat-label>
+      <mat-select [formControl]="serviceFG.get('category')">
+        <mat-option (click)="linkCategory(c); false" *ngFor="let c of categories" [value]="c.category_id">
+          {{ c.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+ 
+
+  <div class="container text-center mb-3" style="margin-bottom: 0;">
+    <button type="submit" mat-raised-button color="primary"><mat-icon>done</mat-icon></button>
+  </div>
+</form>

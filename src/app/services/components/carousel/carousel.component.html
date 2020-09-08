@@ -1,0 +1,10 @@
+<ngb-carousel class="container-fluid" *ngIf="data.images">
+  <ng-template *ngFor="let i of data.images; let index = index" ngbSlide>
+    <div class="container-fluid text-center">
+      <img class="img img-fluid" src="{{url}}{{data.images[index]}}" alt="Image" />
+    </div>
+    <div *ngIf="data.local" class="carousel-caption">
+      <button mat-raised-button (click)="deleteImage(index); false"><mat-icon>delete</mat-icon></button>
+    </div>
+  </ng-template>
+</ngb-carousel>

@@ -1,0 +1,42 @@
+<div class="container-fluid d-flex flex-column justify-content-sm-center">
+  <br>
+  <br>
+  <br>
+  <br>
+  <form [formGroup]="offerDetaillsFG" class="container-fluid d-flex flex-column justify-content-center"
+    style="padding: 25px">
+    <div class="main">
+      <h1>Información sobre la oferta:</h1>
+      <br>
+      <div>
+        <h1>ID de la oferta: {{ this._offer.offer_id }}</h1>
+      </div>
+      <br>
+    </div>
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <input matInput formControlName="description">
+    </mat-form-field>
+
+
+  
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+        <button mat-stroked-button [disabled]="!offerDetaillsFG.valid || !isChanged() || loading" color="primary"
+            style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="applyChanges()">
+            Guardar cambios
+        </button>
+        <button  mat-stroked-button [disabled]="!isChanged() || loading" color="warn"
+            style="width: 47%; min-width: fit-content;margin-top: 10px;"
+            (click)="companyForm.patchValue(company)">
+            Descartar cambios
+        </button>
+    </div>
+
+
+  </form>
+</div>

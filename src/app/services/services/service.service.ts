@@ -11,9 +11,29 @@ import { User } from 'src/app/users/models/User.class';
 @Injectable({
   providedIn: "root"
 })
-export class ItineraryService {
-  itinerary_id: number;
+export class ServiceService {
+  offer_id: number;
+  offer_name: string;
+  offer_descripcion: string;
   constructor(private _http: HttpClient, private _auth: AuthService) {}
+
+
+  getServices(): Observable<any> {
+    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}services/`);
+  }
+
+
+
+  getOffers(name, event_id): Observable<any> {
+    let query : any = {name: name,event_id: event_id}
+    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}offers/`, {params: query});
+  }
+  getOffersByUser(user_id: number,liked:boolean, viewed:boolean, reserved:boolean, favorite:boolean): Observable<any> {
+    let query : any = {liked,viewed,reserved,favorite}
+    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}offers/${user_id}`, {params: query});
+  }
+
+
 
 
   getFavoriteItinerary(user_id: number): Observable<any> {
@@ -112,9 +132,10 @@ export class ItineraryService {
       `${environment.SERVER_BASE_URL}groupType/getAll`);
   }
 
-  getCategories(): Observable<ResponseInterface> {
+  getCategories(state:number): Observable<ResponseInterface> {
+    let query:any = {state};
     return this._http.get<ResponseInterface>(
-      `${environment.SERVER_BASE_URL}category/getAll`);
+      `${environment.SERVER_BASE_URL}categories/`,{params: query});
   }
 
   /**
@@ -124,7 +145,7 @@ export class ItineraryService {
   addPromotionInItinerary(promotion_id: number): Observable<any> {
     return this._http.post(
       `${environment.SERVER_BASE_URL}itinerary/addPromotionInItinerary`,
-      { itinerary_id: this.itinerary_id, promotion_id: promotion_id }
+      { itinerary_id: this.offer_id, promotion_id: promotion_id }
     );
   }
 
@@ -133,7 +154,7 @@ export class ItineraryService {
    */
   getPromotionByItineraryID(): Observable<any> {
     return this._http.get(
-      `${environment.SERVER_BASE_URL}itinerary/getPromotionByItinerayID/${this.itinerary_id}`
+      `${environment.SERVER_BASE_URL}itinerary/getPromotionByItinerayID/${this.offer_id}`
     );
   }
 
@@ -142,7 +163,7 @@ export class ItineraryService {
    */
   getAllPromotions(): Observable<any> {
     return this._http.get(
-      `${environment.SERVER_BASE_URL}itinerary/getAllPromotions/${this.itinerary_id}`
+      `${environment.SERVER_BASE_URL}itinerary/getAllPromotions/${this.offer_id}`
     );
   }
 
@@ -179,14 +200,14 @@ export class ItineraryService {
   deletePromotionOfItinerary(promotion_id: number) {
     return this._http.post(
       `${environment.SERVER_BASE_URL}itinerary/deletePromotionOfItinerary`,
-      { itinerary_id: this.itinerary_id, promotion_id: promotion_id }
+      { itinerary_id: this.offer_id, promotion_id: promotion_id }
     );
   }
   /**
    * @function Get all event geometry points by itinerary id
    */
   getEventGeomByItineraryID(){
-    return this._http.get(`${environment.SERVER_BASE_URL}itinerary/getEventGeomByItineraryID/${this.itinerary_id}`);
+    return this._http.get(`${environment.SERVER_BASE_URL}itinerary/getEventGeomByItineraryID/${this.offer_id}`);
   }
 
   deleteDay(id_itinerary: number, day_number: number) {
