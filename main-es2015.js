@@ -3027,6 +3027,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _frequent_questions_frequent_questions_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./frequent-questions/frequent-questions.module */ "./src/app/frequent-questions/frequent-questions.module.ts");
 /* harmony import */ var _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./offers/offer.module */ "./src/app/offers/offer.module.ts");
 /* harmony import */ var _services_service_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/service.module */ "./src/app/services/service.module.ts");
+/* harmony import */ var ng2_charts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ng2-charts */ "./node_modules/ng2-charts/fesm2015/ng2-charts.js");
+
 
 
 
@@ -3078,7 +3080,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__["OfferModule"],
             _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"]
         ],
-        providers: [],
+        providers: [ng2_charts__WEBPACK_IMPORTED_MODULE_22__["ThemeService"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
         entryComponents: [_login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]]
     })

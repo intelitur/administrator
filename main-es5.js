@@ -5141,6 +5141,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _services_service_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
     /*! ./services/service.module */
     "./src/app/services/service.module.ts");
+    /* harmony import */
+
+
+    var ng2_charts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
+    /*! ng2-charts */
+    "./node_modules/ng2-charts/fesm2015/ng2-charts.js");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -5149,7 +5155,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
       declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _main_nav_main_nav_component__WEBPACK_IMPORTED_MODULE_7__["MainNavComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"], _login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]],
       imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _itinerary_itinerary_module__WEBPACK_IMPORTED_MODULE_9__["ItineraryModule"], _users_users_module__WEBPACK_IMPORTED_MODULE_10__["UsersModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _company_company_module__WEBPACK_IMPORTED_MODULE_15__["CompanyModule"], _event_event_module__WEBPACK_IMPORTED_MODULE_16__["EventModule"], _category_category_module__WEBPACK_IMPORTED_MODULE_17__["CategoryModule"], _ads_ads_module__WEBPACK_IMPORTED_MODULE_18__["AdsModule"], _frequent_questions_frequent_questions_module__WEBPACK_IMPORTED_MODULE_19__["FrecuentQustionsModule"], _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__["OfferModule"], _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"]],
-      providers: [],
+      providers: [ng2_charts__WEBPACK_IMPORTED_MODULE_22__["ThemeService"]],
       bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
       entryComponents: [_login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]]
     })], AppModule);
