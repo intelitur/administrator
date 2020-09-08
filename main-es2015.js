@@ -1075,16 +1075,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/offers/components/offer/offer-form-dialog/itinerary-form-dialog.component.html":
-/*!**************************************************************************************************************************************!*\
-  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/offers/components/offer/offer-form-dialog/itinerary-form-dialog.component.html ***!
-  \**************************************************************************************************************************************/
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/offers/components/offer/offer-form-dialog/offer-form-dialog.component.html":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/offers/components/offer/offer-form-dialog/offer-form-dialog.component.html ***!
+  \**********************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<form\n  [formGroup]=\"itineraryFG\"\n  (ngSubmit)=\"onSubmit()\"\n  class=\"p-0 container-fluid d-flex flex-column justify-content-center\"\n>\n  <h5 class=\"font-weight-light text-center\">Agregar nueva oferta</h5>\n  <hr />\n  <div class=\"containerCentral\">\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Nombre</mat-label>\n      <input [formControl]=\"itineraryFG.get('name')\" matInput type=\"text\" />\n    </mat-form-field>\n  \n  \n  \n    <mat-form-field appearance=\"outline\">\n      <mat-label>Descripción</mat-label>\n      <input\n        [formControl]=\"itineraryFG.get('description')\"\n        matInput\n        type=\"text\"\n      />\n    </mat-form-field>\n  </div>\n \n\n  <div class=\"container text-center mb-3\" style=\"margin-bottom: 0;\">\n    <button type=\"submit\" mat-raised-button color=\"primary\"><mat-icon>done</mat-icon></button>\n  </div>\n</form>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<form\n  [formGroup]=\"offerFG\"\n  (ngSubmit)=\"onSubmit()\"\n  class=\"p-0 container-fluid d-flex flex-column justify-content-center\"\n>\n  <h5 class=\"font-weight-light text-center\">Agregar nueva oferta</h5>\n  <hr />\n  <div class=\"containerCentral\">\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Nombre</mat-label>\n      <input [formControl]=\"offerFG.get('name')\" matInput type=\"text\" />\n    </mat-form-field>\n  \n  \n  \n    <mat-form-field appearance=\"outline\">\n      <mat-label>Descripción</mat-label>\n      <input\n        [formControl]=\"offerFG.get('description')\"\n        matInput\n        type=\"text\"\n      />\n    </mat-form-field>\n  </div>\n \n\n  <div class=\"container text-center mb-3\" style=\"margin-bottom: 0;\">\n    <button type=\"submit\" mat-raised-button color=\"primary\"><mat-icon>done</mat-icon></button>\n  </div>\n</form>\n");
 
 /***/ }),
 
@@ -1188,7 +1188,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<form\n  [formGroup]=\"serviceFG\"\n  (ngSubmit)=\"onSubmit()\"\n  class=\"p-0 container-fluid d-flex flex-column justify-content-center\"\n>\n  <h5 class=\"font-weight-light text-center\">Agregar nuevo servicio</h5>\n  <hr />\n  <div class=\"containerCentral\">\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Nombre</mat-label>\n      <input [formControl]=\"serviceFG.get('name')\" matInput type=\"text\" />\n    </mat-form-field>\n  \n  \n  \n    <mat-form-field appearance=\"outline\">\n      <mat-label>Categoría</mat-label>\n      <mat-select [formControl]=\"serviceFG.get('category')\">\n        <mat-option (click)=\"linkCategory(c); false\" *ngFor=\"let c of categories\" [value]=\"c.category_id\">\n          {{ c.name }}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n  </div>\n \n\n  <div class=\"container text-center mb-3\" style=\"margin-bottom: 0;\">\n    <button type=\"submit\" mat-raised-button color=\"primary\"><mat-icon>done</mat-icon></button>\n  </div>\n</form>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<form\n  [formGroup]=\"serviceFG\"\n  (ngSubmit)=\"onSubmit()\"\n  class=\"p-0 container-fluid d-flex flex-column justify-content-center\"\n>\n  <h5 class=\"font-weight-light text-center\">Agregar nuevo servicio</h5>\n  <hr />\n  <div class=\"containerCentral\">\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Nombre</mat-label>\n      <input [formControl]=\"serviceFG.get('name')\" matInput type=\"text\" />\n    </mat-form-field>\n  \n  \n  \n    <mat-form-field appearance=\"outline\">\n      <mat-label>Categoría</mat-label>\n      <mat-select [formControl]=\"serviceFG.get('category')\">\n        <mat-option (click)=\"linkCategory(c); false\" *ngFor=\"let c of categories\" [value]=\"c.category_id\">\n          {{ c.name }}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n  </div>\n \n\n  <div class=\"container text-center mb-3\" style=\"margin-bottom: 0;\">\n    <button type=\"submit\" mat-raised-button color=\"primary\" [disabled]=\"change()\"><mat-icon>done</mat-icon></button>\n  </div>\n</form>\n");
 
 /***/ }),
 
@@ -1214,7 +1214,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container-fluid\" *ngIf=\"dataSource; else loading\">\n  <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n    <mat-label>Escriba cualquier valor para filtrar</mat-label>\n    <input matInput (keyup)=\"applyFilter($event.target.value)\" />\n    <button\n      mat-icon-button\n      matSuffix\n      [attr.aria-label]=\"'Hide password'\"\n      [attr.aria-pressed]=\"hide\"\n      (click)=\"openShowFilterOptionsDialog(); false\"\n    >\n      <mat-icon>library_books</mat-icon>\n    </button>\n    <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar desde el servidor\n    </mat-hint>\n  </mat-form-field>\n  \n  <div *ngIf=\"isFilters\" class=\"container text-left\">\n    <button (click)=\"getItinerariesMinimalInfo(); false\" mat-raised-button color=\"primary\">Limpiar filtro</button>\n  </div>\n  <br>\n  <table *ngIf=\"dataSource\" mat-table [dataSource]=\"dataSource\" class=\"w-100 mat-elevation-z8\">\n    <ng-container matColumnDef=\"position\">\n      <th class=\"text-center\" mat-header-cell *matHeaderCellDef>No.</th>\n      <td class=\"text-center\" mat-cell *matCellDef=\"let element; let i = index\">\n        {{ i + 1 }}\n      </td>\n    </ng-container>\n  \n    <!-- Name Column -->\n    <ng-container matColumnDef=\"name\">\n      <th class=\"text-center\" mat-header-cell *matHeaderCellDef>Nombre</th>\n      <td class=\"text-center\" mat-cell *matCellDef=\"let element\">\n        {{ element.name }}\n      </td>\n    </ng-container>\n  \n    <!-- Weight Column -->\n    <ng-container class=\"text-center\" matColumnDef=\"actions\">\n      <th class=\"text-center\" mat-header-cell *matHeaderCellDef>Acciones</th>\n      <td class=\"text-center\" mat-cell *matCellDef=\"let element\">\n        <button [routerLink]=\"['/offers/dashboard']\"\n          (click)=\"assignOfferId(element.offer_id, element.name, element.descripcion)\"\n          mat-stroked-button\n          color=\"primary\"\n        >\n          Ver más\n      </button>\n      </td>\n    </ng-container>\n  \n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n  </table>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container-fluid\" *ngIf=\"dataSource; else loading\">\n  <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n    <mat-label>Escriba cualquier valor para filtrar</mat-label>\n    <input matInput (keyup)=\"applyFilter($event.target.value)\" />\n    <button\n      mat-icon-button\n      matSuffix\n      [attr.aria-label]=\"'Hide password'\"\n      [attr.aria-pressed]=\"hide\"\n      (click)=\"openShowFilterOptionsDialog(); false\"\n    >\n      <mat-icon>library_books</mat-icon>\n    </button>\n    <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar desde el servidor\n    </mat-hint>\n  </mat-form-field>\n  \n  <div *ngIf=\"isFilters\" class=\"container text-left\">\n    <button (click)=\"getItinerariesMinimalInfo(); false\" mat-raised-button color=\"primary\">Limpiar filtro</button>\n  </div>\n  <br>\n  <table *ngIf=\"dataSource\" mat-table [dataSource]=\"dataSource\" class=\"w-100 mat-elevation-z8\">\n    <ng-container matColumnDef=\"position\">\n      <th class=\"text-center\" mat-header-cell *matHeaderCellDef>No.</th>\n      <td class=\"text-center\" mat-cell *matCellDef=\"let element; let i = index\">\n        {{ i + 1 }}\n      </td>\n    </ng-container>\n  \n    <!-- Name Column -->\n    <ng-container matColumnDef=\"name\">\n      <th class=\"text-center\" mat-header-cell *matHeaderCellDef>Nombre</th>\n      <td class=\"text-center\" mat-cell *matCellDef=\"let element\">\n        {{ element.name }}\n      </td>\n    </ng-container>\n    <!-- Weight Column -->\n    <ng-container class=\"text-center\" matColumnDef=\"actions\">\n      <th class=\"text-center\" mat-header-cell *matHeaderCellDef>Acciones</th>\n      <td class=\"text-center\" mat-cell *matCellDef=\"let element\">\n        <button mat-icon-button color=\"warn\" (click)=\"changeState(element.service_id)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n      </td>\n    </ng-container>\n  \n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n  </table>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>");
 
 /***/ }),
 
@@ -10799,16 +10799,16 @@ OfferRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
-/***/ "./src/app/offers/components/offer/offer-form-dialog/itinerary-form-dialog.component.scss":
-/*!************************************************************************************************!*\
-  !*** ./src/app/offers/components/offer/offer-form-dialog/itinerary-form-dialog.component.scss ***!
-  \************************************************************************************************/
+/***/ "./src/app/offers/components/offer/offer-form-dialog/offer-form-dialog.component.scss":
+/*!********************************************************************************************!*\
+  !*** ./src/app/offers/components/offer/offer-form-dialog/offer-form-dialog.component.scss ***!
+  \********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("@media (min-width: 34em) {\n  .custom-dialog {\n    width: 100vw !important;\n    height: 100vh !important;\n  }\n}\n@media (min-width: 48em) {\n  .custom-dialog {\n    width: 100vw !important;\n  }\n}\n@media (min-width: 62em) {\n  .custom-dialog {\n    width: 70vw !important;\n    height: 75vh !important;\n  }\n}\n@media (min-width: 75em) {\n  .custom-dialog {\n    width: 65vw !important;\n    height: 100vh !important;\n  }\n}\n.custom-dialog {\n  overflow-y: auto;\n}\n.mat-dialog-container {\n  padding: 15px !important;\n}\n::ng-deep .cdk-overlay-container {\n  position: fixed !important;\n  z-index: 100000 !important;\n  /* set value you need */\n}\n.containerCentral {\n  width: 100%;\n  height: 400px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL29mZmVycy9jb21wb25lbnRzL29mZmVyL29mZmVyLWZvcm0tZGlhbG9nL2l0aW5lcmFyeS1mb3JtLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvb2ZmZXJzL2NvbXBvbmVudHMvb2ZmZXIvb2ZmZXItZm9ybS1kaWFsb2cvaXRpbmVyYXJ5LWZvcm0tZGlhbG9nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0U7SUFDRSx1QkFBQTtJQUNBLHdCQUFBO0VDQUY7QUFDRjtBRElBO0VBQ0U7SUFDRSx1QkFBQTtFQ0ZGO0FBQ0Y7QURLQTtFQUNFO0lBQ0Usc0JBQUE7SUFDQSx1QkFBQTtFQ0hGO0FBQ0Y7QURNQTtFQUNFO0lBQ0Usc0JBQUE7SUFDQSx3QkFBQTtFQ0pGO0FBQ0Y7QURPQTtFQUNFLGdCQUFBO0FDTEY7QURPQTtFQUNFLHdCQUFBO0FDSkY7QURPQTtFQUNFLDBCQUFBO0VBQ0EsMEJBQUE7RUFBNEIsdUJBQUE7QUNIOUI7QURNQTtFQUNFLFdBQUE7RUFDQSxhQUFBO0VBQ0EsYUFBQTtFQUNBLHNCQUFBO0VBQ0EsdUJBQUE7RUFDQSxxQkFBQTtBQ0hGIiwiZmlsZSI6InNyYy9hcHAvb2ZmZXJzL2NvbXBvbmVudHMvb2ZmZXIvb2ZmZXItZm9ybS1kaWFsb2cvaXRpbmVyYXJ5LWZvcm0tZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG5AbWVkaWEgKG1pbi13aWR0aDogMzRlbSkge1xuICAuY3VzdG9tLWRpYWxvZyB7XG4gICAgd2lkdGg6IDEwMHZ3ICFpbXBvcnRhbnQ7XG4gICAgaGVpZ2h0OiAxMDB2aCAhaW1wb3J0YW50O1xuICB9XG5cbn1cblxuQG1lZGlhIChtaW4td2lkdGg6IDQ4ZW0pIHtcbiAgLmN1c3RvbS1kaWFsb2cge1xuICAgIHdpZHRoOiAxMDB2dyAhaW1wb3J0YW50O1xuICB9XG59XG5cbkBtZWRpYSAobWluLXdpZHRoOiA2MmVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogNzB2dyAhaW1wb3J0YW50O1xuICAgIGhlaWdodDogNzV2aCAhaW1wb3J0YW50O1xuICB9XG59XG5cbkBtZWRpYSAobWluLXdpZHRoOiA3NWVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogNjV2dyAhaW1wb3J0YW50O1xuICAgIGhlaWdodDogMTAwdmggIWltcG9ydGFudDtcbiAgfVxufVxuXG4uY3VzdG9tLWRpYWxvZyB7XG4gIG92ZXJmbG93LXk6IGF1dG87XG59XG4ubWF0LWRpYWxvZy1jb250YWluZXIge1xuICBwYWRkaW5nOiAxNXB4ICFpbXBvcnRhbnQ7XG59XG5cbjo6bmctZGVlcCAuY2RrLW92ZXJsYXktY29udGFpbmVyIHtcbiAgcG9zaXRpb246IGZpeGVkICFpbXBvcnRhbnQ7XG4gIHotaW5kZXg6IDEwMDAwMCAhaW1wb3J0YW50OyAvKiBzZXQgdmFsdWUgeW91IG5lZWQgKi9cbn1cblxuLmNvbnRhaW5lckNlbnRyYWx7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDQwMHB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xufSIsIkBtZWRpYSAobWluLXdpZHRoOiAzNGVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogMTAwdncgIWltcG9ydGFudDtcbiAgICBoZWlnaHQ6IDEwMHZoICFpbXBvcnRhbnQ7XG4gIH1cbn1cbkBtZWRpYSAobWluLXdpZHRoOiA0OGVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogMTAwdncgIWltcG9ydGFudDtcbiAgfVxufVxuQG1lZGlhIChtaW4td2lkdGg6IDYyZW0pIHtcbiAgLmN1c3RvbS1kaWFsb2cge1xuICAgIHdpZHRoOiA3MHZ3ICFpbXBvcnRhbnQ7XG4gICAgaGVpZ2h0OiA3NXZoICFpbXBvcnRhbnQ7XG4gIH1cbn1cbkBtZWRpYSAobWluLXdpZHRoOiA3NWVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogNjV2dyAhaW1wb3J0YW50O1xuICAgIGhlaWdodDogMTAwdmggIWltcG9ydGFudDtcbiAgfVxufVxuLmN1c3RvbS1kaWFsb2cge1xuICBvdmVyZmxvdy15OiBhdXRvO1xufVxuXG4ubWF0LWRpYWxvZy1jb250YWluZXIge1xuICBwYWRkaW5nOiAxNXB4ICFpbXBvcnRhbnQ7XG59XG5cbjo6bmctZGVlcCAuY2RrLW92ZXJsYXktY29udGFpbmVyIHtcbiAgcG9zaXRpb246IGZpeGVkICFpbXBvcnRhbnQ7XG4gIHotaW5kZXg6IDEwMDAwMCAhaW1wb3J0YW50O1xuICAvKiBzZXQgdmFsdWUgeW91IG5lZWQgKi9cbn1cblxuLmNvbnRhaW5lckNlbnRyYWwge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiA0MDBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("@media (min-width: 34em) {\n  .custom-dialog {\n    width: 100vw !important;\n    height: 100vh !important;\n  }\n}\n@media (min-width: 48em) {\n  .custom-dialog {\n    width: 100vw !important;\n  }\n}\n@media (min-width: 62em) {\n  .custom-dialog {\n    width: 70vw !important;\n    height: 75vh !important;\n  }\n}\n@media (min-width: 75em) {\n  .custom-dialog {\n    width: 65vw !important;\n    height: 100vh !important;\n  }\n}\n.custom-dialog {\n  overflow-y: auto;\n}\n.mat-dialog-container {\n  padding: 15px !important;\n}\n::ng-deep .cdk-overlay-container {\n  position: fixed !important;\n  z-index: 100000 !important;\n  /* set value you need */\n}\n.containerCentral {\n  width: 100%;\n  height: 400px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL29mZmVycy9jb21wb25lbnRzL29mZmVyL29mZmVyLWZvcm0tZGlhbG9nL29mZmVyLWZvcm0tZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9vZmZlcnMvY29tcG9uZW50cy9vZmZlci9vZmZlci1mb3JtLWRpYWxvZy9vZmZlci1mb3JtLWRpYWxvZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNFO0lBQ0UsdUJBQUE7SUFDQSx3QkFBQTtFQ0FGO0FBQ0Y7QURJQTtFQUNFO0lBQ0UsdUJBQUE7RUNGRjtBQUNGO0FES0E7RUFDRTtJQUNFLHNCQUFBO0lBQ0EsdUJBQUE7RUNIRjtBQUNGO0FETUE7RUFDRTtJQUNFLHNCQUFBO0lBQ0Esd0JBQUE7RUNKRjtBQUNGO0FET0E7RUFDRSxnQkFBQTtBQ0xGO0FET0E7RUFDRSx3QkFBQTtBQ0pGO0FET0E7RUFDRSwwQkFBQTtFQUNBLDBCQUFBO0VBQTRCLHVCQUFBO0FDSDlCO0FETUE7RUFDRSxXQUFBO0VBQ0EsYUFBQTtFQUNBLGFBQUE7RUFDQSxzQkFBQTtFQUNBLHVCQUFBO0VBQ0EscUJBQUE7QUNIRiIsImZpbGUiOiJzcmMvYXBwL29mZmVycy9jb21wb25lbnRzL29mZmVyL29mZmVyLWZvcm0tZGlhbG9nL29mZmVyLWZvcm0tZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG5AbWVkaWEgKG1pbi13aWR0aDogMzRlbSkge1xuICAuY3VzdG9tLWRpYWxvZyB7XG4gICAgd2lkdGg6IDEwMHZ3ICFpbXBvcnRhbnQ7XG4gICAgaGVpZ2h0OiAxMDB2aCAhaW1wb3J0YW50O1xuICB9XG5cbn1cblxuQG1lZGlhIChtaW4td2lkdGg6IDQ4ZW0pIHtcbiAgLmN1c3RvbS1kaWFsb2cge1xuICAgIHdpZHRoOiAxMDB2dyAhaW1wb3J0YW50O1xuICB9XG59XG5cbkBtZWRpYSAobWluLXdpZHRoOiA2MmVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogNzB2dyAhaW1wb3J0YW50O1xuICAgIGhlaWdodDogNzV2aCAhaW1wb3J0YW50O1xuICB9XG59XG5cbkBtZWRpYSAobWluLXdpZHRoOiA3NWVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogNjV2dyAhaW1wb3J0YW50O1xuICAgIGhlaWdodDogMTAwdmggIWltcG9ydGFudDtcbiAgfVxufVxuXG4uY3VzdG9tLWRpYWxvZyB7XG4gIG92ZXJmbG93LXk6IGF1dG87XG59XG4ubWF0LWRpYWxvZy1jb250YWluZXIge1xuICBwYWRkaW5nOiAxNXB4ICFpbXBvcnRhbnQ7XG59XG5cbjo6bmctZGVlcCAuY2RrLW92ZXJsYXktY29udGFpbmVyIHtcbiAgcG9zaXRpb246IGZpeGVkICFpbXBvcnRhbnQ7XG4gIHotaW5kZXg6IDEwMDAwMCAhaW1wb3J0YW50OyAvKiBzZXQgdmFsdWUgeW91IG5lZWQgKi9cbn1cblxuLmNvbnRhaW5lckNlbnRyYWx7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDQwMHB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xufSIsIkBtZWRpYSAobWluLXdpZHRoOiAzNGVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogMTAwdncgIWltcG9ydGFudDtcbiAgICBoZWlnaHQ6IDEwMHZoICFpbXBvcnRhbnQ7XG4gIH1cbn1cbkBtZWRpYSAobWluLXdpZHRoOiA0OGVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogMTAwdncgIWltcG9ydGFudDtcbiAgfVxufVxuQG1lZGlhIChtaW4td2lkdGg6IDYyZW0pIHtcbiAgLmN1c3RvbS1kaWFsb2cge1xuICAgIHdpZHRoOiA3MHZ3ICFpbXBvcnRhbnQ7XG4gICAgaGVpZ2h0OiA3NXZoICFpbXBvcnRhbnQ7XG4gIH1cbn1cbkBtZWRpYSAobWluLXdpZHRoOiA3NWVtKSB7XG4gIC5jdXN0b20tZGlhbG9nIHtcbiAgICB3aWR0aDogNjV2dyAhaW1wb3J0YW50O1xuICAgIGhlaWdodDogMTAwdmggIWltcG9ydGFudDtcbiAgfVxufVxuLmN1c3RvbS1kaWFsb2cge1xuICBvdmVyZmxvdy15OiBhdXRvO1xufVxuXG4ubWF0LWRpYWxvZy1jb250YWluZXIge1xuICBwYWRkaW5nOiAxNXB4ICFpbXBvcnRhbnQ7XG59XG5cbjo6bmctZGVlcCAuY2RrLW92ZXJsYXktY29udGFpbmVyIHtcbiAgcG9zaXRpb246IGZpeGVkICFpbXBvcnRhbnQ7XG4gIHotaW5kZXg6IDEwMDAwMCAhaW1wb3J0YW50O1xuICAvKiBzZXQgdmFsdWUgeW91IG5lZWQgKi9cbn1cblxuLmNvbnRhaW5lckNlbnRyYWwge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiA0MDBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbn0iXX0= */");
 
 /***/ }),
 
@@ -10826,11 +10826,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_itinerary_models_Itinerary__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/itinerary/models/Itinerary */ "./src/app/itinerary/models/Itinerary.ts");
-/* harmony import */ var src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/itinerary/services/itinerary.service */ "./src/app/itinerary/services/itinerary.service.ts");
+/* harmony import */ var src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/offers/models/Offer */ "./src/app/offers/models/Offer.ts");
+/* harmony import */ var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/offers/services/offer.service */ "./src/app/offers/services/offer.service.ts");
 /* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
-/* harmony import */ var src_app_itinerary_services_image_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/itinerary/services/image.service */ "./src/app/itinerary/services/image.service.ts");
-
 
 
 
@@ -10839,182 +10837,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let OfferFormDialogComponent = class OfferFormDialogComponent {
-    constructor(dialogRef, _fb, _itinerary, _common, _image) {
+    constructor(dialogRef, _fb, _offer, _common) {
         this.dialogRef = dialogRef;
         this._fb = _fb;
-        this._itinerary = _itinerary;
+        this._offer = _offer;
         this._common = _common;
-        this._image = _image;
-        this.linkedCategories = [];
-        this.images = [];
-        this.data = {
-            local: true,
-            images: []
-        };
-        this.savedImagePaths = [];
     }
     ngOnInit() {
-        this.setupUploader();
-        this.itineraryFG = this._fb.group({
+        this.offerFG = this._fb.group({
             name: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            pricePerDay: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            totalPrice: [{ value: "", disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            adultsQuantity: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            childrenQuantity: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            description: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            duration: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            groupType: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            category: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            travelAdvices: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            startDate: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            endDate: [{ value: "", disabled: true }, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            status: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required] // public or private
+            description: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
         });
-        this.setupValueChangesTotalPrice();
-        this.getGroupTypes();
-        this.getCategories();
-        this.setupEndDate();
-    }
-    /**
-     * @function setud end date
-     */
-    setupEndDate() {
-        this.itineraryFG.get("startDate").valueChanges.subscribe(val => {
-            if (this.itineraryFG.get("startDate").value) {
-                var date = new Date(val);
-                if (this.itineraryFG.get("duration").value) {
-                    date.setDate(date.getDate() + this.itineraryFG.get("duration").value);
-                    this.itineraryFG.get('endDate').setValue(date);
-                }
-            }
-        });
-    }
-    /**
-     * @function setup changes of total price
-     */
-    setupValueChangesTotalPrice() {
-        this.itineraryFG.get("pricePerDay").valueChanges.subscribe(val => {
-            if (this.itineraryFG.get("duration").value) {
-                let duration = this.itineraryFG.get("duration").value;
-                this.itineraryFG.controls["totalPrice"].setValue(val * duration);
-            }
-        });
-        this.itineraryFG.get("duration").valueChanges.subscribe(val => {
-            if (this.itineraryFG.get("pricePerDay").value) {
-                let pricePerDay = this.itineraryFG.get("pricePerDay").value;
-                this.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
-            }
-        });
-    }
-    /**
-     * @function setup up loader
-     */
-    setupUploader() {
-        this._image.uploader.onAfterAddingFile = file => {
-            file.withCredentials = false;
-        };
-        this._image.uploader.onSuccessItem = (item, response, status, headers) => {
-            let path = JSON.parse(response).data;
-            this.savedImagePaths.push(path);
-        };
-        this._image.uploader.onCompleteAll = () => {
-            this.savedImagePaths.forEach(e => {
-                this.subscription = this._itinerary
-                    .saveImageUrl(this.savedIt, e)
-                    .subscribe({
-                    error: (err) => this._common.handleError(err)
-                });
-            });
-        };
-    }
-    /**
-     * @function link category
-     */
-    linkCategory(c) {
-        if (!this.linkedCategories.includes(c))
-            this.linkedCategories.unshift(c);
-    }
-    /**
-     * @function delete linked category
-     */
-    deleteLinkedCategory(index) {
-        this.linkedCategories.splice(index, 1);
-    }
-    /**
-     * @function get group types
-     */
-    getGroupTypes() {
-        this.subscription = this._itinerary.getGroupTypes().subscribe({
-            next: (data) => {
-                this.groupTypes = [];
-                data.data.forEach((el) => {
-                    this.groupTypes.unshift(el);
-                });
-            },
-            error: (err) => this._common.handleError(err)
-        });
-    }
-    /**
-     * @function get categories
-     */
-    getCategories() {
-        this.subscription = this._itinerary.getCategories().subscribe({
-            next: (result) => {
-                this.categories = result.data;
-            },
-            error: (err) => this._common.handleError(err)
-        });
-    }
-    /**
-     * @function catch selected images
-     */
-    catchSelectedImages(files) {
-        for (let i = 0; i < files.length; i++) {
-            var reader = new FileReader();
-            reader.readAsDataURL(files[i].rawFile);
-            reader.onload = (event) => {
-                // called once readAsDataURL is completed
-                this.images.push(event.target.result);
-                this.data.images = this.images;
-            };
-        }
-    }
-    /**
-     * @function catch deleted image
-     */
-    catchDeletedImage(index) {
-        this._image.uploader.removeFromQueue(this._image.uploader.queue[index]);
     }
     onSubmit() {
-        let fv = this.itineraryFG.value;
-        this.subscription = this._itinerary
-            .saveItinerary(new src_app_itinerary_models_Itinerary__WEBPACK_IMPORTED_MODULE_4__["Itinerary"]({
-            name: fv.name,
-            total_price: this.itineraryFG.get('totalPrice').value,
-            price_per_day: fv.pricePerDay,
-            adult_number: fv.adultsQuantity,
-            child_number: fv.childrenQuantity,
-            description: fv.description,
-            duration: fv.duration,
-            active: false,
-            public: fv.status,
-            initial_date: fv.startDate,
-            final_date: fv.endDate
-        }, fv.groupType), this.linkedCategories.map(e => e.category_id))
-            .subscribe({
+        let fv = this.offerFG.value;
+        this.subscription = this._offer
+            .addOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_4__["Offer"](this.offerFG.get('name').value, this.offerFG.get('description').value)).subscribe({
             next: (result) => {
-                this._common.openSnackBar("Itinerario guardado con éxito", "Ok");
-                this.savedIt = result.data;
-                this.uploadImages();
+                this._common.openSnackBar("Oferta creada con éxito", "Ok");
+                this.onNoClick();
             },
             error: (err) => this._common.handleError(err)
         });
     }
-    /**
-     * @function upload images
-     */
-    uploadImages() {
-        this._image.uploader.uploadAll();
+    onNoClick() {
+        this.dialogRef.close();
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();
@@ -11023,16 +10870,15 @@ let OfferFormDialogComponent = class OfferFormDialogComponent {
 OfferFormDialogComponent.ctorParameters = () => [
     { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
-    { type: src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_5__["ItineraryService"] },
-    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"] },
-    { type: src_app_itinerary_services_image_service__WEBPACK_IMPORTED_MODULE_7__["ImageService"] }
+    { type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__["OfferService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"] }
 ];
 OfferFormDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: "app-offer-form-dialog",
-        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./itinerary-form-dialog.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/offers/components/offer/offer-form-dialog/itinerary-form-dialog.component.html")).default,
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./offer-form-dialog.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/offers/components/offer/offer-form-dialog/offer-form-dialog.component.html")).default,
         encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
-        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./itinerary-form-dialog.component.scss */ "./src/app/offers/components/offer/offer-form-dialog/itinerary-form-dialog.component.scss")).default]
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./offer-form-dialog.component.scss */ "./src/app/offers/components/offer/offer-form-dialog/offer-form-dialog.component.scss")).default]
     })
 ], OfferFormDialogComponent);
 
@@ -11156,10 +11002,12 @@ let OffersTableComponent = class OffersTableComponent {
      * @function get minimal info of itinerary
      */
     getOffersByUser() {
+        console.log(this.sesionService.actualUser.user_id);
         this.subscription = this._offers
             .getOffersByUser(this.sesionService.actualUser.user_id, this.liked, this.viewed, this.reserved, this.favorite)
             .subscribe({
             next: (data) => {
+                console.log("funca");
                 console.log(data);
                 this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
             },
@@ -11277,6 +11125,28 @@ Offers_ServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     })
 ], Offers_ServicesComponent);
 
+
+
+/***/ }),
+
+/***/ "./src/app/offers/models/Offer.ts":
+/*!****************************************!*\
+  !*** ./src/app/offers/models/Offer.ts ***!
+  \****************************************/
+/*! exports provided: Offer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Offer", function() { return Offer; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class Offer {
+    constructor(name, description) {
+        this.name = name;
+        this.description = description;
+    }
+}
 
 
 /***/ }),
@@ -11437,6 +11307,11 @@ let OfferService = class OfferService {
     getOffersByUser(user_id, liked, viewed, reserved, favorite) {
         let query = { liked, viewed, reserved, favorite };
         return this._http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}offers/${user_id}`, { params: query });
+    }
+    addOffer(offer) {
+        return this._http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}offers/`, {
+            info: offer
+        });
     }
     getFavoriteItinerary(user_id) {
         return this._http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}favorite/getFavoriteItinerary/${user_id}`);
@@ -11900,10 +11775,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_itinerary_models_Itinerary__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/itinerary/models/Itinerary */ "./src/app/itinerary/models/Itinerary.ts");
-/* harmony import */ var src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/itinerary/services/itinerary.service */ "./src/app/itinerary/services/itinerary.service.ts");
-/* harmony import */ var src_app_services_services_service_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/services/service.service */ "./src/app/services/services/service.service.ts");
-/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/itinerary/services/itinerary.service */ "./src/app/itinerary/services/itinerary.service.ts");
+/* harmony import */ var src_app_services_services_service_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/services/service.service */ "./src/app/services/services/service.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_services_models_Service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/models/Service */ "./src/app/services/models/Service.ts");
 /* harmony import */ var src_app_itinerary_services_image_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/itinerary/services/image.service */ "./src/app/itinerary/services/image.service.ts");
 
 
@@ -11944,6 +11819,14 @@ let ServiceFormDialogComponent = class ServiceFormDialogComponent {
         if (!this.linkedCategories.includes(c))
             this.linkedCategories.unshift(c);
     }
+    change() {
+        if (this.serviceFG.get('name').value == "" || this.serviceFG.get('category').value == "") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     /**
      * @function get categories
      */
@@ -11957,42 +11840,18 @@ let ServiceFormDialogComponent = class ServiceFormDialogComponent {
             error: (err) => this._common.handleError(err)
         });
     }
-    /**
-     * @function catch deleted image
-     */
-    catchDeletedImage(index) {
-        this._image.uploader.removeFromQueue(this._image.uploader.queue[index]);
-    }
     onSubmit() {
-        let fv = this.serviceFG.value;
-        this.subscription = this._itinerary
-            .saveItinerary(new src_app_itinerary_models_Itinerary__WEBPACK_IMPORTED_MODULE_4__["Itinerary"]({
-            name: fv.name,
-            total_price: this.serviceFG.get('totalPrice').value,
-            price_per_day: fv.pricePerDay,
-            adult_number: fv.adultsQuantity,
-            child_number: fv.childrenQuantity,
-            description: fv.description,
-            duration: fv.duration,
-            active: false,
-            public: fv.status,
-            initial_date: fv.startDate,
-            final_date: fv.endDate
-        }, fv.groupType), this.linkedCategories.map(e => e.category_id))
-            .subscribe({
+        this.subscription = this._service
+            .addService(new src_app_services_models_Service__WEBPACK_IMPORTED_MODULE_7__["Service"](this.serviceFG.get('name').value, this.serviceFG.get('category').value)).subscribe({
             next: (result) => {
-                this._common.openSnackBar("Itinerario guardado con éxito", "Ok");
-                this.savedIt = result.data;
-                this.uploadImages();
+                this._common.openSnackBar("Servicio creado", "Ok");
+                this.onNoClick();
             },
             error: (err) => this._common.handleError(err)
         });
     }
-    /**
-     * @function upload images
-     */
-    uploadImages() {
-        this._image.uploader.uploadAll();
+    onNoClick() {
+        this.dialogRef.close();
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();
@@ -12001,9 +11860,9 @@ let ServiceFormDialogComponent = class ServiceFormDialogComponent {
 ServiceFormDialogComponent.ctorParameters = () => [
     { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
-    { type: src_app_services_services_service_service__WEBPACK_IMPORTED_MODULE_6__["ServiceService"] },
-    { type: src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_5__["ItineraryService"] },
-    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_7__["CommonService"] },
+    { type: src_app_services_services_service_service__WEBPACK_IMPORTED_MODULE_5__["ServiceService"] },
+    { type: src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_4__["ItineraryService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"] },
     { type: src_app_itinerary_services_image_service__WEBPACK_IMPORTED_MODULE_8__["ImageService"] }
 ];
 ServiceFormDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -12147,6 +12006,18 @@ let OffersTableComponent = class OffersTableComponent {
         this.isFilters = false;
     }
     /**
+     * @function delete service
+     */
+    changeState(service_id) {
+        console.log(service_id);
+        this.subscription = this._service.deleteService(service_id).subscribe({
+            next: (result) => {
+                this._common.openSnackBar("Servicio eliminado", "Ok");
+            },
+            error: (err) => this._common.handleError(err)
+        });
+    }
+    /**
      * @function get minimal info of itinerary
      */
     getOffersByUser() {
@@ -12271,6 +12142,28 @@ Services_ServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     })
 ], Services_ServicesComponent);
 
+
+
+/***/ }),
+
+/***/ "./src/app/services/models/Service.ts":
+/*!********************************************!*\
+  !*** ./src/app/services/models/Service.ts ***!
+  \********************************************/
+/*! exports provided: Service */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Service", function() { return Service; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class Service {
+    constructor(name, category_id) {
+        this.name = name;
+        this.category_id = category_id;
+    }
+}
 
 
 /***/ }),
@@ -12427,6 +12320,9 @@ let ServiceService = class ServiceService {
     getServices() {
         return this._http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}services/`);
     }
+    deleteService(service_id) {
+        return this._http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}services/${service_id}`);
+    }
     getOffers(name, event_id) {
         let query = { name: name, event_id: event_id };
         return this._http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}offers/`, { params: query });
@@ -12434,6 +12330,12 @@ let ServiceService = class ServiceService {
     getOffersByUser(user_id, liked, viewed, reserved, favorite) {
         let query = { liked, viewed, reserved, favorite };
         return this._http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}offers/${user_id}`, { params: query });
+    }
+    addService(service) {
+        return this._http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}services/`, {
+            category_id: service.category_id,
+            name: service.name
+        });
     }
     getFavoriteItinerary(user_id) {
         return this._http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}favorite/getFavoriteItinerary/${user_id}`);
@@ -12471,12 +12373,10 @@ let ServiceService = class ServiceService {
         return this._http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}itinerary/changeActiveState`, { id: itinerary_id, info: info });
     }
     ;
-    saveItinerary(it, categories_ids) {
+    saveItinerary(service) {
         return this._http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}itinerary/save`, {
-            info: it.info,
-            categories_ids: categories_ids,
-            group_type_id: it.group_type_id,
-            user_id: this._auth.getUser().user_id
+            categories_ids: service.category_id,
+            name: service.name
         });
     }
     getItineraryFullInfo(id_itinerary) {
