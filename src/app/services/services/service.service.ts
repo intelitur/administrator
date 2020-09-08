@@ -8,6 +8,8 @@ import { Filter } from "../models/Filter.interface";
 import { AuthService } from 'src/app/general-services/auth.service';
 import { User } from 'src/app/users/models/User.class';
 
+import { Service } from "../models/Service";
+
 @Injectable({
   providedIn: "root"
 })
@@ -21,7 +23,9 @@ export class ServiceService {
   getServices(): Observable<any> {
     return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}services/`);
   }
-
+  deleteService(service_id: number): Observable<any> {
+    return this._http.delete(`${environment.SERVER_BASE_URL}services/${service_id}`);
+  }
 
 
   getOffers(name, event_id): Observable<any> {
@@ -32,6 +36,14 @@ export class ServiceService {
     let query : any = {liked,viewed,reserved,favorite}
     return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}offers/${user_id}`, {params: query});
   }
+  addService(service: Service): Observable<any> {
+    return this._http.post(`${environment.SERVER_BASE_URL}services/`, {
+      category_id: service.category_id,
+      name: service.name
+    });
+  }
+
+
 
 
 
@@ -78,12 +90,10 @@ export class ServiceService {
     return this._http.post(`${environment.SERVER_BASE_URL}itinerary/changeActiveState`,{id: itinerary_id, info: info});
   };
 
-  saveItinerary(it: Itinerary, categories_ids: Array<number>): Observable<any> {
+  saveItinerary(service: Service): Observable<any> {
     return this._http.post(`${environment.SERVER_BASE_URL}itinerary/save`, {
-      info: it.info,
-      categories_ids: categories_ids,
-      group_type_id: it.group_type_id,
-      user_id: (this._auth.getUser() as User).user_id
+      categories_ids: service.category_id,
+      name: service.name
     });
   }
 

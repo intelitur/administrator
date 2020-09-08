@@ -39,10 +39,14 @@ export class OffersTableComponent implements OnInit {
    * @function get minimal info of itinerary
    */
   getOffersByUser() {
+    console.log(this.sesionService.actualUser.user_id);
     this.subscription = this._offers
       .getOffersByUser(this.sesionService.actualUser.user_id,this.liked, this.viewed,this.reserved,this.favorite)
       .subscribe({
         next: (data: any) => {
+          console.log("funca");
+          
+          
           console.log(data);
           
           this.dataSource = new MatTableDataSource(data);
