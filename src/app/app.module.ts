@@ -19,6 +19,7 @@ import { AdsModule } from './ads/ads.module';
 import { FrecuentQustionsModule } from './frequent-questions/frequent-questions.module';
 import { OfferModule } from './offers/offer.module';
 import { ServiceModule } from './services/service.module';
+import { ThemeService } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { ServiceModule } from './services/service.module';
     OfferModule,
     ServiceModule
   ],
-  providers: [],
+  providers: [ThemeService],
   bootstrap: [AppComponent],
   entryComponents: [RegisterBusinessManComponent, ForgotPasswordComponent]
 })
