@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
+import { MatDialog } from '@angular/material';
+import { ServiceCreateComponent } from '../service/service-create/service-create.component';
 
 @Component({
   selector: 'app-services-dashboard',
@@ -8,13 +9,16 @@ import { DialogManagerService } from 'src/app/general-services/dialog-manager.se
 })
 export class Services_ServicesComponent implements OnInit {
 
-  constructor(private _dialog: DialogManagerService) { }
+  constructor( public dialogService: MatDialog) { }
 
   ngOnInit() {
   }
 
-  openServicesDialog() {
-    this._dialog.openServiceFormDialog();
+  openCreateServiceDialog() {
+    const dialog = this.dialogService.open(ServiceCreateComponent, {width: "60%", minWidth: "280px", disableClose: true})
+    dialog.afterClosed().subscribe( data =>{
+      console.log(data)
+    })
   }
 
 }

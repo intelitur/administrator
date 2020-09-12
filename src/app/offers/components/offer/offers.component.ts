@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogManagerService } from 'src/app/general-services/dialog-manager.service';
+import { MatDialog } from '@angular/material'; 
+import { OfferCreateComponent } from '../offer/offer-create/offer-create.component';
 
 @Component({
   selector: 'app-offers-dashboard',
@@ -8,13 +9,16 @@ import { DialogManagerService } from 'src/app/general-services/dialog-manager.se
 })
 export class Offers_ServicesComponent implements OnInit {
 
-  constructor(private _dialog: DialogManagerService) { }
+  constructor( public dialogService: MatDialog) { }
 
   ngOnInit() {
   }
 
-  openItineraryDialog() {
-    this._dialog.openOfferFormDialog();
+  openCreateOfferDialog() {
+    const dialog = this.dialogService.open(OfferCreateComponent, {width: "60%", minWidth: "280px", disableClose: true})
+    dialog.afterClosed().subscribe( data =>{
+      console.log(data)
+    })
   }
-
+  
 }

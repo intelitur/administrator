@@ -4,8 +4,6 @@ import { Observable } from "rxjs";
 import { AddAdminComponent } from "../users/components/add-admin/add-admin.component";
 import { RegisterBusinessManComponent } from "../login/register-business-man/register-business-man.component";
 import { ItineraryFormDialogComponent } from "../itinerary/components/itineraries/itinerary-form-dialog/itinerary-form-dialog.component";
-import { ServiceFormDialogComponent } from "../services/components/service/service-form-dialog/service-form-dialog.component";
-import { OfferFormDialogComponent } from "../offers/components/offer/offer-form-dialog/offer-form-dialog.component";
 import { CreateDayComponent } from "../itinerary/components/itinerary-dashboard/itinerary-distribution/create-day/create-day.component";
 import { ShowDayDetailsComponent } from "../itinerary/components/itinerary-dashboard/itinerary-distribution/show-day-details/show-day-details.component";
 import { ForgotPasswordComponent } from "../login/forgot-password/forgot-password.component";
@@ -23,20 +21,7 @@ export class DialogManagerService {
 
     return dialogRef.afterClosed();
   }
-  openOfferFormDialog(): Observable<any> {
-    const dialogRef = this.dialog.open(OfferFormDialogComponent, {
-      panelClass: "custom-dialog"
-    });
 
-    return dialogRef.afterClosed();
-  }
-  openServiceFormDialog(): Observable<any> {
-    const dialogRef = this.dialog.open(ServiceFormDialogComponent, {
-      panelClass: "custom-dialog"
-    });
-
-    return dialogRef.afterClosed();
-  }
   openFilterOptionsDialog(): Observable<any> {
     const dialogRef = this.dialog.open(FilterOptionsDialogComponent);
 

@@ -41,7 +41,7 @@ export class OffersTableComponent implements OnInit {
   getOffersByUser() {
     console.log(this.sesionService.actualUser.user_id);
     this.subscription = this._offers
-      .getOffersByUser(this.sesionService.actualUser.user_id,this.liked, this.viewed,this.reserved,this.favorite)
+      .getOffers()
       .subscribe({
         next: (data: any) => {
           console.log("funca");

@@ -23,8 +23,8 @@ export class OfferService {
 
 
 
-  getOffers(name, event_id): Observable<any> {
-    let query : any = {name: name,event_id: event_id}
+  getOffers(): Observable<any> {
+    let query : any = {name: '',event_id: ''}
     return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}offers/`, {params: query});
   }
   getOffersByUser(user_id: number,liked:boolean, viewed:boolean, reserved:boolean, favorite:boolean): Observable<any> {

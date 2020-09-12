@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Itinerary } from "src/app/itinerary/models/Itinerary";
 import { Subscription } from "rxjs";
 import { ItineraryService } from "src/app/itinerary/services/itinerary.service";
 import { ServiceService } from "src/app/services/services/service.service";
@@ -12,16 +11,14 @@ import { ResponseInterface } from "src/app/globalModels/Response.interface";
 import { Category } from "src/app/services/models/Category";
 import { Service } from "src/app/services/models/Service";
 import { ImageService } from "src/app/itinerary/services/image.service";
-import { FileUploader } from "ng2-file-upload";
-import { environment } from "src/environments/environment";
 
 @Component({
-  selector: "app-service-form-dialog",
-  templateUrl: "./service-form-dialog.component.html",
-  styleUrls: ["./service-form-dialog.component.scss"],
+  selector: "app-service-create",
+  templateUrl: "./service-create.component.html",
+  styleUrls: ["./service-create.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
-export class ServiceFormDialogComponent implements OnInit, OnDestroy {
+export class ServiceCreateComponent implements OnInit, OnDestroy {
   serviceFG: FormGroup;
   categories: Array<Category>;
   linkedCategories: Array<Category> = [];
@@ -35,7 +32,7 @@ export class ServiceFormDialogComponent implements OnInit, OnDestroy {
   savedIt: number;
   savedImagePaths: Array<string> = [];
   constructor(
-    public dialogRef: MatDialogRef<ServiceFormDialogComponent>,
+    public dialogRef: MatDialogRef<ServiceCreateComponent>,
     private _fb: FormBuilder,
     private _service: ServiceService,
     private _itinerary: ItineraryService,
@@ -75,7 +72,6 @@ export class ServiceFormDialogComponent implements OnInit, OnDestroy {
   getCategories() {
     this.subscription = this._service.getCategories(4).subscribe({
       next: (result: ResponseInterface) => {
-        console.log(result);
         let temp:any = result
         this.categories = temp;
       },
@@ -97,6 +93,16 @@ export class ServiceFormDialogComponent implements OnInit, OnDestroy {
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
+  }
+  check(){
+    let tipo  = new RegExp("^[A-Za-z0-9]");
+    var test = tipo.test(this.serviceFG.get('name').value);
+    if(this.serviceFG.get('name').value == "" || this.serviceFG.get('category').value == "" ||  !test){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
   onNoClick(){
     this.dialogRef.close()
