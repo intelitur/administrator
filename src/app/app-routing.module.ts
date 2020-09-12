@@ -57,6 +57,14 @@ const routes: Routes = [
         i => i.FrecuentQustionsModule
       ),
     canActivateChild: [LoggedInGuard]
+  },
+  {
+    path: "contests",
+    loadChildren: () =>
+      import("./contests/contests.module").then(
+        i => i.ContestsModule
+      ),
+    canActivateChild: [LoggedInGuard]
   }
 ];
 

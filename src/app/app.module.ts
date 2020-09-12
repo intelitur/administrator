@@ -17,6 +17,7 @@ import { EventModule } from './event/event.module';
 import { CategoryModule } from './category/category.module';
 import { AdsModule } from './ads/ads.module';
 import { FrecuentQustionsModule } from './frequent-questions/frequent-questions.module';
+import { ContestsModule } from './contests/contests.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FrecuentQustionsModule } from './frequent-questions/frequent-questions.
     EventModule,
     CategoryModule,
     AdsModule,
-    FrecuentQustionsModule
+    FrecuentQustionsModule,
+    ContestsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
