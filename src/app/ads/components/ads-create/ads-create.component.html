@@ -22,45 +22,73 @@
 
 <form [formGroup]="adsFG" class="container-fluid d-flex flex-column justify-content-center">
    
-    <mat-form-field appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input #Name matInput formControlName="name" matTooltip="Nombre del anuncio" maxlength="50" required>
-        <mat-hint align="end">{{Name.value.length}}/50</mat-hint>
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input #Name matInput formControlName="name" matTooltip="Nombre del anuncio" maxlength="50" required>
+      <mat-hint align="end">{{Name.value.length}}/50</mat-hint>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline">
-        <textarea style="resize: none;" matInput formControlName="description" placeholder="Descripción" required></textarea>
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+      <textarea style="resize: none;" matInput formControlName="description" placeholder="Descripción" required></textarea>
+  </mat-form-field>
 
-    <div  class="chip-list">
-        <mat-form-field class="chip-list" appearance="outline">
-          <mat-chip-list #chipList aria-label="Companies selection">
-            <mat-chip class="chip"
-              *ngFor="let company of allCompanies"
-              [selectable]="selectable"
-              [removable]="removable">
-              {{company.name}}
-              <i matChipRemove class="material-icons" (click)="removeCompany(company)">cancel</i>
-            </mat-chip>
-            <input
-              placeholder="Seleccione las compañías"
-              #tagInput
-              formControlName="companies" 
-              [matChipInputFor]="chipList"
-              [matAutocomplete]="autoCompany"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-          </mat-chip-list>
-          <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
-            <mat-option *ngFor="let c of filteredCompanies " [value]="c">
-              {{c.name}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
+  <div  class="chip-list">
+      <mat-form-field class="chip-list" appearance="outline">
+        <mat-chip-list #chipList aria-label="Companies selection">
+          <mat-chip class="chip"
+            *ngFor="let company of allCompanies"
+            [selectable]="selectable"
+            [removable]="removable">
+            {{company.name}}
+            <i matChipRemove class="material-icons" (click)="removeCompany(company)">cancel</i>
+          </mat-chip>
+          <input
+            placeholder="Seleccione las compañías"
+            #tagInput
+            formControlName="companies" 
+            [matChipInputFor]="chipList"
+            [matAutocomplete]="autoCompany"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+        </mat-chip-list>
+        <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
+          <mat-option *ngFor="let c of filteredCompanies " [value]="c">
+            {{c.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+  </div>
+
+  <div style="width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;">
+    <div class="file">
+        <div class="uploadFile">
+            <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> Añadir Imágenes </label> 
+            <input [disabled]="loading"  id="file-upload" (change)="getFiles($event)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>
+        </div>
     </div>
+
+    <mat-hint *ngIf="this.adImages.length == 0" style="padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;">Debes añadir imagenes*</mat-hint>
+    <mat-hint *ngIf="this.adImages.length != 0" style="padding-left: 2.5%; align-self: center; font-style: italic;">Si pulsa en "Añadir imágenes" nuevamente deberá seleccionar todas las imágenes.</mat-hint>
+
+  <div *ngIf="adImages.length != 0"
+      style="max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
+      <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
+          <ng-template *ngFor="let i of adImages; let index = index" [id]="'slideId_' + index" ngbSlide>              
+              <img class="d-block w-100" style="max-height: 450px !important; border-radius: 10px; object-fit: contain;" src="{{url}}{{adImages[index]}}"/>
+              <div class="carousel-caption">
+                  <button [disabled]="loading" mat-button style="border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;" (click)="deleteImage();"
+                      class="image-buttons" color="warn">
+                      <mat-icon>delete</mat-icon>
+                  </button>
+              </div>
+          </ng-template>
+      </ngb-carousel>
+    </div>
+  </div>
+
 </form>
 
 <div class="buttonContainer">
-    <button mat-raised-button [disabled]="!adsFG.valid || this.allCompanies.length == 0 || start_Date == undefined || end_Date == undefined || start_Date > end_Date" color="primary" (click)="onSubmit()">
+    <button mat-raised-button [disabled]="!adsFG.valid || this.allCompanies.length == 0 || start_Date == undefined || end_Date == undefined || start_Date > end_Date || adImages.length == 0" color="primary" (click)="onSubmit()">
         Crear Anuncio
     </button>
     <button (click)="closeDialog()" mat-raised-button color="warn">

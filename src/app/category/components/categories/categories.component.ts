@@ -35,10 +35,7 @@ export class CategoriesComponent implements OnInit {
    * @function to open the create category dialog 
    */
   openCreateCategoryDialog(){
-    const dialog = this.dialogService.open(CategoryCreateComponent, {width: "60%", minWidth: "280px", disableClose: true})
-    dialog.afterClosed().subscribe( data =>{
-      console.log(data)
-    })
+    this.dialogService.open(CategoryCreateComponent, {width: "60%", minWidth: "280px", disableClose: true})
   }
 
   /**

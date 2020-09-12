@@ -21,7 +21,7 @@ export class AdsStadisticsComponent implements OnInit {
   adsFG: FormGroup;
   loading = false;
   today = new Date()
-  lineChartData: ChartDataSets[] = [{data: [0], label: 'Visitas por fecha' }];
+  lineChartData: ChartDataSets[] = [{data: [0], label: 'Visitas del día' }, {data: [0], label: 'Porcentaje de visitas del día'}];
   lineChartLabels: Label[] = [this.today.getDate().toString()];
 
   lineChartLegend = true;
@@ -61,23 +61,28 @@ export class AdsStadisticsComponent implements OnInit {
     let selectedAd = this.adsFG.controls['ads'].value
     this.adService.getAd(selectedAd).subscribe({
       next: (data:any) => {
+        console.log(data)
         let visits = [];
+        let percent = [];
         let labels = [];
         let initialDate = data.active_range.start;
         let finalDate = data.active_range.end;
-        
+        //let total = data.total_visits
+        let total = (Math.random() * 2)
         while(initialDate != finalDate){
           labels.push(initialDate)
-          visits.push(data.visits.initialDate)
+          data.visits[initialDate] != undefined? visits.push(data.visits[initialDate]) : visits.push(0)
+          percent.push(data.visits[initialDate]/total)
           initialDate = new Date(this.datePipe.transform(initialDate))
           initialDate.setDate(initialDate.getDate() + 1);
           initialDate = this.formatDates(initialDate)
         }
         /**Último día activo */
         labels.push(initialDate)
-        visits.push(data.visits.initialDate)
+        data.visits[initialDate] != undefined? visits.push(data.visits[initialDate]) : visits.push(0)
+        percent.push(data.visits[initialDate]/total)
         this.lineChartLabels = labels
-        this.lineChartData = [{data: visits, label: 'Visitas por fecha' }]
+        this.lineChartData = [{data: visits, label: 'Visitas del día' }, {data: percent, label: 'Porcentaje de visitas del día'}]
         this.loading = false;
       }
     })

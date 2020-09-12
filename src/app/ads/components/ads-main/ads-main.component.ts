@@ -59,6 +59,6 @@ export class AdsMainComponent implements OnInit {
   }
 
   openCreateDialog(){
-    this.dialogService.open(AdsCreateComponent, {width: "60%", minWidth: "280px", disableClose: true})
+    this.dialogService.open(AdsCreateComponent, {width: "60%", height:"80%", minWidth: "280px", disableClose: true})
   }
 }
