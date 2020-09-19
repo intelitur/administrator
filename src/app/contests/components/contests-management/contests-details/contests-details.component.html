@@ -1,7 +1,7 @@
 <ng-container *ngIf="this.loading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-container>
-<div style="display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap; justify-content: center;">
+<div style="display: flex; margin-top: 20px; flex-wrap: wrap; justify-content: space-between;">
     <div style="width: 50%; min-width: 300px;">
         <div style="display: flex; justify-content: space-around;">
 
@@ -69,12 +69,18 @@
             </div>
         </div>
     </div>
-    <div style="width: 40%; display: flex; justify-content: center; align-items: center;">
-        <div *ngIf="contestImages.length == 0 || contestVideo == undefined" title="Añadir imágenes al evento o video" class="noImageButton" title="Añadir imagenes al evento" class="noImageButton">
+    <div style="width: 50%; display: flex; justify-content: space-evenly; align-items: center;">
+        <div *ngIf="contestImages.length == 0" title="Añadir imágenes al concurso" class="noImageButton" class="noImageButton">
             <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> 
                 <mat-icon style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%;">add_photo_alternate</mat-icon>
             </label> 
-            <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="video/mp4,image/png,image/jpeg" style="display: none;" multiple/>   
+            <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/png,image/jpeg" style="display: none;" multiple/>   
+        </div>
+        <div *ngIf="contestVideo == undefined" title="Añadir video al concurso" class="noImageButton" class="noImageButton">
+            <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> 
+                <mat-icon style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%;">video_call</mat-icon>
+            </label> 
+            <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="video/mp4" style="display: none;"/>   
         </div>
     </div>
 </div>
