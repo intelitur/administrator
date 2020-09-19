@@ -4,3 +4,11 @@ export class Offer {
     public description?: string
   ) {}
 }
+
+export class OfferDetaills {
+  constructor(
+    public name?: string,
+    public description?: string,
+    public is_active?:boolean
+  ) {}
+}

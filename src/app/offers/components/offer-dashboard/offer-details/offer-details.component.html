@@ -26,13 +26,12 @@
 
   
     <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-        <button mat-stroked-button [disabled]="!offerDetaillsFG.valid || !isChanged() || loading" color="primary"
-            style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="applyChanges()">
+        <button mat-stroked-button  color="primary"
+            style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="applyChanges()" [disabled]="check()">
             Guardar cambios
         </button>
-        <button  mat-stroked-button [disabled]="!isChanged() || loading" color="warn"
-            style="width: 47%; min-width: fit-content;margin-top: 10px;"
-            (click)="companyForm.patchValue(company)">
+        <button  mat-stroked-button color="warn"
+            style="width: 47%; min-width: fit-content;margin-top: 10px;" [disabled]="check()" (click)="reverse()">
             Descartar cambios
         </button>
     </div>
