@@ -9,13 +9,14 @@ import { FormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { ContestsRootComponent } from './contests-root.component';
 import { ContestsDetailsComponent } from './components/contests-management/contests-details/contests-details.component';
+import { ContestsMultimediaComponent } from './components/contests-management/contests-multimedia/contests-multimedia.component';
 
 @NgModule({
   declarations: [
     ContestsRootComponent,
     ContestsCreateComponent, 
     ContestsMainComponent, 
-    ContestsManagementComponent, ContestsDetailsComponent
+    ContestsManagementComponent, ContestsDetailsComponent, ContestsMultimediaComponent
   ],
   entryComponents: [ContestsCreateComponent],
   providers: [DatePipe],

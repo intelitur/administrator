@@ -31,4 +31,8 @@ export class ContestsService {
   createContest(contest: Contests){
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/`, JSON.stringify(contest), {observe: 'response'})
   }
+
+  modifyContest(contest: Contests){
+    return this.http.put(`${environment.SERVER_BASE_URL}${this.module}/${contest.contest_id}`,contest, {observe: 'response'})
+  }
 }
