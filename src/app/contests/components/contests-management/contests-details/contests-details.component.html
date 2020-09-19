@@ -1,18 +1,18 @@
 <ng-container *ngIf="this.loading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-container>
-<div style="display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap; justify-content: center;">
+<div style="display: flex; margin-top: 20px; flex-wrap: wrap; justify-content: space-between;">
     <div style="width: 50%; min-width: 300px;">
         <div style="display: flex; justify-content: space-around;">
 
-            <h2 style="color: #dbb735; text-align: center; margin: auto 0">{{myAd.name}}</h2>
-            <div style="display: flex; flex-direction: column; margin: auto 0; padding: 0 20px">
-                <div style="margin: auto" [style.color]="myAd.is_active? '#673ab7': 'gray'">
-                    {{myAd.is_active? "Activa": "Inactiva"}}</div>
+            <h2 style="color: #dbb735; text-align: center; margin: auto 0">contest.name</h2>
+            <!-- <div style="display: flex; flex-direction: column; margin: auto 0; padding: 0 20px">
+                <div style="margin: auto" [style.color]="contest.is_active? '#673ab7': 'gray'">
+                    {{contest.is_active? "Activa": "Inactiva"}}</div>
                 <mat-slide-toggle style="width: min-content; margin: auto;" (change)="changeState($event)"
-                    color="primary" [checked]=myAd.is_active>
+                    color="primary" [checked]=contest.is_active>
                 </mat-slide-toggle>
-            </div>
+            </div> -->
         </div>
         <hr style="width: 100%;">
         <div class="dates">
@@ -32,7 +32,7 @@
             Fecha inicial mayor a la final*
         </mat-hint>
 
-        <form [formGroup]="adFG" class="container-fluid d-flex flex-column justify-content-center" >
+        <form [formGroup]="contestsFG" class="container-fluid d-flex flex-column justify-content-center" >
 
             <mat-form-field appearance="outline">
                 <mat-label>Nombre</mat-label>
@@ -41,51 +41,26 @@
             </mat-form-field>
         
             <mat-form-field appearance="outline">
-                <textarea style="resize: none;" matInput formControlName="description" placeholder="Descripción" required></textarea>
+                <textarea style="resize: none;" matInput formControlName="details" placeholder="Detalles" required></textarea>
             </mat-form-field>
-        
-            <div  class="chip-list">
-                <mat-form-field class="chip-list" appearance="outline">
-                  <mat-chip-list #chipList aria-label="Companies selection">
-                    <mat-chip class="chip"
-                      *ngFor="let company of allCompanies"
-                      [selectable]="selectable"
-                      [removable]="removable">
-                      {{company.name}}
-                      <i matChipRemove class="material-icons" (click)="removeCompany(company)">cancel</i>
-                    </mat-chip>
-                    <input
-                      placeholder="Seleccione las compañías"
-                      #tagInput
-                      formControlName="companies" 
-                      [matChipInputFor]="chipList"
-                      [matAutocomplete]="autoCompany"
-                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-                  </mat-chip-list>
-                  <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
-                    <mat-option *ngFor="let c of filteredCompanies " [value]="c">
-                      {{c.name}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-            </div> 
+            
         </form>
     </div>
 
-    <div *ngIf="adImages.length != 0"
+    <div *ngIf="contestImages.length != 0"
         style="width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;">
         <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
-            <ng-template *ngFor="let i of adImages; let index = index" [id]="'slideId_' + index" ngbSlide>              
-                <img class="d-block w-100" style="max-height: 450px !important; border-radius: 10px; object-fit: contain;" src="{{url}}{{adImages[index].name}}"/>
+            <ng-template *ngFor="let i of contestImages; let index = index" [id]="'slideId_' + index" ngbSlide>              
+                <img class="d-block w-100" style="max-height: 450px !important; border-radius: 10px; object-fit: contain;" src="{{url}}{{contestImages[index].name}}"/>
             </ng-template>
         </ngb-carousel>
         <div style=" display: flex; height: 70px;">
-            <div title="Añadir imágenes al evento"
+            <div title="Añadir imágenes al concurso"
                 style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);">
                 <label for="file-upload"  class="image-buttons" style="border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;" ><mat-icon>find_replace</mat-icon></label> 
                 <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>   
             </div>
-            <div title="Eliminar imagen del evento"
+            <div title="Eliminar imagen del concurso"
                 style="width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);">
                 <button [disabled]="loading" mat-button style="border-radius: 0 0 20px 0" (click)="deleteImage();"
                     class="image-buttons" color="warn">
@@ -94,19 +69,25 @@
             </div>
         </div>
     </div>
-    <div style="width: 40%; display: flex; justify-content: center; align-items: center;">
-        <div *ngIf="adImages.length == 0" title="Añadir imágenes al evento" class="noImageButton" title="Añadir imagenes al evento" class="noImageButton">
+    <div style="width: 50%; display: flex; justify-content: space-evenly; align-items: center;">
+        <div *ngIf="contestImages.length == 0" title="Añadir imágenes al concurso" class="noImageButton" class="noImageButton">
             <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> 
                 <mat-icon style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%;">add_photo_alternate</mat-icon>
             </label> 
-            <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/x-png,image/gif,image/jpeg" style="display: none;" multiple/>   
+            <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="image/png,image/jpeg" style="display: none;" multiple/>   
+        </div>
+        <div *ngIf="contestVideo == undefined" title="Añadir video al concurso" class="noImageButton" class="noImageButton">
+            <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> 
+                <mat-icon style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%;">video_call</mat-icon>
+            </label> 
+            <input [disabled]="loading"  id="file-upload" (change)="uploadFile($event.target.files)" type="file" accept="video/mp4" style="display: none;"/>   
         </div>
     </div>
 </div>
 
 <div class="buttonContainer" >
-    <button mat-stroked-button color="primary"  [disabled]="!adFG.valid || loading || this.allCompanies.length == 0"
-        style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="modifyAd()" >
+    <button mat-stroked-button color="primary"  [disabled]="!contestsFG.valid || loading || contestImages.length == 0 || contestVideos == undefined"
+        style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="modifyContest()" >
         Guardar cambios
     </button>
     <button mat-stroked-button color="warn" [disabled]="loading"

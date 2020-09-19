@@ -84,6 +84,14 @@ const routes: Routes = [
       ),
     canActivateChild: [LoggedInGuard]
   },
+  {
+    path: "contests",
+    loadChildren: () =>
+      import("./contests/contests.module").then(
+        i => i.ContestsModule
+      ),
+    canActivateChild: [LoggedInGuard]
+  }
 ];
 
 @NgModule({

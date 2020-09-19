@@ -9,6 +9,7 @@ import { Ads } from '../../models/Ads';
 import { AdsService } from '../../services/ads.service';
 import { Router } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MultimediaService } from 'src/app/general-services/multimedia.service';
 
 @Component({
   selector: 'app-ads-create',
@@ -28,6 +29,9 @@ export class AdsCreateComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredCompanies: any;
+  adImages = [];
+  adImagesFinal = [];
+  imageIndex = 0;
   allCompanies: Array<any> = [];
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
@@ -36,6 +40,7 @@ export class AdsCreateComponent implements OnInit {
     public companyService: CompanyService,
     public commonService: CommonService,
     public adsService: AdsService,
+    public multimediaService: MultimediaService,
     private router: Router
   ) { 
     this.adsFG = new FormGroup({
@@ -87,6 +92,7 @@ export class AdsCreateComponent implements OnInit {
       next: async (data: any) => {
         if (data.status == 200) {
           await this.addAdToCompany(data.body.ad_id)
+          await this.addImagesToAd(data.body.ad_id)
           this.commonService.openSnackBar(
             `El anuncio ${this.adsFG.value.name} se ha creado`,
             "OK"
@@ -157,5 +163,58 @@ export class AdsCreateComponent implements OnInit {
       companyIDs.push(this.allCompanies[i].company_id)
     }
     this.allCompanies = companyIDs;
+  }
+
+  getFiles(event: any){
+    this.adImages = []
+    this.adImagesFinal = []
+    if(event.target.files){
+      for(let i=0; i<event.target.files.length; i++){
+        if (event.target.files[i]) {
+          this.adImagesFinal.push(event.target.files[i])
+
+          var reader = new FileReader();
+          
+          reader.readAsDataURL(event.target.files[i]);
+
+          reader.onload = (event:any) => {
+            this.adImages.push(event.target.result);
+          } 
+          
+        }
+      }
+    }
+  }
+
+  async uploadFiles() {
+    let images = [];
+    for(let i=0; i<this.adImagesFinal.length; i++){
+          await this.commonService.uploadFile(this.adImagesFinal[i]).then((data: any) => {
+          images.push(data.filename)
+        }
+      )
+    }
+    return images
+  }
+
+  onSlide(event){
+    this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+  }
+
+  deleteImage(){
+    if(this.adImages.length == 1){
+      this.imageIndex = 0;
+    }
+    this.adImages.splice(this.imageIndex, 1);
+    this.adImagesFinal.splice(this.imageIndex, 1);
+  }
+
+  async addImagesToAd(event_id){
+    let urlImages = await this.uploadFiles()
+    
+    for(let i=0; i<urlImages.length; i++){
+      await this.multimediaService.addImage(event_id, 4, urlImages[i]).toPromise()
+    }
+
   }
 }

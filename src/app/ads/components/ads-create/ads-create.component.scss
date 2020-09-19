@@ -28,3 +28,21 @@ mat-form-field{
 .chip-list{
     width: -webkit-fill-available; 
 }
+
+.file{
+    margin-top: 2%;
+    align-self: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+}
+
+.uploadFile{
+    text-align: center;
+    width: -webkit-fill-available; 
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    margin-bottom: 2%;
+    border: solid 1.5px rgb(220, 220, 220);
+    border-radius: 5px;
+}

@@ -56,13 +56,14 @@ export class CategoryCreateComponent implements OnInit {
     this.categoryFG.disable();
     this.categoryService.createCategory(category).subscribe({
       next: (data: any) => {
-        if (data.status == 204) {
+        if (data.status == 200) {
+          console.log(data.body)
           this.commonService.openSnackBar(
             `La categoría ${this.categoryFG.value.name} se ha creado`,
             "OK"
           );
           this.dialogRef.close();
-          this.router.navigate([`/category/all`])
+          this.router.navigate([`/category/${data.body.category_id}`])
         } else {  
           this.commonService.openSnackBar(
             `Error al crear la categoría: ${data.error}`,

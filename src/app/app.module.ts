@@ -20,6 +20,7 @@ import { FrecuentQustionsModule } from './frequent-questions/frequent-questions.
 import { OfferModule } from './offers/offer.module';
 import { ServiceModule } from './services/service.module';
 import { ThemeService } from 'ng2-charts';
+import { ContestsModule } from './contests/contests.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ThemeService } from 'ng2-charts';
     AdsModule,
     FrecuentQustionsModule,
     OfferModule,
-    ServiceModule
+    ServiceModule,
+    ContestsModule
   ],
   providers: [ThemeService],
   bootstrap: [AppComponent],

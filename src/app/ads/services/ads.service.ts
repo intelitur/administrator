@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AdsService {
 
-  ads: Array<Ads> = []; //quitar el = []
+  ads: Array<Ads> = []; 
   module = "ads"
   constructor(
     private http: HttpClient,

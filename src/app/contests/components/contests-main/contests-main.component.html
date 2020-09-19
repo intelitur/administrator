@@ -1,0 +1,58 @@
+<div class="container">
+    <h1 class="text-center font-weight-light mt-3">Gestión de Concursos</h1>
+    <div class="float-right mb-3 ">
+      <button mat-raised-button color="primary" class="btn-add" matTooltip="Agregar un concurso"
+        (click)="openCreateDialog()"><i class="material-icons">add</i>Agregar concurso</button>
+    </div>
+    <div *ngIf="this.contestsService.contests; else loading">
+        <mat-form-field class="container-fluid mb-3" appearance="outline">
+            <mat-label>Buscar por nombre del anuncio</mat-label>
+            <input matInput [(ngModel)]="filter.name"/>
+        </mat-form-field>
+        
+        <div class="table-responsive" style="padding: 0 3%;">
+            <table class="table" *ngIf="this.contestsService.contests">
+            <thead class="thead-light">
+                <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Detalle</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Activa</th>
+                <th style="text-align: center;" scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let contests of this.contestsService.contests | filterBy: filter">
+                <td>{{contests.name}}</td>
+                <td>{{contests.description}}</td>
+                <td>
+                  Inicio: {{contests.active_range.start | date: 'dd/MM/yyyy' }} 
+                  <br>
+                  Fin:    {{contests.active_range.end | date: 'dd/MM/yyyy'}}
+                </td>
+                <td>
+                    <section (click)="$event.stopPropagation()">
+                        <mat-slide-toggle (change)="changeState(contests, $event)" color="primary"
+                          [checked]= contests.is_active>
+                        </mat-slide-toggle>
+                      </section>
+                </td>
+                <td style="text-align: center;"> 
+                    <button mat-stroked-button [routerLink]="['/contests', contests.contests_id]" matTooltip="Detalles del anuncio" style="color: rgb(82, 82, 82); font-size: 14px;">
+                        Ver Detalles
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+            <div class="alert alert-info text-center" role="alert" *ngIf="(this.contestsService.contests | filterBy: filter).length === 0">
+              ¡No hay anuncios disponibles<span class="text-danger"></span>!
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
+
