@@ -89,7 +89,7 @@ export class ServiceCreateComponent implements OnInit, OnDestroy {
     ).subscribe({
         next: (result: ResponseInterface) => {
           this._common.openSnackBar("Servicio creado", "Ok");
-          this.onNoClick();
+          this.onNoClick(201);
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
@@ -104,8 +104,8 @@ export class ServiceCreateComponent implements OnInit, OnDestroy {
       return false;
     }
   }
-  onNoClick(){
-    this.dialogRef.close()
+  onNoClick(status:number){
+    this.dialogRef.close({"status":status})
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

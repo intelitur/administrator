@@ -1,0 +1,45 @@
+<div class="container-fluid d-flex flex-column justify-content-sm-center">
+  <div class="container-fluid" *ngIf="dataSource; else loading">
+    <br>
+    <div class="container-fluid flex-row d-flex mb-2 justify-content-sm-end">
+      <button (click)="openCreateServiceDialog(); false" mat-raised-button color="accent">Agregar servicio</button>
+    </div>
+    
+    <div *ngIf="isFilters" class="container text-left">
+      <button (click)="getItinerariesMinimalInfo(); false" mat-raised-button color="primary">Limpiar filtro</button>
+    </div>
+    <br>
+    <table *ngIf="dataSource && isActive()" mat-table [dataSource]="dataSource" class="w-100 mat-elevation-z8">
+      <ng-container matColumnDef="position">
+        <th class="text-center" mat-header-cell *matHeaderCellDef>No.</th>
+        <td class="text-center" mat-cell *matCellDef="let element; let i = index">
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th class="text-center" mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td class="text-center" mat-cell *matCellDef="let element">
+          {{ element.name }}
+        </td>
+      </ng-container>
+      <!-- Weight Column -->
+      <ng-container class="text-center" matColumnDef="actions">
+        <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td class="text-center" mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" (click)="deleteServiceToOffer(element.service_id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <ng-template #loading>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-template>
+  
+</div>

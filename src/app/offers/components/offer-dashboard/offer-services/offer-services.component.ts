@@ -1,4 +1,5 @@
-import { Component, Input, OnInit,ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, Input, ChangeDetectorRef } from "@angular/core";
+import { OfferService } from "../../../services/offer.service";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 import { MatTableDataSource } from "@angular/material/table"; 
 import { ServiceService } from "src/app/services/services/service.service";
@@ -8,12 +9,26 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { UserService } from "src/app/users/services/user.service";
 import { Filter } from "src/app/itinerary/models/Filter.interface";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
+import { MatDialog } from '@angular/material';
+import { OfferAddServiceComponent } from '../offer-add-service/offer-add-service.component';
+
 @Component({
-  selector: "app-services-table",
-  templateUrl: "./services-table.component.html",
-  styleUrls: ["./services-table.component.scss"]
+  selector: "app-offer-services",
+  templateUrl: "./offer-services.component.html",
+  styleUrls: ["./offer-services.component.scss"]
 })
-export class ServicesTableComponent implements OnInit {
+export class OfferServicesComponent implements OnInit {
+
+  constructor(private _offer: OfferService,
+    private _dialog: DialogManagerService,
+    private _service : ServiceService,
+    private _common: CommonService,
+    public sesionService: UserService,
+    public dialogService: MatDialog,
+    private cd: ChangeDetectorRef
+  ) {}
+
+
   displayedColumns: string[] = ["position", "name", "actions"];
   dataSource: MatTableDataSource<unknown>;
   subscription: Subscription;
@@ -22,15 +37,10 @@ export class ServicesTableComponent implements OnInit {
   isFilters: boolean = false;
   @Input() active:boolean = true;
   counter = 0;
-  constructor(
-    private _dialog: DialogManagerService,
-    private _service : ServiceService,
-    private _common: CommonService,
-    public sesionService: UserService,
-    private cd: ChangeDetectorRef
-  ) {}
 
   ngOnInit() {
+    console.log(this._offer.offer_id);
+    
     this.getServices();
   }
   isActive(){
@@ -46,9 +56,9 @@ export class ServicesTableComponent implements OnInit {
     /**
    * @function get minimal info of itinerary
    */
-  getServices() {
-    this.subscription = this._service
-      .getServices()
+  getServices(){
+    this.subscription = this._offer
+      .getServicesByOffer(this._offer.offer_id)
       .subscribe({
         next: (data: any) => {
           console.log(data);
@@ -60,27 +70,18 @@ export class ServicesTableComponent implements OnInit {
     this.isFilters = false;
   }
   /**
-   * @function delete service
+   * @function delete  service to offer
    */
-  changeState(service_id:number){
+  deleteServiceToOffer(service_id:number){
     console.log(service_id);
-    this.subscription = this._service.deleteService(service_id).subscribe({
+    this.subscription = this._service.deleteServiceToOffer(service_id,this._offer.offer_id).subscribe({
         next: (result: ResponseInterface) => {
-          this._common.openSnackBar("Servicio eliminado", "Ok");
+          this._common.openSnackBar("Servicio eliminado de la oferta", "Ok");
           this.getServices();
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
   }
-
-  p(){
-    this.active = false
-  }
-  
-
-
-
-
   /**
    * @function open filter dialog
    */
@@ -101,7 +102,6 @@ export class ServicesTableComponent implements OnInit {
       }
     });
   }
-
   /**
    * @function apply filter
    */
@@ -121,5 +121,14 @@ export class ServicesTableComponent implements OnInit {
     this._service.offer_id = id;
     this._service.offer_name = name;
     this._service.offer_descripcion = descrpcion;
+  }
+
+  openCreateServiceDialog() {
+    const dialog = this.dialogService.open(OfferAddServiceComponent, {width: "60%", minWidth: "280px", disableClose: true})
+    dialog.afterClosed().subscribe( data =>{
+      if(data.status == 201){
+        //this.datosDesdeElPadre.active = false;
+      }
+    })
   }
 }

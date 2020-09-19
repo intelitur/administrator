@@ -92,9 +92,11 @@ export class OffersTableComponent implements OnInit {
    * @funtion Assign id of itinerary to will used in other components
    * @param id
    */
-  assignOfferId(id: number, name:string, descrpcion:string) {
+  assignOfferId(id: number, name:string, description:string) {
     this._offers.offer_id = id;
     this._offers.offer_name = name;
-    this._offers.offer_descripcion = descrpcion;
+    this._offers.offer_description = description;
+    console.log(description);
+    
   }
 }

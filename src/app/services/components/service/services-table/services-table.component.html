@@ -19,7 +19,7 @@
     <button (click)="getItinerariesMinimalInfo(); false" mat-raised-button color="primary">Limpiar filtro</button>
   </div>
   <br>
-  <table *ngIf="dataSource" mat-table [dataSource]="dataSource" class="w-100 mat-elevation-z8">
+  <table *ngIf="dataSource && isActive()" mat-table [dataSource]="dataSource" class="w-100 mat-elevation-z8">
     <ng-container matColumnDef="position">
       <th class="text-center" mat-header-cell *matHeaderCellDef>No.</th>
       <td class="text-center" mat-cell *matCellDef="let element; let i = index">
@@ -48,7 +48,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
-
 <ng-template #loading>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-template>

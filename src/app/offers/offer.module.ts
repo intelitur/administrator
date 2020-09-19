@@ -14,7 +14,8 @@ import { FormsModule } from '@angular/forms';
 
 import { OfferDashboardComponent } from "./components/offer-dashboard/offer-dashboard.component";
 import { OfferDetailsComponent } from "./components/offer-dashboard/offer-details/offer-details.component";
-import { OfferServicesComponent } from "./components/offer-dashboard/offer-services/offer-details.component";
+import { OfferServicesComponent } from "./components/offer-dashboard/offer-services/offer-services.component";
+import { OfferAddServiceComponent } from "./components/offer-dashboard/offer-add-service/offer-add-service.component";
 
 
 
@@ -28,7 +29,8 @@ import { OfferServicesComponent } from "./components/offer-dashboard/offer-servi
     Offers_ServicesComponent,
     OfferDashboardComponent,
     OfferDetailsComponent,
-    OfferServicesComponent
+    OfferServicesComponent,
+    OfferAddServiceComponent
     //FilterOptionsDialogComponent
   ],
   imports: [
@@ -42,7 +44,8 @@ import { OfferServicesComponent } from "./components/offer-dashboard/offer-servi
   ],
   exports: [OfferRootComponent],
   entryComponents: [
-    OfferCreateComponent
+    OfferCreateComponent,
+    OfferAddServiceComponent
   ]
 })
 export class OfferModule { }

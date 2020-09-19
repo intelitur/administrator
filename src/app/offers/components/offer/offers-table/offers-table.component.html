@@ -40,7 +40,7 @@
       <th class="text-center" mat-header-cell *matHeaderCellDef>Acciones</th>
       <td class="text-center" mat-cell *matCellDef="let element">
         <button [routerLink]="['/offers/dashboard']"
-          (click)="assignOfferId(element.offer_id, element.name, element.descripcion)"
+          (click)="assignOfferId(element.offer_id, element.name, element.description)"
           mat-stroked-button
           color="primary"
         >
