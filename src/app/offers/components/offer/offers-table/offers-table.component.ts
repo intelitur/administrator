@@ -20,11 +20,6 @@ export class OffersTableComponent implements OnInit {
   filterItinerariesSubs: Subscription;
   dialogSubscription: Subscription;
   isFilters: boolean = false;
-  //Slide Toggle
-  liked:boolean = true;
-  viewed:boolean = true;
-  reserved:boolean = true;
-  favorite:boolean = true;
   constructor(
     private _dialog: DialogManagerService,
     private _offers : OfferService,
@@ -33,22 +28,16 @@ export class OffersTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getOffersByUser();
+    this.getOffers();
   }
   /**
-   * @function get minimal info of itinerary
+   * @function get all offers
    */
-  getOffersByUser() {
-    console.log(this.sesionService.actualUser.user_id);
+  getOffers() {
     this.subscription = this._offers
       .getOffers()
       .subscribe({
         next: (data: any) => {
-          console.log("funca");
-          
-          
-          console.log(data);
-          
           this.dataSource = new MatTableDataSource(data);
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
@@ -96,7 +85,5 @@ export class OffersTableComponent implements OnInit {
     this._offers.offer_id = id;
     this._offers.offer_name = name;
     this._offers.offer_description = description;
-    console.log(description);
-    
   }
 }

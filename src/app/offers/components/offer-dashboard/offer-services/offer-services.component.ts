@@ -127,7 +127,7 @@ export class OfferServicesComponent implements OnInit {
     const dialog = this.dialogService.open(OfferAddServiceComponent, {width: "60%", minWidth: "280px", disableClose: true})
     dialog.afterClosed().subscribe( data =>{
       if(data.status == 201){
-        //this.datosDesdeElPadre.active = false;
+        this.getServices();
       }
     })
   }

@@ -69,14 +69,49 @@ export class OfferCreateComponent implements OnInit, OnDestroy {
       .addOffer(
         new Offer(
             this.offerFG.get('name').value,
-            this.offerFG.get('description').value
+            this.offerFG.get('description').value,
+            this.offerFG.get('companies').value
         )
       ).subscribe({
         next: (result: ResponseInterface) => {
           this._common.openSnackBar("Oferta creada con éxito", "Ok");
           this.onNoClick();
+          console.log(result);
+          this.onSubmitAux();
         },
-        error: (err: HttpErrorResponse) => this._common.handleError(err)
+        error: (err: HttpErrorResponse) => {
+          this._common.handleError(err),
+          err.status == 500 ? this._common.openSnackBar("Problemas en el servidor", "Ok"):
+
+          console.log("Error"), console.log(err.status);
+          }
+        
+      });
+  }
+  onSubmitAux() {
+    let fv = this.offerFG.value;
+    this.subscription = this._offer
+      .addOffer(
+        new Offer(
+            this.offerFG.get('name').value,
+            this.offerFG.get('description').value,
+            this.offerFG.get('companies').value
+        )
+
+      ).subscribe({
+        next: (result: ResponseInterface) => {
+          this._common.openSnackBar("Oferta creada con éxito", "Ok");
+          this.onNoClick();
+          console.log(result);
+          //,this.allServices
+        },
+        error: (err: HttpErrorResponse) => {
+          this._common.handleError(err),
+          err.status == 500 ? this._common.openSnackBar("Problemas en el servidor", "Ok"):
+
+          console.log("Error"), console.log(err.status);
+          }
+        
       });
   }
   check(){

@@ -26,9 +26,9 @@ export class ServiceService {
   deleteService(service_id: number): Observable<any> {
     return this._http.delete(`${environment.SERVER_BASE_URL}services/${service_id}`);
   }
-  addServiceToOffer(services: Array<any>, offer_id:number): Observable<any> {
+  addServiceToOffer(service_id: number, offer_id:number): Observable<any> {
     return this._http.post(`${environment.SERVER_BASE_URL}services/offer`, {
-      services, 
+      service_id, 
       offer_id
     });
   }  

@@ -1,7 +1,11 @@
 <div class="container-fluid d-flex flex-column justify-content-sm-center">
   <br>
-  <br>
-  <br>
+  <div style="margin-left: auto;">
+    <button [disabled]="false" mat-button matTooltip="Eliminar oferta"
+      class="image-buttons" color="warn" (click)="deleteImg()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
   <br>
   <form [formGroup]="offerDetaillsFG" class="container-fluid d-flex flex-column justify-content-center"
     style="padding: 25px">
