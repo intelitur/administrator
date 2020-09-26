@@ -1,0 +1,46 @@
+<div class="container">
+    <h1 class="text-center font-weight-light mt-3">Gestión Ofertas Asociadas</h1>
+    <div class="float-right mb-3 " style="width: 40%; text-align: end;">
+        <button mat-raised-button color="primary" matTooltip="Asociar Oferta" (click)="openAddOfferDialog()">
+          <i class="material-icons">add</i>Agregar Oferta
+        </button>
+    </div>
+    <div *ngIf="this.offersService.offers; else loading">
+        <div class="table-responsive" style="padding: 0 3%;">
+            <table class="table" *ngIf="this.offersService.offers">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Valoración</th>
+                    <th scope="col">Detalles</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let offer of this.offersService.offers | filterBy: filter">
+                <td>{{offer.name}}</td>
+                <td>{{offer.score != undefined? offer.score : 'No valorado'}}</td>
+                <td style="text-align: center;"> 
+                    <button mat-stroked-button [routerLink]="['/offer', offer.offer_id]" matTooltip="Detalles de la oferta" style="color: rgb(82, 82, 82); font-size: 14px; ">
+                        Ver Detalles
+                    </button>
+                </td>
+                <td style="text-align: center;">
+                    <button mat-raised-button matTooltip="Eliminar oferta del evento" color="warn" (click)="deleteEventOffer()">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </td>
+                </tr>
+            </tbody>   
+            </table>
+            <div class="alert alert-info text-center" role="alert" *ngIf="(this.offersService.offer | filterBy: filter).length === 0">
+              ¡No hay ofertas disponibles<span class="text-danger"></span>!
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
+

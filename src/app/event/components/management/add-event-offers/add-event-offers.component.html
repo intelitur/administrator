@@ -1,0 +1,21 @@
+<form [formGroup]="offersFG" class="container-fluid d-flex flex-column justify-content-center" style="padding: 25px">
+    <h1>Añadir Oferta al Evento</h1>
+   
+    <mat-form-field appearance="fill">
+        <mat-label>Seleccione la oferta</mat-label>
+        <mat-select formControlName="offer">
+          <mat-option *ngFor="let offer of offers" [value]="offer.offer_id">
+            {{offer.offer_name}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="buttonContainer">
+        <button mat-raised-button [disabled]="!offersFG.valid" color="primary" (click)="onSubmit()">
+            Asociar
+        </button>
+        <button (click)="closeDialog()" mat-raised-button color="warn">
+            Cerrar<mat-icon>close</mat-icon>
+          </button>
+    </div>
+</form>
