@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { OfferService } from "../../../services/offer.service";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 import { MatTableDataSource } from "@angular/material/table"; 
@@ -7,10 +7,10 @@ import { Subscription } from "rxjs";
 import { CommonService } from "src/app/general-services/common.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { UserService } from "src/app/users/services/user.service";
-import { Filter } from "src/app/itinerary/models/Filter.interface";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
 import { MatDialog } from '@angular/material';
 import { OfferAddServiceComponent } from '../offer-add-service/offer-add-service.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-offer-services",
@@ -25,10 +25,8 @@ export class OfferServicesComponent implements OnInit {
     private _common: CommonService,
     public sesionService: UserService,
     public dialogService: MatDialog,
-    private cd: ChangeDetectorRef
+    private router: Router
   ) {}
-
-
   displayedColumns: string[] = ["position", "name", "actions"];
   dataSource: MatTableDataSource<unknown>;
   subscription: Subscription;
@@ -39,9 +37,8 @@ export class OfferServicesComponent implements OnInit {
   counter = 0;
 
   ngOnInit() {
-    console.log(this._offer.offer_id);
+    this._offer.offer_id === undefined ? this.router.navigate(['/offers/all']): this.getServices();
     
-    this.getServices();
   }
   isActive(){
     if(this.active){
@@ -61,8 +58,6 @@ export class OfferServicesComponent implements OnInit {
       .getServicesByOffer(this._offer.offer_id)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
-          
           this.dataSource = new MatTableDataSource(data);
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
@@ -73,7 +68,6 @@ export class OfferServicesComponent implements OnInit {
    * @function delete  service to offer
    */
   deleteServiceToOffer(service_id:number){
-    console.log(service_id);
     this.subscription = this._service.deleteServiceToOffer(service_id,this._offer.offer_id).subscribe({
         next: (result: ResponseInterface) => {
           this._common.openSnackBar("Servicio eliminado de la oferta", "Ok");
@@ -81,26 +75,6 @@ export class OfferServicesComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
       });
-  }
-  /**
-   * @function open filter dialog
-   */
-  openShowFilterOptionsDialog() {
-    this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
-      next: (filters: Filter) => {
-        if(filters) {
-          this.filterItinerariesSubs = this._service
-            .filterItineraries(filters)
-            .subscribe({
-              next: (response: ResponseInterface) => {
-                this.dataSource = new MatTableDataSource(response.data);
-              },
-              error: (err: HttpErrorResponse) => this._common.handleError(err)
-            });
-          this.isFilters = true;
-        }
-      }
-    });
   }
   /**
    * @function apply filter
@@ -114,15 +88,19 @@ export class OfferServicesComponent implements OnInit {
     if (this.dialogSubscription) this.dialogSubscription.unsubscribe();
   }
   /**
-   * @funtion Assign id of itinerary to will used in other components
-   * @param id
+   * @funtion Assign id, name, description of offer to will used in other components
+   * @param id 
+   * @param name 
+   * @param descripcion 
    */
-  assignOfferId(id: number, name:string, descrpcion:string) {
+  assignOfferId(id: number, name:string, descripcion:string) {
     this._service.offer_id = id;
     this._service.offer_name = name;
-    this._service.offer_descripcion = descrpcion;
+    this._service.offer_descripcion = descripcion;
   }
-
+  /***
+   * @function open dialog that create news services
+   */
   openCreateServiceDialog() {
     const dialog = this.dialogService.open(OfferAddServiceComponent, {width: "60%", minWidth: "280px", disableClose: true})
     dialog.afterClosed().subscribe( data =>{

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
 import { MatTableDataSource } from "@angular/material/table"; 
 import { OfferService } from "src/app/offers/services/offer.service";
@@ -6,8 +6,6 @@ import { Subscription } from "rxjs";
 import { CommonService } from "src/app/general-services/common.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { UserService } from "src/app/users/services/user.service";
-import { Filter } from "src/app/itinerary/models/Filter.interface";
-import { ResponseInterface } from "src/app/globalModels/Response.interface";
 @Component({
   selector: "app-offers-table",
   templateUrl: "./offers-table.component.html",
@@ -20,6 +18,7 @@ export class OffersTableComponent implements OnInit {
   filterItinerariesSubs: Subscription;
   dialogSubscription: Subscription;
   isFilters: boolean = false;
+  @Input() active:boolean = true;
   constructor(
     private _dialog: DialogManagerService,
     private _offers : OfferService,
@@ -29,6 +28,16 @@ export class OffersTableComponent implements OnInit {
 
   ngOnInit() {
     this.getOffers();
+  }
+  isActive(){
+    if(this.active){
+      return true;
+    }
+    else{
+      this.active = true;
+      this.getOffers();
+      return true;
+    }
   }
   /**
    * @function get all offers
@@ -44,28 +53,6 @@ export class OffersTableComponent implements OnInit {
       });
     this.isFilters = false;
   }
-
-  /**
-   * @function open filter dialog
-   */
-  openShowFilterOptionsDialog() {
-    this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
-      next: (filters: Filter) => {
-        if(filters) {
-          this.filterItinerariesSubs = this._offers
-            .filterItineraries(filters)
-            .subscribe({
-              next: (response: ResponseInterface) => {
-                this.dataSource = new MatTableDataSource(response.data);
-              },
-              error: (err: HttpErrorResponse) => this._common.handleError(err)
-            });
-          this.isFilters = true;
-        }
-      }
-    });
-  }
-
   /**
    * @function apply filter
    */
@@ -78,8 +65,10 @@ export class OffersTableComponent implements OnInit {
     if (this.dialogSubscription) this.dialogSubscription.unsubscribe();
   }
   /**
-   * @funtion Assign id of itinerary to will used in other components
-   * @param id
+   * 
+   * @param id @funtion Assign id, name, description of offer  to will used in other components
+   * @param name 
+   * @param description 
    */
   assignOfferId(id: number, name:string, description:string) {
     this._offers.offer_id = id;

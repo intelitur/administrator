@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../shared.module";
-import { CarouselComponent } from "./components/carousel/carousel.component";
 import { OfferRoutingModule } from "./offer-routing.module";
 import { OfferCreateComponent } from "./components/offer/offer-create/offer-create.component";
 import { Offers_ServicesComponent } from "./components/offer/offers.component";
@@ -17,21 +16,16 @@ import { OfferDetailsComponent } from "./components/offer-dashboard/offer-detail
 import { OfferServicesComponent } from "./components/offer-dashboard/offer-services/offer-services.component";
 import { OfferAddServiceComponent } from "./components/offer-dashboard/offer-add-service/offer-add-service.component";
 
-
-
-//import { FilterOptionsDialogComponent } from './components/offer/offers-table/filter-options-dialog/filter-options-dialog.component';
 @NgModule({
   declarations: [
     OffersTableComponent,
     OfferCreateComponent,
-    CarouselComponent,
     OfferRootComponent,
     Offers_ServicesComponent,
     OfferDashboardComponent,
     OfferDetailsComponent,
     OfferServicesComponent,
     OfferAddServiceComponent
-    //FilterOptionsDialogComponent
   ],
   imports: [
     CommonModule,

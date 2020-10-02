@@ -19,10 +19,10 @@ import { ServiceService } from 'src/app/services/services/service.service';
 })
 export class OfferCreateComponent implements OnInit, OnDestroy {
   offerFG: FormGroup;
-  private subscription: Subscription;
   allServices: Array<any> = [];
   filteredServices: any = [];
   companies: any = [];
+  private subscription: Subscription;
   private subscription2: Subscription;
   private subscription3: Subscription;
   constructor(
@@ -46,8 +46,6 @@ export class OfferCreateComponent implements OnInit, OnDestroy {
       .getServices()
       .subscribe({
         next: (data: any) => {
-          console.log(data);
-          
           this.filteredServices = data;
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
@@ -62,7 +60,9 @@ export class OfferCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-
+  /**
+   * @function create offer
+   */
   onSubmit() {
     let fv = this.offerFG.value;
     this.subscription = this._offer
@@ -75,9 +75,8 @@ export class OfferCreateComponent implements OnInit, OnDestroy {
       ).subscribe({
         next: (result: ResponseInterface) => {
           this._common.openSnackBar("Oferta creada con éxito", "Ok");
-          this.onNoClick();
-          console.log(result);
-          this.onSubmitAux();
+          let offer_id:number = result[0];
+          this.onSubmitAux(offer_id);
         },
         error: (err: HttpErrorResponse) => {
           this._common.handleError(err),
@@ -88,22 +87,20 @@ export class OfferCreateComponent implements OnInit, OnDestroy {
         
       });
   }
-  onSubmitAux() {
+  /**
+   * @function add services to offer
+   * @param offer_id 
+   */
+  onSubmitAux(offer_id:number) {
     let fv = this.offerFG.value;
     this.subscription = this._offer
-      .addOffer(
-        new Offer(
-            this.offerFG.get('name').value,
-            this.offerFG.get('description').value,
-            this.offerFG.get('companies').value
-        )
-
+      .addServiceToOffer(
+        offer_id,
+        this.allServices
       ).subscribe({
         next: (result: ResponseInterface) => {
-          this._common.openSnackBar("Oferta creada con éxito", "Ok");
-          this.onNoClick();
-          console.log(result);
-          //,this.allServices
+          this._common.openSnackBar("Servicios agregados con éxito", "Ok");
+          this.onNoClick(201);
         },
         error: (err: HttpErrorResponse) => {
           this._common.handleError(err),
@@ -114,6 +111,9 @@ export class OfferCreateComponent implements OnInit, OnDestroy {
         
       });
   }
+  /**
+   * active the button "Crear Oferta", if there aren't fields empty
+   */
   check(){
     let tipo  = new RegExp("^[A-Za-z0-9]");
     var test = tipo.test(this.offerFG.get('name').value);
@@ -124,18 +124,16 @@ export class OfferCreateComponent implements OnInit, OnDestroy {
       return false;
     }
   }
-  onNoClick(){
-    console.log(this.offerFG.get('companies').value);
-    
-    this.dialogRef.close()
+  onNoClick(status:number){
+    this.dialogRef.close({"status":status})
   }
   ngOnDestroy() {
     //this.subscription.unsubscribe();
   }
+  //chipList 
   selected(event: MatAutocompleteSelectedEvent): void {
-    
     for(let i=0; i<this.allServices.length; i++){
-      if(this.allServices[i].category_id === event.option.value.category_id){
+      if(this.allServices[i].service_id === event.option.value.service_id){
         this.commonService.openSnackBar(
           "¡El servicio ya ha sido agregado!",
           "OK"
@@ -146,18 +144,11 @@ export class OfferCreateComponent implements OnInit, OnDestroy {
     this.allServices.push(event.option.value)
     this.offerFG.controls['services'].setValue(null);
   }
-   //chipList 
-   remove(service: string): void {
+  
+  remove(service: string): void {
     let index = this.allServices.indexOf(service)
     if (index >= 0) {
       this.allServices.splice(index, 1);
     }
-  }
-  linkedCategories: Array<any> = [];
-    /**
-   * @function link category
-   */
-  linkCategory(c: any) {
-    if (!this.linkedCategories.includes(c)) this.linkedCategories.unshift(c);
   }
 }

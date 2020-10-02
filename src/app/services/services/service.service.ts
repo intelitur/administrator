@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Itinerary } from "../models/Itinerary";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ResponseInterface } from "src/app/globalModels/Response.interface";
-import { Filter } from "../models/Filter.interface";
 import { AuthService } from 'src/app/general-services/auth.service';
 import { User } from 'src/app/users/models/User.class';
 
@@ -19,31 +17,51 @@ export class ServiceService {
   offer_descripcion: string;
   constructor(private _http: HttpClient, private _auth: AuthService) {}
 
-
+  /**
+   * @function get alls services
+   */
   getServices(): Observable<any> {
     return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}services/`);
   }
+  /**
+   * @function delete services by id
+   * @param service_id 
+   */
   deleteService(service_id: number): Observable<any> {
     return this._http.delete(`${environment.SERVER_BASE_URL}services/${service_id}`);
   }
+  /**
+   * @function post and create new services by offer
+   * @param service_id 
+   * @param offer_id 
+   */
   addServiceToOffer(service_id: number, offer_id:number): Observable<any> {
     return this._http.post(`${environment.SERVER_BASE_URL}services/offer`, {
       service_id, 
       offer_id
     });
   }  
+  /**
+   * @function delete services by id in offer
+   * @param service_id 
+   * @param offer_id 
+   */
   deleteServiceToOffer(service_id: number, offer_id:number): Observable<any> {
     return this._http.delete(`${environment.SERVER_BASE_URL}services/${service_id}/offers/${offer_id}`);
   }
-
+  /**
+   * @function get alls offers
+   * @param name 
+   * @param event_id 
+   */
   getOffers(name, event_id): Observable<any> {
     let query : any = {name: name,event_id: event_id}
     return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}offers/`, {params: query});
   }
-  getOffersByUser(user_id: number,liked:boolean, viewed:boolean, reserved:boolean, favorite:boolean): Observable<any> {
-    let query : any = {liked,viewed,reserved,favorite}
-    return this._http.get<Array<any>>(`${environment.SERVER_BASE_URL}offers/${user_id}`, {params: query});
-  }
+  /**
+   * @function post and create new services
+   * @param service 
+   */
   addService(service: Service): Observable<any> {
     return this._http.post(`${environment.SERVER_BASE_URL}services/`, {
       category_id: service.category_id,
@@ -51,21 +69,10 @@ export class ServiceService {
     });
   }
 
-
-  getItineraryFullInfo(id_itinerary: number): Observable<any> {
-    return this._http.get(
-      `${environment.SERVER_BASE_URL}itinerary/fullInfo/${id_itinerary}`
-    );
-  }
-
-  filterItineraries(filters: Filter): Observable<ResponseInterface> {
-    return this._http.post<ResponseInterface>(
-      `${environment.SERVER_BASE_URL}itinerary/filter`,
-      filters
-    );
-  }
-
-
+  /**
+   * @function get categories by state
+   * @param state 
+   */
   getCategories(state:number): Observable<ResponseInterface> {
     let query:any = {state};
     return this._http.get<ResponseInterface>(

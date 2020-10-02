@@ -1,18 +1,7 @@
 <div class="container-fluid" *ngIf="dataSource; else loading">
   <mat-form-field class="container-fluid mb-3" appearance="outline">
-    <mat-label>Escriba cualquier valor para filtrar</mat-label>
+    <mat-label>Buscar servicio por nombre</mat-label>
     <input matInput (keyup)="applyFilter($event.target.value)" />
-    <button
-      mat-icon-button
-      matSuffix
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide"
-      (click)="openShowFilterOptionsDialog(); false"
-    >
-      <mat-icon>library_books</mat-icon>
-    </button>
-    <mat-hint>Presione <mat-icon>library_books</mat-icon> para filtrar desde el servidor
-    </mat-hint>
   </mat-form-field>
   
   <div *ngIf="isFilters" class="container text-left">
