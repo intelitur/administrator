@@ -18,6 +18,7 @@ import { CategoryModule } from './category/category.module';
 import { AdsModule } from './ads/ads.module';
 import { FrecuentQustionsModule } from './frequent-questions/frequent-questions.module';
 import { ContestsModule } from './contests/contests.module';
+import { TouristRoutesModule } from './tourist-routes/tourist-routes.module';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ContestsModule } from './contests/contests.module';
     CategoryModule,
     AdsModule,
     FrecuentQustionsModule,
+    TouristRoutesModule,
     ContestsModule
   ],
   providers: [],
