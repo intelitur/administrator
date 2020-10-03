@@ -148,6 +148,10 @@ export class EventService{
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`, {params})
   }
 
+  getEventOffers(){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`)
+  }
+
   sort(){
     if(this.filter.state == '0'){
       this.events = this.events.sort((a, b) => a.visits > b.visits ? -1 : a.visits < b.visits ? 1 : 0)

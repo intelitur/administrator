@@ -8,19 +8,50 @@
         </button>
     </div>
 
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0 0 2rem">
+        <mat-radio-group class="radio-button-group" color="primary" [(ngModel)]="frequentQuestionService.filter.is_active" (change)="refresh()">
+            <label>Activo/Inactivo</label>
+            <mat-radio-button value="0" style="color: rgb(103,58,183);">
+                Todas
+            </mat-radio-button>
+            <mat-radio-button value="1" style="color: rgb(0, 90, 0)">
+                Activas
+            </mat-radio-button>
+            <mat-radio-button value="2" style="color: rgb(90, 0, 0)">
+                Inactivas
+            </mat-radio-button>
+        </mat-radio-group>
+        <mat-radio-group class="radio-button-group" color="primary" [(ngModel)]="frequentQuestionService.filter.state" (change)="refresh()">
+            <label>Estado</label>
+            <mat-radio-button value="0" style="color: rgb(103,58,183);">
+                Todas
+            </mat-radio-button>
+            <mat-radio-button value="1" style="color: rgb(0, 90, 0)">
+                Aceptadas
+            </mat-radio-button>
+            <mat-radio-button value="2" style="color: rgb(160, 105, 0) ">
+                Pendientes
+            </mat-radio-button>
+            <mat-radio-button value="3" style="color: rgb(90, 0, 0)">
+                Rechazadas
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+
     <div *ngIf="this.frequentQuestionService.frequentQuestions; else loading">
         <div class="table-responsive" style="padding: 0 3%;">
             <table class="table allquestions" *ngIf="this.frequentQuestionService.frequentQuestions">
             <thead class="thead-light">
                 <tr>
-                    <th style="width: 60%;" scope="col">Pregunta</th>
+                    <th style="width: 50%;" scope="col">Pregunta</th>
                     <th style="width: 15%; text-align: center;" scope="col">Estado</th>
                     <th style="text-align: center;" *ngIf="authService.getUser().role_id === 1" scope="col">Aceptar/Rechazar</th>
+                    <th style="text-align: center;" scope="col">Activar/Desactivar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let fq of this.frequentQuestionService.frequentQuestions">
-                    <td style="width: 60%;">
+                    <td style="width: 50%;">
                         <mat-accordion>
                             <mat-expansion-panel hideToggle>
                               <mat-expansion-panel-header style="height: auto !important;">
@@ -52,6 +83,13 @@
                               <mat-icon>clear</mat-icon>
                             </button>
                           </div>
+                    </td>
+                    <td style="text-align: center;">
+                        <section (click)="$event.stopPropagation()">
+                            <mat-slide-toggle (change)="changeActive(fq, $event)" color="primary"
+                              [checked]= fq.is_active>
+                            </mat-slide-toggle>
+                          </section>
                     </td>
                 </tr>
             </tbody>   

@@ -23,7 +23,7 @@ export class QuestionsCreateComponent implements OnInit {
     private commonService: CommonService,
     private router: Router,
     private dialogRef: MatDialogRef<QuestionsCreateComponent>,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -36,7 +36,8 @@ export class QuestionsCreateComponent implements OnInit {
   onSubmit(){
     let frequentQuestion: FrequentQuestion = {
       question: this.questionFG.controls['question'].value,
-      answer: this.questionFG.controls['answer'].value
+      answer: this.questionFG.controls['answer'].value,
+      creator: this.authService.getUser().user_id
     }
     this.createQuestion(frequentQuestion)
   }
@@ -46,13 +47,13 @@ export class QuestionsCreateComponent implements OnInit {
     this.questionFG.disable();
     this.frequentQuestionService.createQuestion(frequentQuestion).subscribe({
       next: (data: any) => {
-        if (data.status == 204) {
+        if (data.status == 200) {
           this.authService.getUser().role_id === 1 ?
-            this.commonService.openSnackBar(`La pregunta ${this.questionFG.value.name} se ha creado`,"OK") 
+            this.commonService.openSnackBar(`La pregunta se ha creado`,"OK") 
           : 
-            this.commonService.openSnackBar(`Se ha enviado la solicitud para crear la pregunta ${this.questionFG.value.name}`,"OK")
+            this.commonService.openSnackBar(`Se ha enviado la solicitud para crear la pregunta`,"OK")
           this.dialogRef.close();
-          this.router.navigate([`/questions/all`])
+          this.frequentQuestionService.refreshData()
         } else {  
           this.commonService.openSnackBar(
             `Error al crear la pregunta: ${data.error}`,
