@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Contests } from 'src/app/contests/models/contest';
+import { Contests } from 'src/app/contests/models/Contest';
 
 @Component({
   selector: 'app-contests-details',

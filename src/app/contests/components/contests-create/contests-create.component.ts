@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/general-services/common.service';
 import { MultimediaService } from 'src/app/general-services/multimedia.service';
-import { Contests } from '../../models/contest';
+import { Contests } from '../../models/Contest';
 import { ContestsService } from '../../services/contests.service';
 
 @Component({
