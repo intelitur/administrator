@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatAutocomplete, MatAutocompleteSelectedEvent, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Subscription } from 'rxjs';
-import { CategoryService } from 'src/app/category/services/category.service';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { EventService } from 'src/app/event/services/event.service';
 import { CommonService } from 'src/app/general-services/common.service';
+import { OfferService } from 'src/app/offers/services/offer.service';
 
 @Component({
   selector: 'app-add-event-offers',
@@ -13,17 +15,27 @@ import { CommonService } from 'src/app/general-services/common.service';
 })
 export class AddEventOffersComponent implements OnInit {
 
-  offers: any;
   offersFG: FormGroup;
   private subscription: Subscription;
 
+  visible = true;
+  selectable = true;
+  removable = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  filteredOffers: any;
+  allOffers: Array<any> = [];
+  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
+  
+
   constructor(
     public dialogRef: MatDialogRef<AddEventOffersComponent>,
-    public offersService: CategoryService,
-    public commonService: CommonService
+    public offersService: OfferService,
+    public commonService: CommonService,
+    public eventService: EventService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.offersFG = new FormGroup({
-      offer: new FormControl(null, Validators.required),
+      offers: new FormControl(null),
     })
   }
 
@@ -36,12 +48,53 @@ export class AddEventOffersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscription = this.offersService.getAllCategories().subscribe({
+    this.subscription = this.offersService.getOffers().subscribe({
       next: (data: any) => {
-        this.offers = data
+        this.filteredOffers = data
         this.subscription.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     })
   }
 
+  async onSubmit(){
+    await this.addOfferToEvent(this.data.event_id);
+  }
+
+  removeOffer(offer) {
+    let index = this.allOffers.indexOf(offer)
+    if (index >= 0) {
+      this.allOffers.splice(index, 1);
+    }
+    this.offersFG.controls['offers'].setValue(null);
+  }
+
+  /**
+   * Añade el tag seleccionado a la lista para mostarlo y lo guarda
+   * @param event 
+   */
+  selectedOffer(event: MatAutocompleteSelectedEvent): void {
+    let index = this.allOffers.indexOf(event.option.value);
+    if (index < 0) {
+      this.allOffers.push(event.option.value)
+      this.offersFG.controls['offers'].setValue(null);
+    } else {
+      this.commonService.openSnackBar(
+        "¡La oferta ya ha sido agregada!",
+        "OK"
+      );
+    }
+    this.offersFG.controls['offers'].setValue(null);
+  }
+
+  addOfferToEvent(event_id: Number){
+    this.allOffers.forEach(async offer => {
+      await this.eventService.addOfferToEvent(event_id, offer.offer_id).toPromise();
+    });
+
+    this.offersService.getOffers().subscribe({
+      next: (data: any) => {
+        this.offersService.offers = data;
+      }
+    });
+  }  
 }

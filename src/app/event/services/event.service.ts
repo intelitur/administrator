@@ -148,8 +148,21 @@ export class EventService{
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`, {params})
   }
 
-  getEventOffers(){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`)
+  getEventOffers(event_id: Number){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}${event_id}/OffersByEvent`)
+  }
+
+  addOfferToEvent(event_id: Number, offer_id: Number){
+    let json = {
+      offer_id,
+      event_id
+    }
+    console.log(json)
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}Offer`,json, {observe: 'response'});
+  }
+
+  deleteOfferFromEvent(event_id: Number, offer_id: Number){
+    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}${event_id}/Offers/${offer_id}`, {observe: 'response'});
   }
 
   sort(){

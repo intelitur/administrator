@@ -37,7 +37,7 @@ export class AllQuestionsComponent implements OnInit {
     this.frequentQuestionService.updateQuestion(fq.frequent_question_id, state, fq.is_active).subscribe({
       next: (data: any) => {
 
-        data.status != 204 ? null : state == 1? 
+        data.status != 204 ? null : state == 2? 
         this.commonService.openSnackBar(`La pregunta ha sido aceptada`,"OK") 
           : 
         this.commonService.openSnackBar(`La pregunta ha sido rechazada`,"OK")

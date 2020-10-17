@@ -12,6 +12,7 @@ export class OfferService {
   offer_id: number;
   offer_name: string;
   offer_description: string;
+  offers: any = [];
   constructor(private _http: HttpClient, private _auth: AuthService) {}
 
   /**

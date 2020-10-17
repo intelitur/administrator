@@ -1,21 +1,38 @@
 <form [formGroup]="offersFG" class="container-fluid d-flex flex-column justify-content-center" style="padding: 25px">
     <h1>Añadir Oferta al Evento</h1>
    
-    <mat-form-field appearance="fill">
-        <mat-label>Seleccione la oferta</mat-label>
-        <mat-select formControlName="offer">
-          <mat-option *ngFor="let offer of offers" [value]="offer.offer_id">
-            {{offer.offer_name}}
+    <div  class="chip-list">
+      <mat-form-field class="chip-list" appearance="outline">
+        <mat-chip-list #chipList aria-label="Categories selection">
+          <mat-chip class="chip"
+            *ngFor="let category of allOffers"
+            [selectable]="selectable"
+            [removable]="removable">
+            {{category.name}}
+            <i matChipRemove class="material-icons" (click)="removeOffer(category)">cancel</i>
+          </mat-chip>
+          <input
+            placeholder="Seleccione las categorías"
+            #tagInput
+            formControlName="offers" 
+            [matChipInputFor]="chipList"
+            [matAutocomplete]="auto"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOffer($event)">
+          <mat-option *ngFor="let c of filteredOffers " [value]="c">
+            {{c.name}}
           </mat-option>
-        </mat-select>
-    </mat-form-field>
+        </mat-autocomplete>
+      </mat-form-field>
+  </div>
 
-    <div class="buttonContainer">
-        <button mat-raised-button [disabled]="!offersFG.valid" color="primary" (click)="onSubmit()">
-            Asociar
+  <div class="buttonContainer">
+      <button mat-raised-button [disabled]="allOffers.length == 0" color="primary" (click)="onSubmit()">
+          Asociar
+      </button>
+      <button (click)="closeDialog()" mat-raised-button color="warn">
+          Cerrar<mat-icon>close</mat-icon>
         </button>
-        <button (click)="closeDialog()" mat-raised-button color="warn">
-            Cerrar<mat-icon>close</mat-icon>
-          </button>
-    </div>
+  </div>
 </form>
