@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { Contests } from 'src/app/contests/models/contest';
+import { Contests } from 'src/app/contests/models/Contest';
 import { CommonService } from 'src/app/general-services/common.service';
 import { MultimediaService } from 'src/app/general-services/multimedia.service';
 

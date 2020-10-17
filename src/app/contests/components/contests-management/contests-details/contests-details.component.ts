@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Contests } from 'src/app/contests/models/contest';
+import { Contests } from 'src/app/contests/models/Contest';
 import { ContestsService } from 'src/app/contests/services/contests.service';
 import { CommonService } from 'src/app/general-services/common.service';
 
