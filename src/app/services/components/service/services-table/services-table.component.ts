@@ -44,15 +44,13 @@ export class ServicesTableComponent implements OnInit {
     }
   }
     /**
-   * @function get minimal info of itinerary
+   * @function get services
    */
   getServices() {
     this.subscription = this._service
       .getServices()
       .subscribe({
         next: (data: any) => {
-          console.log(data);
-          
           this.dataSource = new MatTableDataSource(data);
         },
         error: (err: HttpErrorResponse) => this._common.handleError(err)
@@ -63,7 +61,6 @@ export class ServicesTableComponent implements OnInit {
    * @function delete service
    */
   changeState(service_id:number){
-    console.log(service_id);
     this.subscription = this._service.deleteService(service_id).subscribe({
         next: (result: ResponseInterface) => {
           this._common.openSnackBar("Servicio eliminado", "Ok");
@@ -75,31 +72,6 @@ export class ServicesTableComponent implements OnInit {
 
   p(){
     this.active = false
-  }
-  
-
-
-
-
-  /**
-   * @function open filter dialog
-   */
-  openShowFilterOptionsDialog() {
-    this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
-      next: (filters: Filter) => {
-        if(filters) {
-          this.filterItinerariesSubs = this._service
-            .filterItineraries(filters)
-            .subscribe({
-              next: (response: ResponseInterface) => {
-                this.dataSource = new MatTableDataSource(response.data);
-              },
-              error: (err: HttpErrorResponse) => this._common.handleError(err)
-            });
-          this.isFilters = true;
-        }
-      }
-    });
   }
 
   /**

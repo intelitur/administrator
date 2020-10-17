@@ -1,7 +1,8 @@
 export class Offer {
   constructor(
     public name?: string,
-    public description?: string
+    public description?: string,
+    public companies?: string
   ) {}
 }
 

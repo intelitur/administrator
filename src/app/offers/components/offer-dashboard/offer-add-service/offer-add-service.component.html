@@ -1,44 +1,26 @@
 <form
   [formGroup]="serviceFG"
-  class="p-0 container-fluid d-flex flex-column justify-content-center"
+  class="p-0 container-fluid d-flex flex-column justify-content-center" *ngIf="this.filteredServices.length !=0; else loading"
 >
   <h5 class="font-weight-light text-center">Agregar servicio a la oferta</h5>
   <hr />
   <div class="containerCentral">
-    
-    <div  class="chip-list">
-      <mat-form-field class="chip-list" appearance="outline" style="width: 100%;">
-        <mat-chip-list #chipList aria-label="Services selection">
-          <mat-chip class="chip"
-            *ngFor="let service of allServices"
-            [selectable]="selectable"
-            [removable]="removable">
-            {{service.name}}
-            <i matChipRemove class="material-icons" (click)="remove(service)">cancel</i>
-          </mat-chip>
-          <input
-            placeholder="Seleccione los servicios"
-            #tagInput
-            formControlName="services" 
-            [matChipInputFor]="chipList"
-            [matAutocomplete]="auto"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option *ngFor="let c of filteredServices " [value]="c">
-            {{c.name}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Seleccione un servicio para agregar</mat-label>
+      <mat-select [formControl]="serviceFG.get('services')">
+        <mat-option *ngFor="let c of filteredServices" [value]="c.service_id" (click)="onSubmit()">
+          {{c.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
- 
+
   <div class="buttonContainer">
-    <button mat-raised-button [disabled]="check()" color="primary"(click)="onSubmit()">
-        Crear Servicio
-    </button>
-    <button (click)="onNoClick(200)" mat-raised-button color="warn">
+    <button (click)="onNoClick()" mat-raised-button color="warn">
         Cerrar<mat-icon>close</mat-icon>
       </button>
   </div>
 </form>
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
