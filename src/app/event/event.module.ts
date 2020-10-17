@@ -19,6 +19,8 @@ import { EventRequestFiltersComponent } from './components/event-request/event-r
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MainTabsComponent } from './components/main-tabs/main-tabs.component';
 import { EventsStadisticsComponent } from './components/events-stadistics/events-stadistics.component';
+import { EventOffersComponent } from './components/management/event-offers/event-offers.component';
+import { AddEventOffersComponent } from './components/management/add-event-offers/add-event-offers.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +34,9 @@ import { EventsStadisticsComponent } from './components/events-stadistics/events
     EventRequestComponent,
     EventRequestFiltersComponent,
     MainTabsComponent,
-    EventsStadisticsComponent
+    EventsStadisticsComponent,
+    EventOffersComponent,
+    AddEventOffersComponent
   ],
     imports: [
       CommonModule,
@@ -48,7 +52,8 @@ import { EventsStadisticsComponent } from './components/events-stadistics/events
     entryComponents: [
       EventCreateComponent,
       EventFiltersComponent,
-      EventRequestFiltersComponent
+      EventRequestFiltersComponent,
+      AddEventOffersComponent
     ]
   })
   export class EventModule { }

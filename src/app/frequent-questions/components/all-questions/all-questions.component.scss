@@ -8,6 +8,10 @@ tr{
     cursor: pointer;
 }
 
+td {
+    vertical-align: middle;
+}
+
 tr:hover{
     background-color: rgb(247, 247, 247);
 }
@@ -42,4 +46,14 @@ tr:hover{
     height: 98%; 
     margin: 0 1%; 
     background-color: white;
+}
+
+.radio-button-group{
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 300px;
+    margin: auto;
+    padding-bottom: 1.34375em;
 }

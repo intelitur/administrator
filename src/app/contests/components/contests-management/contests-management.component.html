@@ -1,6 +1,12 @@
 <mat-tab-group>
     <mat-tab label="Detalles">
-        <app-contests-details  [contest]="contest"></app-contests-details>
+        <app-contests-details *ngIf="contest; else null" [contest]="contest"></app-contests-details>
+        <ng-template #loading>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Multimedia">
+        <app-contests-multimedia *ngIf="contest; else null" [contest]="contest"></app-contests-multimedia>
         <ng-template #loading>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </ng-template>

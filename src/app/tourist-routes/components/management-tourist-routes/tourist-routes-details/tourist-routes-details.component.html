@@ -1,0 +1,89 @@
+<ng-container *ngIf="this.loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+
+<div class="container">
+    <div style="display: flex; justify-content: space-around;">
+
+        <h2 style="color: #dbb735; text-align: center; margin: auto 0">
+            {{myRoute.name}}
+        </h2>
+        <div style="display: flex;  margin: auto 0; padding: 0 20px">
+            <h2 style="margin: auto" [style.color]="myRoute.is_active? '#673ab7': 'gray'">
+                {{myRoute.is_active? "Activo": "Inactivo"}}</h2>
+            <mat-slide-toggle style="width: min-content; margin-left: 3%; margin-top: 5%;" (change)="changeEventState(event, $event)"
+                color="primary" [checked]=myRoute.is_active>
+            </mat-slide-toggle>
+        </div>
+    </div>
+    
+    <form [formGroup]="trFG" class="container-fluid">
+       
+        <mat-form-field style="width: 80%;" appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input #Name matInput formControlName="name" matTooltip="Nombre de la ruta turística" maxlength="50" required>
+            <mat-hint align="end">{{Name.value.length}}/50</mat-hint>
+        </mat-form-field>
+    
+        <mat-form-field style="width: 65%;" appearance="outline">
+            <mat-label>Ofertas</mat-label>
+            <mat-select formControlName="offer">
+              <mat-option *ngFor="let offer of offerService.offers" [value]="offer">
+                {{offer.name}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+      
+        <button mat-fab color="primary" (click)="addOffer()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </form>
+    
+    <div>
+        <div class="table-responsive" style="padding: 0 3%;">
+            <table class="table" *ngIf="associateOffers"> 
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Valoración</th>
+                    <th scope="col">Detalles</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let offer of associateOffers"> 
+                <td>{{offer.name}}</td>
+                <td>{{offer.service}}</td>
+                <td>{{offer.score != udefined? event.score : 'No valorado'}}</td>    
+                <td > 
+                    <button mat-stroked-button [routerLink]="['/tourist-routes', offer.tourist-route_id]" matTooltip="Detalles de la ruta turística" style="color: rgb(82, 82, 82); font-size: 14px;">
+                        Ver Detalles
+                    </button>
+                </td>
+                <td > 
+                    <button mat-mini-fab color="warn" (click)="removeOffer(offer)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+            <div class="alert alert-info text-center" role="alert" *ngIf="associateOffers.length === 0">
+              ¡No ha seleccionado ninguana oferta!
+            </div>
+        </div>
+    </div>
+    
+    <div class="buttonContainer">
+        <button mat-stroked-button color="primary"  [disabled]="disableDialog()"
+            style="width: 47%; min-width: fit-content; margin-top: 10px;" (click)="modifyRoute()" >
+            Guardar cambios
+        </button>
+    
+        <button mat-stroked-button color="warn" [disabled]="loading"
+            style="width: 47%; min-width: fit-content;margin-top: 10px;" (click)="setData()">
+            Descartar cambios
+        </button>
+    </div>
+</div>

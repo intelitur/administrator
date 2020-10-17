@@ -421,6 +421,7 @@ export class EventDetailsComponent implements OnInit {
     this.multimediaService.getImages(this.event.event_id, 1).subscribe({
       next: (data: any) => {
         this.eventImages = data
+        data.forEach(element => {this.oldEventImages.push(element)})
       }
     })
     this.eventFG.enable()

@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { Contests } from 'src/app/contests/models/Contest';
+import { Contests } from 'src/app/contests/models/contest';
+import { ContestsService } from 'src/app/contests/services/contests.service';
+import { CommonService } from 'src/app/general-services/common.service';
 
 @Component({
   selector: 'app-contests-details',
@@ -12,19 +14,15 @@ export class ContestsDetailsComponent implements OnInit {
 
   @Input() contest: Contests;
   contestsFG: FormGroup;
-  private subscription: Subscription;
-  private subscription2: Subscription;
 
   start_Date = undefined;
   end_Date = undefined;
   loading = false;
-  contestImages = [];
-  oldContestImages = [];
-  contestVideo = undefined;
-  url="https://intelitur.sytes.net/files/";
-  imageIndex = 0;
 
-  constructor() {
+  constructor(
+    public commonService: CommonService,
+    public contetsService: ContestsService
+  ) {
     this.contestsFG = new FormGroup({
       name: new FormControl(null, Validators.required),
       details: new FormControl(null, Validators.required),
@@ -32,6 +30,102 @@ export class ContestsDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
+    //this.setData()
+  }
+  
+  setData(){
+    this.contestsFG.controls['name'].setValue(this.contest.name)
+    this.contestsFG.controls['details'].setValue(this.contest.details)
+    this.start_Date = new Date(this.contest.initial_date)
+    this.end_Date = new Date(this.contest.final_date)
   }
 
+  dateFilter = (date: Date): boolean => {
+    return date >= this.start_Date
+  }
+  
+  modifyContest(){
+
+    this.loading = true;
+    this.contestsFG.disable()
+
+    let startDate = this.formatDates(this.start_Date)
+    let endDate = this.formatDates(this.end_Date)
+
+    let newContest: Contests = {
+      contest_id: this.contest.contest_id,
+      name: this.contestsFG.controls['name'].value,
+      details: this.contestsFG.controls['details'].value,
+      initial_date: startDate,
+      final_date: endDate,
+      is_active: this.contest.is_active
+    }
+
+    this.contetsService.modifyContest(newContest).subscribe({
+      next: async (data: any) => {
+        if (data.status == 200) {
+          this.contestsFG.enable()
+          this.contest= newContest;
+
+          this.commonService.openSnackBar(`El concurso ${this.contest.name} ha sido cambiado`,"OK")
+          this.loading = false;
+        }
+        else {
+          this.commonService.openSnackBar(
+            `Error al cambiar el estado: ${data.error}`,
+            "OK"
+          );
+        }
+
+      },
+      error: (err: HttpErrorResponse) => {
+        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        this.loading = false;
+        this.contestsFG.enable()
+      }
+    })
+  }
+
+  changeState({source}: any){
+    var id = this.contest.contest_id
+    
+    this.contetsService.changeStateContest(id).subscribe({
+      next: (data: any) => {
+        if (data.status == 204) {
+          this.contest.is_active = !this.contest.is_active;
+          source.checked = this.contest.is_active
+          if (this.contest.is_active)
+            this.commonService.openSnackBar(
+              `El anuncio ${this.contest.name} ha sido activado`,
+              "OK"
+            );
+          else
+            this.commonService.openSnackBar(
+              `El anuncio ${this.contest.name} ha sido desactivado`,
+              "OK"
+            );
+        } else {
+          this.commonService.openSnackBar(
+            `Error al cambiar el estado: ${data.error}`,
+            "OK"
+          );
+        }
+      },
+      error: (err: HttpErrorResponse) => {
+        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        source.checked = this.contest.is_active
+      }
+    });
+  }
+
+  formatDates(date: Date){
+    if(date != undefined){
+      date.setTime( date.getTime() + date.getTimezoneOffset()*60*1000 )
+
+      let year = date.getFullYear()
+      let month = (date.getMonth()+1) >= 10? (date.getMonth()+1) : "0"+(date.getMonth()+1) 
+      let day = date.getDate() >= 10? date.getDate(): "0"+date.getDate()
+      return year+"-"+month+"-"+day 
+    }
+  }
 }

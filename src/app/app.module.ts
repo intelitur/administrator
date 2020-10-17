@@ -21,6 +21,7 @@ import { OfferModule } from './offers/offer.module';
 import { ServiceModule } from './services/service.module';
 import { ThemeService } from 'ng2-charts';
 import { ContestsModule } from './contests/contests.module';
+import { TouristRoutesModule } from './tourist-routes/tourist-routes.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ContestsModule } from './contests/contests.module';
     FrecuentQustionsModule,
     OfferModule,
     ServiceModule,
+    TouristRoutesModule,
     ContestsModule
   ],
   providers: [ThemeService],

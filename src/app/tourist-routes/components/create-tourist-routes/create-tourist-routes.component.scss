@@ -1,0 +1,19 @@
+form{
+    width: 100%;
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-evenly
+}
+
+h1{
+    text-align: center;
+    margin: 0%;
+    margin-bottom: 1%;
+    font-size: x-large;
+}
+
+.buttonContainer{
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-around;;
+}

@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   localstorage_key: 'key_user',
-  SERVER_BASE_URL: 'http://leoviquez.com:7030/',
-  IMAGES_URL_BASE: 'http://leoviquez.com:7030/files/'
+  SERVER_BASE_URL: 'https://intelitur.arenalcostarica.cr:7031/',
+  IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/files/'
 };
 
 /*

@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: "all",
-        component: ContestsManagementComponent
+        component: ContestsMainComponent
       },
       {
         path: ":contest_id",
