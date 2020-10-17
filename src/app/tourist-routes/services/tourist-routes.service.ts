@@ -9,7 +9,7 @@ import { TouristRoute } from '../models/tourist-route';
 })
 export class TouristRoutesService {
 
-  ads: Array<TouristRoute> = []; 
+  touristRoutes: Array<TouristRoute> = []; 
   module = "touristRoutes/"
   constructor(
     private http: HttpClient,
@@ -28,15 +28,16 @@ export class TouristRoutesService {
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}`, touristRoute, {observe: 'response'});
   }
 
-  modifyToursitRute(touristRoute: TouristRoute){
+  modifyTouristRute(touristRoute: TouristRoute){
     return this.http.put(`${environment.SERVER_BASE_URL}${this.module}${touristRoute.tourist_route_id}`, touristRoute, {observe: 'response'});
   }
 
-  disableTouristRoute(tourist_route_id: Number, is_active: Number){
-    let json = {
-      is_active
-    }
-    return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}${tourist_route_id}`, json, {observe: 'response'})
+  changeTouristRouteState(tourist_route_id: Number){
+    return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}${tourist_route_id}`, null, {observe: 'response'})
+  }
+
+  getTouristRouteOffers(tourist_route_id: Number){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}${tourist_route_id}/offers`);
   }
 
   addOfferToTouristRoute(tourist_route_id: Number, offer_id: Number){
@@ -47,7 +48,7 @@ export class TouristRoutesService {
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}addOffer`, json, {observe: 'response'})
   }
 
-  deleteOfferToTouristRoute(tourist_route_id: Number, offer_id: Number){
+  deleteOfferFromTouristRoute(tourist_route_id: Number, offer_id: Number){
     let json = {
       tourist_route_id,
       offer_id

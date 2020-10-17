@@ -1,1 +1,49 @@
-<p>all-tourist-routes works!</p>
+<div class="container">
+    <h1 class="text-center font-weight-light mt-3">Gestión de Rutas Turísticas</h1>
+    <div class="float-right mb-3 ">
+      <button mat-raised-button color="primary" class="btn-add" matTooltip="Agregar una ruta turística"
+        (click)="openCreateDialog()"><i class="material-icons">add</i>Agregar Ruta Turística</button>
+    </div>
+    <div *ngIf="this.turistRoutesService.touristRoutes; else loading">
+        <mat-form-field class="container-fluid mb-3" appearance="outline">
+            <mat-label>Buscar por nombre de la ruta turística</mat-label>
+            <input matInput [(ngModel)]="filter.name"/>
+        </mat-form-field>
+        
+        <div class="table-responsive" style="padding: 0 3%;">
+            <table class="table" *ngIf="this.turistRoutesService.touristRoutes">
+            <thead class="thead-light">
+                <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Activo</th>
+                <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let turist_route of this.turistRoutesService.touristRoutes | filterBy: filter">
+                <td>{{turist_route.name}}</td>
+                <td>
+                    <section (click)="$event.stopPropagation()">
+                        <mat-slide-toggle (change)="changeState(turist_route, $event)" color="primary"
+                          [checked]= turist_route.is_active>
+                        </mat-slide-toggle>
+                      </section>
+                </td>
+                <td > 
+                    <button mat-stroked-button [routerLink]="['/tourist-routes', turist_route.tourist-route_id]" matTooltip="Detalles de la ruta turística" style="color: rgb(82, 82, 82); font-size: 14px;">
+                        Ver Detalles
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+            <div class="alert alert-info text-center" role="alert" *ngIf="(this.turistRoutesService.touristRoutes | filterBy: filter).length === 0">
+              ¡No hay rutas turísticas disponibles!
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

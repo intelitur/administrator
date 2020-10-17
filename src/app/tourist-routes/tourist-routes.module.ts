@@ -27,5 +27,6 @@ import { TouristRoutesDetailsComponent } from './components/management-tourist-r
     FilterPipeModule,
   ],
   providers: [DatePipe],
+  entryComponents: [CreateTouristRoutesComponent]
 })
 export class TouristRoutesModule { }
