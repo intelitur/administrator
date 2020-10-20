@@ -15269,7 +15269,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           resolve(JSON.parse(this.response));
                         }
                       });
-                      xhr.open("POST", "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL, "/adminfiles"));
+                      xhr.open("POST", "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL, "adminfiles"));
                       xhr.send(data);
                     });
                     return _context29.abrupt("return", promise);

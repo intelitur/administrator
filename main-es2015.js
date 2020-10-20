@@ -8929,7 +8929,7 @@ let CommonService = class CommonService {
                         resolve(JSON.parse(this.response));
                     }
                 });
-                xhr.open("POST", `${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}/adminfiles`);
+                xhr.open("POST", `${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}adminfiles`);
                 xhr.send(data);
             });
             return promise;
