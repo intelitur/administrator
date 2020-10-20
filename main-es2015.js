@@ -7348,6 +7348,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/company/services/company.service */ "./src/app/company/services/company.service.ts");
 /* harmony import */ var src_app_users_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/users/services/user.service */ "./src/app/users/services/user.service.ts");
 /* harmony import */ var src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/general-services/multimedia.service */ "./src/app/general-services/multimedia.service.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -7377,7 +7379,7 @@ let EventDetailsComponent = class EventDetailsComponent {
         this.currentRate = 0;
         this.eventImages = [];
         this.oldEventImages = [];
-        this.url = "https://intelitur.sytes.net/files/";
+        this.url = `${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].IMAGES_URL_BASE}`;
         this.imageIndex = 0;
         //chipList
         this.visible = true;

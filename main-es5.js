@@ -12626,6 +12626,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! src/app/general-services/multimedia.service */
     "./src/app/general-services/multimedia.service.ts");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
 
     var EventDetailsComponent = /*#__PURE__*/function () {
       function EventDetailsComponent(commonService, eventService, categoryService, companyService, userService, multimediaService) {
@@ -12650,7 +12656,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.currentRate = 0;
         this.eventImages = [];
         this.oldEventImages = [];
-        this.url = "https://intelitur.sytes.net/files/";
+        this.url = "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].IMAGES_URL_BASE);
         this.imageIndex = 0; //chipList
 
         this.visible = true;
