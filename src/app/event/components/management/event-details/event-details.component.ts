@@ -13,6 +13,7 @@ import { CompanyService } from 'src/app/company/services/company.service';
 import { User } from 'src/app/users/models/User.class';
 import { UserService } from 'src/app/users/services/user.service';
 import { MultimediaService } from 'src/app/general-services/multimedia.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class EventDetailsComponent implements OnInit {
   subscription4: Subscription
   eventImages = [];
   oldEventImages = [];
-  url="https://intelitur.sytes.net/files/";
+  url= `${environment.IMAGES_URL_BASE}`;
   imageIndex = 0;
   user: User;
 
