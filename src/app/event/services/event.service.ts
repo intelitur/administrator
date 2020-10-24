@@ -157,7 +157,6 @@ export class EventService{
       offer_id,
       event_id
     }
-    console.log(json)
     return this.http.post(`${environment.SERVER_BASE_URL}${this.module}Offer`,json, {observe: 'response'});
   }
 

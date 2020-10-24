@@ -16,7 +16,8 @@ import { OfferService } from 'src/app/offers/services/offer.service';
 export class AddEventOffersComponent implements OnInit {
 
   offersFG: FormGroup;
-  private subscription: Subscription;
+  subscription: Subscription;
+  subscription2: Subscription;
 
   visible = true;
   selectable = true;
@@ -86,15 +87,16 @@ export class AddEventOffersComponent implements OnInit {
     this.offersFG.controls['offers'].setValue(null);
   }
 
-  addOfferToEvent(event_id: Number){
+  async addOfferToEvent(event_id: Number){
+    
     this.allOffers.forEach(async offer => {
-      await this.eventService.addOfferToEvent(event_id, offer.offer_id).toPromise();
-    });
-
-    this.offersService.getOffers().subscribe({
-      next: (data: any) => {
-        this.offersService.offers = data;
+      let index = this.offersService.offers.indexOf(offer);
+      if(index < 0){
+        await this.eventService.addOfferToEvent(event_id, offer.offer_id).toPromise();
       }
     });
+
+    this.commonService.openSnackBar("Se han añadido las ofertas con éxito", "OK");
+    this.closeDialog();
   }  
 }

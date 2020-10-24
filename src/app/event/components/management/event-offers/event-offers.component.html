@@ -10,16 +10,16 @@
             <table class="table" *ngIf="this.offersService.offers">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Nombre</th>
+                    <th style="width: 40%;" scope="col">Nombre</th>
                     <th scope="col">Valoración</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let offer of this.offersService.offers">
-                <td>{{offer.info.name}}</td>
+                <td style="width: 40%;">{{offer.info.name}}</td>
                 <td>{{offer.score != undefined? offer.score : 'No valorado'}}</td>
-                <td style="text-align: center;">
+                <td>
                     <button mat-raised-button matTooltip="Eliminar oferta del evento" color="warn" (click)="deleteEventOffer(offer)">
                         <i class="material-icons">delete</i>
                     </button>

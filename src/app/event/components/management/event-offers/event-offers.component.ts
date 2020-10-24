@@ -29,9 +29,12 @@ export class EventOffersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getEventOffers();
+  }
+
+  getEventOffers(){
     this.subscription =  this.eventService.getEventOffers(this.myEvent[0].event_id).subscribe({
       next: (data: any) => {
-        console.log(data)
         this.offersService.offers = data;
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
@@ -45,15 +48,19 @@ export class EventOffersComponent implements OnInit {
       data: {
         event_id: this.myEvent[0].event_id
       }
-    })
+    }).afterClosed().toPromise().then(
+      () => {
+        this.getEventOffers();
+      }
+    )
   }
 
   deleteEventOffer(offer){
-    this.eventService.deleteOfferFromEvent(this.myEvent.event_id, offer.offer_id).subscribe({
+    this.eventService.deleteOfferFromEvent(this.myEvent[0].event_id, offer.offer_id).subscribe({
       next: (data: any) => {
         if(data.status == 200) {
           this.commonService.openSnackBar("La oferta fue eliminada del evento", "Ok");
-          this.offersService.getOffers().subscribe({
+          this.eventService.getEventOffers(this.myEvent[0].event_id).subscribe({
             next: (data: any) => {
               this.offersService.offers = data;
             }

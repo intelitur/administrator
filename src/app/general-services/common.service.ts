@@ -63,7 +63,7 @@ export class CommonService {
         }
       });
   
-      xhr.open("POST", "https://intelitur.sytes.net/adminfiles");
+      xhr.open("POST", `${environment.IMAGES_URL_BASE}adminfiles`);
   
       xhr.send(data);
       

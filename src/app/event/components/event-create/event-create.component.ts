@@ -135,7 +135,8 @@ export class EventCreateComponent implements OnInit {
   createEvent(event: EventType){
     this.eventService.createEvent(event).subscribe({
       next: async (data: any) => {
-        if (data.status == 200) {
+        console.log(data)
+        if (data.status == 201) {
           
           /**Añadiendo compañías y categorías al evento */
           this.getCategories()
@@ -154,6 +155,7 @@ export class EventCreateComponent implements OnInit {
             `Error al crear el evento: ${data.error}`,
             "OK"
           );
+          this.loading = false;
           this.eventFG.enable()
         }
       },
