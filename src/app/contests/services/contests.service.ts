@@ -35,7 +35,8 @@ export class ContestsService {
       final_date: contest.final_date,
       is_active: contest.is_active
     }
-    return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}/${contest.contest_id}`, json, {observe: 'response'})
+    console.log(json)
+    return this.http.put(`${environment.SERVER_BASE_URL}${this.module}/${contest.contest_id}`, json, {observe: 'response'})
   }
 
   createContest(contest: Contests){

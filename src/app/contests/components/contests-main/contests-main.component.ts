@@ -44,7 +44,7 @@ export class ContestsMainComponent implements OnInit {
     contest.is_active = !contest.is_active;
     this.contestsService.changeStateContest(contest).subscribe({
       next: (data: any) => {
-        if (data.status == 204) {
+        if (data.status == 200) {
           source.checked = contest.is_active
           if (contest.is_active)
             this.commonService.openSnackBar(
@@ -58,6 +58,7 @@ export class ContestsMainComponent implements OnInit {
             );
         } else {
           contest.is_active = !contest.is_active;
+          source.checked = contest.is_active
           this.commonService.openSnackBar(
             `Error al cambiar el estado: ${data.error}`,
             "OK"
@@ -66,6 +67,7 @@ export class ContestsMainComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        contest.is_active = !contest.is_active;
         source.checked = contest.is_active
       }
     });
