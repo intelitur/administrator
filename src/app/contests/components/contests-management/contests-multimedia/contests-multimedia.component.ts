@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Contests } from 'src/app/contests/models/Contest';
 import { CommonService } from 'src/app/general-services/common.service';
 import { MultimediaService } from 'src/app/general-services/multimedia.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-contests-multimedia',
@@ -14,7 +15,7 @@ export class ContestsMultimediaComponent implements OnInit {
   loading = false;
   contestImages: any = [];
   contestVideos: any = [];
-  url="https://intelitur.sytes.net/files/";
+  url=environment.IMAGES_URL_BASE;
   imageIndex = 0;
   videoIndex = 0;
 

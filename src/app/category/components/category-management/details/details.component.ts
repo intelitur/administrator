@@ -4,6 +4,7 @@ import { Category } from 'src/app/category/models/Category';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { CommonService } from 'src/app/general-services/common.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-details',
@@ -19,7 +20,7 @@ export class DetailsComponent implements OnInit {
   categoryFG: FormGroup;
   loading = false;
   
-  url="https://intelitur.sytes.net/files/"
+  url=environment.IMAGES_URL_BASE
 
   types = [
     {id:1, name:"Evento"},
