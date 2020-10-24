@@ -27,24 +27,25 @@ export class ContestsMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.obtainAllContest()
+    this.obtainAllContest()
   }
 
   obtainAllContest(){
     this.subscription = this.contestsService.getContests()
     .subscribe({
       next: (data: any) => {
-        this.contestsService.contest = data;
+        console.log(data)
+        this.contestsService.contests = data;
         this.subscription.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
     });
   }
 
   changeState(contest: Contests, {source}: any){
-    this.contestsService.changeStateContest(contest.contest_id).subscribe({
+    contest.is_active = !contest.is_active;
+    this.contestsService.changeStateContest(contest).subscribe({
       next: (data: any) => {
         if (data.status == 204) {
-          contest.is_active = !contest.is_active;
           source.checked = contest.is_active
           if (contest.is_active)
             this.commonService.openSnackBar(
@@ -57,6 +58,7 @@ export class ContestsMainComponent implements OnInit {
               "OK"
             );
         } else {
+          contest.is_active = !contest.is_active;
           this.commonService.openSnackBar(
             `Error al cambiar el estado: ${data.error}`,
             "OK"

@@ -53,32 +53,33 @@ export class ContestsCreateComponent implements OnInit {
     let finalDate = this.formatDates(this.end_Date)
     let contest: Contests = {
       name: this.contestsFG.controls['name'].value,
-      details: this.contestsFG.controls['details'].value,
+      detail: this.contestsFG.controls['details'].value,
       initial_date: initalDate,
       final_date: finalDate
     }
     console.log(contest)
-    this.createAd(contest);
+    this.createContest(contest);
   }
 
   dateFilter = (date: Date): boolean => {
     return date >= this.start_Date
   }
 
-  createAd(contest: Contests){
+  createContest(contest: Contests){
     this.contestsFG.disable();
     this.contestsService.createContest(contest).subscribe({
       next: async (data: any) => {
-        if (data.status == 200) {
+        console.log(data)
+        if (data.status == 201) {
           this.commonService.openSnackBar(
-            `El anuncio ${this.contestsFG.value.name} se ha creado`,
+            `El concurso ${this.contestsFG.value.name} se ha creado`,
             "OK"
           );
           this.dialogRef.close();
-          this.router.navigate([`/ads/${data.body.ad_id}`])
+          this.router.navigate([`/contests/${data.body[0]}`])
         } else {  
           this.commonService.openSnackBar(
-            `Error al crear el anuncio: ${data.error}`,
+            `Error al crear el concurso: ${data.error}`,
             "OK"
           );
           this.contestsFG.enable()

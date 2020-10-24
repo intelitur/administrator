@@ -9,7 +9,7 @@ import { Contests } from '../models/Contest';
 })
 export class ContestsService {
 
-  contest: Array<Contests> = []; 
+  contests: Array<Contests> = []; 
   module = "contests"
   constructor(
     private http: HttpClient,
@@ -17,22 +17,38 @@ export class ContestsService {
   ) { }
 
   getContests(){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/`)
+    let params = {
+      state: "true"
+    }
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/`,  {params: params})
   }
 
   getContest(contest_id){
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${contest_id}`)
   }
 
-  changeStateContest(contest_id){
-    return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}/${contest_id}`, null, {observe: 'response'})
+  changeStateContest(contest){
+    let json = {
+      name: contest.name,
+      detail: contest.detail,
+      initial_date: contest.initial_date,
+      final_date: contest.final_date,
+      is_active: contest.is_active
+    }
+    return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}/${contest.contest_id}`, json, {observe: 'response'})
   }
 
   createContest(contest: Contests){
-    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/`, JSON.stringify(contest), {observe: 'response'})
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/`, contest, {observe: 'response'})
   }
 
   modifyContest(contest: Contests){
-    return this.http.put(`${environment.SERVER_BASE_URL}${this.module}/${contest.contest_id}`,contest, {observe: 'response'})
+    let json = {
+      name: contest.name,
+      detail: contest.detail,
+      initial_date: contest.initial_date,
+      final_date: contest.final_date
+    }
+    return this.http.put(`${environment.SERVER_BASE_URL}${this.module}/${contest.contest_id}`, json, {observe: 'response'})
   }
 }

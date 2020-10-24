@@ -1,6 +1,4 @@
-<div style="height: 20px;">
-    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-</div>
+
 <h1>Creación del Concurso</h1>
 
 <div class="dates">
@@ -36,7 +34,7 @@
 
 <div class="buttonContainer">
     <button mat-raised-button [disabled]="!contestsFG.valid || start_Date == undefined || end_Date == undefined || start_Date > end_Date" color="primary" (click)="onSubmit()">
-        Crear Anuncio
+        Crear Concurso
     </button>
     <button (click)="closeDialog()" mat-raised-button color="warn">
         Cerrar<mat-icon>close</mat-icon>

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,6 +21,7 @@ export class ContestsDetailsComponent implements OnInit {
   loading = false;
 
   constructor(
+    private datePipe: DatePipe,
     public commonService: CommonService,
     public contetsService: ContestsService
   ) {
@@ -30,14 +32,14 @@ export class ContestsDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    //this.setData()
+    this.setData()
   }
   
   setData(){
     this.contestsFG.controls['name'].setValue(this.contest.name)
-    this.contestsFG.controls['details'].setValue(this.contest.details)
-    this.start_Date = new Date(this.contest.initial_date)
-    this.end_Date = new Date(this.contest.final_date)
+    this.contestsFG.controls['details'].setValue(this.contest.detail)
+    this.start_Date = new Date(this.datePipe.transform(this.contest.initial_date))
+    this.end_Date =  new Date(this.datePipe.transform(this.contest.final_date))
   }
 
   dateFilter = (date: Date): boolean => {
@@ -55,7 +57,7 @@ export class ContestsDetailsComponent implements OnInit {
     let newContest: Contests = {
       contest_id: this.contest.contest_id,
       name: this.contestsFG.controls['name'].value,
-      details: this.contestsFG.controls['details'].value,
+      detail: this.contestsFG.controls['details'].value,
       initial_date: startDate,
       final_date: endDate,
       is_active: this.contest.is_active
@@ -75,8 +77,9 @@ export class ContestsDetailsComponent implements OnInit {
             `Error al cambiar el estado: ${data.error}`,
             "OK"
           );
+          this.loading = false;
+        this.contestsFG.enable()
         }
-
       },
       error: (err: HttpErrorResponse) => {
         this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
@@ -87,12 +90,11 @@ export class ContestsDetailsComponent implements OnInit {
   }
 
   changeState({source}: any){
-    var id = this.contest.contest_id
-    
-    this.contetsService.changeStateContest(id).subscribe({
+    var contest = this.contest
+    this.contest.is_active = !this.contest.is_active;
+    this.contetsService.changeStateContest(contest).subscribe({
       next: (data: any) => {
         if (data.status == 204) {
-          this.contest.is_active = !this.contest.is_active;
           source.checked = this.contest.is_active
           if (this.contest.is_active)
             this.commonService.openSnackBar(
@@ -105,6 +107,7 @@ export class ContestsDetailsComponent implements OnInit {
               "OK"
             );
         } else {
+          this.contest.is_active = !this.contest.is_active;
           this.commonService.openSnackBar(
             `Error al cambiar el estado: ${data.error}`,
             "OK"
