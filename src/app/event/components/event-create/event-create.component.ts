@@ -276,9 +276,7 @@ export class EventCreateComponent implements OnInit {
   }
 
   getFiles(event: any){
-    if(event.target.files){
-      this.eventImages = []
-      this.eventImagesFinal = []
+    if(event.target.files){ 
       for(let i=0; i<event.target.files.length; i++){
         if (event.target.files[i]) {
           this.eventImagesFinal.push(event.target.files[i])
