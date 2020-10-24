@@ -17,7 +17,9 @@ export class EventOffersComponent implements OnInit {
 
   @Input() myEvent: EventType;
   filter: any = {
-    name: ""
+    info: {
+      name: ""
+    }
   };
   subscription: Subscription
 

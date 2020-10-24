@@ -34,7 +34,6 @@ export class ContestsMainComponent implements OnInit {
     this.subscription = this.contestsService.getContests()
     .subscribe({
       next: (data: any) => {
-        console.log(data)
         this.contestsService.contests = data;
         this.subscription.unsubscribe();
       }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")

@@ -3,16 +3,16 @@
    
     <div  class="chip-list">
       <mat-form-field class="chip-list" appearance="outline">
-        <mat-chip-list #chipList aria-label="Categories selection">
+        <mat-chip-list #chipList aria-label="Offer selection">
           <mat-chip class="chip"
-            *ngFor="let category of allOffers"
+            *ngFor="let offer of allOffers"
             [selectable]="selectable"
             [removable]="removable">
-            {{category.name}}
-            <i matChipRemove class="material-icons" (click)="removeOffer(category)">cancel</i>
+            {{offer.name}}
+            <i matChipRemove class="material-icons" (click)="removeOffer(offer)">cancel</i>
           </mat-chip>
           <input
-            placeholder="Seleccione las categorías"
+            placeholder="Seleccione las ofertas"
             #tagInput
             formControlName="offers" 
             [matChipInputFor]="chipList"
@@ -20,8 +20,8 @@
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
         </mat-chip-list>
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOffer($event)">
-          <mat-option *ngFor="let c of filteredOffers " [value]="c">
-            {{c.name}}
+          <mat-option *ngFor="let o of filteredOffers " [value]="o">
+            {{o.name}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

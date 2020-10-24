@@ -95,8 +95,14 @@ export class AddEventOffersComponent implements OnInit {
         await this.eventService.addOfferToEvent(event_id, offer.offer_id).toPromise();
       }
     });
+    
+    await this.eventService.getEventOffers(event_id).toPromise().then(
+      () => {
+        this.closeDialog();
+      }
+    )
 
     this.commonService.openSnackBar("Se han añadido las ofertas con éxito", "OK");
-    this.closeDialog();
+    
   }  
 }
