@@ -5,71 +5,45 @@
 
 <form [formGroup]="trFG" class="container-fluid">
    
-    <mat-form-field style="width: 80%;" appearance="outline">
+    <mat-form-field style="width: 100%;" appearance="outline">
         <mat-label>Nombre</mat-label>
         <input #Name matInput formControlName="name" matTooltip="Nombre de la ruta turística" maxlength="50" required>
         <mat-hint align="end">{{Name.value.length}}/50</mat-hint>
     </mat-form-field>
 
-    <mat-form-field style="width: 60%;" appearance="outline">
-        <mat-label>Ofertas</mat-label>
-        <mat-select formControlName="offer">
-          <mat-option *ngFor="let offer of offerService.offers" [value]="offer">
-            {{offer.name}}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>
-  
-    <button mat-fab color="primary" (click)="addOffer()">
-        <mat-icon>add</mat-icon>
-    </button>
+    <div  class="chip-list">
+        <mat-form-field class="chip-list" appearance="outline">
+          <mat-chip-list #chipList aria-label="Offers selection">
+            <mat-chip class="chip"
+              *ngFor="let offer of allOffers"
+              [selectable]="selectable"
+              [removable]="removable">
+              {{offer.name}}
+              <i matChipRemove class="material-icons" (click)="removeOffer(offer)">cancel</i>
+            </mat-chip>
+            <input
+              placeholder="Seleccione las ofertas asociadas"
+              #tagInput
+              formControlName="offers" 
+              [matChipInputFor]="chipList"
+              [matAutocomplete]="auto"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOffer($event)">
+            <mat-option *ngFor="let o of filteredOffers " [value]="o">
+              {{o.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+    </div>
+   
 </form>
 
-<div *ngIf="associateOffers; else loading">
-    <div class="table-responsive" style="padding: 0 3%;">
-        <table class="table" *ngIf="associateOffers"> 
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Servicio</th>
-                <th scope="col">Valoración</th>
-                <th scope="col">Detalles</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let offer of associateOffers"> 
-            <td>{{offer.name}}</td>
-            <td>{{offer.service}}</td>
-            <td>{{offer.score != udefined? event.score : 'No valorado'}}</td>    
-            <td > 
-                <button mat-stroked-button [routerLink]="['/tourist-routes', offer.tourist-route_id]" matTooltip="Detalles de la ruta turística" style="color: rgb(82, 82, 82); font-size: 14px;">
-                    Ver Detalles
-                </button>
-            </td>
-            <td > 
-                <button mat-mini-fab color="warn" (click)="removeOffer(offer)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </td>
-            </tr>
-        </tbody>
-        </table>
-        <div class="alert alert-info text-center" role="alert" *ngIf="associateOffers.length === 0">
-          ¡No ha seleccionado ninguana oferta!
-        </div>
-    </div>
-</div>
-
 <div class="buttonContainer">
-    <button mat-raised-button [disabled]="!trFG.valid || associateOffers.length === 0 || loading" color="primary" (click)="onSubmit()">
+    <button mat-raised-button [disabled]="!trFG.valid || allOffers.length === 0 || loading" color="primary" (click)="onSubmit()">
         <mat-icon>add</mat-icon>Crear Ruta Turística
     </button>
     <button (click)="closeDialog()" mat-raised-button color="warn">
         Cerrar<mat-icon>close</mat-icon>
     </button>
 </div>
-
-<ng-container *ngIf="this.loading">
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-container>

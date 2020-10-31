@@ -1,6 +1,6 @@
 <mat-tab-group>
     <mat-tab label="Detalles">
-        <app-tourist-routes-details *ngIf="myRoute; else null" [myRoute]="myRoute"></app-tourist-routes-details>
+        <app-tourist-routes-details *ngIf="myRoute; else null" [myRoute]="myRoute[0]"></app-tourist-routes-details>
         <ng-template #loading>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </ng-template>

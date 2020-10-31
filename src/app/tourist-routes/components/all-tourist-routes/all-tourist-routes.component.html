@@ -15,22 +15,22 @@
             <thead class="thead-light">
                 <tr>
                 <th scope="col">Nombre</th>
-                <th scope="col">Activo</th>
-                <th scope="col">Acciones</th>
+                <th style="text-align: center;" scope="col">Activo</th>
+                <th style="text-align: center;" scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let turist_route of this.turistRoutesService.touristRoutes | filterBy: filter">
                 <td>{{turist_route.name}}</td>
-                <td>
+                <td style="text-align: center;" >
                     <section (click)="$event.stopPropagation()">
                         <mat-slide-toggle (change)="changeState(turist_route, $event)" color="primary"
                           [checked]= turist_route.is_active>
                         </mat-slide-toggle>
                       </section>
                 </td>
-                <td > 
-                    <button mat-stroked-button [routerLink]="['/tourist-routes', turist_route.tourist-route_id]" matTooltip="Detalles de la ruta turística" style="color: rgb(82, 82, 82); font-size: 14px;">
+                <td style="text-align: center;" > 
+                    <button mat-stroked-button [routerLink]="['/tourist-routes', turist_route.route_id]" matTooltip="Detalles de la ruta turística" style="color: rgb(82, 82, 82); font-size: 14px;">
                         Ver Detalles
                     </button>
                 </td>
