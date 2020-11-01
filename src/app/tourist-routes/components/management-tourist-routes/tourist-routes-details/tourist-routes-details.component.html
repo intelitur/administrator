@@ -17,6 +17,8 @@
         </div>
     </div>
     
+    <hr style="width: 90%;">
+
     <form [formGroup]="trFG" class="container-fluid">
        
         <mat-form-field style="width: 80%;" appearance="outline">
@@ -36,48 +38,5 @@
                 Descartar Cambio
             </button>
         </div>
-
-        <h4 style="width: 100%; color: #673ab7;">Ofertas Asociadas</h4>
-    
-        <mat-form-field style="width: 65%;" appearance="outline">
-            <mat-label>Seleccione una oferta</mat-label>
-            <mat-select formControlName="offer">
-              <mat-option *ngFor="let offer of offerService.offers" [value]="offer">
-                {{offer.name}}
-              </mat-option>
-            </mat-select>
-        </mat-form-field>
-      
-        <button mat-fab color="primary" (click)="addOffer()" [disabled]="loading">
-            <mat-icon>add</mat-icon>
-        </button>
     </form>
-    
-    <div>
-        <div class="table-responsive" style="padding: 0 3%;">
-            <table class="table" *ngIf="associateOffers"> 
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    <th style="text-align: center;" scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let offer of associateOffers"> 
-                <td>{{offer.name}}</td>
-                <td>{{offer.description}}</td>
-                <td style="text-align: center;"> 
-                    <button mat-mini-fab color="warn" (click)="removeOffer(offer)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-                </tr>
-            </tbody>
-            </table>
-            <div class="alert alert-info text-center" role="alert" *ngIf="associateOffers.length === 0">
-              ¡No ha seleccionado ninguana oferta!
-            </div>
-        </div>
-    </div>
 </div>

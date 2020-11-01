@@ -44,27 +44,35 @@ export class AllTouristRoutesComponent implements OnInit {
 
   changeState(touristRoute: TouristRoute, {source}: any){
   
-    this.turistRoutesService.changeTouristRouteState(touristRoute.route_id).subscribe({
-      next: (data: any) => {
-        if (data.status == 200) {
-          touristRoute.is_active = !touristRoute.is_active;
-          source.checked = touristRoute.is_active
-          this.commonService.openSnackBar(
-            `La ruta turística ${touristRoute.name} ha sido desactivada`,
-            "OK"
-          );
-          this.getActiveTR();
-        } else {
-          this.commonService.openSnackBar(
-            `Error al cambiar el estado: ${data.error}`,
-            "OK"
-          );
-        }
-      },
-      error: (err: HttpErrorResponse) => {
-        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+    this.commonService.confirmationDialog(`¿Desea eliminar la ruta: ${touristRoute.name}?`).then(async (result) => {
+      if (result) {
+        this.turistRoutesService.changeTouristRouteState(touristRoute.route_id).subscribe({
+          next: (data: any) => {
+            if (data.status == 200) {
+              touristRoute.is_active = !touristRoute.is_active;
+              source.checked = touristRoute.is_active
+              this.commonService.openSnackBar(
+                `La ruta turística ${touristRoute.name} ha sido desactivada`,
+                "OK"
+              );
+              this.getActiveTR();
+            } else {
+              this.commonService.openSnackBar(
+                `Error al cambiar el estado: ${data.error}`,
+                "OK"
+              );
+            }
+          },
+          error: (err: HttpErrorResponse) => {
+            this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+            source.checked = touristRoute.is_active
+          }
+        });
+      }else{
         source.checked = touristRoute.is_active
       }
-    });
+    })
+
+    
   }
 }

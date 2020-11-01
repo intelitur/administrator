@@ -1,0 +1,61 @@
+<ng-container *ngIf="this.loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+
+<div class="container">
+  <div style="display: flex; justify-content: space-around; margin-bottom: 1em">
+    <h2 style="color: #673ab7; text-align: center; margin: auto 0">
+      Ofertas Asociadas
+    </h2>
+  </div>
+
+  <div class="container" style="display: flex; justify-content: space-between;">
+    <mat-form-field style="width: 40%;" appearance="outline">
+      <mat-label>Buscar por nombre de la oferta</mat-label>
+      <input matInput [(ngModel)]="filter.name" />
+    </mat-form-field>
+
+    <mat-form-field style="width: 30%;" appearance="outline">
+      <mat-label>Seleccione una oferta</mat-label>
+      <mat-select [(ngModel)]="selectedOffer">
+        <mat-option *ngFor="let offer of offerService.offers" [value]="offer">
+          {{ offer.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-fab color="primary" (click)="addOffer()" [disabled]="loading">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div class="table-responsive" style="padding: 0 3%">
+    <table class="table" *ngIf="associateOffers">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripción</th>
+          <th style="text-align: center" scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let offer of associateOffers | filterBy: filter">
+          <td>{{ offer.name }}</td>
+          <td>{{ offer.description }}</td>
+          <td style="text-align: center">
+            <button mat-mini-fab color="warn" (click)="removeOffer(offer)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      class="alert alert-info text-center"
+      role="alert"
+      *ngIf="(associateOffers | filterBy: filter).length === 0"
+    >
+      ¡No ha seleccionado ninguana oferta!
+    </div>
+  </div>
+</div>

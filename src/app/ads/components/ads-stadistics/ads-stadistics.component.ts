@@ -61,7 +61,6 @@ export class AdsStadisticsComponent implements OnInit {
     let selectedAd = this.adsFG.controls['ads'].value
     this.adService.getAd(selectedAd).subscribe({
       next: (data:any) => {
-        console.log(data)
         let visits = [];
         let percent = [];
         let labels = [];
@@ -116,7 +115,6 @@ export class AdsStadisticsComponent implements OnInit {
       this.subscription = this.adService.getStadisticsAds()
       .subscribe({
         next: (data: any) => {
-          console.log(data)
           this.adService.ads = data;
           this.adsFG.controls['ads'].setValue(this.adService.ads[0].ad_id)
           this.subscription.unsubscribe();

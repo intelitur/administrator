@@ -15,9 +15,9 @@ import { TouristRoutesService } from "src/app/tourist-routes/services/tourist-ro
   styleUrls: ["./tourist-routes-details.component.scss"],
 })
 export class TouristRoutesDetailsComponent implements OnInit {
+
   @Input() myRoute: TouristRoute;
   loading: boolean = false;
-  associateOffers: Array<any> = [];
   trFG: FormGroup;
   subscription: Subscription;
   subscription2: Subscription;
@@ -30,40 +30,15 @@ export class TouristRoutesDetailsComponent implements OnInit {
   ) {
     this.trFG = new FormGroup({
       name: new FormControl(null, Validators.required),
-      offer: new FormControl(null),
     });
   }
 
   ngOnInit() {
-    this.subscription = this.offerService.getOffers().subscribe({
-      next: (data: any) => {
-        this.offerService.offers = data;
-        this.subscription.unsubscribe();
-      },
-      error: (err: HttpErrorResponse) =>
-        this.commonService.openSnackBar(`Error: ${err}`, "OK"),
-    });
-
     this.setData();
   }
 
-  setData(resetInfo?: boolean) {
+  setData() {
     this.trFG.controls["name"].setValue(this.myRoute.name);
-    resetInfo == undefined ? this.getRouteOffers() : null;
-  }
-
-  getRouteOffers() {
-    this.subscription2 = this.touristRoutesService
-      .getTouristRouteOffers(this.myRoute.route_id)
-      .subscribe({
-        next: (data: any) => {
-          this.associateOffers = [];
-          data.forEach((val) => this.associateOffers.push(val));
-          this.subscription2.unsubscribe();
-        },
-        error: (err: HttpErrorResponse) =>
-          this.commonService.openSnackBar(`Error: ${err}`, "OK"),
-      });
   }
 
   modifyRoute() {
@@ -102,84 +77,40 @@ export class TouristRoutesDetailsComponent implements OnInit {
 
   changeState(touristRoute: TouristRoute, { source }: any) {
     if (this.myRoute.is_active) {
-      this.touristRoutesService
-        .changeTouristRouteState(touristRoute.route_id)
-        .subscribe({
-          next: (data: any) => {
-            if (data.status == 200) {
-              touristRoute.is_active = !touristRoute.is_active;
+      this.commonService.confirmationDialog(`¿Desea eliminar la ruta: ${touristRoute.name}?`).then(async (result) => {
+        if (result) {
+          this.touristRoutesService
+          .changeTouristRouteState(touristRoute.route_id)
+          .subscribe({
+            next: (data: any) => {
+              if (data.status == 200) {
+                touristRoute.is_active = !touristRoute.is_active;
+                source.checked = touristRoute.is_active;
+                this.commonService.openSnackBar(
+                  `La ruta turística ${touristRoute.name} ha sido desactivada`,
+                  "OK"
+                );
+                this.router.navigate(['/tourist-routes/all'])
+              } else {
+                this.commonService.openSnackBar(
+                  `Error al cambiar el estado: ${data.error}`,
+                  "OK"
+                );
+              }
+            },
+            error: (err: HttpErrorResponse) => {
+              this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
               source.checked = touristRoute.is_active;
-              this.commonService.openSnackBar(
-                `La ruta turística ${touristRoute.name} ha sido desactivada`,
-                "OK"
-              );
-              this.router.navigate(['/tourist-routes/all'])
-            } else {
-              this.commonService.openSnackBar(
-                `Error al cambiar el estado: ${data.error}`,
-                "OK"
-              );
-            }
-          },
-          error: (err: HttpErrorResponse) => {
-            this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
-            source.checked = touristRoute.is_active;
-          },
-        });
+            },
+          });
+        }else{
+          source.checked = touristRoute.is_active;
+        }
+      });
     } else {
       this.commonService.openSnackBar("No se puede reactivar una ruta", "OK");
       source.checked = touristRoute.is_active;
     }
-  }
-
-  addOffer() {
-    let offer = this.trFG.controls["offer"].value;
-    let offersID = this.getOffersID();
-
-    let index = offersID.indexOf(offer.offer_id);
-
-    if (index < 0) {
-      this.loading = true;
-
-      this.touristRoutesService
-        .addOfferToTouristRoute(this.myRoute.route_id, offer.offer_id)
-        .subscribe({
-          next: (data) => {
-            if (data.status == 201) {
-              this.getRouteOffers();
-              this.commonService.openSnackBar("Se ha añadido la oferta", "OK");
-              this.loading = false;
-            }
-          },
-          error: (err: HttpErrorResponse) =>
-            this.commonService.openSnackBar(`Error: ${err}`, "OK"),
-        });
-    } else {
-      this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
-    }
-  }
-
-  getOffersID(): any[] {
-    let ids = [];
-    this.associateOffers.forEach((element) => ids.push(element.offer_id));
-    return ids;
-  }
-
-  removeOffer(offer) {
-    this.loading = true;
-    this.touristRoutesService
-      .deleteOfferFromTouristRoute(this.myRoute.route_id, offer.offer_id)
-      .subscribe({
-        next: (data: any) => {
-          if (data.status == 200) {
-            this.getRouteOffers();
-            this.commonService.openSnackBar("La oferta ha sido removida", "OK");
-            this.loading = false;
-          }
-        },
-        error: (err: HttpErrorResponse) =>
-          this.commonService.openSnackBar(`Error: ${err}`, "OK"),
-      });
   }
 
   disableDialog(): boolean {

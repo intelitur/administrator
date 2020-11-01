@@ -28,7 +28,6 @@ export class CompaniesComponent implements OnInit {
     this.subscription = this.companyService.getCompanies()
       .subscribe({
         next: (data: any) => {
-          console.log(data)
           this.companyService.companies = data;
           this.subscription.unsubscribe();
         }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
@@ -44,38 +43,38 @@ export class CompaniesComponent implements OnInit {
   * @param userID
   */
   changeState(company: Company, {source}: any) {
-    this.companyService
+
+    this.commonService
+    .confirmationDialog(`¿Desea eliminar la empresa: ${company.name}?`)
+    .then(async (result) => {
+      if (result) {
+        this.companyService
       .chageCompanyState(company)
       .subscribe({
         next: (data: any) => {
           if (data.status == 204) {
             company.state = !company.state;
             source.checked = company.state
-            if (company.state)
-              this.commonService.openSnackBar(
-                `La empresa ${company.name} ha sido activada`,
-                "OK"
-              );
-            else
-              this.commonService.openSnackBar(
-                `La empresa ${company.name} ha sido desactivada`,
-                "OK"
-              );
-
-
+            this.commonService.openSnackBar(
+              `La empresa ${company.name} ha sido eliminada`,
+              "OK"
+            );
           } else {
             this.commonService.openSnackBar(
               `Error al cambiar el estado: ${data.error}`,
               "OK"
             );
           }
-          
         },
         error: (err: HttpErrorResponse) => {
           this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
           source.checked = company.state
         }
       });
+      }else{
+        source.checked = company.state
+      }
+    })
   }
 
   openCreateCompanyDialog(){

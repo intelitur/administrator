@@ -9,6 +9,7 @@ import { AllTouristRoutesComponent } from './components/all-tourist-routes/all-t
 import { CreateTouristRoutesComponent } from './components/create-tourist-routes/create-tourist-routes.component';
 import { ManagementTouristRoutesComponent } from './components/management-tourist-routes/management-tourist-routes.component';
 import { TouristRoutesDetailsComponent } from './components/management-tourist-routes/tourist-routes-details/tourist-routes-details.component';
+import { TouristRoutesOffersComponent } from './components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TouristRoutesDetailsComponent } from './components/management-tourist-r
     AllTouristRoutesComponent,
     CreateTouristRoutesComponent,
     ManagementTouristRoutesComponent,
-    TouristRoutesDetailsComponent
+    TouristRoutesDetailsComponent,
+    TouristRoutesOffersComponent
   ],
   imports: [
     CommonModule,
