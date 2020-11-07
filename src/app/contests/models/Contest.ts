@@ -4,5 +4,6 @@ export interface Contests {
     detail: String,
     initial_date: string,
     final_date: string,
-    is_active?: boolean
+    is_active?: boolean,
+    images?: any
 }

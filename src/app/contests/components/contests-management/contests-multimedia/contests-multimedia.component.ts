@@ -25,9 +25,10 @@ export class ContestsMultimediaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.contest)
+    this.sortInList(this.contest.images)
   }
 
-  //Metodos de imagenes
   onSlideI(event){
     this.imageIndex = parseInt(event.current.replace("slideId1_", ""), 10);
   }
@@ -54,6 +55,8 @@ export class ContestsMultimediaComponent implements OnInit {
   async deleteFile(type: Number){
     this.loading = true;
     
+    console.log(type)
+
     if(type == 0){
       this.contestImages.length == 1? this.imageIndex = 0 : null;
     }else{
@@ -62,10 +65,12 @@ export class ContestsMultimediaComponent implements OnInit {
     
     let index; 
     let msg;
+    let list;
     type == 0? index = this.imageIndex : index = this.videoIndex
-    type == 0? msg = "La imagen se ha elimindado" : "El video ha sido eliminado"
+    type == 0? msg = "La imagen se ha elimindado" : msg =  "El video ha sido eliminado"
+    type == 0? list = this.contestImages : list = this.contestVideos
 
-    await this.multimediaService.deleteImage(this.contestImages[index].image_id).toPromise().then(
+    await this.multimediaService.deleteImage(list[index].image_id).toPromise().then(
       (data: any) => {
         if(data.status == 204){
           this.commonService.openSnackBar(
@@ -86,26 +91,42 @@ export class ContestsMultimediaComponent implements OnInit {
   }
 
   async updateFiles(files, type: Number) {
-
+    console.log(files)
     for(let i=0; i<files.length; i++){
       await this.multimediaService.addImage(this.contest.contest_id, 5, files[i]).toPromise()
     }
 
     this.multimediaService.getImages(this.contest.contest_id, 5).subscribe({
       next: (data: any) => {
-        if(type == 0){
-          data.forEach(element => {
-            element.name.contains(".jpg") ||  element.name.contains(".png") ? this.contestImages.push(element) : null
-          });
-        }else{
-          data.forEach(element => {
-            element.name.contains(".mp4") ? this.contestVideos.push(element) : null
-          });
-        }
+        console.log(data)
+        this.sortInList(data, type);
       }
     })
-    
+  }
+
+
+  sortInList(data: any[], type?: Number){
+    if(type == undefined){
+      this.contestImages = [];
+      this.contestVideos = [];
+      data.forEach(element => {
+        element.name.search(".jpg") != -1 ||  element.name.search(".png") != -1 ? this.contestImages.push(element) 
+        :
+        element.name.search(".mp4") != -1? this.contestVideos.push(element) : null
+      });
+    }else if(type == 0){
+      this.contestImages = [];
+      data.forEach(element => {
+        element.name.search(".jpg") != -1 ||  element.name.search(".png") != -1 ? this.contestImages.push(element) : null
+      });
+    }else{
+      this.contestVideos = [];
+      data.forEach(element => {
+        element.name.search(".mp4") != -1? this.contestVideos.push(element) : null
+      });
+    }
     this.loading = false;
   }
+
 
 }
