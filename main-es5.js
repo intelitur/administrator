@@ -401,7 +401,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap; justify-content: center;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{myAd.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"myAd.is_active? '#673ab7': 'gray'\">\n                    {{myAd.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=myAd.is_active>\n                </mat-slide-toggle>\n            </div>\n        </div>\n        <hr style=\"width: 100%;\">\n        <div class=\"dates\">\n            <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n          \n            <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n              <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n              <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n              <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n            </mat-form-field>\n        </div>\n        <mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n            Fecha inicial mayor a la final*\n        </mat-hint>\n\n        <form [formGroup]=\"adFG\" class=\"container-fluid d-flex flex-column justify-content-center\" >\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n                <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <textarea style=\"resize: none;\" matInput formControlName=\"description\" placeholder=\"Descripción\" required></textarea>\n            </mat-form-field>\n        \n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                  <mat-chip-list #chipList aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div> \n        </form>\n    </div>\n\n    <div *ngIf=\"adImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of adImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px; object-fit: contain;\" src=\"{{url}}{{adImages[index].name}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"adImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\" title=\"Añadir imagenes al evento\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>\n\n<div class=\"buttonContainer\" >\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"!adFG.valid || loading || this.allCompanies.length == 0\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyAd()\" >\n        Guardar cambios\n    </button>\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap; justify-content: center;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{myAd.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"myAd.is_active? '#673ab7': 'gray'\">\n                    {{myAd.is_active? \"Activa\": \"Eliminado\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=myAd.is_active>\n                </mat-slide-toggle>\n            </div>\n        </div>\n        <hr style=\"width: 100%;\">\n        <div class=\"dates\">\n            <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n          \n            <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n              <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n              <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n              <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n            </mat-form-field>\n        </div>\n        <mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n            Fecha inicial mayor a la final*\n        </mat-hint>\n\n        <form [formGroup]=\"adFG\" class=\"container-fluid d-flex flex-column justify-content-center\" >\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n                <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <textarea style=\"resize: none;\" matInput formControlName=\"description\" placeholder=\"Descripción\" required></textarea>\n            </mat-form-field>\n        \n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                  <mat-chip-list #chipList aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div> \n        </form>\n    </div>\n\n    <div *ngIf=\"adImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of adImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px; object-fit: contain;\" src=\"{{url}}{{adImages[index].name}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"adImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\" title=\"Añadir imagenes al evento\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>\n\n<div class=\"buttonContainer\" >\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"!adFG.valid || loading || this.allCompanies.length == 0\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyAd()\" >\n        Guardar cambios\n    </button>\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n";
     /***/
   },
 
@@ -601,7 +601,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{category.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"category.is_active? '#673ab7': 'gray'\">\n                    {{category.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=category.is_active>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input formControlName=\"name\" matInput  matTooltip=\"Nombre de la categoría\" required>\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button color=\"primary\"  [disabled]=\"!categoryFG.valid || !isChanged() || loading\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyCategory()\" >\n                    Guardar cambios\n                </button>\n                <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n                    Descartar cambios\n                </button>\n            </div>\n        </form>\n        \n    </div>\n    <div *ngIf=\"categoryImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of categoryImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\"  style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{categoryImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen de categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 50%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"categoryImages.length == 0\" title=\"Añadir imagen a la categoría\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>\n";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{category.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"category.is_active? '#673ab7': 'gray'\">\n                    {{category.is_active? \"Activa\": \"Eliminada\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=category.is_active>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input formControlName=\"name\" matInput  matTooltip=\"Nombre de la categoría\" required>\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button color=\"primary\"  [disabled]=\"!categoryFG.valid || !isChanged() || loading\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyCategory()\" >\n                    Guardar cambios\n                </button>\n                <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n                    Descartar cambios\n                </button>\n            </div>\n        </form>\n        \n    </div>\n    <div *ngIf=\"categoryImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of categoryImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\"  style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{categoryImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen de categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 50%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"categoryImages.length == 0\" title=\"Añadir imagen a la categoría\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>\n";
     /***/
   },
 
@@ -661,7 +661,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 60%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{company.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"company.state? '#673ab7': 'gray'\">\n                    {{company.state? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=company.state>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\"\n            style=\"padding: 25px\">\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Cédula Jurídica</mat-label>\n                <input matInput formControlName=\"legal_id\">\n                <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Teléfono</mat-label>\n                <input matInput formControlName=\"phone_number\">\n                <mat-hint align=\"end\">Formato: 8888 8888</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Email</mat-label>\n                <input matInput formControlName=\"email\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Ubicación descrita</mat-label>\n                <input matInput formControlName=\"location\">\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button [disabled]=\"!companyForm.valid || !isChanged() || loading\" color=\"primary\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"applyChanges()\">\n                    Guardar cambios\n                </button>\n                <button  mat-stroked-button [disabled]=\"!isChanged() || loading\" color=\"warn\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\"\n                    (click)=\"companyForm.patchValue(company)\">\n                    Descartar cambios\n                </button>\n            </div>\n\n\n        </form>\n    </div>\n    <div *ngIf=\"company.image != '' && company.image != undefined\"\n        style=\"width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <img style=\"margin: 5% auto; max-height: 450px; max-width: 90%;\"\n            src=\"{{company.image}}\">\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n            style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%; cursor: pointer;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button matTooltip=\"Eliminar imagen de empresa\" style=\"border-radius: 0 0 20px 0\"\n                    class=\"image-buttons\" color=\"warn\" (click)=\"deleteImg()\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"company.image == '' || company.image == undefined\" title=\"Añadir imagen a la empresa\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 60%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{company.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"company.state? '#673ab7': 'gray'\">\n                    {{company.state? \"Activa\": \"Eliminada\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=company.state>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\"\n            style=\"padding: 25px\">\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Cédula Jurídica</mat-label>\n                <input matInput formControlName=\"legal_id\">\n                <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Teléfono</mat-label>\n                <input matInput formControlName=\"phone_number\">\n                <mat-hint align=\"end\">Formato: 8888 8888</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Email</mat-label>\n                <input matInput formControlName=\"email\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Ubicación descrita</mat-label>\n                <input matInput formControlName=\"location\">\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button [disabled]=\"!companyForm.valid || !isChanged() || loading\" color=\"primary\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"applyChanges()\">\n                    Guardar cambios\n                </button>\n                <button  mat-stroked-button [disabled]=\"!isChanged() || loading\" color=\"warn\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\"\n                    (click)=\"companyForm.patchValue(company)\">\n                    Descartar cambios\n                </button>\n            </div>\n\n\n        </form>\n    </div>\n    <div *ngIf=\"company.image != '' && company.image != undefined\"\n        style=\"width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <img style=\"margin: 5% auto; max-height: 450px; max-width: 90%;\"\n            src=\"{{company.image}}\">\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n            style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%; cursor: pointer;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button matTooltip=\"Eliminar imagen de empresa\" style=\"border-radius: 0 0 20px 0\"\n                    class=\"image-buttons\" color=\"warn\" (click)=\"deleteImg()\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"company.image == '' || company.image == undefined\" title=\"Añadir imagen a la empresa\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>";
     /***/
   },
 
@@ -841,7 +841,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación del Concurso</h1>\n\n<div class=\"dates\">\n    <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n        <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n        <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n    </mat-form-field>\n  \n    <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n      <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n      <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n      <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n    </mat-form-field>\n</div>\n<mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n    Fecha inicial mayor a la final*\n</mat-hint>\n\n<form [formGroup]=\"contestsFG\" class=\"container-fluid d-flex flex-column justify-content-center\">\n   \n    <mat-form-field appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n        <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <textarea style=\"resize: none;\" matInput formControlName=\"details\" placeholder=\"Detalles\" required></textarea>\n    </mat-form-field>\n\n</form>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button [disabled]=\"!contestsFG.valid || start_Date == undefined || end_Date == undefined || start_Date > end_Date\" color=\"primary\" (click)=\"onSubmit()\">\n        Crear Anuncio\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n        Cerrar<mat-icon>close</mat-icon>\n      </button>\n</div>";
+    __webpack_exports__["default"] = "<h1>Creación del Concurso</h1>\n\n<div class=\"dates\">\n  <mat-form-field style=\"width: 40%\" appearance=\"outline\">\n    <input\n      matTooltip=\"Presione el Icono\"\n      matInput\n      [matDatepicker]=\"startDate\"\n      [min]=\"today\"\n      placeholder=\"Fecha Inicial\"\n      [(ngModel)]=\"start_Date\"\n      disabled\n    />\n    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\n    <mat-datepicker #startDate disabled=\"false\"></mat-datepicker>\n  </mat-form-field>\n\n  <mat-form-field style=\"width: 40%\" appearance=\"outline\">\n    <input\n      matTooltip=\"Presione el Icono\"\n      matInput\n      [matDatepicker]=\"endDate\"\n      [matDatepickerFilter]=\"dateFilter\"\n      placeholder=\"Fecha de finalización\"\n      [(ngModel)]=\"end_Date\"\n      disabled\n    />\n    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n    <mat-datepicker\n      #endDate\n      [disabled]=\"start_Date == undefined\"\n      [startAt]=\"start_Date\"\n    ></mat-datepicker>\n  </mat-form-field>\n</div>\n<mat-hint\n  *ngIf=\"start_Date > end_Date\"\n  style=\"\n    width: 95%;\n    padding-left: 2.5%;\n    color: brown;\n    font-style: italic;\n    text-align: center;\n  \"\n>\n  Fecha inicial mayor a la final*\n</mat-hint>\n\n<form\n  [formGroup]=\"contestsFG\"\n  class=\"container-fluid d-flex flex-column justify-content-center\"\n>\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Nombre</mat-label>\n    <input\n      #Name\n      matInput\n      formControlName=\"name\"\n      matTooltip=\"Nombre del anuncio\"\n      maxlength=\"50\"\n      required\n    />\n    <mat-hint align=\"end\">{{ Name.value.length }}/50</mat-hint>\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <textarea\n      style=\"resize: none\"\n      matInput\n      formControlName=\"details\"\n      placeholder=\"Detalles\"\n      required\n    ></textarea>\n  </mat-form-field>\n</form>\n\n<div\n  style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column\"\n>\n  <div class=\"file\">\n    <div class=\"uploadFile\">\n      <label\n        for=\"file-upload\"\n        style=\"\n          width: 100%;\n          margin: 0%;\n          cursor: pointer;\n          color: #dbb735;\n          text-align: center;\n          padding-top: 2%;\n        \"\n      >\n        Añadir Imágenes\n      </label>\n      <input\n        [disabled]=\"loading\"\n        id=\"file-upload\"\n        (change)=\"getFiles($event)\"\n        type=\"file\"\n        accept=\"image/x-png,image/gif,image/jpeg\"\n        style=\"display: none\"\n        multiple\n      />\n    </div>\n  </div>\n\n  <mat-hint\n    *ngIf=\"this.contestImages.length == 0\"\n    style=\"\n      padding-left: 2.5%;\n      color: crimson;\n      align-self: center;\n      font-style: italic;\n    \"\n    >Debes añadir imagenes*</mat-hint\n  >\n\n  <div\n    *ngIf=\"contestImages.length != 0\"\n    style=\"\n      max-width: 90%;\n      display: flex;\n      flex-direction: column;\n      border-radius: 20px;\n      border: solid 1.5px rgb(220, 220, 220);\n      margin: auto;\n      min-width: 280px;\n    \"\n  >\n    <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n      <ng-template\n        *ngFor=\"let i of contestImages; let index = index\"\n        [id]=\"'slideId_' + index\"\n        ngbSlide\n      >\n        <img\n          class=\"d-block w-100\"\n          style=\"max-height: 450px !important; border-radius: 10px\"\n          src=\"{{ url }}{{ contestImages[index] }}\"\n        />\n        <div class=\"carousel-caption\">\n          <button\n            [disabled]=\"loading\"\n            mat-button\n            style=\"\n              border: solid 1.5px rgb(220, 220, 220);\n              border-radius: 10px;\n              background-color: white;\n            \"\n            (click)=\"deleteImage()\"\n            class=\"image-buttons\"\n            color=\"warn\"\n          >\n            <mat-icon>delete</mat-icon>\n          </button>\n        </div>\n      </ng-template>\n    </ngb-carousel>\n  </div>\n</div>\n\n<div class=\"buttonContainer\">\n  <button\n    mat-raised-button\n    [disabled]=\"\n      !contestsFG.valid ||\n      start_Date == undefined ||\n      end_Date == undefined ||\n      start_Date > end_Date ||\n      loading\n    \"\n    color=\"primary\"\n    (click)=\"onSubmit()\"\n  >\n    Crear Concurso\n  </button>\n  <button\n    [disabled]=\"loading\"\n    (click)=\"closeDialog()\"\n    mat-raised-button\n    color=\"warn\"\n  >\n    Cerrar<mat-icon>close</mat-icon>\n  </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n";
     /***/
   },
 
@@ -861,7 +861,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Concursos</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar un concurso\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar concurso</button>\n    </div>\n    <div *ngIf=\"this.contestsService.contests; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del anuncio</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.contestsService.contests\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Detalle</th>\n                <th scope=\"col\">Fecha</th>\n                <th scope=\"col\">Activa</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let contests of this.contestsService.contests | filterBy: filter\">\n                <td>{{contests.name}}</td>\n                <td>{{contests.description}}</td>\n                <td>\n                  Inicio: {{contests.active_range.start | date: 'dd/MM/yyyy' }} \n                  <br>\n                  Fin:    {{contests.active_range.end | date: 'dd/MM/yyyy'}}\n                </td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(contests, $event)\" color=\"primary\"\n                          [checked]= contests.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/contests', contests.contests_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.contestsService.contests | filterBy: filter).length === 0\">\n              ¡No hay anuncios disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n";
+    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Concursos</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar un concurso\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar concurso</button>\n    </div>\n    <div *ngIf=\"this.contestsService.contests; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del anuncio</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.contestsService.contests\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Detalle</th>\n                <th scope=\"col\">Fecha</th>\n                <th scope=\"col\">Activa</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let contests of this.contestsService.contests | filterBy: filter\">\n                <td>{{contests.name}}</td>\n                <td>{{contests.description}}</td>\n                <td>\n                  Inicio: {{contests.initial_date | date: 'dd/MM/yyyy' }} \n                  <br>\n                  Fin:    {{contests.final_date | date: 'dd/MM/yyyy'}}\n                </td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(contests, $event)\" color=\"primary\"\n                          [checked]= contests.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/contests', contests.contest_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.contestsService.contests | filterBy: filter).length === 0\">\n              ¡No hay anuncios disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n";
     /***/
   },
 
@@ -881,7 +881,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; flex-wrap: wrap; justify-content: center;\">\n    <div style=\"width: 70%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{contest.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"contest.is_active? '#673ab7': 'gray'\">\n                    {{contest.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=contest.is_active>\n                </mat-slide-toggle>\n            </div> \n        </div>\n        <hr style=\"width: 100%;\">\n        <div class=\"dates\">\n            <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n          \n            <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n              <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n              <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n              <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n            </mat-form-field>\n        </div>\n        <mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n            Fecha inicial mayor a la final*\n        </mat-hint>\n\n        <form [formGroup]=\"contestsFG\" class=\"container-fluid d-flex flex-column justify-content-center\" >\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n                <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <textarea style=\"resize: none;\" matInput formControlName=\"details\" placeholder=\"Detalles\" required></textarea>\n            </mat-form-field>\n            \n        </form>\n    </div>\n</div>\n\n<div class=\"buttonContainer\" >\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"!contestsFG.valid || loading\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyContest()\" >\n        Guardar cambios\n    </button>\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; flex-wrap: wrap; justify-content: center;\">\n    <div style=\"width: 70%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{contest.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"contest.is_active? '#673ab7': 'gray'\">\n                    {{contest.is_active? \"Activa\": \"Eliminado\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=contest.is_active>\n                </mat-slide-toggle>\n            </div> \n        </div>\n        <hr style=\"width: 100%;\">\n        <div class=\"dates\">\n            <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n          \n            <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n              <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n              <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n              <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n            </mat-form-field>\n        </div>\n        <mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n            Fecha inicial mayor a la final*\n        </mat-hint>\n\n        <form [formGroup]=\"contestsFG\" class=\"container-fluid d-flex flex-column justify-content-center\" >\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n                <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <textarea style=\"resize: none;\" matInput formControlName=\"details\" placeholder=\"Detalles\" required></textarea>\n            </mat-form-field>\n            \n        </form>\n    </div>\n</div>\n\n<div class=\"buttonContainer\" >\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"!contestsFG.valid || loading\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyContest()\" >\n        Guardar cambios\n    </button>\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>";
     /***/
   },
 
@@ -921,7 +921,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div style=\"display: flex; margin-top: 20px; flex-wrap: wrap; justify-content: space-evenly;\">\n\n    <h3 style=\"text-align: center; width: 100%;\">Administar Archivos Multimedia</h3>\n    <hr style=\"width: 90%;\">\n\n    <div class=\"columns\" style=\"width: 40%;\">\n        <div *ngIf=\"contestImages.length == 0\" title=\"Añadir imágenes al concurso\" class=\"noImageButton\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files, 0)\" type=\"file\" accept=\"image/png,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    \n        <div *ngIf=\"contestImages.length != 0\" class=\"border\">\n            <ngb-carousel class=\"container-fluid\" (slide)=\"onSlideI($event)\">\n                <ng-template *ngFor=\"let i of contestImages; let index = index\" [id]=\"'slideId1_' + index\" ngbSlide>              \n                    <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px; object-fit: contain;\" src=\"{{url}}{{contestImages[index].name}}\"/>\n                </ng-template>\n            </ngb-carousel>\n            <div style=\" display: flex; padding-top: 5px;\">\n                <div title=\"Añadir imágenes al concurso\" class=\"leftBtn\">\n                    <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                    <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files, 0)\" type=\"file\" accept=\"image/png,image/jpeg\" style=\"display: none;\" multiple/>   \n                </div>\n                <div title=\"Eliminar imagen del concurso\" class=\"rightBtn\">\n                    <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteFile(0);\"\n                        class=\"image-buttons\" color=\"warn\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </div>\n            </div>\n        </div>\n    </div>\n    \n    <div class=\"columns\" style=\"width: 50%;\">\n        <div *ngIf=\"contestVideos.length == 0\" title=\"Añadir videos al concurso\" class=\"noImageButton\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">video_call</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFiles($event.target.files, 1)\" type=\"file\" accept=\"video/mp4\" style=\"display: none;\" multiple/>   \n        </div>\n    \n        <div *ngIf=\"contestVideos.length != 0\" class=\"video-carousel border\">\n          \n            <ngb-carousel [interval]=\"false\" class=\"container-fluid\" (slide)=\"onSlideV($event)\">\n                <ng-template *ngFor=\"let i of contestVideos; let index = index\" [id]=\"'slideId2_' + index\" ngbSlide>              \n                    <div style=\"padding: 0 70px;\">\n                        <video id=\"my_video\" class=\"video-js vjs-default-skin\" width=\"100%\" height=\"250px\" controls preload=\"none\"\n                        data-setup='{ \"aspectRatio\":\"640:267\", \"playbackRates\": [1, 1.5, 2] }'>\n                            <source src=\"{{url}}{{[i]}}\" type='video/mp4' />\n                        </video>\n                    </div>\n                </ng-template>\n            </ngb-carousel>\n    \n            <div style=\" display: flex; padding-top: 20px;\">\n                <div title=\"Añadir videos al concurso\" class=\"leftBtn\">\n                    <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                    <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFiles($event.target.files, 1)\" type=\"file\" accept=\"video/mp4\" style=\"display: none;\" multiple/>   \n                </div>\n                <div title=\"Eliminar video del concurso\" class=\"rightBtn\">\n                    <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteFile(1);\"\n                        class=\"image-buttons\" color=\"warn\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </div>\n            </div>\n        </div>\n    </div>    \n</div>\n\n";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div\n  style=\"\n    display: flex;\n    margin-top: 20px;\n    flex-wrap: wrap;\n    justify-content: space-evenly;\n  \"\n>\n  <h3 style=\"text-align: center; width: 100%\">\n    Administar Archivos Multimedia\n  </h3>\n  <hr style=\"width: 90%\" />\n\n  <div class=\"columns\" style=\"width: 40%\">\n    <div\n      *ngIf=\"contestImages.length == 0\"\n      title=\"Añadir imágenes al concurso\"\n      class=\"noImageButton\"\n      class=\"noImageButton\"\n    >\n      <label\n        for=\"file-upload\"\n        style=\"\n          width: 100%;\n          margin: 0%;\n          cursor: pointer;\n          color: #dbb735;\n          text-align: center;\n          padding-top: 2%;\n        \"\n      >\n        <mat-icon\n          style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%\"\n          >add_photo_alternate</mat-icon\n        >\n      </label>\n      <input\n        [disabled]=\"loading\"\n        id=\"file-upload\"\n        (change)=\"uploadFiles($event.target.files, 0)\"\n        type=\"file\"\n        accept=\"image/png,image/jpeg\"\n        style=\"display: none\"\n        multiple\n      />\n    </div>\n\n    <div *ngIf=\"contestImages.length != 0\" class=\"border\">\n      <ngb-carousel class=\"container-fluid\" (slide)=\"onSlideI($event)\">\n        <ng-template\n          *ngFor=\"let i of contestImages; let index = index\"\n          [id]=\"'slideId1_' + index\"\n          ngbSlide\n        >\n          <img\n            class=\"d-block w-100\"\n            style=\"\n              height: 250px !important;\n              width: 400px !important;\n              border-radius: 10px;\n              object-fit: contain;\n            \"\n            src=\"{{ url }}{{ contestImages[index].name }}\"\n          />\n        </ng-template>\n      </ngb-carousel>\n      <div style=\"display: flex; padding-top: 5px\">\n        <div title=\"Añadir imágenes al concurso\" class=\"leftBtn\">\n          <label\n            for=\"file-upload\"\n            class=\"image-buttons\"\n            style=\"\n              border-radius: 0 0 0 20px;\n              color: #dbb735;\n              text-align: center;\n              padding-top: 5%;\n            \"\n            ><mat-icon>find_replace</mat-icon></label\n          >\n          <input\n            [disabled]=\"loading\"\n            id=\"file-upload\"\n            (change)=\"uploadFiles($event.target.files, 0)\"\n            type=\"file\"\n            accept=\"image/png,image/jpeg\"\n            style=\"display: none\"\n            multiple\n          />\n        </div>\n        <div title=\"Eliminar imagen del concurso\" class=\"rightBtn\">\n          <button\n            [disabled]=\"loading\"\n            mat-button\n            style=\"border-radius: 0 0 20px 0\"\n            (click)=\"deleteFile(0)\"\n            class=\"image-buttons\"\n            color=\"warn\"\n          >\n            <mat-icon>delete</mat-icon>\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"columns\" style=\"width: 50%\">\n    <div\n      *ngIf=\"contestVideos.length == 0\"\n      title=\"Añadir videos al concurso\"\n      class=\"noImageButton\"\n      class=\"noImageButton\"\n    >\n      <label\n        for=\"file-upload2\"\n        style=\"\n          width: 100%;\n          margin: 0%;\n          cursor: pointer;\n          color: #dbb735;\n          text-align: center;\n          padding-top: 2%;\n        \"\n      >\n        <mat-icon\n          style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%\"\n          >video_call</mat-icon\n        >\n      </label>\n      <input\n        [disabled]=\"loading\"\n        id=\"file-upload2\"\n        (change)=\"uploadFiles($event.target.files, 1)\"\n        type=\"file\"\n        accept=\"video/mp4\"\n        style=\"display: none\"\n      />\n    </div>\n\n    <div *ngIf=\"contestVideos.length != 0\" class=\"video-carousel border\">\n      <ngb-carousel\n        [interval]=\"false\"\n        class=\"container-fluid\"\n        (slide)=\"onSlideV($event)\"\n      >\n        <ng-template\n          *ngFor=\"let i of contestVideos; let index = index\"\n          [id]=\"'slideId2_' + index\"\n          ngbSlide\n        >\n          <div style=\"padding: 0 70px\">\n            <video\n              id=\"my_video\"\n              class=\"video-js vjs-default-skin\"\n              width=\"100%\"\n              height=\"250px\"\n              controls\n              preload=\"none\"\n              poster=\"assets/poster.png\"\n              data-setup='{ \"aspectRatio\":\"640:267\", \"playbackRates\": [1, 1.5, 2] }'\n            >\n              <source src=\"{{ url }}{{ i.name }}\" type=\"video/mp4\" />\n            </video>\n          </div>\n        </ng-template>\n      </ngb-carousel>\n\n      <div style=\"display: flex; padding-top: 20px\">\n        <div title=\"Añadir videos al concurso\" class=\"leftBtn\">\n          <label\n            for=\"file-upload3\"\n            class=\"image-buttons\"\n            style=\"\n              border-radius: 0 0 0 20px;\n              color: #dbb735;\n              text-align: center;\n              padding-top: 5%;\n            \"\n            ><mat-icon>find_replace</mat-icon></label\n          >\n          <input\n            [disabled]=\"loading\"\n            id=\"file-upload3\"\n            (change)=\"uploadFiles($event.target.files, 1)\"\n            type=\"file\"\n            accept=\"video/mp4\"\n            style=\"display: none\"\n            multiple\n          />\n        </div>\n        <div title=\"Eliminar video del concurso\" class=\"rightBtn\">\n          <button\n            [disabled]=\"loading\"\n            mat-button\n            style=\"border-radius: 0 0 20px 0\"\n            (click)=\"deleteFile(1)\"\n            class=\"image-buttons\"\n            color=\"warn\"\n          >\n            <mat-icon>delete</mat-icon>\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n";
     /***/
   },
 
@@ -941,7 +941,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<h1>Creación de Evento</h1>\n<form [formGroup]=\"eventFG\"  class=\"container\">\n\n    <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Costo</mat-label>\n            <input matInput formControlName=\"cost\" required>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\">\n            <mat-label>Dirección</mat-label>\n            <textarea \n                matInput \n                formControlName=\"address\" \n                matTooltip=\"Dirección exacta del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\" >\n            <mat-label>Detalles</mat-label>\n            <textarea \n                matInput \n                formControlName=\"detail\" \n                matTooltip=\"Detalles del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList aria-label=\"Categories selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let category of allCategories\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{category.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las categorías\"\n                  #tagInput\n                  formControlName=\"categories\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"auto\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let company of allCompanies\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{company.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las compañías\"\n                  #tagInput2\n                  formControlName=\"companies\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"autoCompany\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n    </div>\n</form>\n\n<div class=\"container\">\n    \n    <div class=\"toggle\">\n        <div style=\"text-align: center;\">\n            <label>Todo el día:</label>\n            <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n            <label style=\"margin-left: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n            <mat-form-field *ngIf=\"this.allDay\" style=\"width: 50%;\"  appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n        </div>\n\n        <div style=\" display: flex;\">\n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n            \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;\">\n    <div class=\"file\">\n        <div class=\"uploadFile\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n        </div>\n    </div>\n\n    <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;\">Debes añadir imagenes*</mat-hint>\n    <mat-hint *ngIf=\"this.eventImages.length != 0\" style=\"padding-left: 2.5%; align-self: center; font-style: italic;\">Si pulsa en \"Añadir imágenes\" nuevamente deberá seleccionar todas las imágenes.</mat-hint>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n                <div class=\"carousel-caption\">\n                    <button [disabled]=\"loading\" mat-button style=\"border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;\" (click)=\"deleteImage();\"\n                        class=\"image-buttons\" color=\"warn\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </div>\n            </ng-template>\n        </ngb-carousel>\n\n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button  [disabled]=\"disableDialog()\" color=\"primary\" (click)=\"onSubmit()\">\n        Continuar la Creacón\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\" [disabled]=\"loading\">\n        Cancelar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>";
+    __webpack_exports__["default"] = "<h1>Creación de Evento</h1>\n<form [formGroup]=\"eventFG\"  class=\"container\">\n\n    <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Costo</mat-label>\n            <input matInput formControlName=\"cost\" required>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\">\n            <mat-label>Dirección</mat-label>\n            <textarea \n                matInput \n                formControlName=\"address\" \n                matTooltip=\"Dirección exacta del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\" >\n            <mat-label>Detalles</mat-label>\n            <textarea \n                matInput \n                formControlName=\"detail\" \n                matTooltip=\"Detalles del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList aria-label=\"Categories selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let category of allCategories\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{category.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las categorías\"\n                  #tagInput\n                  formControlName=\"categories\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"auto\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let company of allCompanies\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{company.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las compañías\"\n                  #tagInput2\n                  formControlName=\"companies\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"autoCompany\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n    </div>\n</form>\n\n<div class=\"container\">\n    \n    <div class=\"toggle\">\n        <div style=\"text-align: center;\">\n            <label>Todo el día:</label>\n            <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n            <label style=\"margin-left: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n            <mat-form-field *ngIf=\"this.allDay\" style=\"width: 50%;\"  appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n        </div>\n\n        <div style=\" display: flex;\">\n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n            \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;\">\n    <div class=\"file\">\n        <div class=\"uploadFile\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n        </div>\n    </div>\n\n    <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;\">Debes añadir imagenes*</mat-hint>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n                <div class=\"carousel-caption\">\n                    <button [disabled]=\"loading\" mat-button style=\"border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;\" (click)=\"deleteImage();\"\n                        class=\"image-buttons\" color=\"warn\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </div>\n            </ng-template>\n        </ngb-carousel>\n\n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button  [disabled]=\"disableDialog()\" color=\"primary\" (click)=\"onSubmit()\">\n        Continuar la Creacón\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\" [disabled]=\"loading\">\n        Cancelar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>";
     /***/
   },
 
@@ -1081,7 +1081,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<form [formGroup]=\"offersFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <h1>Añadir Oferta al Evento</h1>\n   \n    <mat-form-field appearance=\"fill\">\n        <mat-label>Seleccione la oferta</mat-label>\n        <mat-select formControlName=\"offer\">\n          <mat-option *ngFor=\"let offer of offers\" [value]=\"offer.offer_id\">\n            {{offer.offer_name}}\n          </mat-option>\n        </mat-select>\n    </mat-form-field>\n\n    <div class=\"buttonContainer\">\n        <button mat-raised-button [disabled]=\"!offersFG.valid\" color=\"primary\" (click)=\"onSubmit()\">\n            Asociar\n        </button>\n        <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n            Cerrar<mat-icon>close</mat-icon>\n          </button>\n    </div>\n</form>\n";
+    __webpack_exports__["default"] = "<form [formGroup]=\"offersFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <h1>Añadir Oferta al Evento</h1>\n   \n    <div  class=\"chip-list\">\n      <mat-form-field class=\"chip-list\" appearance=\"outline\">\n        <mat-chip-list #chipList aria-label=\"Offer selection\">\n          <mat-chip class=\"chip\"\n            *ngFor=\"let offer of allOffers\"\n            [selectable]=\"selectable\"\n            [removable]=\"removable\">\n            {{offer.name}}\n            <i matChipRemove class=\"material-icons\" (click)=\"removeOffer(offer)\">cancel</i>\n          </mat-chip>\n          <input\n            placeholder=\"Seleccione las ofertas\"\n            #tagInput\n            formControlName=\"offers\" \n            [matChipInputFor]=\"chipList\"\n            [matAutocomplete]=\"auto\"\n            [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n        </mat-chip-list>\n        <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedOffer($event)\">\n          <mat-option *ngFor=\"let o of filteredOffers \" [value]=\"o\">\n            {{o.name}}\n          </mat-option>\n        </mat-autocomplete>\n      </mat-form-field>\n  </div>\n\n  <div class=\"buttonContainer\">\n      <button mat-raised-button [disabled]=\"allOffers.length == 0\" color=\"primary\" (click)=\"onSubmit()\">\n          Asociar\n      </button>\n      <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n          Cerrar<mat-icon>close</mat-icon>\n        </button>\n  </div>\n</form>\n";
     /***/
   },
 
@@ -1101,7 +1101,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; justify-content: space-around;\">\n\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n        {{event.name}}\n        <ngb-rating [(rate)]=\"currentRate\" [max]=\"5\" [readonly]=\"true\">\n            <ng-template let-fill=\"fill\" let-index=\"index\">\n            <span class=\"star\" [class.filled]=\"fill === 100\" >\n                <span class=\"half\" [style.width.%]=\"fill\">&#9733;</span>&#9733;\n            </span>\n            </ng-template>\n        </ngb-rating>\n    </h2>\n    <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n        <h2 style=\"margin: auto\" [style.color]=\"event.is_active? '#673ab7': 'gray'\">\n            {{event.is_active? \"Activo\": \"Inactivo\"}}</h2>\n        <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n            color=\"primary\" [checked]=event.is_active>\n        </mat-slide-toggle>\n    </div>\n\n</div>\n\n\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        \n        <form [formGroup]=\"eventFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field  appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n            </mat-form-field>\n    \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Costo</mat-label>\n                <input matInput formControlName=\"cost\" required>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Dirección</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"address\" \n                    matTooltip=\"Dirección exacta del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n        \n            <mat-form-field  appearance=\"outline\" >\n                <mat-label>Detalles</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"detail\" \n                    matTooltip=\"Detalles del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList aria-label=\"Categories selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let category of allCategories\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{category.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"remove(category)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las categorías\"\n                      #tagInput\n                      formControlName=\"categories\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"auto\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\n                    <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput2\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n        </form>\n    </div>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index].name}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"eventImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\" title=\"Añadir imagenes al evento\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n    \n</div>\n\n\n<div class=\"container\" style=\" width: 95%; padding-top: 2%; margin-left: 2.5%;\">\n    \n    <div class=\"toggle\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"allDay\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n        \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\"display: flex;\">\n    \n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; margin-left: 3%;\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n    \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  style=\"margin-left: 3%;\" appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  [color]=\"color\" (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyEvent()\" >\n        Guardar cambios\n    </button>\n\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; justify-content: space-around;\">\n\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n        {{event.name}}\n        <ngb-rating [(rate)]=\"currentRate\" [max]=\"5\" [readonly]=\"true\">\n            <ng-template let-fill=\"fill\" let-index=\"index\">\n            <span class=\"star\" [class.filled]=\"fill === 100\" >\n                <span class=\"half\" [style.width.%]=\"fill\">&#9733;</span>&#9733;\n            </span>\n            </ng-template>\n        </ngb-rating>\n    </h2>\n    <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n        <h2 style=\"margin: auto\" [style.color]=\"event.is_active? '#673ab7': 'gray'\">\n            {{event.is_active? \"Activo\": \"Eliminado\"}}</h2>\n        <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n            color=\"primary\" [checked]=event.is_active>\n        </mat-slide-toggle>\n    </div>\n\n</div>\n\n\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        \n        <form [formGroup]=\"eventFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field  appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n            </mat-form-field>\n    \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Costo</mat-label>\n                <input matInput formControlName=\"cost\" required>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Dirección</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"address\" \n                    matTooltip=\"Dirección exacta del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n        \n            <mat-form-field  appearance=\"outline\" >\n                <mat-label>Detalles</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"detail\" \n                    matTooltip=\"Detalles del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList aria-label=\"Categories selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let category of allCategories\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{category.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"remove(category)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las categorías\"\n                      #tagInput\n                      formControlName=\"categories\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"auto\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\n                    <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput2\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n        </form>\n    </div>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index].name}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"eventImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\" title=\"Añadir imagenes al evento\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n    \n</div>\n\n\n<div class=\"container\" style=\" width: 95%; padding-top: 2%; margin-left: 2.5%;\">\n    \n    <div class=\"toggle\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"allDay\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n        \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\"display: flex;\">\n    \n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; margin-left: 3%;\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n    \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  style=\"margin-left: 3%;\" appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  [color]=\"color\" (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyEvent()\" >\n        Guardar cambios\n    </button>\n\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n";
     /***/
   },
 
@@ -1121,7 +1121,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión Ofertas Asociadas</h1>\n    <div class=\"float-right mb-3 \" style=\"width: 40%; text-align: end;\">\n        <button mat-raised-button color=\"primary\" matTooltip=\"Asociar Oferta\" (click)=\"openAddOfferDialog()\">\n          <i class=\"material-icons\">add</i>Agregar Oferta\n        </button>\n    </div>\n    <div *ngIf=\"this.offersService.offers; else loading\">\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.offersService.offers\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\">Nombre</th>\n                    <th scope=\"col\">Valoración</th>\n                    <th scope=\"col\">Detalles</th>\n                    <th scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let offer of this.offersService.offers | filterBy: filter\">\n                <td>{{offer.name}}</td>\n                <td>{{offer.score != undefined? offer.score : 'No valorado'}}</td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/offer', offer.offer_id]\" matTooltip=\"Detalles de la oferta\" style=\"color: rgb(82, 82, 82); font-size: 14px; \">\n                        Ver Detalles\n                    </button>\n                </td>\n                <td style=\"text-align: center;\">\n                    <button mat-raised-button matTooltip=\"Eliminar oferta del evento\" color=\"warn\" (click)=\"deleteEventOffer()\">\n                        <i class=\"material-icons\">delete</i>\n                    </button>\n                </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.offersService.offer | filterBy: filter).length === 0\">\n              ¡No hay ofertas disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n";
+    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión Ofertas Asociadas</h1>\n    <div class=\"float-right mb-3 \" style=\"width: 40%; text-align: end;\">\n        <button mat-raised-button color=\"primary\" matTooltip=\"Asociar Oferta\" (click)=\"openAddOfferDialog()\">\n          <i class=\"material-icons\">add</i>Agregar Oferta\n        </button>\n    </div>\n    <div *ngIf=\"this.offersService.offers; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del evento</mat-label>\n            <input matInput [(ngModel)]=\"filter.info.name\"/>\n        </mat-form-field>\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.offersService.offers\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\">Nombre</th>\n                    <th scope=\"col\">Descripción</th>\n                    <th scope=\"col\">Estado</th>\n                    <th scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let offer of this.offersService.offers | filterBy: filter\">\n                <td>{{offer.info.name}}</td>\n                <td>{{offer.info.description}}</td>\n                <td>{{offer.is_active ? 'Activo' : 'Deshabilitado'}}</td>\n                <td>\n                    <button mat-raised-button matTooltip=\"Eliminar oferta del evento\" color=\"warn\" (click)=\"deleteEventOffer(offer)\">\n                        <i class=\"material-icons\">delete</i>\n                    </button>\n                </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.offersService.offers | filterBy: filter).length === 0\">\n              ¡No hay ofertas disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n";
     /***/
   },
 
@@ -1181,7 +1181,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Preguntas Frequentes</h1>\n\n    <div class=\"float-right mb-3 \" style=\"width: 40%; text-align: end;\">\n        <button mat-raised-button color=\"primary\" matTooltip=\"Agregar una pregunta\" (click)=\"openCreateQuestionDialog()\">\n          <i class=\"material-icons\">add</i>\n          {{this.authService.getUser().role_id === 1? 'Agregar Pregunta' : 'Solicitar Pregunta'}}\n        </button>\n    </div>\n\n    <div style=\"display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0 0 2rem\">\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"frequentQuestionService.filter.is_active\" (change)=\"refresh()\">\n            <label>Activo/Inactivo</label>\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                Activas\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(90, 0, 0)\">\n                Inactivas\n            </mat-radio-button>\n        </mat-radio-group>\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"frequentQuestionService.filter.state\" (change)=\"refresh()\">\n            <label>Estado</label>\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                Aceptadas\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(160, 105, 0) \">\n                Pendientes\n            </mat-radio-button>\n            <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                Rechazadas\n            </mat-radio-button>\n        </mat-radio-group>\n    </div>\n\n    <div *ngIf=\"this.frequentQuestionService.frequentQuestions; else loading\">\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table allquestions\" *ngIf=\"this.frequentQuestionService.frequentQuestions\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th style=\"width: 50%;\" scope=\"col\">Pregunta</th>\n                    <th style=\"width: 15%; text-align: center;\" scope=\"col\">Estado</th>\n                    <th style=\"text-align: center;\" *ngIf=\"authService.getUser().role_id === 1\" scope=\"col\">Aceptar/Rechazar</th>\n                    <th style=\"text-align: center;\" scope=\"col\">Activar/Desactivar</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let fq of this.frequentQuestionService.frequentQuestions\">\n                    <td style=\"width: 50%;\">\n                        <mat-accordion>\n                            <mat-expansion-panel hideToggle>\n                              <mat-expansion-panel-header style=\"height: auto !important;\">\n                                    <mat-panel-title style=\"margin: 0\">\n                                        <mat-card class=\"my-card\">\n                                            <textarea class=\"textInfo\" matInput disabled>{{fq.question}}</textarea>\n                                        </mat-card>\n                                    </mat-panel-title>\n                              </mat-expansion-panel-header>\n                                <label>Respuesta</label>\n                                <mat-card class=\"my-card\">\n                                    <textarea class=\"textInfo\" style=\"height: 90px;\" matInput disabled>{{fq.answer}}</textarea>\n                                </mat-card> \n                            </mat-expansion-panel>\n                        </mat-accordion>\n                    </td>\n                    <td style=\"width: 15%; text-align: center;\">\n                        <label color=\"primary\" style=\"cursor: default;\" [style.color]=\"fq.state == 1?  'rgb(0, 90, 0)': fq.state ==  2? 'rgb(160, 105, 0)': 'rgb(90, 0, 0)'\">\n                            {{ fq.state == 1? 'Aceptado' : fq.state ==  2? 'Pendiente': 'Rechazado' }}\n                        </label>\n                    </td>\n                    <td *ngIf=\"authService.getUser().role_id === 1\" style=\"text-align: center;\" >\n                        <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\" *ngIf=\"fq.state == 2\">\n                            <button mat-stroked-button color=\"primary\" class=\"acceptBtn\" (click)=\"changeStateRequest(fq, 1)\" matTooltip=\"Aceptar pregunta\">\n                              <mat-icon>done</mat-icon>\n                            </button>\n                            <button mat-stroked-button color=\"warn\" class=\"denyBtn\" (click)=\"changeStateRequest(fq, 3)\"\n                              matTooltip=\"Rechazar pregunta\">\n                              <mat-icon>clear</mat-icon>\n                            </button>\n                          </div>\n                    </td>\n                    <td style=\"text-align: center;\">\n                        <section (click)=\"$event.stopPropagation()\">\n                            <mat-slide-toggle (change)=\"changeActive(fq, $event)\" color=\"primary\"\n                              [checked]= fq.is_active>\n                            </mat-slide-toggle>\n                          </section>\n                    </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"this.frequentQuestionService.frequentQuestions.length === 0\">\n              ¡No hay preguntas disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n";
+    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Preguntas Frequentes</h1>\n\n    <div class=\"float-right mb-3 \" style=\"width: 40%; text-align: end;\">\n        <button mat-raised-button color=\"primary\" matTooltip=\"Agregar una pregunta\" (click)=\"openCreateQuestionDialog()\">\n          <i class=\"material-icons\">add</i>\n          {{this.authService.getUser().role_id === 1? 'Agregar Pregunta' : 'Solicitar Pregunta'}}\n        </button>\n    </div>\n\n    <div style=\"display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0 0 2rem\">\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"frequentQuestionService.filter.is_active\" (change)=\"refresh()\">\n            <label>Activo/Inactivo</label>\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                Activas\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(90, 0, 0)\">\n                Inactivas\n            </mat-radio-button>\n        </mat-radio-group>\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"frequentQuestionService.filter.state\" (change)=\"refresh()\">\n            <label>Estado</label>\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(160, 105, 0)\">\n                Pendientes\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(0, 90, 0)\">\n                Aceptadas\n            </mat-radio-button>\n            <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                Rechazadas\n            </mat-radio-button>\n        </mat-radio-group>\n    </div>\n\n    <div *ngIf=\"this.frequentQuestionService.frequentQuestions; else loading\">\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table allquestions\" *ngIf=\"this.frequentQuestionService.frequentQuestions\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th style=\"width: 50%;\" scope=\"col\">Pregunta</th>\n                    <th style=\"width: 15%; text-align: center;\" scope=\"col\">Estado</th>\n                    <th style=\"text-align: center;\" *ngIf=\"authService.getUser().role_id === 1\" scope=\"col\">Aceptar/Rechazar</th>\n                    <th style=\"text-align: center;\" scope=\"col\">Activar/Desactivar</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let fq of this.frequentQuestionService.frequentQuestions\">\n                    <td style=\"width: 50%;\">\n                        <mat-accordion>\n                            <mat-expansion-panel hideToggle>\n                              <mat-expansion-panel-header style=\"height: auto !important;\">\n                                    <mat-panel-title style=\"margin: 0\">\n                                        <mat-card class=\"my-card\">\n                                            <textarea class=\"textInfo\" matInput disabled>{{fq.question}}</textarea>\n                                        </mat-card>\n                                    </mat-panel-title>\n                              </mat-expansion-panel-header>\n                                <label>Respuesta</label>\n                                <mat-card class=\"my-card\">\n                                    <textarea class=\"textInfo\" style=\"height: 90px;\" matInput disabled>{{fq.answer}}</textarea>\n                                </mat-card> \n                            </mat-expansion-panel>\n                        </mat-accordion>\n                    </td>\n                    <td style=\"width: 15%; text-align: center;\">\n                        <label color=\"primary\" style=\"cursor: default;\" [style.color]=\"fq.state == 1?  'rgb(160, 105, 0)': fq.state ==  2? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'\">\n                            {{ fq.state == 1? 'Pendiente' : fq.state ==  2? 'Aceptado': 'Rechazado' }}\n                        </label>\n                    </td>\n                    <td *ngIf=\"authService.getUser().role_id === 1\" style=\"text-align: center;\" >\n                        <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\" *ngIf=\"fq.state == 1\">\n                            <button mat-stroked-button color=\"primary\" class=\"acceptBtn\" (click)=\"changeStateRequest(fq, 2)\" matTooltip=\"Aceptar pregunta\">\n                              <mat-icon>done</mat-icon>\n                            </button>\n                            <button mat-stroked-button color=\"warn\" class=\"denyBtn\" (click)=\"changeStateRequest(fq, 3)\"\n                              matTooltip=\"Rechazar pregunta\">\n                              <mat-icon>clear</mat-icon>\n                            </button>\n                          </div>\n                    </td>\n                    <td style=\"text-align: center;\">\n                        <section (click)=\"$event.stopPropagation()\">\n                            <mat-slide-toggle (change)=\"changeActive(fq, $event)\" color=\"primary\"\n                              [checked]= fq.is_active>\n                            </mat-slide-toggle>\n                          </section>\n                    </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"this.frequentQuestionService.frequentQuestions.length === 0\">\n              ¡No hay preguntas disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n";
     /***/
   },
 
@@ -1202,6 +1202,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     __webpack_exports__["default"] = "<form [formGroup]=\"questionFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <h1>Creación de Preguntas Frecuentes</h1>\n   \n    <mat-form-field appearance=\"outline\" >\n        <mat-label>Pregunta</mat-label>\n        <textarea style=\"resize: none; height: 80px;\" matInput formControlName=\"question\" matTooltip=\"Pregunta frecuente\" type=\"text\" required></textarea>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\" >\n        <mat-label>Respuesta</mat-label>\n        <textarea style=\"resize: none; height: 80px;\" matInput formControlName=\"answer\" matTooltip=\"Respuesta detallada a la pregunta\" type=\"text\" required></textarea>\n    </mat-form-field>\n\n    <div class=\"buttonContainer\">\n        <button mat-raised-button [disabled]=\"!questionFG.valid\" color=\"primary\" (click)=\"onSubmit()\">\n            {{this.authService.getUser().role_id === 1? 'Crear Pregunta' : 'Solicitar Pregunta'}}\n        </button>\n        <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n            Cerrar<mat-icon>close</mat-icon>\n          </button>\n    </div>\n</form>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html":
+  /*!****************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html ***!
+    \****************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppImagesComponentsImagesManagementImagesManagementComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 style=\"width: 100%\" class=\"text-center font-weight-light mt-3\">\n    Gestionar Imágenes\n  </h1>\n\n  <div style=\"width: 80%; display: flex; justify-content: space-between\">\n    <mat-radio-group\n      class=\"radio-button-group\"\n      color=\"primary\"\n      [(ngModel)]=\"filter.showed\"\n      (change)=\"refresh()\"\n    >\n      <label>Activo/Inactivo</label>\n      <mat-radio-button value=\"0\" style=\"color: rgb(103, 58, 183)\">\n        Todas\n      </mat-radio-button>\n      <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n        Se Muestran\n      </mat-radio-button>\n      <mat-radio-button value=\"2\" style=\"color: rgb(90, 0, 0)\">\n        No Se Muestran\n      </mat-radio-button>\n    </mat-radio-group>\n  </div>\n\n  <div class=\"container\">\n    <div *ngIf=\"this.imageService.images.length != 0\" class=\"imgsCarousel\">\n      <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n        <ng-template\n          *ngFor=\"let i of this.imageService.images; let index = index\"\n          [id]=\"'slideId_' + index\"\n          ngbSlide\n        >\n          <div style=\"padding: 0 110px\">\n            <img\n              class=\"carouselImg\"\n              src=\"{{ url }}{{ this.imageService.images[index].name }}\"\n            />\n          </div>\n        </ng-template>\n      </ngb-carousel>\n      <div style=\"display: flex; height: 70px\">\n        <div title=\"Añadir imágenes\" class=\"leftBtn\">\n          <label\n            for=\"file-upload\"\n            class=\"image-buttons\"\n            style=\"\n              border-radius: 0 0 0 20px;\n              color: #dbb735;\n              text-align: center;\n              padding-top: 2.5%;\n            \"\n            ><mat-icon>add_photo_alternate</mat-icon></label\n          >\n          <input\n            [disabled]=\"!loading\"\n            id=\"file-upload\"\n            (change)=\"uploadFile($event.target.files)\"\n            type=\"file\"\n            accept=\"image/x-png,image/gif,image/jpeg\"\n            style=\"display: none\"\n            multiple\n          />\n        </div>\n        <div\n          [title]=\"\n            this.currentImg.showed ? 'No mostrar la imagen' : 'Mostrar imagen'\n          \"\n          class=\"middleBtn\"\n        >\n          <button\n            [disabled]=\"!loading\"\n            mat-button\n            style=\"border-radius: 0 0 20px 0\"\n            (click)=\"changeImgShowState()\"\n            class=\"image-buttons\"\n            [style.color]=\"this.currentImg.showed ? '#f28500' : '#0cab0c'\"\n          >\n            <mat-icon>{{\n              this.currentImg.showed ? \"visibility_off\" : \"visibility\"\n            }}</mat-icon>\n          </button>\n        </div>\n        <div title=\"Eliminar imagen\" class=\"rightBtn\">\n          <button\n            [disabled]=\"!loading\"\n            mat-button\n            style=\"border-radius: 0 0 20px 0\"\n            (click)=\"deleteImage()\"\n            class=\"image-buttons\"\n            color=\"warn\"\n          >\n            <mat-icon>delete</mat-icon>\n          </button>\n        </div>\n      </div>\n    </div>\n    <div\n      *ngIf=\"this.imageService.images.length == 0\"\n      style=\"\n        width: 50%;\n        height: 300px;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n      \"\n    >\n      <div title=\"Añadir imágenes\" class=\"noImageButton\">\n        <label\n          for=\"file-upload\"\n          style=\"\n            width: 100%;\n            margin: 0%;\n            cursor: pointer;\n            color: #dbb735;\n            text-align: center;\n            padding-top: 2%;\n          \"\n        >\n          <mat-icon\n            style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%\"\n            >add_photo_alternate</mat-icon\n          >\n        </label>\n        <input\n          [disabled]=\"!loading\"\n          id=\"file-upload\"\n          (change)=\"uploadFile($event.target.files)\"\n          type=\"file\"\n          accept=\"image/x-png,image/gif,image/jpeg\"\n          style=\"display: none\"\n          multiple\n        />\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
     /***/
   },
 
@@ -1401,7 +1421,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container-fluid d-flex flex-column justify-content-sm-around p-0\">\n  <app-itinerary-details [it]=\"it\"></app-itinerary-details>\n  <div class=\"text-left container-fluid mt-2 example-box \">\n    <mat-slide-toggle\n      *ngIf=\"sesionService.actualUser.role_id === 1; else status\"\n      (change)=\"setAvailable(!it.info.active, it.itinerary_id, it.info)\"\n      [checked]=\"it.info.active\"\n      >{{ it.info.active ? \"Habilitado\" : \"Deshabilitado\" }}</mat-slide-toggle\n    >\n\n    <ng-template #status>\n      <h2 class=\"font-weight-light\">{{\n        it.info.active\n          ? \"Itinerario habilitado\"\n          : \"Este itinerario se encuentra deshabilitado\"\n      }}</h2>\n    </ng-template>\n\n    <button\n      *ngIf=\"favorites.includes(it.itinerary_id); else filled\"\n      mat-icon-button\n      mat-button\n      class=\"btn\"\n    >\n      <mat-icon\n        matTooltip=\"Remover de favoritos\"\n        color=\"primary\"\n        (click)=\"removeFavoriteItinerary(it.itinerary_id)\"\n        >favorite</mat-icon\n      >\n    </button>\n\n    <ng-template #filled>\n      <button mat-icon-button mat-button class=\"btn\">\n        <mat-icon\n          matTooltip=\"Agregar a favoritos\"\n          color=\"primary\"\n          (click)=\"addFavoriteItinerary(it.itinerary_id)\"\n          >favorite_border</mat-icon\n        >\n      </button>\n    </ng-template>\n  </div>\n  <app-offers *ngIf=\"it\" [it]=\"it\"></app-offers>\n  <hr />\n  <app-promotions></app-promotions>\n</div>\n";
+    __webpack_exports__["default"] = "<div class=\"container-fluid d-flex flex-column justify-content-sm-around p-0\">\n  <app-itinerary-details [it]=\"it\"></app-itinerary-details>\n  <div class=\"text-left container-fluid mt-2 example-box \">\n    <mat-slide-toggle\n      *ngIf=\"sesionService.actualUser.role_id === 1; else status\"\n      (change)=\"setAvailable(!it.info.active, it.itinerary_id, it.info, $event)\"\n      [checked]=\"it.info.active\"\n      >{{ it.info.active ? \"Habilitado\" : \"Deshabilitado\" }}</mat-slide-toggle\n    >\n\n    <ng-template #status>\n      <h2 class=\"font-weight-light\">{{\n        it.info.active\n          ? \"Itinerario habilitado\"\n          : \"Este itinerario se encuentra deshabilitado\"\n      }}</h2>\n    </ng-template>\n\n    <button\n      *ngIf=\"favorites.includes(it.itinerary_id); else filled\"\n      mat-icon-button\n      mat-button\n      class=\"btn\"\n    >\n      <mat-icon\n        matTooltip=\"Remover de favoritos\"\n        color=\"primary\"\n        (click)=\"removeFavoriteItinerary(it.itinerary_id)\"\n        >favorite</mat-icon\n      >\n    </button>\n\n    <ng-template #filled>\n      <button mat-icon-button mat-button class=\"btn\">\n        <mat-icon\n          matTooltip=\"Agregar a favoritos\"\n          color=\"primary\"\n          (click)=\"addFavoriteItinerary(it.itinerary_id)\"\n          >favorite_border</mat-icon\n        >\n      </button>\n    </ng-template>\n  </div>\n  <app-offers *ngIf=\"it\" [it]=\"it\"></app-offers>\n  <hr />\n  <app-promotions></app-promotions>\n</div>\n";
     /***/
   },
 
@@ -1561,7 +1581,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n";
+    __webpack_exports__["default"] = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n";
     /***/
   },
 
@@ -1781,7 +1801,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Rutas Turísticas</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar una ruta turística\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar Ruta Turística</button>\n    </div>\n    <div *ngIf=\"this.turistRoutesService.touristRoutes; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre de la ruta turística</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.turistRoutesService.touristRoutes\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Activo</th>\n                <th scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let turist_route of this.turistRoutesService.touristRoutes | filterBy: filter\">\n                <td>{{turist_route.name}}</td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(turist_route, $event)\" color=\"primary\"\n                          [checked]= turist_route.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td > \n                    <button mat-stroked-button [routerLink]=\"['/tourist-routes', turist_route.tourist-route_id]\" matTooltip=\"Detalles de la ruta turística\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.turistRoutesService.touristRoutes | filterBy: filter).length === 0\">\n              ¡No hay rutas turísticas disponibles!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>";
+    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Rutas Turísticas</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar una ruta turística\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar Ruta Turística</button>\n    </div>\n    <div *ngIf=\"this.turistRoutesService.touristRoutes; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre de la ruta turística</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.turistRoutesService.touristRoutes\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th style=\"text-align: center;\" scope=\"col\">Activo</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let turist_route of this.turistRoutesService.touristRoutes | filterBy: filter\">\n                <td>{{turist_route.name}}</td>\n                <td style=\"text-align: center;\" >\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(turist_route, $event)\" color=\"primary\"\n                          [checked]= turist_route.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\" > \n                    <button mat-stroked-button [routerLink]=\"['/tourist-routes', turist_route.route_id]\" matTooltip=\"Detalles de la ruta turística\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.turistRoutesService.touristRoutes | filterBy: filter).length === 0\">\n              ¡No hay rutas turísticas disponibles!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>";
     /***/
   },
 
@@ -1801,7 +1821,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación de la Ruta Turística</h1>\n\n<form [formGroup]=\"trFG\" class=\"container-fluid\">\n   \n    <mat-form-field style=\"width: 80%;\" appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre de la ruta turística\" maxlength=\"50\" required>\n        <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n    </mat-form-field>\n\n    <mat-form-field style=\"width: 60%;\" appearance=\"outline\">\n        <mat-label>Ofertas</mat-label>\n        <mat-select formControlName=\"offer\">\n          <mat-option *ngFor=\"let offer of offerService.offers\" [value]=\"offer\">\n            {{offer.name}}\n          </mat-option>\n        </mat-select>\n    </mat-form-field>\n  \n    <button mat-fab color=\"primary\" (click)=\"addOffer()\">\n        <mat-icon>add</mat-icon>\n    </button>\n</form>\n\n<div *ngIf=\"associateOffers; else loading\">\n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\" *ngIf=\"associateOffers\"> \n        <thead class=\"thead-light\">\n            <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Servicio</th>\n                <th scope=\"col\">Valoración</th>\n                <th scope=\"col\">Detalles</th>\n                <th scope=\"col\">Acciones</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr *ngFor=\"let offer of associateOffers\"> \n            <td>{{offer.name}}</td>\n            <td>{{offer.service}}</td>\n            <td>{{offer.score != udefined? event.score : 'No valorado'}}</td>    \n            <td > \n                <button mat-stroked-button [routerLink]=\"['/tourist-routes', offer.tourist-route_id]\" matTooltip=\"Detalles de la ruta turística\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                    Ver Detalles\n                </button>\n            </td>\n            <td > \n                <button mat-mini-fab color=\"warn\" (click)=\"removeOffer(offer)\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </td>\n            </tr>\n        </tbody>\n        </table>\n        <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"associateOffers.length === 0\">\n          ¡No ha seleccionado ninguana oferta!\n        </div>\n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button [disabled]=\"!trFG.valid || associateOffers.length === 0 || loading\" color=\"primary\" (click)=\"onSubmit()\">\n        <mat-icon>add</mat-icon>Crear Ruta Turística\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n        Cerrar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>";
+    __webpack_exports__["default"] = "<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación de la Ruta Turística</h1>\n\n<form [formGroup]=\"trFG\" class=\"container-fluid\">\n   \n    <mat-form-field style=\"width: 100%;\" appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre de la ruta turística\" maxlength=\"50\" required>\n        <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n    </mat-form-field>\n\n    <div  class=\"chip-list\">\n        <mat-form-field class=\"chip-list\" appearance=\"outline\">\n          <mat-chip-list #chipList aria-label=\"Offers selection\">\n            <mat-chip class=\"chip\"\n              *ngFor=\"let offer of allOffers\"\n              [selectable]=\"selectable\"\n              [removable]=\"removable\">\n              {{offer.name}}\n              <i matChipRemove class=\"material-icons\" (click)=\"removeOffer(offer)\">cancel</i>\n            </mat-chip>\n            <input\n              placeholder=\"Seleccione las ofertas asociadas\"\n              #tagInput\n              formControlName=\"offers\" \n              [matChipInputFor]=\"chipList\"\n              [matAutocomplete]=\"auto\"\n              [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n          </mat-chip-list>\n          <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedOffer($event)\">\n            <mat-option *ngFor=\"let o of filteredOffers \" [value]=\"o\">\n              {{o.name}}\n            </mat-option>\n          </mat-autocomplete>\n        </mat-form-field>\n    </div>\n   \n</form>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button [disabled]=\"!trFG.valid || allOffers.length === 0 || loading\" color=\"primary\" (click)=\"onSubmit()\">\n        <mat-icon>add</mat-icon>Crear Ruta Turística\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n        Cerrar<mat-icon>close</mat-icon>\n    </button>\n</div>";
     /***/
   },
 
@@ -1821,7 +1841,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<mat-tab-group>\n    <mat-tab label=\"Detalles\">\n        <app-tourist-routes-details *ngIf=\"myRoute; else null\" [myRoute]=\"myRoute\"></app-tourist-routes-details>\n        <ng-template #loading>\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-template>\n    </mat-tab>\n</mat-tab-group> \n";
+    __webpack_exports__["default"] = "<mat-tab-group>\n    <mat-tab label=\"Detalles\">\n        <app-tourist-routes-details *ngIf=\"myRoute; else null\" [myRoute]=\"myRoute[0]\"></app-tourist-routes-details>\n        <ng-template #loading>\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-template>\n    </mat-tab>\n    <mat-tab label=\"Ofertas\">\n        <app-tourist-routes-offers *ngIf=\"myRoute; else null\" [myRoute]=\"myRoute[0]\"></app-tourist-routes-offers>\n        <ng-template #loading>\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-template>\n    </mat-tab>\n</mat-tab-group> \n";
     /***/
   },
 
@@ -1841,7 +1861,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n\n<div class=\"container\">\n    <div style=\"display: flex; justify-content: space-around;\">\n\n        <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n            {{myRoute.name}}\n        </h2>\n        <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n            <h2 style=\"margin: auto\" [style.color]=\"myRoute.is_active? '#673ab7': 'gray'\">\n                {{myRoute.is_active? \"Activo\": \"Inactivo\"}}</h2>\n            <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n                color=\"primary\" [checked]=myRoute.is_active>\n            </mat-slide-toggle>\n        </div>\n    </div>\n    \n    <form [formGroup]=\"trFG\" class=\"container-fluid\">\n       \n        <mat-form-field style=\"width: 80%;\" appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre de la ruta turística\" maxlength=\"50\" required>\n            <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n        </mat-form-field>\n    \n        <mat-form-field style=\"width: 65%;\" appearance=\"outline\">\n            <mat-label>Ofertas</mat-label>\n            <mat-select formControlName=\"offer\">\n              <mat-option *ngFor=\"let offer of offerService.offers\" [value]=\"offer\">\n                {{offer.name}}\n              </mat-option>\n            </mat-select>\n        </mat-form-field>\n      \n        <button mat-fab color=\"primary\" (click)=\"addOffer()\">\n            <mat-icon>add</mat-icon>\n        </button>\n    </form>\n    \n    <div>\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"associateOffers\"> \n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\">Nombre</th>\n                    <th scope=\"col\">Servicio</th>\n                    <th scope=\"col\">Valoración</th>\n                    <th scope=\"col\">Detalles</th>\n                    <th scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let offer of associateOffers\"> \n                <td>{{offer.name}}</td>\n                <td>{{offer.service}}</td>\n                <td>{{offer.score != udefined? event.score : 'No valorado'}}</td>    \n                <td > \n                    <button mat-stroked-button [routerLink]=\"['/tourist-routes', offer.tourist-route_id]\" matTooltip=\"Detalles de la ruta turística\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                <td > \n                    <button mat-mini-fab color=\"warn\" (click)=\"removeOffer(offer)\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"associateOffers.length === 0\">\n              ¡No ha seleccionado ninguana oferta!\n            </div>\n        </div>\n    </div>\n    \n    <div class=\"buttonContainer\">\n        <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n            style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyRoute()\" >\n            Guardar cambios\n        </button>\n    \n        <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n            style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n            Descartar cambios\n        </button>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n\n<div class=\"container\">\n    <div style=\"display: flex; justify-content: space-around; margin-bottom: 1em;\">\n\n        <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n            {{myRoute.name}}\n        </h2>\n        <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n            <h2 style=\"margin: auto\" [style.color]=\"myRoute.is_active? '#673ab7': 'gray'\">\n                {{myRoute.is_active? \"Activo\": \"Inactivo\"}}</h2>\n            <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeState(myRoute, $event)\"\n                color=\"primary\" [checked]=myRoute.is_active>\n            </mat-slide-toggle>\n        </div>\n    </div>\n    \n    <hr style=\"width: 90%;\">\n\n    <form [formGroup]=\"trFG\" class=\"container-fluid\">\n       \n        <mat-form-field style=\"width: 80%;\" appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre de la ruta turística\" maxlength=\"50\" required>\n            <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n        </mat-form-field>\n\n        <div class=\"buttonContainer\">\n            <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n                style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyRoute()\" >\n                Cambiar Nombre\n            </button>\n        \n            <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData(true)\">\n                Descartar Cambio\n            </button>\n        </div>\n    </form>\n</div>";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.html":
+  /*!**********************************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.html ***!
+    \**********************************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppTouristRoutesComponentsManagementTouristRoutesTouristRoutesOffersTouristRoutesOffersComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n\n<div class=\"container\">\n  <div style=\"display: flex; justify-content: space-around; margin-bottom: 1em\">\n    <h2 style=\"color: #673ab7; text-align: center; margin: auto 0\">\n      Ofertas Asociadas\n    </h2>\n  </div>\n\n  <div class=\"container\" style=\"display: flex; justify-content: space-between;\">\n    <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de la oferta</mat-label>\n      <input matInput [(ngModel)]=\"filter.name\" />\n    </mat-form-field>\n\n    <mat-form-field style=\"width: 30%;\" appearance=\"outline\">\n      <mat-label>Seleccione una oferta</mat-label>\n      <mat-select [(ngModel)]=\"selectedOffer\">\n        <mat-option *ngFor=\"let offer of offerService.offers\" [value]=\"offer\">\n          {{ offer.name }}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n\n    <button mat-fab color=\"primary\" (click)=\"addOffer()\" [disabled]=\"loading\">\n      <mat-icon>add</mat-icon>\n    </button>\n  </div>\n\n  <div class=\"table-responsive\" style=\"padding: 0 3%\">\n    <table class=\"table\" *ngIf=\"associateOffers\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th scope=\"col\">Nombre</th>\n          <th scope=\"col\">Descripción</th>\n          <th style=\"text-align: center\" scope=\"col\">Acciones</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let offer of associateOffers | filterBy: filter\">\n          <td>{{ offer.name }}</td>\n          <td>{{ offer.description }}</td>\n          <td style=\"text-align: center\">\n            <button mat-mini-fab color=\"warn\" (click)=\"removeOffer(offer)\">\n              <mat-icon>delete</mat-icon>\n            </button>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    <div\n      class=\"alert alert-info text-center\"\n      role=\"alert\"\n      *ngIf=\"(associateOffers | filterBy: filter).length === 0\"\n    >\n      ¡No ha seleccionado ninguana oferta!\n    </div>\n  </div>\n</div>\n";
     /***/
   },
 
@@ -1881,7 +1921,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<button mat-mini-fab id=\"exit\" ><i (click)=\"closeDialog()\" style=\"color: black;\" class=\"material-icons\"> clear </i></button>\n<mat-horizontal-stepper linear #stepper>\n    <mat-step [stepControl]=\"eventFG\" >\n        <ng-template matStepLabel>Datos Básicos</ng-template>\n\n        <form [formGroup]=\"eventFG\"  class=\"container\">\n\n            <div class=\"container\">\n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Nombre</mat-label>\n                    <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\"  required>\n                </mat-form-field>\n\n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Costo</mat-label>\n                    <input matInput formControlName=\"cost\" required>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Dirección</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"address\" \n                        matTooltip=\"Dirección exacta del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Detalles</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"detail\" \n                        matTooltip=\"Detalles del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList aria-label=\"Categories selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let category of allCategories\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{category.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las categorías\"\n                        #tagInput\n                        formControlName=\"categories\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"auto\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                        <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let company of allCompanies\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{company.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las compañías\"\n                        #tagInput2\n                        formControlName=\"companies\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"autoCompany\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                        <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n            </div>\n        </form>\n\n        <div class=\"container\">\n            <div class=\"toggle\">\n                <div style=\"text-align: center;\">\n                    <label>Todo el día:</label>\n                    <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n                    <label style=\"margin-left: 5%; margin-right: 6%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n                    <mat-form-field *ngIf=\"this.allDay\" style=\"width: 45%;\"  appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n                </div>\n        \n                <div style=\" display: flex;\">\n                    <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n            \n                    <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                        <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                        <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n                    </mat-form-field>\n                    \n                    <div *ngIf=\"allDay == true\">\n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora Inicial</mat-label>\n                            <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                        </mat-form-field>\n                       \n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora de finalización</mat-label>\n                            <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                        </mat-form-field>\n                        <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n                    </div>\n                </div>\n                <mat-hint *ngIf=\"initial_date > final_date && allDay == false\" style=\"padding-left: 2.5%; color: #ca382d;\">La fecha inicial es mayor a la final.</mat-hint> <br *ngIf=\"initial_date > final_date && allDay == false\">\n                <mat-hint *ngIf=\"initial_time > final_time && allDay == true\" style=\"padding-left: 2.5%; color: #ca382d;\">La hora inicial es mayor a la final.</mat-hint> <br *ngIf=\"initial_time > final_time && allDay == true\">\n                <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n            </div>\n        \n            <div class=\"color-picker\">\n                <label>Selecciona un color </label>\n                <color-circle  (onChangeComplete)=\"changeComplete($event)\"  [color]=\"color\"></color-circle> \n            </div>\n\n            <div *ngIf=\"!this.data.action\" style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;\">\n                <div class=\"file\">\n                    <div class=\"uploadFile\">\n                        <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n                        <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n                    </div>\n                </div>\n            \n                <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;\">Debes añadir imagenes*</mat-hint>\n                <mat-hint *ngIf=\"this.eventImages.length != 0\" style=\"padding-left: 2.5%; align-self: center; font-style: italic;\">Si pulsa en \"Añadir imágenes\" nuevamente deberá seleccionar todas las imágenes.</mat-hint>\n            \n                <div *ngIf=\"eventImages.length != 0\"\n                    style=\"max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n                    <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n                        <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                            <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n                            <div class=\"carousel-caption\">\n                                <button [disabled]=\"loading\" mat-button style=\"border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;\" (click)=\"deleteImage();\"\n                                    class=\"image-buttons\" color=\"warn\">\n                                    <mat-icon>delete</mat-icon>\n                                </button>\n                            </div>\n                        </ng-template>\n                    </ngb-carousel>\n            \n                </div>\n            </div>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"!showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext [disabled]=\"disableDialog()\" color=\"primary\" >\n                Continuar la Creación\n            </button>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext color=\"primary\" >\n                Ver Ubicacion\n            </button>\n        </div>\n    </mat-step>\n\n    <mat-step>\n        <ng-template matStepLabel>Ubicación</ng-template>\n\n        <div class=\"m-3\" style=\"height: calc(100vh - 150px); display: flex; flex-direction: column; justify-content:space-around;\" (mouseenter)=\"refreshMap()\">\n            <div class=\"shadow-sm rounded\" class=\"map container-fluid\" leaflet (leafletMapReady)=\"onMapReady($event)\"\n                [leafletOptions]=\"options\" (leafletClick)=\"putLocationMarker($event)\">\n            </div>\n\n            <div style=\"width: 94%; height: 14%; display: flex; justify-content: space-between; margin: 3%; flex-wrap: wrap;\">\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Latitud: <b style=\"color: #dbb735;;\">{{locationMarker.getLatLng().lat}}</b> \n                </label>\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Longitud: <b style=\"color: #ca382d;\">{{locationMarker.getLatLng().lng}}</b>\n                </label>\n            </div>\n\n            <div style=\"width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button  mat-raised-button matStepperPrevious color=\"accent\" [disabled]=\"loading\">\n                    <mat-icon>reply</mat-icon>Atrás\n                </button>\n                \n                <button *ngIf=\"!showInfo\" mat-raised-button color=\"primary\" style=\"width: 40%; min-width: 200px; margin: 0 auto\"\n                    [disabled]=\"myEvent.latitude == locationMarker.getLatLng().lat && myEvent.longitude == locationMarker.getLatLng().lng || loading\"\n                    (click)=\"onSubmit()\">\n                    Crear Petición de Evento\n                    <mat-icon style=\"margin-left: 5%;\">check</mat-icon>\n                </button>\n            </div>\n        </div>        \n    </mat-step>\n</mat-horizontal-stepper>";
+    __webpack_exports__["default"] = "<button mat-mini-fab id=\"exit\" ><i (click)=\"closeDialog()\" style=\"color: black;\" class=\"material-icons\"> clear </i></button>\n<mat-horizontal-stepper linear #stepper>\n    <mat-step [stepControl]=\"eventFG\" >\n        <ng-template matStepLabel>Datos Básicos</ng-template>\n\n        <form [formGroup]=\"eventFG\"  class=\"container\">\n\n            <div class=\"container\">\n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Nombre</mat-label>\n                    <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\"  required>\n                </mat-form-field>\n\n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Costo</mat-label>\n                    <input matInput formControlName=\"cost\" required>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Dirección</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"address\" \n                        matTooltip=\"Dirección exacta del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Detalles</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"detail\" \n                        matTooltip=\"Detalles del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList aria-label=\"Categories selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let category of allCategories\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{category.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las categorías\"\n                        #tagInput\n                        formControlName=\"categories\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"auto\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                        <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let company of allCompanies\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{company.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las compañías\"\n                        #tagInput2\n                        formControlName=\"companies\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"autoCompany\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                        <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n            </div>\n        </form>\n\n        <div class=\"container\">\n            <div class=\"toggle\">\n                <div style=\"text-align: center;\">\n                    <label>Todo el día:</label>\n                    <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n                    <label style=\"margin-left: 5%; margin-right: 6%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n                    <mat-form-field *ngIf=\"this.allDay\" style=\"width: 45%;\"  appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n                </div>\n        \n                <div style=\" display: flex;\">\n                    <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n            \n                    <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                        <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                        <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n                    </mat-form-field>\n                    \n                    <div *ngIf=\"allDay == true\">\n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora Inicial</mat-label>\n                            <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                        </mat-form-field>\n                       \n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora de finalización</mat-label>\n                            <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                        </mat-form-field>\n                        <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n                    </div>\n                </div>\n                <mat-hint *ngIf=\"initial_date > final_date && allDay == false\" style=\"padding-left: 2.5%; color: #ca382d;\">La fecha inicial es mayor a la final.</mat-hint> <br *ngIf=\"initial_date > final_date && allDay == false\">\n                <mat-hint *ngIf=\"initial_time > final_time && allDay == true\" style=\"padding-left: 2.5%; color: #ca382d;\">La hora inicial es mayor a la final.</mat-hint> <br *ngIf=\"initial_time > final_time && allDay == true\">\n                <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n            </div>\n        \n            <div class=\"color-picker\">\n                <label>Selecciona un color </label>\n                <color-circle  (onChangeComplete)=\"changeComplete($event)\"  [color]=\"color\"></color-circle> \n            </div>\n\n            <div *ngIf=\"!this.data.action\" style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;\">\n                <div class=\"file\">\n                    <div class=\"uploadFile\">\n                        <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n                        <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n                    </div>\n                </div>\n            \n                <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;\">Debes añadir imagenes*</mat-hint>\n            \n                <div *ngIf=\"eventImages.length != 0\"\n                    style=\"max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n                    <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n                        <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                            <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n                            <div class=\"carousel-caption\">\n                                <button [disabled]=\"loading\" mat-button style=\"border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;\" (click)=\"deleteImage();\"\n                                    class=\"image-buttons\" color=\"warn\">\n                                    <mat-icon>delete</mat-icon>\n                                </button>\n                            </div>\n                        </ng-template>\n                    </ngb-carousel>\n            \n                </div>\n            </div>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"!showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext [disabled]=\"disableDialog()\" color=\"primary\" >\n                Continuar la Creación\n            </button>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext color=\"primary\" >\n                Ver Ubicacion\n            </button>\n        </div>\n    </mat-step>\n\n    <mat-step>\n        <ng-template matStepLabel>Ubicación</ng-template>\n\n        <div class=\"m-3\" style=\"height: calc(100vh - 150px); display: flex; flex-direction: column; justify-content:space-around;\" (mouseenter)=\"refreshMap()\">\n            <div class=\"shadow-sm rounded\" class=\"map container-fluid\" leaflet (leafletMapReady)=\"onMapReady($event)\"\n                [leafletOptions]=\"options\" (leafletClick)=\"putLocationMarker($event)\">\n            </div>\n\n            <div style=\"width: 94%; height: 14%; display: flex; justify-content: space-between; margin: 3%; flex-wrap: wrap;\">\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Latitud: <b style=\"color: #dbb735;;\">{{locationMarker.getLatLng().lat}}</b> \n                </label>\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Longitud: <b style=\"color: #ca382d;\">{{locationMarker.getLatLng().lng}}</b>\n                </label>\n            </div>\n\n            <div style=\"width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button  mat-raised-button matStepperPrevious color=\"accent\" [disabled]=\"loading\">\n                    <mat-icon>reply</mat-icon>Atrás\n                </button>\n                \n                <button *ngIf=\"!showInfo\" mat-raised-button color=\"primary\" style=\"width: 40%; min-width: 200px; margin: 0 auto\"\n                    [disabled]=\"myEvent.latitude == locationMarker.getLatLng().lat && myEvent.longitude == locationMarker.getLatLng().lng || loading\"\n                    (click)=\"onSubmit()\">\n                    Crear Petición de Evento\n                    <mat-icon style=\"margin-left: 5%;\">check</mat-icon>\n                </button>\n            </div>\n        </div>        \n    </mat-step>\n</mat-horizontal-stepper>";
     /***/
   },
 
@@ -3540,21 +3580,43 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var _this5 = this;
 
           var source = _ref.source;
-          this.adsService.changeStateAd(ad.ad_id).subscribe({
-            next: function next(data) {
-              if (data.status == 204) {
-                ad.is_active = !ad.is_active;
-                source.checked = ad.is_active;
-                if (ad.is_active) _this5.commonService.openSnackBar("El anuncio ".concat(ad.name, " ha sido activado"), "OK");else _this5.commonService.openSnackBar("El anuncio ".concat(ad.name, " ha sido desactivado"), "OK");
-              } else {
-                _this5.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this5.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+          this.commonService.confirmationDialog("\xBFDesea eliminar el anuncio: ".concat(ad.name, "?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this5, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var _this6 = this;
 
-              source.checked = ad.is_active;
-            }
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      if (result) {
+                        this.adsService.changeStateAd(ad.ad_id).subscribe({
+                          next: function next(data) {
+                            if (data.status == 204) {
+                              ad.is_active = !ad.is_active;
+                              source.checked = ad.is_active;
+
+                              _this6.commonService.openSnackBar("El anuncio ".concat(ad.name, " ha sido eliminado"), "OK");
+                            } else {
+                              _this6.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                            }
+                          },
+                          error: function error(err) {
+                            _this6.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                            source.checked = ad.is_active;
+                          }
+                        });
+                      } else {
+                        source.checked = ad.is_active;
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5, this);
+            }));
           });
         }
       }, {
@@ -3687,6 +3749,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! src/app/general-services/multimedia.service */
     "./src/app/general-services/multimedia.service.ts");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
 
     var AdsDetailsComponent = /*#__PURE__*/function () {
       function AdsDetailsComponent(companyService, commonService, datePipe, adsService, multimediaService) {
@@ -3702,7 +3770,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.loading = false;
         this.adImages = [];
         this.oldAdImages = [];
-        this.url = "https://intelitur.sytes.net/files/";
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].IMAGES_URL_BASE;
         this.imageIndex = 0;
         this.visible = true;
         this.selectable = true;
@@ -3720,17 +3788,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AdsDetailsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this6 = this;
+          var _this7 = this;
 
           console.log(this.myAd);
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this6.filteredCompanies = data;
+              _this7.filteredCompanies = data;
 
-              _this6.subscription.unsubscribe();
+              _this7.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this6.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this7.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.setData();
@@ -3738,74 +3806,103 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setData",
         value: function setData() {
-          var _this7 = this;
+          var _this8 = this;
 
-          this.adFG.controls['name'].setValue(this.myAd.name);
-          this.adFG.controls['description'].setValue(this.myAd.description);
+          this.adFG.controls["name"].setValue(this.myAd.name);
+          this.adFG.controls["description"].setValue(this.myAd.description);
           this.start_Date = new Date(this.datePipe.transform(this.myAd.active_range.start));
           this.end_Date = new Date(this.datePipe.transform(this.myAd.active_range.end));
           this.subscription2 = this.adsService.getCompaniesByAd(this.myAd.ad_id).subscribe({
             next: function next(data) {
               data.forEach(function (val) {
-                return _this7.allCompanies.push(val);
+                return _this8.allCompanies.push(val);
               });
 
-              _this7.allCompanies.forEach(function (val) {
-                return _this7.allOldCompanies.push(val.company_id);
+              _this8.allCompanies.forEach(function (val) {
+                return _this8.allOldCompanies.push(val.company_id);
               });
 
-              _this7.subscription2.unsubscribe();
+              _this8.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this7.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this8.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription3 = this.multimediaService.getImages(this.myAd.ad_id, 4).subscribe({
             next: function next(data) {
               if (data != undefined) {
                 data.forEach(function (elem) {
-                  return _this7.adImages.push(elem);
+                  return _this8.adImages.push(elem);
                 });
                 data.forEach(function (elem) {
-                  return _this7.oldAdImages.push(elem);
+                  return _this8.oldAdImages.push(elem);
                 });
               }
 
-              _this7.subscription2.unsubscribe();
+              _this8.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this7.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this8.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "changeState",
         value: function changeState(_ref2) {
-          var _this8 = this;
+          var _this9 = this;
 
           var source = _ref2.source;
-          var id = this.myAd.ad_id;
-          this.adsService.changeStateAd(id).subscribe({
-            next: function next(data) {
-              if (data.status == 204) {
-                _this8.myAd.is_active = !_this8.myAd.is_active;
-                source.checked = _this8.myAd.is_active;
-                if (_this8.myAd.is_active) _this8.commonService.openSnackBar("El anuncio ".concat(_this8.myAd.name, " ha sido activado"), "OK");else _this8.commonService.openSnackBar("El anuncio ".concat(_this8.myAd.name, " ha sido desactivado"), "OK");
-              } else {
-                _this8.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this8.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              source.checked = _this8.myAd.is_active;
-            }
-          });
+          if (this.myAd.is_active) {
+            this.commonService.confirmationDialog("\xBFDesea eliminar el anuncio: ".concat(this.myAd.name, "?")).then(function (result) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this9, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+                var _this10 = this;
+
+                var id;
+                return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                  while (1) {
+                    switch (_context6.prev = _context6.next) {
+                      case 0:
+                        if (result) {
+                          id = this.myAd.ad_id;
+                          this.adsService.changeStateAd(id).subscribe({
+                            next: function next(data) {
+                              if (data.status == 204) {
+                                _this10.myAd.is_active = !_this10.myAd.is_active;
+                                source.checked = _this10.myAd.is_active;
+
+                                _this10.commonService.openSnackBar("El anuncio ".concat(_this10.myAd.name, " ha sido activado"), "OK");
+                              } else {
+                                _this10.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              }
+                            },
+                            error: function error(err) {
+                              _this10.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                              source.checked = _this10.myAd.is_active;
+                            }
+                          });
+                        } else {
+                          source.checked = this.myAd.is_active;
+                        }
+
+                      case 1:
+                      case "end":
+                        return _context6.stop();
+                    }
+                  }
+                }, _callee6, this);
+              }));
+            });
+          } else {
+            this.commonService.openSnackBar("No se puede reactivar un anuncio", "OK");
+            source.checked = this.myAd.is_active;
+          }
         }
       }, {
         key: "modifyAd",
         value: function modifyAd() {
-          var _this9 = this;
+          var _this11 = this;
 
           this.loading = true;
           var startDate = this.formatDates(this.start_Date);
@@ -3814,8 +3911,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.adFG.disable();
           var ad = {
             ad_id: this.myAd.ad_id,
-            name: this.adFG.controls['name'].value,
-            description: this.adFG.controls['description'].value,
+            name: this.adFG.controls["name"].value,
+            description: this.adFG.controls["description"].value,
             active_range: {
               start: startDate,
               end: endDate
@@ -3824,19 +3921,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             is_up: this.myAd.is_up
           };
           var json = {
-            "info": ad,
-            "latitude": this.myAd.latitude,
-            "longitude": this.myAd.longitude
+            info: ad,
+            latitude: this.myAd.latitude,
+            longitude: this.myAd.longitude
           };
           this.adsService.modifyAd(json).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this9, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-                return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this11, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+                return regeneratorRuntime.wrap(function _callee7$(_context7) {
                   while (1) {
-                    switch (_context5.prev = _context5.next) {
+                    switch (_context7.prev = _context7.next) {
                       case 0:
                         if (!(data.status == 204)) {
-                          _context5.next = 10;
+                          _context7.next = 10;
                           break;
                         }
 
@@ -3844,12 +3941,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         this.adFG.enable();
                         this.myAd = ad;
                         this.getCompanies();
-                        _context5.next = 7;
+                        _context7.next = 7;
                         return this.companyRelation(allCompanies, ad.ad_id);
 
                       case 7:
                         this.commonService.openSnackBar("El anuncio ".concat(this.myAd.name, " ha sido cambiado"), "OK");
-                        _context5.next = 11;
+                        _context7.next = 11;
                         break;
 
                       case 10:
@@ -3857,18 +3954,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 11:
                       case "end":
-                        return _context5.stop();
+                        return _context7.stop();
                     }
                   }
-                }, _callee5, this);
+                }, _callee7, this);
               }));
             },
             error: function error(err) {
-              _this9.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this11.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this9.loading = false;
+              _this11.loading = false;
 
-              _this9.adFG.enable();
+              _this11.adFG.enable();
             }
           });
         }
@@ -3892,7 +3989,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           this.allCompanies.push(event.option.value);
-          this.adFG.controls['companies'].setValue(null);
+          this.adFG.controls["companies"].setValue(null);
         }
       }, {
         key: "getCompanies",
@@ -3919,12 +4016,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "companyRelation",
         value: function companyRelation(allCompanies, ad_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
             var i, _i;
 
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context8.prev = _context8.next) {
                   case 0:
                     console.log(allCompanies);
                     console.log(this.allOldCompanies);
@@ -3932,21 +4029,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 3:
                     if (!(i < allCompanies.length)) {
-                      _context6.next = 10;
+                      _context8.next = 10;
                       break;
                     }
 
                     if (!(this.allOldCompanies.indexOf(allCompanies[i]) === -1)) {
-                      _context6.next = 7;
+                      _context8.next = 7;
                       break;
                     }
 
-                    _context6.next = 7;
+                    _context8.next = 7;
                     return this.adsService.addAdToCompany(ad_id, allCompanies[i]).toPromise();
 
                   case 7:
                     i++;
-                    _context6.next = 3;
+                    _context8.next = 3;
                     break;
 
                   case 10:
@@ -3954,21 +4051,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 11:
                     if (!(_i < this.allOldCompanies.length)) {
-                      _context6.next = 18;
+                      _context8.next = 18;
                       break;
                     }
 
                     if (!(allCompanies.indexOf(this.allOldCompanies[_i]) === -1)) {
-                      _context6.next = 15;
+                      _context8.next = 15;
                       break;
                     }
 
-                    _context6.next = 15;
+                    _context8.next = 15;
                     return this.adsService.deleteAdFromCompany(this.allOldCompanies[_i], ad_id).toPromise();
 
                   case 15:
                     _i++;
-                    _context6.next = 11;
+                    _context8.next = 11;
                     break;
 
                   case 18:
@@ -3976,10 +4073,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 19:
                   case "end":
-                    return _context6.stop();
+                    return _context8.stop();
                 }
               }
-            }, _callee6, this);
+            }, _callee8, this);
           }));
         } //Imagenes
 
@@ -3991,11 +4088,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "uploadFile",
         value: function uploadFile(files) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee7$(_context7) {
+            return regeneratorRuntime.wrap(function _callee9$(_context9) {
               while (1) {
-                switch (_context7.prev = _context7.next) {
+                switch (_context9.prev = _context9.next) {
                   case 0:
                     this.loading = true;
                     this.adFG.disable();
@@ -4004,18 +4101,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 4:
                     if (!(i < files.length)) {
-                      _context7.next = 10;
+                      _context9.next = 10;
                       break;
                     }
 
-                    _context7.next = 7;
+                    _context9.next = 7;
                     return this.commonService.uploadFile(files[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 7:
                     i++;
-                    _context7.next = 4;
+                    _context9.next = 4;
                     break;
 
                   case 10:
@@ -4024,21 +4121,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 12:
                   case "end":
-                    return _context7.stop();
+                    return _context9.stop();
                 }
               }
-            }, _callee7, this);
+            }, _callee9, this);
           }));
         }
       }, {
         key: "deleteImage",
         value: function deleteImage() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-            var _this10 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+            var _this12 = this;
 
-            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            return regeneratorRuntime.wrap(function _callee10$(_context10) {
               while (1) {
-                switch (_context8.prev = _context8.next) {
+                switch (_context10.prev = _context10.next) {
                   case 0:
                     this.loading = true;
                     this.adFG.disable();
@@ -4047,10 +4144,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       this.imageIndex = 0;
                     }
 
-                    _context8.next = 5;
+                    _context10.next = 5;
                     return this.multimediaService.deleteImage(this.adImages[this.imageIndex].image_id).toPromise().then(function (data) {
                       if (data.status == 204) {
-                        _this10.commonService.openSnackBar("La imagen se ha eleminado", "OK");
+                        _this12.commonService.openSnackBar("La imagen se ha eleminado", "OK");
                       }
                     });
 
@@ -4061,50 +4158,50 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 8:
                   case "end":
-                    return _context8.stop();
+                    return _context10.stop();
                 }
               }
-            }, _callee8, this);
+            }, _callee10, this);
           }));
         }
       }, {
         key: "updateImages",
         value: function updateImages(images) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-            var _this11 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+            var _this13 = this;
 
             var i;
-            return regeneratorRuntime.wrap(function _callee9$(_context9) {
+            return regeneratorRuntime.wrap(function _callee11$(_context11) {
               while (1) {
-                switch (_context9.prev = _context9.next) {
+                switch (_context11.prev = _context11.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < images.length)) {
-                      _context9.next = 8;
+                      _context11.next = 8;
                       break;
                     }
 
                     if (!(this.oldAdImages.indexOf(images[i]) === -1)) {
-                      _context9.next = 5;
+                      _context11.next = 5;
                       break;
                     }
 
-                    _context9.next = 5;
+                    _context11.next = 5;
                     return this.multimediaService.addImage(this.myAd.ad_id, 4, images[i]).toPromise();
 
                   case 5:
                     i++;
-                    _context9.next = 1;
+                    _context11.next = 1;
                     break;
 
                   case 8:
                     this.multimediaService.getImages(this.myAd.ad_id, 4).subscribe({
                       next: function next(data) {
-                        _this11.adImages = data;
+                        _this13.adImages = data;
 
-                        _this11.commonService.openSnackBar("Se han agregado las imágenes", "OK");
+                        _this13.commonService.openSnackBar("Se han agregado las imágenes", "OK");
                       }
                     });
                     this.adFG.enable();
@@ -4112,10 +4209,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 11:
                   case "end":
-                    return _context9.stop();
+                    return _context11.stop();
                 }
               }
-            }, _callee9, this);
+            }, _callee11, this);
           }));
         }
       }]);
@@ -4138,11 +4235,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     };
 
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], AdsDetailsComponent.prototype, "myAd", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('auto', {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("auto", {
       "static": false
     })], AdsDetailsComponent.prototype, "matAutocomplete", void 0);
     AdsDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-ads-details',
+      selector: "app-ads-details",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./ads-details.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-details/ads-details.component.html"))["default"],
@@ -4259,7 +4356,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this12 = this;
+          var _this14 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -4270,7 +4367,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           setTimeout(function () {
-            return _this12.map.invalidateSize();
+            return _this14.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -4301,7 +4398,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateEventLocation",
         value: function updateEventLocation() {
-          var _this13 = this;
+          var _this15 = this;
 
           console.log(this.myAd);
           var infoAd = {
@@ -4323,19 +4420,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.adsService.modifyAd(updatedAd).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this13.myAd = updatedAd.info;
-                _this13.myAd.latitude = updatedAd.latitude;
-                _this13.myAd.longitude = updatedAd.longitude;
+                _this15.myAd = updatedAd.info;
+                _this15.myAd.latitude = updatedAd.latitude;
+                _this15.myAd.longitude = updatedAd.longitude;
 
-                _this13.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this13.myAd.name, " ha sido actualizada"), "OK");
+                _this15.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this15.myAd.name, " ha sido actualizada"), "OK");
 
-                _this13.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this13.myAd.latitude, _this13.myAd.longitude), 18);
+                _this15.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this15.myAd.latitude, _this15.myAd.longitude), 18);
               } else {
-                _this13.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
+                _this15.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this13.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this15.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -4440,12 +4537,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AdsManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this14 = this;
+          var _this16 = this;
 
           this.subscription = this.route.paramMap.subscribe(function (params) {
-            _this14.ad_id = Number(params.get("ad_id"));
+            _this16.ad_id = Number(params.get("ad_id"));
 
-            _this14.recharge();
+            _this16.recharge();
           });
         }
       }, {
@@ -4456,10 +4553,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this15 = this;
+          var _this17 = this;
 
           this.adsService.getAd(Number(this.ad_id)).subscribe(function (data) {
-            _this15.myAd = data;
+            _this17.myAd = data;
           });
         }
       }]);
@@ -4616,13 +4713,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refreshChart",
         value: function refreshChart() {
-          var _this16 = this;
+          var _this18 = this;
 
           this.loading = true;
           var selectedAd = this.adsFG.controls['ads'].value;
           this.adService.getAd(selectedAd).subscribe({
             next: function next(data) {
-              console.log(data);
               var visits = [];
               var percent = [];
               var labels = [];
@@ -4635,9 +4731,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 labels.push(initialDate);
                 data.visits[initialDate] != undefined ? visits.push(data.visits[initialDate]) : visits.push(0);
                 percent.push(data.visits[initialDate] / total);
-                initialDate = new Date(_this16.datePipe.transform(initialDate));
+                initialDate = new Date(_this18.datePipe.transform(initialDate));
                 initialDate.setDate(initialDate.getDate() + 1);
-                initialDate = _this16.formatDates(initialDate);
+                initialDate = _this18.formatDates(initialDate);
               }
               /**Último día activo */
 
@@ -4645,15 +4741,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               labels.push(initialDate);
               data.visits[initialDate] != undefined ? visits.push(data.visits[initialDate]) : visits.push(0);
               percent.push(data.visits[initialDate] / total);
-              _this16.lineChartLabels = labels;
-              _this16.lineChartData = [{
+              _this18.lineChartLabels = labels;
+              _this18.lineChartData = [{
                 data: visits,
                 label: 'Visitas del día'
               }, {
                 data: percent,
                 label: 'Porcentaje de visitas del día'
               }];
-              _this16.loading = false;
+              _this18.loading = false;
             }
           });
         }
@@ -4671,51 +4767,50 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "obtainAllEvents",
         value: function obtainAllEvents() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
-            var _this17 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+            var _this19 = this;
 
             var user;
-            return regeneratorRuntime.wrap(function _callee10$(_context10) {
+            return regeneratorRuntime.wrap(function _callee12$(_context12) {
               while (1) {
-                switch (_context10.prev = _context10.next) {
+                switch (_context12.prev = _context12.next) {
                   case 0:
                     user = this.authService.getUser();
 
                     if (user.role_id == 2) {
                       this.subscription = this.adService.getStadisticsAds(user.user_id).subscribe({
                         next: function next(data) {
-                          _this17.adService.ads = data;
+                          _this19.adService.ads = data;
 
-                          _this17.adsFG.controls['ads'].setValue(_this17.adService.ads[0].ad_id);
+                          _this19.adsFG.controls['ads'].setValue(_this19.adService.ads[0].ad_id);
 
-                          _this17.subscription.unsubscribe();
+                          _this19.subscription.unsubscribe();
                         },
                         error: function error(err) {
-                          return _this17.commonService.openSnackBar("Error: ".concat(err), "OK");
+                          return _this19.commonService.openSnackBar("Error: ".concat(err), "OK");
                         }
                       });
                     } else if (user.role_id == 1) {
                       this.subscription = this.adService.getStadisticsAds().subscribe({
                         next: function next(data) {
-                          console.log(data);
-                          _this17.adService.ads = data;
+                          _this19.adService.ads = data;
 
-                          _this17.adsFG.controls['ads'].setValue(_this17.adService.ads[0].ad_id);
+                          _this19.adsFG.controls['ads'].setValue(_this19.adService.ads[0].ad_id);
 
-                          _this17.subscription.unsubscribe();
+                          _this19.subscription.unsubscribe();
                         },
                         error: function error(err) {
-                          return _this17.commonService.openSnackBar("Error: ".concat(err), "OK");
+                          return _this19.commonService.openSnackBar("Error: ".concat(err), "OK");
                         }
                       });
                     }
 
                   case 2:
                   case "end":
-                    return _context10.stop();
+                    return _context12.stop();
                 }
               }
-            }, _callee10, this);
+            }, _callee12, this);
           }));
         }
       }]);
@@ -5126,6 +5221,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         });
       },
       canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
+    }, {
+      path: "images",
+      loadChildren: function loadChildren() {
+        return Promise.resolve().then(__webpack_require__.bind(null,
+        /*! ./images/images.module */
+        "./src/app/images/images.module.ts")).then(function (i) {
+          return i.ImagesModule;
+        });
+      },
+      canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
     }];
 
     var AppRoutingModule = function AppRoutingModule() {
@@ -5411,6 +5516,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
     /*! ./tourist-routes/tourist-routes.module */
     "./src/app/tourist-routes/tourist-routes.module.ts");
+    /* harmony import */
+
+
+    var _images_images_module__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
+    /*! ./images/images.module */
+    "./src/app/images/images.module.ts");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -5418,7 +5529,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
       declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _main_nav_main_nav_component__WEBPACK_IMPORTED_MODULE_7__["MainNavComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"], _login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]],
-      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _itinerary_itinerary_module__WEBPACK_IMPORTED_MODULE_9__["ItineraryModule"], _users_users_module__WEBPACK_IMPORTED_MODULE_10__["UsersModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _company_company_module__WEBPACK_IMPORTED_MODULE_15__["CompanyModule"], _event_event_module__WEBPACK_IMPORTED_MODULE_16__["EventModule"], _category_category_module__WEBPACK_IMPORTED_MODULE_17__["CategoryModule"], _ads_ads_module__WEBPACK_IMPORTED_MODULE_18__["AdsModule"], _frequent_questions_frequent_questions_module__WEBPACK_IMPORTED_MODULE_19__["FrecuentQustionsModule"], _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__["OfferModule"], _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"], _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__["TouristRoutesModule"], _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"]],
+      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _itinerary_itinerary_module__WEBPACK_IMPORTED_MODULE_9__["ItineraryModule"], _users_users_module__WEBPACK_IMPORTED_MODULE_10__["UsersModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _company_company_module__WEBPACK_IMPORTED_MODULE_15__["CompanyModule"], _event_event_module__WEBPACK_IMPORTED_MODULE_16__["EventModule"], _category_category_module__WEBPACK_IMPORTED_MODULE_17__["CategoryModule"], _ads_ads_module__WEBPACK_IMPORTED_MODULE_18__["AdsModule"], _frequent_questions_frequent_questions_module__WEBPACK_IMPORTED_MODULE_19__["FrecuentQustionsModule"], _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__["OfferModule"], _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"], _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__["TouristRoutesModule"], _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"], _images_images_module__WEBPACK_IMPORTED_MODULE_25__["ImagesModule"]],
       providers: [ng2_charts__WEBPACK_IMPORTED_MODULE_22__["ThemeService"]],
       bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
       entryComponents: [_login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]]
@@ -5777,27 +5888,48 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(category, _ref3) {
-          var _this18 = this;
+          var _this20 = this;
 
           var source = _ref3.source;
-          var id = {
-            category_id: category.category_id
-          };
-          this.categoryService.changeStateCategory(id).subscribe({
-            next: function next(data) {
-              if (data.status == 200) {
-                category.is_active = !category.is_active;
-                source.checked = category.is_active;
-                if (category.is_active) _this18.commonService.openSnackBar("La categor\xEDa ".concat(category.name, " ha sido activada"), "OK");else _this18.commonService.openSnackBar("La categor\xEDa ".concat(category.name, " ha sido desactivada"), "OK");
-              } else {
-                _this18.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this18.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+          this.commonService.confirmationDialog("\xBFDesea eliminar la categor\xEDa: ".concat(category.name, "?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this20, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+              var _this21 = this;
 
-              source.checked = category.is_active;
-            }
+              return regeneratorRuntime.wrap(function _callee13$(_context13) {
+                while (1) {
+                  switch (_context13.prev = _context13.next) {
+                    case 0:
+                      if (result) {
+                        this.categoryService.changeStateCategory(category.category_id).subscribe({
+                          next: function next(data) {
+                            if (data.status == 204) {
+                              category.is_active = !category.is_active;
+                              source.checked = category.is_active;
+
+                              _this21.commonService.openSnackBar("La categor\xEDa ".concat(category.name, " ha sido eliminada"), "OK");
+
+                              _this21.obtainAllCategories();
+                            } else {
+                              _this21.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                            }
+                          },
+                          error: function error(err) {
+                            _this21.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                            source.checked = category.is_active;
+                          }
+                        });
+                      } else {
+                        source.checked = category.is_active;
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context13.stop();
+                  }
+                }
+              }, _callee13, this);
+            }));
           });
         }
         /**
@@ -5807,7 +5939,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this19 = this;
+          var _this22 = this;
 
           var dialog = this.dialogService.open(_category_filters_category_filters_component__WEBPACK_IMPORTED_MODULE_5__["CategoryFiltersComponent"], {
             width: "50",
@@ -5816,15 +5948,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (type_id) {
             if (type_id != undefined) {
-              _this19.isFilters = true;
-              _this19.subscription = _this19.categoryService.getAllCategories(type_id).subscribe({
+              _this22.isFilters = true;
+              _this22.subscription = _this22.categoryService.getAllCategories(type_id).subscribe({
                 next: function next(data) {
-                  _this19.categoryService.categories = data;
+                  _this22.categoryService.categories = data;
 
-                  _this19.subscription.unsubscribe();
+                  _this22.subscription.unsubscribe();
                 },
                 error: function error(err) {
-                  return _this19.commonService.openSnackBar("Error: ".concat(err), "OK");
+                  return _this22.commonService.openSnackBar("Error: ".concat(err), "OK");
                 }
               });
             }
@@ -5837,17 +5969,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "obtainAllCategories",
         value: function obtainAllCategories() {
-          var _this20 = this;
+          var _this23 = this;
 
           this.isFilters = false;
           this.subscription = this.categoryService.getAllCategories().subscribe({
             next: function next(data) {
-              _this20.categoryService.categories = data;
+              _this23.categoryService.categories = data;
 
-              _this20.subscription.unsubscribe();
+              _this23.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this20.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this23.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -5867,7 +5999,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     };
 
     CategoriesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-categories',
+      selector: "app-categories",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./categories.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/category/components/categories/categories.component.html"))["default"],
@@ -6141,7 +6273,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createCategory",
         value: function createCategory(category) {
-          var _this21 = this;
+          var _this24 = this;
 
           this.loading = true;
           this.categoryFG.disable();
@@ -6150,23 +6282,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               if (data.status == 200) {
                 console.log(data.body);
 
-                _this21.commonService.openSnackBar("La categor\xEDa ".concat(_this21.categoryFG.value.name, " se ha creado"), "OK");
+                _this24.commonService.openSnackBar("La categor\xEDa ".concat(_this24.categoryFG.value.name, " se ha creado"), "OK");
 
-                _this21.dialogRef.close();
+                _this24.dialogRef.close();
 
-                _this21.router.navigate(["/category/".concat(data.body.category_id)]);
+                _this24.router.navigate(["/category/".concat(data.body.category_id)]);
               } else {
-                _this21.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
+                _this24.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
 
-                _this21.categoryFG.enable();
+                _this24.categoryFG.enable();
               }
             },
             error: function error(err) {
-              _this21.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this24.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this21.loading = false;
+              _this24.loading = false;
 
-              _this21.categoryFG.enable();
+              _this24.categoryFG.enable();
             }
           });
         }
@@ -6279,12 +6411,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CategoryManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this22 = this;
+          var _this25 = this;
 
           this.categorySubscription = this.route.paramMap.subscribe(function (params) {
-            _this22.category_id = Number(params.get("category_id"));
+            _this25.category_id = Number(params.get("category_id"));
 
-            _this22.recharge();
+            _this25.recharge();
           });
         }
       }, {
@@ -6295,10 +6427,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this23 = this;
+          var _this26 = this;
 
           this.categoryService.getCategory(Number(this.category_id)).subscribe(function (data) {
-            _this23.category = data;
+            _this26.category = data;
           });
         }
       }]);
@@ -6395,6 +6527,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! src/app/general-services/common.service */
     "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
 
     var DetailsComponent = /*#__PURE__*/function () {
       function DetailsComponent(categoryService, commonService) {
@@ -6405,7 +6543,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.categoryImages = [];
         this.imageIndex = 0;
         this.loading = false;
-        this.url = "https://intelitur.sytes.net/files/";
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].IMAGES_URL_BASE;
         this.types = [{
           id: 1,
           name: "Evento"
@@ -6431,42 +6569,71 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "ngOnInit",
         value: function ngOnInit() {
           var category_name = this.category.name;
-          this.categoryFG.controls['name'].setValue(category_name);
+          this.categoryFG.controls["name"].setValue(category_name);
           this.categoryImages = this.category.url;
         }
       }, {
         key: "setData",
         value: function setData() {
-          this.categoryFG.controls['name'].setValue(this.category.name);
+          this.categoryFG.controls["name"].setValue(this.category.name);
         }
       }, {
         key: "changeState",
         value: function changeState(_ref4) {
-          var _this24 = this;
+          var _this27 = this;
 
           var source = _ref4.source;
-          var id = this.category.category_id;
-          this.categoryService.changeStateCategory(id).subscribe({
-            next: function next(data) {
-              if (data.status == 204) {
-                _this24.category.is_active = !_this24.category.is_active;
-                source.checked = _this24.category.is_active;
-                if (_this24.category.is_active) _this24.commonService.openSnackBar("La categor\xEDa ".concat(_this24.category.name, " ha sido activada"), "OK");else _this24.commonService.openSnackBar("La categor\xEDa ".concat(_this24.category.name, " ha sido desactivada"), "OK");
-              } else {
-                _this24.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this24.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              source.checked = _this24.category.is_active;
-            }
-          });
+          if (this.category.is_active) {
+            this.commonService.confirmationDialog("\xBFDesea eliminar la categor\xEDa: ".concat(this.category.name, "?")).then(function (result) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this27, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+                var _this28 = this;
+
+                var id;
+                return regeneratorRuntime.wrap(function _callee14$(_context14) {
+                  while (1) {
+                    switch (_context14.prev = _context14.next) {
+                      case 0:
+                        if (result) {
+                          id = this.category.category_id;
+                          this.categoryService.changeStateCategory(id).subscribe({
+                            next: function next(data) {
+                              if (data.status == 204) {
+                                _this28.category.is_active = !_this28.category.is_active;
+                                source.checked = _this28.category.is_active;
+
+                                _this28.commonService.openSnackBar("La categor\xEDa ".concat(_this28.category.name, " ha sido eliminada"), "OK");
+                              } else {
+                                _this28.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              }
+                            },
+                            error: function error(err) {
+                              _this28.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                              source.checked = _this28.category.is_active;
+                            }
+                          });
+                        } else {
+                          source.checked = this.category.is_active;
+                        }
+
+                      case 1:
+                      case "end":
+                        return _context14.stop();
+                    }
+                  }
+                }, _callee14, this);
+              }));
+            });
+          } else {
+            this.commonService.openSnackBar("No se puede reactivar una categoría", "OK");
+            source.checked = this.category.is_active;
+          }
         }
       }, {
         key: "modifyCategory",
         value: function modifyCategory() {
-          var _this25 = this;
+          var _this29 = this;
 
           this.loading = true;
           this.categoryFG.disable();
@@ -6479,23 +6646,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.categoryService.modifyCategory(values).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this25.loading = false;
+                _this29.loading = false;
 
-                _this25.categoryFG.enable();
+                _this29.categoryFG.enable();
 
-                _this25.category = category;
+                _this29.category = category;
 
-                _this25.commonService.openSnackBar("La categor\xEDa ".concat(_this25.category.name, " ha sido cambiada"), "OK");
+                _this29.commonService.openSnackBar("La categor\xEDa ".concat(_this29.category.name, " ha sido cambiada"), "OK");
               } else {
-                _this25.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this29.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this25.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this29.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this25.loading = false;
+              _this29.loading = false;
 
-              _this25.categoryFG.enable();
+              _this29.categoryFG.enable();
             }
           });
         }
@@ -6512,11 +6679,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "uploadFile",
         value: function uploadFile(files) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            return regeneratorRuntime.wrap(function _callee15$(_context15) {
               while (1) {
-                switch (_context11.prev = _context11.next) {
+                switch (_context15.prev = _context15.next) {
                   case 0:
                     this.loading = true;
                     this.categoryFG.disable();
@@ -6525,18 +6692,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 4:
                     if (!(i < files.length)) {
-                      _context11.next = 10;
+                      _context15.next = 10;
                       break;
                     }
 
-                    _context11.next = 7;
+                    _context15.next = 7;
                     return this.commonService.uploadFile(files[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 7:
                     i++;
-                    _context11.next = 4;
+                    _context15.next = 4;
                     break;
 
                   case 10:
@@ -6545,10 +6712,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 12:
                   case "end":
-                    return _context11.stop();
+                    return _context15.stop();
                 }
               }
-            }, _callee11, this);
+            }, _callee15, this);
           }));
         }
       }, {
@@ -6566,7 +6733,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateImages",
         value: function updateImages(images) {
-          var _this26 = this;
+          var _this30 = this;
 
           var category = {
             url: images,
@@ -6578,24 +6745,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.categoryService.modifyCategory(category).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this26.loading = false;
+                _this30.loading = false;
 
-                _this26.categoryFG.enable();
+                _this30.categoryFG.enable();
 
-                _this26.category = category;
-                _this26.categoryImages = images;
+                _this30.category = category;
+                _this30.categoryImages = images;
 
-                _this26.commonService.openSnackBar("La categor\xEDa ".concat(_this26.category.name, " ha sido cambiada"), "OK");
+                _this30.commonService.openSnackBar("La categor\xEDa ".concat(_this30.category.name, " ha sido cambiada"), "OK");
               } else {
-                _this26.commonService.openSnackBar("Error al cambiar: ".concat(data.error), "OK");
+                _this30.commonService.openSnackBar("Error al cambiar: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this26.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this30.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this26.loading = false;
+              _this30.loading = false;
 
-              _this26.categoryFG.enable();
+              _this30.categoryFG.enable();
             }
           });
         }
@@ -6614,7 +6781,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], DetailsComponent.prototype, "category", void 0);
     DetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-details',
+      selector: "app-details",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./details.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/category/components/category-management/details/details.component.html"))["default"],
@@ -7172,17 +7339,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CompaniesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this27 = this;
+          var _this31 = this;
 
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              console.log(data);
-              _this27.companyService.companies = data;
+              _this31.companyService.companies = data;
 
-              _this27.subscription.unsubscribe();
+              _this31.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this27.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this31.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -7199,24 +7365,46 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(company, _ref5) {
-          var _this28 = this;
+          var _this32 = this;
 
           var source = _ref5.source;
-          this.companyService.chageCompanyState(company).subscribe({
-            next: function next(data) {
-              if (data.status == 204) {
-                company.state = !company.state;
-                source.checked = company.state;
-                if (company.state) _this28.commonService.openSnackBar("La empresa ".concat(company.name, " ha sido activada"), "OK");else _this28.commonService.openSnackBar("La empresa ".concat(company.name, " ha sido desactivada"), "OK");
-              } else {
-                _this28.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this28.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+          this.commonService.confirmationDialog("\xBFDesea eliminar la empresa: ".concat(company.name, "?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this32, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+              var _this33 = this;
 
-              source.checked = company.state;
-            }
+              return regeneratorRuntime.wrap(function _callee16$(_context16) {
+                while (1) {
+                  switch (_context16.prev = _context16.next) {
+                    case 0:
+                      if (result) {
+                        this.companyService.chageCompanyState(company).subscribe({
+                          next: function next(data) {
+                            if (data.status == 204) {
+                              company.state = !company.state;
+                              source.checked = company.state;
+
+                              _this33.commonService.openSnackBar("La empresa ".concat(company.name, " ha sido eliminada"), "OK");
+                            } else {
+                              _this33.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                            }
+                          },
+                          error: function error(err) {
+                            _this33.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                            source.checked = company.state;
+                          }
+                        });
+                      } else {
+                        source.checked = company.state;
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context16.stop();
+                  }
+                }
+              }, _callee16, this);
+            }));
           });
         }
       }, {
@@ -7361,32 +7549,32 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createCompany",
         value: function createCompany() {
-          var _this29 = this;
+          var _this34 = this;
 
           this.loading = true;
           this.companyForm.disable();
           this.companyService.createCompany(this.companyForm.value).subscribe({
             next: function next(data) {
-              _this29.loading = false;
+              _this34.loading = false;
 
               if (data.status == 200) {
                 console.log(data);
 
-                _this29.commonService.openSnackBar("La empresa ".concat(_this29.companyForm.value.name, " se ha creado"), "OK");
+                _this34.commonService.openSnackBar("La empresa ".concat(_this34.companyForm.value.name, " se ha creado"), "OK");
 
-                _this29.router.navigate(['/company', data.body.company_id]);
+                _this34.router.navigate(['/company', data.body.company_id]);
 
-                _this29.dialog.closeAll();
+                _this34.dialog.closeAll();
               } else {
-                _this29.commonService.openSnackBar("Error al crear la empresa: ".concat(data.error), "OK");
+                _this34.commonService.openSnackBar("Error al crear la empresa: ".concat(data.error), "OK");
 
-                _this29.companyForm.enable();
+                _this34.companyForm.enable();
               }
             },
             error: function error(err) {
-              _this29.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this34.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this29.loading = false;
+              _this34.loading = false;
             }
           });
         }
@@ -7488,6 +7676,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! src/app/general-services/common.service */
     "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
 
     var CompanyDetailsComponent = /*#__PURE__*/function () {
       function CompanyDetailsComponent(cd, companyService, commonService) {
@@ -7501,7 +7695,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
           legal_id: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([1-9][0-9]{9})$")]),
           phone_number: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([0-9]{4}[ ][0-9]{4})$")),
-          email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('^(.{1,})[@](.{1,})[.](.{1,})$')),
+          email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^(.{1,})[@](.{1,})[.](.{1,})$")),
           location: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]()
         });
       }
@@ -7512,47 +7706,81 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          console.log(this.company);
-          console.log(this.company.image);
           this.companyForm.patchValue(this.company);
           this.cd.detectChanges();
         }
       }, {
         key: "changeState",
         value: function changeState(_ref6) {
-          var _this30 = this;
+          var _this35 = this;
 
           var source = _ref6.source;
           this.loading = true;
           this.companyForm.disable();
-          this.companyService.chageCompanyState(this.company).subscribe({
-            next: function next(data) {
-              _this30.loading = false;
 
-              _this30.companyForm.enable();
+          if (this.company.state) {
+            this.commonService.confirmationDialog("\xBFDesea eliminar la empresa: ".concat(this.company.name, "?")).then(function (result) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this35, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+                var _this36 = this;
 
-              if (data.status == 204) {
-                _this30.company.state = !_this30.company.state;
-                source.checked = _this30.company.state;
-                if (_this30.company.state) _this30.commonService.openSnackBar("La empresa ".concat(_this30.company.name, " ha sido activada"), "OK");else _this30.commonService.openSnackBar("La empresa ".concat(_this30.company.name, " ha sido desactivada"), "OK");
-              } else {
-                _this30.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this30.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                return regeneratorRuntime.wrap(function _callee17$(_context17) {
+                  while (1) {
+                    switch (_context17.prev = _context17.next) {
+                      case 0:
+                        if (result) {
+                          this.companyService.chageCompanyState(this.company).subscribe({
+                            next: function next(data) {
+                              _this36.loading = false;
 
-              source.checked = _this30.company.state;
-              _this30.loading = false;
+                              _this36.companyForm.enable();
 
-              _this30.companyForm.enable();
-            }
-          });
+                              if (data.status == 204) {
+                                _this36.company.state = !_this36.company.state;
+                                source.checked = _this36.company.state;
+
+                                _this36.commonService.openSnackBar("La empresa ".concat(_this36.company.name, " ha sido activada"), "OK");
+                              } else {
+                                _this36.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+
+                                _this36.loading = true;
+
+                                _this36.companyForm.disable();
+                              }
+                            },
+                            error: function error(err) {
+                              _this36.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                              source.checked = _this36.company.state;
+                              _this36.loading = false;
+
+                              _this36.companyForm.enable();
+                            }
+                          });
+                        } else {
+                          source.checked = this.company.state;
+                          this.loading = false;
+                          this.companyForm.enable();
+                        }
+
+                      case 1:
+                      case "end":
+                        return _context17.stop();
+                    }
+                  }
+                }, _callee17, this);
+              }));
+            });
+          } else {
+            this.commonService.openSnackBar("No se puede reactivar una empresa", "OK");
+            source.checked = this.company.state;
+            this.loading = false;
+            this.companyForm.enable();
+          }
         }
       }, {
         key: "applyChanges",
         value: function applyChanges() {
-          var _this31 = this;
+          var _this37 = this;
 
           this.loading = true;
           this.companyForm.disable();
@@ -7560,23 +7788,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.companyService.updateCompany(company).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this31.loading = false;
+                _this37.loading = false;
 
-                _this31.companyForm.enable();
+                _this37.companyForm.enable();
 
-                _this31.company = company;
+                _this37.company = company;
 
-                _this31.commonService.openSnackBar("La empresa ".concat(_this31.company.name, " ha sido cambiada"), "OK");
+                _this37.commonService.openSnackBar("La empresa ".concat(_this37.company.name, " ha sido cambiada"), "OK");
               } else {
-                _this31.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this37.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this31.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this37.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this31.loading = false;
+              _this37.loading = false;
 
-              _this31.companyForm.enable();
+              _this37.companyForm.enable();
             }
           });
         }
@@ -7595,70 +7823,67 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addImg",
         value: function addImg(files) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-            var _this32 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
+            var _this38 = this;
 
             var img;
-            return regeneratorRuntime.wrap(function _callee12$(_context12) {
+            return regeneratorRuntime.wrap(function _callee18$(_context18) {
               while (1) {
-                switch (_context12.prev = _context12.next) {
+                switch (_context18.prev = _context18.next) {
                   case 0:
                     this.loading = true;
                     this.companyForm.disable();
                     img = this.company.image;
-                    _context12.next = 5;
+                    _context18.next = 5;
                     return this.commonService.uploadFile(files[0]).then(function (data) {
-                      _this32.company.image = "https://intelitur.sytes.net/files/images/" + data.filename;
+                      _this38.company.image = src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].IMAGES_URL_BASE + data.filename;
                     });
 
                   case 5:
-                    console.log(this.company.image);
                     this.imageChanges(img);
 
-                  case 7:
+                  case 6:
                   case "end":
-                    return _context12.stop();
+                    return _context18.stop();
                 }
               }
-            }, _callee12, this);
+            }, _callee18, this);
           }));
         }
       }, {
         key: "deleteImg",
         value: function deleteImg() {
           var img = this.company.image;
-          this.company.image = '';
+          this.company.image = "";
           this.imageChanges(img);
         }
       }, {
         key: "imageChanges",
         value: function imageChanges(oldImg) {
-          var _this33 = this;
+          var _this39 = this;
 
           this.loading = true;
           this.companyForm.disable();
-          console.log(this.company);
           this.companyService.updateCompany(this.company).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                console.log(data);
-                _this33.loading = false;
+                _this39.loading = false;
 
-                _this33.companyForm.enable();
+                _this39.companyForm.enable();
 
-                _this33.commonService.openSnackBar("La empresa ".concat(_this33.company.name, " ha sido cambiada"), "OK");
+                _this39.commonService.openSnackBar("La empresa ".concat(_this39.company.name, " ha sido cambiada"), "OK");
               } else {
-                _this33.company.image = oldImg;
+                _this39.company.image = oldImg;
 
-                _this33.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this39.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this33.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this39.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this33.loading = false;
+              _this39.loading = false;
 
-              _this33.companyForm.enable();
+              _this39.companyForm.enable();
             }
           });
         }
@@ -7679,7 +7904,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], CompanyDetailsComponent.prototype, "company", void 0);
     CompanyDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-company-details',
+      selector: "app-company-details",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./company-details.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/management/company-details/company-details.component.html"))["default"],
@@ -7805,7 +8030,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this34 = this;
+          var _this40 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -7816,7 +8041,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           setTimeout(function () {
-            return _this34.map.invalidateSize();
+            return _this40.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -7847,7 +8072,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateCompanyLocation",
         value: function updateCompanyLocation() {
-          var _this35 = this;
+          var _this41 = this;
 
           var updatedCompany = Object.assign({}, this.company, {
             latitude: this.locationMarker.getLatLng().lat,
@@ -7857,17 +8082,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.companyService.updateCompany(updatedCompany).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this35.company = updatedCompany;
+                _this41.company = updatedCompany;
 
-                _this35.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this35.company.name, " ha sido actualizada"), "OK");
+                _this41.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this41.company.name, " ha sido actualizada"), "OK");
 
-                _this35.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this35.company.latitude, _this35.company.longitude), 18);
+                _this41.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this41.company.latitude, _this41.company.longitude), 18);
               } else {
-                _this35.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
+                _this41.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this35.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this41.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -7967,7 +8192,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var CompanyRequestsComponent = /*#__PURE__*/function () {
       function CompanyRequestsComponent(companyUsersService, commonService) {
-        var _this36 = this;
+        var _this42 = this;
 
         _classCallCheck(this, CompanyRequestsComponent);
 
@@ -7977,7 +8202,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           input: "",
           filter: function filter(_ref7) {
             var user_info = _ref7.user_info;
-            return (user_info.name.toLowerCase() + ' ' + user_info.lastName.toLowerCase()).indexOf(_this36.filter.input.toLowerCase()) > -1;
+            return (user_info.name.toLowerCase() + ' ' + user_info.lastName.toLowerCase()).indexOf(_this42.filter.input.toLowerCase()) > -1;
           }
         };
 
@@ -7990,11 +8215,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         };
 
         this.allowUnion = function (request) {
-          return _this36.updateRequestState(request, 2);
+          return _this42.updateRequestState(request, 2);
         };
 
         this.denyUnion = function (request) {
-          return _this36.updateRequestState(request, 3);
+          return _this42.updateRequestState(request, 3);
         };
       }
 
@@ -8006,32 +8231,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refreshRequests",
         value: function refreshRequests() {
-          var _this37 = this;
+          var _this43 = this;
 
           this.companyUsersService.getCompanyRequests(this.company.company_id, 1).subscribe(function (data) {
-            _this37.companyRequests = data;
-            console.log(_this37.companyRequests);
+            _this43.companyRequests = data;
           });
         }
       }, {
         key: "updateRequestState",
         value: function updateRequestState(request, state) {
-          var _this38 = this;
+          var _this44 = this;
 
           this.companyUsersService.updateRequesState(request, state).subscribe({
             next: function next(data) {
               if (data.status == 204) {
                 request.state = state;
 
-                _this38.refreshRequests();
+                _this44.refreshRequests();
 
-                if (state == 2) _this38.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido aceptada"), "OK");else _this38.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido rechazada"), "OK");
+                if (state == 2) _this44.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido aceptada"), "OK");else _this44.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido rechazada"), "OK");
               } else {
-                _this38.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this44.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this38.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this44.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -8139,7 +8363,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var CompanyAddUserComponent = /*#__PURE__*/function () {
       function CompanyAddUserComponent(usersService, companyUsersService, commonService, dialogRef, data) {
-        var _this39 = this;
+        var _this45 = this;
 
         _classCallCheck(this, CompanyAddUserComponent);
 
@@ -8153,7 +8377,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           input: '',
           filter: function filter(_ref8) {
             var info = _ref8.info;
-            return (info.name.toLowerCase() + ' ' + info.lastName.toLowerCase()).indexOf(_this39.filter.input.toLowerCase()) > -1;
+            return (info.name.toLowerCase() + ' ' + info.lastName.toLowerCase()).indexOf(_this45.filter.input.toLowerCase()) > -1;
           }
         };
       }
@@ -8161,7 +8385,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CompanyAddUserComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this40 = this;
+          var _this46 = this;
 
           this.usersService.getAllUser().subscribe(function (_ref9) {
             var code = _ref9.code,
@@ -8169,13 +8393,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
             if (code == 200) {
               console.log(data);
-              _this40.users = data;
+              _this46.users = data;
 
-              var companyUsers = _this40.data.users.map(function (user) {
+              var companyUsers = _this46.data.users.map(function (user) {
                 return user.user_id;
               });
 
-              _this40.users = _this40.users.filter(function (user) {
+              _this46.users = _this46.users.filter(function (user) {
                 return !companyUsers.includes(user.user_id);
               });
             }
@@ -8184,7 +8408,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addUserToCompany",
         value: function addUserToCompany(user) {
-          var _this41 = this;
+          var _this47 = this;
 
           var isAdmin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
           this.loading = true;
@@ -8192,23 +8416,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.companyUsersService.addUserToCompany(user.user_id, this.data.company.company_id, isAdmin).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this41.users = _this41.users.filter(function (u) {
+                _this47.users = _this47.users.filter(function (u) {
                   return u != user;
                 });
 
-                _this41.commonService.openSnackBar("Se ha asociado el usuario ".concat(user.info.name, " a la empresa ").concat(_this41.data.company.name, " como ").concat(isAdmin ? 'administrador' : 'empleado'), "OK");
+                _this47.commonService.openSnackBar("Se ha asociado el usuario ".concat(user.info.name, " a la empresa ").concat(_this47.data.company.name, " como ").concat(isAdmin ? 'administrador' : 'empleado'), "OK");
               } else {
-                _this41.commonService.openSnackBar("Error al asociar el usuario: ".concat(data.error), "OK");
+                _this47.commonService.openSnackBar("Error al asociar el usuario: ".concat(data.error), "OK");
               }
 
-              _this41.loading = false;
+              _this47.loading = false;
             },
             error: function error(err) {
               console.log(err);
 
-              _this41.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this47.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this41.loading = false;
+              _this47.loading = false;
             }
           });
         }
@@ -8325,7 +8549,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var CompanyUsersComponent = /*#__PURE__*/function () {
       function CompanyUsersComponent(companyUsersService, commonService, dialogService) {
-        var _this42 = this;
+        var _this48 = this;
 
         _classCallCheck(this, CompanyUsersComponent);
 
@@ -8337,7 +8561,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           filter: function filter(_ref10) {
             var name = _ref10.name,
                 lastName = _ref10.lastName;
-            return (name.toLowerCase() + ' ' + lastName.toLowerCase()).indexOf(_this42.filter.input.toLowerCase()) > -1;
+            return (name.toLowerCase() + ' ' + lastName.toLowerCase()).indexOf(_this48.filter.input.toLowerCase()) > -1;
           }
         };
       }
@@ -8350,37 +8574,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this43 = this;
+          var _this49 = this;
 
           this.companyUsersService.getCompanyUsers(this.company.company_id).subscribe(function (data) {
-            console.log(data);
-            _this43.companyUsers = data;
+            _this49.companyUsers = data;
           });
         }
       }, {
         key: "deleteUserFromCompany",
         value: function deleteUserFromCompany(user) {
-          var _this44 = this;
+          var _this50 = this;
 
           this.companyUsersService.deleteUserFromCompany(user).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this44.refresh();
+                _this50.refresh();
 
-                _this44.commonService.openSnackBar("Se ha desasociado el usuario ".concat(user.name, " de la empresa ").concat(_this44.company.name), "OK");
+                _this50.commonService.openSnackBar("Se ha desasociado el usuario ".concat(user.name, " de la empresa ").concat(_this50.company.name), "OK");
               } else {
-                _this44.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
+                _this50.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this44.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this50.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
       }, {
         key: "openAddUserToCompanyDialog",
         value: function openAddUserToCompanyDialog() {
-          var _this45 = this;
+          var _this51 = this;
 
           this.dialogService.open(_company_add_user_company_add_user_component__WEBPACK_IMPORTED_MODULE_5__["CompanyAddUserComponent"], {
             width: "90%",
@@ -8391,7 +8614,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               users: this.companyUsers
             }
           }).subscribe(function () {
-            return _this45.refresh();
+            return _this51.refresh();
           });
         }
       }]);
@@ -8504,12 +8727,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this46 = this;
+          var _this52 = this;
 
           this.companySubscription = this.route.paramMap.subscribe(function (params) {
-            _this46.company_id = Number(params.get("company_id"));
+            _this52.company_id = Number(params.get("company_id"));
 
-            _this46.recharge();
+            _this52.recharge();
           });
         }
       }, {
@@ -8520,10 +8743,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this47 = this;
+          var _this53 = this;
 
           this.companyService.getCompany(Number(this.company_id)).subscribe(function (data) {
-            _this47.company = data;
+            _this53.company = data;
           });
         }
       }]);
@@ -8696,7 +8919,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var RequestsComponent = /*#__PURE__*/function () {
       function RequestsComponent(companyUsersService, commonService) {
-        var _this48 = this;
+        var _this54 = this;
 
         _classCallCheck(this, RequestsComponent);
 
@@ -8706,7 +8929,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           state: '',
           name: '',
           filter: function filter(request) {
-            return (request.user_info.name + ' ' + request.user_info.lastName + " " + request.company_info.name).toLowerCase().indexOf(_this48.filter.name.toLowerCase()) > -1;
+            return (request.user_info.name + ' ' + request.user_info.lastName + " " + request.company_info.name).toLowerCase().indexOf(_this54.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = false;
@@ -8720,11 +8943,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         };
 
         this.allowUnion = function (request) {
-          return _this48.updateRequestState(request, 2);
+          return _this54.updateRequestState(request, 2);
         };
 
         this.denyUnion = function (request) {
-          return _this48.updateRequestState(request, 3);
+          return _this54.updateRequestState(request, 3);
         };
 
         this.refresh = this.refresh.bind(this);
@@ -8738,38 +8961,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this49 = this;
+          var _this55 = this;
 
           this.loading = true;
           this.companyUsersService.getRequests(this.filter.state).subscribe(function (data) {
-            _this49.companyUsersService.requests = data;
-            _this49.loading = false;
+            _this55.companyUsersService.requests = data;
+            _this55.loading = false;
           });
         }
       }, {
         key: "updateRequestState",
         value: function updateRequestState(request, state) {
-          var _this50 = this;
+          var _this56 = this;
 
           this.loading = true;
           this.companyUsersService.updateRequesState(request, state).subscribe({
             next: function next(data) {
-              _this50.loading = false;
+              _this56.loading = false;
 
               if (data.status == 204) {
                 request.state = state;
 
-                _this50.refresh();
+                _this56.refresh();
 
-                if (state == 2) _this50.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido aceptada"), "OK");else _this50.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido rechazada"), "OK");
+                if (state == 2) _this56.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido aceptada"), "OK");else _this56.commonService.openSnackBar("La solicitud de ".concat(request.user_info.name, " ha sido rechazada"), "OK");
               } else {
-                _this50.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                _this56.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this50.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this56.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this50.loading = false;
+              _this56.loading = false;
             }
           });
         }
@@ -8894,7 +9117,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var UnionEventRequestComponent = /*#__PURE__*/function () {
       function UnionEventRequestComponent(userService, companyUserService, commonService, companyService, dialogService) {
-        var _this51 = this;
+        var _this57 = this;
 
         _classCallCheck(this, UnionEventRequestComponent);
 
@@ -8910,7 +9133,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '0',
           filter: function filter(request) {
-            return (request.event_info.info.name + ' ' + request.user_name).toLowerCase().indexOf(_this51.filter.name.toLowerCase()) > -1;
+            return (request.event_info.info.name + ' ' + request.user_name).toLowerCase().indexOf(_this57.filter.name.toLowerCase()) > -1;
           }
         };
       }
@@ -8925,7 +9148,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this52 = this;
+          var _this58 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
@@ -8940,14 +9163,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
             next: function next(data) {
               console.log(data);
-              _this52.eventRequests = data;
+              _this58.eventRequests = data;
 
-              _this52.subscription.unsubscribe();
+              _this58.subscription.unsubscribe();
 
-              _this52.loading = false;
+              _this58.loading = false;
             },
             error: function error(err) {
-              return _this52.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this58.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -8962,7 +9185,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this53 = this;
+          var _this59 = this;
 
           var dialog = this.dialogService.open(src_app_users_components_profile_union_event_request_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__["PetitionsFilterComponent"], {
             width: "50",
@@ -8971,11 +9194,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (company) {
             if (company != undefined) {
-              _this53.currentCompanyId = company.company_id;
-              _this53.currentCompanyName = company.name;
-              _this53.isFilters = true;
+              _this59.currentCompanyId = company.company_id;
+              _this59.currentCompanyName = company.name;
+              _this59.isFilters = true;
 
-              _this53.refresh();
+              _this59.refresh();
             }
           });
         }
@@ -8997,14 +9220,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeStatus",
         value: function changeStatus(request_id, status) {
-          var _this54 = this;
+          var _this60 = this;
 
           this.companyService.changeCompanyEventRequestState(request_id, status).subscribe({
             next: function next(data) {
               if (status == 1) {
-                _this54.commonService.openSnackBar("¡Se ha aceptado la petición!", 'Ok');
+                _this60.commonService.openSnackBar("¡Se ha aceptado la petición!", 'Ok');
               } else if (status == 3) {
-                _this54.commonService.openSnackBar("¡Se ha rechazado la petición!", 'Ok');
+                _this60.commonService.openSnackBar("¡Se ha rechazado la petición!", 'Ok');
               }
             }
           });
@@ -9364,7 +9587,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "form {\n  width: 100%;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n\n.dates {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NvbnRlc3RzL2NvbXBvbmVudHMvY29udGVzdHMtY3JlYXRlL2NvbnRlc3RzLWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29udGVzdHMvY29tcG9uZW50cy9jb250ZXN0cy1jcmVhdGUvY29udGVzdHMtY3JlYXRlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGFBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtBQ0NKOztBREVBO0VBQ0ksYUFBQTtFQUNBLDZCQUFBO0VBQ0EsbUJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2NvbnRlc3RzL2NvbXBvbmVudHMvY29udGVzdHMtY3JlYXRlL2NvbnRlc3RzLWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbmgxe1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW46IDAlO1xuICAgIG1hcmdpbi1ib3R0b206IDElO1xuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmRhdGVze1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cbiIsImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDIlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmRhdGVzIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59Il19 */";
+    __webpack_exports__["default"] = "form {\n  width: 100%;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  margin-bottom: 1%;\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n\n.dates {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n\n.file {\n  margin-top: 2%;\n  align-self: center;\n  flex-direction: column;\n  justify-content: center;\n  width: 30%;\n}\n\n.uploadFile {\n  text-align: center;\n  width: -webkit-fill-available;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n  margin-bottom: 2%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NvbnRlc3RzL2NvbXBvbmVudHMvY29udGVzdHMtY3JlYXRlL2NvbnRlc3RzLWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29udGVzdHMvY29tcG9uZW50cy9jb250ZXN0cy1jcmVhdGUvY29udGVzdHMtY3JlYXRlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBQTtBQ0NGOztBREVBO0VBQ0Usa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NGOztBREVBO0VBQ0UsY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0Y7O0FERUE7RUFDRSxXQUFBO0FDQ0Y7O0FERUE7RUFDRSxhQUFBO0VBQ0EsNkJBQUE7RUFDQSxtQkFBQTtBQ0NGOztBREVBO0VBQ0UsY0FBQTtFQUNBLGtCQUFBO0VBQ0Esc0JBQUE7RUFDQSx1QkFBQTtFQUNBLFVBQUE7QUNDRjs7QURFQTtFQUNFLGtCQUFBO0VBQ0EsNkJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0EsaUJBQUE7RUFDQSw2QkFBQTtFQUNBLGtCQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9jb250ZXN0cy9jb21wb25lbnRzL2NvbnRlc3RzLWNyZWF0ZS9jb250ZXN0cy1jcmVhdGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uZGF0ZXMge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuLmZpbGUge1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgd2lkdGg6IDMwJTtcbn1cblxuLnVwbG9hZEZpbGUge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbn1cbiIsImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDIlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5kYXRlcyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG4uZmlsZSB7XG4gIG1hcmdpbi10b3A6IDIlO1xuICBhbGlnbi1zZWxmOiBjZW50ZXI7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICB3aWR0aDogMzAlO1xufVxuXG4udXBsb2FkRmlsZSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgd2lkdGg6IC13ZWJraXQtZmlsbC1hdmFpbGFibGU7XG4gIG1hcmdpbi1yaWdodDogMi41JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG4gIG1hcmdpbi1ib3R0b206IDIlO1xuICBib3JkZXI6IHNvbGlkIDEuNXB4IGdhaW5zYm9ybztcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xufSJdfQ== */";
     /***/
   },
 
@@ -9438,7 +9661,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var ContestsCreateComponent = /*#__PURE__*/function () {
       function ContestsCreateComponent(dialogRef, commonService, multimediaService, router, contestsService) {
-        var _this55 = this;
+        var _this61 = this;
 
         _classCallCheck(this, ContestsCreateComponent);
 
@@ -9450,9 +9673,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.start_Date = undefined;
         this.end_Date = undefined;
         this.today = new Date();
+        this.loading = false;
+        this.contestImages = [];
+        this.contestImagesFinal = [];
+        this.imageIndex = 0;
 
         this.dateFilter = function (date) {
-          return date >= _this55.start_Date;
+          return date >= _this61.start_Date;
         };
 
         this.contestsFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
@@ -9480,48 +9707,65 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var initalDate = this.formatDates(this.start_Date);
           var finalDate = this.formatDates(this.end_Date);
           var contest = {
-            name: this.contestsFG.controls['name'].value,
-            details: this.contestsFG.controls['details'].value,
+            name: this.contestsFG.controls["name"].value,
+            detail: this.contestsFG.controls["details"].value,
             initial_date: initalDate,
             final_date: finalDate
           };
           console.log(contest);
-          this.createAd(contest);
+          this.createContest(contest);
         }
       }, {
-        key: "createAd",
-        value: function createAd(contest) {
-          var _this56 = this;
+        key: "createContest",
+        value: function createContest(contest) {
+          var _this62 = this;
 
+          this.loading = true;
           this.contestsFG.disable();
           this.contestsService.createContest(contest).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this56, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-                return regeneratorRuntime.wrap(function _callee13$(_context13) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this62, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
+                return regeneratorRuntime.wrap(function _callee19$(_context19) {
                   while (1) {
-                    switch (_context13.prev = _context13.next) {
+                    switch (_context19.prev = _context19.next) {
                       case 0:
-                        if (data.status == 200) {
-                          this.commonService.openSnackBar("El anuncio ".concat(this.contestsFG.value.name, " se ha creado"), "OK");
-                          this.dialogRef.close();
-                          this.router.navigate(["/ads/".concat(data.body.ad_id)]);
-                        } else {
-                          this.commonService.openSnackBar("Error al crear el anuncio: ".concat(data.error), "OK");
-                          this.contestsFG.enable();
+                        console.log(data);
+
+                        if (!(data.status == 201)) {
+                          _context19.next = 10;
+                          break;
                         }
 
-                      case 1:
+                        _context19.next = 4;
+                        return this.addImagesToEvent(data.body[0]);
+
+                      case 4:
+                        this.commonService.openSnackBar("El concurso ".concat(this.contestsFG.value.name, " se ha creado"), "OK");
+                        this.loading = true;
+                        this.dialogRef.close();
+                        this.router.navigate(["/contests/".concat(data.body[0])]);
+                        _context19.next = 13;
+                        break;
+
+                      case 10:
+                        this.commonService.openSnackBar("Error al crear el concurso: ".concat(data.error), "OK");
+                        this.contestsFG.enable();
+                        this.loading = true;
+
+                      case 13:
                       case "end":
-                        return _context13.stop();
+                        return _context19.stop();
                     }
                   }
-                }, _callee13, this);
+                }, _callee19, this);
               }));
             },
             error: function error(err) {
-              _this56.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this62.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this56.contestsFG.enable();
+              _this62.contestsFG.enable();
+
+              _this62.loading = true;
             }
           });
         }
@@ -9535,6 +9779,117 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             var day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
             return year + "-" + month + "-" + day;
           }
+        }
+      }, {
+        key: "getFiles",
+        value: function getFiles(event) {
+          var _this63 = this;
+
+          if (event.target.files) {
+            for (var i = 0; i < event.target.files.length; i++) {
+              if (event.target.files[i]) {
+                this.contestImagesFinal.push(event.target.files[i]);
+                var reader = new FileReader();
+                reader.readAsDataURL(event.target.files[i]);
+
+                reader.onload = function (event) {
+                  _this63.contestImages.push(event.target.result);
+                };
+              }
+            }
+          }
+        }
+      }, {
+        key: "uploadFiles",
+        value: function uploadFiles() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+            var images, i;
+            return regeneratorRuntime.wrap(function _callee20$(_context20) {
+              while (1) {
+                switch (_context20.prev = _context20.next) {
+                  case 0:
+                    images = [];
+                    i = 0;
+
+                  case 2:
+                    if (!(i < this.contestImagesFinal.length)) {
+                      _context20.next = 8;
+                      break;
+                    }
+
+                    _context20.next = 5;
+                    return this.commonService.uploadFile(this.contestImagesFinal[i]).then(function (data) {
+                      images.push(data.filename);
+                    });
+
+                  case 5:
+                    i++;
+                    _context20.next = 2;
+                    break;
+
+                  case 8:
+                    return _context20.abrupt("return", images);
+
+                  case 9:
+                  case "end":
+                    return _context20.stop();
+                }
+              }
+            }, _callee20, this);
+          }));
+        }
+      }, {
+        key: "onSlide",
+        value: function onSlide(event) {
+          this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+        }
+      }, {
+        key: "deleteImage",
+        value: function deleteImage() {
+          if (this.contestImages.length == 1) {
+            this.imageIndex = 0;
+          }
+
+          this.contestImages.splice(this.imageIndex, 1);
+          this.contestImagesFinal.splice(this.imageIndex, 1);
+        }
+      }, {
+        key: "addImagesToEvent",
+        value: function addImagesToEvent(event_id) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
+            var urlImages, i;
+            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+              while (1) {
+                switch (_context21.prev = _context21.next) {
+                  case 0:
+                    _context21.next = 2;
+                    return this.uploadFiles();
+
+                  case 2:
+                    urlImages = _context21.sent;
+                    i = 0;
+
+                  case 4:
+                    if (!(i < urlImages.length)) {
+                      _context21.next = 10;
+                      break;
+                    }
+
+                    _context21.next = 7;
+                    return this.multimediaService.addImage(event_id, 5, urlImages[i]).toPromise();
+
+                  case 7:
+                    i++;
+                    _context21.next = 4;
+                    break;
+
+                  case 10:
+                  case "end":
+                    return _context21.stop();
+                }
+              }
+            }, _callee21, this);
+          }));
         }
       }]);
 
@@ -9556,7 +9911,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     };
 
     ContestsCreateComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-contests-create',
+      selector: "app-contests-create",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./contests-create.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/contests/components/contests-create/contests-create.component.html"))["default"],
@@ -9658,45 +10013,74 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
       _createClass(ContestsMainComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {//this.obtainAllContest()
+        value: function ngOnInit() {
+          this.obtainAllContest();
         }
       }, {
         key: "obtainAllContest",
         value: function obtainAllContest() {
-          var _this57 = this;
+          var _this64 = this;
 
           this.subscription = this.contestsService.getContests().subscribe({
             next: function next(data) {
-              _this57.contestsService.contest = data;
+              _this64.contestsService.contests = data;
 
-              _this57.subscription.unsubscribe();
+              _this64.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this57.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this64.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "changeState",
         value: function changeState(contest, _ref14) {
-          var _this58 = this;
+          var _this65 = this;
 
           var source = _ref14.source;
-          this.contestsService.changeStateContest(contest.contest_id).subscribe({
-            next: function next(data) {
-              if (data.status == 204) {
-                contest.is_active = !contest.is_active;
-                source.checked = contest.is_active;
-                if (contest.is_active) _this58.commonService.openSnackBar("El anuncio ".concat(contest.name, " ha sido activado"), "OK");else _this58.commonService.openSnackBar("El anuncio ".concat(contest.name, " ha sido desactivado"), "OK");
-              } else {
-                _this58.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this58.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+          this.commonService.confirmationDialog("\xBFDesea eliminar el consurso: ".concat(contest.name, "?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this65, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
+              var _this66 = this;
 
-              source.checked = contest.is_active;
-            }
+              return regeneratorRuntime.wrap(function _callee22$(_context22) {
+                while (1) {
+                  switch (_context22.prev = _context22.next) {
+                    case 0:
+                      if (result) {
+                        contest.is_active = !contest.is_active;
+                        this.contestsService.changeStateContest(contest).subscribe({
+                          next: function next(data) {
+                            if (data.status == 200) {
+                              source.checked = contest.is_active;
+
+                              _this66.commonService.openSnackBar("El concurso ".concat(contest.name, " ha sido eliminado"), "OK");
+
+                              _this66.obtainAllContest();
+                            } else {
+                              contest.is_active = !contest.is_active;
+                              source.checked = contest.is_active;
+
+                              _this66.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                            }
+                          },
+                          error: function error(err) {
+                            _this66.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                            contest.is_active = !contest.is_active;
+                            source.checked = contest.is_active;
+                          }
+                        });
+                      } else {
+                        source.checked = contest.is_active;
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context22.stop();
+                  }
+                }
+              }, _callee22, this);
+            }));
           });
         }
       }, {
@@ -9725,7 +10109,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     };
 
     ContestsMainComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-contests-main',
+      selector: "app-contests-main",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./contests-main.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/contests/components/contests-main/contests-main.component.html"))["default"],
@@ -9784,34 +10168,41 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/fesm2015/core.js");
     /* harmony import */
 
 
-    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! @angular/forms */
     "./node_modules/@angular/forms/fesm2015/forms.js");
     /* harmony import */
 
 
-    var src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! src/app/contests/services/contests.service */
     "./src/app/contests/services/contests.service.ts");
     /* harmony import */
 
 
-    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! src/app/general-services/common.service */
     "./src/app/general-services/common.service.ts");
 
     var ContestsDetailsComponent = /*#__PURE__*/function () {
-      function ContestsDetailsComponent(commonService, contetsService) {
-        var _this59 = this;
+      function ContestsDetailsComponent(datePipe, commonService, contetsService) {
+        var _this67 = this;
 
         _classCallCheck(this, ContestsDetailsComponent);
 
+        this.datePipe = datePipe;
         this.commonService = commonService;
         this.contetsService = contetsService;
         this.start_Date = undefined;
@@ -9819,31 +10210,32 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.loading = false;
 
         this.dateFilter = function (date) {
-          return date >= _this59.start_Date;
+          return date >= _this67.start_Date;
         };
 
-        this.contestsFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-          name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-          details: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+        this.contestsFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
+          name: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+          details: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required)
         });
       }
 
       _createClass(ContestsDetailsComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {//this.setData()
+        value: function ngOnInit() {
+          this.setData();
         }
       }, {
         key: "setData",
         value: function setData() {
-          this.contestsFG.controls['name'].setValue(this.contest.name);
-          this.contestsFG.controls['details'].setValue(this.contest.details);
-          this.start_Date = new Date(this.contest.initial_date);
-          this.end_Date = new Date(this.contest.final_date);
+          this.contestsFG.controls["name"].setValue(this.contest.name);
+          this.contestsFG.controls["details"].setValue(this.contest.detail);
+          this.start_Date = new Date(this.datePipe.transform(this.contest.initial_date));
+          this.end_Date = new Date(this.datePipe.transform(this.contest.final_date));
         }
       }, {
         key: "modifyContest",
         value: function modifyContest() {
-          var _this60 = this;
+          var _this68 = this;
 
           this.loading = true;
           this.contestsFG.disable();
@@ -9851,18 +10243,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var endDate = this.formatDates(this.end_Date);
           var newContest = {
             contest_id: this.contest.contest_id,
-            name: this.contestsFG.controls['name'].value,
-            details: this.contestsFG.controls['details'].value,
+            name: this.contestsFG.controls["name"].value,
+            detail: this.contestsFG.controls["details"].value,
             initial_date: startDate,
             final_date: endDate,
             is_active: this.contest.is_active
           };
           this.contetsService.modifyContest(newContest).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this60, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
-                return regeneratorRuntime.wrap(function _callee14$(_context14) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this68, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
+                return regeneratorRuntime.wrap(function _callee23$(_context23) {
                   while (1) {
-                    switch (_context14.prev = _context14.next) {
+                    switch (_context23.prev = _context23.next) {
                       case 0:
                         if (data.status == 200) {
                           this.contestsFG.enable();
@@ -9871,48 +10263,84 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           this.loading = false;
                         } else {
                           this.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                          this.loading = false;
+                          this.contestsFG.enable();
                         }
 
                       case 1:
                       case "end":
-                        return _context14.stop();
+                        return _context23.stop();
                     }
                   }
-                }, _callee14, this);
+                }, _callee23, this);
               }));
             },
             error: function error(err) {
-              _this60.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this68.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this60.loading = false;
+              _this68.loading = false;
 
-              _this60.contestsFG.enable();
+              _this68.contestsFG.enable();
             }
           });
         }
       }, {
         key: "changeState",
         value: function changeState(_ref15) {
-          var _this61 = this;
+          var _this69 = this;
 
           var source = _ref15.source;
-          var id = this.contest.contest_id;
-          this.contetsService.changeStateContest(id).subscribe({
-            next: function next(data) {
-              if (data.status == 204) {
-                _this61.contest.is_active = !_this61.contest.is_active;
-                source.checked = _this61.contest.is_active;
-                if (_this61.contest.is_active) _this61.commonService.openSnackBar("El anuncio ".concat(_this61.contest.name, " ha sido activado"), "OK");else _this61.commonService.openSnackBar("El anuncio ".concat(_this61.contest.name, " ha sido desactivado"), "OK");
-              } else {
-                _this61.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this61.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              source.checked = _this61.contest.is_active;
-            }
-          });
+          if (this.contest.is_active) {
+            this.commonService.confirmationDialog("\xBFDesea eliminar el concurso: ".concat(this.contest.name, "?")).then(function (result) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this69, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+                var _this70 = this;
+
+                var contest;
+                return regeneratorRuntime.wrap(function _callee24$(_context24) {
+                  while (1) {
+                    switch (_context24.prev = _context24.next) {
+                      case 0:
+                        if (result) {
+                          contest = this.contest;
+                          this.contest.is_active = !this.contest.is_active;
+                          this.contetsService.changeStateContest(contest).subscribe({
+                            next: function next(data) {
+                              console.log(data);
+
+                              if (data.status == 200) {
+                                source.checked = _this70.contest.is_active;
+
+                                _this70.commonService.openSnackBar("El concurso ".concat(_this70.contest.name, " ha sido eliminado"), "OK");
+                              } else {
+                                _this70.contest.is_active = !_this70.contest.is_active;
+                                source.checked = _this70.contest.is_active;
+
+                                _this70.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              }
+                            },
+                            error: function error(err) {
+                              _this70.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                              _this70.contest.is_active = !_this70.contest.is_active;
+                              source.checked = _this70.contest.is_active;
+                            }
+                          });
+                        } else {
+                          source.checked = this.contest.is_active;
+                        }
+
+                      case 1:
+                      case "end":
+                        return _context24.stop();
+                    }
+                  }
+                }, _callee24, this);
+              }));
+            });
+          } else {
+            this.commonService.openSnackBar("No se puede reactivar un concurso", "OK");
+          }
         }
       }, {
         key: "formatDates",
@@ -9932,15 +10360,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     ContestsDetailsComponent.ctorParameters = function () {
       return [{
-        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
+        type: _angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"]
       }, {
-        type: src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_3__["ContestsService"]
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"]
+      }, {
+        type: src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_4__["ContestsService"]
       }];
     };
 
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], ContestsDetailsComponent.prototype, "contest", void 0);
-    ContestsDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-contests-details',
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])()], ContestsDetailsComponent.prototype, "contest", void 0);
+    ContestsDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+      selector: "app-contests-details",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./contests-details.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/contests/components/contests-management/contests-details/contests-details.component.html"))["default"],
@@ -10026,10 +10456,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ContestsManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this62 = this;
+          var _this71 = this;
 
           this.subscription = this.route.paramMap.subscribe(function (params) {
-            _this62.contest_id = Number(params.get("contest_id")); //this.recharge();
+            _this71.contest_id = Number(params.get("contest_id"));
+
+            _this71.recharge();
           });
         }
       }, {
@@ -10040,10 +10472,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this63 = this;
+          var _this72 = this;
 
           this.contestsService.getContest(Number(this.contest_id)).subscribe(function (data) {
-            _this63.contest = data;
+            _this72.contest = data;
           });
         }
       }]);
@@ -10134,6 +10566,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! src/app/general-services/multimedia.service */
     "./src/app/general-services/multimedia.service.ts");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
 
     var ContestsMultimediaComponent = /*#__PURE__*/function () {
       function ContestsMultimediaComponent(commonService, multimediaService) {
@@ -10144,15 +10582,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.loading = false;
         this.contestImages = [];
         this.contestVideos = [];
-        this.url = "https://intelitur.sytes.net/files/";
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].IMAGES_URL_BASE;
         this.imageIndex = 0;
         this.videoIndex = 0;
       }
 
       _createClass(ContestsMultimediaComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {} //Metodos de imagenes
-
+        value: function ngOnInit() {
+          console.log(this.contest);
+          this.sortInList(this.contest.images);
+        }
       }, {
         key: "onSlideI",
         value: function onSlideI(event) {
@@ -10166,11 +10606,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "uploadFiles",
         value: function uploadFiles(files, type) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
             var myFiles, i;
-            return regeneratorRuntime.wrap(function _callee15$(_context15) {
+            return regeneratorRuntime.wrap(function _callee25$(_context25) {
               while (1) {
-                switch (_context15.prev = _context15.next) {
+                switch (_context25.prev = _context25.next) {
                   case 0:
                     this.loading = true;
                     myFiles = [];
@@ -10178,18 +10618,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 3:
                     if (!(i < files.length)) {
-                      _context15.next = 9;
+                      _context25.next = 9;
                       break;
                     }
 
-                    _context15.next = 6;
+                    _context25.next = 6;
                     return this.commonService.uploadFile(files[i]).then(function (data) {
                       myFiles.push(data.filename);
                     });
 
                   case 6:
                     i++;
-                    _context15.next = 3;
+                    _context25.next = 3;
                     break;
 
                   case 9:
@@ -10197,24 +10637,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 10:
                   case "end":
-                    return _context15.stop();
+                    return _context25.stop();
                 }
               }
-            }, _callee15, this);
+            }, _callee25, this);
           }));
         }
       }, {
         key: "deleteFile",
         value: function deleteFile(type) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
-            var _this64 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
+            var _this73 = this;
 
-            var index, msg;
-            return regeneratorRuntime.wrap(function _callee16$(_context16) {
+            var index, msg, list;
+            return regeneratorRuntime.wrap(function _callee26$(_context26) {
               while (1) {
-                switch (_context16.prev = _context16.next) {
+                switch (_context26.prev = _context26.next) {
                   case 0:
                     this.loading = true;
+                    console.log(type);
 
                     if (type == 0) {
                       this.contestImages.length == 1 ? this.imageIndex = 0 : null;
@@ -10223,15 +10664,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     }
 
                     type == 0 ? index = this.imageIndex : index = this.videoIndex;
-                    type == 0 ? msg = "La imagen se ha elimindado" : "El video ha sido eliminado";
-                    _context16.next = 6;
-                    return this.multimediaService.deleteImage(this.contestImages[index].image_id).toPromise().then(function (data) {
+                    type == 0 ? msg = "La imagen se ha elimindado" : msg = "El video ha sido eliminado";
+                    type == 0 ? list = this.contestImages : list = this.contestVideos;
+                    _context26.next = 8;
+                    return this.multimediaService.deleteImage(list[index].image_id).toPromise().then(function (data) {
                       if (data.status == 204) {
-                        _this64.commonService.openSnackBar(msg, "OK");
+                        _this73.commonService.openSnackBar(msg, "OK");
                       }
                     });
 
-                  case 6:
+                  case 8:
                     if (type == 0) {
                       this.contestImages.splice(this.imageIndex, 1);
                     } else {
@@ -10240,64 +10682,83 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     this.loading = false;
 
-                  case 8:
+                  case 10:
                   case "end":
-                    return _context16.stop();
+                    return _context26.stop();
                 }
               }
-            }, _callee16, this);
+            }, _callee26, this);
           }));
         }
       }, {
         key: "updateFiles",
         value: function updateFiles(files, type) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
-            var _this65 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
+            var _this74 = this;
 
             var i;
-            return regeneratorRuntime.wrap(function _callee17$(_context17) {
+            return regeneratorRuntime.wrap(function _callee27$(_context27) {
               while (1) {
-                switch (_context17.prev = _context17.next) {
+                switch (_context27.prev = _context27.next) {
                   case 0:
+                    console.log(files);
                     i = 0;
 
-                  case 1:
+                  case 2:
                     if (!(i < files.length)) {
-                      _context17.next = 7;
+                      _context27.next = 8;
                       break;
                     }
 
-                    _context17.next = 4;
+                    _context27.next = 5;
                     return this.multimediaService.addImage(this.contest.contest_id, 5, files[i]).toPromise();
 
-                  case 4:
+                  case 5:
                     i++;
-                    _context17.next = 1;
+                    _context27.next = 2;
                     break;
 
-                  case 7:
+                  case 8:
                     this.multimediaService.getImages(this.contest.contest_id, 5).subscribe({
                       next: function next(data) {
-                        if (type == 0) {
-                          data.forEach(function (element) {
-                            element.name.contains(".jpg") || element.name.contains(".png") ? _this65.contestImages.push(element) : null;
-                          });
-                        } else {
-                          data.forEach(function (element) {
-                            element.name.contains(".mp4") ? _this65.contestVideos.push(element) : null;
-                          });
-                        }
+                        console.log(data);
+
+                        _this74.sortInList(data, type);
                       }
                     });
-                    this.loading = false;
 
                   case 9:
                   case "end":
-                    return _context17.stop();
+                    return _context27.stop();
                 }
               }
-            }, _callee17, this);
+            }, _callee27, this);
           }));
+        }
+      }, {
+        key: "sortInList",
+        value: function sortInList(data, type) {
+          var _this75 = this;
+
+          if (type == undefined) {
+            this.contestImages = [];
+            this.contestVideos = [];
+            data.forEach(function (element) {
+              element.name.search(".jpg") != -1 || element.name.search(".png") != -1 ? _this75.contestImages.push(element) : element.name.search(".mp4") != -1 ? _this75.contestVideos.push(element) : null;
+            });
+          } else if (type == 0) {
+            this.contestImages = [];
+            data.forEach(function (element) {
+              element.name.search(".jpg") != -1 || element.name.search(".png") != -1 ? _this75.contestImages.push(element) : null;
+            });
+          } else {
+            this.contestVideos = [];
+            data.forEach(function (element) {
+              element.name.search(".mp4") != -1 ? _this75.contestVideos.push(element) : null;
+            });
+          }
+
+          this.loading = false;
         }
       }]);
 
@@ -10611,14 +11072,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         this.http = http;
         this.commonService = commonService;
-        this.contest = [];
+        this.contests = [];
         this.module = "contests";
       }
 
       _createClass(ContestsService, [{
         key: "getContests",
         value: function getContests() {
-          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/"));
+          var params = {
+            state: "true"
+          };
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/"), {
+            params: params
+          });
         }
       }, {
         key: "getContest",
@@ -10627,22 +11093,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
       }, {
         key: "changeStateContest",
-        value: function changeStateContest(contest_id) {
-          return this.http.patch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(contest_id), null, {
+        value: function changeStateContest(contest) {
+          var json = {
+            name: contest.name,
+            detail: contest.detail,
+            initial_date: contest.initial_date,
+            final_date: contest.final_date,
+            is_active: contest.is_active
+          };
+          console.log(json);
+          return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(contest.contest_id), json, {
             observe: 'response'
           });
         }
       }, {
         key: "createContest",
         value: function createContest(contest) {
-          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/"), JSON.stringify(contest), {
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/"), contest, {
             observe: 'response'
           });
         }
       }, {
         key: "modifyContest",
         value: function modifyContest(contest) {
-          return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(contest.contest_id), contest, {
+          var json = {
+            name: contest.name,
+            detail: contest.detail,
+            initial_date: contest.initial_date,
+            final_date: contest.final_date
+          };
+          return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(contest.contest_id), json, {
             observe: 'response'
           });
         }
@@ -10779,7 +11259,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var EventCreateComponent = /*#__PURE__*/function () {
       function EventCreateComponent(dialogRef, commonService, eventService, router, categoryService, companyService, userService, multimediaService) {
-        var _this66 = this;
+        var _this76 = this;
 
         _classCallCheck(this, EventCreateComponent);
 
@@ -10814,14 +11294,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
          */
 
         this.dateFilter = function (date) {
-          return date >= _this66.initial_date;
+          return date >= _this76.initial_date;
         };
       }
 
       _createClass(EventCreateComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this67 = this;
+          var _this77 = this;
 
           this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
@@ -10834,22 +11314,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.user = this.userService.actualUser;
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this67.filteredCategories = data;
+              _this77.filteredCategories = data;
 
-              _this67.subscription.unsubscribe();
+              _this77.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this67.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this77.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription2 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this67.filteredCompanies = data;
+              _this77.filteredCompanies = data;
 
-              _this67.subscription2.unsubscribe();
+              _this77.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this67.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this77.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -10878,11 +11358,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
             var event;
-            return regeneratorRuntime.wrap(function _callee18$(_context18) {
+            return regeneratorRuntime.wrap(function _callee28$(_context28) {
               while (1) {
-                switch (_context18.prev = _context18.next) {
+                switch (_context28.prev = _context28.next) {
                   case 0:
                     this.loading = true;
                     this.eventFG.disable();
@@ -10908,64 +11388,67 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 7:
                   case "end":
-                    return _context18.stop();
+                    return _context28.stop();
                 }
               }
-            }, _callee18, this);
+            }, _callee28, this);
           }));
         }
       }, {
         key: "createEvent",
         value: function createEvent(event) {
-          var _this68 = this;
+          var _this78 = this;
 
           this.eventService.createEvent(event).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this68, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
-                return regeneratorRuntime.wrap(function _callee19$(_context19) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this78, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+                return regeneratorRuntime.wrap(function _callee29$(_context29) {
                   while (1) {
-                    switch (_context19.prev = _context19.next) {
+                    switch (_context29.prev = _context29.next) {
                       case 0:
-                        if (!(data.status == 200)) {
-                          _context19.next = 12;
+                        console.log(data);
+
+                        if (!(data.status == 201)) {
+                          _context29.next = 13;
                           break;
                         }
 
                         /**Añadiendo compañías y categorías al evento */
                         this.getCategories();
                         this.getCompanies();
-                        _context19.next = 5;
+                        _context29.next = 6;
                         return this.eventRelations(data.body[0]);
 
-                      case 5:
-                        _context19.next = 7;
+                      case 6:
+                        _context29.next = 8;
                         return this.addImagesToEvent(data.body[0]);
 
-                      case 7:
+                      case 8:
                         this.commonService.openSnackBar("El evento ".concat(this.eventFG.value.name, " se ha creado"), "OK");
                         this.dialogRef.close();
                         this.router.navigate(['/event', data.body[0]]);
-                        _context19.next = 14;
+                        _context29.next = 16;
                         break;
 
-                      case 12:
+                      case 13:
                         this.commonService.openSnackBar("Error al crear el evento: ".concat(data.error), "OK");
+                        this.loading = false;
                         this.eventFG.enable();
 
-                      case 14:
+                      case 16:
                       case "end":
-                        return _context19.stop();
+                        return _context29.stop();
                     }
                   }
-                }, _callee19, this);
+                }, _callee29, this);
               }));
             },
             error: function error(err) {
-              _this68.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this78.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this68.loading = false;
+              _this78.loading = false;
 
-              _this68.eventFG.enable();
+              _this78.eventFG.enable();
             }
           });
         }
@@ -11074,27 +11557,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "eventRelations",
         value: function eventRelations(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
             var i, _i2;
 
-            return regeneratorRuntime.wrap(function _callee20$(_context20) {
+            return regeneratorRuntime.wrap(function _callee30$(_context30) {
               while (1) {
-                switch (_context20.prev = _context20.next) {
+                switch (_context30.prev = _context30.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < this.allCompanies.length)) {
-                      _context20.next = 7;
+                      _context30.next = 7;
                       break;
                     }
 
-                    _context20.next = 4;
+                    _context30.next = 4;
                     return this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise();
 
                   case 4:
                     i++;
-                    _context20.next = 1;
+                    _context30.next = 1;
                     break;
 
                   case 7:
@@ -11102,35 +11585,32 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 8:
                     if (!(_i2 < this.allCategories.length)) {
-                      _context20.next = 14;
+                      _context30.next = 14;
                       break;
                     }
 
-                    _context20.next = 11;
+                    _context30.next = 11;
                     return this.eventService.addCategoryToEvent(this.allCategories[_i2], event_id).toPromise();
 
                   case 11:
                     _i2++;
-                    _context20.next = 8;
+                    _context30.next = 8;
                     break;
 
                   case 14:
                   case "end":
-                    return _context20.stop();
+                    return _context30.stop();
                 }
               }
-            }, _callee20, this);
+            }, _callee30, this);
           }));
         }
       }, {
         key: "getFiles",
         value: function getFiles(event) {
-          var _this69 = this;
+          var _this79 = this;
 
           if (event.target.files) {
-            this.eventImages = [];
-            this.eventImagesFinal = [];
-
             for (var i = 0; i < event.target.files.length; i++) {
               if (event.target.files[i]) {
                 this.eventImagesFinal.push(event.target.files[i]);
@@ -11138,7 +11618,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 reader.readAsDataURL(event.target.files[i]);
 
                 reader.onload = function (event) {
-                  _this69.eventImages.push(event.target.result);
+                  _this79.eventImages.push(event.target.result);
                 };
               }
             }
@@ -11147,40 +11627,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "uploadFiles",
         value: function uploadFiles() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+            return regeneratorRuntime.wrap(function _callee31$(_context31) {
               while (1) {
-                switch (_context21.prev = _context21.next) {
+                switch (_context31.prev = _context31.next) {
                   case 0:
                     images = [];
                     i = 0;
 
                   case 2:
                     if (!(i < this.eventImagesFinal.length)) {
-                      _context21.next = 8;
+                      _context31.next = 8;
                       break;
                     }
 
-                    _context21.next = 5;
+                    _context31.next = 5;
                     return this.commonService.uploadFile(this.eventImagesFinal[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 5:
                     i++;
-                    _context21.next = 2;
+                    _context31.next = 2;
                     break;
 
                   case 8:
-                    return _context21.abrupt("return", images);
+                    return _context31.abrupt("return", images);
 
                   case 9:
                   case "end":
-                    return _context21.stop();
+                    return _context31.stop();
                 }
               }
-            }, _callee21, this);
+            }, _callee31, this);
           }));
         }
       }, {
@@ -11201,39 +11681,39 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addImagesToEvent",
         value: function addImagesToEvent(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
             var urlImages, i;
-            return regeneratorRuntime.wrap(function _callee22$(_context22) {
+            return regeneratorRuntime.wrap(function _callee32$(_context32) {
               while (1) {
-                switch (_context22.prev = _context22.next) {
+                switch (_context32.prev = _context32.next) {
                   case 0:
-                    _context22.next = 2;
+                    _context32.next = 2;
                     return this.uploadFiles();
 
                   case 2:
-                    urlImages = _context22.sent;
+                    urlImages = _context32.sent;
                     i = 0;
 
                   case 4:
                     if (!(i < urlImages.length)) {
-                      _context22.next = 10;
+                      _context32.next = 10;
                       break;
                     }
 
-                    _context22.next = 7;
+                    _context32.next = 7;
                     return this.multimediaService.addImage(event_id, 1, urlImages[i]).toPromise();
 
                   case 7:
                     i++;
-                    _context22.next = 4;
+                    _context32.next = 4;
                     break;
 
                   case 10:
                   case "end":
-                    return _context22.stop();
+                    return _context32.stop();
                 }
               }
-            }, _callee22, this);
+            }, _callee32, this);
           }));
         }
       }]);
@@ -11364,19 +11844,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(EventRequestFiltersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this70 = this;
+          var _this80 = this;
 
           this.eventRequestFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
           });
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this70.companies = data;
+              _this80.companies = data;
 
-              _this70.subscription.unsubscribe();
+              _this80.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this70.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this80.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -11517,16 +11997,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(EventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
-            var _this71 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
+            var _this81 = this;
 
-            return regeneratorRuntime.wrap(function _callee23$(_context23) {
+            return regeneratorRuntime.wrap(function _callee33$(_context33) {
               while (1) {
-                switch (_context23.prev = _context23.next) {
+                switch (_context33.prev = _context33.next) {
                   case 0:
-                    _context23.next = 2;
+                    _context33.next = 2;
                     return this.eventService.getAllPendingEventRequests().toPromise().then(function (data) {
-                      _this71.eventService.eventRequest = data;
+                      _this81.eventService.eventRequest = data;
                     });
 
                   case 2:
@@ -11534,10 +12014,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 3:
                   case "end":
-                    return _context23.stop();
+                    return _context33.stop();
                 }
               }
-            }, _callee23, this);
+            }, _callee33, this);
           }));
         }
       }, {
@@ -11557,11 +12037,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeStateRequest",
         value: function changeStateRequest(event, state) {
-          var _this72 = this;
+          var _this82 = this;
 
           this.eventService.changeRequestState(event.event_id, state).subscribe({
             next: function next(data) {
-              data.status == 201 ? _this72.eventService.getAllPendingEventRequests() : null;
+              data.status == 201 ? _this82.eventService.getAllPendingEventRequests() : null;
             }
           });
         }
@@ -11666,7 +12146,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var EventsStadisticsComponent = /*#__PURE__*/function () {
       function EventsStadisticsComponent(eventService, authService, commonService) {
-        var _this73 = this;
+        var _this83 = this;
 
         _classCallCheck(this, EventsStadisticsComponent);
 
@@ -11678,7 +12158,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.isFilterd = false;
 
         this.dateFilter = function (date) {
-          return date >= _this73.start_Date;
+          return date >= _this83.start_Date;
         };
       }
 
@@ -11690,40 +12170,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "obtainAllEvents",
         value: function obtainAllEvents() {
-          var _this74 = this;
+          var _this84 = this;
 
           this.isFilterd = false;
           this.subscription = this.eventService.getFilteredEvents().subscribe({
             next: function next(data) {
-              _this74.eventService.events = data;
+              _this84.eventService.events = data;
 
-              _this74.eventService.sort();
+              _this84.eventService.sort();
 
-              _this74.subscription.unsubscribe();
+              _this84.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this74.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this84.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "filterByDate",
         value: function filterByDate() {
-          var _this75 = this;
+          var _this85 = this;
 
           this.isFilterd = true;
           var initialDate = this.formatDate(this.start_Date);
           var finalDate = this.formatDate(this.end_Date);
           this.subscription = this.eventService.getFilteredEvents(undefined, initialDate, finalDate).subscribe({
             next: function next(data) {
-              _this75.eventService.events = data;
+              _this85.eventService.events = data;
 
-              _this75.subscription.unsubscribe();
+              _this85.subscription.unsubscribe();
 
-              _this75.eventService.sort();
+              _this85.eventService.sort();
             },
             error: function error(err) {
-              return _this75.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this85.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -11853,7 +12333,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var EventFiltersComponent = /*#__PURE__*/function () {
       function EventFiltersComponent(dialogRef, categoryService, commonService) {
-        var _this76 = this;
+        var _this86 = this;
 
         _classCallCheck(this, EventFiltersComponent);
 
@@ -11888,7 +12368,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         };
 
         this.dateFilter = function (date) {
-          return date >= _this76.start_Date;
+          return date >= _this86.start_Date;
         };
 
         this.refreshMap = this.refreshMap.bind(this);
@@ -11897,7 +12377,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(EventFiltersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this77 = this;
+          var _this87 = this;
 
           this.eventFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
             categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
@@ -11906,19 +12386,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this77.categories = data;
+              _this87.categories = data;
 
-              _this77.subscription.unsubscribe();
+              _this87.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this77.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this87.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this78 = this;
+          var _this88 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -11929,7 +12409,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           setTimeout(function () {
-            return _this78.map.invalidateSize();
+            return _this88.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -12155,19 +12635,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "obtainAllEvents",
         value: function obtainAllEvents() {
-          var _this79 = this;
+          var _this89 = this;
 
           this.eventService.isFilters = false;
           this.subscription = this.eventService.getFilteredEvents().subscribe({
             next: function next(data) {
-              _this79.eventService.events = data;
+              _this89.eventService.events = data;
 
-              _this79.eventService.sort();
+              _this89.eventService.sort();
 
-              _this79.subscription.unsubscribe();
+              _this89.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this79.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this89.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -12184,30 +12664,54 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(event, _ref17) {
-          var _this80 = this;
+          var _this90 = this;
 
           var source = _ref17.source;
-          this.eventService.changeEventState(event.event_id).subscribe({
-            next: function next(data) {
-              if (data.status == 200) {
-                event.is_active = !event.is_active;
-                source.checked = event.is_active;
-                if (event.is_active) _this80.commonService.openSnackBar("El evento ".concat(event.name, " ha sido activado"), "OK");else _this80.commonService.openSnackBar("El evento ".concat(event.name, " ha sido desactivado"), "OK");
-              } else {
-                _this80.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this80.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+          this.commonService.confirmationDialog("\xBFDesea eliminar el evento: ".concat(event.name, "?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this90, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+              var _this91 = this;
 
-              source.checked = event.is_active;
-            }
+              return regeneratorRuntime.wrap(function _callee34$(_context34) {
+                while (1) {
+                  switch (_context34.prev = _context34.next) {
+                    case 0:
+                      if (result) {
+                        this.eventService.changeEventState(event.event_id).subscribe({
+                          next: function next(data) {
+                            if (data.status == 201) {
+                              event.is_active = !event.is_active;
+                              source.checked = event.is_active;
+
+                              _this91.commonService.openSnackBar("El evento ".concat(event.name, " ha sido eliminado"), "OK");
+
+                              _this91.obtainAllEvents();
+                            } else {
+                              _this91.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                            }
+                          },
+                          error: function error(err) {
+                            _this91.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                            source.checked = event.is_active;
+                          }
+                        });
+                      } else {
+                        source.checked = event.is_active;
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context34.stop();
+                  }
+                }
+              }, _callee34, this);
+            }));
           });
         }
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this81 = this;
+          var _this92 = this;
 
           var dialog = this.dialogService.open(_event_filters_event_filters_component__WEBPACK_IMPORTED_MODULE_5__["EventFiltersComponent"], {
             width: "70%",
@@ -12217,18 +12721,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (info) {
             if (info != undefined) {
-              _this81.eventService.isFilters = true;
+              _this92.eventService.isFilters = true;
               console.log(info);
-              _this81.subscription = _this81.eventService.getFilteredEvents(undefined, info.initial_date, info.final_date, info.category_id, info.rate, info.ratio, info.latitude, info.longitude).subscribe({
+              _this92.subscription = _this92.eventService.getFilteredEvents(undefined, info.initial_date, info.final_date, info.category_id, info.rate, info.ratio, info.latitude, info.longitude).subscribe({
                 next: function next(data) {
-                  _this81.eventService.events = data;
+                  _this92.eventService.events = data;
 
-                  _this81.eventService.sort();
+                  _this92.eventService.sort();
 
-                  _this81.subscription.unsubscribe();
+                  _this92.subscription.unsubscribe();
                 },
                 error: function error(err) {
-                  return _this81.commonService.openSnackBar("Error: ".concat(err), "OK");
+                  return _this92.commonService.openSnackBar("Error: ".concat(err), "OK");
                 }
               });
             }
@@ -12254,7 +12758,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     };
 
     EventsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-events',
+      selector: "app-events",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./events.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/events/events.component.html"))["default"],
@@ -12343,20 +12847,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeTab",
         value: function changeTab(event) {
-          var _this82 = this;
+          var _this93 = this;
 
           if (event.index == 0) {
             this.eventService.isFilters = false;
             this.subscription = this.eventService.getFilteredEvents().subscribe({
               next: function next(data) {
-                _this82.eventService.events = data;
+                _this93.eventService.events = data;
 
-                _this82.eventService.sort();
+                _this93.eventService.sort();
 
-                _this82.subscription.unsubscribe();
+                _this93.subscription.unsubscribe();
               },
               error: function error(err) {
-                return _this82.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this93.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           }
@@ -12402,7 +12906,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "form {\n  width: 100%;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n\n.dates {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9hZGQtZXZlbnQtb2ZmZXJzL2FkZC1ldmVudC1vZmZlcnMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9hZGQtZXZlbnQtb2ZmZXJzL2FkZC1ldmVudC1vZmZlcnMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxjQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsNkJBQUE7RUFDQSxtQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9tYW5hZ2VtZW50L2FkZC1ldmVudC1vZmZlcnMvYWRkLWV2ZW50LW9mZmVycy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbmgxe1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW46IDAlO1xuICAgIG1hcmdpbi1ib3R0b206IDElO1xuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmRhdGVze1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn0iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5kYXRlcyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufSJdfQ== */";
+    __webpack_exports__["default"] = "form {\n  width: 100%;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9hZGQtZXZlbnQtb2ZmZXJzL2FkZC1ldmVudC1vZmZlcnMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9hZGQtZXZlbnQtb2ZmZXJzL2FkZC1ldmVudC1vZmZlcnMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxjQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSw2QkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9tYW5hZ2VtZW50L2FkZC1ldmVudC1vZmZlcnMvYWRkLWV2ZW50LW9mZmVycy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbmgxe1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW46IDAlO1xuICAgIG1hcmdpbi1ib3R0b206IDElO1xuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmNoaXAtbGlzdHtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG59XG4iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5jaGlwLWxpc3Qge1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbn0iXX0= */";
     /***/
   },
 
@@ -12452,25 +12956,44 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! src/app/category/services/category.service */
-    "./src/app/category/services/category.service.ts");
+    var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/cdk/keycodes */
+    "./node_modules/@angular/cdk/esm2015/keycodes.js");
     /* harmony import */
 
 
-    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/event/services/event.service */
+    "./src/app/event/services/event.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! src/app/general-services/common.service */
     "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! src/app/offers/services/offer.service */
+    "./src/app/offers/services/offer.service.ts");
 
     var AddEventOffersComponent = /*#__PURE__*/function () {
-      function AddEventOffersComponent(dialogRef, offersService, commonService) {
+      function AddEventOffersComponent(dialogRef, offersService, commonService, eventService, data) {
         _classCallCheck(this, AddEventOffersComponent);
 
         this.dialogRef = dialogRef;
         this.offersService = offersService;
         this.commonService = commonService;
+        this.eventService = eventService;
+        this.data = data;
+        this.visible = true;
+        this.selectable = true;
+        this.removable = true;
+        this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__["COMMA"]];
+        this.allOffers = [];
         this.offersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-          offer: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+          offers: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
         });
       }
 
@@ -12487,18 +13010,118 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this83 = this;
+          var _this94 = this;
 
-          this.subscription = this.offersService.getAllCategories().subscribe({
+          this.subscription = this.offersService.getOffers().subscribe({
             next: function next(data) {
-              _this83.offers = data;
+              _this94.filteredOffers = data;
 
-              _this83.subscription.unsubscribe();
+              _this94.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this83.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this94.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
+        }
+      }, {
+        key: "onSubmit",
+        value: function onSubmit() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
+            return regeneratorRuntime.wrap(function _callee35$(_context35) {
+              while (1) {
+                switch (_context35.prev = _context35.next) {
+                  case 0:
+                    _context35.next = 2;
+                    return this.addOfferToEvent(this.data.event_id);
+
+                  case 2:
+                  case "end":
+                    return _context35.stop();
+                }
+              }
+            }, _callee35, this);
+          }));
+        }
+      }, {
+        key: "removeOffer",
+        value: function removeOffer(offer) {
+          var index = this.allOffers.indexOf(offer);
+
+          if (index >= 0) {
+            this.allOffers.splice(index, 1);
+          }
+
+          this.offersFG.controls['offers'].setValue(null);
+        }
+        /**
+         * Añade el tag seleccionado a la lista para mostarlo y lo guarda
+         * @param event
+         */
+
+      }, {
+        key: "selectedOffer",
+        value: function selectedOffer(event) {
+          var index = this.allOffers.indexOf(event.option.value);
+
+          if (index < 0) {
+            this.allOffers.push(event.option.value);
+            this.offersFG.controls['offers'].setValue(null);
+          } else {
+            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
+          }
+
+          this.offersFG.controls['offers'].setValue(null);
+        }
+      }, {
+        key: "addOfferToEvent",
+        value: function addOfferToEvent(event_id) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
+            var _this95 = this;
+
+            return regeneratorRuntime.wrap(function _callee37$(_context37) {
+              while (1) {
+                switch (_context37.prev = _context37.next) {
+                  case 0:
+                    this.allOffers.forEach(function (offer) {
+                      return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this95, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+                        var index;
+                        return regeneratorRuntime.wrap(function _callee36$(_context36) {
+                          while (1) {
+                            switch (_context36.prev = _context36.next) {
+                              case 0:
+                                index = this.offersService.offers.indexOf(offer);
+
+                                if (!(index < 0)) {
+                                  _context36.next = 4;
+                                  break;
+                                }
+
+                                _context36.next = 4;
+                                return this.eventService.addOfferToEvent(event_id, offer.offer_id).toPromise();
+
+                              case 4:
+                              case "end":
+                                return _context36.stop();
+                            }
+                          }
+                        }, _callee36, this);
+                      }));
+                    });
+                    _context37.next = 3;
+                    return this.eventService.getEventOffers(event_id).toPromise().then(function () {
+                      _this95.closeDialog();
+                    });
+
+                  case 3:
+                    this.commonService.openSnackBar("Se han añadido las ofertas con éxito", "OK");
+
+                  case 4:
+                  case "end":
+                    return _context37.stop();
+                }
+              }
+            }, _callee37, this);
+          }));
         }
       }]);
 
@@ -12509,12 +13132,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       return [{
         type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"]
       }, {
-        type: src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"]
+        type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_7__["OfferService"]
       }, {
-        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"]
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"]
+      }, {
+        type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_5__["EventService"]
+      }, {
+        type: undefined,
+        decorators: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
+          args: [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"]]
+        }]
       }];
     };
 
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('auto', {
+      "static": false
+    })], AddEventOffersComponent.prototype, "matAutocomplete", void 0);
     AddEventOffersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-add-event-offers',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
@@ -12523,7 +13157,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./add-event-offers.component.scss */
       "./src/app/event/components/management/add-event-offers/add-event-offers.component.scss"))["default"]]
-    })], AddEventOffersComponent);
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"]))], AddEventOffersComponent);
     /***/
   },
 
@@ -12635,7 +13269,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var EventDetailsComponent = /*#__PURE__*/function () {
       function EventDetailsComponent(commonService, eventService, categoryService, companyService, userService, multimediaService) {
-        var _this84 = this;
+        var _this96 = this;
 
         _classCallCheck(this, EventDetailsComponent);
 
@@ -12656,7 +13290,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.currentRate = 0;
         this.eventImages = [];
         this.oldEventImages = [];
-        this.url = "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].IMAGES_URL_BASE);
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].IMAGES_URL_BASE;
         this.imageIndex = 0; //chipList
 
         this.visible = true;
@@ -12674,14 +13308,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
          */
 
         this.dateFilter = function (date) {
-          return date >= _this84.initial_date;
+          return date >= _this96.initial_date;
         };
       }
 
       _createClass(EventDetailsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this85 = this;
+          var _this97 = this;
 
           this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
@@ -12693,29 +13327,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this85.filteredCategories = data;
+              _this97.filteredCategories = data;
 
-              _this85.subscription.unsubscribe();
+              _this97.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this85.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this97.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription2 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this85.filteredCompanies = data;
+              _this97.filteredCompanies = data;
 
-              _this85.subscription2.unsubscribe();
+              _this97.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this85.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this97.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           console.log(this.event);
           this.user = this.userService.actualUser;
           this.event.images != undefined ? this.eventImages = this.event.images : this.eventImages = [];
           this.event.images != undefined ? this.event.images.forEach(function (val) {
-            return _this85.oldEventImages.push(val);
+            return _this97.oldEventImages.push(val);
           }) : null;
           this.setData();
         }
@@ -12753,7 +13387,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setData",
         value: function setData() {
-          var _this86 = this;
+          var _this98 = this;
 
           this.eventFG.controls['name'].setValue(this.event.name);
           this.eventFG.controls['cost'].setValue(this.event.cost);
@@ -12770,39 +13404,39 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           this.subscription3 = this.categoryService.getEventCategories(this.event.event_id).subscribe({
             next: function next(data) {
-              _this86.allCategories = [];
-              _this86.allOldCategories = [];
+              _this98.allCategories = [];
+              _this98.allOldCategories = [];
               data.forEach(function (val) {
-                return _this86.allCategories.push(val);
+                return _this98.allCategories.push(val);
               });
 
-              _this86.allCategories.forEach(function (val) {
-                return _this86.allOldCategories.push(val.category_id);
+              _this98.allCategories.forEach(function (val) {
+                return _this98.allOldCategories.push(val.category_id);
               });
 
-              _this86.subscription3.unsubscribe();
+              _this98.subscription3.unsubscribe();
             },
             error: function error(err) {
-              return _this86.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this98.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           }); //compañías
 
           this.subscription4 = this.companyService.getCompaniesByEvent(this.event.event_id).subscribe({
             next: function next(data) {
-              _this86.allCompanies = [];
-              _this86.allOldCompanies = [];
+              _this98.allCompanies = [];
+              _this98.allOldCompanies = [];
               data.forEach(function (val) {
-                return _this86.allCompanies.push(val);
+                return _this98.allCompanies.push(val);
               });
 
-              _this86.allCompanies.forEach(function (val) {
-                return _this86.allOldCompanies.push(val.company_id);
+              _this98.allCompanies.forEach(function (val) {
+                return _this98.allOldCompanies.push(val.company_id);
               });
 
-              _this86.subscription4.unsubscribe();
+              _this98.subscription4.unsubscribe();
             },
             error: function error(err) {
-              return _this86.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this98.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         } //chipList 
@@ -12864,7 +13498,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "modifyEvent",
         value: function modifyEvent() {
-          var _this87 = this;
+          var _this99 = this;
 
           this.loading = true;
           this.eventFG.disable();
@@ -12898,25 +13532,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.eventService.modifyEvent(json).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this87, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
-                return regeneratorRuntime.wrap(function _callee24$(_context24) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this99, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
+                return regeneratorRuntime.wrap(function _callee38$(_context38) {
                   while (1) {
-                    switch (_context24.prev = _context24.next) {
+                    switch (_context38.prev = _context38.next) {
                       case 0:
                         if (!(data.status == 200)) {
-                          _context24.next = 9;
+                          _context38.next = 9;
                           break;
                         }
 
                         this.eventFG.enable();
                         this.event = event;
-                        _context24.next = 5;
+                        _context38.next = 5;
                         return this.eventRelations(allCategories, allCompanies, this.event.event_id);
 
                       case 5:
                         this.commonService.openSnackBar("El evento ".concat(this.event.name, " ha sido cambiado"), "OK");
                         this.loading = false;
-                        _context24.next = 10;
+                        _context38.next = 10;
                         break;
 
                       case 9:
@@ -12924,43 +13558,71 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 10:
                       case "end":
-                        return _context24.stop();
+                        return _context38.stop();
                     }
                   }
-                }, _callee24, this);
+                }, _callee38, this);
               }));
             },
             error: function error(err) {
-              _this87.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this99.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this87.loading = false;
+              _this99.loading = false;
 
-              _this87.eventFG.enable();
+              _this99.eventFG.enable();
             }
           });
         }
       }, {
         key: "changeEventState",
         value: function changeEventState(event, _ref19) {
-          var _this88 = this;
+          var _this100 = this;
 
           var source = _ref19.source;
-          this.eventService.changeEventState(event.event_id).subscribe({
-            next: function next(data) {
-              if (data.status == 200) {
-                event.is_active = !event.is_active;
-                source.checked = event.is_active;
-                if (event.is_active) _this88.commonService.openSnackBar("El evento ".concat(event.name, " ha sido activado"), "OK");else _this88.commonService.openSnackBar("El evento ".concat(event.name, " ha sido desactivado"), "OK");
-              } else {
-                _this88.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this88.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              source.checked = event.is_active;
-            }
-          });
+          if (event.is_active) {
+            this.commonService.confirmationDialog("\xBFDesea eliminar el evento: ".concat(event.name, "?")).then(function (result) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this100, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
+                var _this101 = this;
+
+                return regeneratorRuntime.wrap(function _callee39$(_context39) {
+                  while (1) {
+                    switch (_context39.prev = _context39.next) {
+                      case 0:
+                        if (result) {
+                          this.eventService.changeEventState(event.event_id).subscribe({
+                            next: function next(data) {
+                              if (data.status == 201) {
+                                event.is_active = !event.is_active;
+                                source.checked = event.is_active;
+
+                                _this101.commonService.openSnackBar("El evento ".concat(event.name, " ha sido eliminado"), "OK");
+                              } else {
+                                _this101.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              }
+                            },
+                            error: function error(err) {
+                              _this101.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                              source.checked = event.is_active;
+                            }
+                          });
+                        } else {
+                          source.checked = event.is_active;
+                        }
+
+                      case 1:
+                      case "end":
+                        return _context39.stop();
+                    }
+                  }
+                }, _callee39, this);
+              }));
+            });
+          } else {
+            this.commonService.openSnackBar("No se puede reactivar un evento", "OK");
+            source.checked = event.is_active;
+          }
         }
         /**
          * Metodo para obtener únicamente los ids de las categorías que se seleccionaron
@@ -12995,32 +13657,32 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "eventRelations",
         value: function eventRelations(allCategories, allCompanies, event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
             var i, _i3, _i4, _i5;
 
-            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+            return regeneratorRuntime.wrap(function _callee40$(_context40) {
               while (1) {
-                switch (_context25.prev = _context25.next) {
+                switch (_context40.prev = _context40.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < allCategories.length)) {
-                      _context25.next = 8;
+                      _context40.next = 8;
                       break;
                     }
 
                     if (!(this.allOldCategories.indexOf(allCategories[i]) === -1)) {
-                      _context25.next = 5;
+                      _context40.next = 5;
                       break;
                     }
 
-                    _context25.next = 5;
+                    _context40.next = 5;
                     return this.eventService.addCategoryToEvent(allCategories[i], event_id).toPromise();
 
                   case 5:
                     i++;
-                    _context25.next = 1;
+                    _context40.next = 1;
                     break;
 
                   case 8:
@@ -13028,21 +13690,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 9:
                     if (!(_i3 < this.allOldCategories.length)) {
-                      _context25.next = 16;
+                      _context40.next = 16;
                       break;
                     }
 
                     if (!(allCategories.indexOf(this.allOldCategories[_i3]) === -1)) {
-                      _context25.next = 13;
+                      _context40.next = 13;
                       break;
                     }
 
-                    _context25.next = 13;
+                    _context40.next = 13;
                     return this.categoryService.deleteCategoryFromEvent(this.allOldCategories[_i3], event_id).toPromise();
 
                   case 13:
                     _i3++;
-                    _context25.next = 9;
+                    _context40.next = 9;
                     break;
 
                   case 16:
@@ -13050,21 +13712,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 17:
                     if (!(_i4 < allCompanies.length)) {
-                      _context25.next = 24;
+                      _context40.next = 24;
                       break;
                     }
 
                     if (!(this.allOldCompanies.indexOf(allCompanies[_i4]) === -1)) {
-                      _context25.next = 21;
+                      _context40.next = 21;
                       break;
                     }
 
-                    _context25.next = 21;
+                    _context40.next = 21;
                     return this.eventService.addCompanyToEvent(allCompanies[_i4], event_id, this.user.user_id).toPromise();
 
                   case 21:
                     _i4++;
-                    _context25.next = 17;
+                    _context40.next = 17;
                     break;
 
                   case 24:
@@ -13072,21 +13734,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 25:
                     if (!(_i5 < this.allOldCompanies.length)) {
-                      _context25.next = 32;
+                      _context40.next = 32;
                       break;
                     }
 
                     if (!(allCompanies.indexOf(this.allOldCompanies[_i5]) === -1)) {
-                      _context25.next = 29;
+                      _context40.next = 29;
                       break;
                     }
 
-                    _context25.next = 29;
+                    _context40.next = 29;
                     return this.eventService.deleteCompanyFromEvent(this.allOldCompanies[_i5], event_id).toPromise();
 
                   case 29:
                     _i5++;
-                    _context25.next = 25;
+                    _context40.next = 25;
                     break;
 
                   case 32:
@@ -13095,10 +13757,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 34:
                   case "end":
-                    return _context25.stop();
+                    return _context40.stop();
                 }
               }
-            }, _callee25, this);
+            }, _callee40, this);
           }));
         } //Metodos de imagenes
 
@@ -13110,11 +13772,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "uploadFile",
         value: function uploadFile(files) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee26$(_context26) {
+            return regeneratorRuntime.wrap(function _callee41$(_context41) {
               while (1) {
-                switch (_context26.prev = _context26.next) {
+                switch (_context41.prev = _context41.next) {
                   case 0:
                     this.loading = true;
                     this.eventFG.disable();
@@ -13123,18 +13785,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 4:
                     if (!(i < files.length)) {
-                      _context26.next = 10;
+                      _context41.next = 10;
                       break;
                     }
 
-                    _context26.next = 7;
+                    _context41.next = 7;
                     return this.commonService.uploadFile(files[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 7:
                     i++;
-                    _context26.next = 4;
+                    _context41.next = 4;
                     break;
 
                   case 10:
@@ -13143,21 +13805,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 12:
                   case "end":
-                    return _context26.stop();
+                    return _context41.stop();
                 }
               }
-            }, _callee26, this);
+            }, _callee41, this);
           }));
         }
       }, {
         key: "deleteImage",
         value: function deleteImage() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
-            var _this89 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
+            var _this102 = this;
 
-            return regeneratorRuntime.wrap(function _callee27$(_context27) {
+            return regeneratorRuntime.wrap(function _callee42$(_context42) {
               while (1) {
-                switch (_context27.prev = _context27.next) {
+                switch (_context42.prev = _context42.next) {
                   case 0:
                     this.loading = true;
                     this.eventFG.disable();
@@ -13166,10 +13828,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       this.imageIndex = 0;
                     }
 
-                    _context27.next = 5;
+                    _context42.next = 5;
                     return this.multimediaService.deleteImage(this.eventImages[this.imageIndex].image_id).toPromise().then(function (data) {
                       if (data.status == 204) {
-                        _this89.commonService.openSnackBar("La imagen se ha eleminado", "OK");
+                        _this102.commonService.openSnackBar("La imagen se ha eleminado", "OK");
                       }
                     });
 
@@ -13180,50 +13842,50 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 8:
                   case "end":
-                    return _context27.stop();
+                    return _context42.stop();
                 }
               }
-            }, _callee27, this);
+            }, _callee42, this);
           }));
         }
       }, {
         key: "updateImages",
         value: function updateImages(images) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
-            var _this90 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
+            var _this103 = this;
 
             var i;
-            return regeneratorRuntime.wrap(function _callee28$(_context28) {
+            return regeneratorRuntime.wrap(function _callee43$(_context43) {
               while (1) {
-                switch (_context28.prev = _context28.next) {
+                switch (_context43.prev = _context43.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < images.length)) {
-                      _context28.next = 8;
+                      _context43.next = 8;
                       break;
                     }
 
                     if (!(this.oldEventImages.indexOf(images[i]) === -1)) {
-                      _context28.next = 5;
+                      _context43.next = 5;
                       break;
                     }
 
-                    _context28.next = 5;
+                    _context43.next = 5;
                     return this.multimediaService.addImage(this.event.event_id, 1, images[i]).toPromise();
 
                   case 5:
                     i++;
-                    _context28.next = 1;
+                    _context43.next = 1;
                     break;
 
                   case 8:
                     this.multimediaService.getImages(this.event.event_id, 1).subscribe({
                       next: function next(data) {
-                        _this90.eventImages = data;
+                        _this103.eventImages = data;
                         data.forEach(function (element) {
-                          _this90.oldEventImages.push(element);
+                          _this103.oldEventImages.push(element);
                         });
                       }
                     });
@@ -13232,10 +13894,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 11:
                   case "end":
-                    return _context28.stop();
+                    return _context43.stop();
                 }
               }
-            }, _callee28, this);
+            }, _callee43, this);
           }));
         }
       }]);
@@ -13335,48 +13997,97 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/event/services/event.service */
+    "./src/app/event/services/event.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! src/app/general-services/common.service */
     "./src/app/general-services/common.service.ts");
     /* harmony import */
 
 
-    var _add_event_offers_add_event_offers_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/offers/services/offer.service */
+    "./src/app/offers/services/offer.service.ts");
+    /* harmony import */
+
+
+    var _add_event_offers_add_event_offers_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ../add-event-offers/add-event-offers.component */
     "./src/app/event/components/management/add-event-offers/add-event-offers.component.ts");
 
     var EventOffersComponent = /*#__PURE__*/function () {
-      function EventOffersComponent(offersService, //Cambiar
-      dialogService) {
+      function EventOffersComponent(offersService, dialogService, eventService, commonService) {
         _classCallCheck(this, EventOffersComponent);
 
         this.offersService = offersService;
         this.dialogService = dialogService;
+        this.eventService = eventService;
+        this.commonService = commonService;
         this.filter = {
-          name: ""
+          info: {
+            name: ""
+          }
         };
       }
 
       _createClass(EventOffersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          this.obtainAllEventOffers();
+          this.getEventOffers();
         }
       }, {
-        key: "obtainAllEventOffers",
-        value: function obtainAllEventOffers() {}
+        key: "getEventOffers",
+        value: function getEventOffers() {
+          var _this104 = this;
+
+          this.subscription = this.eventService.getEventOffers(this.myEvent[0].event_id).subscribe({
+            next: function next(data) {
+              _this104.offersService.offers = data;
+            },
+            error: function error(err) {
+              return _this104.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
       }, {
         key: "openAddOfferDialog",
         value: function openAddOfferDialog() {
-          this.dialogService.open(_add_event_offers_add_event_offers_component__WEBPACK_IMPORTED_MODULE_4__["AddEventOffersComponent"], {
+          var _this105 = this;
+
+          this.dialogService.open(_add_event_offers_add_event_offers_component__WEBPACK_IMPORTED_MODULE_6__["AddEventOffersComponent"], {
             width: "50%",
             minWidth: "280px",
-            disableClose: true
+            disableClose: true,
+            data: {
+              event_id: this.myEvent[0].event_id
+            }
+          }).afterClosed().toPromise().then(function () {
+            _this105.getEventOffers();
           });
         }
       }, {
         key: "deleteEventOffer",
-        value: function deleteEventOffer() {}
+        value: function deleteEventOffer(offer) {
+          var _this106 = this;
+
+          this.eventService.deleteOfferFromEvent(this.myEvent[0].event_id, offer.offer_id).subscribe({
+            next: function next(data) {
+              if (data.status == 200) {
+                _this106.commonService.openSnackBar("La oferta fue eliminada del evento", "Ok");
+
+                _this106.eventService.getEventOffers(_this106.myEvent[0].event_id).subscribe({
+                  next: function next(data) {
+                    _this106.offersService.offers = data;
+                  }
+                });
+              }
+            }
+          });
+        }
       }]);
 
       return EventOffersComponent;
@@ -13384,9 +14095,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     EventOffersComponent.ctorParameters = function () {
       return [{
-        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+        type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__["OfferService"]
       }, {
         type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]
+      }, {
+        type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_3__["EventService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
       }];
     };
 
@@ -13520,7 +14235,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this91 = this;
+          var _this107 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -13531,7 +14246,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           setTimeout(function () {
-            return _this91.map.invalidateSize();
+            return _this107.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -13562,7 +14277,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateEventLocation",
         value: function updateEventLocation() {
-          var _this92 = this;
+          var _this108 = this;
 
           console.log(this.myEvent);
           var infoEvent = {
@@ -13588,19 +14303,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.eventService.modifyEvent(updatedEvent).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this92.myEvent = updatedEvent.info;
-                _this92.myEvent.latitude = updatedEvent.latitude;
-                _this92.myEvent.longitude = updatedEvent.longitude;
+                _this108.myEvent = updatedEvent.info;
+                _this108.myEvent.latitude = updatedEvent.latitude;
+                _this108.myEvent.longitude = updatedEvent.longitude;
 
-                _this92.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this92.myEvent.name, " ha sido actualizada"), "OK");
+                _this108.commonService.openSnackBar("La ubicaci\xF3n de ".concat(_this108.myEvent.name, " ha sido actualizada"), "OK");
 
-                _this92.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this92.myEvent.latitude, _this92.myEvent.longitude), 18);
+                _this108.map.flyTo(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(_this108.myEvent.latitude, _this108.myEvent.longitude), 18);
               } else {
-                _this92.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
+                _this108.commonService.openSnackBar("Error actualizar la ubicaci\xF3n: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this92.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this108.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -13709,12 +14424,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this93 = this;
+          var _this109 = this;
 
           this.eventSubscription = this.route.paramMap.subscribe(function (params) {
-            _this93.event_id = Number(params.get("event_id"));
+            _this109.event_id = Number(params.get("event_id"));
 
-            _this93.recharge();
+            _this109.recharge();
           });
         }
       }, {
@@ -13725,10 +14440,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this94 = this;
+          var _this110 = this;
 
           this.eventService.getEvent(Number(this.event_id)).subscribe(function (data) {
-            _this94.myEvent = data;
+            _this110.myEvent = data;
           });
         }
       }]);
@@ -14283,8 +14998,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
       }, {
         key: "getEventOffers",
-        value: function getEventOffers() {
-          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL).concat(this.module));
+        value: function getEventOffers(event_id) {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL).concat(this.module).concat(event_id, "/OffersByEvent"));
+        }
+      }, {
+        key: "addOfferToEvent",
+        value: function addOfferToEvent(event_id, offer_id) {
+          var json = {
+            offer_id: offer_id,
+            event_id: event_id
+          };
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL).concat(this.module, "Offer"), json, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "deleteOfferFromEvent",
+        value: function deleteOfferFromEvent(event_id, offer_id) {
+          return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL).concat(this.module).concat(event_id, "/Offers/").concat(offer_id), {
+            observe: 'response'
+          });
         }
       }, {
         key: "sort",
@@ -14337,7 +15070,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntd {\n  vertical-align: middle;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n\n.textInfo {\n  vertical-align: middle;\n  resize: none;\n  width: calc(100% - 20px);\n  border: none;\n  color: #585858;\n  padding: 10px;\n}\n\n.acceptBtn, .denyBtn {\n  min-width: -webkit-fit-content;\n  min-width: -moz-fit-content;\n  min-width: fit-content;\n  margin: 1px;\n}\n\n.acceptBtn {\n  color: green;\n}\n\n.my-card {\n  padding: 0;\n  width: 98%;\n  height: 98%;\n  margin: 0 1%;\n  background-color: white;\n}\n\n.radio-button-group {\n  width: 100%;\n  justify-content: space-between;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2ZyZXF1ZW50LXF1ZXN0aW9ucy9jb21wb25lbnRzL2FsbC1xdWVzdGlvbnMvYWxsLXF1ZXN0aW9ucy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZnJlcXVlbnQtcXVlc3Rpb25zL2NvbXBvbmVudHMvYWxsLXF1ZXN0aW9ucy9hbGwtcXVlc3Rpb25zLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsZUFBQTtBQ0NKOztBREVBO0VBQ0ksc0JBQUE7QUNDSjs7QURFQTtFQUNJLHlCQUFBO0FDQ0o7O0FER0E7RUFDSSxpQkFBQTtFQUNBLGVBQUE7QUNBSjs7QURHQTtFQUNJLHNCQUFBO0VBQ0EsWUFBQTtFQUNBLHdCQUFBO0VBQ0EsWUFBQTtFQUNBLGNBQUE7RUFDQSxhQUFBO0FDQUo7O0FER0E7RUFDSSw4QkFBQTtFQUFBLDJCQUFBO0VBQUEsc0JBQUE7RUFDQSxXQUFBO0FDQUo7O0FER0E7RUFDSSxZQUFBO0FDQUo7O0FER0E7RUFDSSxVQUFBO0VBQ0EsVUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7QUNBSjs7QURHQTtFQUNJLFdBQUE7RUFDQSw4QkFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EseUJBQUE7QUNBSiIsImZpbGUiOiJzcmMvYXBwL2ZyZXF1ZW50LXF1ZXN0aW9ucy9jb21wb25lbnRzL2FsbC1xdWVzdGlvbnMvYWxsLXF1ZXN0aW9ucy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRoe1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICBmb250LXdlaWdodDogNjAwO1xufVxuXG50cntcbiAgICBmb250LXNpemU6IDE1cHg7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG50ZCB7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cblxudHI6aG92ZXJ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI0NywgMjQ3LCAyNDcpO1xufVxuXG5cbi5jb250YWluZXItdGV4dC1sZWZ0e1xuICAgIG1hcmdpbi1ib3R0b206IDIlO1xuICAgIG1hcmdpbi1sZWZ0OiAyJTtcbn1cblxuLnRleHRJbmZve1xuICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4gICAgcmVzaXplOiBub25lOyBcbiAgICB3aWR0aDogY2FsYygxMDAlIC0gMjBweCk7XG4gICAgYm9yZGVyOiBub25lOyBcbiAgICBjb2xvcjogIzU4NTg1ODtcbiAgICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uYWNjZXB0QnRuLCAuZGVueUJ0biB7XG4gICAgbWluLXdpZHRoOiBmaXQtY29udGVudDsgXG4gICAgbWFyZ2luOiAxcHg7IFxufVxuXG4uYWNjZXB0QnRue1xuICAgIGNvbG9yOiBncmVlbjtcbn1cblxuLm15LWNhcmQge1xuICAgIHBhZGRpbmc6IDA7XG4gICAgd2lkdGg6IDk4JTsgXG4gICAgaGVpZ2h0OiA5OCU7IFxuICAgIG1hcmdpbjogMCAxJTsgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cbi5yYWRpby1idXR0b24tZ3JvdXB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC13cmFwOiB3cmFwO1xuICAgIG1pbi13aWR0aDogMzAwcHg7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIHBhZGRpbmctYm90dG9tOiAxLjM0Mzc1ZW07XG59XG4iLCJ0aCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHIge1xuICBmb250LXNpemU6IDE1cHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxudGQge1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xufVxuXG50cjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmN2Y3Zjc7XG59XG5cbi5jb250YWluZXItdGV4dC1sZWZ0IHtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG4gIG1hcmdpbi1sZWZ0OiAyJTtcbn1cblxuLnRleHRJbmZvIHtcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbiAgcmVzaXplOiBub25lO1xuICB3aWR0aDogY2FsYygxMDAlIC0gMjBweCk7XG4gIGJvcmRlcjogbm9uZTtcbiAgY29sb3I6ICM1ODU4NTg7XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5hY2NlcHRCdG4sIC5kZW55QnRuIHtcbiAgbWluLXdpZHRoOiBmaXQtY29udGVudDtcbiAgbWFyZ2luOiAxcHg7XG59XG5cbi5hY2NlcHRCdG4ge1xuICBjb2xvcjogZ3JlZW47XG59XG5cbi5teS1jYXJkIHtcbiAgcGFkZGluZzogMDtcbiAgd2lkdGg6IDk4JTtcbiAgaGVpZ2h0OiA5OCU7XG4gIG1hcmdpbjogMCAxJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cbi5yYWRpby1idXR0b24tZ3JvdXAge1xuICB3aWR0aDogMTAwJTtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIG1pbi13aWR0aDogMzAwcHg7XG4gIG1hcmdpbjogYXV0bztcbiAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn0iXX0= */";
+    __webpack_exports__["default"] = "th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntd {\n  vertical-align: middle;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n\n.textInfo {\n  vertical-align: middle;\n  resize: none;\n  width: calc(100% - 20px);\n  border: none;\n  color: #585858;\n  padding: 10px;\n}\n\n.acceptBtn, .denyBtn {\n  min-width: -webkit-fit-content;\n  min-width: -moz-fit-content;\n  min-width: fit-content;\n  margin: 1px;\n}\n\n.acceptBtn {\n  color: green;\n}\n\n.my-card {\n  padding: 0;\n  width: 98%;\n  height: 98%;\n  margin: 0 1%;\n  background-color: white;\n}\n\nmat-card textarea:hover {\n  cursor: pointer !important;\n}\n\n.radio-button-group {\n  width: 100%;\n  justify-content: space-between;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2ZyZXF1ZW50LXF1ZXN0aW9ucy9jb21wb25lbnRzL2FsbC1xdWVzdGlvbnMvYWxsLXF1ZXN0aW9ucy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZnJlcXVlbnQtcXVlc3Rpb25zL2NvbXBvbmVudHMvYWxsLXF1ZXN0aW9ucy9hbGwtcXVlc3Rpb25zLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsZUFBQTtBQ0NKOztBREVBO0VBQ0ksc0JBQUE7QUNDSjs7QURFQTtFQUNJLHlCQUFBO0FDQ0o7O0FER0E7RUFDSSxpQkFBQTtFQUNBLGVBQUE7QUNBSjs7QURHQTtFQUNJLHNCQUFBO0VBQ0EsWUFBQTtFQUNBLHdCQUFBO0VBQ0EsWUFBQTtFQUNBLGNBQUE7RUFDQSxhQUFBO0FDQUo7O0FER0E7RUFDSSw4QkFBQTtFQUFBLDJCQUFBO0VBQUEsc0JBQUE7RUFDQSxXQUFBO0FDQUo7O0FER0E7RUFDSSxZQUFBO0FDQUo7O0FER0E7RUFDSSxVQUFBO0VBQ0EsVUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7QUNBSjs7QURHQTtFQUNJLDBCQUFBO0FDQUo7O0FER0E7RUFDSSxXQUFBO0VBQ0EsOEJBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtFQUNBLHlCQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9mcmVxdWVudC1xdWVzdGlvbnMvY29tcG9uZW50cy9hbGwtcXVlc3Rpb25zL2FsbC1xdWVzdGlvbnMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0aHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHJ7XG4gICAgZm9udC1zaXplOiAxNXB4O1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxudGQge1xuICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5cbnRyOmhvdmVye1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDcsIDI0NywgMjQ3KTtcbn1cblxuXG4uY29udGFpbmVyLXRleHQtbGVmdHtcbiAgICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgICBtYXJnaW4tbGVmdDogMiU7XG59XG5cbi50ZXh0SW5mb3tcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICAgIHJlc2l6ZTogbm9uZTsgXG4gICAgd2lkdGg6IGNhbGMoMTAwJSAtIDIwcHgpO1xuICAgIGJvcmRlcjogbm9uZTsgXG4gICAgY29sb3I6ICM1ODU4NTg7XG4gICAgcGFkZGluZzogMTBweDtcbn1cblxuLmFjY2VwdEJ0biwgLmRlbnlCdG4ge1xuICAgIG1pbi13aWR0aDogZml0LWNvbnRlbnQ7IFxuICAgIG1hcmdpbjogMXB4OyBcbn1cblxuLmFjY2VwdEJ0bntcbiAgICBjb2xvcjogZ3JlZW47XG59XG5cbi5teS1jYXJkIHtcbiAgICBwYWRkaW5nOiAwO1xuICAgIHdpZHRoOiA5OCU7IFxuICAgIGhlaWdodDogOTglOyBcbiAgICBtYXJnaW46IDAgMSU7IFxuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xufVxuXG5tYXQtY2FyZCB0ZXh0YXJlYTpob3ZlciB7XG4gICAgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7XG59IFxuXG4ucmFkaW8tYnV0dG9uLWdyb3Vwe1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBtaW4td2lkdGg6IDMwMHB4O1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBwYWRkaW5nLWJvdHRvbTogMS4zNDM3NWVtO1xufVxuIiwidGgge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbnRyIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnRkIHtcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cblxudHI6aG92ZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjdmN2Y3O1xufVxuXG4uY29udGFpbmVyLXRleHQtbGVmdCB7XG4gIG1hcmdpbi1ib3R0b206IDIlO1xuICBtYXJnaW4tbGVmdDogMiU7XG59XG5cbi50ZXh0SW5mbyB7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4gIHJlc2l6ZTogbm9uZTtcbiAgd2lkdGg6IGNhbGMoMTAwJSAtIDIwcHgpO1xuICBib3JkZXI6IG5vbmU7XG4gIGNvbG9yOiAjNTg1ODU4O1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uYWNjZXB0QnRuLCAuZGVueUJ0biB7XG4gIG1pbi13aWR0aDogZml0LWNvbnRlbnQ7XG4gIG1hcmdpbjogMXB4O1xufVxuXG4uYWNjZXB0QnRuIHtcbiAgY29sb3I6IGdyZWVuO1xufVxuXG4ubXktY2FyZCB7XG4gIHBhZGRpbmc6IDA7XG4gIHdpZHRoOiA5OCU7XG4gIGhlaWdodDogOTglO1xuICBtYXJnaW46IDAgMSU7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xufVxuXG5tYXQtY2FyZCB0ZXh0YXJlYTpob3ZlciB7XG4gIGN1cnNvcjogcG9pbnRlciAhaW1wb3J0YW50O1xufVxuXG4ucmFkaW8tYnV0dG9uLWdyb3VwIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBtaW4td2lkdGg6IDMwMHB4O1xuICBtYXJnaW46IGF1dG87XG4gIHBhZGRpbmctYm90dG9tOiAxLjM0Mzc1ZW07XG59Il19 */";
     /***/
   },
 
@@ -14436,37 +15169,80 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeStateRequest",
         value: function changeStateRequest(fq, state) {
-          var _this95 = this;
+          var _this111 = this;
 
-          this.frequentQuestionService.updateQuestion(fq.frequent_question_id, state, fq.is_active).subscribe({
-            next: function next(data) {
-              data.status != 204 ? null : state == 1 ? _this95.commonService.openSnackBar("La pregunta ha sido aceptada", "OK") : _this95.commonService.openSnackBar("La pregunta ha sido rechazada", "OK");
-              data.status == 204 ? _this95.refresh() : null;
-            }
+          var action;
+          state == 2 ? action = "aceptar" : action = "rechazar";
+          this.commonService.confirmationDialog("\xBFDesea ".concat(action, " la pregunta?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this111, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee44() {
+              var _this112 = this;
+
+              return regeneratorRuntime.wrap(function _callee44$(_context44) {
+                while (1) {
+                  switch (_context44.prev = _context44.next) {
+                    case 0:
+                      if (result) {
+                        this.frequentQuestionService.updateQuestion(fq.frequent_question_id, state, fq.is_active).subscribe({
+                          next: function next(data) {
+                            data.status != 204 ? null : state == 2 ? _this112.commonService.openSnackBar("La pregunta ha sido aceptada", "OK") : _this112.commonService.openSnackBar("La pregunta ha sido rechazada", "OK");
+                            data.status == 204 ? _this112.refresh() : null;
+                          }
+                        });
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context44.stop();
+                  }
+                }
+              }, _callee44, this);
+            }));
           });
         }
       }, {
         key: "changeActive",
         value: function changeActive(fq, _ref20) {
-          var _this96 = this;
+          var _this113 = this;
 
           var source = _ref20.source;
-          console.log(source.checked);
-          this.frequentQuestionService.updateQuestion(fq.frequent_question_id, fq.state, source.checked).subscribe({
-            next: function next(data) {
-              if (data.status == 204) {
-                fq.is_active = !fq.is_active;
-                source.checked = fq.is_active;
-                if (fq.is_active) _this96.commonService.openSnackBar("La pregunta ha sido activada", "OK");else _this96.commonService.openSnackBar("La pregunta ha sido desactivada", "OK");
-              } else {
-                _this96.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this96.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+          var action;
+          fq.is_active ? action = "desactivar" : action = "activar";
+          this.commonService.confirmationDialog("\xBFDesea ".concat(action, " la pregunta?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this113, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee45() {
+              var _this114 = this;
 
-              source.checked = fq.is_active;
-            }
+              return regeneratorRuntime.wrap(function _callee45$(_context45) {
+                while (1) {
+                  switch (_context45.prev = _context45.next) {
+                    case 0:
+                      if (result) {
+                        this.frequentQuestionService.updateQuestion(fq.frequent_question_id, fq.state, source.checked).subscribe({
+                          next: function next(data) {
+                            if (data.status == 204) {
+                              fq.is_active = !fq.is_active;
+                              source.checked = fq.is_active;
+                              if (fq.is_active) _this114.commonService.openSnackBar("La pregunta ha sido activada", "OK");else _this114.commonService.openSnackBar("La pregunta ha sido desactivada", "OK");
+                            } else {
+                              _this114.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                            }
+                          },
+                          error: function error(err) {
+                            _this114.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                            source.checked = fq.is_active;
+                          }
+                        });
+                      } else {
+                        source.checked = fq.is_active;
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context45.stop();
+                  }
+                }
+              }, _callee45, this);
+            }));
           });
         }
       }]);
@@ -14619,30 +15395,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createQuestion",
         value: function createQuestion(frequentQuestion) {
-          var _this97 = this;
+          var _this115 = this;
 
           this.loading = true;
           this.questionFG.disable();
           this.frequentQuestionService.createQuestion(frequentQuestion).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this97.authService.getUser().role_id === 1 ? _this97.commonService.openSnackBar("La pregunta se ha creado", "OK") : _this97.commonService.openSnackBar("Se ha enviado la solicitud para crear la pregunta", "OK");
+                _this115.authService.getUser().role_id === 1 ? _this115.commonService.openSnackBar("La pregunta se ha creado", "OK") : _this115.commonService.openSnackBar("Se ha enviado la solicitud para crear la pregunta", "OK");
 
-                _this97.dialogRef.close();
+                _this115.dialogRef.close();
 
-                _this97.frequentQuestionService.refreshData();
+                _this115.frequentQuestionService.refreshData();
               } else {
-                _this97.commonService.openSnackBar("Error al crear la pregunta: ".concat(data.error), "OK");
+                _this115.commonService.openSnackBar("Error al crear la pregunta: ".concat(data.error), "OK");
 
-                _this97.questionFG.enable();
+                _this115.questionFG.enable();
               }
             },
             error: function error(err) {
-              _this97.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this115.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this97.loading = false;
+              _this115.loading = false;
 
-              _this97.questionFG.enable();
+              _this115.questionFG.enable();
             }
           });
         }
@@ -14994,7 +15770,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refreshData",
         value: function refreshData() {
-          var _this98 = this;
+          var _this116 = this;
 
           this.frequentQuestions = null;
           var state = Number(this.filter.state);
@@ -15004,7 +15780,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var user = this.authService.getUser();
           user.role_id == 1 ? user = undefined : user = user.role_id;
           this.getAllQuestions(user, is_active, state).subscribe(function (data) {
-            _this98.frequentQuestions = data;
+            _this116.frequentQuestions = data;
           });
         }
       }, {
@@ -15207,6 +15983,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! src/environments/environment */
     "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! sweetalert2 */
+    "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+    /* harmony import */
+
+
+    var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
 
     var CommonService = /*#__PURE__*/function () {
       function CommonService(snackBar, http) {
@@ -15228,6 +16014,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.snackBar.open(msg, action, {
             duration: 3000
           });
+        }
+      }, {
+        key: "confirmationDialog",
+        value: function confirmationDialog(msg) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee46() {
+            var _this117 = this;
+
+            return regeneratorRuntime.wrap(function _callee46$(_context46) {
+              while (1) {
+                switch (_context46.prev = _context46.next) {
+                  case 0:
+                    _context46.next = 2;
+                    return sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
+                      title: msg,
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#dc3545',
+                      confirmButtonText: 'Si, continuar!',
+                      cancelButtonText: 'No, cancelar!',
+                      reverseButtons: true
+                    }).then(function (result) {
+                      _this117.action = result.value;
+                    });
+
+                  case 2:
+                    return _context46.abrupt("return", this.action);
+
+                  case 3:
+                  case "end":
+                    return _context46.stop();
+                }
+              }
+            }, _callee46, this);
+          }));
         }
       }, {
         key: "handleError",
@@ -15253,11 +16073,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "uploadFile",
         value: function uploadFile(file) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee47() {
             var data, promise;
-            return regeneratorRuntime.wrap(function _callee29$(_context29) {
+            return regeneratorRuntime.wrap(function _callee47$(_context47) {
               while (1) {
-                switch (_context29.prev = _context29.next) {
+                switch (_context47.prev = _context47.next) {
                   case 0:
                     console.log(file);
                     data = new FormData();
@@ -15272,14 +16092,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       xhr.open("POST", "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL, "adminfiles"));
                       xhr.send(data);
                     });
-                    return _context29.abrupt("return", promise);
+                    return _context47.abrupt("return", promise);
 
                   case 5:
                   case "end":
-                    return _context29.stop();
+                    return _context47.stop();
                 }
               }
-            }, _callee29);
+            }, _callee47);
           }));
         }
       }, {
@@ -15577,6 +16397,581 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
+  "./src/app/images/components/images-management/images-management.component.scss":
+  /*!**************************************************************************************!*\
+    !*** ./src/app/images/components/images-management/images-management.component.scss ***!
+    \**************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppImagesComponentsImagesManagementImagesManagementComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = ".image-buttons {\n  width: 100%;\n  height: 100%;\n  cursor: pointer;\n}\n\n.image-buttons:focus mat-icon:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.noImageButton {\n  text-align: center;\n  width: 20%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n  cursor: pointer;\n}\n\n.leftBtn {\n  width: 35%;\n  border-top: solid 1.5px gainsboro;\n  border-right: solid 0.75px gainsboro;\n}\n\n.middleBtn {\n  width: 30%;\n  border-top: solid 1.5px gainsboro;\n}\n\n.rightBtn {\n  width: 35%;\n  border-top: solid 1.5px gainsboro;\n  border-left: solid 0.75px gainsboro;\n}\n\n.radio-button-group {\n  width: 100%;\n  justify-content: space-between;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n\nngb-carousel.container-fluid.carousel.slide {\n  padding: 0%;\n}\n\n.image-buttons:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n  margin: 1rem 0;\n}\n\n.imgsCarousel {\n  display: flex;\n  flex-direction: column;\n  border-radius: 20px;\n  border: solid 1.5px gainsboro;\n  margin: auto;\n  min-width: 280px;\n  width: 90%;\n}\n\n.carouselImg {\n  height: 500px !important;\n  width: 100% !important;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n\n.imgsCarousel::ng-deep .carousel-control-prev-icon {\n  background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%363636' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/%3e%3c/svg%3e\") !important;\n}\n\n.imgsCarousel::ng-deep .carousel-control-next-icon {\n  background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%363636' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e\") !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2ltYWdlcy9jb21wb25lbnRzL2ltYWdlcy1tYW5hZ2VtZW50L2ltYWdlcy1tYW5hZ2VtZW50LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9pbWFnZXMvY29tcG9uZW50cy9pbWFnZXMtbWFuYWdlbWVudC9pbWFnZXMtbWFuYWdlbWVudC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtBQ0NGOztBREVBO0VBQ0Usd0JBQUE7RUFDQSw2QkFBQTtBQ0NGOztBREVBO0VBQ0UsZUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDQ0Y7O0FERUE7RUFDRSxrQkFBQTtFQUNBLFVBQUE7RUFDQSw2QkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtBQ0NGOztBREVBO0VBQ0UsVUFBQTtFQUNBLGlDQUFBO0VBQ0Esb0NBQUE7QUNDRjs7QURFQTtFQUNFLFVBQUE7RUFDQSxpQ0FBQTtBQ0NGOztBREVBO0VBQ0UsVUFBQTtFQUNBLGlDQUFBO0VBQ0EsbUNBQUE7QUNDRjs7QURFQTtFQUNFLFdBQUE7RUFDQSw4QkFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EseUJBQUE7QUNDRjs7QURHQTtFQUNFLFdBQUE7QUNBRjs7QURHQTtFQUNFLHdCQUFBO0VBQ0EsNkJBQUE7QUNBRjs7QURHQTtFQUNFLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7RUFDQSxjQUFBO0FDQUY7O0FER0E7RUFDRSxhQUFBO0VBQ0Esc0JBQUE7RUFDQSxtQkFBQTtFQUNBLDZCQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsVUFBQTtBQ0FGOztBREdBO0VBQ0Usd0JBQUE7RUFDQSxzQkFBQTtFQUNBLHNCQUFBO0tBQUEsbUJBQUE7QUNBRjs7QURHQTtFQUNFLGtPQUFBO0FDQUY7O0FER0E7RUFDRSxtT0FBQTtBQ0FGIiwiZmlsZSI6InNyYy9hcHAvaW1hZ2VzL2NvbXBvbmVudHMvaW1hZ2VzLW1hbmFnZW1lbnQvaW1hZ2VzLW1hbmFnZW1lbnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW1hZ2UtYnV0dG9ucyB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXMgbWF0LWljb246Zm9jdXMge1xuICBvdXRsaW5lOiBub25lICFpbXBvcnRhbnQ7XG4gIGJvcmRlcjogMC41cHggc29saWQgcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbiB7XG4gIGZvbnQtc2l6ZTogNDBweDtcbiAgd2lkdGg6IDQwcHg7XG4gIGhlaWdodDogNDBweDtcbn1cblxuLm5vSW1hZ2VCdXR0b24ge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHdpZHRoOiAyMCU7XG4gIGJvcmRlcjogc29saWQgMS41cHggcmdiKDIyMCwgMjIwLCAyMjApO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmxlZnRCdG57XG4gIHdpZHRoOiAzNSU7IFxuICBib3JkZXItdG9wOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7IFxuICBib3JkZXItcmlnaHQ6IHNvbGlkIDAuNzVweCByZ2IoMjIwLCAyMjAsIDIyMCk7XG59XG5cbi5taWRkbGVCdG57XG4gIHdpZHRoOiAzMCU7XG4gIGJvcmRlci10b3A6IHNvbGlkIDEuNXB4IHJnYigyMjAsIDIyMCwgMjIwKTsgXG59XG5cbi5yaWdodEJ0bntcbiAgd2lkdGg6IDM1JTsgXG4gIGJvcmRlci10b3A6IHNvbGlkIDEuNXB4IHJnYigyMjAsIDIyMCwgMjIwKTsgXG4gIGJvcmRlci1sZWZ0OiBzb2xpZCAwLjc1cHggcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4ucmFkaW8tYnV0dG9uLWdyb3Vwe1xuICB3aWR0aDogMTAwJTtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIG1pbi13aWR0aDogMzAwcHg7XG4gIG1hcmdpbjogYXV0bztcbiAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn1cblxuXG5uZ2ItY2Fyb3VzZWwuY29udGFpbmVyLWZsdWlkLmNhcm91c2VsLnNsaWRlIHtcbiAgcGFkZGluZzogMCU7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICBib3JkZXI6IDAuNXB4IHNvbGlkIHJnYigyMjAsIDIyMCwgMjIwKTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gIG1hcmdpbjogMXJlbSAwO1xufVxuXG4uaW1nc0Nhcm91c2VsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgYm9yZGVyLXJhZGl1czogMjBweDtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7XG4gIG1hcmdpbjogYXV0bztcbiAgbWluLXdpZHRoOiAyODBweDtcbiAgd2lkdGg6IDkwJTtcbn1cblxuLmNhcm91c2VsSW1nIHtcbiAgaGVpZ2h0OiA1MDBweCAhaW1wb3J0YW50O1xuICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xuICBvYmplY3QtZml0OiBjb250YWluO1xufVxuXG4uaW1nc0Nhcm91c2VsOjpuZy1kZWVwIC5jYXJvdXNlbC1jb250cm9sLXByZXYtaWNvbiB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM2NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyBmaWxsPSclMzYzNjM2JyB3aWR0aD0nOCcgaGVpZ2h0PSc4JyB2aWV3Qm94PScwIDAgOCA4JyUzZSUzY3BhdGggZD0nTTUuMjUgMGwtNCA0IDQgNCAxLjUtMS41TDQuMjUgNGwyLjUtMi41TDUuMjUgMHonLyUzZSUzYy9zdmclM2VcIikgIWltcG9ydGFudDtcbn1cblxuLmltZ3NDYXJvdXNlbDo6bmctZGVlcCAuY2Fyb3VzZWwtY29udHJvbC1uZXh0LWljb24ge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWwsJTNjc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgZmlsbD0nJTM2MzYzNicgd2lkdGg9JzgnIGhlaWdodD0nOCcgdmlld0JveD0nMCAwIDggOCclM2UlM2NwYXRoIGQ9J00yLjc1IDBsLTEuNSAxLjVMMy43NSA0bC0yLjUgMi41TDIuNzUgOGw0LTQtNC00eicvJTNlJTNjL3N2ZyUzZVwiKSAhaW1wb3J0YW50O1xufVxuIiwiLmltYWdlLWJ1dHRvbnMge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3VzIG1hdC1pY29uOmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICBib3JkZXI6IDAuNXB4IHNvbGlkIGdhaW5zYm9ybztcbn1cblxuLmltYWdlLWJ1dHRvbnMgbWF0LWljb24ge1xuICBmb250LXNpemU6IDQwcHg7XG4gIHdpZHRoOiA0MHB4O1xuICBoZWlnaHQ6IDQwcHg7XG59XG5cbi5ub0ltYWdlQnV0dG9uIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogMjAlO1xuICBib3JkZXI6IHNvbGlkIDEuNXB4IGdhaW5zYm9ybztcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbi5sZWZ0QnRuIHtcbiAgd2lkdGg6IDM1JTtcbiAgYm9yZGVyLXRvcDogc29saWQgMS41cHggZ2FpbnNib3JvO1xuICBib3JkZXItcmlnaHQ6IHNvbGlkIDAuNzVweCBnYWluc2Jvcm87XG59XG5cbi5taWRkbGVCdG4ge1xuICB3aWR0aDogMzAlO1xuICBib3JkZXItdG9wOiBzb2xpZCAxLjVweCBnYWluc2Jvcm87XG59XG5cbi5yaWdodEJ0biB7XG4gIHdpZHRoOiAzNSU7XG4gIGJvcmRlci10b3A6IHNvbGlkIDEuNXB4IGdhaW5zYm9ybztcbiAgYm9yZGVyLWxlZnQ6IHNvbGlkIDAuNzVweCBnYWluc2Jvcm87XG59XG5cbi5yYWRpby1idXR0b24tZ3JvdXAge1xuICB3aWR0aDogMTAwJTtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIG1pbi13aWR0aDogMzAwcHg7XG4gIG1hcmdpbjogYXV0bztcbiAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn1cblxubmdiLWNhcm91c2VsLmNvbnRhaW5lci1mbHVpZC5jYXJvdXNlbC5zbGlkZSB7XG4gIHBhZGRpbmc6IDAlO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBtYXJnaW46IDFyZW0gMDtcbn1cblxuLmltZ3NDYXJvdXNlbCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGJvcmRlci1yYWRpdXM6IDIwcHg7XG4gIGJvcmRlcjogc29saWQgMS41cHggZ2FpbnNib3JvO1xuICBtYXJnaW46IGF1dG87XG4gIG1pbi13aWR0aDogMjgwcHg7XG4gIHdpZHRoOiA5MCU7XG59XG5cbi5jYXJvdXNlbEltZyB7XG4gIGhlaWdodDogNTAwcHggIWltcG9ydGFudDtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbiAgb2JqZWN0LWZpdDogY29udGFpbjtcbn1cblxuLmltZ3NDYXJvdXNlbDo6bmctZGVlcCAuY2Fyb3VzZWwtY29udHJvbC1wcmV2LWljb24ge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWwsJTNjc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgZmlsbD0nJTM2MzYzNicgd2lkdGg9JzgnIGhlaWdodD0nOCcgdmlld0JveD0nMCAwIDggOCclM2UlM2NwYXRoIGQ9J001LjI1IDBsLTQgNCA0IDQgMS41LTEuNUw0LjI1IDRsMi41LTIuNUw1LjI1IDB6Jy8lM2UlM2Mvc3ZnJTNlXCIpICFpbXBvcnRhbnQ7XG59XG5cbi5pbWdzQ2Fyb3VzZWw6Om5nLWRlZXAgLmNhcm91c2VsLWNvbnRyb2wtbmV4dC1pY29uIHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sLCUzY3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIGZpbGw9JyUzNjM2MzYnIHdpZHRoPSc4JyBoZWlnaHQ9JzgnIHZpZXdCb3g9JzAgMCA4IDgnJTNlJTNjcGF0aCBkPSdNMi43NSAwbC0xLjUgMS41TDMuNzUgNGwtMi41IDIuNUwyLjc1IDhsNC00LTQtNHonLyUzZSUzYy9zdmclM2VcIikgIWltcG9ydGFudDtcbn0iXX0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/images/components/images-management/images-management.component.ts":
+  /*!************************************************************************************!*\
+    !*** ./src/app/images/components/images-management/images-management.component.ts ***!
+    \************************************************************************************/
+
+  /*! exports provided: ImagesManagementComponent */
+
+  /***/
+  function srcAppImagesComponentsImagesManagementImagesManagementComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ImagesManagementComponent", function () {
+      return ImagesManagementComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/multimedia.service */
+    "./src/app/general-services/multimedia.service.ts");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var _services_images_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../../services/images.service */
+    "./src/app/images/services/images.service.ts");
+
+    var ImagesManagementComponent = /*#__PURE__*/function () {
+      function ImagesManagementComponent(imageService, commonService, multimediaService) {
+        _classCallCheck(this, ImagesManagementComponent);
+
+        this.imageService = imageService;
+        this.commonService = commonService;
+        this.multimediaService = multimediaService;
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].IMAGES_URL_BASE;
+        this.imageIndex = 0;
+        this.loading = false;
+        this.filter = {
+          showed: "0"
+        };
+      }
+
+      _createClass(ImagesManagementComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          this.refresh();
+        }
+      }, {
+        key: "onSlide",
+        value: function onSlide(event) {
+          this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+          this.currentImg = this.imageService.images[this.imageIndex];
+        }
+      }, {
+        key: "refresh",
+        value: function refresh() {
+          var _this118 = this;
+
+          this.loading = true;
+          var showed = Number(this.filter.showed);
+          showed == 0 ? showed = undefined : showed == 1 ? showed = true : showed = false;
+          this.subscription = this.imageService.getTouristViewImages(showed).subscribe({
+            next: function next(data) {
+              _this118.imageService.images = data;
+              data != [] ? _this118.currentImg = data[0] : null;
+
+              _this118.subscription.unsubscribe();
+
+              _this118.loading = false;
+            },
+            error: function error(err) {
+              return _this118.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
+      }, {
+        key: "uploadFile",
+        value: function uploadFile(files) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee48() {
+            var images, i;
+            return regeneratorRuntime.wrap(function _callee48$(_context48) {
+              while (1) {
+                switch (_context48.prev = _context48.next) {
+                  case 0:
+                    this.loading = true;
+                    images = [];
+                    i = 0;
+
+                  case 3:
+                    if (!(i < files.length)) {
+                      _context48.next = 9;
+                      break;
+                    }
+
+                    _context48.next = 6;
+                    return this.commonService.uploadFile(files[i]).then(function (data) {
+                      images.push(data.filename);
+                    });
+
+                  case 6:
+                    i++;
+                    _context48.next = 3;
+                    break;
+
+                  case 9:
+                    this.updateImages(images);
+
+                  case 10:
+                  case "end":
+                    return _context48.stop();
+                }
+              }
+            }, _callee48, this);
+          }));
+        }
+      }, {
+        key: "updateImages",
+        value: function updateImages(images) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
+            var i;
+            return regeneratorRuntime.wrap(function _callee49$(_context49) {
+              while (1) {
+                switch (_context49.prev = _context49.next) {
+                  case 0:
+                    i = 0;
+
+                  case 1:
+                    if (!(i < images.length)) {
+                      _context49.next = 7;
+                      break;
+                    }
+
+                    _context49.next = 4;
+                    return this.imageService.addImageToTouristView(images[i]).toPromise();
+
+                  case 4:
+                    i++;
+                    _context49.next = 1;
+                    break;
+
+                  case 7:
+                    this.commonService.openSnackBar("Se han añadido las imágenes", "OK");
+                    this.refresh();
+
+                  case 9:
+                  case "end":
+                    return _context49.stop();
+                }
+              }
+            }, _callee49, this);
+          }));
+        }
+      }, {
+        key: "changeImgShowState",
+        value: function changeImgShowState() {
+          var _this119 = this;
+
+          var id = this.currentImg.home_image_id;
+          this.imageService.changeShowState(id, !this.currentImg.showed).subscribe({
+            next: function next(data) {
+              if (data.status == 204) {
+                _this119.currentImg.showed = !_this119.currentImg.showed;
+                _this119.currentImg.showed ? _this119.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK") : _this119.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
+              }
+            },
+            error: function error(err) {
+              return _this119.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
+      }, {
+        key: "deleteImage",
+        value: function deleteImage() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
+            var _this120 = this;
+
+            var id;
+            return regeneratorRuntime.wrap(function _callee50$(_context50) {
+              while (1) {
+                switch (_context50.prev = _context50.next) {
+                  case 0:
+                    this.loading = true;
+                    id = this.currentImg.home_image_id;
+                    _context50.next = 4;
+                    return this.imageService.disableImg(id).toPromise().then(function (data) {
+                      if (data.status == 204) {
+                        _this120.commonService.openSnackBar("La imagen se ha eleminado", "OK");
+
+                        _this120.imageService.images.splice(_this120.imageIndex, 1);
+                      } else {
+                        _this120.commonService.openSnackBar("Error al intentar eliminar la imagen", "OK");
+                      }
+                    });
+
+                  case 4:
+                    this.loading = false;
+
+                  case 5:
+                  case "end":
+                    return _context50.stop();
+                }
+              }
+            }, _callee50, this);
+          }));
+        }
+      }]);
+
+      return ImagesManagementComponent;
+    }();
+
+    ImagesManagementComponent.ctorParameters = function () {
+      return [{
+        type: _services_images_service__WEBPACK_IMPORTED_MODULE_5__["ImagesService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_2__["CommonService"]
+      }, {
+        type: src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_3__["MultimediaService"]
+      }];
+    };
+
+    ImagesManagementComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: "app-images-management",
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./images-management.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./images-management.component.scss */
+      "./src/app/images/components/images-management/images-management.component.scss"))["default"]]
+    })], ImagesManagementComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/images/images-root.component.ts":
+  /*!*************************************************!*\
+    !*** ./src/app/images/images-root.component.ts ***!
+    \*************************************************/
+
+  /*! exports provided: ImagesRootComponent */
+
+  /***/
+  function srcAppImagesImagesRootComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ImagesRootComponent", function () {
+      return ImagesRootComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var ImagesRootComponent = /*#__PURE__*/function () {
+      function ImagesRootComponent() {
+        _classCallCheck(this, ImagesRootComponent);
+      }
+
+      _createClass(ImagesRootComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return ImagesRootComponent;
+    }();
+
+    ImagesRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-images-root',
+      template: "\n    <router-outlet></router-outlet>\n  "
+    })], ImagesRootComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/images/images-routing.module.ts":
+  /*!*************************************************!*\
+    !*** ./src/app/images/images-routing.module.ts ***!
+    \*************************************************/
+
+  /*! exports provided: ImagesRoutingModule */
+
+  /***/
+  function srcAppImagesImagesRoutingModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ImagesRoutingModule", function () {
+      return ImagesRoutingModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _components_images_management_images_management_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./components/images-management/images-management.component */
+    "./src/app/images/components/images-management/images-management.component.ts");
+    /* harmony import */
+
+
+    var _images_root_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./images-root.component */
+    "./src/app/images/images-root.component.ts");
+
+    var routes = [{
+      path: "images",
+      component: _images_root_component__WEBPACK_IMPORTED_MODULE_3__["ImagesRootComponent"],
+      children: [{
+        path: "all",
+        component: _components_images_management_images_management_component__WEBPACK_IMPORTED_MODULE_2__["ImagesManagementComponent"]
+      }]
+    }];
+
+    var ImagesRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes);
+    /***/
+
+  },
+
+  /***/
+  "./src/app/images/images.module.ts":
+  /*!*****************************************!*\
+    !*** ./src/app/images/images.module.ts ***!
+    \*****************************************/
+
+  /*! exports provided: ImagesModule */
+
+  /***/
+  function srcAppImagesImagesModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ImagesModule", function () {
+      return ImagesModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _images_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./images-routing.module */
+    "./src/app/images/images-routing.module.ts");
+    /* harmony import */
+
+
+    var _shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../shared.module */
+    "./src/app/shared.module.ts");
+    /* harmony import */
+
+
+    var _components_images_management_images_management_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ./components/images-management/images-management.component */
+    "./src/app/images/components/images-management/images-management.component.ts");
+    /* harmony import */
+
+
+    var _images_root_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ./images-root.component */
+    "./src/app/images/images-root.component.ts");
+
+    var ImagesModule = function ImagesModule() {
+      _classCallCheck(this, ImagesModule);
+    };
+
+    ImagesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+      declarations: [_images_root_component__WEBPACK_IMPORTED_MODULE_6__["ImagesRootComponent"], _components_images_management_images_management_component__WEBPACK_IMPORTED_MODULE_5__["ImagesManagementComponent"]],
+      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _images_routing_module__WEBPACK_IMPORTED_MODULE_3__["ImagesRoutingModule"], _shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]]
+    })], ImagesModule);
+    /***/
+  },
+
+  /***/
+  "./src/app/images/services/images.service.ts":
+  /*!***************************************************!*\
+    !*** ./src/app/images/services/images.service.ts ***!
+    \***************************************************/
+
+  /*! exports provided: ImagesService */
+
+  /***/
+  function srcAppImagesServicesImagesServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ImagesService", function () {
+      return ImagesService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
+
+    var ImagesService = /*#__PURE__*/function () {
+      function ImagesService(http) {
+        _classCallCheck(this, ImagesService);
+
+        this.http = http;
+        this.images = [];
+        this.module = "homeImages";
+      }
+
+      _createClass(ImagesService, [{
+        key: "getTouristViewImages",
+        value: function getTouristViewImages(showed) {
+          var show;
+          showed != undefined ? showed ? show = "true" : show = "false" : null;
+          var params = {
+            is_active: "true"
+          };
+          show != undefined ? params.showed = show : null;
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].IMAGES_URL_BASE).concat(this.module), {
+            params: params
+          });
+        }
+      }, {
+        key: "addImageToTouristView",
+        value: function addImageToTouristView(name) {
+          var json = {
+            name: name,
+            showed: false
+          };
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].IMAGES_URL_BASE).concat(this.module), json, {
+            observe: "response"
+          });
+        }
+      }, {
+        key: "changeShowState",
+        value: function changeShowState(homeImgID, showed) {
+          var json = {
+            showed: showed
+          };
+          return this.http.patch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].IMAGES_URL_BASE).concat(this.module, "/").concat(homeImgID), json, {
+            observe: "response"
+          });
+        }
+      }, {
+        key: "disableImg",
+        value: function disableImg(homeImgID) {
+          return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].IMAGES_URL_BASE).concat(this.module, "/").concat(homeImgID), {
+            observe: "response"
+          });
+        }
+      }]);
+
+      return ImagesService;
+    }();
+
+    ImagesService.ctorParameters = function () {
+      return [{
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]
+      }];
+    };
+
+    ImagesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+      providedIn: "root"
+    })], ImagesService);
+    /***/
+  },
+
+  /***/
   "./src/app/itinerary/components/carousel/carousel.component.scss":
   /*!***********************************************************************!*\
     !*** ./src/app/itinerary/components/carousel/carousel.component.scss ***!
@@ -15768,24 +17163,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FilterOptionsDialogComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this99 = this;
+          var _this121 = this;
 
           this.filters.role = this._session.actualUser.role_id;
           this.filters.user_id = this._session.actualUser.user_id;
           this.categorySubs = this._itineray.getCategories().subscribe({
             next: function next(response) {
-              return _this99.categories = response.data;
+              return _this121.categories = response.data;
             },
             error: function error(err) {
-              return _this99._common.handleError(err);
+              return _this121._common.handleError(err);
             }
           });
           this.groupTypeSubs = this._itineray.getGroupTypes().subscribe({
             next: function next(response) {
-              return _this99.groupTypes = response.data;
+              return _this121.groupTypes = response.data;
             },
             error: function error(err) {
-              return _this99._common.handleError(err);
+              return _this121._common.handleError(err);
             }
           });
         }
@@ -15948,14 +17343,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getItinerariesMinimalInfo",
         value: function getItinerariesMinimalInfo() {
-          var _this100 = this;
+          var _this122 = this;
 
           this.subscription = this._itinerary.getItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this100.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data.data);
+              _this122.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this100._common.handleError(err);
+              return _this122._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -15967,20 +17362,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this101 = this;
+          var _this123 = this;
 
           this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
             next: function next(filters) {
               if (filters) {
-                _this101.filterItinerariesSubs = _this101._itinerary.filterItineraries(filters).subscribe({
+                _this123.filterItinerariesSubs = _this123._itinerary.filterItineraries(filters).subscribe({
                   next: function next(response) {
-                    _this101.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](response.data);
+                    _this123.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](response.data);
                   },
                   error: function error(err) {
-                    return _this101._common.handleError(err);
+                    return _this123._common.handleError(err);
                   }
                 });
-                _this101.isFilters = true;
+                _this123.isFilters = true;
               }
             }
           });
@@ -16279,16 +17674,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setupEndDate",
         value: function setupEndDate() {
-          var _this102 = this;
+          var _this124 = this;
 
           this.itineraryFG.get("startDate").valueChanges.subscribe(function (val) {
-            if (_this102.itineraryFG.get("startDate").value) {
+            if (_this124.itineraryFG.get("startDate").value) {
               var date = new Date(val);
 
-              if (_this102.itineraryFG.get("duration").value) {
-                date.setDate(date.getDate() + _this102.itineraryFG.get("duration").value);
+              if (_this124.itineraryFG.get("duration").value) {
+                date.setDate(date.getDate() + _this124.itineraryFG.get("duration").value);
 
-                _this102.itineraryFG.get('endDate').setValue(date);
+                _this124.itineraryFG.get('endDate').setValue(date);
               }
             }
           });
@@ -16300,20 +17695,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setupValueChangesTotalPrice",
         value: function setupValueChangesTotalPrice() {
-          var _this103 = this;
+          var _this125 = this;
 
           this.itineraryFG.get("pricePerDay").valueChanges.subscribe(function (val) {
-            if (_this103.itineraryFG.get("duration").value) {
-              var duration = _this103.itineraryFG.get("duration").value;
+            if (_this125.itineraryFG.get("duration").value) {
+              var duration = _this125.itineraryFG.get("duration").value;
 
-              _this103.itineraryFG.controls["totalPrice"].setValue(val * duration);
+              _this125.itineraryFG.controls["totalPrice"].setValue(val * duration);
             }
           });
           this.itineraryFG.get("duration").valueChanges.subscribe(function (val) {
-            if (_this103.itineraryFG.get("pricePerDay").value) {
-              var pricePerDay = _this103.itineraryFG.get("pricePerDay").value;
+            if (_this125.itineraryFG.get("pricePerDay").value) {
+              var pricePerDay = _this125.itineraryFG.get("pricePerDay").value;
 
-              _this103.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
+              _this125.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
             }
           });
         }
@@ -16324,7 +17719,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setupUploader",
         value: function setupUploader() {
-          var _this104 = this;
+          var _this126 = this;
 
           this._image.uploader.onAfterAddingFile = function (file) {
             file.withCredentials = false;
@@ -16333,14 +17728,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this._image.uploader.onSuccessItem = function (item, response, status, headers) {
             var path = JSON.parse(response).data;
 
-            _this104.savedImagePaths.push(path);
+            _this126.savedImagePaths.push(path);
           };
 
           this._image.uploader.onCompleteAll = function () {
-            _this104.savedImagePaths.forEach(function (e) {
-              _this104.subscription = _this104._itinerary.saveImageUrl(_this104.savedIt, e).subscribe({
+            _this126.savedImagePaths.forEach(function (e) {
+              _this126.subscription = _this126._itinerary.saveImageUrl(_this126.savedIt, e).subscribe({
                 error: function error(err) {
-                  return _this104._common.handleError(err);
+                  return _this126._common.handleError(err);
                 }
               });
             });
@@ -16371,17 +17766,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getGroupTypes",
         value: function getGroupTypes() {
-          var _this105 = this;
+          var _this127 = this;
 
           this.subscription = this._itinerary.getGroupTypes().subscribe({
             next: function next(data) {
-              _this105.groupTypes = [];
+              _this127.groupTypes = [];
               data.data.forEach(function (el) {
-                _this105.groupTypes.unshift(el);
+                _this127.groupTypes.unshift(el);
               });
             },
             error: function error(err) {
-              return _this105._common.handleError(err);
+              return _this127._common.handleError(err);
             }
           });
         }
@@ -16392,14 +17787,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this106 = this;
+          var _this128 = this;
 
           this.subscription = this._itinerary.getCategories().subscribe({
             next: function next(result) {
-              _this106.categories = result.data;
+              _this128.categories = result.data;
             },
             error: function error(err) {
-              return _this106._common.handleError(err);
+              return _this128._common.handleError(err);
             }
           });
         }
@@ -16410,7 +17805,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "catchSelectedImages",
         value: function catchSelectedImages(files) {
-          var _this107 = this;
+          var _this129 = this;
 
           for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
@@ -16418,9 +17813,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
             reader.onload = function (event) {
               // called once readAsDataURL is completed
-              _this107.images.push(event.target.result);
+              _this129.images.push(event.target.result);
 
-              _this107.data.images = _this107.images;
+              _this129.data.images = _this129.images;
             };
           }
         }
@@ -16436,7 +17831,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this108 = this;
+          var _this130 = this;
 
           var fv = this.itineraryFG.value;
           this.subscription = this._itinerary.saveItinerary(new src_app_itinerary_models_Itinerary__WEBPACK_IMPORTED_MODULE_4__["Itinerary"]({
@@ -16455,14 +17850,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             return e.category_id;
           })).subscribe({
             next: function next(result) {
-              _this108._common.openSnackBar("Itinerario guardado con éxito", "Ok");
+              _this130._common.openSnackBar("Itinerario guardado con éxito", "Ok");
 
-              _this108.savedIt = result.data;
+              _this130.savedIt = result.data;
 
-              _this108.uploadImages();
+              _this130.uploadImages();
             },
             error: function error(err) {
-              return _this108._common.handleError(err);
+              return _this130._common.handleError(err);
             }
           });
         }
@@ -16687,14 +18082,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ItineraryDashboardComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this109 = this;
+          var _this131 = this;
 
           if (!this._itinerary.itinerary_id) this._router.navigate(["itineraries/show-all"]);else this.subscription = this._itinerary.getItineraryFullInfo(this._itinerary.itinerary_id).subscribe({
             next: function next(data) {
-              _this109.itinerary = data.data;
+              _this131.itinerary = data.data;
             },
             error: function error(err) {
-              return _this109._common.handleError(err);
+              return _this131._common.handleError(err);
             }
           });
         }
@@ -16906,16 +18301,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "save",
         value: function save() {
-          var _this110 = this;
+          var _this132 = this;
 
           this.subscription = this._itinerary.addDay(this.data.id_itinerary, this.data.day_number, this.data.details, this.data.duration + 1).subscribe({
             next: function next(result) {
-              _this110._common.openSnackBar(result.message, "Ok");
+              _this132._common.openSnackBar(result.message, "Ok");
 
-              return _this110.dialogRef.close(_this110.data);
+              return _this132.dialogRef.close(_this132.data);
             },
             error: function error(err) {
-              return _this110._common.handleError(err);
+              return _this132._common.handleError(err);
             }
           });
         }
@@ -17052,16 +18447,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ItineraryDistributionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this111 = this;
+          var _this133 = this;
 
           this.subscription = this.itineraryService.getFavoriteItinerary(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
               if (data.data.length > 0) {
-                _this111.favorites = data.data[0].get_favorite_itinerary;
+                _this133.favorites = data.data[0].get_favorite_itinerary;
               }
             },
             error: function error(err) {
-              return _this111.commonService.handleError(err);
+              return _this133.commonService.handleError(err);
             }
           });
         }
@@ -17074,24 +18469,49 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
       }, {
         key: "setAvailable",
-        value: function setAvailable(state, itineraryID, info) {
-          var _this112 = this;
+        value: function setAvailable(state, itineraryID, info, _ref21) {
+          var _this134 = this;
 
-          var modifyInfo = info;
-          modifyInfo.active = state;
-          this.subscription = this.itineraryService.changeActiveState(itineraryID, modifyInfo).subscribe({
-            next: function next() {
-              if (state) {
-                _this112.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido habilitado"), "OK");
-              } else {
-                _this112.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido desabilitado"), "OK");
-              }
+          var source = _ref21.source;
+          var action;
+          state ? action = "activar" : action = "desactivar";
+          this.commonService.confirmationDialog("\xBFDesea ".concat(action, " el itinerario?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this134, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
+              var _this135 = this;
 
-              _this112.subscription.unsubscribe();
-            },
-            error: function error(err) {
-              return _this112.commonService.openSnackBar("Error: ".concat(err), "OK");
-            }
+              var modifyInfo;
+              return regeneratorRuntime.wrap(function _callee51$(_context51) {
+                while (1) {
+                  switch (_context51.prev = _context51.next) {
+                    case 0:
+                      if (result) {
+                        modifyInfo = info;
+                        modifyInfo.active = state;
+                        this.subscription = this.itineraryService.changeActiveState(itineraryID, modifyInfo).subscribe({
+                          next: function next() {
+                            if (state) {
+                              _this135.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido habilitado"), "OK");
+                            } else {
+                              _this135.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido desabilitado"), "OK");
+                            }
+
+                            _this135.subscription.unsubscribe();
+                          },
+                          error: function error(err) {
+                            return _this135.commonService.openSnackBar("Error: ".concat(err), "OK");
+                          }
+                        });
+                      } else {
+                        source.checked = !state;
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context51.stop();
+                  }
+                }
+              }, _callee51, this);
+            }));
           });
         }
         /**
@@ -17102,18 +18522,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addFavoriteItinerary",
         value: function addFavoriteItinerary(itineraryID) {
-          var _this113 = this;
+          var _this136 = this;
 
           this.favorites.push(itineraryID);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this.itineraryService.addFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this113.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido agregado a favoritos"), "OK");
+              _this136.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido agregado a favoritos"), "OK");
 
-              _this113.subscription.unsubscribe();
+              _this136.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this113.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this136.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -17125,18 +18545,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeFavoriteItinerary",
         value: function removeFavoriteItinerary(itineraryID) {
-          var _this114 = this;
+          var _this137 = this;
 
           this.favorites.splice(this.favorites.indexOf(itineraryID, 0), 1);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this.itineraryService.removeFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this114.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido removido de favoritos"), "OK");
+              _this137.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido removido de favoritos"), "OK");
 
-              _this114.subscription.unsubscribe();
+              _this137.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this114.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this137.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -17306,30 +18726,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(OffersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this115 = this;
+          var _this138 = this;
 
           this.days = new Array(this.it.info["duration"]);
           this.days = this.fillArray(this.it.info["duration"]);
           this.subscription = this._itinerary.getFavoriteOffer(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              if (data.data[0]) _this115.favorites = data.data[0].get_favorite_offer;
+              if (data.data[0]) _this138.favorites = data.data[0].get_favorite_offer;
             },
             error: function error(err) {
-              return _this115.commonService.handleError(err);
+              return _this138.commonService.handleError(err);
             }
           });
 
           if (this.it) {
             this.getDaysInfo();
             this.searchOffersCTRL.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
-              _this115.filteredOffers = [];
-              _this115.isLoading = true;
+              _this138.filteredOffers = [];
+              _this138.isLoading = true;
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["switchMap"])(function (value) {
-              return _this115.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].SERVER_BASE_URL, "itinerary/filterOffers?value=").concat(value, "&it_id=").concat(_this115.it["itinerary_id"])).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["finalize"])(function () {
-                _this115.isLoading = false;
+              return _this138.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].SERVER_BASE_URL, "itinerary/filterOffers?value=").concat(value, "&it_id=").concat(_this138.it["itinerary_id"])).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["finalize"])(function () {
+                _this138.isLoading = false;
               }));
             })).subscribe(function (result) {
-              _this115.filteredOffers = result.data;
+              _this138.filteredOffers = result.data;
             });
           }
         }
@@ -17359,18 +18779,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addOfferFavorite",
         value: function addOfferFavorite(offerID) {
-          var _this116 = this;
+          var _this139 = this;
 
           this.favorites.push(offerID);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.addFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this116.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido agregado a favoritos"), "OK");
+              _this139.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido agregado a favoritos"), "OK");
 
-              _this116.subscription.unsubscribe();
+              _this139.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this116.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this139.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -17382,18 +18802,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOfferFavorite",
         value: function removeOfferFavorite(offerID) {
-          var _this117 = this;
+          var _this140 = this;
 
           this.favorites.splice(this.favorites.indexOf(offerID, 0), 1);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this117.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
+              _this140.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
 
-              _this117.subscription.unsubscribe();
+              _this140.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this117.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this140.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -17405,11 +18825,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateDayDistribution",
         value: function updateDayDistribution(day_number, index) {
-          var _this118 = this;
+          var _this141 = this;
 
           var distArray = this.days[index].items.map(function (e) {
             return {
-              it: _this118.it["itinerary_id"],
+              it: _this141.it["itinerary_id"],
               offer_id: e.offer_id,
               day_number: day_number,
               initial_time: "21:40:12.585447",
@@ -17423,10 +18843,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }];
           this.subscription = this._itinerary.updateDayDistribution(distArray).subscribe({
             next: function next(result) {
-              return _this118.commonService.openSnackBar(result.message, "Ok");
+              return _this141.commonService.openSnackBar(result.message, "Ok");
             },
             error: function error(err) {
-              return _this118.commonService.handleError(err);
+              return _this141.commonService.handleError(err);
             }
           });
         }
@@ -17437,38 +18857,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDaysInfo",
         value: function getDaysInfo() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
-            var _this119 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
+            var _this142 = this;
 
-            return regeneratorRuntime.wrap(function _callee30$(_context30) {
+            return regeneratorRuntime.wrap(function _callee52$(_context52) {
               while (1) {
-                switch (_context30.prev = _context30.next) {
+                switch (_context52.prev = _context52.next) {
                   case 0:
-                    _context30.next = 2;
+                    _context52.next = 2;
                     return this._itinerary.getDayInfo(this.it["itinerary_id"]).toPromise().then(function (data) {
                       if (data.data.day !== null) {
-                        _this119.formatDaysArray(data.data.day);
+                        _this142.formatDaysArray(data.data.day);
                       }
                     })["catch"](function (err) {
-                      return _this119.commonService.handleError(err);
+                      return _this142.commonService.handleError(err);
                     });
 
                   case 2:
                     this.subscription = this._itinerary.getDaysDetails(this.it["itinerary_id"]).subscribe({
                       next: function next(result) {
-                        return _this119.daysDetails = result.data;
+                        return _this142.daysDetails = result.data;
                       },
                       error: function error(err) {
-                        return _this119.commonService.handleError(err);
+                        return _this142.commonService.handleError(err);
                       }
                     });
 
                   case 3:
                   case "end":
-                    return _context30.stop();
+                    return _context52.stop();
                 }
               }
-            }, _callee30, this);
+            }, _callee52, this);
           }));
         }
         /**
@@ -17479,7 +18899,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "formatDaysArray",
         value: function formatDaysArray(data) {
-          var _this120 = this;
+          var _this143 = this;
 
           var source = Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["from"])(data);
           var obs = source.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["groupBy"])(function (d) {
@@ -17490,7 +18910,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }));
           this.formatArraySubscription = obs.subscribe({
             next: function next(val) {
-              if (_this120.days[val[0].day_number - 1]) _this120.days[val[0].day_number - 1].items = val;
+              if (_this143.days[val[0].day_number - 1]) _this143.days[val[0].day_number - 1].items = val;
             }
           });
         }
@@ -17545,16 +18965,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteDay",
         value: function deleteDay(day_number, index) {
-          var _this121 = this;
+          var _this144 = this;
 
           this.deleteDaySubs = this._itinerary.deleteDay(this.it["itinerary_id"], day_number).subscribe({
             next: function next(result) {
-              _this121.commonService.openSnackBar(result.message, "Ok");
+              _this144.commonService.openSnackBar(result.message, "Ok");
 
-              _this121.days.splice(index, 1);
+              _this144.days.splice(index, 1);
             },
             error: function error(err) {
-              return _this121.commonService.handleError(err);
+              return _this144.commonService.handleError(err);
             }
           });
         }
@@ -17565,7 +18985,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addDay",
         value: function addDay() {
-          var _this122 = this;
+          var _this145 = this;
 
           this._dialog.openCreateDay({
             details: "",
@@ -17574,12 +18994,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             duration: this.it.info["duration"]
           }).subscribe({
             next: function next(createdDay) {
-              _this122.days.push({
+              _this145.days.push({
                 day_number: createdDay.day_number,
                 items: []
               });
 
-              _this122.daysDetails.push({
+              _this145.daysDetails.push({
                 details: createdDay.details
               });
             }
@@ -17596,16 +19016,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "unlinkOffer",
         value: function unlinkOffer(offer_id, day_number, offer_index, day_index) {
-          var _this123 = this;
+          var _this146 = this;
 
           this.subscription = this._itinerary.unlinkOffer(offer_id, this.it["itinerary_id"], day_number).subscribe({
             next: function next(result) {
-              _this123.commonService.openSnackBar(result.message, "Ok");
+              _this146.commonService.openSnackBar(result.message, "Ok");
 
-              _this123.days[day_index].items.splice(offer_index, 1);
+              _this146.days[day_index].items.splice(offer_index, 1);
             },
             error: function error(err) {
-              return _this123.commonService.handleError(err);
+              return _this146.commonService.handleError(err);
             }
           });
         }
@@ -17758,17 +19178,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getPromotionByItineraryID",
         value: function getPromotionByItineraryID() {
-          var _this124 = this;
+          var _this147 = this;
 
           this.subscriptionAddedPromotion = this.itineraryService.getPromotionByItineraryID().subscribe({
             next: function next(data) {
-              _this124.addedPromotions = data.data.rows;
-              _this124.addedPromotionLoading = false;
+              _this147.addedPromotions = data.data.rows;
+              _this147.addedPromotionLoading = false;
 
-              _this124.subscriptionAddedPromotion.unsubscribe();
+              _this147.subscriptionAddedPromotion.unsubscribe();
             },
             error: function error(err) {
-              return _this124.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this147.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -17779,17 +19199,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getAllPromotions",
         value: function getAllPromotions() {
-          var _this125 = this;
+          var _this148 = this;
 
           this.subscriptionPromotion = this.itineraryService.getAllPromotions().subscribe({
             next: function next(data) {
-              _this125.promotions = data.data;
-              _this125.promotionLoading = false;
+              _this148.promotions = data.data;
+              _this148.promotionLoading = false;
 
-              _this125.subscriptionPromotion.unsubscribe();
+              _this148.subscriptionPromotion.unsubscribe();
             },
             error: function error(err) {
-              return _this125.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this148.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -17801,18 +19221,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addPromotionInItinerary",
         value: function addPromotionInItinerary(promotion_id) {
-          var _this126 = this;
+          var _this149 = this;
 
           this.subscription = this.itineraryService.addPromotionInItinerary(promotion_id).subscribe({
             next: function next(data) {
-              _this126.addPromotionToListAddedPromotion(promotion_id);
+              _this149.addPromotionToListAddedPromotion(promotion_id);
 
-              _this126.commonService.openSnackBar("Se ha agregado la promoción correctamente", "OK");
+              _this149.commonService.openSnackBar("Se ha agregado la promoción correctamente", "OK");
 
-              _this126.subscription.unsubscribe();
+              _this149.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this126.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this149.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -17846,18 +19266,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletePromotionOfItinerary",
         value: function deletePromotionOfItinerary(promotion_id) {
-          var _this127 = this;
+          var _this150 = this;
 
           this.subscription = this.itineraryService.deletePromotionOfItinerary(promotion_id).subscribe({
             next: function next(data) {
-              _this127.returnPromotionToPromotions(promotion_id);
+              _this150.returnPromotionToPromotions(promotion_id);
 
-              _this127.commonService.openSnackBar("Se ha eliminado la promoción correctamente", "OK");
+              _this150.commonService.openSnackBar("Se ha eliminado la promoción correctamente", "OK");
 
-              _this127.subscription.unsubscribe();
+              _this150.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this127.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this150.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -18104,17 +19524,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ItineraryMapComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this128 = this;
+          var _this151 = this;
 
           this.itineraryService.itinerary_id !== undefined ? this.itineraryService.getEventGeomByItineraryID().subscribe({
             next: function next(data) {
-              _this128.markers = data.data;
+              _this151.markers = data.data;
 
-              _this128.fillMarkers(); // Fill info
+              _this151.fillMarkers(); // Fill info
 
             },
             error: function error(err) {
-              return _this128._common.handleError(err);
+              return _this151._common.handleError(err);
             }
           }) : null;
         }
@@ -18125,10 +19545,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "fillMarkers",
         value: function fillMarkers() {
-          var _this129 = this;
+          var _this152 = this;
 
           this.markers.forEach(function (mark) {
-            _this129.layers.push(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["marker"])([mark.lat, mark.lon], {
+            _this152.layers.push(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["marker"])([mark.lat, mark.lon], {
               icon: Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["icon"])({
                 iconSize: [25, 41],
                 iconAnchor: [13, 41],
@@ -19059,14 +20479,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ForgotPasswordComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this130 = this;
+          var _this153 = this;
 
           // Trigger to change icon
           this.forgotPasswordForm.valueChanges.subscribe(function () {
-            if (_this130.forgotPasswordForm.invalid == false) _this130.icon = "done";else _this130.icon = "warning";
+            if (_this153.forgotPasswordForm.invalid == false) _this153.icon = "done";else _this153.icon = "warning";
           });
           this.changePasswordForm.valueChanges.subscribe(function () {
-            if (_this130.forgotPasswordForm.invalid == false) _this130.icon = "done";else _this130.icon = "warning";
+            if (_this153.forgotPasswordForm.invalid == false) _this153.icon = "done";else _this153.icon = "warning";
           });
         }
         /**
@@ -19076,21 +20496,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendCodePassword",
         value: function sendCodePassword() {
-          var _this131 = this;
+          var _this154 = this;
 
           this.loading = true;
           this.subscribeForgotPassword = this.sessionService.sendCodePassword(this.forgotPasswordForm.get("email").value).subscribe({
             next: function next(data) {
-              _this131.loading = false;
+              _this154.loading = false;
 
-              _this131.commonService.openSnackBar("Verifique su correo electrónico", "OK");
+              _this154.commonService.openSnackBar("Verifique su correo electrónico", "OK");
 
-              _this131.isSendEmail = true;
+              _this154.isSendEmail = true;
             },
             error: function error(err) {
-              _this131.loading = false;
+              _this154.loading = false;
 
-              _this131.commonService.openSnackBar(err.error.message, "OK");
+              _this154.commonService.openSnackBar(err.error.message, "OK");
             }
           });
         }
@@ -19101,7 +20521,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changePasswordByCode",
         value: function changePasswordByCode() {
-          var _this132 = this;
+          var _this155 = this;
 
           this.loading = true;
 
@@ -19112,16 +20532,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           } else {
             this.subscribeForgotPassword = this.sessionService.changePasswordByCode(this.changePasswordForm.get("password").value, this.changePasswordForm.get("code").value).subscribe({
               next: function next(data) {
-                _this132.loading = false;
+                _this155.loading = false;
 
-                _this132.commonService.openSnackBar("Las contraseña ha sido actualizada!", "OK");
+                _this155.commonService.openSnackBar("Las contraseña ha sido actualizada!", "OK");
 
-                _this132.dialog.closeAll();
+                _this155.dialog.closeAll();
               },
               error: function error(err) {
-                _this132.loading = false;
+                _this155.loading = false;
 
-                _this132.commonService.openSnackBar(err.error.message, "OK");
+                _this155.commonService.openSnackBar(err.error.message, "OK");
               }
             });
           }
@@ -19265,12 +20685,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(LoginComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this133 = this;
+          var _this156 = this;
 
           document.body.classList.add("bg-img"); // Trigger to change icon
 
           this.loginForm.valueChanges.subscribe(function () {
-            if (_this133.loginForm.invalid == false) _this133.icon = "done";else _this133.icon = "warning";
+            if (_this156.loginForm.invalid == false) _this156.icon = "done";else _this156.icon = "warning";
           });
         }
         /**
@@ -19298,31 +20718,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loginUser",
         value: function loginUser() {
-          var _this134 = this;
+          var _this157 = this;
 
           this.sessionService.loadingLogin = true;
           this.subscribeLogin = this.sessionService.login(this.loginForm.get("email").value, this.loginForm.get("password").value).subscribe({
             next: function next(data) {
-              _this134.sessionService.loadingLogin = false;
+              _this157.sessionService.loadingLogin = false;
 
-              _this134._auth.login({
+              _this157._auth.login({
                 name: data.data.name,
                 user_id: data.data.user_id,
                 role_id: data.data.role_id
               });
 
-              _this134.sessionService.actualUser = _this134._auth.getUser();
+              _this157.sessionService.actualUser = _this157._auth.getUser();
 
-              _this134.sessionService.commonService.openSnackBar("Bienvenido ".concat(_this134.sessionService.actualUser.name), "OK");
+              _this157.sessionService.commonService.openSnackBar("Bienvenido ".concat(_this157.sessionService.actualUser.name), "OK");
 
-              _this134._router.navigate(["/itineraries/show-all"]);
+              _this157._router.navigate(["/itineraries/show-all"]);
             },
             error: function error(_err) {
               console.log(_err);
 
-              _this134.sessionService.commonService.openSnackBar("Error en la autenticaci\xF3n", "OK");
+              _this157.sessionService.commonService.openSnackBar("Error en la autenticaci\xF3n", "OK");
 
-              _this134.sessionService.loadingLogin = false;
+              _this157.sessionService.loadingLogin = false;
             }
           });
         }
@@ -19464,11 +20884,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(RegisterBusinessManComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this135 = this;
+          var _this158 = this;
 
           // Trigger to change icon
           this.addBusinessmanForm.valueChanges.subscribe(function () {
-            if (_this135.addBusinessmanForm.invalid == false) _this135.icon = "done";else _this135.icon = "warning";
+            if (_this158.addBusinessmanForm.invalid == false) _this158.icon = "done";else _this158.icon = "warning";
           });
         }
         /**
@@ -19478,7 +20898,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addBusinessman",
         value: function addBusinessman() {
-          var _this136 = this;
+          var _this159 = this;
 
           this.loading = true; // Charge loading
 
@@ -19493,16 +20913,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.subscription = this.sessionService.saveUser(info, 2).subscribe({
             next: function next(_data) {
-              _this136.loading = false;
+              _this159.loading = false;
 
-              _this136.commonService.openSnackBar("Se ha registrado ".concat(info.name, ", espere la validaci\xF3n de su cuenta"), "OK");
+              _this159.commonService.openSnackBar("Se ha registrado ".concat(info.name, ", espere la validaci\xF3n de su cuenta"), "OK");
 
-              _this136.dialog.closeAll();
+              _this159.dialog.closeAll();
             },
             error: function error(err) {
-              _this136.commonService.openSnackBar("Error: ".concat(err), "OK");
+              _this159.commonService.openSnackBar("Error: ".concat(err), "OK");
 
-              _this136.subscription.unsubscribe();
+              _this159.subscription.unsubscribe();
             }
           });
         }
@@ -19772,18 +21192,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getInformation",
         value: function getInformation() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
-            var _this137 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
+            var _this160 = this;
 
-            return regeneratorRuntime.wrap(function _callee31$(_context31) {
+            return regeneratorRuntime.wrap(function _callee53$(_context53) {
               while (1) {
-                switch (_context31.prev = _context31.next) {
+                switch (_context53.prev = _context53.next) {
                   case 0:
-                    _context31.next = 2;
+                    _context53.next = 2;
                     return this._offer.getServicesByOffer(this._offer.offer_id).subscribe({
                       next: function next(data) {
-                        _this137.listServices = data;
-                        _this137.subscription3 = _this137._service.getServices().subscribe({
+                        _this160.listServices = data;
+                        _this160.subscription3 = _this160._service.getServices().subscribe({
                           next: function next(data) {
                             var band;
 
@@ -19791,8 +21211,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                               band = false;
                               var element = data[index];
 
-                              for (var index2 = 0; index2 < _this137.listServices.length; index2++) {
-                                var element2 = _this137.listServices[index2];
+                              for (var index2 = 0; index2 < _this160.listServices.length; index2++) {
+                                var element2 = _this160.listServices[index2];
 
                                 if (element.service_id == element2.service_id) {
                                   band = true;
@@ -19800,35 +21220,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                               }
 
                               if (!band) {
-                                _this137.filteredServices.push(element);
+                                _this160.filteredServices.push(element);
                               }
                             }
 
-                            if (_this137.filteredServices.length == 0) {
-                              _this137._common.openSnackBar("No hay servicios por agregar", "Ok");
+                            if (_this160.filteredServices.length == 0) {
+                              _this160._common.openSnackBar("No hay servicios por agregar", "Ok");
 
-                              _this137.onNoClick();
+                              _this160.onNoClick();
                             }
                           },
                           error: function error(err) {
-                            return _this137._common.handleError(err);
+                            return _this160._common.handleError(err);
                           }
                         });
                       },
                       error: function error(err) {
-                        return _this137._common.handleError(err);
+                        return _this160._common.handleError(err);
                       }
                     });
 
                   case 2:
-                    this.subscription2 = _context31.sent;
+                    this.subscription2 = _context53.sent;
 
                   case 3:
                   case "end":
-                    return _context31.stop();
+                    return _context53.stop();
                 }
               }
-            }, _callee31, this);
+            }, _callee53, this);
           }));
         }
         /**
@@ -19838,20 +21258,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this138 = this;
+          var _this161 = this;
 
           this.subscription = this._service.addServiceToOffer(this.serviceFG.controls['services'].value, this._offer.offer_id).subscribe({
             next: function next(result) {
-              _this138._common.openSnackBar("Servicio creado", "Ok");
+              _this161._common.openSnackBar("Servicio creado", "Ok");
 
-              _this138.serviceFG.controls['services'].setValue(null);
+              _this161.serviceFG.controls['services'].setValue(null);
 
-              _this138.status = 201;
+              _this161.status = 201;
 
-              _this138.onNoClick();
+              _this161.onNoClick();
             },
             error: function error(err) {
-              return _this138._common.handleError(err);
+              return _this161._common.handleError(err);
             }
           });
         }
@@ -20118,8 +21538,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(OfferDetailsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          this.offerDetaillsFG.controls['name'].setValue(this._offer.offer_name);
-          this.offerDetaillsFG.controls['description'].setValue(this._offer.offer_description);
+          this.offerDetaillsFG.controls["name"].setValue(this._offer.offer_name);
+          this.offerDetaillsFG.controls["description"].setValue(this._offer.offer_description);
         }
         /**
          * funtion that check of fields, if have new changes
@@ -20128,7 +21548,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "check",
         value: function check() {
-          if (this.offerDetaillsFG.get('name').value == this._offer.offer_name && this.offerDetaillsFG.get('description').value == this._offer.offer_description) {
+          if (this.offerDetaillsFG.get("name").value == this._offer.offer_name && this.offerDetaillsFG.get("description").value == this._offer.offer_description) {
             return true;
           } else {
             return false;
@@ -20141,8 +21561,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "reverse",
         value: function reverse() {
-          this.offerDetaillsFG.controls['name'].setValue(this._offer.offer_name);
-          this.offerDetaillsFG.controls['description'].setValue(this._offer.offer_description);
+          this.offerDetaillsFG.controls["name"].setValue(this._offer.offer_name);
+          this.offerDetaillsFG.controls["description"].setValue(this._offer.offer_description);
         }
         /**
          * @function put new changes in the name and description offer
@@ -20151,17 +21571,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "applyChanges",
         value: function applyChanges() {
-          var _this139 = this;
+          var _this162 = this;
 
-          this.subscription = this._offer.saveOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_3__["OfferDetaills"](this.offerDetaillsFG.get('name').value, this.offerDetaillsFG.get('description').value, true), this._offer.offer_id).subscribe({
+          this.subscription = this._offer.saveOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_3__["OfferDetaills"](this.offerDetaillsFG.get("name").value, this.offerDetaillsFG.get("description").value, true), this._offer.offer_id).subscribe({
             next: function next(result) {
-              _this139._offer.offer_name = _this139.offerDetaillsFG.controls['name'].value;
-              _this139._offer.offer_description = _this139.offerDetaillsFG.controls['description'].value;
+              _this162._offer.offer_name = _this162.offerDetaillsFG.controls["name"].value;
+              _this162._offer.offer_description = _this162.offerDetaillsFG.controls["description"].value;
 
-              _this139._common.openSnackBar("Cambios realizados", "Ok");
+              _this162._common.openSnackBar("Cambios realizados", "Ok");
             },
             error: function error(err) {
-              return _this139._common.handleError(err);
+              return _this162._common.handleError(err);
             }
           });
         }
@@ -20172,17 +21592,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteOffer",
         value: function deleteOffer() {
-          var _this140 = this;
+          var _this163 = this;
 
-          this.subscriptionDelete = this._offer.deleteOffer(this._offer.offer_id).subscribe({
-            next: function next(result) {
-              _this140.router.navigate(['/offers/all']);
+          this._common.confirmationDialog("\xBFDesea eliminar la oferta: ".concat(this._offer.offer_name, "?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this163, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
+              var _this164 = this;
 
-              _this140._common.openSnackBar("Oferta eliminada", "Ok");
-            },
-            error: function error(err) {
-              return _this140._common.handleError(err);
-            }
+              return regeneratorRuntime.wrap(function _callee54$(_context54) {
+                while (1) {
+                  switch (_context54.prev = _context54.next) {
+                    case 0:
+                      if (result) {
+                        this.subscriptionDelete = this._offer.deleteOffer(this._offer.offer_id).subscribe({
+                          next: function next(result) {
+                            _this164.router.navigate(["/offers/all"]);
+
+                            _this164._common.openSnackBar("Oferta eliminada", "Ok");
+                          },
+                          error: function error(err) {
+                            return _this164._common.handleError(err);
+                          }
+                        });
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context54.stop();
+                  }
+                }
+              }, _callee54, this);
+            }));
           });
         }
       }]);
@@ -20359,14 +21798,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getServices",
         value: function getServices() {
-          var _this141 = this;
+          var _this165 = this;
 
           this.subscription = this._offer.getServicesByOffer(this._offer.offer_id).subscribe({
             next: function next(data) {
-              _this141.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](data);
+              _this165.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this141._common.handleError(err);
+              return _this165._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -20378,16 +21817,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteServiceToOffer",
         value: function deleteServiceToOffer(service_id) {
-          var _this142 = this;
+          var _this166 = this;
 
           this.subscription = this._service.deleteServiceToOffer(service_id, this._offer.offer_id).subscribe({
             next: function next(result) {
-              _this142._common.openSnackBar("Servicio eliminado de la oferta", "Ok");
+              _this166._common.openSnackBar("Servicio eliminado de la oferta", "Ok");
 
-              _this142.getServices();
+              _this166.getServices();
             },
             error: function error(err) {
-              return _this142._common.handleError(err);
+              return _this166._common.handleError(err);
             }
           });
         }
@@ -20427,7 +21866,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateServiceDialog",
         value: function openCreateServiceDialog() {
-          var _this143 = this;
+          var _this167 = this;
 
           var dialog = this.dialogService.open(_offer_add_service_offer_add_service_component__WEBPACK_IMPORTED_MODULE_9__["OfferAddServiceComponent"], {
             width: "60%",
@@ -20436,7 +21875,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this143.getServices();
+              _this167.getServices();
             }
           });
         }
@@ -20641,7 +22080,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(OfferCreateComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this144 = this;
+          var _this168 = this;
 
           this.offerFG = this._fb.group({
             name: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
@@ -20651,20 +22090,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           this.subscription2 = this._service.getServices().subscribe({
             next: function next(data) {
-              _this144.filteredServices = data;
+              _this168.filteredServices = data;
             },
             error: function error(err) {
-              return _this144._common.handleError(err);
+              return _this168._common.handleError(err);
             }
           });
           this.subscription3 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this144.companies = data;
+              _this168.companies = data;
 
-              _this144.subscription2.unsubscribe();
+              _this168.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this144.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this168.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -20675,19 +22114,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this145 = this;
+          var _this169 = this;
 
           var fv = this.offerFG.value;
           this.subscription = this._offer.addOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_4__["Offer"](this.offerFG.get('name').value, this.offerFG.get('description').value, this.offerFG.get('companies').value)).subscribe({
             next: function next(result) {
-              _this145._common.openSnackBar("Oferta creada con éxito", "Ok");
+              _this169._common.openSnackBar("Oferta creada con éxito", "Ok");
 
               var offer_id = result[0];
 
-              _this145.onSubmitAux(offer_id);
+              _this169.onSubmitAux(offer_id);
             },
             error: function error(err) {
-              _this145._common.handleError(err), err.status == 500 ? _this145._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
+              _this169._common.handleError(err), err.status == 500 ? _this169._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
             }
           });
         }
@@ -20699,17 +22138,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmitAux",
         value: function onSubmitAux(offer_id) {
-          var _this146 = this;
+          var _this170 = this;
 
           var fv = this.offerFG.value;
           this.subscription = this._offer.addServiceToOffer(offer_id, this.allServices).subscribe({
             next: function next(result) {
-              _this146._common.openSnackBar("Servicios agregados con éxito", "Ok");
+              _this170._common.openSnackBar("Servicios agregados con éxito", "Ok");
 
-              _this146.onNoClick(201);
+              _this170.onNoClick(201);
             },
             error: function error(err) {
-              _this146._common.handleError(err), err.status == 500 ? _this146._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
+              _this170._common.handleError(err), err.status == 500 ? _this170._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
             }
           });
         }
@@ -20917,14 +22356,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getOffers",
         value: function getOffers() {
-          var _this147 = this;
+          var _this171 = this;
 
           this.subscription = this._offers.getOffers().subscribe({
             next: function next(data) {
-              _this147.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
+              _this171.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this147._common.handleError(err);
+              return _this171._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -21069,7 +22508,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateOfferDialog",
         value: function openCreateOfferDialog() {
-          var _this148 = this;
+          var _this172 = this;
 
           var dialog = this.dialogService.open(_offer_offer_create_offer_create_component__WEBPACK_IMPORTED_MODULE_3__["OfferCreateComponent"], {
             width: "60%",
@@ -21078,7 +22517,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this148.datosDesdeElPadre.active = false;
+              _this172.datosDesdeElPadre.active = false;
             }
           });
         }
@@ -21140,9 +22579,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*! tslib */
     "./node_modules/tslib/tslib.es6.js");
 
-    var Offer = function Offer(name, description, companies) {
+    var Offer = function Offer(offer_id, name, description, companies) {
       _classCallCheck(this, Offer);
 
+      this.offer_id = offer_id;
       this.name = name;
       this.description = description;
       this.companies = companies;
@@ -21417,6 +22857,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         this._http = _http;
         this._auth = _auth;
+        this.offers = [];
       }
       /**
        * @function get all offers
@@ -21710,31 +23151,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this149 = this;
+          var _this173 = this;
 
           this.subscription = this._service.getCategories(4).subscribe({
             next: function next(result) {
               var temp = result;
-              _this149.categories = temp;
+              _this173.categories = temp;
             },
             error: function error(err) {
-              return _this149._common.handleError(err);
+              return _this173._common.handleError(err);
             }
           });
         }
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this150 = this;
+          var _this174 = this;
 
           this.subscription = this._service.addService(new src_app_services_models_Service__WEBPACK_IMPORTED_MODULE_7__["Service"](this.serviceFG.get('name').value, this.serviceFG.get('category').value)).subscribe({
             next: function next(result) {
-              _this150._common.openSnackBar("Servicio creado", "Ok");
+              _this174._common.openSnackBar("Servicio creado", "Ok");
 
-              _this150.onNoClick(201);
+              _this174.onNoClick(201);
             },
             error: function error(err) {
-              return _this150._common.handleError(err);
+              return _this174._common.handleError(err);
             }
           });
         }
@@ -21910,20 +23351,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
         }
         /**
-        * @function get services
-        */
+         * @function get services
+         */
 
       }, {
         key: "getServices",
         value: function getServices() {
-          var _this151 = this;
+          var _this175 = this;
 
           this.subscription = this._service.getServices().subscribe({
             next: function next(data) {
-              _this151.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
+              _this175.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this151._common.handleError(err);
+              return _this175._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -21935,17 +23376,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(service_id) {
-          var _this152 = this;
+          var _this176 = this;
 
-          this.subscription = this._service.deleteService(service_id).subscribe({
-            next: function next(result) {
-              _this152._common.openSnackBar("Servicio eliminado", "Ok");
+          this._common.confirmationDialog("\xBFDesea eliminar el servicio ?").then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this176, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
+              var _this177 = this;
 
-              _this152.getServices();
-            },
-            error: function error(err) {
-              return _this152._common.handleError(err);
-            }
+              return regeneratorRuntime.wrap(function _callee55$(_context55) {
+                while (1) {
+                  switch (_context55.prev = _context55.next) {
+                    case 0:
+                      if (result) {
+                        this.subscription = this._service.deleteService(service_id).subscribe({
+                          next: function next(result) {
+                            _this177._common.openSnackBar("Servicio eliminado", "Ok");
+
+                            _this177.getServices();
+                          },
+                          error: function error(err) {
+                            return _this177._common.handleError(err);
+                          }
+                        });
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context55.stop();
+                  }
+                }
+              }, _callee55, this);
+            }));
           });
         }
       }, {
@@ -22096,7 +23556,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateServiceDialog",
         value: function openCreateServiceDialog() {
-          var _this153 = this;
+          var _this178 = this;
 
           var dialog = this.dialogService.open(_service_service_create_service_create_component__WEBPACK_IMPORTED_MODULE_4__["ServiceCreateComponent"], {
             width: "60%",
@@ -22105,7 +23565,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this153.datosDesdeElPadre.active = false;
+              _this178.datosDesdeElPadre.active = false;
             }
           });
         }
@@ -22690,15 +24150,80 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
       _createClass(AllTouristRoutesComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {}
+        value: function ngOnInit() {
+          this.getActiveTR();
+        }
+      }, {
+        key: "getActiveTR",
+        value: function getActiveTR() {
+          var _this179 = this;
+
+          this.subscription = this.turistRoutesService.getTouristRoutes(true).subscribe({
+            next: function next(data) {
+              _this179.turistRoutesService.touristRoutes = data;
+
+              _this179.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this179.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
       }, {
         key: "openCreateDialog",
         value: function openCreateDialog() {
           this.dialogService.open(_create_tourist_routes_create_tourist_routes_component__WEBPACK_IMPORTED_MODULE_5__["CreateTouristRoutesComponent"], {
-            width: "70%",
-            height: "90%",
+            width: "60%",
+            height: "70%",
             minWidth: "280px",
             disableClose: true
+          });
+        }
+      }, {
+        key: "changeState",
+        value: function changeState(touristRoute, _ref22) {
+          var _this180 = this;
+
+          var source = _ref22.source;
+          this.commonService.confirmationDialog("\xBFDesea eliminar la ruta: ".concat(touristRoute.name, "?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this180, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
+              var _this181 = this;
+
+              return regeneratorRuntime.wrap(function _callee56$(_context56) {
+                while (1) {
+                  switch (_context56.prev = _context56.next) {
+                    case 0:
+                      if (result) {
+                        this.turistRoutesService.changeTouristRouteState(touristRoute.route_id).subscribe({
+                          next: function next(data) {
+                            if (data.status == 200) {
+                              touristRoute.is_active = !touristRoute.is_active;
+                              source.checked = touristRoute.is_active;
+
+                              _this181.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
+
+                              _this181.getActiveTR();
+                            } else {
+                              _this181.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                            }
+                          },
+                          error: function error(err) {
+                            _this181.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                            source.checked = touristRoute.is_active;
+                          }
+                        });
+                      } else {
+                        source.checked = touristRoute.is_active;
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context56.stop();
+                  }
+                }
+              }, _callee56, this);
+            }));
           });
         }
       }]);
@@ -22744,7 +24269,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: x-large;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzL2NyZWF0ZS10b3VyaXN0LXJvdXRlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdG91cmlzdC1yb3V0ZXMvY29tcG9uZW50cy9jcmVhdGUtdG91cmlzdC1yb3V0ZXMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLGNBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzL2NyZWF0ZS10b3VyaXN0LXJvdXRlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgZGlzcGxheTogZmxleDsgXG4gICAgZmxleC13cmFwOiB3cmFwOyBcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seVxufVxuXG5oMXtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luOiAwJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBmb250LXNpemU6IHgtbGFyZ2U7XG59XG5cbi5idXR0b25Db250YWluZXJ7XG4gICAgbWFyZ2luLXRvcDogMiU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDs7XG59XG4iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiB4LWxhcmdlO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMiU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufSJdfQ== */";
+    __webpack_exports__["default"] = "form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 2%;\n  font-size: x-large;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzL2NyZWF0ZS10b3VyaXN0LXJvdXRlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdG91cmlzdC1yb3V0ZXMvY29tcG9uZW50cy9jcmVhdGUtdG91cmlzdC1yb3V0ZXMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLGNBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC90b3VyaXN0LXJvdXRlcy9jb21wb25lbnRzL2NyZWF0ZS10b3VyaXN0LXJvdXRlcy9jcmVhdGUtdG91cmlzdC1yb3V0ZXMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJmb3Jte1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGRpc3BsYXk6IGZsZXg7IFxuICAgIGZsZXgtd3JhcDogd3JhcDsgXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHlcbn1cblxuaDF7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMiU7XG4gICAgZm9udC1zaXplOiB4LWxhcmdlO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG4uY2hpcC1saXN0e1xuICAgIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlOyBcbn0iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgZm9udC1zaXplOiB4LWxhcmdlO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMiU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG4uY2hpcC1saXN0IHtcbiAgd2lkdGg6IC13ZWJraXQtZmlsbC1hdmFpbGFibGU7XG59Il19 */";
     /***/
   },
 
@@ -22800,25 +24325,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! src/app/category/services/category.service */
-    "./src/app/category/services/category.service.ts");
-    /* harmony import */
-
-
-    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! src/app/general-services/common.service */
     "./src/app/general-services/common.service.ts");
     /* harmony import */
 
 
-    var _services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var _services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ../../services/tourist-routes.service */
     "./src/app/tourist-routes/services/tourist-routes.service.ts");
+    /* harmony import */
+
+
+    var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! @angular/cdk/keycodes */
+    "./node_modules/@angular/cdk/esm2015/keycodes.js");
+    /* harmony import */
+
+
+    var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! src/app/offers/services/offer.service */
+    "./src/app/offers/services/offer.service.ts");
 
     var CreateTouristRoutesComponent = /*#__PURE__*/function () {
-      function CreateTouristRoutesComponent(dialogRef, touristRoutesService, offerService, //Cambiar
-      commonService, router) {
+      function CreateTouristRoutesComponent(dialogRef, touristRoutesService, offerService, commonService, router) {
         _classCallCheck(this, CreateTouristRoutesComponent);
 
         this.dialogRef = dialogRef;
@@ -22826,49 +24356,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.offerService = offerService;
         this.commonService = commonService;
         this.router = router;
-        this.associateOffers = [];
         this.loading = false;
+        this.visible = true;
+        this.selectable = true;
+        this.removable = true;
+        this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_7__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_7__["COMMA"]];
+        this.allOffers = [];
         this.trFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
           name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-          offer: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
+          offers: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
         });
       }
 
       _createClass(CreateTouristRoutesComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {// this.subscription = this.offerService.getOffers()
-          // .subscribe({
-          //   next: (data: any) => {
-          //     this.offerService.offers = data;
-          //     this.subscription.unsubscribe();
-          //   }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-          // })
-        }
-      }, {
-        key: "addOffer",
-        value: function addOffer() {
-          var offer = this.trFG.controls['offer'].value;
-          var index = this.associateOffers.indexOf(offer);
+        value: function ngOnInit() {
+          var _this182 = this;
 
-          if (index < 0) {
-            this.associateOffers.push(offer);
-          } else {
-            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
-          }
-        }
-      }, {
-        key: "removeOffer",
-        value: function removeOffer(offer) {
-          var index = this.associateOffers.indexOf(offer);
+          this.subscription = this.offerService.getOffers().subscribe({
+            next: function next(data) {
+              _this182.filteredOffers = data;
 
-          if (index >= 0) {
-            this.associateOffers.splice(index, 1);
-          }
+              _this182.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this182.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
         }
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this154 = this;
+          var _this183 = this;
 
           this.loading = true;
           var tr = {
@@ -22876,78 +24395,88 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.touristRoutesService.createTouristRoute(tr).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this154, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
-                var offers;
-                return regeneratorRuntime.wrap(function _callee32$(_context32) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this183, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
+                return regeneratorRuntime.wrap(function _callee57$(_context57) {
                   while (1) {
-                    switch (_context32.prev = _context32.next) {
+                    switch (_context57.prev = _context57.next) {
                       case 0:
-                        if (!(data.status == 200)) {
-                          _context32.next = 9;
+                        if (!(data.status == 201)) {
+                          _context57.next = 8;
                           break;
                         }
 
-                        offers = this.getOfferIds();
-                        _context32.next = 4;
-                        return this.asociateoffers(data.body[0], offers);
+                        _context57.next = 3;
+                        return this.asociateoffers(data.body[0]);
 
-                      case 4:
+                      case 3:
                         this.commonService.openSnackBar("El evento ".concat(this.trFG.value.name, " se ha creado"), "OK");
                         this.dialogRef.close();
                         this.router.navigate(['/tourist-routes', data.body[0]]);
-                        _context32.next = 11;
+                        _context57.next = 10;
                         break;
 
-                      case 9:
+                      case 8:
                         this.commonService.openSnackBar("Error al crear el evento: ".concat(data.error), "OK");
                         this.trFG.enable();
 
-                      case 11:
+                      case 10:
                       case "end":
-                        return _context32.stop();
+                        return _context57.stop();
                     }
                   }
-                }, _callee32, this);
+                }, _callee57, this);
               }));
             },
             error: function error(err) {
-              _this154.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this183.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this154.loading = false;
+              _this183.loading = false;
 
-              _this154.trFG.enable();
+              _this183.trFG.enable();
             }
           });
         }
       }, {
-        key: "getOfferIds",
-        value: function getOfferIds() {
-          var ids = [];
-          this.associateOffers.forEach(function (elem) {
-            return ids.push(elem.offer_id);
-          });
-          return ids;
+        key: "removeOffer",
+        value: function removeOffer(category) {
+          var index = this.allOffers.indexOf(category);
+
+          if (index >= 0) {
+            this.allOffers.splice(index, 1);
+          }
+        }
+      }, {
+        key: "selectedOffer",
+        value: function selectedOffer(event) {
+          var index = this.allOffers.indexOf(event.option.value);
+
+          if (index < 0) {
+            this.allOffers.push(event.option.value);
+            this.trFG.controls['offers'].setValue(null);
+          } else {
+            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
+          }
         }
       }, {
         key: "asociateoffers",
-        value: function asociateoffers(tr_id, offerIds) {
-          var _this155 = this;
+        value: function asociateoffers(tr_id) {
+          var _this184 = this;
 
-          offerIds.forEach(function (offer_id) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this155, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
-              return regeneratorRuntime.wrap(function _callee33$(_context33) {
+          this.allOffers.forEach(function (offer) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this184, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
+              return regeneratorRuntime.wrap(function _callee58$(_context58) {
                 while (1) {
-                  switch (_context33.prev = _context33.next) {
+                  switch (_context58.prev = _context58.next) {
                     case 0:
-                      _context33.next = 2;
-                      return this.touristRoutesService.addOfferToTouristRoute(tr_id, offer_id).toPromise();
+                      _context58.next = 2;
+                      return this.touristRoutesService.addOfferToTouristRoute(tr_id, offer.offer_id).toPromise();
 
                     case 2:
                     case "end":
-                      return _context33.stop();
+                      return _context58.stop();
                   }
                 }
-              }, _callee33, this);
+              }, _callee58, this);
             }));
           });
         }
@@ -22970,16 +24499,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       return [{
         type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"]
       }, {
-        type: _services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_7__["TouristRoutesService"]
+        type: _services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_6__["TouristRoutesService"]
       }, {
-        type: src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_5__["CategoryService"]
+        type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_8__["OfferService"]
       }, {
-        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"]
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"]
       }, {
         type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
       }];
     };
 
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('auto', {
+      "static": false
+    })], CreateTouristRoutesComponent.prototype, "matAutocomplete", void 0);
     CreateTouristRoutesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-create-tourist-routes',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
@@ -23067,12 +24599,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ManagementTouristRoutesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this156 = this;
+          var _this185 = this;
 
           this.subscription = this.route.paramMap.subscribe(function (params) {
-            _this156.route_id = Number(params.get("tourist-route_id"));
+            _this185.route_id = Number(params.get("tourist-route_id"));
 
-            _this156.recharge();
+            _this185.recharge();
           });
         }
       }, {
@@ -23083,10 +24615,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this157 = this;
+          var _this186 = this;
 
           this.touristRouteService.getTouristRoute(Number(this.route_id)).subscribe(function (data) {
-            _this157.myRoute = data;
+            _this186.myRoute = data;
           });
         }
       }]);
@@ -23130,7 +24662,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\n.toggle {\n  width: 45%;\n  margin-left: 2.5%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsYUFBQTtFQUNBLGVBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURFQTtFQUNJLGlCQUFBO0VBQ0EsZUFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvdG91cmlzdC1yb3V0ZXMvY29tcG9uZW50cy9tYW5hZ2VtZW50LXRvdXJpc3Qtcm91dGVzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMvdG91cmlzdC1yb3V0ZXMtZGV0YWlscy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgZGlzcGxheTogZmxleDsgXG4gICAgZmxleC13cmFwOiB3cmFwOyBcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seVxufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDMlO1xuICAgIG1hcmdpbi1ib3R0b206IDMlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbi50b2dnbGUge1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi5jb250YWluZXItdGV4dC1sZWZ0e1xuICAgIG1hcmdpbi1ib3R0b206IDIlO1xuICAgIG1hcmdpbi1sZWZ0OiAyJTtcbn1cbiIsImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbi50b2dnbGUge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufSJdfQ== */";
+    __webpack_exports__["default"] = "form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\n.buttonContainer {\n  width: 80%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-between;\n}\n\n.toggle {\n  width: 45%;\n  margin-left: 2.5%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n\n.container {\n  margin-top: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsYUFBQTtFQUNBLGVBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDhCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURFQTtFQUNJLGlCQUFBO0VBQ0EsZUFBQTtBQ0NKOztBREVBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJmb3Jte1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGRpc3BsYXk6IGZsZXg7IFxuICAgIGZsZXgtd3JhcDogd3JhcDsgXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHlcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICB3aWR0aDogODAlO1xuICAgIG1hcmdpbi1ib3R0b206IDMlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuXG4udG9nZ2xlIHtcbiAgICB3aWR0aDogNDUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29udGFpbmVyLXRleHQtbGVmdHtcbiAgICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgICBtYXJnaW4tbGVmdDogMiU7XG59XG5cbi5jb250YWluZXIge1xuICAgIG1hcmdpbi10b3A6IDFyZW07XG59XG4iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICB3aWR0aDogODAlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuXG4udG9nZ2xlIHtcbiAgd2lkdGg6IDQ1JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi5jb250YWluZXItdGV4dC1sZWZ0IHtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG4gIG1hcmdpbi1sZWZ0OiAyJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDFyZW07XG59Il19 */";
     /***/
   },
 
@@ -23174,9 +24706,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! src/app/category/services/category.service */
-    "./src/app/category/services/category.service.ts");
+    var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
     /* harmony import */
 
 
@@ -23186,239 +24718,141 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/offers/services/offer.service */
+    "./src/app/offers/services/offer.service.ts");
+    /* harmony import */
+
+
+    var src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! src/app/tourist-routes/services/tourist-routes.service */
     "./src/app/tourist-routes/services/tourist-routes.service.ts");
 
     var TouristRoutesDetailsComponent = /*#__PURE__*/function () {
-      function TouristRoutesDetailsComponent(touristRoutesService, offerService, //Cambiar
-      commonService) {
+      function TouristRoutesDetailsComponent(touristRoutesService, offerService, commonService, router) {
         _classCallCheck(this, TouristRoutesDetailsComponent);
 
         this.touristRoutesService = touristRoutesService;
         this.offerService = offerService;
         this.commonService = commonService;
+        this.router = router;
         this.loading = false;
-        this.associateOffers = [];
-        this.oldaAsociateOffers = [];
         this.trFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-          name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-          offer: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
+          name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
         });
       }
 
       _createClass(TouristRoutesDetailsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          // this.subscription = this.offerService.getOffers()
-          // .subscribe({
-          //   next: (data: any) => {
-          //     this.offerService.offers = data;
-          //     this.subscription.unsubscribe();
-          //   }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-          // })
           this.setData();
         }
       }, {
         key: "setData",
         value: function setData() {
-          var _this158 = this;
-
-          this.trFG.controls['name'].setValue(this.myRoute.name);
-          this.subscription2 = this.touristRoutesService.getTouristRouteOffers(this.myRoute.tourist_route_id).subscribe({
-            next: function next(data) {
-              _this158.associateOffers = [];
-              _this158.oldaAsociateOffers = [];
-              data.forEach(function (val) {
-                return _this158.associateOffers.push(val);
-              });
-
-              _this158.associateOffers.forEach(function (val) {
-                return _this158.oldaAsociateOffers.push(val.category_id);
-              });
-
-              _this158.subscription2.unsubscribe();
-            },
-            error: function error(err) {
-              return _this158.commonService.openSnackBar("Error: ".concat(err), "OK");
-            }
-          });
+          this.trFG.controls["name"].setValue(this.myRoute.name);
         }
       }, {
         key: "modifyRoute",
         value: function modifyRoute() {
-          var _this159 = this;
+          var _this187 = this;
 
           this.loading = true;
           var tr = {
-            tourist_route_id: this.myRoute.tourist_route_id,
-            name: this.trFG.controls['name'].value,
-            is_active: this.myRoute.is_active,
-            state: this.myRoute.state
+            route_id: this.myRoute.route_id,
+            name: this.trFG.controls["name"].value,
+            is_active: this.myRoute.is_active
           };
           this.touristRoutesService.modifyTouristRute(tr).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this159, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
-                var offersIds;
-                return regeneratorRuntime.wrap(function _callee34$(_context34) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this187, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
+                return regeneratorRuntime.wrap(function _callee59$(_context59) {
                   while (1) {
-                    switch (_context34.prev = _context34.next) {
+                    switch (_context59.prev = _context59.next) {
                       case 0:
-                        if (!(data.status == 200)) {
-                          _context34.next = 10;
-                          break;
+                        if (data.status == 200) {
+                          this.trFG.enable();
+                          this.myRoute = tr;
+                          this.commonService.openSnackBar("La ruta tur\xEDstica ".concat(this.myRoute.name, " ha sido cambiada"), "OK");
+                          this.loading = false;
+                        } else {
+                          this.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                         }
 
-                        this.trFG.enable();
-                        this.myRoute = tr;
-                        offersIds = this.getOfferIds();
-                        _context34.next = 6;
-                        return this.asociateoffers(this.myRoute.tourist_route_id, offersIds);
-
-                      case 6:
-                        this.commonService.openSnackBar("La ruta tur\xEDstica ".concat(this.myRoute.name, " ha sido cambiada"), "OK");
-                        this.loading = false;
-                        _context34.next = 11;
-                        break;
-
-                      case 10:
-                        this.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-
-                      case 11:
+                      case 1:
                       case "end":
-                        return _context34.stop();
+                        return _context59.stop();
                     }
                   }
-                }, _callee34, this);
+                }, _callee59, this);
               }));
             },
             error: function error(err) {
-              _this159.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this187.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this159.loading = false;
+              _this187.loading = false;
 
-              _this159.trFG.enable();
+              _this187.trFG.enable();
             }
           });
         }
       }, {
-        key: "changeEventState",
-        value: function changeEventState(touristRoute, _ref21) {
-          var _this160 = this;
+        key: "changeState",
+        value: function changeState(touristRoute, _ref23) {
+          var _this188 = this;
 
-          var source = _ref21.source;
-          this.touristRoutesService.changeTouristRouteState(touristRoute.tourist_route_id).subscribe({
-            next: function next(data) {
-              if (data.status == 200) {
-                touristRoute.is_active = !touristRoute.is_active;
-                source.checked = touristRoute.is_active;
-                if (touristRoute.is_active) _this160.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido activada"), "OK");else _this160.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
-              } else {
-                _this160.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
-              }
-            },
-            error: function error(err) {
-              _this160.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+          var source = _ref23.source;
 
-              source.checked = touristRoute.is_active;
-            }
-          });
-        }
-      }, {
-        key: "addOffer",
-        value: function addOffer() {
-          var offer = this.trFG.controls['offer'].value;
-          var index = this.associateOffers.indexOf(offer);
+          if (this.myRoute.is_active) {
+            this.commonService.confirmationDialog("\xBFDesea eliminar la ruta: ".concat(touristRoute.name, "?")).then(function (result) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this188, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
+                var _this189 = this;
 
-          if (index < 0) {
-            this.associateOffers.push(offer);
+                return regeneratorRuntime.wrap(function _callee60$(_context60) {
+                  while (1) {
+                    switch (_context60.prev = _context60.next) {
+                      case 0:
+                        if (result) {
+                          this.touristRoutesService.changeTouristRouteState(touristRoute.route_id).subscribe({
+                            next: function next(data) {
+                              if (data.status == 200) {
+                                touristRoute.is_active = !touristRoute.is_active;
+                                source.checked = touristRoute.is_active;
+
+                                _this189.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
+
+                                _this189.router.navigate(['/tourist-routes/all']);
+                              } else {
+                                _this189.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              }
+                            },
+                            error: function error(err) {
+                              _this189.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                              source.checked = touristRoute.is_active;
+                            }
+                          });
+                        } else {
+                          source.checked = touristRoute.is_active;
+                        }
+
+                      case 1:
+                      case "end":
+                        return _context60.stop();
+                    }
+                  }
+                }, _callee60, this);
+              }));
+            });
           } else {
-            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
+            this.commonService.openSnackBar("No se puede reactivar una ruta", "OK");
+            source.checked = touristRoute.is_active;
           }
-        }
-      }, {
-        key: "removeOffer",
-        value: function removeOffer(offer) {
-          var index = this.associateOffers.indexOf(offer);
-
-          if (index >= 0) {
-            this.associateOffers.splice(index, 1);
-          }
-        }
-      }, {
-        key: "getOfferIds",
-        value: function getOfferIds() {
-          var ids = [];
-          this.associateOffers.forEach(function (elem) {
-            return ids.push(elem.offer_id);
-          });
-          return ids;
-        }
-      }, {
-        key: "asociateoffers",
-        value: function asociateoffers(tr_id, offerIds) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
-            var i, _i6;
-
-            return regeneratorRuntime.wrap(function _callee35$(_context35) {
-              while (1) {
-                switch (_context35.prev = _context35.next) {
-                  case 0:
-                    i = 0;
-
-                  case 1:
-                    if (!(i < offerIds.length)) {
-                      _context35.next = 8;
-                      break;
-                    }
-
-                    if (!(this.oldaAsociateOffers.indexOf(offerIds[i]) === -1)) {
-                      _context35.next = 5;
-                      break;
-                    }
-
-                    _context35.next = 5;
-                    return this.touristRoutesService.addOfferToTouristRoute(offerIds[i], tr_id).toPromise();
-
-                  case 5:
-                    i++;
-                    _context35.next = 1;
-                    break;
-
-                  case 8:
-                    _i6 = 0;
-
-                  case 9:
-                    if (!(_i6 < this.oldaAsociateOffers.length)) {
-                      _context35.next = 16;
-                      break;
-                    }
-
-                    if (!(offerIds.indexOf(this.oldaAsociateOffers[_i6]) === -1)) {
-                      _context35.next = 13;
-                      break;
-                    }
-
-                    _context35.next = 13;
-                    return this.touristRoutesService.deleteOfferFromTouristRoute(this.oldaAsociateOffers[_i6], tr_id).toPromise();
-
-                  case 13:
-                    _i6++;
-                    _context35.next = 9;
-                    break;
-
-                  case 16:
-                  case "end":
-                    return _context35.stop();
-                }
-              }
-            }, _callee35, this);
-          }));
         }
       }, {
         key: "disableDialog",
         value: function disableDialog() {
-          if (!this.trFG.valid || this.associateOffers.length == 0 || this.loading == true) {
+          if (!this.trFG.valid || this.loading == true) {
             return true;
           }
 
@@ -23431,17 +24865,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     TouristRoutesDetailsComponent.ctorParameters = function () {
       return [{
-        type: src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_5__["TouristRoutesService"]
+        type: src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_6__["TouristRoutesService"]
       }, {
-        type: src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_3__["CategoryService"]
+        type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__["OfferService"]
       }, {
         type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]
       }];
     };
 
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], TouristRoutesDetailsComponent.prototype, "myRoute", void 0);
     TouristRoutesDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-tourist-routes-details',
+      selector: "app-tourist-routes-details",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./tourist-routes-details.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-details/tourist-routes-details.component.html"))["default"],
@@ -23449,6 +24885,222 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       /*! ./tourist-routes-details.component.scss */
       "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-details/tourist-routes-details.component.scss"))["default"]]
     })], TouristRoutesDetailsComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.scss":
+  /*!********************************************************************************************************************************!*\
+    !*** ./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.scss ***!
+    \********************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppTouristRoutesComponentsManagementTouristRoutesTouristRoutesOffersTouristRoutesOffersComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n\n.container {\n  margin-top: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1vZmZlcnMvdG91cmlzdC1yb3V0ZXMtb2ZmZXJzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC90b3VyaXN0LXJvdXRlcy9jb21wb25lbnRzL21hbmFnZW1lbnQtdG91cmlzdC1yb3V0ZXMvdG91cmlzdC1yb3V0ZXMtb2ZmZXJzL3RvdXJpc3Qtcm91dGVzLW9mZmVycy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0Y7O0FERUE7RUFDRSxpQkFBQTtFQUNBLGVBQUE7QUNDRjs7QURFQTtFQUNFLGdCQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC90b3VyaXN0LXJvdXRlcy9jb21wb25lbnRzL21hbmFnZW1lbnQtdG91cmlzdC1yb3V0ZXMvdG91cmlzdC1yb3V0ZXMtb2ZmZXJzL3RvdXJpc3Qtcm91dGVzLW9mZmVycy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMXJlbTtcbn1cbiIsImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMXJlbTtcbn0iXX0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.ts":
+  /*!******************************************************************************************************************************!*\
+    !*** ./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.ts ***!
+    \******************************************************************************************************************************/
+
+  /*! exports provided: TouristRoutesOffersComponent */
+
+  /***/
+  function srcAppTouristRoutesComponentsManagementTouristRoutesTouristRoutesOffersTouristRoutesOffersComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "TouristRoutesOffersComponent", function () {
+      return TouristRoutesOffersComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/offers/services/offer.service */
+    "./src/app/offers/services/offer.service.ts");
+    /* harmony import */
+
+
+    var src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/tourist-routes/services/tourist-routes.service */
+    "./src/app/tourist-routes/services/tourist-routes.service.ts");
+
+    var TouristRoutesOffersComponent = /*#__PURE__*/function () {
+      function TouristRoutesOffersComponent(touristRoutesService, offerService, commonService, router) {
+        _classCallCheck(this, TouristRoutesOffersComponent);
+
+        this.touristRoutesService = touristRoutesService;
+        this.offerService = offerService;
+        this.commonService = commonService;
+        this.router = router;
+        this.filter = {
+          name: ""
+        };
+        this.loading = false;
+        this.associateOffers = [];
+      }
+
+      _createClass(TouristRoutesOffersComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var _this190 = this;
+
+          this.subscription = this.offerService.getOffers().subscribe({
+            next: function next(data) {
+              _this190.offerService.offers = data;
+
+              _this190.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this190.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+          this.getRouteOffers();
+        }
+      }, {
+        key: "getRouteOffers",
+        value: function getRouteOffers() {
+          var _this191 = this;
+
+          this.subscription2 = this.touristRoutesService.getTouristRouteOffers(this.myRoute.route_id).subscribe({
+            next: function next(data) {
+              _this191.associateOffers = [];
+              data.forEach(function (val) {
+                return _this191.associateOffers.push(val);
+              });
+
+              _this191.subscription2.unsubscribe();
+            },
+            error: function error(err) {
+              return _this191.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
+      }, {
+        key: "addOffer",
+        value: function addOffer() {
+          var _this192 = this;
+
+          var offer = this.selectedOffer;
+          var offersID = this.getOffersID();
+          var index = offersID.indexOf(offer.offer_id);
+
+          if (index < 0) {
+            this.loading = true;
+            this.touristRoutesService.addOfferToTouristRoute(this.myRoute.route_id, offer.offer_id).subscribe({
+              next: function next(data) {
+                if (data.status == 201) {
+                  _this192.getRouteOffers();
+
+                  _this192.commonService.openSnackBar("Se ha añadido la oferta", "OK");
+
+                  _this192.loading = false;
+                }
+              },
+              error: function error(err) {
+                return _this192.commonService.openSnackBar("Error: ".concat(err), "OK");
+              }
+            });
+          } else {
+            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
+          }
+        }
+      }, {
+        key: "getOffersID",
+        value: function getOffersID() {
+          var ids = [];
+          this.associateOffers.forEach(function (element) {
+            return ids.push(element.offer_id);
+          });
+          return ids;
+        }
+      }, {
+        key: "removeOffer",
+        value: function removeOffer(offer) {
+          var _this193 = this;
+
+          this.loading = true;
+          this.touristRoutesService.deleteOfferFromTouristRoute(this.myRoute.route_id, offer.offer_id).subscribe({
+            next: function next(data) {
+              if (data.status == 200) {
+                _this193.getRouteOffers();
+
+                _this193.commonService.openSnackBar("La oferta ha sido removida", "OK");
+
+                _this193.loading = false;
+              }
+            },
+            error: function error(err) {
+              return _this193.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
+      }]);
+
+      return TouristRoutesOffersComponent;
+    }();
+
+    TouristRoutesOffersComponent.ctorParameters = function () {
+      return [{
+        type: src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_5__["TouristRoutesService"]
+      }, {
+        type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_4__["OfferService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
+      }];
+    };
+
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], TouristRoutesOffersComponent.prototype, "myRoute", void 0);
+    TouristRoutesOffersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: "app-tourist-routes-offers",
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./tourist-routes-offers.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./tourist-routes-offers.component.scss */
+      "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.scss"))["default"]]
+    })], TouristRoutesOffersComponent);
     /***/
   },
 
@@ -23509,13 +25161,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.http = http;
         this.commonService = commonService;
         this.touristRoutes = [];
-        this.module = "touristRoutes/";
+        this.module = "touristRoutes";
       }
 
       _createClass(TouristRoutesService, [{
         key: "getTouristRoutes",
-        value: function getTouristRoutes() {
-          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module));
+        value: function getTouristRoutes(is_active) {
+          var params = {
+            is_active: String(is_active)
+          };
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module), {
+            params: params
+          });
         }
       }, {
         key: "getTouristRoute",
@@ -23525,48 +25182,47 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createTouristRoute",
         value: function createTouristRoute(touristRoute) {
-          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module), touristRoute, {
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/"), touristRoute, {
             observe: 'response'
           });
         }
       }, {
         key: "modifyTouristRute",
         value: function modifyTouristRute(touristRoute) {
-          return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module).concat(touristRoute.tourist_route_id), touristRoute, {
+          var json = {
+            name: touristRoute.name
+          };
+          return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(touristRoute.route_id), json, {
             observe: 'response'
           });
         }
       }, {
         key: "changeTouristRouteState",
         value: function changeTouristRouteState(tourist_route_id) {
-          return this.http.patch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module).concat(tourist_route_id), null, {
+          return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(tourist_route_id), {
             observe: 'response'
           });
         }
       }, {
         key: "getTouristRouteOffers",
         value: function getTouristRouteOffers(tourist_route_id) {
-          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module).concat(tourist_route_id, "/offers"));
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(tourist_route_id, "/offers"));
         }
       }, {
         key: "addOfferToTouristRoute",
-        value: function addOfferToTouristRoute(tourist_route_id, offer_id) {
+        value: function addOfferToTouristRoute(route_id, offer_id) {
           var json = {
-            tourist_route_id: tourist_route_id,
+            route_id: route_id,
             offer_id: offer_id
           };
-          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "addOffer"), json, {
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/offers"), json, {
             observe: 'response'
           });
         }
       }, {
         key: "deleteOfferFromTouristRoute",
         value: function deleteOfferFromTouristRoute(tourist_route_id, offer_id) {
-          var json = {
-            tourist_route_id: tourist_route_id,
-            offer_id: offer_id
-          };
-          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "deleteOffer"), json, {
+          return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL).concat(this.module, "/").concat(tourist_route_id, "/offers/").concat(offer_id), {
             observe: 'response'
           });
         }
@@ -23799,13 +25455,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _components_management_tourist_routes_tourist_routes_details_tourist_routes_details_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
     /*! ./components/management-tourist-routes/tourist-routes-details/tourist-routes-details.component */
     "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-details/tourist-routes-details.component.ts");
+    /* harmony import */
+
+
+    var _components_management_tourist_routes_tourist_routes_offers_tourist_routes_offers_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    /*! ./components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component */
+    "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.ts");
 
     var TouristRoutesModule = function TouristRoutesModule() {
       _classCallCheck(this, TouristRoutesModule);
     };
 
     TouristRoutesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-      declarations: [_tourist_routes_root_component__WEBPACK_IMPORTED_MODULE_6__["TouristRoutesRootComponent"], _components_all_tourist_routes_all_tourist_routes_component__WEBPACK_IMPORTED_MODULE_8__["AllTouristRoutesComponent"], _components_create_tourist_routes_create_tourist_routes_component__WEBPACK_IMPORTED_MODULE_9__["CreateTouristRoutesComponent"], _components_management_tourist_routes_management_tourist_routes_component__WEBPACK_IMPORTED_MODULE_10__["ManagementTouristRoutesComponent"], _components_management_tourist_routes_tourist_routes_details_tourist_routes_details_component__WEBPACK_IMPORTED_MODULE_11__["TouristRoutesDetailsComponent"]],
+      declarations: [_tourist_routes_root_component__WEBPACK_IMPORTED_MODULE_6__["TouristRoutesRootComponent"], _components_all_tourist_routes_all_tourist_routes_component__WEBPACK_IMPORTED_MODULE_8__["AllTouristRoutesComponent"], _components_create_tourist_routes_create_tourist_routes_component__WEBPACK_IMPORTED_MODULE_9__["CreateTouristRoutesComponent"], _components_management_tourist_routes_management_tourist_routes_component__WEBPACK_IMPORTED_MODULE_10__["ManagementTouristRoutesComponent"], _components_management_tourist_routes_tourist_routes_details_tourist_routes_details_component__WEBPACK_IMPORTED_MODULE_11__["TouristRoutesDetailsComponent"], _components_management_tourist_routes_tourist_routes_offers_tourist_routes_offers_component__WEBPACK_IMPORTED_MODULE_12__["TouristRoutesOffersComponent"]],
       imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _tourist_routes_routing_module__WEBPACK_IMPORTED_MODULE_7__["TouristRoutesRoutingModule"], _shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_5__["FilterPipeModule"]],
       providers: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["DatePipe"]],
       entryComponents: [_components_create_tourist_routes_create_tourist_routes_component__WEBPACK_IMPORTED_MODULE_9__["CreateTouristRoutesComponent"]]
@@ -23914,11 +25576,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddAdminComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this161 = this;
+          var _this194 = this;
 
           // Trigger to change icon
           this.addAdminForm.valueChanges.subscribe(function () {
-            if (_this161.addAdminForm.invalid == false) _this161.icon = "done";else _this161.icon = "warning";
+            if (_this194.addAdminForm.invalid == false) _this194.icon = "done";else _this194.icon = "warning";
           });
         }
         /**
@@ -23928,7 +25590,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addAdmin",
         value: function addAdmin() {
-          var _this162 = this;
+          var _this195 = this;
 
           this.loading = true; // Charge loading
 
@@ -23942,14 +25604,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.subscription = this.sessionService.saveUserAdmi(info, 1).subscribe({
             next: function next() {
-              _this162.loading = false;
+              _this195.loading = false;
 
-              _this162.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
+              _this195.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
 
-              _this162.dialog.closeAll();
+              _this195.dialog.closeAll();
             },
             error: function error(err) {
-              _this162.commonService.openSnackBar("Error: ".concat(err), "OK");
+              _this195.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -24114,7 +25776,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var AddEventRequestComponent = /*#__PURE__*/function () {
       function AddEventRequestComponent(data, dialogRef, commonService, eventService, router, categoryService, companyService, userService, multimediaService) {
-        var _this163 = this;
+        var _this196 = this;
 
         _classCallCheck(this, AddEventRequestComponent);
 
@@ -24183,7 +25845,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
          */
 
         this.dateFilter = function (date) {
-          return date >= _this163.initial_date;
+          return date >= _this196.initial_date;
         };
 
         this.refreshMap = this.refreshMap.bind(this);
@@ -24192,7 +25854,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddEventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this164 = this;
+          var _this197 = this;
 
           this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({
@@ -24225,22 +25887,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.data.action ? this.visible = false : this.visible = true;
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this164.filteredCategories = data;
+              _this197.filteredCategories = data;
 
-              _this164.subscription.unsubscribe();
+              _this197.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this164.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this197.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription2 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this164.filteredCompanies = data;
+              _this197.filteredCompanies = data;
 
-              _this164.subscription2.unsubscribe();
+              _this197.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this164.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this197.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.user = this.userService.actualUser;
@@ -24253,7 +25915,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this165 = this;
+          var _this198 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -24264,7 +25926,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           setTimeout(function () {
-            return _this165.map.invalidateSize();
+            return _this198.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -24295,7 +25957,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setData",
         value: function setData(event) {
-          var _this166 = this;
+          var _this199 = this;
 
           this.eventFG.controls['name'].setValue(event.name);
           this.eventFG.controls['address'].setValue(event.address);
@@ -24312,29 +25974,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (!this.petition) {
             this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
               next: function next(data) {
-                _this166.allCategories = [];
+                _this199.allCategories = [];
                 data.forEach(function (val) {
-                  return _this166.allCategories.push(val);
+                  return _this199.allCategories.push(val);
                 });
 
-                _this166.subscription3.unsubscribe();
+                _this199.subscription3.unsubscribe();
               },
               error: function error(err) {
-                return _this166.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this199.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             }); //compañías
 
             this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
               next: function next(data) {
-                _this166.allCompanies = [];
+                _this199.allCompanies = [];
                 data.forEach(function (val) {
-                  return _this166.allCompanies.push(val);
+                  return _this199.allCompanies.push(val);
                 });
 
-                _this166.subscription4.unsubscribe();
+                _this199.subscription4.unsubscribe();
               },
               error: function error(err) {
-                return _this166.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this199.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           }
@@ -24346,8 +26008,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
       }, {
         key: "changeState",
-        value: function changeState(_ref22) {
-          var source = _ref22.source;
+        value: function changeState(_ref24) {
+          var source = _ref24.source;
           this.allDay == false ? this.allDay = true : this.allDay = false;
           source.checked = this.allDay;
         }
@@ -24364,20 +26026,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
             var urlImages;
-            return regeneratorRuntime.wrap(function _callee36$(_context36) {
+            return regeneratorRuntime.wrap(function _callee61$(_context61) {
               while (1) {
-                switch (_context36.prev = _context36.next) {
+                switch (_context61.prev = _context61.next) {
                   case 0:
+                    this.loading = true;
+                    this.eventFG.disable();
                     this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
                     this.initial_time == undefined ? this.initial_time = null : null;
                     this.final_time == undefined ? this.final_time = null : null;
-                    _context36.next = 5;
+                    _context61.next = 7;
                     return this.uploadFiles();
 
-                  case 5:
-                    urlImages = _context36.sent;
+                  case 7:
+                    urlImages = _context61.sent;
                     this.myEvent.name = this.eventFG.controls['name'].value;
                     this.myEvent.cost = this.eventFG.controls['cost'].value;
                     this.myEvent.address = this.eventFG.controls['address'].value;
@@ -24393,68 +26057,69 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.myEvent.images = urlImages;
                     this.createRequest(this.myEvent);
 
-                  case 17:
+                  case 19:
                   case "end":
-                    return _context36.stop();
+                    return _context61.stop();
                 }
               }
-            }, _callee36, this);
+            }, _callee61, this);
           }));
         }
       }, {
         key: "createRequest",
         value: function createRequest(event) {
-          var _this167 = this;
+          var _this200 = this;
 
-          this.loading = true;
-          this.eventFG.disable();
           this.eventService.createEvent(event, true).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this167, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
-                return regeneratorRuntime.wrap(function _callee37$(_context37) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this200, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
+                return regeneratorRuntime.wrap(function _callee62$(_context62) {
                   while (1) {
-                    switch (_context37.prev = _context37.next) {
+                    switch (_context62.prev = _context62.next) {
                       case 0:
-                        if (!(data.status == 200)) {
-                          _context37.next = 12;
+                        console.log(data);
+
+                        if (!(data.status == 201)) {
+                          _context62.next = 13;
                           break;
                         }
 
                         /**Añadiendo compañías y categorías al evento */
                         this.getCategories();
                         this.getCompanies();
-                        _context37.next = 5;
+                        _context62.next = 6;
                         return this.eventRelations(data.body[0]);
 
-                      case 5:
-                        _context37.next = 7;
+                      case 6:
+                        _context62.next = 8;
                         return this.addImagesToEvent(data.body[0]);
 
-                      case 7:
+                      case 8:
                         this.commonService.openSnackBar("La petici\xF3n del evento ".concat(this.eventFG.value.name, " se ha creado"), "OK");
                         this.dialogRef.close();
                         this.router.navigate(['/event', data.body[0]]);
-                        _context37.next = 14;
+                        _context62.next = 16;
                         break;
 
-                      case 12:
+                      case 13:
                         this.commonService.openSnackBar("Error al crear el evento: ".concat(data.error), "OK");
+                        this.loading = false;
                         this.eventFG.enable();
 
-                      case 14:
+                      case 16:
                       case "end":
-                        return _context37.stop();
+                        return _context62.stop();
                     }
                   }
-                }, _callee37, this);
+                }, _callee62, this);
               }));
             },
             error: function error(err) {
-              _this167.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this200.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this167.loading = false;
+              _this200.loading = false;
 
-              _this167.eventFG.enable();
+              _this200.eventFG.enable();
             }
           });
         }
@@ -24565,61 +26230,58 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "eventRelations",
         value: function eventRelations(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
-            var i, _i7;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
+            var i, _i6;
 
-            return regeneratorRuntime.wrap(function _callee38$(_context38) {
+            return regeneratorRuntime.wrap(function _callee63$(_context63) {
               while (1) {
-                switch (_context38.prev = _context38.next) {
+                switch (_context63.prev = _context63.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < this.allCompanies.length)) {
-                      _context38.next = 7;
+                      _context63.next = 7;
                       break;
                     }
 
-                    _context38.next = 4;
+                    _context63.next = 4;
                     return this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise();
 
                   case 4:
                     i++;
-                    _context38.next = 1;
+                    _context63.next = 1;
                     break;
 
                   case 7:
-                    _i7 = 0;
+                    _i6 = 0;
 
                   case 8:
-                    if (!(_i7 < this.allCategories.length)) {
-                      _context38.next = 14;
+                    if (!(_i6 < this.allCategories.length)) {
+                      _context63.next = 14;
                       break;
                     }
 
-                    _context38.next = 11;
-                    return this.eventService.addCategoryToEvent(this.allCategories[_i7], event_id).toPromise();
+                    _context63.next = 11;
+                    return this.eventService.addCategoryToEvent(this.allCategories[_i6], event_id).toPromise();
 
                   case 11:
-                    _i7++;
-                    _context38.next = 8;
+                    _i6++;
+                    _context63.next = 8;
                     break;
 
                   case 14:
                   case "end":
-                    return _context38.stop();
+                    return _context63.stop();
                 }
               }
-            }, _callee38, this);
+            }, _callee63, this);
           }));
         }
       }, {
         key: "getFiles",
         value: function getFiles(event) {
-          var _this168 = this;
-
-          this.eventImages = [];
-          this.eventImagesFinal = [];
+          var _this201 = this;
 
           if (event.target.files) {
             for (var i = 0; i < event.target.files.length; i++) {
@@ -24629,7 +26291,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 reader.readAsDataURL(event.target.files[i]);
 
                 reader.onload = function (event) {
-                  _this168.eventImages.push(event.target.result);
+                  _this201.eventImages.push(event.target.result);
                 };
               }
             }
@@ -24638,40 +26300,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "uploadFiles",
         value: function uploadFiles() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee39$(_context39) {
+            return regeneratorRuntime.wrap(function _callee64$(_context64) {
               while (1) {
-                switch (_context39.prev = _context39.next) {
+                switch (_context64.prev = _context64.next) {
                   case 0:
                     images = [];
                     i = 0;
 
                   case 2:
                     if (!(i < this.eventImagesFinal.length)) {
-                      _context39.next = 8;
+                      _context64.next = 8;
                       break;
                     }
 
-                    _context39.next = 5;
+                    _context64.next = 5;
                     return this.commonService.uploadFile(this.eventImagesFinal[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 5:
                     i++;
-                    _context39.next = 2;
+                    _context64.next = 2;
                     break;
 
                   case 8:
-                    return _context39.abrupt("return", images);
+                    return _context64.abrupt("return", images);
 
                   case 9:
                   case "end":
-                    return _context39.stop();
+                    return _context64.stop();
                 }
               }
-            }, _callee39, this);
+            }, _callee64, this);
           }));
         }
       }, {
@@ -24692,39 +26354,39 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addImagesToEvent",
         value: function addImagesToEvent(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
             var urlImages, i;
-            return regeneratorRuntime.wrap(function _callee40$(_context40) {
+            return regeneratorRuntime.wrap(function _callee65$(_context65) {
               while (1) {
-                switch (_context40.prev = _context40.next) {
+                switch (_context65.prev = _context65.next) {
                   case 0:
-                    _context40.next = 2;
+                    _context65.next = 2;
                     return this.uploadFiles();
 
                   case 2:
-                    urlImages = _context40.sent;
+                    urlImages = _context65.sent;
                     i = 0;
 
                   case 4:
                     if (!(i < urlImages.length)) {
-                      _context40.next = 10;
+                      _context65.next = 10;
                       break;
                     }
 
-                    _context40.next = 7;
+                    _context65.next = 7;
                     return this.multimediaService.addImage(event_id, 1, urlImages[i]).toPromise();
 
                   case 7:
                     i++;
-                    _context40.next = 4;
+                    _context65.next = 4;
                     break;
 
                   case 10:
                   case "end":
-                    return _context40.stop();
+                    return _context65.stop();
                 }
               }
-            }, _callee40, this);
+            }, _callee65, this);
           }));
         }
       }]);
@@ -24883,13 +26545,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddRequestCompanyUnionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this169 = this;
+          var _this202 = this;
 
           this.companyService.getCompanies().subscribe(function (data) {
-            _this169.companies = data;
+            _this202.companies = data;
           });
           this.filteredCompanies = this.companyControl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (value) {
-            return _this169._filter(value);
+            return _this202._filter(value);
           }));
         }
       }, {
@@ -24905,23 +26567,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "requestUnion",
         value: function requestUnion() {
-          var _this170 = this;
+          var _this203 = this;
 
           this.loading = true;
           var company_id = Number(this.companyControl.value.split(" | ")[0]);
           this.companyUsersService.requesUnion(this.user.user_id, company_id).subscribe({
             next: function next(response) {
               if (response.status == 204) {
-                _this170.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
+                _this203.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
 
-                _this170.loading = false;
+                _this203.loading = false;
 
-                _this170.dialog.close();
+                _this203.dialog.close();
               }
             },
             error: function error(err) {
-              if (err.status == 400) _this170.commonService.snackBar.open(err.error, "Ok");else _this170.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
-              _this170.loading = false;
+              if (err.status == 400) _this203.commonService.snackBar.open(err.error, "Ok");else _this203.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
+              _this203.loading = false;
             }
           });
         }
@@ -25038,7 +26700,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var CreateEvenRequestComponent = /*#__PURE__*/function () {
       function CreateEvenRequestComponent(eventService, userService, matDialog) {
-        var _this171 = this;
+        var _this204 = this;
 
         _classCallCheck(this, CreateEvenRequestComponent);
 
@@ -25049,7 +26711,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.name.toLowerCase().indexOf(_this171.filter.name.toLowerCase()) > -1;
+            return request.name.toLowerCase().indexOf(_this204.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -25059,14 +26721,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CreateEvenRequestComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this172 = this;
+          var _this205 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
           state == 0 ? state = -1 : state = Number(this.filter.state);
           this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, state).subscribe(function (data) {
-            _this172.eventRequests = data;
-            _this172.loading = false;
+            _this205.eventRequests = data;
+            _this205.loading = false;
           });
         }
       }, {
@@ -25077,11 +26739,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteRequest",
         value: function deleteRequest(event) {
-          var _this173 = this;
+          var _this206 = this;
 
           this.eventService.changeRequestState(event.event_id, 3).subscribe({
             next: function next(data) {
-              data.status == 201 ? _this173.refresh() : null;
+              data.status == 201 ? _this206.refresh() : null;
             }
           });
         }
@@ -25221,14 +26883,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FavoriteItineraryComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this174 = this;
+          var _this207 = this;
 
           this.subscription = this._itinerary.getFavoriteItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this174.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this207.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this174._common.handleError(err);
+              return _this207._common.handleError(err);
             }
           });
         }
@@ -25248,17 +26910,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeItineraryFavorite",
         value: function removeItineraryFavorite(itineraryID, elementIndex) {
-          var _this175 = this;
+          var _this208 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this175._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
+              _this208._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this175._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this208._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -25393,14 +27055,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FavoriteOfferComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this176 = this;
+          var _this209 = this;
 
           this.subscription = this._itinerary.getFavoriteOfferInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this176.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this209.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this176._common.handleError(err);
+              return _this209._common.handleError(err);
             }
           });
         }
@@ -25425,17 +27087,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOfferFavorite",
         value: function removeOfferFavorite(offerID, elementIndex) {
-          var _this177 = this;
+          var _this210 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this177._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
+              _this210._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this177._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this210._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -25538,7 +27200,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var ProfileCompaniesComponent = /*#__PURE__*/function () {
       function ProfileCompaniesComponent(companyUsersService, commonService, sessionService) {
-        var _this178 = this;
+        var _this211 = this;
 
         _classCallCheck(this, ProfileCompaniesComponent);
 
@@ -25547,9 +27209,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.sessionService = sessionService;
         this.filter = {
           input: "",
-          filter: function filter(_ref23) {
-            var name = _ref23.name;
-            return name.toLowerCase().indexOf(_this178.filter.input.toLowerCase()) > -1;
+          filter: function filter(_ref25) {
+            var name = _ref25.name;
+            return name.toLowerCase().indexOf(_this211.filter.input.toLowerCase()) > -1;
           }
         };
       }
@@ -25563,29 +27225,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this179 = this;
+          var _this212 = this;
 
           this.companyUsersService.getUserCompanies(this.user.user_id).subscribe(function (data) {
-            _this179.userCompanies = data;
+            _this212.userCompanies = data;
           });
         }
       }, {
         key: "deleteUserFromCompany",
         value: function deleteUserFromCompany(company) {
-          var _this180 = this;
+          var _this213 = this;
 
           this.companyUsersService.deleteUserFromCompany(company).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this180.refresh();
+                _this213.refresh();
 
-                _this180.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
+                _this213.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
               } else {
-                _this180.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
+                _this213.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this180.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this213.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -25703,12 +27365,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ProfileEventsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this181 = this;
+          var _this214 = this;
 
           this.user = this.userService.actualUser;
           this.eventService.getEventRequestsByUser(this.user.user_id, 1).subscribe({
             next: function next(data) {
-              _this181.userEvents = data;
+              _this214.userEvents = data;
             }
           });
         }
@@ -25826,18 +27488,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ProfileInfoComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this182 = this;
+          var _this215 = this;
 
           this.subscriptionUserProfile = this.userService.getUser(this.userService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this182.user = data.data[0];
+              _this215.user = data.data[0];
 
-              _this182.subscriptionUserProfile.unsubscribe();
+              _this215.subscriptionUserProfile.unsubscribe();
 
-              _this182.loadUser();
+              _this215.loadUser();
             },
             error: function error(err) {
-              return _this182.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this215.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -25848,7 +27510,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loadUser",
         value: function loadUser() {
-          var _this183 = this;
+          var _this216 = this;
 
           this.editProfileForm = this._fb.group({
             name: [this.user.info.name, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
@@ -25857,7 +27519,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             password: [""]
           });
           this.editProfileForm.valueChanges.subscribe(function () {
-            if (_this183.editProfileForm.invalid == false) _this183.icon = "done";else _this183.icon = "warning";
+            if (_this216.editProfileForm.invalid == false) _this216.icon = "done";else _this216.icon = "warning";
           });
         }
         /**
@@ -25867,7 +27529,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "saveChanges",
         value: function saveChanges() {
-          var _this184 = this;
+          var _this217 = this;
 
           var passChanged = false;
 
@@ -25881,12 +27543,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.user.info.email = this.editProfileForm.get("email").value;
           this.subscriptionUserProfile = this.userService.updateUser(this.user.user_id, this.user.info, passChanged).subscribe({
             next: function next(data) {
-              _this184.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this184.user.info.name), "OK");
+              _this217.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this217.user.info.name), "OK");
 
-              _this184.subscriptionUserProfile.unsubscribe();
+              _this217.subscriptionUserProfile.unsubscribe();
             },
             error: function error(err) {
-              return _this184.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this217.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -26078,7 +27740,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var RequestCompanyUnionComponent = /*#__PURE__*/function () {
       function RequestCompanyUnionComponent(companyUserService, userService, matDialog) {
-        var _this185 = this;
+        var _this218 = this;
 
         _classCallCheck(this, RequestCompanyUnionComponent);
 
@@ -26089,7 +27751,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '',
           filter: function filter(request) {
-            return request.company_info.name.toLowerCase().indexOf(_this185.filter.name.toLowerCase()) > -1;
+            return request.company_info.name.toLowerCase().indexOf(_this218.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -26106,12 +27768,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(RequestCompanyUnionComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this186 = this;
+          var _this219 = this;
 
           this.loading = true;
           this.companyUserService.getUserRequests(this.userService.actualUser.user_id, Number(this.filter.state)).subscribe(function (data) {
-            _this186.userRequests = data;
-            _this186.loading = false;
+            _this219.userRequests = data;
+            _this219.loading = false;
           });
         }
       }, {
@@ -26252,7 +27914,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PetitionsFilterComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this187 = this;
+          var _this220 = this;
 
           this.petitionsFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
@@ -26260,12 +27922,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.user = this.userService.actualUser;
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this187.companies = data;
+              _this220.companies = data;
 
-              _this187.subscription.unsubscribe();
+              _this220.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this187.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this220.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -26410,7 +28072,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var UnionEventRequestComponent = /*#__PURE__*/function () {
       function UnionEventRequestComponent(userService, companyUserService, commonService, companyService, dialogService) {
-        var _this188 = this;
+        var _this221 = this;
 
         _classCallCheck(this, UnionEventRequestComponent);
 
@@ -26427,7 +28089,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.event_info.info.name.toLowerCase().indexOf(_this188.filter.name.toLowerCase()) > -1;
+            return request.event_info.info.name.toLowerCase().indexOf(_this221.filter.name.toLowerCase()) > -1;
           }
         };
       }
@@ -26435,26 +28097,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UnionEventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
-            return regeneratorRuntime.wrap(function _callee41$(_context41) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
+            return regeneratorRuntime.wrap(function _callee66$(_context66) {
               while (1) {
-                switch (_context41.prev = _context41.next) {
+                switch (_context66.prev = _context66.next) {
                   case 0:
                     this.user = this.userService.actualUser;
                     this.refresh();
 
                   case 2:
                   case "end":
-                    return _context41.stop();
+                    return _context66.stop();
                 }
               }
-            }, _callee41, this);
+            }, _callee66, this);
           }));
         }
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this189 = this;
+          var _this222 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
@@ -26468,14 +28130,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           state != -1 ? this.isFilters = true : null;
           this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
             next: function next(data) {
-              _this189.userRequest = data;
+              _this222.userRequest = data;
 
-              _this189.subscription.unsubscribe();
+              _this222.subscription.unsubscribe();
 
-              _this189.loading = false;
+              _this222.loading = false;
             },
             error: function error(err) {
-              return _this189.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this222.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -26490,7 +28152,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this190 = this;
+          var _this223 = this;
 
           var dialog = this.dialogService.open(_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__["PetitionsFilterComponent"], {
             width: "50",
@@ -26499,11 +28161,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (company) {
             if (company != undefined) {
-              _this190.currentCompanyId = company.company_id;
-              _this190.currentCompanyName = company.name;
-              _this190.isFilters = true;
+              _this223.currentCompanyId = company.company_id;
+              _this223.currentCompanyName = company.name;
+              _this223.isFilters = true;
 
-              _this190.refresh();
+              _this223.refresh();
             }
           });
         }
@@ -26647,16 +28309,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UsersManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this191 = this;
+          var _this224 = this;
 
           this.subscription = this.userManagmentService.getAllUser().subscribe({
             next: function next(data) {
-              _this191.userManagmentService.users = data.data;
+              _this224.userManagmentService.users = data.data;
 
-              _this191.subscription.unsubscribe();
+              _this224.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this191.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this224.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -26673,28 +28335,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAvailable",
         value: function setAvailable(state, userID, info) {
-          var _this192 = this;
+          var _this225 = this;
 
           var modifyInfo = info;
           modifyInfo.available = state;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
               if (state) {
-                _this192.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
+                _this225.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
               } else {
-                _this192.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
+                _this225.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
               }
 
-              _this192.subscription.unsubscribe();
+              _this225.subscription.unsubscribe();
 
-              var idx = _this192.userManagmentService.users.findIndex(function (user) {
+              var idx = _this225.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this192.userManagmentService.users[idx].info.available = state;
+              _this225.userManagmentService.users[idx].info.available = state;
             },
             error: function error(err) {
-              return _this192.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this225.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -26707,24 +28369,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAcceptance",
         value: function setAcceptance(userID, info) {
-          var _this193 = this;
+          var _this226 = this;
 
           var modifyInfo = info;
           modifyInfo.state = true;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
-              _this193.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
+              _this226.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
 
-              _this193.subscription.unsubscribe();
+              _this226.subscription.unsubscribe();
 
-              var idx = _this193.userManagmentService.users.findIndex(function (user) {
+              var idx = _this226.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this193.userManagmentService.users[idx].info.state = true;
+              _this226.userManagmentService.users[idx].info.state = true;
             },
             error: function error(err) {
-              return _this193.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this226.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -27349,7 +29011,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       production: false,
       localstorage_key: 'key_user',
       SERVER_BASE_URL: 'https://intelitur.arenalcostarica.cr:7031/',
-      IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/files/'
+      IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/'
     };
     /*
      * For easier debugging in development mode, you can import the following file

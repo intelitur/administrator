@@ -356,7 +356,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap; justify-content: center;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{myAd.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"myAd.is_active? '#673ab7': 'gray'\">\n                    {{myAd.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=myAd.is_active>\n                </mat-slide-toggle>\n            </div>\n        </div>\n        <hr style=\"width: 100%;\">\n        <div class=\"dates\">\n            <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n          \n            <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n              <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n              <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n              <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n            </mat-form-field>\n        </div>\n        <mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n            Fecha inicial mayor a la final*\n        </mat-hint>\n\n        <form [formGroup]=\"adFG\" class=\"container-fluid d-flex flex-column justify-content-center\" >\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n                <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <textarea style=\"resize: none;\" matInput formControlName=\"description\" placeholder=\"Descripción\" required></textarea>\n            </mat-form-field>\n        \n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                  <mat-chip-list #chipList aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div> \n        </form>\n    </div>\n\n    <div *ngIf=\"adImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of adImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px; object-fit: contain;\" src=\"{{url}}{{adImages[index].name}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"adImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\" title=\"Añadir imagenes al evento\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>\n\n<div class=\"buttonContainer\" >\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"!adFG.valid || loading || this.allCompanies.length == 0\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyAd()\" >\n        Guardar cambios\n    </button>\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap; justify-content: center;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{myAd.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"myAd.is_active? '#673ab7': 'gray'\">\n                    {{myAd.is_active? \"Activa\": \"Eliminado\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=myAd.is_active>\n                </mat-slide-toggle>\n            </div>\n        </div>\n        <hr style=\"width: 100%;\">\n        <div class=\"dates\">\n            <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n          \n            <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n              <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n              <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n              <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n            </mat-form-field>\n        </div>\n        <mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n            Fecha inicial mayor a la final*\n        </mat-hint>\n\n        <form [formGroup]=\"adFG\" class=\"container-fluid d-flex flex-column justify-content-center\" >\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n                <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <textarea style=\"resize: none;\" matInput formControlName=\"description\" placeholder=\"Descripción\" required></textarea>\n            </mat-form-field>\n        \n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                  <mat-chip-list #chipList aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div> \n        </form>\n    </div>\n\n    <div *ngIf=\"adImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of adImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px; object-fit: contain;\" src=\"{{url}}{{adImages[index].name}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"adImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\" title=\"Añadir imagenes al evento\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>\n\n<div class=\"buttonContainer\" >\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"!adFG.valid || loading || this.allCompanies.length == 0\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyAd()\" >\n        Guardar cambios\n    </button>\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n");
 
 /***/ }),
 
@@ -486,7 +486,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{category.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"category.is_active? '#673ab7': 'gray'\">\n                    {{category.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=category.is_active>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input formControlName=\"name\" matInput  matTooltip=\"Nombre de la categoría\" required>\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button color=\"primary\"  [disabled]=\"!categoryFG.valid || !isChanged() || loading\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyCategory()\" >\n                    Guardar cambios\n                </button>\n                <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n                    Descartar cambios\n                </button>\n            </div>\n        </form>\n        \n    </div>\n    <div *ngIf=\"categoryImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of categoryImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\"  style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{categoryImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen de categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 50%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"categoryImages.length == 0\" title=\"Añadir imagen a la categoría\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{category.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"category.is_active? '#673ab7': 'gray'\">\n                    {{category.is_active? \"Activa\": \"Eliminada\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=category.is_active>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"categoryFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input formControlName=\"name\" matInput  matTooltip=\"Nombre de la categoría\" required>\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button color=\"primary\"  [disabled]=\"!categoryFG.valid || !isChanged() || loading\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyCategory()\" >\n                    Guardar cambios\n                </button>\n                <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n                    Descartar cambios\n                </button>\n            </div>\n        </form>\n        \n    </div>\n    <div *ngIf=\"categoryImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of categoryImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\"  style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{categoryImages[index]}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen de categoría\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 50%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"categoryImages.length == 0\" title=\"Añadir imagen a la categoría\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>\n");
 
 /***/ }),
 
@@ -525,7 +525,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 60%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{company.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"company.state? '#673ab7': 'gray'\">\n                    {{company.state? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=company.state>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\"\n            style=\"padding: 25px\">\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Cédula Jurídica</mat-label>\n                <input matInput formControlName=\"legal_id\">\n                <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Teléfono</mat-label>\n                <input matInput formControlName=\"phone_number\">\n                <mat-hint align=\"end\">Formato: 8888 8888</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Email</mat-label>\n                <input matInput formControlName=\"email\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Ubicación descrita</mat-label>\n                <input matInput formControlName=\"location\">\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button [disabled]=\"!companyForm.valid || !isChanged() || loading\" color=\"primary\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"applyChanges()\">\n                    Guardar cambios\n                </button>\n                <button  mat-stroked-button [disabled]=\"!isChanged() || loading\" color=\"warn\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\"\n                    (click)=\"companyForm.patchValue(company)\">\n                    Descartar cambios\n                </button>\n            </div>\n\n\n        </form>\n    </div>\n    <div *ngIf=\"company.image != '' && company.image != undefined\"\n        style=\"width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <img style=\"margin: 5% auto; max-height: 450px; max-width: 90%;\"\n            src=\"{{company.image}}\">\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n            style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%; cursor: pointer;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button matTooltip=\"Eliminar imagen de empresa\" style=\"border-radius: 0 0 20px 0\"\n                    class=\"image-buttons\" color=\"warn\" (click)=\"deleteImg()\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"company.image == '' || company.image == undefined\" title=\"Añadir imagen a la empresa\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 60%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{company.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"company.state? '#673ab7': 'gray'\">\n                    {{company.state? \"Activa\": \"Eliminada\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=company.state>\n                </mat-slide-toggle>\n            </div>\n\n        </div>\n\n        <form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\"\n            style=\"padding: 25px\">\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Cédula Jurídica</mat-label>\n                <input matInput formControlName=\"legal_id\">\n                <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Teléfono</mat-label>\n                <input matInput formControlName=\"phone_number\">\n                <mat-hint align=\"end\">Formato: 8888 8888</mat-hint>\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Email</mat-label>\n                <input matInput formControlName=\"email\">\n            </mat-form-field>\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Ubicación descrita</mat-label>\n                <input matInput formControlName=\"location\">\n            </mat-form-field>\n\n            <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button mat-stroked-button [disabled]=\"!companyForm.valid || !isChanged() || loading\" color=\"primary\"\n                    style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"applyChanges()\">\n                    Guardar cambios\n                </button>\n                <button  mat-stroked-button [disabled]=\"!isChanged() || loading\" color=\"warn\"\n                    style=\"width: 47%; min-width: fit-content;margin-top: 10px;\"\n                    (click)=\"companyForm.patchValue(company)\">\n                    Descartar cambios\n                </button>\n            </div>\n\n\n        </form>\n    </div>\n    <div *ngIf=\"company.image != '' && company.image != undefined\"\n        style=\"width: 40%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <img style=\"margin: 5% auto; max-height: 450px; max-width: 90%;\"\n            src=\"{{company.image}}\">\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imagen a la categoría\"\n            style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:10%; cursor: pointer;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button matTooltip=\"Eliminar imagen de empresa\" style=\"border-radius: 0 0 20px 0\"\n                    class=\"image-buttons\" color=\"warn\" (click)=\"deleteImg()\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"company.image == '' || company.image == undefined\" title=\"Añadir imagen a la empresa\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"addImg($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -642,7 +642,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación del Concurso</h1>\n\n<div class=\"dates\">\n    <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n        <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n        <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n    </mat-form-field>\n  \n    <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n      <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n      <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n      <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n    </mat-form-field>\n</div>\n<mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n    Fecha inicial mayor a la final*\n</mat-hint>\n\n<form [formGroup]=\"contestsFG\" class=\"container-fluid d-flex flex-column justify-content-center\">\n   \n    <mat-form-field appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n        <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <textarea style=\"resize: none;\" matInput formControlName=\"details\" placeholder=\"Detalles\" required></textarea>\n    </mat-form-field>\n\n</form>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button [disabled]=\"!contestsFG.valid || start_Date == undefined || end_Date == undefined || start_Date > end_Date\" color=\"primary\" (click)=\"onSubmit()\">\n        Crear Anuncio\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n        Cerrar<mat-icon>close</mat-icon>\n      </button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1>Creación del Concurso</h1>\n\n<div class=\"dates\">\n  <mat-form-field style=\"width: 40%\" appearance=\"outline\">\n    <input\n      matTooltip=\"Presione el Icono\"\n      matInput\n      [matDatepicker]=\"startDate\"\n      [min]=\"today\"\n      placeholder=\"Fecha Inicial\"\n      [(ngModel)]=\"start_Date\"\n      disabled\n    />\n    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\n    <mat-datepicker #startDate disabled=\"false\"></mat-datepicker>\n  </mat-form-field>\n\n  <mat-form-field style=\"width: 40%\" appearance=\"outline\">\n    <input\n      matTooltip=\"Presione el Icono\"\n      matInput\n      [matDatepicker]=\"endDate\"\n      [matDatepickerFilter]=\"dateFilter\"\n      placeholder=\"Fecha de finalización\"\n      [(ngModel)]=\"end_Date\"\n      disabled\n    />\n    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n    <mat-datepicker\n      #endDate\n      [disabled]=\"start_Date == undefined\"\n      [startAt]=\"start_Date\"\n    ></mat-datepicker>\n  </mat-form-field>\n</div>\n<mat-hint\n  *ngIf=\"start_Date > end_Date\"\n  style=\"\n    width: 95%;\n    padding-left: 2.5%;\n    color: brown;\n    font-style: italic;\n    text-align: center;\n  \"\n>\n  Fecha inicial mayor a la final*\n</mat-hint>\n\n<form\n  [formGroup]=\"contestsFG\"\n  class=\"container-fluid d-flex flex-column justify-content-center\"\n>\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Nombre</mat-label>\n    <input\n      #Name\n      matInput\n      formControlName=\"name\"\n      matTooltip=\"Nombre del anuncio\"\n      maxlength=\"50\"\n      required\n    />\n    <mat-hint align=\"end\">{{ Name.value.length }}/50</mat-hint>\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <textarea\n      style=\"resize: none\"\n      matInput\n      formControlName=\"details\"\n      placeholder=\"Detalles\"\n      required\n    ></textarea>\n  </mat-form-field>\n</form>\n\n<div\n  style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column\"\n>\n  <div class=\"file\">\n    <div class=\"uploadFile\">\n      <label\n        for=\"file-upload\"\n        style=\"\n          width: 100%;\n          margin: 0%;\n          cursor: pointer;\n          color: #dbb735;\n          text-align: center;\n          padding-top: 2%;\n        \"\n      >\n        Añadir Imágenes\n      </label>\n      <input\n        [disabled]=\"loading\"\n        id=\"file-upload\"\n        (change)=\"getFiles($event)\"\n        type=\"file\"\n        accept=\"image/x-png,image/gif,image/jpeg\"\n        style=\"display: none\"\n        multiple\n      />\n    </div>\n  </div>\n\n  <mat-hint\n    *ngIf=\"this.contestImages.length == 0\"\n    style=\"\n      padding-left: 2.5%;\n      color: crimson;\n      align-self: center;\n      font-style: italic;\n    \"\n    >Debes añadir imagenes*</mat-hint\n  >\n\n  <div\n    *ngIf=\"contestImages.length != 0\"\n    style=\"\n      max-width: 90%;\n      display: flex;\n      flex-direction: column;\n      border-radius: 20px;\n      border: solid 1.5px rgb(220, 220, 220);\n      margin: auto;\n      min-width: 280px;\n    \"\n  >\n    <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n      <ng-template\n        *ngFor=\"let i of contestImages; let index = index\"\n        [id]=\"'slideId_' + index\"\n        ngbSlide\n      >\n        <img\n          class=\"d-block w-100\"\n          style=\"max-height: 450px !important; border-radius: 10px\"\n          src=\"{{ url }}{{ contestImages[index] }}\"\n        />\n        <div class=\"carousel-caption\">\n          <button\n            [disabled]=\"loading\"\n            mat-button\n            style=\"\n              border: solid 1.5px rgb(220, 220, 220);\n              border-radius: 10px;\n              background-color: white;\n            \"\n            (click)=\"deleteImage()\"\n            class=\"image-buttons\"\n            color=\"warn\"\n          >\n            <mat-icon>delete</mat-icon>\n          </button>\n        </div>\n      </ng-template>\n    </ngb-carousel>\n  </div>\n</div>\n\n<div class=\"buttonContainer\">\n  <button\n    mat-raised-button\n    [disabled]=\"\n      !contestsFG.valid ||\n      start_Date == undefined ||\n      end_Date == undefined ||\n      start_Date > end_Date ||\n      loading\n    \"\n    color=\"primary\"\n    (click)=\"onSubmit()\"\n  >\n    Crear Concurso\n  </button>\n  <button\n    [disabled]=\"loading\"\n    (click)=\"closeDialog()\"\n    mat-raised-button\n    color=\"warn\"\n  >\n    Cerrar<mat-icon>close</mat-icon>\n  </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n");
 
 /***/ }),
 
@@ -655,7 +655,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Concursos</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar un concurso\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar concurso</button>\n    </div>\n    <div *ngIf=\"this.contestsService.contests; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del anuncio</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.contestsService.contests\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Detalle</th>\n                <th scope=\"col\">Fecha</th>\n                <th scope=\"col\">Activa</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let contests of this.contestsService.contests | filterBy: filter\">\n                <td>{{contests.name}}</td>\n                <td>{{contests.description}}</td>\n                <td>\n                  Inicio: {{contests.active_range.start | date: 'dd/MM/yyyy' }} \n                  <br>\n                  Fin:    {{contests.active_range.end | date: 'dd/MM/yyyy'}}\n                </td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(contests, $event)\" color=\"primary\"\n                          [checked]= contests.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/contests', contests.contests_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.contestsService.contests | filterBy: filter).length === 0\">\n              ¡No hay anuncios disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Concursos</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar un concurso\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar concurso</button>\n    </div>\n    <div *ngIf=\"this.contestsService.contests; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del anuncio</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.contestsService.contests\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Detalle</th>\n                <th scope=\"col\">Fecha</th>\n                <th scope=\"col\">Activa</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let contests of this.contestsService.contests | filterBy: filter\">\n                <td>{{contests.name}}</td>\n                <td>{{contests.description}}</td>\n                <td>\n                  Inicio: {{contests.initial_date | date: 'dd/MM/yyyy' }} \n                  <br>\n                  Fin:    {{contests.final_date | date: 'dd/MM/yyyy'}}\n                </td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(contests, $event)\" color=\"primary\"\n                          [checked]= contests.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/contests', contests.contest_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.contestsService.contests | filterBy: filter).length === 0\">\n              ¡No hay anuncios disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n");
 
 /***/ }),
 
@@ -668,7 +668,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; flex-wrap: wrap; justify-content: center;\">\n    <div style=\"width: 70%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{contest.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"contest.is_active? '#673ab7': 'gray'\">\n                    {{contest.is_active? \"Activa\": \"Inactiva\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=contest.is_active>\n                </mat-slide-toggle>\n            </div> \n        </div>\n        <hr style=\"width: 100%;\">\n        <div class=\"dates\">\n            <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n          \n            <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n              <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n              <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n              <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n            </mat-form-field>\n        </div>\n        <mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n            Fecha inicial mayor a la final*\n        </mat-hint>\n\n        <form [formGroup]=\"contestsFG\" class=\"container-fluid d-flex flex-column justify-content-center\" >\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n                <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <textarea style=\"resize: none;\" matInput formControlName=\"details\" placeholder=\"Detalles\" required></textarea>\n            </mat-form-field>\n            \n        </form>\n    </div>\n</div>\n\n<div class=\"buttonContainer\" >\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"!contestsFG.valid || loading\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyContest()\" >\n        Guardar cambios\n    </button>\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; margin-top: 20px; flex-wrap: wrap; justify-content: center;\">\n    <div style=\"width: 70%; min-width: 300px;\">\n        <div style=\"display: flex; justify-content: space-around;\">\n\n            <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">{{contest.name}}</h2>\n            <div style=\"display: flex; flex-direction: column; margin: auto 0; padding: 0 20px\">\n                <div style=\"margin: auto\" [style.color]=\"contest.is_active? '#673ab7': 'gray'\">\n                    {{contest.is_active? \"Activa\": \"Eliminado\"}}</div>\n                <mat-slide-toggle style=\"width: min-content; margin: auto;\" (change)=\"changeState($event)\"\n                    color=\"primary\" [checked]=contest.is_active>\n                </mat-slide-toggle>\n            </div> \n        </div>\n        <hr style=\"width: 100%;\">\n        <div class=\"dates\">\n            <mat-form-field  style=\"width: 40%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" placeholder=\"Fecha Inicial\" [(ngModel)]=\"start_Date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n          \n            <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n              <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de finalización\" [(ngModel)]=\"end_Date\" disabled >\n              <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n              <mat-datepicker  #endDate [disabled]=\"start_Date == undefined\" [startAt]=\"start_Date\"></mat-datepicker>\n            </mat-form-field>\n        </div>\n        <mat-hint *ngIf=\"start_Date > end_Date\" style=\" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;\">\n            Fecha inicial mayor a la final*\n        </mat-hint>\n\n        <form [formGroup]=\"contestsFG\" class=\"container-fluid d-flex flex-column justify-content-center\" >\n\n            <mat-form-field appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre del anuncio\" maxlength=\"50\" required>\n                <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <textarea style=\"resize: none;\" matInput formControlName=\"details\" placeholder=\"Detalles\" required></textarea>\n            </mat-form-field>\n            \n        </form>\n    </div>\n</div>\n\n<div class=\"buttonContainer\" >\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"!contestsFG.valid || loading\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyContest()\" >\n        Guardar cambios\n    </button>\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>");
 
 /***/ }),
 
@@ -694,7 +694,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"display: flex; margin-top: 20px; flex-wrap: wrap; justify-content: space-evenly;\">\n\n    <h3 style=\"text-align: center; width: 100%;\">Administar Archivos Multimedia</h3>\n    <hr style=\"width: 90%;\">\n\n    <div class=\"columns\" style=\"width: 40%;\">\n        <div *ngIf=\"contestImages.length == 0\" title=\"Añadir imágenes al concurso\" class=\"noImageButton\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files, 0)\" type=\"file\" accept=\"image/png,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    \n        <div *ngIf=\"contestImages.length != 0\" class=\"border\">\n            <ngb-carousel class=\"container-fluid\" (slide)=\"onSlideI($event)\">\n                <ng-template *ngFor=\"let i of contestImages; let index = index\" [id]=\"'slideId1_' + index\" ngbSlide>              \n                    <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px; object-fit: contain;\" src=\"{{url}}{{contestImages[index].name}}\"/>\n                </ng-template>\n            </ngb-carousel>\n            <div style=\" display: flex; padding-top: 5px;\">\n                <div title=\"Añadir imágenes al concurso\" class=\"leftBtn\">\n                    <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                    <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files, 0)\" type=\"file\" accept=\"image/png,image/jpeg\" style=\"display: none;\" multiple/>   \n                </div>\n                <div title=\"Eliminar imagen del concurso\" class=\"rightBtn\">\n                    <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteFile(0);\"\n                        class=\"image-buttons\" color=\"warn\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </div>\n            </div>\n        </div>\n    </div>\n    \n    <div class=\"columns\" style=\"width: 50%;\">\n        <div *ngIf=\"contestVideos.length == 0\" title=\"Añadir videos al concurso\" class=\"noImageButton\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">video_call</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFiles($event.target.files, 1)\" type=\"file\" accept=\"video/mp4\" style=\"display: none;\" multiple/>   \n        </div>\n    \n        <div *ngIf=\"contestVideos.length != 0\" class=\"video-carousel border\">\n          \n            <ngb-carousel [interval]=\"false\" class=\"container-fluid\" (slide)=\"onSlideV($event)\">\n                <ng-template *ngFor=\"let i of contestVideos; let index = index\" [id]=\"'slideId2_' + index\" ngbSlide>              \n                    <div style=\"padding: 0 70px;\">\n                        <video id=\"my_video\" class=\"video-js vjs-default-skin\" width=\"100%\" height=\"250px\" controls preload=\"none\"\n                        data-setup='{ \"aspectRatio\":\"640:267\", \"playbackRates\": [1, 1.5, 2] }'>\n                            <source src=\"{{url}}{{[i]}}\" type='video/mp4' />\n                        </video>\n                    </div>\n                </ng-template>\n            </ngb-carousel>\n    \n            <div style=\" display: flex; padding-top: 20px;\">\n                <div title=\"Añadir videos al concurso\" class=\"leftBtn\">\n                    <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                    <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFiles($event.target.files, 1)\" type=\"file\" accept=\"video/mp4\" style=\"display: none;\" multiple/>   \n                </div>\n                <div title=\"Eliminar video del concurso\" class=\"rightBtn\">\n                    <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteFile(1);\"\n                        class=\"image-buttons\" color=\"warn\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </div>\n            </div>\n        </div>\n    </div>    \n</div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div\n  style=\"\n    display: flex;\n    margin-top: 20px;\n    flex-wrap: wrap;\n    justify-content: space-evenly;\n  \"\n>\n  <h3 style=\"text-align: center; width: 100%\">\n    Administar Archivos Multimedia\n  </h3>\n  <hr style=\"width: 90%\" />\n\n  <div class=\"columns\" style=\"width: 40%\">\n    <div\n      *ngIf=\"contestImages.length == 0\"\n      title=\"Añadir imágenes al concurso\"\n      class=\"noImageButton\"\n      class=\"noImageButton\"\n    >\n      <label\n        for=\"file-upload\"\n        style=\"\n          width: 100%;\n          margin: 0%;\n          cursor: pointer;\n          color: #dbb735;\n          text-align: center;\n          padding-top: 2%;\n        \"\n      >\n        <mat-icon\n          style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%\"\n          >add_photo_alternate</mat-icon\n        >\n      </label>\n      <input\n        [disabled]=\"loading\"\n        id=\"file-upload\"\n        (change)=\"uploadFiles($event.target.files, 0)\"\n        type=\"file\"\n        accept=\"image/png,image/jpeg\"\n        style=\"display: none\"\n        multiple\n      />\n    </div>\n\n    <div *ngIf=\"contestImages.length != 0\" class=\"border\">\n      <ngb-carousel class=\"container-fluid\" (slide)=\"onSlideI($event)\">\n        <ng-template\n          *ngFor=\"let i of contestImages; let index = index\"\n          [id]=\"'slideId1_' + index\"\n          ngbSlide\n        >\n          <img\n            class=\"d-block w-100\"\n            style=\"\n              height: 250px !important;\n              width: 400px !important;\n              border-radius: 10px;\n              object-fit: contain;\n            \"\n            src=\"{{ url }}{{ contestImages[index].name }}\"\n          />\n        </ng-template>\n      </ngb-carousel>\n      <div style=\"display: flex; padding-top: 5px\">\n        <div title=\"Añadir imágenes al concurso\" class=\"leftBtn\">\n          <label\n            for=\"file-upload\"\n            class=\"image-buttons\"\n            style=\"\n              border-radius: 0 0 0 20px;\n              color: #dbb735;\n              text-align: center;\n              padding-top: 5%;\n            \"\n            ><mat-icon>find_replace</mat-icon></label\n          >\n          <input\n            [disabled]=\"loading\"\n            id=\"file-upload\"\n            (change)=\"uploadFiles($event.target.files, 0)\"\n            type=\"file\"\n            accept=\"image/png,image/jpeg\"\n            style=\"display: none\"\n            multiple\n          />\n        </div>\n        <div title=\"Eliminar imagen del concurso\" class=\"rightBtn\">\n          <button\n            [disabled]=\"loading\"\n            mat-button\n            style=\"border-radius: 0 0 20px 0\"\n            (click)=\"deleteFile(0)\"\n            class=\"image-buttons\"\n            color=\"warn\"\n          >\n            <mat-icon>delete</mat-icon>\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"columns\" style=\"width: 50%\">\n    <div\n      *ngIf=\"contestVideos.length == 0\"\n      title=\"Añadir videos al concurso\"\n      class=\"noImageButton\"\n      class=\"noImageButton\"\n    >\n      <label\n        for=\"file-upload2\"\n        style=\"\n          width: 100%;\n          margin: 0%;\n          cursor: pointer;\n          color: #dbb735;\n          text-align: center;\n          padding-top: 2%;\n        \"\n      >\n        <mat-icon\n          style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%\"\n          >video_call</mat-icon\n        >\n      </label>\n      <input\n        [disabled]=\"loading\"\n        id=\"file-upload2\"\n        (change)=\"uploadFiles($event.target.files, 1)\"\n        type=\"file\"\n        accept=\"video/mp4\"\n        style=\"display: none\"\n      />\n    </div>\n\n    <div *ngIf=\"contestVideos.length != 0\" class=\"video-carousel border\">\n      <ngb-carousel\n        [interval]=\"false\"\n        class=\"container-fluid\"\n        (slide)=\"onSlideV($event)\"\n      >\n        <ng-template\n          *ngFor=\"let i of contestVideos; let index = index\"\n          [id]=\"'slideId2_' + index\"\n          ngbSlide\n        >\n          <div style=\"padding: 0 70px\">\n            <video\n              id=\"my_video\"\n              class=\"video-js vjs-default-skin\"\n              width=\"100%\"\n              height=\"250px\"\n              controls\n              preload=\"none\"\n              poster=\"assets/poster.png\"\n              data-setup='{ \"aspectRatio\":\"640:267\", \"playbackRates\": [1, 1.5, 2] }'\n            >\n              <source src=\"{{ url }}{{ i.name }}\" type=\"video/mp4\" />\n            </video>\n          </div>\n        </ng-template>\n      </ngb-carousel>\n\n      <div style=\"display: flex; padding-top: 20px\">\n        <div title=\"Añadir videos al concurso\" class=\"leftBtn\">\n          <label\n            for=\"file-upload3\"\n            class=\"image-buttons\"\n            style=\"\n              border-radius: 0 0 0 20px;\n              color: #dbb735;\n              text-align: center;\n              padding-top: 5%;\n            \"\n            ><mat-icon>find_replace</mat-icon></label\n          >\n          <input\n            [disabled]=\"loading\"\n            id=\"file-upload3\"\n            (change)=\"uploadFiles($event.target.files, 1)\"\n            type=\"file\"\n            accept=\"video/mp4\"\n            style=\"display: none\"\n            multiple\n          />\n        </div>\n        <div title=\"Eliminar video del concurso\" class=\"rightBtn\">\n          <button\n            [disabled]=\"loading\"\n            mat-button\n            style=\"border-radius: 0 0 20px 0\"\n            (click)=\"deleteFile(1)\"\n            class=\"image-buttons\"\n            color=\"warn\"\n          >\n            <mat-icon>delete</mat-icon>\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n");
 
 /***/ }),
 
@@ -707,7 +707,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1>Creación de Evento</h1>\n<form [formGroup]=\"eventFG\"  class=\"container\">\n\n    <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Costo</mat-label>\n            <input matInput formControlName=\"cost\" required>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\">\n            <mat-label>Dirección</mat-label>\n            <textarea \n                matInput \n                formControlName=\"address\" \n                matTooltip=\"Dirección exacta del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\" >\n            <mat-label>Detalles</mat-label>\n            <textarea \n                matInput \n                formControlName=\"detail\" \n                matTooltip=\"Detalles del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList aria-label=\"Categories selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let category of allCategories\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{category.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las categorías\"\n                  #tagInput\n                  formControlName=\"categories\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"auto\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let company of allCompanies\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{company.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las compañías\"\n                  #tagInput2\n                  formControlName=\"companies\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"autoCompany\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n    </div>\n</form>\n\n<div class=\"container\">\n    \n    <div class=\"toggle\">\n        <div style=\"text-align: center;\">\n            <label>Todo el día:</label>\n            <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n            <label style=\"margin-left: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n            <mat-form-field *ngIf=\"this.allDay\" style=\"width: 50%;\"  appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n        </div>\n\n        <div style=\" display: flex;\">\n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n            \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;\">\n    <div class=\"file\">\n        <div class=\"uploadFile\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n        </div>\n    </div>\n\n    <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;\">Debes añadir imagenes*</mat-hint>\n    <mat-hint *ngIf=\"this.eventImages.length != 0\" style=\"padding-left: 2.5%; align-self: center; font-style: italic;\">Si pulsa en \"Añadir imágenes\" nuevamente deberá seleccionar todas las imágenes.</mat-hint>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n                <div class=\"carousel-caption\">\n                    <button [disabled]=\"loading\" mat-button style=\"border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;\" (click)=\"deleteImage();\"\n                        class=\"image-buttons\" color=\"warn\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </div>\n            </ng-template>\n        </ngb-carousel>\n\n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button  [disabled]=\"disableDialog()\" color=\"primary\" (click)=\"onSubmit()\">\n        Continuar la Creacón\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\" [disabled]=\"loading\">\n        Cancelar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1>Creación de Evento</h1>\n<form [formGroup]=\"eventFG\"  class=\"container\">\n\n    <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n            <mat-label>Costo</mat-label>\n            <input matInput formControlName=\"cost\" required>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\">\n            <mat-label>Dirección</mat-label>\n            <textarea \n                matInput \n                formControlName=\"address\" \n                matTooltip=\"Dirección exacta del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n    \n        <mat-form-field appearance=\"outline\" >\n            <mat-label>Detalles</mat-label>\n            <textarea \n                matInput \n                formControlName=\"detail\" \n                matTooltip=\"Detalles del evento\" \n                type=\"text\"\n                required></textarea>\n        </mat-form-field>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList aria-label=\"Categories selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let category of allCategories\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{category.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las categorías\"\n                  #tagInput\n                  formControlName=\"categories\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"auto\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n        <div  class=\"chip-list\">\n            <mat-form-field class=\"chip-list\" appearance=\"outline\">\n              <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                <mat-chip class=\"chip\"\n                  *ngFor=\"let company of allCompanies\"\n                  [selectable]=\"selectable\"\n                  [removable]=\"removable\">\n                  {{company.name}}\n                  <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                </mat-chip>\n                <input\n                  placeholder=\"Seleccione las compañías\"\n                  #tagInput2\n                  formControlName=\"companies\" \n                  [matChipInputFor]=\"chipList\"\n                  [matAutocomplete]=\"autoCompany\"\n                  [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n              </mat-chip-list>\n              <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                  {{c.name}}\n                </mat-option>\n              </mat-autocomplete>\n            </mat-form-field>\n        </div>\n\n    </div>\n</form>\n\n<div class=\"container\">\n    \n    <div class=\"toggle\">\n        <div style=\"text-align: center;\">\n            <label>Todo el día:</label>\n            <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n            <label style=\"margin-left: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n            <mat-form-field *ngIf=\"this.allDay\" style=\"width: 50%;\"  appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n        </div>\n\n        <div style=\" display: flex;\">\n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n            \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;\">\n    <div class=\"file\">\n        <div class=\"uploadFile\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n        </div>\n    </div>\n\n    <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;\">Debes añadir imagenes*</mat-hint>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n                <div class=\"carousel-caption\">\n                    <button [disabled]=\"loading\" mat-button style=\"border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;\" (click)=\"deleteImage();\"\n                        class=\"image-buttons\" color=\"warn\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </div>\n            </ng-template>\n        </ngb-carousel>\n\n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button  [disabled]=\"disableDialog()\" color=\"primary\" (click)=\"onSubmit()\">\n        Continuar la Creacón\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\" [disabled]=\"loading\">\n        Cancelar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>");
 
 /***/ }),
 
@@ -798,7 +798,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<form [formGroup]=\"offersFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <h1>Añadir Oferta al Evento</h1>\n   \n    <mat-form-field appearance=\"fill\">\n        <mat-label>Seleccione la oferta</mat-label>\n        <mat-select formControlName=\"offer\">\n          <mat-option *ngFor=\"let offer of offers\" [value]=\"offer.offer_id\">\n            {{offer.offer_name}}\n          </mat-option>\n        </mat-select>\n    </mat-form-field>\n\n    <div class=\"buttonContainer\">\n        <button mat-raised-button [disabled]=\"!offersFG.valid\" color=\"primary\" (click)=\"onSubmit()\">\n            Asociar\n        </button>\n        <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n            Cerrar<mat-icon>close</mat-icon>\n          </button>\n    </div>\n</form>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<form [formGroup]=\"offersFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <h1>Añadir Oferta al Evento</h1>\n   \n    <div  class=\"chip-list\">\n      <mat-form-field class=\"chip-list\" appearance=\"outline\">\n        <mat-chip-list #chipList aria-label=\"Offer selection\">\n          <mat-chip class=\"chip\"\n            *ngFor=\"let offer of allOffers\"\n            [selectable]=\"selectable\"\n            [removable]=\"removable\">\n            {{offer.name}}\n            <i matChipRemove class=\"material-icons\" (click)=\"removeOffer(offer)\">cancel</i>\n          </mat-chip>\n          <input\n            placeholder=\"Seleccione las ofertas\"\n            #tagInput\n            formControlName=\"offers\" \n            [matChipInputFor]=\"chipList\"\n            [matAutocomplete]=\"auto\"\n            [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n        </mat-chip-list>\n        <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedOffer($event)\">\n          <mat-option *ngFor=\"let o of filteredOffers \" [value]=\"o\">\n            {{o.name}}\n          </mat-option>\n        </mat-autocomplete>\n      </mat-form-field>\n  </div>\n\n  <div class=\"buttonContainer\">\n      <button mat-raised-button [disabled]=\"allOffers.length == 0\" color=\"primary\" (click)=\"onSubmit()\">\n          Asociar\n      </button>\n      <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n          Cerrar<mat-icon>close</mat-icon>\n        </button>\n  </div>\n</form>\n");
 
 /***/ }),
 
@@ -811,7 +811,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; justify-content: space-around;\">\n\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n        {{event.name}}\n        <ngb-rating [(rate)]=\"currentRate\" [max]=\"5\" [readonly]=\"true\">\n            <ng-template let-fill=\"fill\" let-index=\"index\">\n            <span class=\"star\" [class.filled]=\"fill === 100\" >\n                <span class=\"half\" [style.width.%]=\"fill\">&#9733;</span>&#9733;\n            </span>\n            </ng-template>\n        </ngb-rating>\n    </h2>\n    <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n        <h2 style=\"margin: auto\" [style.color]=\"event.is_active? '#673ab7': 'gray'\">\n            {{event.is_active? \"Activo\": \"Inactivo\"}}</h2>\n        <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n            color=\"primary\" [checked]=event.is_active>\n        </mat-slide-toggle>\n    </div>\n\n</div>\n\n\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        \n        <form [formGroup]=\"eventFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field  appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n            </mat-form-field>\n    \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Costo</mat-label>\n                <input matInput formControlName=\"cost\" required>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Dirección</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"address\" \n                    matTooltip=\"Dirección exacta del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n        \n            <mat-form-field  appearance=\"outline\" >\n                <mat-label>Detalles</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"detail\" \n                    matTooltip=\"Detalles del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList aria-label=\"Categories selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let category of allCategories\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{category.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"remove(category)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las categorías\"\n                      #tagInput\n                      formControlName=\"categories\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"auto\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\n                    <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput2\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n        </form>\n    </div>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index].name}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"eventImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\" title=\"Añadir imagenes al evento\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n    \n</div>\n\n\n<div class=\"container\" style=\" width: 95%; padding-top: 2%; margin-left: 2.5%;\">\n    \n    <div class=\"toggle\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"allDay\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n        \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\"display: flex;\">\n    \n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; margin-left: 3%;\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n    \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  style=\"margin-left: 3%;\" appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  [color]=\"color\" (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyEvent()\" >\n        Guardar cambios\n    </button>\n\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div style=\"display: flex; justify-content: space-around;\">\n\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n        {{event.name}}\n        <ngb-rating [(rate)]=\"currentRate\" [max]=\"5\" [readonly]=\"true\">\n            <ng-template let-fill=\"fill\" let-index=\"index\">\n            <span class=\"star\" [class.filled]=\"fill === 100\" >\n                <span class=\"half\" [style.width.%]=\"fill\">&#9733;</span>&#9733;\n            </span>\n            </ng-template>\n        </ngb-rating>\n    </h2>\n    <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n        <h2 style=\"margin: auto\" [style.color]=\"event.is_active? '#673ab7': 'gray'\">\n            {{event.is_active? \"Activo\": \"Eliminado\"}}</h2>\n        <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n            color=\"primary\" [checked]=event.is_active>\n        </mat-slide-toggle>\n    </div>\n\n</div>\n\n\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap;\">\n    <div style=\"width: 50%; min-width: 300px;\">\n        \n        <form [formGroup]=\"eventFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n\n            <mat-form-field  appearance=\"outline\">\n                <mat-label>Nombre</mat-label>\n                <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\" required>\n            </mat-form-field>\n    \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Costo</mat-label>\n                <input matInput formControlName=\"cost\" required>\n            </mat-form-field>\n        \n            <mat-form-field appearance=\"outline\">\n                <mat-label>Dirección</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"address\" \n                    matTooltip=\"Dirección exacta del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n        \n            <mat-form-field  appearance=\"outline\" >\n                <mat-label>Detalles</mat-label>\n                <textarea \n                    style=\"resize: none;\" \n                    matInput \n                    formControlName=\"detail\" \n                    matTooltip=\"Detalles del evento\" \n                    type=\"text\"\n                    required></textarea>\n            </mat-form-field>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList aria-label=\"Categories selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let category of allCategories\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{category.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"remove(category)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las categorías\"\n                      #tagInput\n                      formControlName=\"categories\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"auto\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\n                    <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n\n            <div  class=\"chip-list\">\n                <mat-form-field class=\"chip-list\" appearance=\"outline\" style=\"width: 100%;\">\n                  <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                    <mat-chip class=\"chip\"\n                      *ngFor=\"let company of allCompanies\"\n                      [selectable]=\"selectable\"\n                      [removable]=\"removable\">\n                      {{company.name}}\n                      <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                    </mat-chip>\n                    <input\n                      placeholder=\"Seleccione las compañías\"\n                      #tagInput2\n                      formControlName=\"companies\" \n                      [matChipInputFor]=\"chipList\"\n                      [matAutocomplete]=\"autoCompany\"\n                      [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                  </mat-chip-list>\n                  <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                    <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                      {{c.name}}\n                    </mat-option>\n                  </mat-autocomplete>\n                </mat-form-field>\n            </div>\n        </form>\n    </div>\n\n    <div *ngIf=\"eventImages.length != 0\"\n        style=\"width: 50%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n        <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n            <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index].name}}\"/>\n            </ng-template>\n        </ngb-carousel>\n        <div style=\" display: flex; height: 70px;\">\n            <div title=\"Añadir imágenes al evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-right: solid 0.75px rgb(220, 220, 220);\">\n                <label for=\"file-upload\"  class=\"image-buttons\" style=\"border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;\" ><mat-icon>find_replace</mat-icon></label> \n                <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n            </div>\n            <div title=\"Eliminar imagen del evento\"\n                style=\"width: 50%; border-top: solid 1.5px rgb(220, 220, 220); border-left: solid 0.75px rgb(220, 220, 220);\">\n                <button [disabled]=\"loading\" mat-button style=\"border-radius: 0 0 20px 0\" (click)=\"deleteImage();\"\n                    class=\"image-buttons\" color=\"warn\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </div>\n        </div>\n    </div>\n    <div style=\"width: 40%; display: flex; justify-content: center; align-items: center;\">\n        <div *ngIf=\"eventImages.length == 0\" title=\"Añadir imágenes al evento\" class=\"noImageButton\" title=\"Añadir imagenes al evento\" class=\"noImageButton\">\n            <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> \n                <mat-icon style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%;\">add_photo_alternate</mat-icon>\n            </label> \n            <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"uploadFile($event.target.files)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>   \n        </div>\n    </div>\n    \n</div>\n\n\n<div class=\"container\" style=\" width: 95%; padding-top: 2%; margin-left: 2.5%;\">\n    \n    <div class=\"toggle\">\n        <label>Todo el día:</label>\n        <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"allDay\"></mat-slide-toggle>\n        <label style=\"margin-left: 5%; margin-right: 5%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n        \n        <mat-form-field *ngIf=\"allDay== true\" style=\"width: 45%; \">\n            <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n            <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n            <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n        </mat-form-field>\n\n        <div style=\"display: flex;\">\n    \n            <mat-form-field *ngIf=\"allDay== false\" style=\"width: 45%; \">\n                <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n            </mat-form-field>\n    \n            <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 45%; margin-left: 3%;\">\n                <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n            </mat-form-field>\n    \n            <div *ngIf=\"allDay == true\">\n                <mat-form-field  appearance=\"outline\">\n                    <mat-label>Hora Inicial</mat-label>\n                    <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                </mat-form-field>\n               \n                <mat-form-field  style=\"margin-left: 3%;\" appearance=\"outline\">\n                    <mat-label>Hora de finalización</mat-label>\n                    <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                </mat-form-field>\n                <mat-hint>Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n            </div>\n        </div>\n        <mat-hint *ngIf=\"allDay== false\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n    </div>\n\n    <div class=\"color-picker\">\n        <label>Selecciona un color </label>\n        <color-circle  [color]=\"color\" (onChangeComplete)=\"changeComplete($event)\" ></color-circle> \n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n        style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyEvent()\" >\n        Guardar cambios\n    </button>\n\n    <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n        style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n        Descartar cambios\n    </button>\n</div>\n");
 
 /***/ }),
 
@@ -824,7 +824,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión Ofertas Asociadas</h1>\n    <div class=\"float-right mb-3 \" style=\"width: 40%; text-align: end;\">\n        <button mat-raised-button color=\"primary\" matTooltip=\"Asociar Oferta\" (click)=\"openAddOfferDialog()\">\n          <i class=\"material-icons\">add</i>Agregar Oferta\n        </button>\n    </div>\n    <div *ngIf=\"this.offersService.offers; else loading\">\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.offersService.offers\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\">Nombre</th>\n                    <th scope=\"col\">Valoración</th>\n                    <th scope=\"col\">Detalles</th>\n                    <th scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let offer of this.offersService.offers | filterBy: filter\">\n                <td>{{offer.name}}</td>\n                <td>{{offer.score != undefined? offer.score : 'No valorado'}}</td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/offer', offer.offer_id]\" matTooltip=\"Detalles de la oferta\" style=\"color: rgb(82, 82, 82); font-size: 14px; \">\n                        Ver Detalles\n                    </button>\n                </td>\n                <td style=\"text-align: center;\">\n                    <button mat-raised-button matTooltip=\"Eliminar oferta del evento\" color=\"warn\" (click)=\"deleteEventOffer()\">\n                        <i class=\"material-icons\">delete</i>\n                    </button>\n                </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.offersService.offer | filterBy: filter).length === 0\">\n              ¡No hay ofertas disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión Ofertas Asociadas</h1>\n    <div class=\"float-right mb-3 \" style=\"width: 40%; text-align: end;\">\n        <button mat-raised-button color=\"primary\" matTooltip=\"Asociar Oferta\" (click)=\"openAddOfferDialog()\">\n          <i class=\"material-icons\">add</i>Agregar Oferta\n        </button>\n    </div>\n    <div *ngIf=\"this.offersService.offers; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del evento</mat-label>\n            <input matInput [(ngModel)]=\"filter.info.name\"/>\n        </mat-form-field>\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.offersService.offers\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\">Nombre</th>\n                    <th scope=\"col\">Descripción</th>\n                    <th scope=\"col\">Estado</th>\n                    <th scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let offer of this.offersService.offers | filterBy: filter\">\n                <td>{{offer.info.name}}</td>\n                <td>{{offer.info.description}}</td>\n                <td>{{offer.is_active ? 'Activo' : 'Deshabilitado'}}</td>\n                <td>\n                    <button mat-raised-button matTooltip=\"Eliminar oferta del evento\" color=\"warn\" (click)=\"deleteEventOffer(offer)\">\n                        <i class=\"material-icons\">delete</i>\n                    </button>\n                </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.offersService.offers | filterBy: filter).length === 0\">\n              ¡No hay ofertas disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n");
 
 /***/ }),
 
@@ -863,7 +863,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Preguntas Frequentes</h1>\n\n    <div class=\"float-right mb-3 \" style=\"width: 40%; text-align: end;\">\n        <button mat-raised-button color=\"primary\" matTooltip=\"Agregar una pregunta\" (click)=\"openCreateQuestionDialog()\">\n          <i class=\"material-icons\">add</i>\n          {{this.authService.getUser().role_id === 1? 'Agregar Pregunta' : 'Solicitar Pregunta'}}\n        </button>\n    </div>\n\n    <div style=\"display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0 0 2rem\">\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"frequentQuestionService.filter.is_active\" (change)=\"refresh()\">\n            <label>Activo/Inactivo</label>\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                Activas\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(90, 0, 0)\">\n                Inactivas\n            </mat-radio-button>\n        </mat-radio-group>\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"frequentQuestionService.filter.state\" (change)=\"refresh()\">\n            <label>Estado</label>\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                Aceptadas\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(160, 105, 0) \">\n                Pendientes\n            </mat-radio-button>\n            <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                Rechazadas\n            </mat-radio-button>\n        </mat-radio-group>\n    </div>\n\n    <div *ngIf=\"this.frequentQuestionService.frequentQuestions; else loading\">\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table allquestions\" *ngIf=\"this.frequentQuestionService.frequentQuestions\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th style=\"width: 50%;\" scope=\"col\">Pregunta</th>\n                    <th style=\"width: 15%; text-align: center;\" scope=\"col\">Estado</th>\n                    <th style=\"text-align: center;\" *ngIf=\"authService.getUser().role_id === 1\" scope=\"col\">Aceptar/Rechazar</th>\n                    <th style=\"text-align: center;\" scope=\"col\">Activar/Desactivar</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let fq of this.frequentQuestionService.frequentQuestions\">\n                    <td style=\"width: 50%;\">\n                        <mat-accordion>\n                            <mat-expansion-panel hideToggle>\n                              <mat-expansion-panel-header style=\"height: auto !important;\">\n                                    <mat-panel-title style=\"margin: 0\">\n                                        <mat-card class=\"my-card\">\n                                            <textarea class=\"textInfo\" matInput disabled>{{fq.question}}</textarea>\n                                        </mat-card>\n                                    </mat-panel-title>\n                              </mat-expansion-panel-header>\n                                <label>Respuesta</label>\n                                <mat-card class=\"my-card\">\n                                    <textarea class=\"textInfo\" style=\"height: 90px;\" matInput disabled>{{fq.answer}}</textarea>\n                                </mat-card> \n                            </mat-expansion-panel>\n                        </mat-accordion>\n                    </td>\n                    <td style=\"width: 15%; text-align: center;\">\n                        <label color=\"primary\" style=\"cursor: default;\" [style.color]=\"fq.state == 1?  'rgb(0, 90, 0)': fq.state ==  2? 'rgb(160, 105, 0)': 'rgb(90, 0, 0)'\">\n                            {{ fq.state == 1? 'Aceptado' : fq.state ==  2? 'Pendiente': 'Rechazado' }}\n                        </label>\n                    </td>\n                    <td *ngIf=\"authService.getUser().role_id === 1\" style=\"text-align: center;\" >\n                        <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\" *ngIf=\"fq.state == 2\">\n                            <button mat-stroked-button color=\"primary\" class=\"acceptBtn\" (click)=\"changeStateRequest(fq, 1)\" matTooltip=\"Aceptar pregunta\">\n                              <mat-icon>done</mat-icon>\n                            </button>\n                            <button mat-stroked-button color=\"warn\" class=\"denyBtn\" (click)=\"changeStateRequest(fq, 3)\"\n                              matTooltip=\"Rechazar pregunta\">\n                              <mat-icon>clear</mat-icon>\n                            </button>\n                          </div>\n                    </td>\n                    <td style=\"text-align: center;\">\n                        <section (click)=\"$event.stopPropagation()\">\n                            <mat-slide-toggle (change)=\"changeActive(fq, $event)\" color=\"primary\"\n                              [checked]= fq.is_active>\n                            </mat-slide-toggle>\n                          </section>\n                    </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"this.frequentQuestionService.frequentQuestions.length === 0\">\n              ¡No hay preguntas disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Preguntas Frequentes</h1>\n\n    <div class=\"float-right mb-3 \" style=\"width: 40%; text-align: end;\">\n        <button mat-raised-button color=\"primary\" matTooltip=\"Agregar una pregunta\" (click)=\"openCreateQuestionDialog()\">\n          <i class=\"material-icons\">add</i>\n          {{this.authService.getUser().role_id === 1? 'Agregar Pregunta' : 'Solicitar Pregunta'}}\n        </button>\n    </div>\n\n    <div style=\"display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0 0 2rem\">\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"frequentQuestionService.filter.is_active\" (change)=\"refresh()\">\n            <label>Activo/Inactivo</label>\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n                Activas\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(90, 0, 0)\">\n                Inactivas\n            </mat-radio-button>\n        </mat-radio-group>\n        <mat-radio-group class=\"radio-button-group\" color=\"primary\" [(ngModel)]=\"frequentQuestionService.filter.state\" (change)=\"refresh()\">\n            <label>Estado</label>\n            <mat-radio-button value=\"0\" style=\"color: rgb(103,58,183);\">\n                Todas\n            </mat-radio-button>\n            <mat-radio-button value=\"1\" style=\"color: rgb(160, 105, 0)\">\n                Pendientes\n            </mat-radio-button>\n            <mat-radio-button value=\"2\" style=\"color: rgb(0, 90, 0)\">\n                Aceptadas\n            </mat-radio-button>\n            <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n                Rechazadas\n            </mat-radio-button>\n        </mat-radio-group>\n    </div>\n\n    <div *ngIf=\"this.frequentQuestionService.frequentQuestions; else loading\">\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table allquestions\" *ngIf=\"this.frequentQuestionService.frequentQuestions\">\n            <thead class=\"thead-light\">\n                <tr>\n                    <th style=\"width: 50%;\" scope=\"col\">Pregunta</th>\n                    <th style=\"width: 15%; text-align: center;\" scope=\"col\">Estado</th>\n                    <th style=\"text-align: center;\" *ngIf=\"authService.getUser().role_id === 1\" scope=\"col\">Aceptar/Rechazar</th>\n                    <th style=\"text-align: center;\" scope=\"col\">Activar/Desactivar</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let fq of this.frequentQuestionService.frequentQuestions\">\n                    <td style=\"width: 50%;\">\n                        <mat-accordion>\n                            <mat-expansion-panel hideToggle>\n                              <mat-expansion-panel-header style=\"height: auto !important;\">\n                                    <mat-panel-title style=\"margin: 0\">\n                                        <mat-card class=\"my-card\">\n                                            <textarea class=\"textInfo\" matInput disabled>{{fq.question}}</textarea>\n                                        </mat-card>\n                                    </mat-panel-title>\n                              </mat-expansion-panel-header>\n                                <label>Respuesta</label>\n                                <mat-card class=\"my-card\">\n                                    <textarea class=\"textInfo\" style=\"height: 90px;\" matInput disabled>{{fq.answer}}</textarea>\n                                </mat-card> \n                            </mat-expansion-panel>\n                        </mat-accordion>\n                    </td>\n                    <td style=\"width: 15%; text-align: center;\">\n                        <label color=\"primary\" style=\"cursor: default;\" [style.color]=\"fq.state == 1?  'rgb(160, 105, 0)': fq.state ==  2? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'\">\n                            {{ fq.state == 1? 'Pendiente' : fq.state ==  2? 'Aceptado': 'Rechazado' }}\n                        </label>\n                    </td>\n                    <td *ngIf=\"authService.getUser().role_id === 1\" style=\"text-align: center;\" >\n                        <div style=\"display: flex; justify-content: space-around; flex-wrap: wrap;\" *ngIf=\"fq.state == 1\">\n                            <button mat-stroked-button color=\"primary\" class=\"acceptBtn\" (click)=\"changeStateRequest(fq, 2)\" matTooltip=\"Aceptar pregunta\">\n                              <mat-icon>done</mat-icon>\n                            </button>\n                            <button mat-stroked-button color=\"warn\" class=\"denyBtn\" (click)=\"changeStateRequest(fq, 3)\"\n                              matTooltip=\"Rechazar pregunta\">\n                              <mat-icon>clear</mat-icon>\n                            </button>\n                          </div>\n                    </td>\n                    <td style=\"text-align: center;\">\n                        <section (click)=\"$event.stopPropagation()\">\n                            <mat-slide-toggle (change)=\"changeActive(fq, $event)\" color=\"primary\"\n                              [checked]= fq.is_active>\n                            </mat-slide-toggle>\n                          </section>\n                    </td>\n                </tr>\n            </tbody>   \n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"this.frequentQuestionService.frequentQuestions.length === 0\">\n              ¡No hay preguntas disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n");
 
 /***/ }),
 
@@ -877,6 +877,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<form [formGroup]=\"questionFG\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <h1>Creación de Preguntas Frecuentes</h1>\n   \n    <mat-form-field appearance=\"outline\" >\n        <mat-label>Pregunta</mat-label>\n        <textarea style=\"resize: none; height: 80px;\" matInput formControlName=\"question\" matTooltip=\"Pregunta frecuente\" type=\"text\" required></textarea>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\" >\n        <mat-label>Respuesta</mat-label>\n        <textarea style=\"resize: none; height: 80px;\" matInput formControlName=\"answer\" matTooltip=\"Respuesta detallada a la pregunta\" type=\"text\" required></textarea>\n    </mat-form-field>\n\n    <div class=\"buttonContainer\">\n        <button mat-raised-button [disabled]=\"!questionFG.valid\" color=\"primary\" (click)=\"onSubmit()\">\n            {{this.authService.getUser().role_id === 1? 'Crear Pregunta' : 'Solicitar Pregunta'}}\n        </button>\n        <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n            Cerrar<mat-icon>close</mat-icon>\n          </button>\n    </div>\n</form>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html":
+/*!****************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html ***!
+  \****************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <h1 style=\"width: 100%\" class=\"text-center font-weight-light mt-3\">\n    Gestionar Imágenes\n  </h1>\n\n  <div style=\"width: 80%; display: flex; justify-content: space-between\">\n    <mat-radio-group\n      class=\"radio-button-group\"\n      color=\"primary\"\n      [(ngModel)]=\"filter.showed\"\n      (change)=\"refresh()\"\n    >\n      <label>Activo/Inactivo</label>\n      <mat-radio-button value=\"0\" style=\"color: rgb(103, 58, 183)\">\n        Todas\n      </mat-radio-button>\n      <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n        Se Muestran\n      </mat-radio-button>\n      <mat-radio-button value=\"2\" style=\"color: rgb(90, 0, 0)\">\n        No Se Muestran\n      </mat-radio-button>\n    </mat-radio-group>\n  </div>\n\n  <div class=\"container\">\n    <div *ngIf=\"this.imageService.images.length != 0\" class=\"imgsCarousel\">\n      <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n        <ng-template\n          *ngFor=\"let i of this.imageService.images; let index = index\"\n          [id]=\"'slideId_' + index\"\n          ngbSlide\n        >\n          <div style=\"padding: 0 110px\">\n            <img\n              class=\"carouselImg\"\n              src=\"{{ url }}{{ this.imageService.images[index].name }}\"\n            />\n          </div>\n        </ng-template>\n      </ngb-carousel>\n      <div style=\"display: flex; height: 70px\">\n        <div title=\"Añadir imágenes\" class=\"leftBtn\">\n          <label\n            for=\"file-upload\"\n            class=\"image-buttons\"\n            style=\"\n              border-radius: 0 0 0 20px;\n              color: #dbb735;\n              text-align: center;\n              padding-top: 2.5%;\n            \"\n            ><mat-icon>add_photo_alternate</mat-icon></label\n          >\n          <input\n            [disabled]=\"!loading\"\n            id=\"file-upload\"\n            (change)=\"uploadFile($event.target.files)\"\n            type=\"file\"\n            accept=\"image/x-png,image/gif,image/jpeg\"\n            style=\"display: none\"\n            multiple\n          />\n        </div>\n        <div\n          [title]=\"\n            this.currentImg.showed ? 'No mostrar la imagen' : 'Mostrar imagen'\n          \"\n          class=\"middleBtn\"\n        >\n          <button\n            [disabled]=\"!loading\"\n            mat-button\n            style=\"border-radius: 0 0 20px 0\"\n            (click)=\"changeImgShowState()\"\n            class=\"image-buttons\"\n            [style.color]=\"this.currentImg.showed ? '#f28500' : '#0cab0c'\"\n          >\n            <mat-icon>{{\n              this.currentImg.showed ? \"visibility_off\" : \"visibility\"\n            }}</mat-icon>\n          </button>\n        </div>\n        <div title=\"Eliminar imagen\" class=\"rightBtn\">\n          <button\n            [disabled]=\"!loading\"\n            mat-button\n            style=\"border-radius: 0 0 20px 0\"\n            (click)=\"deleteImage()\"\n            class=\"image-buttons\"\n            color=\"warn\"\n          >\n            <mat-icon>delete</mat-icon>\n          </button>\n        </div>\n      </div>\n    </div>\n    <div\n      *ngIf=\"this.imageService.images.length == 0\"\n      style=\"\n        width: 50%;\n        height: 300px;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n      \"\n    >\n      <div title=\"Añadir imágenes\" class=\"noImageButton\">\n        <label\n          for=\"file-upload\"\n          style=\"\n            width: 100%;\n            margin: 0%;\n            cursor: pointer;\n            color: #dbb735;\n            text-align: center;\n            padding-top: 2%;\n          \"\n        >\n          <mat-icon\n            style=\"font-size: 40px; width: 40px; height: 40px; padding-top: 3%\"\n            >add_photo_alternate</mat-icon\n          >\n        </label>\n        <input\n          [disabled]=\"!loading\"\n          id=\"file-upload\"\n          (change)=\"uploadFile($event.target.files)\"\n          type=\"file\"\n          accept=\"image/x-png,image/gif,image/jpeg\"\n          style=\"display: none\"\n          multiple\n        />\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n");
 
 /***/ }),
 
@@ -1006,7 +1019,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container-fluid d-flex flex-column justify-content-sm-around p-0\">\n  <app-itinerary-details [it]=\"it\"></app-itinerary-details>\n  <div class=\"text-left container-fluid mt-2 example-box \">\n    <mat-slide-toggle\n      *ngIf=\"sesionService.actualUser.role_id === 1; else status\"\n      (change)=\"setAvailable(!it.info.active, it.itinerary_id, it.info)\"\n      [checked]=\"it.info.active\"\n      >{{ it.info.active ? \"Habilitado\" : \"Deshabilitado\" }}</mat-slide-toggle\n    >\n\n    <ng-template #status>\n      <h2 class=\"font-weight-light\">{{\n        it.info.active\n          ? \"Itinerario habilitado\"\n          : \"Este itinerario se encuentra deshabilitado\"\n      }}</h2>\n    </ng-template>\n\n    <button\n      *ngIf=\"favorites.includes(it.itinerary_id); else filled\"\n      mat-icon-button\n      mat-button\n      class=\"btn\"\n    >\n      <mat-icon\n        matTooltip=\"Remover de favoritos\"\n        color=\"primary\"\n        (click)=\"removeFavoriteItinerary(it.itinerary_id)\"\n        >favorite</mat-icon\n      >\n    </button>\n\n    <ng-template #filled>\n      <button mat-icon-button mat-button class=\"btn\">\n        <mat-icon\n          matTooltip=\"Agregar a favoritos\"\n          color=\"primary\"\n          (click)=\"addFavoriteItinerary(it.itinerary_id)\"\n          >favorite_border</mat-icon\n        >\n      </button>\n    </ng-template>\n  </div>\n  <app-offers *ngIf=\"it\" [it]=\"it\"></app-offers>\n  <hr />\n  <app-promotions></app-promotions>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container-fluid d-flex flex-column justify-content-sm-around p-0\">\n  <app-itinerary-details [it]=\"it\"></app-itinerary-details>\n  <div class=\"text-left container-fluid mt-2 example-box \">\n    <mat-slide-toggle\n      *ngIf=\"sesionService.actualUser.role_id === 1; else status\"\n      (change)=\"setAvailable(!it.info.active, it.itinerary_id, it.info, $event)\"\n      [checked]=\"it.info.active\"\n      >{{ it.info.active ? \"Habilitado\" : \"Deshabilitado\" }}</mat-slide-toggle\n    >\n\n    <ng-template #status>\n      <h2 class=\"font-weight-light\">{{\n        it.info.active\n          ? \"Itinerario habilitado\"\n          : \"Este itinerario se encuentra deshabilitado\"\n      }}</h2>\n    </ng-template>\n\n    <button\n      *ngIf=\"favorites.includes(it.itinerary_id); else filled\"\n      mat-icon-button\n      mat-button\n      class=\"btn\"\n    >\n      <mat-icon\n        matTooltip=\"Remover de favoritos\"\n        color=\"primary\"\n        (click)=\"removeFavoriteItinerary(it.itinerary_id)\"\n        >favorite</mat-icon\n      >\n    </button>\n\n    <ng-template #filled>\n      <button mat-icon-button mat-button class=\"btn\">\n        <mat-icon\n          matTooltip=\"Agregar a favoritos\"\n          color=\"primary\"\n          (click)=\"addFavoriteItinerary(it.itinerary_id)\"\n          >favorite_border</mat-icon\n        >\n      </button>\n    </ng-template>\n  </div>\n  <app-offers *ngIf=\"it\" [it]=\"it\"></app-offers>\n  <hr />\n  <app-promotions></app-promotions>\n</div>\n");
 
 /***/ }),
 
@@ -1110,7 +1123,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
 
 /***/ }),
 
@@ -1253,7 +1266,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Rutas Turísticas</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar una ruta turística\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar Ruta Turística</button>\n    </div>\n    <div *ngIf=\"this.turistRoutesService.touristRoutes; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre de la ruta turística</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.turistRoutesService.touristRoutes\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Activo</th>\n                <th scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let turist_route of this.turistRoutesService.touristRoutes | filterBy: filter\">\n                <td>{{turist_route.name}}</td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(turist_route, $event)\" color=\"primary\"\n                          [checked]= turist_route.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td > \n                    <button mat-stroked-button [routerLink]=\"['/tourist-routes', turist_route.tourist-route_id]\" matTooltip=\"Detalles de la ruta turística\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.turistRoutesService.touristRoutes | filterBy: filter).length === 0\">\n              ¡No hay rutas turísticas disponibles!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Rutas Turísticas</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar una ruta turística\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar Ruta Turística</button>\n    </div>\n    <div *ngIf=\"this.turistRoutesService.touristRoutes; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre de la ruta turística</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.turistRoutesService.touristRoutes\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th style=\"text-align: center;\" scope=\"col\">Activo</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let turist_route of this.turistRoutesService.touristRoutes | filterBy: filter\">\n                <td>{{turist_route.name}}</td>\n                <td style=\"text-align: center;\" >\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(turist_route, $event)\" color=\"primary\"\n                          [checked]= turist_route.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\" > \n                    <button mat-stroked-button [routerLink]=\"['/tourist-routes', turist_route.route_id]\" matTooltip=\"Detalles de la ruta turística\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.turistRoutesService.touristRoutes | filterBy: filter).length === 0\">\n              ¡No hay rutas turísticas disponibles!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>");
 
 /***/ }),
 
@@ -1266,7 +1279,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación de la Ruta Turística</h1>\n\n<form [formGroup]=\"trFG\" class=\"container-fluid\">\n   \n    <mat-form-field style=\"width: 80%;\" appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre de la ruta turística\" maxlength=\"50\" required>\n        <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n    </mat-form-field>\n\n    <mat-form-field style=\"width: 60%;\" appearance=\"outline\">\n        <mat-label>Ofertas</mat-label>\n        <mat-select formControlName=\"offer\">\n          <mat-option *ngFor=\"let offer of offerService.offers\" [value]=\"offer\">\n            {{offer.name}}\n          </mat-option>\n        </mat-select>\n    </mat-form-field>\n  \n    <button mat-fab color=\"primary\" (click)=\"addOffer()\">\n        <mat-icon>add</mat-icon>\n    </button>\n</form>\n\n<div *ngIf=\"associateOffers; else loading\">\n    <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n        <table class=\"table\" *ngIf=\"associateOffers\"> \n        <thead class=\"thead-light\">\n            <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Servicio</th>\n                <th scope=\"col\">Valoración</th>\n                <th scope=\"col\">Detalles</th>\n                <th scope=\"col\">Acciones</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr *ngFor=\"let offer of associateOffers\"> \n            <td>{{offer.name}}</td>\n            <td>{{offer.service}}</td>\n            <td>{{offer.score != udefined? event.score : 'No valorado'}}</td>    \n            <td > \n                <button mat-stroked-button [routerLink]=\"['/tourist-routes', offer.tourist-route_id]\" matTooltip=\"Detalles de la ruta turística\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                    Ver Detalles\n                </button>\n            </td>\n            <td > \n                <button mat-mini-fab color=\"warn\" (click)=\"removeOffer(offer)\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n            </td>\n            </tr>\n        </tbody>\n        </table>\n        <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"associateOffers.length === 0\">\n          ¡No ha seleccionado ninguana oferta!\n        </div>\n    </div>\n</div>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button [disabled]=\"!trFG.valid || associateOffers.length === 0 || loading\" color=\"primary\" (click)=\"onSubmit()\">\n        <mat-icon>add</mat-icon>Crear Ruta Turística\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n        Cerrar<mat-icon>close</mat-icon>\n    </button>\n</div>\n\n<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación de la Ruta Turística</h1>\n\n<form [formGroup]=\"trFG\" class=\"container-fluid\">\n   \n    <mat-form-field style=\"width: 100%;\" appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre de la ruta turística\" maxlength=\"50\" required>\n        <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n    </mat-form-field>\n\n    <div  class=\"chip-list\">\n        <mat-form-field class=\"chip-list\" appearance=\"outline\">\n          <mat-chip-list #chipList aria-label=\"Offers selection\">\n            <mat-chip class=\"chip\"\n              *ngFor=\"let offer of allOffers\"\n              [selectable]=\"selectable\"\n              [removable]=\"removable\">\n              {{offer.name}}\n              <i matChipRemove class=\"material-icons\" (click)=\"removeOffer(offer)\">cancel</i>\n            </mat-chip>\n            <input\n              placeholder=\"Seleccione las ofertas asociadas\"\n              #tagInput\n              formControlName=\"offers\" \n              [matChipInputFor]=\"chipList\"\n              [matAutocomplete]=\"auto\"\n              [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n          </mat-chip-list>\n          <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedOffer($event)\">\n            <mat-option *ngFor=\"let o of filteredOffers \" [value]=\"o\">\n              {{o.name}}\n            </mat-option>\n          </mat-autocomplete>\n        </mat-form-field>\n    </div>\n   \n</form>\n\n<div class=\"buttonContainer\">\n    <button mat-raised-button [disabled]=\"!trFG.valid || allOffers.length === 0 || loading\" color=\"primary\" (click)=\"onSubmit()\">\n        <mat-icon>add</mat-icon>Crear Ruta Turística\n    </button>\n    <button (click)=\"closeDialog()\" mat-raised-button color=\"warn\">\n        Cerrar<mat-icon>close</mat-icon>\n    </button>\n</div>");
 
 /***/ }),
 
@@ -1279,7 +1292,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<mat-tab-group>\n    <mat-tab label=\"Detalles\">\n        <app-tourist-routes-details *ngIf=\"myRoute; else null\" [myRoute]=\"myRoute\"></app-tourist-routes-details>\n        <ng-template #loading>\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-template>\n    </mat-tab>\n</mat-tab-group> \n");
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-tab-group>\n    <mat-tab label=\"Detalles\">\n        <app-tourist-routes-details *ngIf=\"myRoute; else null\" [myRoute]=\"myRoute[0]\"></app-tourist-routes-details>\n        <ng-template #loading>\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-template>\n    </mat-tab>\n    <mat-tab label=\"Ofertas\">\n        <app-tourist-routes-offers *ngIf=\"myRoute; else null\" [myRoute]=\"myRoute[0]\"></app-tourist-routes-offers>\n        <ng-template #loading>\n            <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n        </ng-template>\n    </mat-tab>\n</mat-tab-group> \n");
 
 /***/ }),
 
@@ -1292,7 +1305,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n\n<div class=\"container\">\n    <div style=\"display: flex; justify-content: space-around;\">\n\n        <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n            {{myRoute.name}}\n        </h2>\n        <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n            <h2 style=\"margin: auto\" [style.color]=\"myRoute.is_active? '#673ab7': 'gray'\">\n                {{myRoute.is_active? \"Activo\": \"Inactivo\"}}</h2>\n            <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeEventState(event, $event)\"\n                color=\"primary\" [checked]=myRoute.is_active>\n            </mat-slide-toggle>\n        </div>\n    </div>\n    \n    <form [formGroup]=\"trFG\" class=\"container-fluid\">\n       \n        <mat-form-field style=\"width: 80%;\" appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre de la ruta turística\" maxlength=\"50\" required>\n            <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n        </mat-form-field>\n    \n        <mat-form-field style=\"width: 65%;\" appearance=\"outline\">\n            <mat-label>Ofertas</mat-label>\n            <mat-select formControlName=\"offer\">\n              <mat-option *ngFor=\"let offer of offerService.offers\" [value]=\"offer\">\n                {{offer.name}}\n              </mat-option>\n            </mat-select>\n        </mat-form-field>\n      \n        <button mat-fab color=\"primary\" (click)=\"addOffer()\">\n            <mat-icon>add</mat-icon>\n        </button>\n    </form>\n    \n    <div>\n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"associateOffers\"> \n            <thead class=\"thead-light\">\n                <tr>\n                    <th scope=\"col\">Nombre</th>\n                    <th scope=\"col\">Servicio</th>\n                    <th scope=\"col\">Valoración</th>\n                    <th scope=\"col\">Detalles</th>\n                    <th scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let offer of associateOffers\"> \n                <td>{{offer.name}}</td>\n                <td>{{offer.service}}</td>\n                <td>{{offer.score != udefined? event.score : 'No valorado'}}</td>    \n                <td > \n                    <button mat-stroked-button [routerLink]=\"['/tourist-routes', offer.tourist-route_id]\" matTooltip=\"Detalles de la ruta turística\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                <td > \n                    <button mat-mini-fab color=\"warn\" (click)=\"removeOffer(offer)\">\n                        <mat-icon>delete</mat-icon>\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"associateOffers.length === 0\">\n              ¡No ha seleccionado ninguana oferta!\n            </div>\n        </div>\n    </div>\n    \n    <div class=\"buttonContainer\">\n        <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n            style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyRoute()\" >\n            Guardar cambios\n        </button>\n    \n        <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n            style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData()\">\n            Descartar cambios\n        </button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n\n<div class=\"container\">\n    <div style=\"display: flex; justify-content: space-around; margin-bottom: 1em;\">\n\n        <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n            {{myRoute.name}}\n        </h2>\n        <div style=\"display: flex;  margin: auto 0; padding: 0 20px\">\n            <h2 style=\"margin: auto\" [style.color]=\"myRoute.is_active? '#673ab7': 'gray'\">\n                {{myRoute.is_active? \"Activo\": \"Inactivo\"}}</h2>\n            <mat-slide-toggle style=\"width: min-content; margin-left: 3%; margin-top: 5%;\" (change)=\"changeState(myRoute, $event)\"\n                color=\"primary\" [checked]=myRoute.is_active>\n            </mat-slide-toggle>\n        </div>\n    </div>\n    \n    <hr style=\"width: 90%;\">\n\n    <form [formGroup]=\"trFG\" class=\"container-fluid\">\n       \n        <mat-form-field style=\"width: 80%;\" appearance=\"outline\">\n            <mat-label>Nombre</mat-label>\n            <input #Name matInput formControlName=\"name\" matTooltip=\"Nombre de la ruta turística\" maxlength=\"50\" required>\n            <mat-hint align=\"end\">{{Name.value.length}}/50</mat-hint>\n        </mat-form-field>\n\n        <div class=\"buttonContainer\">\n            <button mat-stroked-button color=\"primary\"  [disabled]=\"disableDialog()\"\n                style=\"width: 47%; min-width: fit-content; margin-top: 10px;\" (click)=\"modifyRoute()\" >\n                Cambiar Nombre\n            </button>\n        \n            <button mat-stroked-button color=\"warn\" [disabled]=\"loading\"\n                style=\"width: 47%; min-width: fit-content;margin-top: 10px;\" (click)=\"setData(true)\">\n                Descartar Cambio\n            </button>\n        </div>\n    </form>\n</div>");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.html":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.html ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n\n<div class=\"container\">\n  <div style=\"display: flex; justify-content: space-around; margin-bottom: 1em\">\n    <h2 style=\"color: #673ab7; text-align: center; margin: auto 0\">\n      Ofertas Asociadas\n    </h2>\n  </div>\n\n  <div class=\"container\" style=\"display: flex; justify-content: space-between;\">\n    <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de la oferta</mat-label>\n      <input matInput [(ngModel)]=\"filter.name\" />\n    </mat-form-field>\n\n    <mat-form-field style=\"width: 30%;\" appearance=\"outline\">\n      <mat-label>Seleccione una oferta</mat-label>\n      <mat-select [(ngModel)]=\"selectedOffer\">\n        <mat-option *ngFor=\"let offer of offerService.offers\" [value]=\"offer\">\n          {{ offer.name }}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n\n    <button mat-fab color=\"primary\" (click)=\"addOffer()\" [disabled]=\"loading\">\n      <mat-icon>add</mat-icon>\n    </button>\n  </div>\n\n  <div class=\"table-responsive\" style=\"padding: 0 3%\">\n    <table class=\"table\" *ngIf=\"associateOffers\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th scope=\"col\">Nombre</th>\n          <th scope=\"col\">Descripción</th>\n          <th style=\"text-align: center\" scope=\"col\">Acciones</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let offer of associateOffers | filterBy: filter\">\n          <td>{{ offer.name }}</td>\n          <td>{{ offer.description }}</td>\n          <td style=\"text-align: center\">\n            <button mat-mini-fab color=\"warn\" (click)=\"removeOffer(offer)\">\n              <mat-icon>delete</mat-icon>\n            </button>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    <div\n      class=\"alert alert-info text-center\"\n      role=\"alert\"\n      *ngIf=\"(associateOffers | filterBy: filter).length === 0\"\n    >\n      ¡No ha seleccionado ninguana oferta!\n    </div>\n  </div>\n</div>\n");
 
 /***/ }),
 
@@ -1318,7 +1344,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<button mat-mini-fab id=\"exit\" ><i (click)=\"closeDialog()\" style=\"color: black;\" class=\"material-icons\"> clear </i></button>\n<mat-horizontal-stepper linear #stepper>\n    <mat-step [stepControl]=\"eventFG\" >\n        <ng-template matStepLabel>Datos Básicos</ng-template>\n\n        <form [formGroup]=\"eventFG\"  class=\"container\">\n\n            <div class=\"container\">\n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Nombre</mat-label>\n                    <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\"  required>\n                </mat-form-field>\n\n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Costo</mat-label>\n                    <input matInput formControlName=\"cost\" required>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Dirección</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"address\" \n                        matTooltip=\"Dirección exacta del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Detalles</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"detail\" \n                        matTooltip=\"Detalles del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList aria-label=\"Categories selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let category of allCategories\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{category.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las categorías\"\n                        #tagInput\n                        formControlName=\"categories\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"auto\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                        <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let company of allCompanies\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{company.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las compañías\"\n                        #tagInput2\n                        formControlName=\"companies\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"autoCompany\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                        <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n            </div>\n        </form>\n\n        <div class=\"container\">\n            <div class=\"toggle\">\n                <div style=\"text-align: center;\">\n                    <label>Todo el día:</label>\n                    <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n                    <label style=\"margin-left: 5%; margin-right: 6%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n                    <mat-form-field *ngIf=\"this.allDay\" style=\"width: 45%;\"  appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n                </div>\n        \n                <div style=\" display: flex;\">\n                    <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n            \n                    <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                        <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                        <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n                    </mat-form-field>\n                    \n                    <div *ngIf=\"allDay == true\">\n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora Inicial</mat-label>\n                            <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                        </mat-form-field>\n                       \n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora de finalización</mat-label>\n                            <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                        </mat-form-field>\n                        <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n                    </div>\n                </div>\n                <mat-hint *ngIf=\"initial_date > final_date && allDay == false\" style=\"padding-left: 2.5%; color: #ca382d;\">La fecha inicial es mayor a la final.</mat-hint> <br *ngIf=\"initial_date > final_date && allDay == false\">\n                <mat-hint *ngIf=\"initial_time > final_time && allDay == true\" style=\"padding-left: 2.5%; color: #ca382d;\">La hora inicial es mayor a la final.</mat-hint> <br *ngIf=\"initial_time > final_time && allDay == true\">\n                <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n            </div>\n        \n            <div class=\"color-picker\">\n                <label>Selecciona un color </label>\n                <color-circle  (onChangeComplete)=\"changeComplete($event)\"  [color]=\"color\"></color-circle> \n            </div>\n\n            <div *ngIf=\"!this.data.action\" style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;\">\n                <div class=\"file\">\n                    <div class=\"uploadFile\">\n                        <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n                        <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n                    </div>\n                </div>\n            \n                <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;\">Debes añadir imagenes*</mat-hint>\n                <mat-hint *ngIf=\"this.eventImages.length != 0\" style=\"padding-left: 2.5%; align-self: center; font-style: italic;\">Si pulsa en \"Añadir imágenes\" nuevamente deberá seleccionar todas las imágenes.</mat-hint>\n            \n                <div *ngIf=\"eventImages.length != 0\"\n                    style=\"max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n                    <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n                        <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                            <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n                            <div class=\"carousel-caption\">\n                                <button [disabled]=\"loading\" mat-button style=\"border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;\" (click)=\"deleteImage();\"\n                                    class=\"image-buttons\" color=\"warn\">\n                                    <mat-icon>delete</mat-icon>\n                                </button>\n                            </div>\n                        </ng-template>\n                    </ngb-carousel>\n            \n                </div>\n            </div>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"!showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext [disabled]=\"disableDialog()\" color=\"primary\" >\n                Continuar la Creación\n            </button>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext color=\"primary\" >\n                Ver Ubicacion\n            </button>\n        </div>\n    </mat-step>\n\n    <mat-step>\n        <ng-template matStepLabel>Ubicación</ng-template>\n\n        <div class=\"m-3\" style=\"height: calc(100vh - 150px); display: flex; flex-direction: column; justify-content:space-around;\" (mouseenter)=\"refreshMap()\">\n            <div class=\"shadow-sm rounded\" class=\"map container-fluid\" leaflet (leafletMapReady)=\"onMapReady($event)\"\n                [leafletOptions]=\"options\" (leafletClick)=\"putLocationMarker($event)\">\n            </div>\n\n            <div style=\"width: 94%; height: 14%; display: flex; justify-content: space-between; margin: 3%; flex-wrap: wrap;\">\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Latitud: <b style=\"color: #dbb735;;\">{{locationMarker.getLatLng().lat}}</b> \n                </label>\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Longitud: <b style=\"color: #ca382d;\">{{locationMarker.getLatLng().lng}}</b>\n                </label>\n            </div>\n\n            <div style=\"width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button  mat-raised-button matStepperPrevious color=\"accent\" [disabled]=\"loading\">\n                    <mat-icon>reply</mat-icon>Atrás\n                </button>\n                \n                <button *ngIf=\"!showInfo\" mat-raised-button color=\"primary\" style=\"width: 40%; min-width: 200px; margin: 0 auto\"\n                    [disabled]=\"myEvent.latitude == locationMarker.getLatLng().lat && myEvent.longitude == locationMarker.getLatLng().lng || loading\"\n                    (click)=\"onSubmit()\">\n                    Crear Petición de Evento\n                    <mat-icon style=\"margin-left: 5%;\">check</mat-icon>\n                </button>\n            </div>\n        </div>        \n    </mat-step>\n</mat-horizontal-stepper>");
+/* harmony default export */ __webpack_exports__["default"] = ("<button mat-mini-fab id=\"exit\" ><i (click)=\"closeDialog()\" style=\"color: black;\" class=\"material-icons\"> clear </i></button>\n<mat-horizontal-stepper linear #stepper>\n    <mat-step [stepControl]=\"eventFG\" >\n        <ng-template matStepLabel>Datos Básicos</ng-template>\n\n        <form [formGroup]=\"eventFG\"  class=\"container\">\n\n            <div class=\"container\">\n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Nombre</mat-label>\n                    <input matInput formControlName=\"name\" matTooltip=\"Nombre del evento\"  required>\n                </mat-form-field>\n\n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Costo</mat-label>\n                    <input matInput formControlName=\"cost\" required>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\">\n                    <mat-label>Dirección</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"address\" \n                        matTooltip=\"Dirección exacta del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n            \n                <mat-form-field appearance=\"outline\" >\n                    <mat-label>Detalles</mat-label>\n                    <textarea \n                        matInput \n                        formControlName=\"detail\" \n                        matTooltip=\"Detalles del evento\" \n                        type=\"text\"\n                        required></textarea>\n                </mat-form-field>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList aria-label=\"Categories selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let category of allCategories\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{category.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCategory(category)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las categorías\"\n                        #tagInput\n                        formControlName=\"categories\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"auto\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selectedCategory($event)\">\n                        <mat-option *ngFor=\"let c of filteredCategories \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n                <div  class=\"chip-list\" [hidden]=\"petition\">\n                    <mat-form-field class=\"chip-list\" appearance=\"outline\">\n                    <mat-chip-list #chipList2 aria-label=\"Companies selection\">\n                        <mat-chip class=\"chip\"\n                        *ngFor=\"let company of allCompanies\"\n                        [selectable]=\"selectable\"\n                        [removable]=\"removable\">\n                        {{company.name}}\n                        <i matChipRemove class=\"material-icons\" (click)=\"removeCompany(company)\">cancel</i>\n                        </mat-chip>\n                        <input\n                        placeholder=\"Seleccione las compañías\"\n                        #tagInput2\n                        formControlName=\"companies\" \n                        [matChipInputFor]=\"chipList\"\n                        [matAutocomplete]=\"autoCompany\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\">\n                    </mat-chip-list>\n                    <mat-autocomplete #autoCompany=\"matAutocomplete\" (optionSelected)=\"selectedCompany($event)\">\n                        <mat-option *ngFor=\"let c of filteredCompanies \" [value]=\"c\">\n                        {{c.name}}\n                        </mat-option>\n                    </mat-autocomplete>\n                    </mat-form-field>\n                </div>\n\n            </div>\n        </form>\n\n        <div class=\"container\">\n            <div class=\"toggle\">\n                <div style=\"text-align: center;\">\n                    <label>Todo el día:</label>\n                    <mat-slide-toggle style=\"margin-left: 3%;\" (change)=\"changeState($event)\" color=\"primary\" [checked]= \"false\"></mat-slide-toggle>\n                    <label style=\"margin-left: 5%; margin-right: 6%;\"> {{!this.allDay? \"No\": \"Sí\"}} </label>\n                    <mat-form-field *ngIf=\"this.allDay\" style=\"width: 45%;\"  appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"commonDate\"  [min]=\"today\"  placeholder=\"Fecha\" [(ngModel)]=\"common_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"commonDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #commonDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n                </div>\n        \n                <div style=\" display: flex;\">\n                    <mat-form-field *ngIf=\"allDay== false\" style=\"width: 50%; \" appearance=\"outline\">\n                        <input  matTooltip=\"Presione el Icono\"  matInput [matDatepicker]=\"startDate\" [min]=\"today\"  placeholder=\"Fecha Inicial\" [(ngModel)]=\"initial_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"startDate\" ></mat-datepicker-toggle>\n                        <mat-datepicker #startDate disabled=\"false\" ></mat-datepicker>\n                    </mat-form-field>\n            \n                    <mat-form-field *ngIf=\"allDay== false\"  style=\"width: 50%; \" appearance=\"outline\">\n                        <input matTooltip=\"Presione el Icono\" matInput [matDatepicker]=\"endDate\" [matDatepickerFilter]=\"dateFilter\" placeholder=\"Fecha de Finalización\" [(ngModel)]=\"final_date\" disabled >\n                        <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\n                        <mat-datepicker  #endDate [disabled]=\"initial_date == undefined\" [startAt]=\"initial_date\"></mat-datepicker>\n                    </mat-form-field>\n                    \n                    <div *ngIf=\"allDay == true\">\n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora Inicial</mat-label>\n                            <input type=\"time\" matInput [(ngModel)]=\"initial_time\" matToolTip=\"Hora de inicio\" >\n                        </mat-form-field>\n                       \n                        <mat-form-field  appearance=\"outline\" style=\"width: 45%;\">\n                            <mat-label>Hora de finalización</mat-label>\n                            <input type=\"time\"  [disabled]=\"initial_time == undefined\" matToolTip=\"Hora de finalización\" matInput [(ngModel)]=\"final_time\">\n                        </mat-form-field>\n                        <mat-hint style=\"padding-left: 2.5%;\">Presione <mat-icon>schedule</mat-icon> para seleccionar una hora.</mat-hint>\n                    </div>\n                </div>\n                <mat-hint *ngIf=\"initial_date > final_date && allDay == false\" style=\"padding-left: 2.5%; color: #ca382d;\">La fecha inicial es mayor a la final.</mat-hint> <br *ngIf=\"initial_date > final_date && allDay == false\">\n                <mat-hint *ngIf=\"initial_time > final_time && allDay == true\" style=\"padding-left: 2.5%; color: #ca382d;\">La hora inicial es mayor a la final.</mat-hint> <br *ngIf=\"initial_time > final_time && allDay == true\">\n                <mat-hint *ngIf=\"allDay== false\" style=\"padding-left: 2.5%;\">Presione <mat-icon>today</mat-icon> para seleccionar una fecha.</mat-hint>\n            </div>\n        \n            <div class=\"color-picker\">\n                <label>Selecciona un color </label>\n                <color-circle  (onChangeComplete)=\"changeComplete($event)\"  [color]=\"color\"></color-circle> \n            </div>\n\n            <div *ngIf=\"!this.data.action\" style=\"width: 100%; display: flex; flex-wrap: wrap; flex-direction: column;\">\n                <div class=\"file\">\n                    <div class=\"uploadFile\">\n                        <label for=\"file-upload\"  style=\"width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;\"> Añadir Imágenes </label> \n                        <input [disabled]=\"loading\"  id=\"file-upload\" (change)=\"getFiles($event)\" type=\"file\" accept=\"image/x-png,image/gif,image/jpeg\" style=\"display: none;\" multiple/>\n                    </div>\n                </div>\n            \n                <mat-hint *ngIf=\"this.eventImages.length == 0\" style=\"padding-left: 2.5%; color: crimson; align-self: center; font-style: italic;\">Debes añadir imagenes*</mat-hint>\n            \n                <div *ngIf=\"eventImages.length != 0\"\n                    style=\"max-width: 90%; display: flex; flex-direction: column; border-radius: 20px; border: solid 1.5px rgb(220, 220, 220); margin: auto; min-width: 280px;\">\n                    <ngb-carousel class=\"container-fluid\" (slide)=\"onSlide($event)\">\n                        <ng-template *ngFor=\"let i of eventImages; let index = index\" [id]=\"'slideId_' + index\" ngbSlide>              \n                            <img class=\"d-block w-100\" style=\"max-height: 450px !important; border-radius: 10px;\" src=\"{{url}}{{eventImages[index]}}\"/>\n                            <div class=\"carousel-caption\">\n                                <button [disabled]=\"loading\" mat-button style=\"border: solid 1.5px rgb(220, 220, 220); border-radius: 10px; background-color: white;\" (click)=\"deleteImage();\"\n                                    class=\"image-buttons\" color=\"warn\">\n                                    <mat-icon>delete</mat-icon>\n                                </button>\n                            </div>\n                        </ng-template>\n                    </ngb-carousel>\n            \n                </div>\n            </div>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"!showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext [disabled]=\"disableDialog()\" color=\"primary\" >\n                Continuar la Creación\n            </button>\n        </div>\n\n        <div class=\"buttonContainer\" *ngIf=\"showInfo\">\n            <button mat-raised-button  style=\"width: 40%; min-width: 200px; margin: 0 auto;\" matStepperNext color=\"primary\" >\n                Ver Ubicacion\n            </button>\n        </div>\n    </mat-step>\n\n    <mat-step>\n        <ng-template matStepLabel>Ubicación</ng-template>\n\n        <div class=\"m-3\" style=\"height: calc(100vh - 150px); display: flex; flex-direction: column; justify-content:space-around;\" (mouseenter)=\"refreshMap()\">\n            <div class=\"shadow-sm rounded\" class=\"map container-fluid\" leaflet (leafletMapReady)=\"onMapReady($event)\"\n                [leafletOptions]=\"options\" (leafletClick)=\"putLocationMarker($event)\">\n            </div>\n\n            <div style=\"width: 94%; height: 14%; display: flex; justify-content: space-between; margin: 3%; flex-wrap: wrap;\">\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Latitud: <b style=\"color: #dbb735;;\">{{locationMarker.getLatLng().lat}}</b> \n                </label>\n                <label style=\"font-size: 15px; min-width:  30% ; margin: auto; margin-bottom: 15px;\">\n                    Longitud: <b style=\"color: #ca382d;\">{{locationMarker.getLatLng().lng}}</b>\n                </label>\n            </div>\n\n            <div style=\"width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap;\">\n                <button  mat-raised-button matStepperPrevious color=\"accent\" [disabled]=\"loading\">\n                    <mat-icon>reply</mat-icon>Atrás\n                </button>\n                \n                <button *ngIf=\"!showInfo\" mat-raised-button color=\"primary\" style=\"width: 40%; min-width: 200px; margin: 0 auto\"\n                    [disabled]=\"myEvent.latitude == locationMarker.getLatLng().lat && myEvent.longitude == locationMarker.getLatLng().lng || loading\"\n                    (click)=\"onSubmit()\">\n                    Crear Petición de Evento\n                    <mat-icon style=\"margin-left: 5%;\">check</mat-icon>\n                </button>\n            </div>\n        </div>        \n    </mat-step>\n</mat-horizontal-stepper>");
 
 /***/ }),
 
@@ -2163,25 +2189,29 @@ let AdsMainComponent = class AdsMainComponent {
     ngOnInit() {
     }
     changeState(ad, { source }) {
-        this.adsService.changeStateAd(ad.ad_id).subscribe({
-            next: (data) => {
-                if (data.status == 204) {
-                    ad.is_active = !ad.is_active;
-                    source.checked = ad.is_active;
-                    if (ad.is_active)
-                        this.commonService.openSnackBar(`El anuncio ${ad.name} ha sido activado`, "OK");
-                    else
-                        this.commonService.openSnackBar(`El anuncio ${ad.name} ha sido desactivado`, "OK");
-                }
-                else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
-                }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+        this.commonService.confirmationDialog(`¿Desea eliminar el anuncio: ${ad.name}?`).then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.adsService.changeStateAd(ad.ad_id).subscribe({
+                    next: (data) => {
+                        if (data.status == 204) {
+                            ad.is_active = !ad.is_active;
+                            source.checked = ad.is_active;
+                            this.commonService.openSnackBar(`El anuncio ${ad.name} ha sido eliminado`, "OK");
+                        }
+                        else {
+                            this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                        }
+                    },
+                    error: (err) => {
+                        this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                        source.checked = ad.is_active;
+                    }
+                });
+            }
+            else {
                 source.checked = ad.is_active;
             }
-        });
+        }));
     }
     openCreateDialog() {
         this.dialogService.open(_ads_create_ads_create_component__WEBPACK_IMPORTED_MODULE_5__["AdsCreateComponent"], { width: "60%", height: "80%", minWidth: "280px", disableClose: true });
@@ -2236,6 +2266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm2015/keycodes.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
 /* harmony import */ var src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/general-services/multimedia.service */ "./src/app/general-services/multimedia.service.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -2257,7 +2289,7 @@ let AdsDetailsComponent = class AdsDetailsComponent {
         this.loading = false;
         this.adImages = [];
         this.oldAdImages = [];
-        this.url = "https://intelitur.sytes.net/files/";
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].IMAGES_URL_BASE;
         this.imageIndex = 0;
         this.visible = true;
         this.selectable = true;
@@ -2277,53 +2309,72 @@ let AdsDetailsComponent = class AdsDetailsComponent {
             next: (data) => {
                 this.filteredCompanies = data;
                 this.subscription.unsubscribe();
-            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
         });
         this.setData();
     }
     setData() {
-        this.adFG.controls['name'].setValue(this.myAd.name);
-        this.adFG.controls['description'].setValue(this.myAd.description);
+        this.adFG.controls["name"].setValue(this.myAd.name);
+        this.adFG.controls["description"].setValue(this.myAd.description);
         this.start_Date = new Date(this.datePipe.transform(this.myAd.active_range.start));
         this.end_Date = new Date(this.datePipe.transform(this.myAd.active_range.end));
-        this.subscription2 = this.adsService.getCompaniesByAd(this.myAd.ad_id).subscribe({
+        this.subscription2 = this.adsService
+            .getCompaniesByAd(this.myAd.ad_id)
+            .subscribe({
             next: (data) => {
-                data.forEach(val => this.allCompanies.push(val));
-                this.allCompanies.forEach(val => this.allOldCompanies.push(val.company_id));
+                data.forEach((val) => this.allCompanies.push(val));
+                this.allCompanies.forEach((val) => this.allOldCompanies.push(val.company_id));
                 this.subscription2.unsubscribe();
-            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
         });
-        this.subscription3 = this.multimediaService.getImages(this.myAd.ad_id, 4).subscribe({
+        this.subscription3 = this.multimediaService
+            .getImages(this.myAd.ad_id, 4)
+            .subscribe({
             next: (data) => {
                 if (data != undefined) {
-                    data.forEach(elem => this.adImages.push(elem));
-                    data.forEach(elem => this.oldAdImages.push(elem));
+                    data.forEach((elem) => this.adImages.push(elem));
+                    data.forEach((elem) => this.oldAdImages.push(elem));
                 }
                 this.subscription2.unsubscribe();
-            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
         });
     }
     changeState({ source }) {
-        var id = this.myAd.ad_id;
-        this.adsService.changeStateAd(id).subscribe({
-            next: (data) => {
-                if (data.status == 204) {
-                    this.myAd.is_active = !this.myAd.is_active;
-                    source.checked = this.myAd.is_active;
-                    if (this.myAd.is_active)
-                        this.commonService.openSnackBar(`El anuncio ${this.myAd.name} ha sido activado`, "OK");
-                    else
-                        this.commonService.openSnackBar(`El anuncio ${this.myAd.name} ha sido desactivado`, "OK");
+        if (this.myAd.is_active) {
+            this.commonService
+                .confirmationDialog(`¿Desea eliminar el anuncio: ${this.myAd.name}?`)
+                .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+                if (result) {
+                    var id = this.myAd.ad_id;
+                    this.adsService.changeStateAd(id).subscribe({
+                        next: (data) => {
+                            if (data.status == 204) {
+                                this.myAd.is_active = !this.myAd.is_active;
+                                source.checked = this.myAd.is_active;
+                                this.commonService.openSnackBar(`El anuncio ${this.myAd.name} ha sido activado`, "OK");
+                            }
+                            else {
+                                this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                            }
+                        },
+                        error: (err) => {
+                            this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                            source.checked = this.myAd.is_active;
+                        },
+                    });
                 }
                 else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                    source.checked = this.myAd.is_active;
                 }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
-                source.checked = this.myAd.is_active;
-            }
-        });
+            }));
+        }
+        else {
+            this.commonService.openSnackBar("No se puede reactivar un anuncio", "OK");
+            source.checked = this.myAd.is_active;
+        }
     }
     modifyAd() {
         this.loading = true;
@@ -2333,19 +2384,19 @@ let AdsDetailsComponent = class AdsDetailsComponent {
         this.adFG.disable();
         let ad = {
             ad_id: this.myAd.ad_id,
-            name: this.adFG.controls['name'].value,
-            description: this.adFG.controls['description'].value,
+            name: this.adFG.controls["name"].value,
+            description: this.adFG.controls["description"].value,
             active_range: {
                 start: startDate,
-                end: endDate
+                end: endDate,
             },
             is_active: this.myAd.is_active,
-            is_up: this.myAd.is_up
+            is_up: this.myAd.is_up,
         };
         let json = {
-            "info": ad,
-            "latitude": this.myAd.latitude,
-            "longitude": this.myAd.longitude
+            info: ad,
+            latitude: this.myAd.latitude,
+            longitude: this.myAd.longitude,
         };
         this.adsService.modifyAd(json).subscribe({
             next: (data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -2365,7 +2416,7 @@ let AdsDetailsComponent = class AdsDetailsComponent {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.loading = false;
                 this.adFG.enable();
-            }
+            },
         });
     }
     removeCompany(company) {
@@ -2382,7 +2433,7 @@ let AdsDetailsComponent = class AdsDetailsComponent {
             }
         }
         this.allCompanies.push(event.option.value);
-        this.adFG.controls['companies'].setValue(null);
+        this.adFG.controls["companies"].setValue(null);
     }
     getCompanies() {
         let companyIDs = [];
@@ -2395,7 +2446,9 @@ let AdsDetailsComponent = class AdsDetailsComponent {
         if (date != undefined) {
             date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
             let year = date.getFullYear();
-            let month = (date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
+            let month = date.getMonth() + 1 >= 10
+                ? date.getMonth() + 1
+                : "0" + (date.getMonth() + 1);
             let day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
             return year + "-" + month + "-" + day;
         }
@@ -2406,12 +2459,16 @@ let AdsDetailsComponent = class AdsDetailsComponent {
             console.log(this.allOldCompanies);
             for (let i = 0; i < allCompanies.length; i++) {
                 if (this.allOldCompanies.indexOf(allCompanies[i]) === -1) {
-                    yield this.adsService.addAdToCompany(ad_id, allCompanies[i]).toPromise();
+                    yield this.adsService
+                        .addAdToCompany(ad_id, allCompanies[i])
+                        .toPromise();
                 }
             }
             for (let i = 0; i < this.allOldCompanies.length; i++) {
                 if (allCompanies.indexOf(this.allOldCompanies[i]) === -1) {
-                    yield this.adsService.deleteAdFromCompany(this.allOldCompanies[i], ad_id).toPromise();
+                    yield this.adsService
+                        .deleteAdFromCompany(this.allOldCompanies[i], ad_id)
+                        .toPromise();
                 }
             }
             this.allOldCompanies = allCompanies;
@@ -2431,7 +2488,7 @@ let AdsDetailsComponent = class AdsDetailsComponent {
                     images.push(data.filename);
                 });
             }
-            this.adImages.length != 0 ? images = images.concat(this.adImages) : null;
+            this.adImages.length != 0 ? (images = images.concat(this.adImages)) : null;
             this.updateImages(images);
         });
     }
@@ -2442,7 +2499,10 @@ let AdsDetailsComponent = class AdsDetailsComponent {
             if (this.adImages.length == 1) {
                 this.imageIndex = 0;
             }
-            yield this.multimediaService.deleteImage(this.adImages[this.imageIndex].image_id).toPromise().then((data) => {
+            yield this.multimediaService
+                .deleteImage(this.adImages[this.imageIndex].image_id)
+                .toPromise()
+                .then((data) => {
                 if (data.status == 204) {
                     this.commonService.openSnackBar(`La imagen se ha eleminado`, "OK");
                 }
@@ -2456,14 +2516,16 @@ let AdsDetailsComponent = class AdsDetailsComponent {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             for (let i = 0; i < images.length; i++) {
                 if (this.oldAdImages.indexOf(images[i]) === -1) {
-                    yield this.multimediaService.addImage(this.myAd.ad_id, 4, images[i]).toPromise();
+                    yield this.multimediaService
+                        .addImage(this.myAd.ad_id, 4, images[i])
+                        .toPromise();
                 }
             }
             this.multimediaService.getImages(this.myAd.ad_id, 4).subscribe({
                 next: (data) => {
                     this.adImages = data;
                     this.commonService.openSnackBar("Se han agregado las imágenes", "OK");
-                }
+                },
             });
             this.adFG.enable();
             this.loading = false;
@@ -2481,11 +2543,11 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
 ], AdsDetailsComponent.prototype, "myAd", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('auto', { static: false })
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("auto", { static: false })
 ], AdsDetailsComponent.prototype, "matAutocomplete", void 0);
 AdsDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-ads-details',
+        selector: "app-ads-details",
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./ads-details.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/ads/components/ads-management/ads-details/ads-details.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./ads-details.component.scss */ "./src/app/ads/components/ads-management/ads-details/ads-details.component.scss")).default]
     })
@@ -2778,7 +2840,6 @@ let AdsStadisticsComponent = class AdsStadisticsComponent {
         let selectedAd = this.adsFG.controls['ads'].value;
         this.adService.getAd(selectedAd).subscribe({
             next: (data) => {
-                console.log(data);
                 let visits = [];
                 let percent = [];
                 let labels = [];
@@ -2830,7 +2891,6 @@ let AdsStadisticsComponent = class AdsStadisticsComponent {
                 this.subscription = this.adService.getStadisticsAds()
                     .subscribe({
                     next: (data) => {
-                        console.log(data);
                         this.adService.ads = data;
                         this.adsFG.controls['ads'].setValue(this.adService.ads[0].ad_id);
                         this.subscription.unsubscribe();
@@ -3054,6 +3114,11 @@ const routes = [
         path: "contests",
         loadChildren: () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./contests/contests.module */ "./src/app/contests/contests.module.ts")).then(i => i.ContestsModule),
         canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
+    },
+    {
+        path: "images",
+        loadChildren: () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./images/images.module */ "./src/app/images/images.module.ts")).then(i => i.ImagesModule),
+        canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
     }
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -3159,6 +3224,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng2_charts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ng2-charts */ "./node_modules/ng2-charts/fesm2015/valor-software-ng2-charts.js");
 /* harmony import */ var _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./contests/contests.module */ "./src/app/contests/contests.module.ts");
 /* harmony import */ var _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./tourist-routes/tourist-routes.module */ "./src/app/tourist-routes/tourist-routes.module.ts");
+/* harmony import */ var _images_images_module__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./images/images.module */ "./src/app/images/images.module.ts");
+
 
 
 
@@ -3213,7 +3280,8 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__["OfferModule"],
             _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"],
             _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__["TouristRoutesModule"],
-            _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"]
+            _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"],
+            _images_images_module__WEBPACK_IMPORTED_MODULE_25__["ImagesModule"]
         ],
         providers: [ng2_charts__WEBPACK_IMPORTED_MODULE_22__["ThemeService"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
@@ -3407,7 +3475,7 @@ let CategoriesComponent = class CategoriesComponent {
         this.dialogService = dialogService;
         this.categoryService = categoryService;
         this.filter = {
-            name: ""
+            name: "",
         };
         this.isFilters = false;
     }
@@ -3418,7 +3486,11 @@ let CategoriesComponent = class CategoriesComponent {
      * @function to open the create category dialog
      */
     openCreateCategoryDialog() {
-        this.dialogService.open(_category_create_category_create_component__WEBPACK_IMPORTED_MODULE_4__["CategoryCreateComponent"], { width: "60%", minWidth: "280px", disableClose: true });
+        this.dialogService.open(_category_create_category_create_component__WEBPACK_IMPORTED_MODULE_4__["CategoryCreateComponent"], {
+            width: "60%",
+            minWidth: "280px",
+            disableClose: true,
+        });
     }
     /**
      * @function to change the status of the category from active to inactive and vice versa
@@ -3426,45 +3498,55 @@ let CategoriesComponent = class CategoriesComponent {
      * @param param1 to change the toggle
      */
     changeState(category, { source }) {
-        var id = {
-            category_id: category.category_id
-        };
-        this.categoryService
-            .changeStateCategory(id)
-            .subscribe({
-            next: (data) => {
-                if (data.status == 200) {
-                    category.is_active = !category.is_active;
-                    source.checked = category.is_active;
-                    if (category.is_active)
-                        this.commonService.openSnackBar(`La categoría ${category.name} ha sido activada`, "OK");
-                    else
-                        this.commonService.openSnackBar(`La categoría ${category.name} ha sido desactivada`, "OK");
-                }
-                else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
-                }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+        this.commonService
+            .confirmationDialog(`¿Desea eliminar la categoría: ${category.name}?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.categoryService
+                    .changeStateCategory(category.category_id)
+                    .subscribe({
+                    next: (data) => {
+                        if (data.status == 204) {
+                            category.is_active = !category.is_active;
+                            source.checked = category.is_active;
+                            this.commonService.openSnackBar(`La categoría ${category.name} ha sido eliminada`, "OK");
+                            this.obtainAllCategories();
+                        }
+                        else {
+                            this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                        }
+                    },
+                    error: (err) => {
+                        this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                        source.checked = category.is_active;
+                    },
+                });
+            }
+            else {
                 source.checked = category.is_active;
             }
-        });
+        }));
     }
     /**
      * @function to show the fiters option dialog
      */
     openShowFilterOptionsDialog() {
-        const dialog = this.dialogService.open(_category_filters_category_filters_component__WEBPACK_IMPORTED_MODULE_5__["CategoryFiltersComponent"], { width: "50", minWidth: "280px", disableClose: true });
-        dialog.afterClosed().subscribe(type_id => {
+        const dialog = this.dialogService.open(_category_filters_category_filters_component__WEBPACK_IMPORTED_MODULE_5__["CategoryFiltersComponent"], {
+            width: "50",
+            minWidth: "280px",
+            disableClose: true,
+        });
+        dialog.afterClosed().subscribe((type_id) => {
             if (type_id != undefined) {
                 this.isFilters = true;
-                this.subscription = this.categoryService.getAllCategories(type_id)
+                this.subscription = this.categoryService
+                    .getAllCategories(type_id)
                     .subscribe({
                     next: (data) => {
                         this.categoryService.categories = data;
                         this.subscription.unsubscribe();
-                    }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+                    },
+                    error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
                 });
             }
         });
@@ -3474,12 +3556,12 @@ let CategoriesComponent = class CategoriesComponent {
      */
     obtainAllCategories() {
         this.isFilters = false;
-        this.subscription = this.categoryService.getAllCategories()
-            .subscribe({
+        this.subscription = this.categoryService.getAllCategories().subscribe({
             next: (data) => {
                 this.categoryService.categories = data;
                 this.subscription.unsubscribe();
-            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
         });
     }
 };
@@ -3490,7 +3572,7 @@ CategoriesComponent.ctorParameters = () => [
 ];
 CategoriesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-categories',
+        selector: "app-categories",
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./categories.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/category/components/categories/categories.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./categories.component.scss */ "./src/app/category/components/categories/categories.component.scss")).default]
     })
@@ -3781,6 +3863,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/category/services/category.service */ "./src/app/category/services/category.service.ts");
 /* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -3793,15 +3877,18 @@ let DetailsComponent = class DetailsComponent {
         this.categoryImages = [];
         this.imageIndex = 0;
         this.loading = false;
-        this.url = "https://intelitur.sytes.net/files/";
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].IMAGES_URL_BASE;
         this.types = [
             { id: 1, name: "Evento" },
             { id: 2, name: "Itinerario" },
-            { id: 3, name: "Servicio" }
+            { id: 3, name: "Servicio" },
         ];
         this.fileToUpload = null;
         this.categoryFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")])
+            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required,
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]"),
+            ]),
         });
     }
     onSlide(event) {
@@ -3809,35 +3896,45 @@ let DetailsComponent = class DetailsComponent {
     }
     ngOnInit() {
         let category_name = this.category.name;
-        this.categoryFG.controls['name'].setValue(category_name);
+        this.categoryFG.controls["name"].setValue(category_name);
         this.categoryImages = this.category.url;
     }
     setData() {
-        this.categoryFG.controls['name'].setValue(this.category.name);
+        this.categoryFG.controls["name"].setValue(this.category.name);
     }
     changeState({ source }) {
-        var id = this.category.category_id;
-        this.categoryService
-            .changeStateCategory(id)
-            .subscribe({
-            next: (data) => {
-                if (data.status == 204) {
-                    this.category.is_active = !this.category.is_active;
-                    source.checked = this.category.is_active;
-                    if (this.category.is_active)
-                        this.commonService.openSnackBar(`La categoría ${this.category.name} ha sido activada`, "OK");
-                    else
-                        this.commonService.openSnackBar(`La categoría ${this.category.name} ha sido desactivada`, "OK");
+        if (this.category.is_active) {
+            this.commonService
+                .confirmationDialog(`¿Desea eliminar la categoría: ${this.category.name}?`)
+                .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+                if (result) {
+                    var id = this.category.category_id;
+                    this.categoryService.changeStateCategory(id).subscribe({
+                        next: (data) => {
+                            if (data.status == 204) {
+                                this.category.is_active = !this.category.is_active;
+                                source.checked = this.category.is_active;
+                                this.commonService.openSnackBar(`La categoría ${this.category.name} ha sido eliminada`, "OK");
+                            }
+                            else {
+                                this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                            }
+                        },
+                        error: (err) => {
+                            this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                            source.checked = this.category.is_active;
+                        },
+                    });
                 }
                 else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                    source.checked = this.category.is_active;
                 }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
-                source.checked = this.category.is_active;
-            }
-        });
+            }));
+        }
+        else {
+            this.commonService.openSnackBar("No se puede reactivar una categoría", "OK");
+            source.checked = this.category.is_active;
+        }
     }
     modifyCategory() {
         this.loading = true;
@@ -3846,7 +3943,7 @@ let DetailsComponent = class DetailsComponent {
         let values = {
             url: category.url,
             name: category.name,
-            category_id: category.category_id
+            category_id: category.category_id,
         };
         this.categoryService.modifyCategory(values).subscribe({
             next: (data) => {
@@ -3864,14 +3961,14 @@ let DetailsComponent = class DetailsComponent {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.loading = false;
                 this.categoryFG.enable();
-            }
+            },
         });
     }
     isChanged() {
         let oldCategory = {
             name: this.category.name,
             type: this.category.type,
-            url: this.category.url
+            url: this.category.url,
         };
         return !(JSON.stringify(oldCategory) === JSON.stringify(this.categoryFG.value));
     }
@@ -3885,7 +3982,9 @@ let DetailsComponent = class DetailsComponent {
                     images.push(data.filename);
                 });
             }
-            this.categoryImages.length != 0 ? images = images.concat(this.categoryImages) : null;
+            this.categoryImages.length != 0
+                ? (images = images.concat(this.categoryImages))
+                : null;
             this.updateImages(images);
         });
     }
@@ -3904,7 +4003,7 @@ let DetailsComponent = class DetailsComponent {
             name: this.category.name,
             category_id: this.category.category_id,
             type: this.category.type,
-            is_active: this.category.is_active
+            is_active: this.category.is_active,
         };
         this.categoryService.modifyCategory(category).subscribe({
             next: (data) => {
@@ -3923,7 +4022,7 @@ let DetailsComponent = class DetailsComponent {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.loading = false;
                 this.categoryFG.enable();
-            }
+            },
         });
     }
 };
@@ -3936,7 +4035,7 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 ], DetailsComponent.prototype, "category", void 0);
 DetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-details',
+        selector: "app-details",
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./details.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/category/components/category-management/details/details.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./details.component.scss */ "./src/app/category/components/category-management/details/details.component.scss")).default]
     })
@@ -4258,7 +4357,6 @@ let CompaniesComponent = class CompaniesComponent {
         this.subscription = this.companyService.getCompanies()
             .subscribe({
             next: (data) => {
-                console.log(data);
                 this.companyService.companies = data;
                 this.subscription.unsubscribe();
             }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
@@ -4273,27 +4371,33 @@ let CompaniesComponent = class CompaniesComponent {
     * @param userID
     */
     changeState(company, { source }) {
-        this.companyService
-            .chageCompanyState(company)
-            .subscribe({
-            next: (data) => {
-                if (data.status == 204) {
-                    company.state = !company.state;
-                    source.checked = company.state;
-                    if (company.state)
-                        this.commonService.openSnackBar(`La empresa ${company.name} ha sido activada`, "OK");
-                    else
-                        this.commonService.openSnackBar(`La empresa ${company.name} ha sido desactivada`, "OK");
-                }
-                else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
-                }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+        this.commonService
+            .confirmationDialog(`¿Desea eliminar la empresa: ${company.name}?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.companyService
+                    .chageCompanyState(company)
+                    .subscribe({
+                    next: (data) => {
+                        if (data.status == 204) {
+                            company.state = !company.state;
+                            source.checked = company.state;
+                            this.commonService.openSnackBar(`La empresa ${company.name} ha sido eliminada`, "OK");
+                        }
+                        else {
+                            this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                        }
+                    },
+                    error: (err) => {
+                        this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                        source.checked = company.state;
+                    }
+                });
+            }
+            else {
                 source.checked = company.state;
             }
-        });
+        }));
     }
     openCreateCompanyDialog() {
         this.dialogService.open(_company_create_company_create_component__WEBPACK_IMPORTED_MODULE_5__["CompanyCreateComponent"], { width: "60%", minWidth: "280px" });
@@ -4440,6 +4544,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var src_app_company_services_company_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/company/services/company.service */ "./src/app/company/services/company.service.ts");
 /* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -4453,48 +4559,64 @@ let CompanyDetailsComponent = class CompanyDetailsComponent {
         this.loading = false;
         this.companyForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-            legal_id: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([1-9][0-9]{9})$")]),
+            legal_id: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required,
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([1-9][0-9]{9})$"),
+            ]),
             phone_number: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([0-9]{4}[ ][0-9]{4})$")),
-            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('^(.{1,})[@](.{1,})[.](.{1,})$')),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^(.{1,})[@](.{1,})[.](.{1,})$")),
             location: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](),
         });
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     ngAfterViewInit() {
-        console.log(this.company);
-        console.log(this.company.image);
         this.companyForm.patchValue(this.company);
         this.cd.detectChanges();
     }
     changeState({ source }) {
         this.loading = true;
         this.companyForm.disable();
-        this.companyService
-            .chageCompanyState(this.company)
-            .subscribe({
-            next: (data) => {
-                this.loading = false;
-                this.companyForm.enable();
-                if (data.status == 204) {
-                    this.company.state = !this.company.state;
-                    source.checked = this.company.state;
-                    if (this.company.state)
-                        this.commonService.openSnackBar(`La empresa ${this.company.name} ha sido activada`, "OK");
-                    else
-                        this.commonService.openSnackBar(`La empresa ${this.company.name} ha sido desactivada`, "OK");
+        if (this.company.state) {
+            this.commonService
+                .confirmationDialog(`¿Desea eliminar la empresa: ${this.company.name}?`)
+                .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+                if (result) {
+                    this.companyService.chageCompanyState(this.company).subscribe({
+                        next: (data) => {
+                            this.loading = false;
+                            this.companyForm.enable();
+                            if (data.status == 204) {
+                                this.company.state = !this.company.state;
+                                source.checked = this.company.state;
+                                this.commonService.openSnackBar(`La empresa ${this.company.name} ha sido activada`, "OK");
+                            }
+                            else {
+                                this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                                this.loading = true;
+                                this.companyForm.disable();
+                            }
+                        },
+                        error: (err) => {
+                            this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                            source.checked = this.company.state;
+                            this.loading = false;
+                            this.companyForm.enable();
+                        },
+                    });
                 }
                 else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                    source.checked = this.company.state;
+                    this.loading = false;
+                    this.companyForm.enable();
                 }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
-                source.checked = this.company.state;
-                this.loading = false;
-                this.companyForm.enable();
-            }
-        });
+            }));
+        }
+        else {
+            this.commonService.openSnackBar("No se puede reactivar una empresa", "OK");
+            source.checked = this.company.state;
+            this.loading = false;
+            this.companyForm.enable();
+        }
     }
     applyChanges() {
         this.loading = true;
@@ -4516,7 +4638,7 @@ let CompanyDetailsComponent = class CompanyDetailsComponent {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.loading = false;
                 this.companyForm.enable();
-            }
+            },
         });
     }
     isChanged() {
@@ -4525,7 +4647,7 @@ let CompanyDetailsComponent = class CompanyDetailsComponent {
             legal_id: this.company.legal_id,
             phone_number: this.company.phone_number,
             email: this.company.email,
-            location: this.company.location
+            location: this.company.location,
         };
         return !(JSON.stringify(old) === JSON.stringify(this.companyForm.value));
     }
@@ -4535,25 +4657,23 @@ let CompanyDetailsComponent = class CompanyDetailsComponent {
             this.companyForm.disable();
             let img = this.company.image;
             yield this.commonService.uploadFile(files[0]).then((data) => {
-                this.company.image = "https://intelitur.sytes.net/files/images/" + data.filename;
+                this.company.image =
+                    src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].IMAGES_URL_BASE + data.filename;
             });
-            console.log(this.company.image);
             this.imageChanges(img);
         });
     }
     deleteImg() {
         let img = this.company.image;
-        this.company.image = '';
+        this.company.image = "";
         this.imageChanges(img);
     }
     imageChanges(oldImg) {
         this.loading = true;
         this.companyForm.disable();
-        console.log(this.company);
         this.companyService.updateCompany(this.company).subscribe({
             next: (data) => {
                 if (data.status == 204) {
-                    console.log(data);
                     this.loading = false;
                     this.companyForm.enable();
                     this.commonService.openSnackBar(`La empresa ${this.company.name} ha sido cambiada`, "OK");
@@ -4567,7 +4687,7 @@ let CompanyDetailsComponent = class CompanyDetailsComponent {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.loading = false;
                 this.companyForm.enable();
-            }
+            },
         });
     }
 };
@@ -4581,7 +4701,7 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 ], CompanyDetailsComponent.prototype, "company", void 0);
 CompanyDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-company-details',
+        selector: "app-company-details",
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./company-details.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/company/components/management/company-details/company-details.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./company-details.component.scss */ "./src/app/company/components/management/company-details/company-details.component.scss")).default]
     })
@@ -4774,7 +4894,6 @@ let CompanyRequestsComponent = class CompanyRequestsComponent {
     refreshRequests() {
         this.companyUsersService.getCompanyRequests(this.company.company_id, 1).subscribe((data) => {
             this.companyRequests = data;
-            console.log(this.companyRequests);
         });
     }
     updateRequestState(request, state) {
@@ -4967,7 +5086,6 @@ let CompanyUsersComponent = class CompanyUsersComponent {
     }
     refresh() {
         this.companyUsersService.getCompanyUsers(this.company.company_id).subscribe((data) => {
-            console.log(data);
             this.companyUsers = data;
         });
     }
@@ -5526,7 +5644,7 @@ CompanyService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("form {\n  width: 100%;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n\n.dates {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NvbnRlc3RzL2NvbXBvbmVudHMvY29udGVzdHMtY3JlYXRlL2NvbnRlc3RzLWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29udGVzdHMvY29tcG9uZW50cy9jb250ZXN0cy1jcmVhdGUvY29udGVzdHMtY3JlYXRlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGFBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtBQ0NKOztBREVBO0VBQ0ksYUFBQTtFQUNBLDZCQUFBO0VBQ0EsbUJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2NvbnRlc3RzL2NvbXBvbmVudHMvY29udGVzdHMtY3JlYXRlL2NvbnRlc3RzLWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbmgxe1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW46IDAlO1xuICAgIG1hcmdpbi1ib3R0b206IDElO1xuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmRhdGVze1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cbiIsImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDIlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmRhdGVzIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = ("form {\n  width: 100%;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  margin-bottom: 1%;\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n\n.dates {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n\n.file {\n  margin-top: 2%;\n  align-self: center;\n  flex-direction: column;\n  justify-content: center;\n  width: 30%;\n}\n\n.uploadFile {\n  text-align: center;\n  width: -webkit-fill-available;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n  margin-bottom: 2%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2NvbnRlc3RzL2NvbXBvbmVudHMvY29udGVzdHMtY3JlYXRlL2NvbnRlc3RzLWNyZWF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29udGVzdHMvY29tcG9uZW50cy9jb250ZXN0cy1jcmVhdGUvY29udGVzdHMtY3JlYXRlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBQTtBQ0NGOztBREVBO0VBQ0Usa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NGOztBREVBO0VBQ0UsY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0Y7O0FERUE7RUFDRSxXQUFBO0FDQ0Y7O0FERUE7RUFDRSxhQUFBO0VBQ0EsNkJBQUE7RUFDQSxtQkFBQTtBQ0NGOztBREVBO0VBQ0UsY0FBQTtFQUNBLGtCQUFBO0VBQ0Esc0JBQUE7RUFDQSx1QkFBQTtFQUNBLFVBQUE7QUNDRjs7QURFQTtFQUNFLGtCQUFBO0VBQ0EsNkJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0EsaUJBQUE7RUFDQSw2QkFBQTtFQUNBLGtCQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9jb250ZXN0cy9jb21wb25lbnRzL2NvbnRlc3RzLWNyZWF0ZS9jb250ZXN0cy1jcmVhdGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uZGF0ZXMge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuLmZpbGUge1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgd2lkdGg6IDMwJTtcbn1cblxuLnVwbG9hZEZpbGUge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbn1cbiIsImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDIlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5kYXRlcyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG4uZmlsZSB7XG4gIG1hcmdpbi10b3A6IDIlO1xuICBhbGlnbi1zZWxmOiBjZW50ZXI7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICB3aWR0aDogMzAlO1xufVxuXG4udXBsb2FkRmlsZSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgd2lkdGg6IC13ZWJraXQtZmlsbC1hdmFpbGFibGU7XG4gIG1hcmdpbi1yaWdodDogMi41JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG4gIG1hcmdpbi1ib3R0b206IDIlO1xuICBib3JkZXI6IHNvbGlkIDEuNXB4IGdhaW5zYm9ybztcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xufSJdfQ== */");
 
 /***/ }),
 
@@ -5566,6 +5684,10 @@ let ContestsCreateComponent = class ContestsCreateComponent {
         this.start_Date = undefined;
         this.end_Date = undefined;
         this.today = new Date();
+        this.loading = false;
+        this.contestImages = [];
+        this.contestImagesFinal = [];
+        this.imageIndex = 0;
         this.dateFilter = (date) => {
             return date >= this.start_Date;
         };
@@ -5574,8 +5696,7 @@ let ContestsCreateComponent = class ContestsCreateComponent {
             details: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
         });
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     onNoClick() {
         this.dialogRef.close();
     }
@@ -5586,42 +5707,97 @@ let ContestsCreateComponent = class ContestsCreateComponent {
         let initalDate = this.formatDates(this.start_Date);
         let finalDate = this.formatDates(this.end_Date);
         let contest = {
-            name: this.contestsFG.controls['name'].value,
-            details: this.contestsFG.controls['details'].value,
+            name: this.contestsFG.controls["name"].value,
+            detail: this.contestsFG.controls["details"].value,
             initial_date: initalDate,
-            final_date: finalDate
+            final_date: finalDate,
         };
         console.log(contest);
-        this.createAd(contest);
+        this.createContest(contest);
     }
-    createAd(contest) {
+    createContest(contest) {
+        this.loading = true;
         this.contestsFG.disable();
         this.contestsService.createContest(contest).subscribe({
             next: (data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-                if (data.status == 200) {
-                    this.commonService.openSnackBar(`El anuncio ${this.contestsFG.value.name} se ha creado`, "OK");
+                console.log(data);
+                if (data.status == 201) {
+                    yield this.addImagesToEvent(data.body[0]);
+                    this.commonService.openSnackBar(`El concurso ${this.contestsFG.value.name} se ha creado`, "OK");
+                    this.loading = true;
                     this.dialogRef.close();
-                    this.router.navigate([`/ads/${data.body.ad_id}`]);
+                    this.router.navigate([`/contests/${data.body[0]}`]);
                 }
                 else {
-                    this.commonService.openSnackBar(`Error al crear el anuncio: ${data.error}`, "OK");
+                    this.commonService.openSnackBar(`Error al crear el concurso: ${data.error}`, "OK");
                     this.contestsFG.enable();
+                    this.loading = true;
                 }
             }),
             error: (err) => {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.contestsFG.enable();
-            }
+                this.loading = true;
+            },
         });
     }
     formatDates(date) {
         if (date != undefined) {
             date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
             let year = date.getFullYear();
-            let month = (date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
+            let month = date.getMonth() + 1 >= 10
+                ? date.getMonth() + 1
+                : "0" + (date.getMonth() + 1);
             let day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
             return year + "-" + month + "-" + day;
         }
+    }
+    getFiles(event) {
+        if (event.target.files) {
+            for (let i = 0; i < event.target.files.length; i++) {
+                if (event.target.files[i]) {
+                    this.contestImagesFinal.push(event.target.files[i]);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(event.target.files[i]);
+                    reader.onload = (event) => {
+                        this.contestImages.push(event.target.result);
+                    };
+                }
+            }
+        }
+    }
+    uploadFiles() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            let images = [];
+            for (let i = 0; i < this.contestImagesFinal.length; i++) {
+                yield this.commonService
+                    .uploadFile(this.contestImagesFinal[i])
+                    .then((data) => {
+                    images.push(data.filename);
+                });
+            }
+            return images;
+        });
+    }
+    onSlide(event) {
+        this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+    }
+    deleteImage() {
+        if (this.contestImages.length == 1) {
+            this.imageIndex = 0;
+        }
+        this.contestImages.splice(this.imageIndex, 1);
+        this.contestImagesFinal.splice(this.imageIndex, 1);
+    }
+    addImagesToEvent(event_id) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            let urlImages = yield this.uploadFiles();
+            for (let i = 0; i < urlImages.length; i++) {
+                yield this.multimediaService
+                    .addImage(event_id, 5, urlImages[i])
+                    .toPromise();
+            }
+        });
     }
 };
 ContestsCreateComponent.ctorParameters = () => [
@@ -5633,7 +5809,7 @@ ContestsCreateComponent.ctorParameters = () => [
 ];
 ContestsCreateComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-contests-create',
+        selector: "app-contests-create",
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./contests-create.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/contests/components/contests-create/contests-create.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./contests-create.component.scss */ "./src/app/contests/components/contests-create/contests-create.component.scss")).default]
     })
@@ -5684,45 +5860,60 @@ let ContestsMainComponent = class ContestsMainComponent {
         this.dialogService = dialogService;
         this.commonService = commonService;
         this.filter = {
-            name: ""
+            name: "",
         };
         this.isFilters = false;
     }
     ngOnInit() {
-        //this.obtainAllContest()
+        this.obtainAllContest();
     }
     obtainAllContest() {
-        this.subscription = this.contestsService.getContests()
-            .subscribe({
+        this.subscription = this.contestsService.getContests().subscribe({
             next: (data) => {
-                this.contestsService.contest = data;
+                this.contestsService.contests = data;
                 this.subscription.unsubscribe();
-            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
         });
     }
     changeState(contest, { source }) {
-        this.contestsService.changeStateContest(contest.contest_id).subscribe({
-            next: (data) => {
-                if (data.status == 204) {
-                    contest.is_active = !contest.is_active;
-                    source.checked = contest.is_active;
-                    if (contest.is_active)
-                        this.commonService.openSnackBar(`El anuncio ${contest.name} ha sido activado`, "OK");
-                    else
-                        this.commonService.openSnackBar(`El anuncio ${contest.name} ha sido desactivado`, "OK");
-                }
-                else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
-                }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+        this.commonService
+            .confirmationDialog(`¿Desea eliminar el consurso: ${contest.name}?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                contest.is_active = !contest.is_active;
+                this.contestsService.changeStateContest(contest).subscribe({
+                    next: (data) => {
+                        if (data.status == 200) {
+                            source.checked = contest.is_active;
+                            this.commonService.openSnackBar(`El concurso ${contest.name} ha sido eliminado`, "OK");
+                            this.obtainAllContest();
+                        }
+                        else {
+                            contest.is_active = !contest.is_active;
+                            source.checked = contest.is_active;
+                            this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                        }
+                    },
+                    error: (err) => {
+                        this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                        contest.is_active = !contest.is_active;
+                        source.checked = contest.is_active;
+                    },
+                });
+            }
+            else {
                 source.checked = contest.is_active;
             }
-        });
+        }));
     }
     openCreateDialog() {
-        this.dialogService.open(_contests_create_contests_create_component__WEBPACK_IMPORTED_MODULE_5__["ContestsCreateComponent"], { width: "60%", height: "70%", minWidth: "280px", disableClose: true });
+        this.dialogService.open(_contests_create_contests_create_component__WEBPACK_IMPORTED_MODULE_5__["ContestsCreateComponent"], {
+            width: "60%",
+            height: "70%",
+            minWidth: "280px",
+            disableClose: true,
+        });
     }
 };
 ContestsMainComponent.ctorParameters = () => [
@@ -5732,7 +5923,7 @@ ContestsMainComponent.ctorParameters = () => [
 ];
 ContestsMainComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-contests-main',
+        selector: "app-contests-main",
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./contests-main.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/contests/components/contests-main/contests-main.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./contests-main.component.scss */ "./src/app/contests/components/contests-main/contests-main.component.scss")).default]
     })
@@ -5766,17 +5957,20 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContestsDetailsComponent", function() { return ContestsDetailsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/contests/services/contests.service */ "./src/app/contests/services/contests.service.ts");
-/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/contests/services/contests.service */ "./src/app/contests/services/contests.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+
 
 
 
 
 
 let ContestsDetailsComponent = class ContestsDetailsComponent {
-    constructor(commonService, contetsService) {
+    constructor(datePipe, commonService, contetsService) {
+        this.datePipe = datePipe;
         this.commonService = commonService;
         this.contetsService = contetsService;
         this.start_Date = undefined;
@@ -5785,19 +5979,19 @@ let ContestsDetailsComponent = class ContestsDetailsComponent {
         this.dateFilter = (date) => {
             return date >= this.start_Date;
         };
-        this.contestsFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-            details: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+        this.contestsFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
+            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            details: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
         });
     }
     ngOnInit() {
-        //this.setData()
+        this.setData();
     }
     setData() {
-        this.contestsFG.controls['name'].setValue(this.contest.name);
-        this.contestsFG.controls['details'].setValue(this.contest.details);
-        this.start_Date = new Date(this.contest.initial_date);
-        this.end_Date = new Date(this.contest.final_date);
+        this.contestsFG.controls["name"].setValue(this.contest.name);
+        this.contestsFG.controls["details"].setValue(this.contest.detail);
+        this.start_Date = new Date(this.datePipe.transform(this.contest.initial_date));
+        this.end_Date = new Date(this.datePipe.transform(this.contest.final_date));
     }
     modifyContest() {
         this.loading = true;
@@ -5806,11 +6000,11 @@ let ContestsDetailsComponent = class ContestsDetailsComponent {
         let endDate = this.formatDates(this.end_Date);
         let newContest = {
             contest_id: this.contest.contest_id,
-            name: this.contestsFG.controls['name'].value,
-            details: this.contestsFG.controls['details'].value,
+            name: this.contestsFG.controls["name"].value,
+            detail: this.contestsFG.controls["details"].value,
             initial_date: startDate,
             final_date: endDate,
-            is_active: this.contest.is_active
+            is_active: this.contest.is_active,
         };
         this.contetsService.modifyContest(newContest).subscribe({
             next: (data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -5822,57 +6016,77 @@ let ContestsDetailsComponent = class ContestsDetailsComponent {
                 }
                 else {
                     this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                    this.loading = false;
+                    this.contestsFG.enable();
                 }
             }),
             error: (err) => {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.loading = false;
                 this.contestsFG.enable();
-            }
+            },
         });
     }
     changeState({ source }) {
-        var id = this.contest.contest_id;
-        this.contetsService.changeStateContest(id).subscribe({
-            next: (data) => {
-                if (data.status == 204) {
+        if (this.contest.is_active) {
+            this.commonService
+                .confirmationDialog(`¿Desea eliminar el concurso: ${this.contest.name}?`)
+                .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+                if (result) {
+                    var contest = this.contest;
                     this.contest.is_active = !this.contest.is_active;
-                    source.checked = this.contest.is_active;
-                    if (this.contest.is_active)
-                        this.commonService.openSnackBar(`El anuncio ${this.contest.name} ha sido activado`, "OK");
-                    else
-                        this.commonService.openSnackBar(`El anuncio ${this.contest.name} ha sido desactivado`, "OK");
+                    this.contetsService.changeStateContest(contest).subscribe({
+                        next: (data) => {
+                            console.log(data);
+                            if (data.status == 200) {
+                                source.checked = this.contest.is_active;
+                                this.commonService.openSnackBar(`El concurso ${this.contest.name} ha sido eliminado`, "OK");
+                            }
+                            else {
+                                this.contest.is_active = !this.contest.is_active;
+                                source.checked = this.contest.is_active;
+                                this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                            }
+                        },
+                        error: (err) => {
+                            this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                            this.contest.is_active = !this.contest.is_active;
+                            source.checked = this.contest.is_active;
+                        },
+                    });
                 }
                 else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                    source.checked = this.contest.is_active;
                 }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
-                source.checked = this.contest.is_active;
-            }
-        });
+            }));
+        }
+        else {
+            this.commonService.openSnackBar("No se puede reactivar un concurso", "OK");
+        }
     }
     formatDates(date) {
         if (date != undefined) {
             date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
             let year = date.getFullYear();
-            let month = (date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
+            let month = date.getMonth() + 1 >= 10
+                ? date.getMonth() + 1
+                : "0" + (date.getMonth() + 1);
             let day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
             return year + "-" + month + "-" + day;
         }
     }
 };
 ContestsDetailsComponent.ctorParameters = () => [
-    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] },
-    { type: src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_3__["ContestsService"] }
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"] },
+    { type: src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_4__["ContestsService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])()
 ], ContestsDetailsComponent.prototype, "contest", void 0);
 ContestsDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-contests-details',
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        selector: "app-contests-details",
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./contests-details.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/contests/components/contests-management/contests-details/contests-details.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./contests-details.component.scss */ "./src/app/contests/components/contests-management/contests-details/contests-details.component.scss")).default]
     })
@@ -5921,7 +6135,7 @@ let ContestsManagementComponent = class ContestsManagementComponent {
     ngOnInit() {
         this.subscription = this.route.paramMap.subscribe((params) => {
             this.contest_id = Number(params.get("contest_id"));
-            //this.recharge();
+            this.recharge();
         });
     }
     ngOnDestroy() {
@@ -5976,6 +6190,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
 /* harmony import */ var src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/multimedia.service */ "./src/app/general-services/multimedia.service.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -5987,13 +6203,14 @@ let ContestsMultimediaComponent = class ContestsMultimediaComponent {
         this.loading = false;
         this.contestImages = [];
         this.contestVideos = [];
-        this.url = "https://intelitur.sytes.net/files/";
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].IMAGES_URL_BASE;
         this.imageIndex = 0;
         this.videoIndex = 0;
     }
     ngOnInit() {
+        console.log(this.contest);
+        this.sortInList(this.contest.images);
     }
-    //Metodos de imagenes
     onSlideI(event) {
         this.imageIndex = parseInt(event.current.replace("slideId1_", ""), 10);
     }
@@ -6015,6 +6232,7 @@ let ContestsMultimediaComponent = class ContestsMultimediaComponent {
     deleteFile(type) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             this.loading = true;
+            console.log(type);
             if (type == 0) {
                 this.contestImages.length == 1 ? this.imageIndex = 0 : null;
             }
@@ -6023,9 +6241,11 @@ let ContestsMultimediaComponent = class ContestsMultimediaComponent {
             }
             let index;
             let msg;
+            let list;
             type == 0 ? index = this.imageIndex : index = this.videoIndex;
-            type == 0 ? msg = "La imagen se ha elimindado" : "El video ha sido eliminado";
-            yield this.multimediaService.deleteImage(this.contestImages[index].image_id).toPromise().then((data) => {
+            type == 0 ? msg = "La imagen se ha elimindado" : msg = "El video ha sido eliminado";
+            type == 0 ? list = this.contestImages : list = this.contestVideos;
+            yield this.multimediaService.deleteImage(list[index].image_id).toPromise().then((data) => {
                 if (data.status == 204) {
                     this.commonService.openSnackBar(msg, "OK");
                 }
@@ -6041,25 +6261,41 @@ let ContestsMultimediaComponent = class ContestsMultimediaComponent {
     }
     updateFiles(files, type) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            console.log(files);
             for (let i = 0; i < files.length; i++) {
                 yield this.multimediaService.addImage(this.contest.contest_id, 5, files[i]).toPromise();
             }
             this.multimediaService.getImages(this.contest.contest_id, 5).subscribe({
                 next: (data) => {
-                    if (type == 0) {
-                        data.forEach(element => {
-                            element.name.contains(".jpg") || element.name.contains(".png") ? this.contestImages.push(element) : null;
-                        });
-                    }
-                    else {
-                        data.forEach(element => {
-                            element.name.contains(".mp4") ? this.contestVideos.push(element) : null;
-                        });
-                    }
+                    console.log(data);
+                    this.sortInList(data, type);
                 }
             });
-            this.loading = false;
         });
+    }
+    sortInList(data, type) {
+        if (type == undefined) {
+            this.contestImages = [];
+            this.contestVideos = [];
+            data.forEach(element => {
+                element.name.search(".jpg") != -1 || element.name.search(".png") != -1 ? this.contestImages.push(element)
+                    :
+                        element.name.search(".mp4") != -1 ? this.contestVideos.push(element) : null;
+            });
+        }
+        else if (type == 0) {
+            this.contestImages = [];
+            data.forEach(element => {
+                element.name.search(".jpg") != -1 || element.name.search(".png") != -1 ? this.contestImages.push(element) : null;
+            });
+        }
+        else {
+            this.contestVideos = [];
+            data.forEach(element => {
+                element.name.search(".mp4") != -1 ? this.contestVideos.push(element) : null;
+            });
+        }
+        this.loading = false;
     }
 };
 ContestsMultimediaComponent.ctorParameters = () => [
@@ -6240,23 +6476,40 @@ let ContestsService = class ContestsService {
     constructor(http, commonService) {
         this.http = http;
         this.commonService = commonService;
-        this.contest = [];
+        this.contests = [];
         this.module = "contests";
     }
     getContests() {
-        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/`);
+        let params = {
+            state: "true"
+        };
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/`, { params: params });
     }
     getContest(contest_id) {
         return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${contest_id}`);
     }
-    changeStateContest(contest_id) {
-        return this.http.patch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${contest_id}`, null, { observe: 'response' });
+    changeStateContest(contest) {
+        let json = {
+            name: contest.name,
+            detail: contest.detail,
+            initial_date: contest.initial_date,
+            final_date: contest.final_date,
+            is_active: contest.is_active
+        };
+        console.log(json);
+        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${contest.contest_id}`, json, { observe: 'response' });
     }
     createContest(contest) {
-        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/`, JSON.stringify(contest), { observe: 'response' });
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/`, contest, { observe: 'response' });
     }
     modifyContest(contest) {
-        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${contest.contest_id}`, contest, { observe: 'response' });
+        let json = {
+            name: contest.name,
+            detail: contest.detail,
+            initial_date: contest.initial_date,
+            final_date: contest.final_date
+        };
+        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${contest.contest_id}`, json, { observe: 'response' });
     }
 };
 ContestsService.ctorParameters = () => [
@@ -6423,7 +6676,8 @@ let EventCreateComponent = class EventCreateComponent {
     createEvent(event) {
         this.eventService.createEvent(event).subscribe({
             next: (data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-                if (data.status == 200) {
+                console.log(data);
+                if (data.status == 201) {
                     /**Añadiendo compañías y categorías al evento */
                     this.getCategories();
                     this.getCompanies();
@@ -6436,6 +6690,7 @@ let EventCreateComponent = class EventCreateComponent {
                 }
                 else {
                     this.commonService.openSnackBar(`Error al crear el evento: ${data.error}`, "OK");
+                    this.loading = false;
                     this.eventFG.enable();
                 }
             }),
@@ -6536,8 +6791,6 @@ let EventCreateComponent = class EventCreateComponent {
     }
     getFiles(event) {
         if (event.target.files) {
-            this.eventImages = [];
-            this.eventImagesFinal = [];
             for (let i = 0; i < event.target.files.length; i++) {
                 if (event.target.files[i]) {
                     this.eventImagesFinal.push(event.target.files[i]);
@@ -7094,59 +7347,77 @@ let EventsComponent = class EventsComponent {
         this.categoryService = categoryService;
         this.authService = authService;
         this.filter = {
-            name: ""
+            name: "",
         };
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     obtainAllEvents() {
         this.eventService.isFilters = false;
-        this.subscription = this.eventService.getFilteredEvents()
-            .subscribe({
+        this.subscription = this.eventService.getFilteredEvents().subscribe({
             next: (data) => {
                 this.eventService.events = data;
                 this.eventService.sort();
                 this.subscription.unsubscribe();
-            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
         });
     }
     openCreateEventDialog() {
-        this.dialogService.open(_event_create_event_create_component__WEBPACK_IMPORTED_MODULE_4__["EventCreateComponent"], { height: "95%", width: "80%", minWidth: "280px", disableClose: true });
-    }
-    changeState(event, { source }) {
-        this.eventService.changeEventState(event.event_id).subscribe({
-            next: (data) => {
-                if (data.status == 200) {
-                    event.is_active = !event.is_active;
-                    source.checked = event.is_active;
-                    if (event.is_active)
-                        this.commonService.openSnackBar(`El evento ${event.name} ha sido activado`, "OK");
-                    else
-                        this.commonService.openSnackBar(`El evento ${event.name} ha sido desactivado`, "OK");
-                }
-                else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
-                }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
-                source.checked = event.is_active;
-            }
+        this.dialogService.open(_event_create_event_create_component__WEBPACK_IMPORTED_MODULE_4__["EventCreateComponent"], {
+            height: "95%",
+            width: "80%",
+            minWidth: "280px",
+            disableClose: true,
         });
     }
+    changeState(event, { source }) {
+        this.commonService
+            .confirmationDialog(`¿Desea eliminar el evento: ${event.name}?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.eventService.changeEventState(event.event_id).subscribe({
+                    next: (data) => {
+                        if (data.status == 201) {
+                            event.is_active = !event.is_active;
+                            source.checked = event.is_active;
+                            this.commonService.openSnackBar(`El evento ${event.name} ha sido eliminado`, "OK");
+                            this.obtainAllEvents();
+                        }
+                        else {
+                            this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                        }
+                    },
+                    error: (err) => {
+                        this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                        source.checked = event.is_active;
+                    },
+                });
+            }
+            else {
+                source.checked = event.is_active;
+            }
+        }));
+    }
     openShowFilterOptionsDialog() {
-        const dialog = this.dialogService.open(_event_filters_event_filters_component__WEBPACK_IMPORTED_MODULE_5__["EventFiltersComponent"], { width: "70%", height: "90%", minWidth: "280px", disableClose: true });
-        dialog.afterClosed().subscribe(info => {
+        const dialog = this.dialogService.open(_event_filters_event_filters_component__WEBPACK_IMPORTED_MODULE_5__["EventFiltersComponent"], {
+            width: "70%",
+            height: "90%",
+            minWidth: "280px",
+            disableClose: true,
+        });
+        dialog.afterClosed().subscribe((info) => {
             if (info != undefined) {
                 this.eventService.isFilters = true;
                 console.log(info);
-                this.subscription = this.eventService.getFilteredEvents(undefined, info.initial_date, info.final_date, info.category_id, info.rate, info.ratio, info.latitude, info.longitude)
+                this.subscription = this.eventService
+                    .getFilteredEvents(undefined, info.initial_date, info.final_date, info.category_id, info.rate, info.ratio, info.latitude, info.longitude)
                     .subscribe({
                     next: (data) => {
                         this.eventService.events = data;
                         this.eventService.sort();
                         this.subscription.unsubscribe();
-                    }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+                    },
+                    error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
                 });
             }
         });
@@ -7161,7 +7432,7 @@ EventsComponent.ctorParameters = () => [
 ];
 EventsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-events',
+        selector: "app-events",
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./events.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/events/events.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./events.component.scss */ "./src/app/event/components/events/events.component.scss")).default]
     })
@@ -7248,7 +7519,7 @@ MainTabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("form {\n  width: 100%;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n\n.dates {\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9hZGQtZXZlbnQtb2ZmZXJzL2FkZC1ldmVudC1vZmZlcnMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9hZGQtZXZlbnQtb2ZmZXJzL2FkZC1ldmVudC1vZmZlcnMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxjQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsNkJBQUE7RUFDQSxtQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9tYW5hZ2VtZW50L2FkZC1ldmVudC1vZmZlcnMvYWRkLWV2ZW50LW9mZmVycy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbmgxe1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW46IDAlO1xuICAgIG1hcmdpbi1ib3R0b206IDElO1xuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmRhdGVze1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn0iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5kYXRlcyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("form {\n  width: 100%;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 100%;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9hZGQtZXZlbnQtb2ZmZXJzL2FkZC1ldmVudC1vZmZlcnMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2V2ZW50L2NvbXBvbmVudHMvbWFuYWdlbWVudC9hZGQtZXZlbnQtb2ZmZXJzL2FkZC1ldmVudC1vZmZlcnMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxjQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSw2QkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvZXZlbnQvY29tcG9uZW50cy9tYW5hZ2VtZW50L2FkZC1ldmVudC1vZmZlcnMvYWRkLWV2ZW50LW9mZmVycy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbmgxe1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW46IDAlO1xuICAgIG1hcmdpbi1ib3R0b206IDElO1xuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmNoaXAtbGlzdHtcbiAgICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTsgXG59XG4iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5jaGlwLWxpc3Qge1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbn0iXX0= */");
 
 /***/ }),
 
@@ -7266,8 +7537,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
-/* harmony import */ var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/category/services/category.service */ "./src/app/category/services/category.service.ts");
-/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm2015/keycodes.js");
+/* harmony import */ var src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/event/services/event.service */ "./src/app/event/services/event.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/offers/services/offer.service */ "./src/app/offers/services/offer.service.ts");
+
+
 
 
 
@@ -7275,12 +7550,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AddEventOffersComponent = class AddEventOffersComponent {
-    constructor(dialogRef, offersService, commonService) {
+    constructor(dialogRef, offersService, commonService, eventService, data) {
         this.dialogRef = dialogRef;
         this.offersService = offersService;
         this.commonService = commonService;
+        this.eventService = eventService;
+        this.data = data;
+        this.visible = true;
+        this.selectable = true;
+        this.removable = true;
+        this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__["COMMA"]];
+        this.allOffers = [];
         this.offersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            offer: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            offers: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null),
         });
     }
     onNoClick() {
@@ -7290,25 +7572,72 @@ let AddEventOffersComponent = class AddEventOffersComponent {
         this.dialogRef.close();
     }
     ngOnInit() {
-        this.subscription = this.offersService.getAllCategories().subscribe({
+        this.subscription = this.offersService.getOffers().subscribe({
             next: (data) => {
-                this.offers = data;
+                this.filteredOffers = data;
                 this.subscription.unsubscribe();
             }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
+    }
+    onSubmit() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            yield this.addOfferToEvent(this.data.event_id);
+        });
+    }
+    removeOffer(offer) {
+        let index = this.allOffers.indexOf(offer);
+        if (index >= 0) {
+            this.allOffers.splice(index, 1);
+        }
+        this.offersFG.controls['offers'].setValue(null);
+    }
+    /**
+     * Añade el tag seleccionado a la lista para mostarlo y lo guarda
+     * @param event
+     */
+    selectedOffer(event) {
+        let index = this.allOffers.indexOf(event.option.value);
+        if (index < 0) {
+            this.allOffers.push(event.option.value);
+            this.offersFG.controls['offers'].setValue(null);
+        }
+        else {
+            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
+        }
+        this.offersFG.controls['offers'].setValue(null);
+    }
+    addOfferToEvent(event_id) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.allOffers.forEach((offer) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+                let index = this.offersService.offers.indexOf(offer);
+                if (index < 0) {
+                    yield this.eventService.addOfferToEvent(event_id, offer.offer_id).toPromise();
+                }
+            }));
+            yield this.eventService.getEventOffers(event_id).toPromise().then(() => {
+                this.closeDialog();
+            });
+            this.commonService.openSnackBar("Se han añadido las ofertas con éxito", "OK");
         });
     }
 };
 AddEventOffersComponent.ctorParameters = () => [
     { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
-    { type: src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"] },
-    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"] }
+    { type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_7__["OfferService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"] },
+    { type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_5__["EventService"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"],] }] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('auto', { static: false })
+], AddEventOffersComponent.prototype, "matAutocomplete", void 0);
 AddEventOffersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-add-event-offers',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./add-event-offers.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/event/components/management/add-event-offers/add-event-offers.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./add-event-offers.component.scss */ "./src/app/event/components/management/add-event-offers/add-event-offers.component.scss")).default]
-    })
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"]))
 ], AddEventOffersComponent);
 
 
@@ -7379,7 +7708,7 @@ let EventDetailsComponent = class EventDetailsComponent {
         this.currentRate = 0;
         this.eventImages = [];
         this.oldEventImages = [];
-        this.url = `${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].IMAGES_URL_BASE}`;
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].IMAGES_URL_BASE;
         this.imageIndex = 0;
         //chipList
         this.visible = true;
@@ -7579,25 +7908,37 @@ let EventDetailsComponent = class EventDetailsComponent {
         });
     }
     changeEventState(event, { source }) {
-        this.eventService.changeEventState(event.event_id).subscribe({
-            next: (data) => {
-                if (data.status == 200) {
-                    event.is_active = !event.is_active;
-                    source.checked = event.is_active;
-                    if (event.is_active)
-                        this.commonService.openSnackBar(`El evento ${event.name} ha sido activado`, "OK");
-                    else
-                        this.commonService.openSnackBar(`El evento ${event.name} ha sido desactivado`, "OK");
+        if (event.is_active) {
+            this.commonService
+                .confirmationDialog(`¿Desea eliminar el evento: ${event.name}?`)
+                .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+                if (result) {
+                    this.eventService.changeEventState(event.event_id).subscribe({
+                        next: (data) => {
+                            if (data.status == 201) {
+                                event.is_active = !event.is_active;
+                                source.checked = event.is_active;
+                                this.commonService.openSnackBar(`El evento ${event.name} ha sido eliminado`, "OK");
+                            }
+                            else {
+                                this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                            }
+                        },
+                        error: (err) => {
+                            this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                            source.checked = event.is_active;
+                        }
+                    });
                 }
                 else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                    source.checked = event.is_active;
                 }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
-                source.checked = event.is_active;
-            }
-        });
+            }));
+        }
+        else {
+            this.commonService.openSnackBar("No se puede reactivar un evento", "OK");
+            source.checked = event.is_active;
+        }
     }
     /**
      * Metodo para obtener únicamente los ids de las categorías que se seleccionaron
@@ -7750,36 +8091,71 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
-/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
-/* harmony import */ var _add_event_offers_add_event_offers_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../add-event-offers/add-event-offers.component */ "./src/app/event/components/management/add-event-offers/add-event-offers.component.ts");
+/* harmony import */ var src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/event/services/event.service */ "./src/app/event/services/event.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/offers/services/offer.service */ "./src/app/offers/services/offer.service.ts");
+/* harmony import */ var _add_event_offers_add_event_offers_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../add-event-offers/add-event-offers.component */ "./src/app/event/components/management/add-event-offers/add-event-offers.component.ts");
+
+
 
 
 
 
 
 let EventOffersComponent = class EventOffersComponent {
-    constructor(offersService, //Cambiar
-    dialogService) {
+    constructor(offersService, dialogService, eventService, commonService) {
         this.offersService = offersService;
         this.dialogService = dialogService;
+        this.eventService = eventService;
+        this.commonService = commonService;
         this.filter = {
-            name: ""
+            info: {
+                name: ""
+            }
         };
     }
     ngOnInit() {
-        this.obtainAllEventOffers();
+        this.getEventOffers();
     }
-    obtainAllEventOffers() {
+    getEventOffers() {
+        this.subscription = this.eventService.getEventOffers(this.myEvent[0].event_id).subscribe({
+            next: (data) => {
+                this.offersService.offers = data;
+            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
     }
     openAddOfferDialog() {
-        this.dialogService.open(_add_event_offers_add_event_offers_component__WEBPACK_IMPORTED_MODULE_4__["AddEventOffersComponent"], { width: "50%", minWidth: "280px", disableClose: true });
+        this.dialogService.open(_add_event_offers_add_event_offers_component__WEBPACK_IMPORTED_MODULE_6__["AddEventOffersComponent"], {
+            width: "50%",
+            minWidth: "280px",
+            disableClose: true,
+            data: {
+                event_id: this.myEvent[0].event_id
+            }
+        }).afterClosed().toPromise().then(() => {
+            this.getEventOffers();
+        });
     }
-    deleteEventOffer() {
+    deleteEventOffer(offer) {
+        this.eventService.deleteOfferFromEvent(this.myEvent[0].event_id, offer.offer_id).subscribe({
+            next: (data) => {
+                if (data.status == 200) {
+                    this.commonService.openSnackBar("La oferta fue eliminada del evento", "Ok");
+                    this.eventService.getEventOffers(this.myEvent[0].event_id).subscribe({
+                        next: (data) => {
+                            this.offersService.offers = data;
+                        }
+                    });
+                }
+            }
+        });
     }
 };
 EventOffersComponent.ctorParameters = () => [
-    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] },
-    { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] }
+    { type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__["OfferService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_3__["EventService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
@@ -8339,8 +8715,18 @@ let EventService = class EventService {
         longitude != undefined ? params.longitude = longitude : null;
         return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}`, { params });
     }
-    getEventOffers() {
-        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}`);
+    getEventOffers(event_id) {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}${event_id}/OffersByEvent`);
+    }
+    addOfferToEvent(event_id, offer_id) {
+        let json = {
+            offer_id,
+            event_id
+        };
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}Offer`, json, { observe: 'response' });
+    }
+    deleteOfferFromEvent(event_id, offer_id) {
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SERVER_BASE_URL}${this.module}${event_id}/Offers/${offer_id}`, { observe: 'response' });
     }
     sort() {
         if (this.filter.state == '0') {
@@ -8377,7 +8763,7 @@ EventService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntd {\n  vertical-align: middle;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n\n.textInfo {\n  vertical-align: middle;\n  resize: none;\n  width: calc(100% - 20px);\n  border: none;\n  color: #585858;\n  padding: 10px;\n}\n\n.acceptBtn, .denyBtn {\n  min-width: -webkit-fit-content;\n  min-width: -moz-fit-content;\n  min-width: fit-content;\n  margin: 1px;\n}\n\n.acceptBtn {\n  color: green;\n}\n\n.my-card {\n  padding: 0;\n  width: 98%;\n  height: 98%;\n  margin: 0 1%;\n  background-color: white;\n}\n\n.radio-button-group {\n  width: 100%;\n  justify-content: space-between;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2ZyZXF1ZW50LXF1ZXN0aW9ucy9jb21wb25lbnRzL2FsbC1xdWVzdGlvbnMvYWxsLXF1ZXN0aW9ucy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZnJlcXVlbnQtcXVlc3Rpb25zL2NvbXBvbmVudHMvYWxsLXF1ZXN0aW9ucy9hbGwtcXVlc3Rpb25zLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsZUFBQTtBQ0NKOztBREVBO0VBQ0ksc0JBQUE7QUNDSjs7QURFQTtFQUNJLHlCQUFBO0FDQ0o7O0FER0E7RUFDSSxpQkFBQTtFQUNBLGVBQUE7QUNBSjs7QURHQTtFQUNJLHNCQUFBO0VBQ0EsWUFBQTtFQUNBLHdCQUFBO0VBQ0EsWUFBQTtFQUNBLGNBQUE7RUFDQSxhQUFBO0FDQUo7O0FER0E7RUFDSSw4QkFBQTtFQUFBLDJCQUFBO0VBQUEsc0JBQUE7RUFDQSxXQUFBO0FDQUo7O0FER0E7RUFDSSxZQUFBO0FDQUo7O0FER0E7RUFDSSxVQUFBO0VBQ0EsVUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7QUNBSjs7QURHQTtFQUNJLFdBQUE7RUFDQSw4QkFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EseUJBQUE7QUNBSiIsImZpbGUiOiJzcmMvYXBwL2ZyZXF1ZW50LXF1ZXN0aW9ucy9jb21wb25lbnRzL2FsbC1xdWVzdGlvbnMvYWxsLXF1ZXN0aW9ucy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRoe1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICBmb250LXdlaWdodDogNjAwO1xufVxuXG50cntcbiAgICBmb250LXNpemU6IDE1cHg7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG50ZCB7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cblxudHI6aG92ZXJ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI0NywgMjQ3LCAyNDcpO1xufVxuXG5cbi5jb250YWluZXItdGV4dC1sZWZ0e1xuICAgIG1hcmdpbi1ib3R0b206IDIlO1xuICAgIG1hcmdpbi1sZWZ0OiAyJTtcbn1cblxuLnRleHRJbmZve1xuICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4gICAgcmVzaXplOiBub25lOyBcbiAgICB3aWR0aDogY2FsYygxMDAlIC0gMjBweCk7XG4gICAgYm9yZGVyOiBub25lOyBcbiAgICBjb2xvcjogIzU4NTg1ODtcbiAgICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uYWNjZXB0QnRuLCAuZGVueUJ0biB7XG4gICAgbWluLXdpZHRoOiBmaXQtY29udGVudDsgXG4gICAgbWFyZ2luOiAxcHg7IFxufVxuXG4uYWNjZXB0QnRue1xuICAgIGNvbG9yOiBncmVlbjtcbn1cblxuLm15LWNhcmQge1xuICAgIHBhZGRpbmc6IDA7XG4gICAgd2lkdGg6IDk4JTsgXG4gICAgaGVpZ2h0OiA5OCU7IFxuICAgIG1hcmdpbjogMCAxJTsgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cbi5yYWRpby1idXR0b24tZ3JvdXB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC13cmFwOiB3cmFwO1xuICAgIG1pbi13aWR0aDogMzAwcHg7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIHBhZGRpbmctYm90dG9tOiAxLjM0Mzc1ZW07XG59XG4iLCJ0aCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHIge1xuICBmb250LXNpemU6IDE1cHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxudGQge1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xufVxuXG50cjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmN2Y3Zjc7XG59XG5cbi5jb250YWluZXItdGV4dC1sZWZ0IHtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG4gIG1hcmdpbi1sZWZ0OiAyJTtcbn1cblxuLnRleHRJbmZvIHtcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbiAgcmVzaXplOiBub25lO1xuICB3aWR0aDogY2FsYygxMDAlIC0gMjBweCk7XG4gIGJvcmRlcjogbm9uZTtcbiAgY29sb3I6ICM1ODU4NTg7XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5hY2NlcHRCdG4sIC5kZW55QnRuIHtcbiAgbWluLXdpZHRoOiBmaXQtY29udGVudDtcbiAgbWFyZ2luOiAxcHg7XG59XG5cbi5hY2NlcHRCdG4ge1xuICBjb2xvcjogZ3JlZW47XG59XG5cbi5teS1jYXJkIHtcbiAgcGFkZGluZzogMDtcbiAgd2lkdGg6IDk4JTtcbiAgaGVpZ2h0OiA5OCU7XG4gIG1hcmdpbjogMCAxJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cbi5yYWRpby1idXR0b24tZ3JvdXAge1xuICB3aWR0aDogMTAwJTtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIG1pbi13aWR0aDogMzAwcHg7XG4gIG1hcmdpbjogYXV0bztcbiAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntd {\n  vertical-align: middle;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n\n.textInfo {\n  vertical-align: middle;\n  resize: none;\n  width: calc(100% - 20px);\n  border: none;\n  color: #585858;\n  padding: 10px;\n}\n\n.acceptBtn, .denyBtn {\n  min-width: -webkit-fit-content;\n  min-width: -moz-fit-content;\n  min-width: fit-content;\n  margin: 1px;\n}\n\n.acceptBtn {\n  color: green;\n}\n\n.my-card {\n  padding: 0;\n  width: 98%;\n  height: 98%;\n  margin: 0 1%;\n  background-color: white;\n}\n\nmat-card textarea:hover {\n  cursor: pointer !important;\n}\n\n.radio-button-group {\n  width: 100%;\n  justify-content: space-between;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2ZyZXF1ZW50LXF1ZXN0aW9ucy9jb21wb25lbnRzL2FsbC1xdWVzdGlvbnMvYWxsLXF1ZXN0aW9ucy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZnJlcXVlbnQtcXVlc3Rpb25zL2NvbXBvbmVudHMvYWxsLXF1ZXN0aW9ucy9hbGwtcXVlc3Rpb25zLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsZUFBQTtBQ0NKOztBREVBO0VBQ0ksc0JBQUE7QUNDSjs7QURFQTtFQUNJLHlCQUFBO0FDQ0o7O0FER0E7RUFDSSxpQkFBQTtFQUNBLGVBQUE7QUNBSjs7QURHQTtFQUNJLHNCQUFBO0VBQ0EsWUFBQTtFQUNBLHdCQUFBO0VBQ0EsWUFBQTtFQUNBLGNBQUE7RUFDQSxhQUFBO0FDQUo7O0FER0E7RUFDSSw4QkFBQTtFQUFBLDJCQUFBO0VBQUEsc0JBQUE7RUFDQSxXQUFBO0FDQUo7O0FER0E7RUFDSSxZQUFBO0FDQUo7O0FER0E7RUFDSSxVQUFBO0VBQ0EsVUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7QUNBSjs7QURHQTtFQUNJLDBCQUFBO0FDQUo7O0FER0E7RUFDSSxXQUFBO0VBQ0EsOEJBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtFQUNBLHlCQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9mcmVxdWVudC1xdWVzdGlvbnMvY29tcG9uZW50cy9hbGwtcXVlc3Rpb25zL2FsbC1xdWVzdGlvbnMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0aHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHJ7XG4gICAgZm9udC1zaXplOiAxNXB4O1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxudGQge1xuICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5cbnRyOmhvdmVye1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDcsIDI0NywgMjQ3KTtcbn1cblxuXG4uY29udGFpbmVyLXRleHQtbGVmdHtcbiAgICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgICBtYXJnaW4tbGVmdDogMiU7XG59XG5cbi50ZXh0SW5mb3tcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICAgIHJlc2l6ZTogbm9uZTsgXG4gICAgd2lkdGg6IGNhbGMoMTAwJSAtIDIwcHgpO1xuICAgIGJvcmRlcjogbm9uZTsgXG4gICAgY29sb3I6ICM1ODU4NTg7XG4gICAgcGFkZGluZzogMTBweDtcbn1cblxuLmFjY2VwdEJ0biwgLmRlbnlCdG4ge1xuICAgIG1pbi13aWR0aDogZml0LWNvbnRlbnQ7IFxuICAgIG1hcmdpbjogMXB4OyBcbn1cblxuLmFjY2VwdEJ0bntcbiAgICBjb2xvcjogZ3JlZW47XG59XG5cbi5teS1jYXJkIHtcbiAgICBwYWRkaW5nOiAwO1xuICAgIHdpZHRoOiA5OCU7IFxuICAgIGhlaWdodDogOTglOyBcbiAgICBtYXJnaW46IDAgMSU7IFxuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xufVxuXG5tYXQtY2FyZCB0ZXh0YXJlYTpob3ZlciB7XG4gICAgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7XG59IFxuXG4ucmFkaW8tYnV0dG9uLWdyb3Vwe1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBtaW4td2lkdGg6IDMwMHB4O1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBwYWRkaW5nLWJvdHRvbTogMS4zNDM3NWVtO1xufVxuIiwidGgge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbnRyIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnRkIHtcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cblxudHI6aG92ZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjdmN2Y3O1xufVxuXG4uY29udGFpbmVyLXRleHQtbGVmdCB7XG4gIG1hcmdpbi1ib3R0b206IDIlO1xuICBtYXJnaW4tbGVmdDogMiU7XG59XG5cbi50ZXh0SW5mbyB7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4gIHJlc2l6ZTogbm9uZTtcbiAgd2lkdGg6IGNhbGMoMTAwJSAtIDIwcHgpO1xuICBib3JkZXI6IG5vbmU7XG4gIGNvbG9yOiAjNTg1ODU4O1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uYWNjZXB0QnRuLCAuZGVueUJ0biB7XG4gIG1pbi13aWR0aDogZml0LWNvbnRlbnQ7XG4gIG1hcmdpbjogMXB4O1xufVxuXG4uYWNjZXB0QnRuIHtcbiAgY29sb3I6IGdyZWVuO1xufVxuXG4ubXktY2FyZCB7XG4gIHBhZGRpbmc6IDA7XG4gIHdpZHRoOiA5OCU7XG4gIGhlaWdodDogOTglO1xuICBtYXJnaW46IDAgMSU7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xufVxuXG5tYXQtY2FyZCB0ZXh0YXJlYTpob3ZlciB7XG4gIGN1cnNvcjogcG9pbnRlciAhaW1wb3J0YW50O1xufVxuXG4ucmFkaW8tYnV0dG9uLWdyb3VwIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBtaW4td2lkdGg6IDMwMHB4O1xuICBtYXJnaW46IGF1dG87XG4gIHBhZGRpbmctYm90dG9tOiAxLjM0Mzc1ZW07XG59Il19 */");
 
 /***/ }),
 
@@ -8422,37 +8808,51 @@ let AllQuestionsComponent = class AllQuestionsComponent {
         this.dialogService.open(_questions_create_questions_create_component__WEBPACK_IMPORTED_MODULE_5__["QuestionsCreateComponent"], { width: "60%", height: "70%", minWidth: "280px", disableClose: true });
     }
     changeStateRequest(fq, state) {
-        this.frequentQuestionService.updateQuestion(fq.frequent_question_id, state, fq.is_active).subscribe({
-            next: (data) => {
-                data.status != 204 ? null : state == 1 ?
-                    this.commonService.openSnackBar(`La pregunta ha sido aceptada`, "OK")
-                    :
-                        this.commonService.openSnackBar(`La pregunta ha sido rechazada`, "OK");
-                data.status == 204 ? this.refresh() : null;
+        let action;
+        state == 2 ? action = "aceptar" : action = "rechazar";
+        this.commonService.confirmationDialog(`¿Desea ${action} la pregunta?`).then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.frequentQuestionService.updateQuestion(fq.frequent_question_id, state, fq.is_active).subscribe({
+                    next: (data) => {
+                        data.status != 204 ? null : state == 2 ?
+                            this.commonService.openSnackBar(`La pregunta ha sido aceptada`, "OK")
+                            :
+                                this.commonService.openSnackBar(`La pregunta ha sido rechazada`, "OK");
+                        data.status == 204 ? this.refresh() : null;
+                    }
+                });
             }
-        });
+        }));
     }
     changeActive(fq, { source }) {
-        console.log(source.checked);
-        this.frequentQuestionService.updateQuestion(fq.frequent_question_id, fq.state, source.checked).subscribe({
-            next: (data) => {
-                if (data.status == 204) {
-                    fq.is_active = !fq.is_active;
-                    source.checked = fq.is_active;
-                    if (fq.is_active)
-                        this.commonService.openSnackBar(`La pregunta ha sido activada`, "OK");
-                    else
-                        this.commonService.openSnackBar(`La pregunta ha sido desactivada`, "OK");
-                }
-                else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
-                }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+        let action;
+        fq.is_active ? action = "desactivar" : action = "activar";
+        this.commonService.confirmationDialog(`¿Desea ${action} la pregunta?`).then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.frequentQuestionService.updateQuestion(fq.frequent_question_id, fq.state, source.checked).subscribe({
+                    next: (data) => {
+                        if (data.status == 204) {
+                            fq.is_active = !fq.is_active;
+                            source.checked = fq.is_active;
+                            if (fq.is_active)
+                                this.commonService.openSnackBar(`La pregunta ha sido activada`, "OK");
+                            else
+                                this.commonService.openSnackBar(`La pregunta ha sido desactivada`, "OK");
+                        }
+                        else {
+                            this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                        }
+                    },
+                    error: (err) => {
+                        this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                        source.checked = fq.is_active;
+                    }
+                });
+            }
+            else {
                 source.checked = fq.is_active;
             }
-        });
+        }));
     }
 };
 AllQuestionsComponent.ctorParameters = () => [
@@ -8879,6 +9279,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
@@ -8897,6 +9300,22 @@ let CommonService = class CommonService {
     openSnackBar(msg, action) {
         this.snackBar.open(msg, action, {
             duration: 3000,
+        });
+    }
+    confirmationDialog(msg) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            yield sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
+                title: msg,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#dc3545',
+                confirmButtonText: 'Si, continuar!',
+                cancelButtonText: 'No, cancelar!',
+                reverseButtons: true,
+            }).then((result) => {
+                this.action = result.value;
+            });
+            return this.action;
         });
     }
     handleError(err) {
@@ -9100,6 +9519,328 @@ MultimediaService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         providedIn: 'root'
     })
 ], MultimediaService);
+
+
+
+/***/ }),
+
+/***/ "./src/app/images/components/images-management/images-management.component.scss":
+/*!**************************************************************************************!*\
+  !*** ./src/app/images/components/images-management/images-management.component.scss ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".image-buttons {\n  width: 100%;\n  height: 100%;\n  cursor: pointer;\n}\n\n.image-buttons:focus mat-icon:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.image-buttons mat-icon {\n  font-size: 40px;\n  width: 40px;\n  height: 40px;\n}\n\n.noImageButton {\n  text-align: center;\n  width: 20%;\n  border: solid 1.5px gainsboro;\n  border-radius: 5px;\n  cursor: pointer;\n}\n\n.leftBtn {\n  width: 35%;\n  border-top: solid 1.5px gainsboro;\n  border-right: solid 0.75px gainsboro;\n}\n\n.middleBtn {\n  width: 30%;\n  border-top: solid 1.5px gainsboro;\n}\n\n.rightBtn {\n  width: 35%;\n  border-top: solid 1.5px gainsboro;\n  border-left: solid 0.75px gainsboro;\n}\n\n.radio-button-group {\n  width: 100%;\n  justify-content: space-between;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n  margin: auto;\n  padding-bottom: 1.34375em;\n}\n\nngb-carousel.container-fluid.carousel.slide {\n  padding: 0%;\n}\n\n.image-buttons:focus {\n  outline: none !important;\n  border: 0.5px solid gainsboro;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n  margin: 1rem 0;\n}\n\n.imgsCarousel {\n  display: flex;\n  flex-direction: column;\n  border-radius: 20px;\n  border: solid 1.5px gainsboro;\n  margin: auto;\n  min-width: 280px;\n  width: 90%;\n}\n\n.carouselImg {\n  height: 500px !important;\n  width: 100% !important;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n\n.imgsCarousel::ng-deep .carousel-control-prev-icon {\n  background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%363636' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/%3e%3c/svg%3e\") !important;\n}\n\n.imgsCarousel::ng-deep .carousel-control-next-icon {\n  background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%363636' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e\") !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2ltYWdlcy9jb21wb25lbnRzL2ltYWdlcy1tYW5hZ2VtZW50L2ltYWdlcy1tYW5hZ2VtZW50LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9pbWFnZXMvY29tcG9uZW50cy9pbWFnZXMtbWFuYWdlbWVudC9pbWFnZXMtbWFuYWdlbWVudC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtBQ0NGOztBREVBO0VBQ0Usd0JBQUE7RUFDQSw2QkFBQTtBQ0NGOztBREVBO0VBQ0UsZUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDQ0Y7O0FERUE7RUFDRSxrQkFBQTtFQUNBLFVBQUE7RUFDQSw2QkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtBQ0NGOztBREVBO0VBQ0UsVUFBQTtFQUNBLGlDQUFBO0VBQ0Esb0NBQUE7QUNDRjs7QURFQTtFQUNFLFVBQUE7RUFDQSxpQ0FBQTtBQ0NGOztBREVBO0VBQ0UsVUFBQTtFQUNBLGlDQUFBO0VBQ0EsbUNBQUE7QUNDRjs7QURFQTtFQUNFLFdBQUE7RUFDQSw4QkFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EseUJBQUE7QUNDRjs7QURHQTtFQUNFLFdBQUE7QUNBRjs7QURHQTtFQUNFLHdCQUFBO0VBQ0EsNkJBQUE7QUNBRjs7QURHQTtFQUNFLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7RUFDQSxjQUFBO0FDQUY7O0FER0E7RUFDRSxhQUFBO0VBQ0Esc0JBQUE7RUFDQSxtQkFBQTtFQUNBLDZCQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsVUFBQTtBQ0FGOztBREdBO0VBQ0Usd0JBQUE7RUFDQSxzQkFBQTtFQUNBLHNCQUFBO0tBQUEsbUJBQUE7QUNBRjs7QURHQTtFQUNFLGtPQUFBO0FDQUY7O0FER0E7RUFDRSxtT0FBQTtBQ0FGIiwiZmlsZSI6InNyYy9hcHAvaW1hZ2VzL2NvbXBvbmVudHMvaW1hZ2VzLW1hbmFnZW1lbnQvaW1hZ2VzLW1hbmFnZW1lbnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW1hZ2UtYnV0dG9ucyB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmltYWdlLWJ1dHRvbnM6Zm9jdXMgbWF0LWljb246Zm9jdXMge1xuICBvdXRsaW5lOiBub25lICFpbXBvcnRhbnQ7XG4gIGJvcmRlcjogMC41cHggc29saWQgcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4uaW1hZ2UtYnV0dG9ucyBtYXQtaWNvbiB7XG4gIGZvbnQtc2l6ZTogNDBweDtcbiAgd2lkdGg6IDQwcHg7XG4gIGhlaWdodDogNDBweDtcbn1cblxuLm5vSW1hZ2VCdXR0b24ge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHdpZHRoOiAyMCU7XG4gIGJvcmRlcjogc29saWQgMS41cHggcmdiKDIyMCwgMjIwLCAyMjApO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmxlZnRCdG57XG4gIHdpZHRoOiAzNSU7IFxuICBib3JkZXItdG9wOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7IFxuICBib3JkZXItcmlnaHQ6IHNvbGlkIDAuNzVweCByZ2IoMjIwLCAyMjAsIDIyMCk7XG59XG5cbi5taWRkbGVCdG57XG4gIHdpZHRoOiAzMCU7XG4gIGJvcmRlci10b3A6IHNvbGlkIDEuNXB4IHJnYigyMjAsIDIyMCwgMjIwKTsgXG59XG5cbi5yaWdodEJ0bntcbiAgd2lkdGg6IDM1JTsgXG4gIGJvcmRlci10b3A6IHNvbGlkIDEuNXB4IHJnYigyMjAsIDIyMCwgMjIwKTsgXG4gIGJvcmRlci1sZWZ0OiBzb2xpZCAwLjc1cHggcmdiKDIyMCwgMjIwLCAyMjApO1xufVxuXG4ucmFkaW8tYnV0dG9uLWdyb3Vwe1xuICB3aWR0aDogMTAwJTtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIG1pbi13aWR0aDogMzAwcHg7XG4gIG1hcmdpbjogYXV0bztcbiAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn1cblxuXG5uZ2ItY2Fyb3VzZWwuY29udGFpbmVyLWZsdWlkLmNhcm91c2VsLnNsaWRlIHtcbiAgcGFkZGluZzogMCU7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICBib3JkZXI6IDAuNXB4IHNvbGlkIHJnYigyMjAsIDIyMCwgMjIwKTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gIG1hcmdpbjogMXJlbSAwO1xufVxuXG4uaW1nc0Nhcm91c2VsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgYm9yZGVyLXJhZGl1czogMjBweDtcbiAgYm9yZGVyOiBzb2xpZCAxLjVweCByZ2IoMjIwLCAyMjAsIDIyMCk7XG4gIG1hcmdpbjogYXV0bztcbiAgbWluLXdpZHRoOiAyODBweDtcbiAgd2lkdGg6IDkwJTtcbn1cblxuLmNhcm91c2VsSW1nIHtcbiAgaGVpZ2h0OiA1MDBweCAhaW1wb3J0YW50O1xuICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xuICBvYmplY3QtZml0OiBjb250YWluO1xufVxuXG4uaW1nc0Nhcm91c2VsOjpuZy1kZWVwIC5jYXJvdXNlbC1jb250cm9sLXByZXYtaWNvbiB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM2NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyBmaWxsPSclMzYzNjM2JyB3aWR0aD0nOCcgaGVpZ2h0PSc4JyB2aWV3Qm94PScwIDAgOCA4JyUzZSUzY3BhdGggZD0nTTUuMjUgMGwtNCA0IDQgNCAxLjUtMS41TDQuMjUgNGwyLjUtMi41TDUuMjUgMHonLyUzZSUzYy9zdmclM2VcIikgIWltcG9ydGFudDtcbn1cblxuLmltZ3NDYXJvdXNlbDo6bmctZGVlcCAuY2Fyb3VzZWwtY29udHJvbC1uZXh0LWljb24ge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWwsJTNjc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgZmlsbD0nJTM2MzYzNicgd2lkdGg9JzgnIGhlaWdodD0nOCcgdmlld0JveD0nMCAwIDggOCclM2UlM2NwYXRoIGQ9J00yLjc1IDBsLTEuNSAxLjVMMy43NSA0bC0yLjUgMi41TDIuNzUgOGw0LTQtNC00eicvJTNlJTNjL3N2ZyUzZVwiKSAhaW1wb3J0YW50O1xufVxuIiwiLmltYWdlLWJ1dHRvbnMge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbi5pbWFnZS1idXR0b25zOmZvY3VzIG1hdC1pY29uOmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICBib3JkZXI6IDAuNXB4IHNvbGlkIGdhaW5zYm9ybztcbn1cblxuLmltYWdlLWJ1dHRvbnMgbWF0LWljb24ge1xuICBmb250LXNpemU6IDQwcHg7XG4gIHdpZHRoOiA0MHB4O1xuICBoZWlnaHQ6IDQwcHg7XG59XG5cbi5ub0ltYWdlQnV0dG9uIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogMjAlO1xuICBib3JkZXI6IHNvbGlkIDEuNXB4IGdhaW5zYm9ybztcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbi5sZWZ0QnRuIHtcbiAgd2lkdGg6IDM1JTtcbiAgYm9yZGVyLXRvcDogc29saWQgMS41cHggZ2FpbnNib3JvO1xuICBib3JkZXItcmlnaHQ6IHNvbGlkIDAuNzVweCBnYWluc2Jvcm87XG59XG5cbi5taWRkbGVCdG4ge1xuICB3aWR0aDogMzAlO1xuICBib3JkZXItdG9wOiBzb2xpZCAxLjVweCBnYWluc2Jvcm87XG59XG5cbi5yaWdodEJ0biB7XG4gIHdpZHRoOiAzNSU7XG4gIGJvcmRlci10b3A6IHNvbGlkIDEuNXB4IGdhaW5zYm9ybztcbiAgYm9yZGVyLWxlZnQ6IHNvbGlkIDAuNzVweCBnYWluc2Jvcm87XG59XG5cbi5yYWRpby1idXR0b24tZ3JvdXAge1xuICB3aWR0aDogMTAwJTtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIG1pbi13aWR0aDogMzAwcHg7XG4gIG1hcmdpbjogYXV0bztcbiAgcGFkZGluZy1ib3R0b206IDEuMzQzNzVlbTtcbn1cblxubmdiLWNhcm91c2VsLmNvbnRhaW5lci1mbHVpZC5jYXJvdXNlbC5zbGlkZSB7XG4gIHBhZGRpbmc6IDAlO1xufVxuXG4uaW1hZ2UtYnV0dG9uczpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAwLjVweCBzb2xpZCBnYWluc2Jvcm87XG59XG5cbi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBtYXJnaW46IDFyZW0gMDtcbn1cblxuLmltZ3NDYXJvdXNlbCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGJvcmRlci1yYWRpdXM6IDIwcHg7XG4gIGJvcmRlcjogc29saWQgMS41cHggZ2FpbnNib3JvO1xuICBtYXJnaW46IGF1dG87XG4gIG1pbi13aWR0aDogMjgwcHg7XG4gIHdpZHRoOiA5MCU7XG59XG5cbi5jYXJvdXNlbEltZyB7XG4gIGhlaWdodDogNTAwcHggIWltcG9ydGFudDtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbiAgb2JqZWN0LWZpdDogY29udGFpbjtcbn1cblxuLmltZ3NDYXJvdXNlbDo6bmctZGVlcCAuY2Fyb3VzZWwtY29udHJvbC1wcmV2LWljb24ge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWwsJTNjc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgZmlsbD0nJTM2MzYzNicgd2lkdGg9JzgnIGhlaWdodD0nOCcgdmlld0JveD0nMCAwIDggOCclM2UlM2NwYXRoIGQ9J001LjI1IDBsLTQgNCA0IDQgMS41LTEuNUw0LjI1IDRsMi41LTIuNUw1LjI1IDB6Jy8lM2UlM2Mvc3ZnJTNlXCIpICFpbXBvcnRhbnQ7XG59XG5cbi5pbWdzQ2Fyb3VzZWw6Om5nLWRlZXAgLmNhcm91c2VsLWNvbnRyb2wtbmV4dC1pY29uIHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sLCUzY3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIGZpbGw9JyUzNjM2MzYnIHdpZHRoPSc4JyBoZWlnaHQ9JzgnIHZpZXdCb3g9JzAgMCA4IDgnJTNlJTNjcGF0aCBkPSdNMi43NSAwbC0xLjUgMS41TDMuNzUgNGwtMi41IDIuNUwyLjc1IDhsNC00LTQtNHonLyUzZSUzYy9zdmclM2VcIikgIWltcG9ydGFudDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/images/components/images-management/images-management.component.ts":
+/*!************************************************************************************!*\
+  !*** ./src/app/images/components/images-management/images-management.component.ts ***!
+  \************************************************************************************/
+/*! exports provided: ImagesManagementComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImagesManagementComponent", function() { return ImagesManagementComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/multimedia.service */ "./src/app/general-services/multimedia.service.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _services_images_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/images.service */ "./src/app/images/services/images.service.ts");
+
+
+
+
+
+
+let ImagesManagementComponent = class ImagesManagementComponent {
+    constructor(imageService, commonService, multimediaService) {
+        this.imageService = imageService;
+        this.commonService = commonService;
+        this.multimediaService = multimediaService;
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].IMAGES_URL_BASE;
+        this.imageIndex = 0;
+        this.loading = false;
+        this.filter = {
+            showed: "0",
+        };
+    }
+    ngOnInit() {
+        this.refresh();
+    }
+    onSlide(event) {
+        this.imageIndex = parseInt(event.current.replace("slideId_", ""), 10);
+        this.currentImg = this.imageService.images[this.imageIndex];
+    }
+    refresh() {
+        this.loading = true;
+        let showed = Number(this.filter.showed);
+        showed == 0
+            ? (showed = undefined)
+            : showed == 1
+                ? (showed = true)
+                : (showed = false);
+        this.subscription = this.imageService
+            .getTouristViewImages(showed)
+            .subscribe({
+            next: (data) => {
+                this.imageService.images = data;
+                data != [] ? (this.currentImg = data[0]) : null;
+                this.subscription.unsubscribe();
+                this.loading = false;
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+        });
+    }
+    uploadFile(files) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.loading = true;
+            let images = [];
+            for (let i = 0; i < files.length; i++) {
+                yield this.commonService.uploadFile(files[i]).then((data) => {
+                    images.push(data.filename);
+                });
+            }
+            this.updateImages(images);
+        });
+    }
+    updateImages(images) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            for (let i = 0; i < images.length; i++) {
+                yield this.imageService.addImageToTouristView(images[i]).toPromise();
+            }
+            this.commonService.openSnackBar("Se han añadido las imágenes", "OK");
+            this.refresh();
+        });
+    }
+    changeImgShowState() {
+        let id = this.currentImg.home_image_id;
+        this.imageService.changeShowState(id, !this.currentImg.showed).subscribe({
+            next: (data) => {
+                if (data.status == 204) {
+                    this.currentImg.showed = !this.currentImg.showed;
+                    this.currentImg.showed
+                        ? this.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK")
+                        : this.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
+                }
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+        });
+    }
+    deleteImage() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.loading = true;
+            let id = this.currentImg.home_image_id;
+            yield this.imageService
+                .disableImg(id)
+                .toPromise()
+                .then((data) => {
+                if (data.status == 204) {
+                    this.commonService.openSnackBar(`La imagen se ha eleminado`, "OK");
+                    this.imageService.images.splice(this.imageIndex, 1);
+                }
+                else {
+                    this.commonService.openSnackBar("Error al intentar eliminar la imagen", "OK");
+                }
+            });
+            this.loading = false;
+        });
+    }
+};
+ImagesManagementComponent.ctorParameters = () => [
+    { type: _services_images_service__WEBPACK_IMPORTED_MODULE_5__["ImagesService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_2__["CommonService"] },
+    { type: src_app_general_services_multimedia_service__WEBPACK_IMPORTED_MODULE_3__["MultimediaService"] }
+];
+ImagesManagementComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: "app-images-management",
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./images-management.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./images-management.component.scss */ "./src/app/images/components/images-management/images-management.component.scss")).default]
+    })
+], ImagesManagementComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/images/images-root.component.ts":
+/*!*************************************************!*\
+  !*** ./src/app/images/images-root.component.ts ***!
+  \*************************************************/
+/*! exports provided: ImagesRootComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImagesRootComponent", function() { return ImagesRootComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let ImagesRootComponent = class ImagesRootComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+ImagesRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-images-root',
+        template: `
+    <router-outlet></router-outlet>
+  `
+    })
+], ImagesRootComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/images/images-routing.module.ts":
+/*!*************************************************!*\
+  !*** ./src/app/images/images-routing.module.ts ***!
+  \*************************************************/
+/*! exports provided: ImagesRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImagesRoutingModule", function() { return ImagesRoutingModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _components_images_management_images_management_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/images-management/images-management.component */ "./src/app/images/components/images-management/images-management.component.ts");
+/* harmony import */ var _images_root_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./images-root.component */ "./src/app/images/images-root.component.ts");
+
+
+
+
+const routes = [
+    {
+        path: "images",
+        component: _images_root_component__WEBPACK_IMPORTED_MODULE_3__["ImagesRootComponent"],
+        children: [
+            {
+                path: "all",
+                component: _components_images_management_images_management_component__WEBPACK_IMPORTED_MODULE_2__["ImagesManagementComponent"]
+            }
+        ]
+    }
+];
+const ImagesRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes);
+
+
+/***/ }),
+
+/***/ "./src/app/images/images.module.ts":
+/*!*****************************************!*\
+  !*** ./src/app/images/images.module.ts ***!
+  \*****************************************/
+/*! exports provided: ImagesModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImagesModule", function() { return ImagesModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _images_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./images-routing.module */ "./src/app/images/images-routing.module.ts");
+/* harmony import */ var _shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared.module */ "./src/app/shared.module.ts");
+/* harmony import */ var _components_images_management_images_management_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/images-management/images-management.component */ "./src/app/images/components/images-management/images-management.component.ts");
+/* harmony import */ var _images_root_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./images-root.component */ "./src/app/images/images-root.component.ts");
+
+
+
+
+
+
+
+let ImagesModule = class ImagesModule {
+};
+ImagesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        declarations: [
+            _images_root_component__WEBPACK_IMPORTED_MODULE_6__["ImagesRootComponent"],
+            _components_images_management_images_management_component__WEBPACK_IMPORTED_MODULE_5__["ImagesManagementComponent"]
+        ],
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            _images_routing_module__WEBPACK_IMPORTED_MODULE_3__["ImagesRoutingModule"],
+            _shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
+        ]
+    })
+], ImagesModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/images/services/images.service.ts":
+/*!***************************************************!*\
+  !*** ./src/app/images/services/images.service.ts ***!
+  \***************************************************/
+/*! exports provided: ImagesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImagesService", function() { return ImagesService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+let ImagesService = class ImagesService {
+    constructor(http) {
+        this.http = http;
+        this.images = [];
+        this.module = "homeImages";
+    }
+    getTouristViewImages(showed) {
+        let show;
+        showed != undefined ? (showed ? (show = "true") : (show = "false")) : null;
+        let params = {
+            is_active: "true",
+        };
+        show != undefined ? (params.showed = show) : null;
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].IMAGES_URL_BASE}${this.module}`, {
+            params: params,
+        });
+    }
+    addImageToTouristView(name) {
+        let json = {
+            name: name,
+            showed: false,
+        };
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].IMAGES_URL_BASE}${this.module}`, json, { observe: "response" });
+    }
+    changeShowState(homeImgID, showed) {
+        let json = {
+            showed: showed,
+        };
+        return this.http.patch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].IMAGES_URL_BASE}${this.module}/${homeImgID}`, json, { observe: "response" });
+    }
+    disableImg(homeImgID) {
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].IMAGES_URL_BASE}${this.module}/${homeImgID}`, { observe: "response" });
+    }
+};
+ImagesService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+];
+ImagesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: "root",
+    })
+], ImagesService);
 
 
 
@@ -9996,7 +10737,7 @@ let ItineraryDistributionComponent = class ItineraryDistributionComponent {
                     this.favorites = data.data[0].get_favorite_itinerary;
                 }
             },
-            error: (err) => this.commonService.handleError(err)
+            error: (err) => this.commonService.handleError(err),
         });
     }
     /**
@@ -10005,23 +10746,34 @@ let ItineraryDistributionComponent = class ItineraryDistributionComponent {
      * @param itineraryID: number
      * @param info: any
      */
-    setAvailable(state, itineraryID, info) {
-        let modifyInfo = info;
-        modifyInfo.active = state;
-        this.subscription = this.itineraryService
-            .changeActiveState(itineraryID, modifyInfo)
-            .subscribe({
-            next: () => {
-                if (state) {
-                    this.commonService.openSnackBar(`El itinerario ${itineraryID} ha sido habilitado`, "OK");
-                }
-                else {
-                    this.commonService.openSnackBar(`El itinerario ${itineraryID} ha sido desabilitado`, "OK");
-                }
-                this.subscription.unsubscribe();
-            },
-            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-        });
+    setAvailable(state, itineraryID, info, { source }) {
+        let action;
+        state ? (action = "activar") : (action = "desactivar");
+        this.commonService
+            .confirmationDialog(`¿Desea ${action} el itinerario?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                let modifyInfo = info;
+                modifyInfo.active = state;
+                this.subscription = this.itineraryService
+                    .changeActiveState(itineraryID, modifyInfo)
+                    .subscribe({
+                    next: () => {
+                        if (state) {
+                            this.commonService.openSnackBar(`El itinerario ${itineraryID} ha sido habilitado`, "OK");
+                        }
+                        else {
+                            this.commonService.openSnackBar(`El itinerario ${itineraryID} ha sido desabilitado`, "OK");
+                        }
+                        this.subscription.unsubscribe();
+                    },
+                    error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+                });
+            }
+            else {
+                source.checked = !state;
+            }
+        }));
     }
     /**
      * @function add favorite from itinerary
@@ -10037,7 +10789,7 @@ let ItineraryDistributionComponent = class ItineraryDistributionComponent {
                 this.commonService.openSnackBar(`El itinerario ${itineraryID} ha sido agregado a favoritos`, "OK");
                 this.subscription.unsubscribe();
             },
-            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
         });
     }
     /**
@@ -10054,7 +10806,7 @@ let ItineraryDistributionComponent = class ItineraryDistributionComponent {
                 this.commonService.openSnackBar(`El itinerario ${itineraryID} ha sido removido de favoritos`, "OK");
                 this.subscription.unsubscribe();
             },
-            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
         });
     }
 };
@@ -11841,18 +12593,20 @@ let OfferDetailsComponent = class OfferDetailsComponent {
         this.loading = true;
         this.offerDetaillsFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required),
-            description: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required)
+            description: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required),
         });
     }
     ngOnInit() {
-        this.offerDetaillsFG.controls['name'].setValue(this._offer.offer_name);
-        this.offerDetaillsFG.controls['description'].setValue(this._offer.offer_description);
+        this.offerDetaillsFG.controls["name"].setValue(this._offer.offer_name);
+        this.offerDetaillsFG.controls["description"].setValue(this._offer.offer_description);
     }
     /**
      * funtion that check of fields, if have new changes
      */
     check() {
-        if (this.offerDetaillsFG.get('name').value == this._offer.offer_name && this.offerDetaillsFG.get('description').value == this._offer.offer_description) {
+        if (this.offerDetaillsFG.get("name").value == this._offer.offer_name &&
+            this.offerDetaillsFG.get("description").value ==
+                this._offer.offer_description) {
             return true;
         }
         else {
@@ -11863,35 +12617,43 @@ let OfferDetailsComponent = class OfferDetailsComponent {
      * delete changes locals in the inputs
      */
     reverse() {
-        this.offerDetaillsFG.controls['name'].setValue(this._offer.offer_name);
-        this.offerDetaillsFG.controls['description'].setValue(this._offer.offer_description);
+        this.offerDetaillsFG.controls["name"].setValue(this._offer.offer_name);
+        this.offerDetaillsFG.controls["description"].setValue(this._offer.offer_description);
     }
     /**
      * @function put new changes in the name and description offer
      */
     applyChanges() {
         this.subscription = this._offer
-            .saveOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_3__["OfferDetaills"](this.offerDetaillsFG.get('name').value, this.offerDetaillsFG.get('description').value, true), this._offer.offer_id).subscribe({
+            .saveOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_3__["OfferDetaills"](this.offerDetaillsFG.get("name").value, this.offerDetaillsFG.get("description").value, true), this._offer.offer_id)
+            .subscribe({
             next: (result) => {
-                this._offer.offer_name = this.offerDetaillsFG.controls['name'].value;
-                this._offer.offer_description = this.offerDetaillsFG.controls['description'].value;
+                this._offer.offer_name = this.offerDetaillsFG.controls["name"].value;
+                this._offer.offer_description = this.offerDetaillsFG.controls["description"].value;
                 this._common.openSnackBar("Cambios realizados", "Ok");
             },
-            error: (err) => this._common.handleError(err)
+            error: (err) => this._common.handleError(err),
         });
     }
     /**
      * @function delete of offer by id
      */
     deleteOffer() {
-        this.subscriptionDelete = this._offer
-            .deleteOffer(this._offer.offer_id).subscribe({
-            next: (result) => {
-                this.router.navigate(['/offers/all']);
-                this._common.openSnackBar("Oferta eliminada", "Ok");
-            },
-            error: (err) => this._common.handleError(err)
-        });
+        this._common
+            .confirmationDialog(`¿Desea eliminar la oferta: ${this._offer.offer_name}?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.subscriptionDelete = this._offer
+                    .deleteOffer(this._offer.offer_id)
+                    .subscribe({
+                    next: (result) => {
+                        this.router.navigate(["/offers/all"]);
+                        this._common.openSnackBar("Oferta eliminada", "Ok");
+                    },
+                    error: (err) => this._common.handleError(err),
+                });
+            }
+        }));
     }
 };
 OfferDetailsComponent.ctorParameters = () => [
@@ -12476,7 +13238,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 
 class Offer {
-    constructor(name, description, companies) {
+    constructor(offer_id, name, description, companies) {
+        this.offer_id = offer_id;
         this.name = name;
         this.description = description;
         this.companies = companies;
@@ -12637,6 +13400,7 @@ let OfferService = class OfferService {
     constructor(_http, _auth) {
         this._http = _http;
         this._auth = _auth;
+        this.offers = [];
     }
     /**
      * @function get all offers
@@ -12936,16 +13700,14 @@ let ServicesTableComponent = class ServicesTableComponent {
         }
     }
     /**
-   * @function get services
-   */
+     * @function get services
+     */
     getServices() {
-        this.subscription = this._service
-            .getServices()
-            .subscribe({
+        this.subscription = this._service.getServices().subscribe({
             next: (data) => {
                 this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
             },
-            error: (err) => this._common.handleError(err)
+            error: (err) => this._common.handleError(err),
         });
         this.isFilters = false;
     }
@@ -12953,13 +13715,21 @@ let ServicesTableComponent = class ServicesTableComponent {
      * @function delete service
      */
     changeState(service_id) {
-        this.subscription = this._service.deleteService(service_id).subscribe({
-            next: (result) => {
-                this._common.openSnackBar("Servicio eliminado", "Ok");
-                this.getServices();
-            },
-            error: (err) => this._common.handleError(err)
-        });
+        this._common
+            .confirmationDialog(`¿Desea eliminar el servicio ?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.subscription = this._service
+                    .deleteService(service_id)
+                    .subscribe({
+                    next: (result) => {
+                        this._common.openSnackBar("Servicio eliminado", "Ok");
+                        this.getServices();
+                    },
+                    error: (err) => this._common.handleError(err),
+                });
+            }
+        }));
     }
     p() {
         this.active = false;
@@ -13451,9 +14221,44 @@ let AllTouristRoutesComponent = class AllTouristRoutesComponent {
         };
     }
     ngOnInit() {
+        this.getActiveTR();
+    }
+    getActiveTR() {
+        this.subscription = this.turistRoutesService.getTouristRoutes(true).subscribe({
+            next: (data) => {
+                this.turistRoutesService.touristRoutes = data;
+                this.subscription.unsubscribe();
+            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
     }
     openCreateDialog() {
-        this.dialogService.open(_create_tourist_routes_create_tourist_routes_component__WEBPACK_IMPORTED_MODULE_5__["CreateTouristRoutesComponent"], { width: "70%", height: "90%", minWidth: "280px", disableClose: true });
+        this.dialogService.open(_create_tourist_routes_create_tourist_routes_component__WEBPACK_IMPORTED_MODULE_5__["CreateTouristRoutesComponent"], { width: "60%", height: "70%", minWidth: "280px", disableClose: true });
+    }
+    changeState(touristRoute, { source }) {
+        this.commonService.confirmationDialog(`¿Desea eliminar la ruta: ${touristRoute.name}?`).then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.turistRoutesService.changeTouristRouteState(touristRoute.route_id).subscribe({
+                    next: (data) => {
+                        if (data.status == 200) {
+                            touristRoute.is_active = !touristRoute.is_active;
+                            source.checked = touristRoute.is_active;
+                            this.commonService.openSnackBar(`La ruta turística ${touristRoute.name} ha sido desactivada`, "OK");
+                            this.getActiveTR();
+                        }
+                        else {
+                            this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                        }
+                    },
+                    error: (err) => {
+                        this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                        source.checked = touristRoute.is_active;
+                    }
+                });
+            }
+            else {
+                source.checked = touristRoute.is_active;
+            }
+        }));
     }
 };
 AllTouristRoutesComponent.ctorParameters = () => [
@@ -13482,7 +14287,7 @@ AllTouristRoutesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: x-large;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzL2NyZWF0ZS10b3VyaXN0LXJvdXRlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdG91cmlzdC1yb3V0ZXMvY29tcG9uZW50cy9jcmVhdGUtdG91cmlzdC1yb3V0ZXMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLGNBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzL2NyZWF0ZS10b3VyaXN0LXJvdXRlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgZGlzcGxheTogZmxleDsgXG4gICAgZmxleC13cmFwOiB3cmFwOyBcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seVxufVxuXG5oMXtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luOiAwJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBmb250LXNpemU6IHgtbGFyZ2U7XG59XG5cbi5idXR0b25Db250YWluZXJ7XG4gICAgbWFyZ2luLXRvcDogMiU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDs7XG59XG4iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiB4LWxhcmdlO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMiU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 2%;\n  font-size: x-large;\n}\n\n.buttonContainer {\n  margin-top: 2%;\n  display: flex;\n  justify-content: space-around;\n}\n\n.chip-list {\n  width: -webkit-fill-available;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzL2NyZWF0ZS10b3VyaXN0LXJvdXRlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdG91cmlzdC1yb3V0ZXMvY29tcG9uZW50cy9jcmVhdGUtdG91cmlzdC1yb3V0ZXMvY3JlYXRlLXRvdXJpc3Qtcm91dGVzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUNDSjs7QURFQTtFQUNJLGNBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLDZCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC90b3VyaXN0LXJvdXRlcy9jb21wb25lbnRzL2NyZWF0ZS10b3VyaXN0LXJvdXRlcy9jcmVhdGUtdG91cmlzdC1yb3V0ZXMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJmb3Jte1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGRpc3BsYXk6IGZsZXg7IFxuICAgIGZsZXgtd3JhcDogd3JhcDsgXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHlcbn1cblxuaDF7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMiU7XG4gICAgZm9udC1zaXplOiB4LWxhcmdlO1xufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDIlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7O1xufVxuXG4uY2hpcC1saXN0e1xuICAgIHdpZHRoOiAtd2Via2l0LWZpbGwtYXZhaWxhYmxlOyBcbn0iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgZm9udC1zaXplOiB4LWxhcmdlO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMiU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG4uY2hpcC1saXN0IHtcbiAgd2lkdGg6IC13ZWJraXQtZmlsbC1hdmFpbGFibGU7XG59Il19 */");
 
 /***/ }),
 
@@ -13501,9 +14306,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/category/services/category.service */ "./src/app/category/services/category.service.ts");
-/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
-/* harmony import */ var _services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../services/tourist-routes.service */ "./src/app/tourist-routes/services/tourist-routes.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/tourist-routes.service */ "./src/app/tourist-routes/services/tourist-routes.service.ts");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm2015/keycodes.js");
+/* harmony import */ var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/offers/services/offer.service */ "./src/app/offers/services/offer.service.ts");
+
 
 
 
@@ -13513,44 +14320,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let CreateTouristRoutesComponent = class CreateTouristRoutesComponent {
-    constructor(dialogRef, touristRoutesService, offerService, //Cambiar
-    commonService, router) {
+    constructor(dialogRef, touristRoutesService, offerService, commonService, router) {
         this.dialogRef = dialogRef;
         this.touristRoutesService = touristRoutesService;
         this.offerService = offerService;
         this.commonService = commonService;
         this.router = router;
-        this.associateOffers = [];
         this.loading = false;
+        this.visible = true;
+        this.selectable = true;
+        this.removable = true;
+        this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_7__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_7__["COMMA"]];
+        this.allOffers = [];
         this.trFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-            offer: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
+            offers: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
         });
     }
     ngOnInit() {
-        // this.subscription = this.offerService.getOffers()
-        // .subscribe({
-        //   next: (data: any) => {
-        //     this.offerService.offers = data;
-        //     this.subscription.unsubscribe();
-        //   }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-        // })
-    }
-    addOffer() {
-        let offer = this.trFG.controls['offer'].value;
-        let index = this.associateOffers.indexOf(offer);
-        if (index < 0) {
-            this.associateOffers.push(offer);
-        }
-        else {
-            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
-        }
-    }
-    removeOffer(offer) {
-        let index = this.associateOffers.indexOf(offer);
-        if (index >= 0) {
-            this.associateOffers.splice(index, 1);
-        }
+        this.subscription = this.offerService.getOffers()
+            .subscribe({
+            next: (data) => {
+                this.filteredOffers = data;
+                this.subscription.unsubscribe();
+            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
     }
     onSubmit() {
         this.loading = true;
@@ -13559,9 +14353,8 @@ let CreateTouristRoutesComponent = class CreateTouristRoutesComponent {
         };
         this.touristRoutesService.createTouristRoute(tr).subscribe({
             next: (data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-                if (data.status == 200) {
-                    let offers = this.getOfferIds();
-                    yield this.asociateoffers(data.body[0], offers);
+                if (data.status == 201) {
+                    yield this.asociateoffers(data.body[0]);
                     this.commonService.openSnackBar(`El evento ${this.trFG.value.name} se ha creado`, "OK");
                     this.dialogRef.close();
                     this.router.navigate(['/tourist-routes', data.body[0]]);
@@ -13578,14 +14371,25 @@ let CreateTouristRoutesComponent = class CreateTouristRoutesComponent {
             }
         });
     }
-    getOfferIds() {
-        let ids = [];
-        this.associateOffers.forEach(elem => ids.push(elem.offer_id));
-        return ids;
+    removeOffer(category) {
+        let index = this.allOffers.indexOf(category);
+        if (index >= 0) {
+            this.allOffers.splice(index, 1);
+        }
     }
-    asociateoffers(tr_id, offerIds) {
-        offerIds.forEach((offer_id) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            yield this.touristRoutesService.addOfferToTouristRoute(tr_id, offer_id).toPromise();
+    selectedOffer(event) {
+        let index = this.allOffers.indexOf(event.option.value);
+        if (index < 0) {
+            this.allOffers.push(event.option.value);
+            this.trFG.controls['offers'].setValue(null);
+        }
+        else {
+            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
+        }
+    }
+    asociateoffers(tr_id) {
+        this.allOffers.forEach((offer) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            yield this.touristRoutesService.addOfferToTouristRoute(tr_id, offer.offer_id).toPromise();
         }));
     }
     onNoClick() {
@@ -13597,11 +14401,14 @@ let CreateTouristRoutesComponent = class CreateTouristRoutesComponent {
 };
 CreateTouristRoutesComponent.ctorParameters = () => [
     { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
-    { type: _services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_7__["TouristRoutesService"] },
-    { type: src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_5__["CategoryService"] },
-    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"] },
+    { type: _services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_6__["TouristRoutesService"] },
+    { type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_8__["OfferService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('auto', { static: false })
+], CreateTouristRoutesComponent.prototype, "matAutocomplete", void 0);
 CreateTouristRoutesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-create-tourist-routes',
@@ -13690,7 +14497,7 @@ ManagementTouristRoutesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorat
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\n.toggle {\n  width: 45%;\n  margin-left: 2.5%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsYUFBQTtFQUNBLGVBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURFQTtFQUNJLGlCQUFBO0VBQ0EsZUFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvdG91cmlzdC1yb3V0ZXMvY29tcG9uZW50cy9tYW5hZ2VtZW50LXRvdXJpc3Qtcm91dGVzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMvdG91cmlzdC1yb3V0ZXMtZGV0YWlscy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgZGlzcGxheTogZmxleDsgXG4gICAgZmxleC13cmFwOiB3cmFwOyBcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seVxufVxuXG4uYnV0dG9uQ29udGFpbmVye1xuICAgIG1hcmdpbi10b3A6IDMlO1xuICAgIG1hcmdpbi1ib3R0b206IDMlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbi50b2dnbGUge1xuICAgIHdpZHRoOiA0NSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi5jb250YWluZXItdGV4dC1sZWZ0e1xuICAgIG1hcmdpbi1ib3R0b206IDIlO1xuICAgIG1hcmdpbi1sZWZ0OiAyJTtcbn1cbiIsImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbi50b2dnbGUge1xuICB3aWR0aDogNDUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\n.buttonContainer {\n  width: 80%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-between;\n}\n\n.toggle {\n  width: 45%;\n  margin-left: 2.5%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n\n.container {\n  margin-top: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsYUFBQTtFQUNBLGVBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDhCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURFQTtFQUNJLGlCQUFBO0VBQ0EsZUFBQTtBQ0NKOztBREVBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1kZXRhaWxzL3RvdXJpc3Qtcm91dGVzLWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJmb3Jte1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGRpc3BsYXk6IGZsZXg7IFxuICAgIGZsZXgtd3JhcDogd3JhcDsgXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHlcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICB3aWR0aDogODAlO1xuICAgIG1hcmdpbi1ib3R0b206IDMlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuXG4udG9nZ2xlIHtcbiAgICB3aWR0aDogNDUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4uY29udGFpbmVyLXRleHQtbGVmdHtcbiAgICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgICBtYXJnaW4tbGVmdDogMiU7XG59XG5cbi5jb250YWluZXIge1xuICAgIG1hcmdpbi10b3A6IDFyZW07XG59XG4iLCJmb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICB3aWR0aDogODAlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuXG4udG9nZ2xlIHtcbiAgd2lkdGg6IDQ1JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi5jb250YWluZXItdGV4dC1sZWZ0IHtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG4gIG1hcmdpbi1sZWZ0OiAyJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDFyZW07XG59Il19 */");
 
 /***/ }),
 
@@ -13707,9 +14514,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/category/services/category.service */ "./src/app/category/services/category.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
-/* harmony import */ var src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tourist-routes/services/tourist-routes.service */ "./src/app/tourist-routes/services/tourist-routes.service.ts");
+/* harmony import */ var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/offers/services/offer.service */ "./src/app/offers/services/offer.service.ts");
+/* harmony import */ var src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tourist-routes/services/tourist-routes.service */ "./src/app/tourist-routes/services/tourist-routes.service.ts");
+
 
 
 
@@ -13717,56 +14526,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let TouristRoutesDetailsComponent = class TouristRoutesDetailsComponent {
-    constructor(touristRoutesService, offerService, //Cambiar
-    commonService) {
+    constructor(touristRoutesService, offerService, commonService, router) {
         this.touristRoutesService = touristRoutesService;
         this.offerService = offerService;
         this.commonService = commonService;
+        this.router = router;
         this.loading = false;
-        this.associateOffers = [];
-        this.oldaAsociateOffers = [];
         this.trFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-            offer: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
         });
     }
     ngOnInit() {
-        // this.subscription = this.offerService.getOffers()
-        // .subscribe({
-        //   next: (data: any) => {
-        //     this.offerService.offers = data;
-        //     this.subscription.unsubscribe();
-        //   }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-        // })
         this.setData();
     }
     setData() {
-        this.trFG.controls['name'].setValue(this.myRoute.name);
-        this.subscription2 = this.touristRoutesService.getTouristRouteOffers(this.myRoute.tourist_route_id).subscribe({
-            next: (data) => {
-                this.associateOffers = [];
-                this.oldaAsociateOffers = [];
-                data.forEach(val => this.associateOffers.push(val));
-                this.associateOffers.forEach(val => this.oldaAsociateOffers.push(val.category_id));
-                this.subscription2.unsubscribe();
-            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
-        });
+        this.trFG.controls["name"].setValue(this.myRoute.name);
     }
     modifyRoute() {
         this.loading = true;
         let tr = {
-            tourist_route_id: this.myRoute.tourist_route_id,
-            name: this.trFG.controls['name'].value,
+            route_id: this.myRoute.route_id,
+            name: this.trFG.controls["name"].value,
             is_active: this.myRoute.is_active,
-            state: this.myRoute.state
         };
         this.touristRoutesService.modifyTouristRute(tr).subscribe({
             next: (data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
                 if (data.status == 200) {
                     this.trFG.enable();
                     this.myRoute = tr;
-                    let offersIds = this.getOfferIds();
-                    yield this.asociateoffers(this.myRoute.tourist_route_id, offersIds);
                     this.commonService.openSnackBar(`La ruta turística ${this.myRoute.name} ha sido cambiada`, "OK");
                     this.loading = false;
                 }
@@ -13778,87 +14565,200 @@ let TouristRoutesDetailsComponent = class TouristRoutesDetailsComponent {
                 this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
                 this.loading = false;
                 this.trFG.enable();
-            }
+            },
         });
     }
-    changeEventState(touristRoute, { source }) {
-        this.touristRoutesService.changeTouristRouteState(touristRoute.tourist_route_id).subscribe({
-            next: (data) => {
-                if (data.status == 200) {
-                    touristRoute.is_active = !touristRoute.is_active;
-                    source.checked = touristRoute.is_active;
-                    if (touristRoute.is_active)
-                        this.commonService.openSnackBar(`La ruta turística ${touristRoute.name} ha sido activada`, "OK");
-                    else
-                        this.commonService.openSnackBar(`La ruta turística ${touristRoute.name} ha sido desactivada`, "OK");
+    changeState(touristRoute, { source }) {
+        if (this.myRoute.is_active) {
+            this.commonService.confirmationDialog(`¿Desea eliminar la ruta: ${touristRoute.name}?`).then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+                if (result) {
+                    this.touristRoutesService
+                        .changeTouristRouteState(touristRoute.route_id)
+                        .subscribe({
+                        next: (data) => {
+                            if (data.status == 200) {
+                                touristRoute.is_active = !touristRoute.is_active;
+                                source.checked = touristRoute.is_active;
+                                this.commonService.openSnackBar(`La ruta turística ${touristRoute.name} ha sido desactivada`, "OK");
+                                this.router.navigate(['/tourist-routes/all']);
+                            }
+                            else {
+                                this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                            }
+                        },
+                        error: (err) => {
+                            this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                            source.checked = touristRoute.is_active;
+                        },
+                    });
                 }
                 else {
-                    this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                    source.checked = touristRoute.is_active;
                 }
-            },
-            error: (err) => {
-                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
-                source.checked = touristRoute.is_active;
-            }
-        });
-    }
-    addOffer() {
-        let offer = this.trFG.controls['offer'].value;
-        let index = this.associateOffers.indexOf(offer);
-        if (index < 0) {
-            this.associateOffers.push(offer);
+            }));
         }
         else {
-            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
+            this.commonService.openSnackBar("No se puede reactivar una ruta", "OK");
+            source.checked = touristRoute.is_active;
         }
-    }
-    removeOffer(offer) {
-        let index = this.associateOffers.indexOf(offer);
-        if (index >= 0) {
-            this.associateOffers.splice(index, 1);
-        }
-    }
-    getOfferIds() {
-        let ids = [];
-        this.associateOffers.forEach(elem => ids.push(elem.offer_id));
-        return ids;
-    }
-    asociateoffers(tr_id, offerIds) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            for (let i = 0; i < offerIds.length; i++) {
-                if (this.oldaAsociateOffers.indexOf(offerIds[i]) === -1) {
-                    yield this.touristRoutesService.addOfferToTouristRoute(offerIds[i], tr_id).toPromise();
-                }
-            }
-            for (let i = 0; i < this.oldaAsociateOffers.length; i++) {
-                if (offerIds.indexOf(this.oldaAsociateOffers[i]) === -1) {
-                    yield this.touristRoutesService.deleteOfferFromTouristRoute(this.oldaAsociateOffers[i], tr_id).toPromise();
-                }
-            }
-        });
     }
     disableDialog() {
-        if (!this.trFG.valid || this.associateOffers.length == 0 || this.loading == true) {
+        if (!this.trFG.valid || this.loading == true) {
             return true;
         }
         return false;
     }
 };
 TouristRoutesDetailsComponent.ctorParameters = () => [
-    { type: src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_5__["TouristRoutesService"] },
-    { type: src_app_category_services_category_service__WEBPACK_IMPORTED_MODULE_3__["CategoryService"] },
-    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] }
+    { type: src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_6__["TouristRoutesService"] },
+    { type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_5__["OfferService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
 ], TouristRoutesDetailsComponent.prototype, "myRoute", void 0);
 TouristRoutesDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-tourist-routes-details',
+        selector: "app-tourist-routes-details",
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./tourist-routes-details.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-details/tourist-routes-details.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./tourist-routes-details.component.scss */ "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-details/tourist-routes-details.component.scss")).default]
     })
 ], TouristRoutesDetailsComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.scss":
+/*!********************************************************************************************************************************!*\
+  !*** ./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.scss ***!
+  \********************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("form {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n\n.container {\n  margin-top: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RvdXJpc3Qtcm91dGVzL2NvbXBvbmVudHMvbWFuYWdlbWVudC10b3VyaXN0LXJvdXRlcy90b3VyaXN0LXJvdXRlcy1vZmZlcnMvdG91cmlzdC1yb3V0ZXMtb2ZmZXJzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC90b3VyaXN0LXJvdXRlcy9jb21wb25lbnRzL21hbmFnZW1lbnQtdG91cmlzdC1yb3V0ZXMvdG91cmlzdC1yb3V0ZXMtb2ZmZXJzL3RvdXJpc3Qtcm91dGVzLW9mZmVycy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0Y7O0FERUE7RUFDRSxpQkFBQTtFQUNBLGVBQUE7QUNDRjs7QURFQTtFQUNFLGdCQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC90b3VyaXN0LXJvdXRlcy9jb21wb25lbnRzL21hbmFnZW1lbnQtdG91cmlzdC1yb3V0ZXMvdG91cmlzdC1yb3V0ZXMtb2ZmZXJzL3RvdXJpc3Qtcm91dGVzLW9mZmVycy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMXJlbTtcbn1cbiIsImZvcm0ge1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMXJlbTtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.ts":
+/*!******************************************************************************************************************************!*\
+  !*** ./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.ts ***!
+  \******************************************************************************************************************************/
+/*! exports provided: TouristRoutesOffersComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TouristRoutesOffersComponent", function() { return TouristRoutesOffersComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/offers/services/offer.service */ "./src/app/offers/services/offer.service.ts");
+/* harmony import */ var src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tourist-routes/services/tourist-routes.service */ "./src/app/tourist-routes/services/tourist-routes.service.ts");
+
+
+
+
+
+
+let TouristRoutesOffersComponent = class TouristRoutesOffersComponent {
+    constructor(touristRoutesService, offerService, commonService, router) {
+        this.touristRoutesService = touristRoutesService;
+        this.offerService = offerService;
+        this.commonService = commonService;
+        this.router = router;
+        this.filter = {
+            name: "",
+        };
+        this.loading = false;
+        this.associateOffers = [];
+    }
+    ngOnInit() {
+        this.subscription = this.offerService.getOffers().subscribe({
+            next: (data) => {
+                this.offerService.offers = data;
+                this.subscription.unsubscribe();
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+        });
+        this.getRouteOffers();
+    }
+    getRouteOffers() {
+        this.subscription2 = this.touristRoutesService
+            .getTouristRouteOffers(this.myRoute.route_id)
+            .subscribe({
+            next: (data) => {
+                this.associateOffers = [];
+                data.forEach((val) => this.associateOffers.push(val));
+                this.subscription2.unsubscribe();
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+        });
+    }
+    addOffer() {
+        let offer = this.selectedOffer;
+        let offersID = this.getOffersID();
+        let index = offersID.indexOf(offer.offer_id);
+        if (index < 0) {
+            this.loading = true;
+            this.touristRoutesService
+                .addOfferToTouristRoute(this.myRoute.route_id, offer.offer_id)
+                .subscribe({
+                next: (data) => {
+                    if (data.status == 201) {
+                        this.getRouteOffers();
+                        this.commonService.openSnackBar("Se ha añadido la oferta", "OK");
+                        this.loading = false;
+                    }
+                },
+                error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+            });
+        }
+        else {
+            this.commonService.openSnackBar("¡La oferta ya ha sido agregada!", "OK");
+        }
+    }
+    getOffersID() {
+        let ids = [];
+        this.associateOffers.forEach((element) => ids.push(element.offer_id));
+        return ids;
+    }
+    removeOffer(offer) {
+        this.loading = true;
+        this.touristRoutesService
+            .deleteOfferFromTouristRoute(this.myRoute.route_id, offer.offer_id)
+            .subscribe({
+            next: (data) => {
+                if (data.status == 200) {
+                    this.getRouteOffers();
+                    this.commonService.openSnackBar("La oferta ha sido removida", "OK");
+                    this.loading = false;
+                }
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+        });
+    }
+};
+TouristRoutesOffersComponent.ctorParameters = () => [
+    { type: src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_5__["TouristRoutesService"] },
+    { type: src_app_offers_services_offer_service__WEBPACK_IMPORTED_MODULE_4__["OfferService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+], TouristRoutesOffersComponent.prototype, "myRoute", void 0);
+TouristRoutesOffersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: "app-tourist-routes-offers",
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./tourist-routes-offers.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./tourist-routes-offers.component.scss */ "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.scss")).default]
+    })
+], TouristRoutesOffersComponent);
 
 
 
@@ -13889,39 +14789,41 @@ let TouristRoutesService = class TouristRoutesService {
         this.http = http;
         this.commonService = commonService;
         this.touristRoutes = [];
-        this.module = "touristRoutes/";
+        this.module = "touristRoutes";
     }
-    getTouristRoutes() {
-        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}`);
+    getTouristRoutes(is_active) {
+        let params = {
+            is_active: String(is_active)
+        };
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}`, { params: params });
     }
     getTouristRoute(tourist_route_id) {
         return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${tourist_route_id}`);
     }
     createTouristRoute(touristRoute) {
-        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}`, touristRoute, { observe: 'response' });
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/`, touristRoute, { observe: 'response' });
     }
     modifyTouristRute(touristRoute) {
-        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}${touristRoute.tourist_route_id}`, touristRoute, { observe: 'response' });
+        let json = {
+            name: touristRoute.name
+        };
+        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${touristRoute.route_id}`, json, { observe: 'response' });
     }
     changeTouristRouteState(tourist_route_id) {
-        return this.http.patch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}${tourist_route_id}`, null, { observe: 'response' });
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${tourist_route_id}`, { observe: 'response' });
     }
     getTouristRouteOffers(tourist_route_id) {
-        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}${tourist_route_id}/offers`);
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${tourist_route_id}/offers`);
     }
-    addOfferToTouristRoute(tourist_route_id, offer_id) {
+    addOfferToTouristRoute(route_id, offer_id) {
         let json = {
-            tourist_route_id,
+            route_id,
             offer_id
         };
-        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}addOffer`, json, { observe: 'response' });
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/offers`, json, { observe: 'response' });
     }
     deleteOfferFromTouristRoute(tourist_route_id, offer_id) {
-        let json = {
-            tourist_route_id,
-            offer_id
-        };
-        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}deleteOffer`, json, { observe: 'response' });
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_BASE_URL}${this.module}/${tourist_route_id}/offers/${offer_id}`, { observe: 'response' });
     }
 };
 TouristRoutesService.ctorParameters = () => [
@@ -14033,6 +14935,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_create_tourist_routes_create_tourist_routes_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/create-tourist-routes/create-tourist-routes.component */ "./src/app/tourist-routes/components/create-tourist-routes/create-tourist-routes.component.ts");
 /* harmony import */ var _components_management_tourist_routes_management_tourist_routes_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/management-tourist-routes/management-tourist-routes.component */ "./src/app/tourist-routes/components/management-tourist-routes/management-tourist-routes.component.ts");
 /* harmony import */ var _components_management_tourist_routes_tourist_routes_details_tourist_routes_details_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/management-tourist-routes/tourist-routes-details/tourist-routes-details.component */ "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-details/tourist-routes-details.component.ts");
+/* harmony import */ var _components_management_tourist_routes_tourist_routes_offers_tourist_routes_offers_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component */ "./src/app/tourist-routes/components/management-tourist-routes/tourist-routes-offers/tourist-routes-offers.component.ts");
+
 
 
 
@@ -14054,7 +14958,8 @@ TouristRoutesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _components_all_tourist_routes_all_tourist_routes_component__WEBPACK_IMPORTED_MODULE_8__["AllTouristRoutesComponent"],
             _components_create_tourist_routes_create_tourist_routes_component__WEBPACK_IMPORTED_MODULE_9__["CreateTouristRoutesComponent"],
             _components_management_tourist_routes_management_tourist_routes_component__WEBPACK_IMPORTED_MODULE_10__["ManagementTouristRoutesComponent"],
-            _components_management_tourist_routes_tourist_routes_details_tourist_routes_details_component__WEBPACK_IMPORTED_MODULE_11__["TouristRoutesDetailsComponent"]
+            _components_management_tourist_routes_tourist_routes_details_tourist_routes_details_component__WEBPACK_IMPORTED_MODULE_11__["TouristRoutesDetailsComponent"],
+            _components_management_tourist_routes_tourist_routes_offers_tourist_routes_offers_component__WEBPACK_IMPORTED_MODULE_12__["TouristRoutesOffersComponent"]
         ],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -14410,6 +15315,8 @@ let AddEventRequestComponent = class AddEventRequestComponent {
     }
     onSubmit() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.loading = true;
+            this.eventFG.disable();
             this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
             this.initial_time == undefined ? this.initial_time = null : null;
             this.final_time == undefined ? this.final_time = null : null;
@@ -14434,11 +15341,10 @@ let AddEventRequestComponent = class AddEventRequestComponent {
         });
     }
     createRequest(event) {
-        this.loading = true;
-        this.eventFG.disable();
         this.eventService.createEvent(event, true).subscribe({
             next: (data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-                if (data.status == 200) {
+                console.log(data);
+                if (data.status == 201) {
                     /**Añadiendo compañías y categorías al evento */
                     this.getCategories();
                     this.getCompanies();
@@ -14451,6 +15357,7 @@ let AddEventRequestComponent = class AddEventRequestComponent {
                 }
                 else {
                     this.commonService.openSnackBar(`Error al crear el evento: ${data.error}`, "OK");
+                    this.loading = false;
                     this.eventFG.enable();
                 }
             }),
@@ -14551,8 +15458,6 @@ let AddEventRequestComponent = class AddEventRequestComponent {
         });
     }
     getFiles(event) {
-        this.eventImages = [];
-        this.eventImagesFinal = [];
         if (event.target.files) {
             for (let i = 0; i < event.target.files.length; i++) {
                 if (event.target.files[i]) {
@@ -16092,7 +16997,7 @@ const environment = {
     production: false,
     localstorage_key: 'key_user',
     SERVER_BASE_URL: 'https://intelitur.arenalcostarica.cr:7031/',
-    IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/files/'
+    IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
