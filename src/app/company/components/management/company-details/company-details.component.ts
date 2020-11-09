@@ -51,9 +51,6 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
 
   ngAfterViewInit(): void {
-    console.log(this.company)
-    console.log(this.company.image)
-    //this.company.image != undefined ? this.company.image = this.company.image[0] : null 
     this.companyForm.patchValue(this.company);
     this.cd.detectChanges();
   }
@@ -156,20 +153,17 @@ export class CompanyDetailsComponent implements OnInit, AfterViewInit {
     return !(JSON.stringify(old) === JSON.stringify(this.companyForm.value));
   }
 
-  //TODO: COMPROBAR SI FUNCIONA
   async addImg(files: FileList) {
     this.loading = true;
     this.companyForm.disable();
     let img = this.company.image;
     await this.commonService.uploadFile(files[0]).then((data: any) => {
-      this.company.image = //recordar que es con .name
+      this.company.image = 
         environment.IMAGES_URL_BASE + data.filename;
     });
-    console.log( this.company.image)
     this.imageChanges(img);
   }
 
-  //TODO: CAMBIAR 
   deleteImg() {
     let img = this.company.image;
     this.company.image = "";
