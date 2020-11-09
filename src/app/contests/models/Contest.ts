@@ -1,8 +1,9 @@
 export interface Contests {
     contest_id?: Number,
     name: String,
-    details: String,
+    detail: String,
     initial_date: string,
     final_date: string,
-    is_active?: boolean
+    is_active?: boolean,
+    images?: any
 }

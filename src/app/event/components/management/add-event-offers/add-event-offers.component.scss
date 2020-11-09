@@ -19,8 +19,6 @@ mat-form-field{
     width: 100%;
 }
 
-.dates{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+.chip-list{
+    width: -webkit-fill-available; 
 }

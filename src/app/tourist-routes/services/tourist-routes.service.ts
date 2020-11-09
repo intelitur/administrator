@@ -10,14 +10,17 @@ import { TouristRoute } from '../models/tourist-route';
 export class TouristRoutesService {
 
   touristRoutes: Array<TouristRoute> = []; 
-  module = "touristRoutes/"
+  module = "touristRoutes"
   constructor(
     private http: HttpClient,
     public commonService: CommonService
   ) { }
 
-  getTouristRoutes(){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`);
+  getTouristRoutes(is_active: boolean){
+    let params = {
+      is_active: String(is_active)
+    }
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`, {params : params});
   }
 
   getTouristRoute(tourist_route_id: Number){
@@ -25,34 +28,33 @@ export class TouristRoutesService {
   }
 
   createTouristRoute(touristRoute: TouristRoute){
-    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}`, touristRoute, {observe: 'response'});
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/`, touristRoute, {observe: 'response'});
   }
 
   modifyTouristRute(touristRoute: TouristRoute){
-    return this.http.put(`${environment.SERVER_BASE_URL}${this.module}${touristRoute.tourist_route_id}`, touristRoute, {observe: 'response'});
+    let json = {
+      name: touristRoute.name
+    }
+    return this.http.put(`${environment.SERVER_BASE_URL}${this.module}/${touristRoute.route_id}`, json, {observe: 'response'});
   }
 
   changeTouristRouteState(tourist_route_id: Number){
-    return this.http.patch(`${environment.SERVER_BASE_URL}${this.module}${tourist_route_id}`, null, {observe: 'response'})
+    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}/${tourist_route_id}`, {observe: 'response'})
   }
 
   getTouristRouteOffers(tourist_route_id: Number){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}${tourist_route_id}/offers`);
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/${tourist_route_id}/offers`);
   }
 
-  addOfferToTouristRoute(tourist_route_id: Number, offer_id: Number){
+  addOfferToTouristRoute(route_id: Number, offer_id: Number){
     let json = {
-      tourist_route_id,
+      route_id,
       offer_id
     }
-    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}addOffer`, json, {observe: 'response'})
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/offers`, json, {observe: 'response'})
   }
 
   deleteOfferFromTouristRoute(tourist_route_id: Number, offer_id: Number){
-    let json = {
-      tourist_route_id,
-      offer_id
-    }
-    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}deleteOffer`, json, {observe: 'response'})
+    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}/${tourist_route_id}/offers/${offer_id}`, {observe: 'response'})
   }
 }

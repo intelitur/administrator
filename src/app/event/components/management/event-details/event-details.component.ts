@@ -41,7 +41,7 @@ export class EventDetailsComponent implements OnInit {
   subscription4: Subscription
   eventImages = [];
   oldEventImages = [];
-  url= `${environment.IMAGES_URL_BASE}`;
+  url= environment.IMAGES_URL_BASE;
   imageIndex = 0;
   user: User;
 
@@ -291,33 +291,40 @@ export class EventDetailsComponent implements OnInit {
 
   changeEventState(event: EventType, {source}: any){
   
-    this.eventService.changeEventState(event.event_id).subscribe({
-      next: (data: any) => {
-        if (data.status == 200) {
-          event.is_active = !event.is_active;
-          source.checked = event.is_active
-          if (event.is_active)
-            this.commonService.openSnackBar(
-              `El evento ${event.name} ha sido activado`,
-              "OK"
-            );
-          else
-            this.commonService.openSnackBar(
-              `El evento ${event.name} ha sido desactivado`,
-              "OK"
-            );
-        } else {
-          this.commonService.openSnackBar(
-            `Error al cambiar el estado: ${data.error}`,
-            "OK"
-          );
-        }
-      },
-      error: (err: HttpErrorResponse) => {
-        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
-        source.checked = event.is_active
-      }
-    });
+    if (event.is_active) {
+      this.commonService
+        .confirmationDialog(`¿Desea eliminar el evento: ${event.name}?`)
+        .then(async (result) => {
+          if (result) {
+            this.eventService.changeEventState(event.event_id).subscribe({
+              next: (data: any) => {
+                if (data.status == 201) {
+                  event.is_active = !event.is_active;
+                  source.checked = event.is_active
+                  this.commonService.openSnackBar(
+                    `El evento ${event.name} ha sido eliminado`,
+                    "OK"
+                  );
+                } else {
+                  this.commonService.openSnackBar(
+                    `Error al cambiar el estado: ${data.error}`,
+                    "OK"
+                  );
+                }
+              },
+              error: (err: HttpErrorResponse) => {
+                this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+                source.checked = event.is_active
+              }
+            });
+          }else{
+            source.checked = event.is_active
+          }
+        });
+    }else{
+      this.commonService.openSnackBar("No se puede reactivar un evento", "OK");
+      source.checked = event.is_active
+    }
   }
 
   /**

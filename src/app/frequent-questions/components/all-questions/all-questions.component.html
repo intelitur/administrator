@@ -26,11 +26,11 @@
             <mat-radio-button value="0" style="color: rgb(103,58,183);">
                 Todas
             </mat-radio-button>
-            <mat-radio-button value="1" style="color: rgb(0, 90, 0)">
-                Aceptadas
-            </mat-radio-button>
-            <mat-radio-button value="2" style="color: rgb(160, 105, 0) ">
+            <mat-radio-button value="1" style="color: rgb(160, 105, 0)">
                 Pendientes
+            </mat-radio-button>
+            <mat-radio-button value="2" style="color: rgb(0, 90, 0)">
+                Aceptadas
             </mat-radio-button>
             <mat-radio-button value="3" style="color: rgb(90, 0, 0)">
                 Rechazadas
@@ -69,13 +69,13 @@
                         </mat-accordion>
                     </td>
                     <td style="width: 15%; text-align: center;">
-                        <label color="primary" style="cursor: default;" [style.color]="fq.state == 1?  'rgb(0, 90, 0)': fq.state ==  2? 'rgb(160, 105, 0)': 'rgb(90, 0, 0)'">
-                            {{ fq.state == 1? 'Aceptado' : fq.state ==  2? 'Pendiente': 'Rechazado' }}
+                        <label color="primary" style="cursor: default;" [style.color]="fq.state == 1?  'rgb(160, 105, 0)': fq.state ==  2? 'rgb(0, 90, 0)': 'rgb(90, 0, 0)'">
+                            {{ fq.state == 1? 'Pendiente' : fq.state ==  2? 'Aceptado': 'Rechazado' }}
                         </label>
                     </td>
                     <td *ngIf="authService.getUser().role_id === 1" style="text-align: center;" >
-                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" *ngIf="fq.state == 2">
-                            <button mat-stroked-button color="primary" class="acceptBtn" (click)="changeStateRequest(fq, 1)" matTooltip="Aceptar pregunta">
+                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" *ngIf="fq.state == 1">
+                            <button mat-stroked-button color="primary" class="acceptBtn" (click)="changeStateRequest(fq, 2)" matTooltip="Aceptar pregunta">
                               <mat-icon>done</mat-icon>
                             </button>
                             <button mat-stroked-button color="warn" class="denyBtn" (click)="changeStateRequest(fq, 3)"

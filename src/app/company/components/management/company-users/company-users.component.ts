@@ -35,7 +35,6 @@ export class CompanyUsersComponent implements OnInit {
   refresh() {
     this.companyUsersService.getCompanyUsers(this.company.company_id).subscribe(
       (data: any) => {
-        console.log(data)
         this.companyUsers = data
       }
     )

@@ -34,7 +34,6 @@ export class CompanyRequestsComponent implements OnInit {
     this.companyUsersService.getCompanyRequests(this.company.company_id, 1).subscribe(
       (data: any) => {
         this.companyRequests = data
-        console.log(this.companyRequests)
       }
     )
   }

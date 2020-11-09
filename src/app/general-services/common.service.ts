@@ -3,11 +3,14 @@ import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
+
+  action: boolean;
 
   constructor(
     public snackBar: MatSnackBar,
@@ -23,6 +26,22 @@ export class CommonService {
     this.snackBar.open(msg,action, {
       duration: 3000,
     });
+  }
+
+
+  async confirmationDialog(msg: string){
+    await Swal.fire({
+      title: msg,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#dc3545',
+      confirmButtonText: 'Si, continuar!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true,
+    }).then((result) => {
+      this.action = result.value; 
+    });     
+    return this.action;
   }
 
   handleError(err: HttpErrorResponse) {

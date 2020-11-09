@@ -26,9 +26,9 @@
                 <td>{{contests.name}}</td>
                 <td>{{contests.description}}</td>
                 <td>
-                  Inicio: {{contests.active_range.start | date: 'dd/MM/yyyy' }} 
+                  Inicio: {{contests.initial_date | date: 'dd/MM/yyyy' }} 
                   <br>
-                  Fin:    {{contests.active_range.end | date: 'dd/MM/yyyy'}}
+                  Fin:    {{contests.final_date | date: 'dd/MM/yyyy'}}
                 </td>
                 <td>
                     <section (click)="$event.stopPropagation()">
@@ -38,7 +38,7 @@
                       </section>
                 </td>
                 <td style="text-align: center;"> 
-                    <button mat-stroked-button [routerLink]="['/contests', contests.contests_id]" matTooltip="Detalles del anuncio" style="color: rgb(82, 82, 82); font-size: 14px;">
+                    <button mat-stroked-button [routerLink]="['/contests', contests.contest_id]" matTooltip="Detalles del anuncio" style="color: rgb(82, 82, 82); font-size: 14px;">
                         Ver Detalles
                     </button>
                 </td>

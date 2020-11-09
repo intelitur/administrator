@@ -6,10 +6,10 @@ form{
 }
 
 .buttonContainer{
-    margin-top: 3%;
+    width: 80%;
     margin-bottom: 3%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .toggle {
@@ -20,4 +20,8 @@ form{
 .container-text-left{
     margin-bottom: 2%;
     margin-left: 2%;
+}
+
+.container {
+    margin-top: 1rem;
 }

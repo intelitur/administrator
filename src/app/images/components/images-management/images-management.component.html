@@ -1,0 +1,141 @@
+<div class="container">
+  <h1 style="width: 100%" class="text-center font-weight-light mt-3">
+    Gestionar Imágenes
+  </h1>
+
+  <div style="width: 80%; display: flex; justify-content: space-between">
+    <mat-radio-group
+      class="radio-button-group"
+      color="primary"
+      [(ngModel)]="filter.showed"
+      (change)="refresh()"
+    >
+      <label>Activo/Inactivo</label>
+      <mat-radio-button value="0" style="color: rgb(103, 58, 183)">
+        Todas
+      </mat-radio-button>
+      <mat-radio-button value="1" style="color: rgb(0, 90, 0)">
+        Se Muestran
+      </mat-radio-button>
+      <mat-radio-button value="2" style="color: rgb(90, 0, 0)">
+        No Se Muestran
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="container">
+    <div *ngIf="this.imageService.images.length != 0" class="imgsCarousel">
+      <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
+        <ng-template
+          *ngFor="let i of this.imageService.images; let index = index"
+          [id]="'slideId_' + index"
+          ngbSlide
+        >
+          <div style="padding: 0 110px">
+            <img
+              class="carouselImg"
+              src="{{ url }}{{ this.imageService.images[index].name }}"
+            />
+          </div>
+        </ng-template>
+      </ngb-carousel>
+      <div style="display: flex; height: 70px">
+        <div title="Añadir imágenes" class="leftBtn">
+          <label
+            for="file-upload"
+            class="image-buttons"
+            style="
+              border-radius: 0 0 0 20px;
+              color: #dbb735;
+              text-align: center;
+              padding-top: 2.5%;
+            "
+            ><mat-icon>add_photo_alternate</mat-icon></label
+          >
+          <input
+            [disabled]="!loading"
+            id="file-upload"
+            (change)="uploadFile($event.target.files)"
+            type="file"
+            accept="image/x-png,image/gif,image/jpeg"
+            style="display: none"
+            multiple
+          />
+        </div>
+        <div
+          [title]="
+            this.currentImg.showed ? 'No mostrar la imagen' : 'Mostrar imagen'
+          "
+          class="middleBtn"
+        >
+          <button
+            [disabled]="!loading"
+            mat-button
+            style="border-radius: 0 0 20px 0"
+            (click)="changeImgShowState()"
+            class="image-buttons"
+            [style.color]="this.currentImg.showed ? '#f28500' : '#0cab0c'"
+          >
+            <mat-icon>{{
+              this.currentImg.showed ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+        </div>
+        <div title="Eliminar imagen" class="rightBtn">
+          <button
+            [disabled]="!loading"
+            mat-button
+            style="border-radius: 0 0 20px 0"
+            (click)="deleteImage()"
+            class="image-buttons"
+            color="warn"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="this.imageService.images.length == 0"
+      style="
+        width: 50%;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div title="Añadir imágenes" class="noImageButton">
+        <label
+          for="file-upload"
+          style="
+            width: 100%;
+            margin: 0%;
+            cursor: pointer;
+            color: #dbb735;
+            text-align: center;
+            padding-top: 2%;
+          "
+        >
+          <mat-icon
+            style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%"
+            >add_photo_alternate</mat-icon
+          >
+        </label>
+        <input
+          [disabled]="!loading"
+          id="file-upload"
+          (change)="uploadFile($event.target.files)"
+          type="file"
+          accept="image/x-png,image/gif,image/jpeg"
+          style="display: none"
+          multiple
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

@@ -23,7 +23,7 @@ export class ContestsManagementComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.route.paramMap.subscribe((params) => {
       this.contest_id = Number(params.get("contest_id"));
-      //this.recharge();
+      this.recharge();
     })
   }
 

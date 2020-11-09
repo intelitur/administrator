@@ -3,7 +3,7 @@
   <div class="text-left container-fluid mt-2 example-box ">
     <mat-slide-toggle
       *ngIf="sesionService.actualUser.role_id === 1; else status"
-      (change)="setAvailable(!it.info.active, it.itinerary_id, it.info)"
+      (change)="setAvailable(!it.info.active, it.itinerary_id, it.info, $event)"
       [checked]="it.info.active"
       >{{ it.info.active ? "Habilitado" : "Deshabilitado" }}</mat-slide-toggle
     >

@@ -1,5 +1,6 @@
 export class Offer {
   constructor(
+    public offer_id?: Number,
     public name?: string,
     public description?: string,
     public companies?: string

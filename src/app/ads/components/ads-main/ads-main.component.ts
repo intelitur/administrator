@@ -29,30 +29,30 @@ export class AdsMainComponent implements OnInit {
   }
 
   changeState(ad: Ads, {source}: any){
-    this.adsService.changeStateAd(ad.ad_id).subscribe({
-      next: (data: any) => {
-        if (data.status == 204) {
-          ad.is_active = !ad.is_active;
-          source.checked = ad.is_active
-          if (ad.is_active)
-            this.commonService.openSnackBar(
-              `El anuncio ${ad.name} ha sido activado`,
-              "OK"
-            );
-          else
-            this.commonService.openSnackBar(
-              `El anuncio ${ad.name} ha sido desactivado`,
-              "OK"
-            );
-        } else {
-          this.commonService.openSnackBar(
-            `Error al cambiar el estado: ${data.error}`,
-            "OK"
-          );
-        }
-      },
-      error: (err: HttpErrorResponse) => {
-        this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+    this.commonService.confirmationDialog(`¿Desea eliminar el anuncio: ${ad.name}?`).then(async (result) => {
+      if (result) {
+        this.adsService.changeStateAd(ad.ad_id).subscribe({
+          next: (data: any) => {
+            if (data.status == 204) {
+              ad.is_active = !ad.is_active;
+              source.checked = ad.is_active
+              this.commonService.openSnackBar(
+                `El anuncio ${ad.name} ha sido eliminado`,
+                "OK"
+              );
+            } else {
+              this.commonService.openSnackBar(
+                `Error al cambiar el estado: ${data.error}`,
+                "OK"
+              );
+            }
+          },
+          error: (err: HttpErrorResponse) => {
+            this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+            source.checked = ad.is_active
+          }
+        });
+      }else{
         source.checked = ad.is_active
       }
     });

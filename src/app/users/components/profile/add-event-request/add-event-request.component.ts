@@ -233,6 +233,8 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   }
 
   async onSubmit(){
+    this.loading = true;
+    this.eventFG.disable();
 
     this.allDay == true? (this.initial_date=this.common_date , this.final_date=this.common_date) : null; 
     this.initial_time == undefined? this.initial_time = null: null;
@@ -260,12 +262,11 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   }
 
   createRequest(event: EventType){
-
-    this.loading = true;
-    this.eventFG.disable();
+    
     this.eventService.createEvent(event, true).subscribe({
       next: async (data: any) => {
-        if (data.status == 200) {
+        console.log(data)
+        if (data.status == 201) {
 
           /**Añadiendo compañías y categorías al evento */
           this.getCategories()
@@ -284,6 +285,7 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
             `Error al crear el evento: ${data.error}`,
             "OK"
           );
+          this.loading = false;
           this.eventFG.enable()
         }
       },
@@ -411,8 +413,6 @@ export class AddEventRequestComponent implements OnInit, AfterViewInit {
   }
 
   getFiles(event: any){
-    this.eventImages = []
-    this.eventImagesFinal = []
     if(event.target.files){
       for(let i=0; i<event.target.files.length; i++){
         if (event.target.files[i]) {

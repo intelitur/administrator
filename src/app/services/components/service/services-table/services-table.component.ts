@@ -1,6 +1,6 @@
-import { Component, Input, OnInit,ChangeDetectorRef } from "@angular/core";
+import { Component, Input, OnInit, ChangeDetectorRef } from "@angular/core";
 import { DialogManagerService } from "src/app/general-services/dialog-manager.service";
-import { MatTableDataSource } from "@angular/material/table"; 
+import { MatTableDataSource } from "@angular/material/table";
 import { ServiceService } from "src/app/services/services/service.service";
 import { Subscription } from "rxjs";
 import { CommonService } from "src/app/general-services/common.service";
@@ -11,7 +11,7 @@ import { ResponseInterface } from "src/app/globalModels/Response.interface";
 @Component({
   selector: "app-services-table",
   templateUrl: "./services-table.component.html",
-  styleUrls: ["./services-table.component.scss"]
+  styleUrls: ["./services-table.component.scss"],
 })
 export class ServicesTableComponent implements OnInit {
   displayedColumns: string[] = ["position", "name", "actions"];
@@ -20,11 +20,11 @@ export class ServicesTableComponent implements OnInit {
   filterItinerariesSubs: Subscription;
   dialogSubscription: Subscription;
   isFilters: boolean = false;
-  @Input() active:boolean = true;
+  @Input() active: boolean = true;
   counter = 0;
   constructor(
     private _dialog: DialogManagerService,
-    private _service : ServiceService,
+    private _service: ServiceService,
     private _common: CommonService,
     public sesionService: UserService,
     private cd: ChangeDetectorRef
@@ -33,45 +33,50 @@ export class ServicesTableComponent implements OnInit {
   ngOnInit() {
     this.getServices();
   }
-  isActive(){
-    if(this.active){
+  isActive() {
+    if (this.active) {
       return true;
-    }
-    else{
+    } else {
       this.active = true;
       this.getServices();
       return true;
     }
   }
-    /**
+  /**
    * @function get services
    */
   getServices() {
-    this.subscription = this._service
-      .getServices()
-      .subscribe({
-        next: (data: any) => {
-          this.dataSource = new MatTableDataSource(data);
-        },
-        error: (err: HttpErrorResponse) => this._common.handleError(err)
-      });
+    this.subscription = this._service.getServices().subscribe({
+      next: (data: any) => {
+        this.dataSource = new MatTableDataSource(data);
+      },
+      error: (err: HttpErrorResponse) => this._common.handleError(err),
+    });
     this.isFilters = false;
   }
   /**
    * @function delete service
    */
-  changeState(service_id:number){
-    this.subscription = this._service.deleteService(service_id).subscribe({
-        next: (result: ResponseInterface) => {
-          this._common.openSnackBar("Servicio eliminado", "Ok");
-          this.getServices();
-        },
-        error: (err: HttpErrorResponse) => this._common.handleError(err)
+  changeState(service_id: number) {
+    this._common
+      .confirmationDialog(`¿Desea eliminar el servicio ?`)
+      .then(async (result) => {
+        if (result) {
+          this.subscription = this._service
+            .deleteService(service_id)
+            .subscribe({
+              next: (result: ResponseInterface) => {
+                this._common.openSnackBar("Servicio eliminado", "Ok");
+                this.getServices();
+              },
+              error: (err: HttpErrorResponse) => this._common.handleError(err),
+            });
+        }
       });
   }
 
-  p(){
-    this.active = false
+  p() {
+    this.active = false;
   }
 
   /**
@@ -89,7 +94,7 @@ export class ServicesTableComponent implements OnInit {
    * @funtion Assign id of itinerary to will used in other components
    * @param id
    */
-  assignOfferId(id: number, name:string, descrpcion:string) {
+  assignOfferId(id: number, name: string, descrpcion: string) {
     this._service.offer_id = id;
     this._service.offer_name = name;
     this._service.offer_descripcion = descrpcion;

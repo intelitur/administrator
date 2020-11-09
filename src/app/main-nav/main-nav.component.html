@@ -9,6 +9,7 @@
       <a mat-list-item [routerLink]="['user/profile']" routerLinkActive="router-link-active" href="#">Cuenta</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/company/all']" routerLinkActive="router-link-active" href="#">Empresas</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/event/all']" routerLinkActive="router-link-active" href="#">Eventos</a>
+      <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/images/all']" routerLinkActive="router-link-active" href="#">Imágenes</a>
       <a mat-list-item [routerLink]="['/itineraries/show-all']" routerLinkActive="router-link-active" href="#">Itinerarios</a>
       <a mat-list-item [routerLink]="['social/social-nav']" routerLinkActive="router-link-active" href="#">Modulo Social</a>
       <a mat-list-item  [routerLink]="['/offers/all']" routerLinkActive="router-link-active" href="#">Ofertas</a>

@@ -1,44 +1,189 @@
-<div style="height: 20px;">
-    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-</div>
 <h1>Creación del Concurso</h1>
 
 <div class="dates">
-    <mat-form-field  style="width: 40%; " appearance="outline">
-        <input  matTooltip="Presione el Icono"  matInput [matDatepicker]="startDate" [min]="today"  placeholder="Fecha Inicial" [(ngModel)]="start_Date" disabled >
-        <mat-datepicker-toggle matSuffix [for]="startDate" ></mat-datepicker-toggle>
-        <mat-datepicker #startDate disabled="false" ></mat-datepicker>
-    </mat-form-field>
-  
-    <mat-form-field style="width: 40%;" appearance="outline">
-      <input matTooltip="Presione el Icono" matInput [matDatepicker]="endDate" [matDatepickerFilter]="dateFilter" placeholder="Fecha de finalización" [(ngModel)]="end_Date" disabled >
-      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-      <mat-datepicker  #endDate [disabled]="start_Date == undefined" [startAt]="start_Date"></mat-datepicker>
-    </mat-form-field>
+  <mat-form-field style="width: 40%" appearance="outline">
+    <input
+      matTooltip="Presione el Icono"
+      matInput
+      [matDatepicker]="startDate"
+      [min]="today"
+      placeholder="Fecha Inicial"
+      [(ngModel)]="start_Date"
+      disabled
+    />
+    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+    <mat-datepicker #startDate disabled="false"></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field style="width: 40%" appearance="outline">
+    <input
+      matTooltip="Presione el Icono"
+      matInput
+      [matDatepicker]="endDate"
+      [matDatepickerFilter]="dateFilter"
+      placeholder="Fecha de finalización"
+      [(ngModel)]="end_Date"
+      disabled
+    />
+    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+    <mat-datepicker
+      #endDate
+      [disabled]="start_Date == undefined"
+      [startAt]="start_Date"
+    ></mat-datepicker>
+  </mat-form-field>
 </div>
-<mat-hint *ngIf="start_Date > end_Date" style=" width: 95%; padding-left: 2.5%; color: brown; font-style: italic; text-align: center;">
-    Fecha inicial mayor a la final*
+<mat-hint
+  *ngIf="start_Date > end_Date"
+  style="
+    width: 95%;
+    padding-left: 2.5%;
+    color: brown;
+    font-style: italic;
+    text-align: center;
+  "
+>
+  Fecha inicial mayor a la final*
 </mat-hint>
 
-<form [formGroup]="contestsFG" class="container-fluid d-flex flex-column justify-content-center">
-   
-    <mat-form-field appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input #Name matInput formControlName="name" matTooltip="Nombre del anuncio" maxlength="50" required>
-        <mat-hint align="end">{{Name.value.length}}/50</mat-hint>
-    </mat-form-field>
+<form
+  [formGroup]="contestsFG"
+  class="container-fluid d-flex flex-column justify-content-center"
+>
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input
+      #Name
+      matInput
+      formControlName="name"
+      matTooltip="Nombre del anuncio"
+      maxlength="50"
+      required
+    />
+    <mat-hint align="end">{{ Name.value.length }}/50</mat-hint>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline">
-        <textarea style="resize: none;" matInput formControlName="details" placeholder="Detalles" required></textarea>
-    </mat-form-field>
-
+  <mat-form-field appearance="outline">
+    <textarea
+      style="resize: none"
+      matInput
+      formControlName="details"
+      placeholder="Detalles"
+      required
+    ></textarea>
+  </mat-form-field>
 </form>
 
-<div class="buttonContainer">
-    <button mat-raised-button [disabled]="!contestsFG.valid || start_Date == undefined || end_Date == undefined || start_Date > end_Date" color="primary" (click)="onSubmit()">
-        Crear Anuncio
-    </button>
-    <button (click)="closeDialog()" mat-raised-button color="warn">
-        Cerrar<mat-icon>close</mat-icon>
-      </button>
+<div
+  style="width: 100%; display: flex; flex-wrap: wrap; flex-direction: column"
+>
+  <div class="file">
+    <div class="uploadFile">
+      <label
+        for="file-upload"
+        style="
+          width: 100%;
+          margin: 0%;
+          cursor: pointer;
+          color: #dbb735;
+          text-align: center;
+          padding-top: 2%;
+        "
+      >
+        Añadir Imágenes
+      </label>
+      <input
+        [disabled]="loading"
+        id="file-upload"
+        (change)="getFiles($event)"
+        type="file"
+        accept="image/x-png,image/gif,image/jpeg"
+        style="display: none"
+        multiple
+      />
+    </div>
+  </div>
+
+  <mat-hint
+    *ngIf="this.contestImages.length == 0"
+    style="
+      padding-left: 2.5%;
+      color: crimson;
+      align-self: center;
+      font-style: italic;
+    "
+    >Debes añadir imagenes*</mat-hint
+  >
+
+  <div
+    *ngIf="contestImages.length != 0"
+    style="
+      max-width: 90%;
+      display: flex;
+      flex-direction: column;
+      border-radius: 20px;
+      border: solid 1.5px rgb(220, 220, 220);
+      margin: auto;
+      min-width: 280px;
+    "
+  >
+    <ngb-carousel class="container-fluid" (slide)="onSlide($event)">
+      <ng-template
+        *ngFor="let i of contestImages; let index = index"
+        [id]="'slideId_' + index"
+        ngbSlide
+      >
+        <img
+          class="d-block w-100"
+          style="max-height: 450px !important; border-radius: 10px"
+          src="{{ url }}{{ contestImages[index] }}"
+        />
+        <div class="carousel-caption">
+          <button
+            [disabled]="loading"
+            mat-button
+            style="
+              border: solid 1.5px rgb(220, 220, 220);
+              border-radius: 10px;
+              background-color: white;
+            "
+            (click)="deleteImage()"
+            class="image-buttons"
+            color="warn"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
 </div>
+
+<div class="buttonContainer">
+  <button
+    mat-raised-button
+    [disabled]="
+      !contestsFG.valid ||
+      start_Date == undefined ||
+      end_Date == undefined ||
+      start_Date > end_Date ||
+      loading
+    "
+    color="primary"
+    (click)="onSubmit()"
+  >
+    Crear Concurso
+  </button>
+  <button
+    [disabled]="loading"
+    (click)="closeDialog()"
+    mat-raised-button
+    color="warn"
+  >
+    Cerrar<mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<ng-container *ngIf="this.loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>

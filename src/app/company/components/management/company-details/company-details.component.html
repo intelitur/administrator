@@ -7,7 +7,7 @@
             <h2 style="color: #dbb735; text-align: center; margin: auto 0">{{company.name}}</h2>
             <div style="display: flex; flex-direction: column; margin: auto 0; padding: 0 20px">
                 <div style="margin: auto" [style.color]="company.state? '#673ab7': 'gray'">
-                    {{company.state? "Activa": "Inactiva"}}</div>
+                    {{company.state? "Activa": "Eliminada"}}</div>
                 <mat-slide-toggle style="width: min-content; margin: auto;" (change)="changeState($event)"
                     color="primary" [checked]=company.state>
                 </mat-slide-toggle>

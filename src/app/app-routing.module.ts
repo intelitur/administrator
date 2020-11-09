@@ -91,6 +91,14 @@ const routes: Routes = [
         i => i.ContestsModule
       ),
     canActivateChild: [LoggedInGuard]
+  },
+  {
+    path: "images",
+    loadChildren: () =>
+      import("./images/images.module").then(
+        i => i.ImagesModule
+      ),
+    canActivateChild: [LoggedInGuard]
   }
 ];
 
