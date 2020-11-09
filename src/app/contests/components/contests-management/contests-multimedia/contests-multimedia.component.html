@@ -1,74 +1,208 @@
 <ng-container *ngIf="this.loading">
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-container>
-<div style="display: flex; margin-top: 20px; flex-wrap: wrap; justify-content: space-evenly;">
+<div
+  style="
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  "
+>
+  <h3 style="text-align: center; width: 100%">
+    Administar Archivos Multimedia
+  </h3>
+  <hr style="width: 90%" />
 
-    <h3 style="text-align: center; width: 100%;">Administar Archivos Multimedia</h3>
-    <hr style="width: 90%;">
-
-    <div class="columns" style="width: 40%;">
-        <div *ngIf="contestImages.length == 0" title="Añadir imágenes al concurso" class="noImageButton" class="noImageButton">
-            <label for="file-upload"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> 
-                <mat-icon style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%;">add_photo_alternate</mat-icon>
-            </label> 
-            <input [disabled]="loading"  id="file-upload" (change)="uploadFiles($event.target.files, 0)" type="file" accept="image/png,image/jpeg" style="display: none;" multiple/>   
-        </div>
-    
-        <div *ngIf="contestImages.length != 0" class="border">
-            <ngb-carousel class="container-fluid" (slide)="onSlideI($event)">
-                <ng-template *ngFor="let i of contestImages; let index = index" [id]="'slideId1_' + index" ngbSlide>              
-                    <img class="d-block w-100" style="height: 250px !important; width: 400px !important; border-radius: 10px; object-fit: contain;" src="{{url}}{{contestImages[index].name}}"/>
-                </ng-template>
-            </ngb-carousel>
-            <div style=" display: flex; padding-top: 5px;">
-                <div title="Añadir imágenes al concurso" class="leftBtn">
-                    <label for="file-upload"  class="image-buttons" style="border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;" ><mat-icon>find_replace</mat-icon></label> 
-                    <input [disabled]="loading"  id="file-upload" (change)="uploadFiles($event.target.files, 0)" type="file" accept="image/png,image/jpeg" style="display: none;" multiple/>   
-                </div>
-                <div title="Eliminar imagen del concurso" class="rightBtn">
-                    <button [disabled]="loading" mat-button style="border-radius: 0 0 20px 0" (click)="deleteFile(0);"
-                        class="image-buttons" color="warn">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
-            </div>
-        </div>
+  <div class="columns" style="width: 40%">
+    <div
+      *ngIf="contestImages.length == 0"
+      title="Añadir imágenes al concurso"
+      class="noImageButton"
+      class="noImageButton"
+    >
+      <label
+        for="file-upload"
+        style="
+          width: 100%;
+          margin: 0%;
+          cursor: pointer;
+          color: #dbb735;
+          text-align: center;
+          padding-top: 2%;
+        "
+      >
+        <mat-icon
+          style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%"
+          >add_photo_alternate</mat-icon
+        >
+      </label>
+      <input
+        [disabled]="loading"
+        id="file-upload"
+        (change)="uploadFiles($event.target.files, 0)"
+        type="file"
+        accept="image/png,image/jpeg"
+        style="display: none"
+        multiple
+      />
     </div>
-    
-    <div class="columns" style="width: 50%;">
-        <div *ngIf="contestVideos.length == 0" title="Añadir videos al concurso" class="noImageButton" class="noImageButton">
-            <label for="file-upload2"  style="width: 100%; margin: 0%; cursor: pointer; color: #dbb735; text-align: center; padding-top: 2%;"> 
-                <mat-icon style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%;">video_call</mat-icon>
-            </label> 
-            <input [disabled]="loading"  id="file-upload2" (change)="uploadFiles($event.target.files, 1)" type="file" accept="video/mp4" style="display: none;"/>   
-        </div>
-    
-        <div *ngIf="contestVideos.length != 0" class="video-carousel border">
-          
-            <ngb-carousel [interval]="false" class="container-fluid" (slide)="onSlideV($event)">
-                <ng-template *ngFor="let i of contestVideos; let index = index" [id]="'slideId2_' + index" ngbSlide>              
-                    <div style="padding: 0 70px;">
-                        <video id="my_video" class="video-js vjs-default-skin" width="100%" height="250px" controls preload="none" poster="assets/poster.png"
-                        data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
-                            <source src="{{url}}{{i.name}}" type='video/mp4' />
-                        </video>
-                    </div>
-                </ng-template>
-            </ngb-carousel>
-    
-            <div style=" display: flex; padding-top: 20px;">
-                <div title="Añadir videos al concurso" class="leftBtn">
-                    <label for="file-upload3"  class="image-buttons" style="border-radius: 0 0 0 20px; color: #dbb735; text-align: center; padding-top:5%;" ><mat-icon>find_replace</mat-icon></label> 
-                    <input [disabled]="loading"  id="file-upload3" (change)="uploadFiles($event.target.files, 1)" type="file" accept="video/mp4" style="display: none;" multiple/>   
-                </div>
-                <div title="Eliminar video del concurso" class="rightBtn">
-                    <button [disabled]="loading" mat-button style="border-radius: 0 0 20px 0" (click)="deleteFile(1);"
-                        class="image-buttons" color="warn">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>    
-</div>
 
+    <div *ngIf="contestImages.length != 0" class="border">
+      <ngb-carousel class="container-fluid" (slide)="onSlideI($event)">
+        <ng-template
+          *ngFor="let i of contestImages; let index = index"
+          [id]="'slideId1_' + index"
+          ngbSlide
+        >
+          <img
+            class="d-block w-100"
+            style="
+              height: 250px !important;
+              width: 400px !important;
+              border-radius: 10px;
+              object-fit: contain;
+            "
+            src="{{ url }}{{ contestImages[index].name }}"
+          />
+        </ng-template>
+      </ngb-carousel>
+      <div style="display: flex; padding-top: 5px">
+        <div title="Añadir imágenes al concurso" class="leftBtn">
+          <label
+            for="file-upload"
+            class="image-buttons"
+            style="
+              border-radius: 0 0 0 20px;
+              color: #dbb735;
+              text-align: center;
+              padding-top: 5%;
+            "
+            ><mat-icon>find_replace</mat-icon></label
+          >
+          <input
+            [disabled]="loading"
+            id="file-upload"
+            (change)="uploadFiles($event.target.files, 0)"
+            type="file"
+            accept="image/png,image/jpeg"
+            style="display: none"
+            multiple
+          />
+        </div>
+        <div title="Eliminar imagen del concurso" class="rightBtn">
+          <button
+            [disabled]="loading"
+            mat-button
+            style="border-radius: 0 0 20px 0"
+            (click)="deleteFile(0)"
+            class="image-buttons"
+            color="warn"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns" style="width: 50%">
+    <div
+      *ngIf="contestVideos.length == 0"
+      title="Añadir videos al concurso"
+      class="noImageButton"
+      class="noImageButton"
+    >
+      <label
+        for="file-upload2"
+        style="
+          width: 100%;
+          margin: 0%;
+          cursor: pointer;
+          color: #dbb735;
+          text-align: center;
+          padding-top: 2%;
+        "
+      >
+        <mat-icon
+          style="font-size: 40px; width: 40px; height: 40px; padding-top: 3%"
+          >video_call</mat-icon
+        >
+      </label>
+      <input
+        [disabled]="loading"
+        id="file-upload2"
+        (change)="uploadFiles($event.target.files, 1)"
+        type="file"
+        accept="video/mp4"
+        style="display: none"
+      />
+    </div>
+
+    <div *ngIf="contestVideos.length != 0" class="video-carousel border">
+      <ngb-carousel
+        [interval]="false"
+        class="container-fluid"
+        (slide)="onSlideV($event)"
+      >
+        <ng-template
+          *ngFor="let i of contestVideos; let index = index"
+          [id]="'slideId2_' + index"
+          ngbSlide
+        >
+          <div style="padding: 0 70px">
+            <video
+              id="my_video"
+              class="video-js vjs-default-skin"
+              width="100%"
+              height="250px"
+              controls
+              preload="none"
+              poster="assets/poster.png"
+              data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'
+            >
+              <source src="{{ url }}{{ i.name }}" type="video/mp4" />
+            </video>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+
+      <div style="display: flex; padding-top: 20px">
+        <div title="Añadir videos al concurso" class="leftBtn">
+          <label
+            for="file-upload3"
+            class="image-buttons"
+            style="
+              border-radius: 0 0 0 20px;
+              color: #dbb735;
+              text-align: center;
+              padding-top: 5%;
+            "
+            ><mat-icon>find_replace</mat-icon></label
+          >
+          <input
+            [disabled]="loading"
+            id="file-upload3"
+            (change)="uploadFiles($event.target.files, 1)"
+            type="file"
+            accept="video/mp4"
+            style="display: none"
+            multiple
+          />
+        </div>
+        <div title="Eliminar video del concurso" class="rightBtn">
+          <button
+            [disabled]="loading"
+            mat-button
+            style="border-radius: 0 0 20px 0"
+            (click)="deleteFile(1)"
+            class="image-buttons"
+            color="warn"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,7 @@ import { ContestsService } from '../../services/contests.service';
   styleUrls: ['./contests-create.component.scss']
 })
 export class ContestsCreateComponent implements OnInit {
-
+  //TODO: poner imagenes en el crear de manera obligatoria
   contestsFG: FormGroup;
   private subscription: Subscription;
 
