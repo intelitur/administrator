@@ -1,26 +1,45 @@
-form{
-    width: 100%;
+form {
+  width: 100%;
 }
 
-h1{
-    text-align: center;
-    margin: 0%;
-    margin-bottom: 1%;
-    font-size: larger;
+h1 {
+  text-align: center;
+  margin: 0%;
+  margin-bottom: 1%;
+  font-size: larger;
 }
 
-.buttonContainer{
-    margin-top: 2%;
-    display: flex;
-    justify-content: space-around;;
+.buttonContainer {
+  margin-top: 2%;
+  margin-bottom: 1%;
+  display: flex;
+  justify-content: space-around;
 }
 
-mat-form-field{
-    width: 100%;
+mat-form-field {
+  width: 100%;
 }
 
-.dates{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+.dates {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.file {
+  margin-top: 2%;
+  align-self: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+}
+
+.uploadFile {
+  text-align: center;
+  width: -webkit-fill-available;
+  margin-right: 2.5%;
+  margin-left: 2.5%;
+  margin-bottom: 2%;
+  border: solid 1.5px rgb(220, 220, 220);
+  border-radius: 5px;
 }
