@@ -1,0 +1,34 @@
+<div>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+</div>
+<h1>Creación de Categorías de Servicios de Transporte</h1>
+<form [formGroup]="categoryForm" class="container-fluid" style="padding: 25px">
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input
+      matInput
+      formControlName="name"
+      matTooltip="Nombre del servicio de transporte"
+      required
+    />
+  </mat-form-field>
+
+  <div class="buttonContainer">
+    <button
+      mat-raised-button
+      [disabled]="!categoryForm.valid"
+      color="primary"
+      (click)="createCategory()"
+    >
+      Crear Categoría
+    </button>
+    <button
+      (click)="closeDialog()"
+      mat-raised-button
+      color="warn"
+      [disabled]="loading"
+    >
+      Cancelar<mat-icon>close</mat-icon>
+    </button>
+  </div>
+</form>

@@ -16,7 +16,9 @@ import { ContestsMultimediaComponent } from './components/contests-management/co
     ContestsRootComponent,
     ContestsCreateComponent, 
     ContestsMainComponent, 
-    ContestsManagementComponent, ContestsDetailsComponent, ContestsMultimediaComponent
+    ContestsManagementComponent, 
+    ContestsDetailsComponent, 
+    ContestsMultimediaComponent
   ],
   entryComponents: [ContestsCreateComponent],
   providers: [DatePipe],

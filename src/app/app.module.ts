@@ -23,6 +23,7 @@ import { ThemeService } from 'ng2-charts';
 import { ContestsModule } from './contests/contests.module';
 import { TouristRoutesModule } from './tourist-routes/tourist-routes.module';
 import { ImagesModule } from './images/images.module';
+import { TransportServicesModule } from './transport-services/transport-services.module';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ImagesModule } from './images/images.module';
     ServiceModule,
     TouristRoutesModule,
     ContestsModule,
-    ImagesModule
+    ImagesModule,
+    TransportServicesModule
   ],
   providers: [ThemeService],
   bootstrap: [AppComponent],

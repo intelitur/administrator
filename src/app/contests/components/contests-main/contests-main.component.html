@@ -15,7 +15,6 @@
             <thead class="thead-light">
                 <tr>
                 <th scope="col">Nombre</th>
-                <th scope="col">Detalle</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Activa</th>
                 <th style="text-align: center;" scope="col">Acciones</th>
@@ -24,7 +23,6 @@
             <tbody>
                 <tr *ngFor="let contests of this.contestsService.contests | filterBy: filter">
                 <td>{{contests.name}}</td>
-                <td>{{contests.description}}</td>
                 <td>
                   Inicio: {{contests.initial_date | date: 'dd/MM/yyyy' }} 
                   <br>

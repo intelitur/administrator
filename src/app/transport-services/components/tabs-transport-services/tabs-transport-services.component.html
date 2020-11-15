@@ -1,0 +1,19 @@
+<mat-tab-group>
+  <mat-tab label="Administración">
+    <div class="container justify-content">
+      <app-all-transport-services></app-all-transport-services>
+    </div>
+  </mat-tab>
+
+  <mat-tab *ngIf="this.authService.getUser().role_id == 1" label="Solicitudes">
+    <div class="container justify-content">
+      <app-request-transport-services></app-request-transport-services>
+    </div>
+  </mat-tab>
+
+  <mat-tab *ngIf="this.authService.getUser().role_id == 1" label="Categorías">
+    <div class="container justify-content">
+      <app-categories-transport-services></app-categories-transport-services>
+    </div>
+  </mat-tab>
+</mat-tab-group>
