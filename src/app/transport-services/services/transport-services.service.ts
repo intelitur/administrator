@@ -46,16 +46,4 @@ export class TransportServicesService {
     }
     return this.http.put(`${environment.SERVER_BASE_URL}/petitions`,json, {observe: 'response'} ) 
   }
-
-  addCategoryToTransportService(transport_id: Number, category_id: Number){
-    let json = {
-      transport_id,
-      category_id
-    }
-    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/category`, json, {observe: 'response'})
-  }
-
-  deleteCateogryFromTransportService(transport_id: Number, category_id: Number){
-    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}/${transport_id}/categories/${category_id}`, {observe: 'response'});
-  }
 }

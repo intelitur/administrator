@@ -7,24 +7,24 @@ import { environment } from 'src/environments/environment';
 })
 export class TransportServicesCategoriesService {
 
-  module = "transportCategories"
+  module = "categoriesOfTransportService/"
   categories = [];
   constructor(
     private http: HttpClient
   ) { }
 
   getTransportServicesCategories(){
-    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}/`);
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`);
   }
 
   createTransportServicesCategory(name: string){
     let json = {
       name
     }
-    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}/`, json, {observe: 'response'});
+    return this.http.post(`${environment.SERVER_BASE_URL}${this.module}`, json, {observe: 'response'});
   }
   
   deleteTransportCategory(categoy_id: Number){
-    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}/${categoy_id}`, {observe: 'response'});
+    return this.http.delete(`${environment.SERVER_BASE_URL}${this.module}${categoy_id}`, {observe: 'response'});
   }
 }

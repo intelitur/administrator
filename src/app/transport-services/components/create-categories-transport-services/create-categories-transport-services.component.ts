@@ -32,8 +32,7 @@ export class CreateCategoriesTransportServicesComponent implements OnInit {
 
     this.categoryTransportService.createTransportServicesCategory(this.categoryForm.value.name).subscribe({
       next: (data: any) => {
-        if (data.status == 200) {
-          console.log(data)
+        if (data.status == 201) {
             this.commonService.openSnackBar(
               `El servicio de transporte ${this.categoryForm.value.name} se ha creado`,
               "OK"

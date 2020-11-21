@@ -24,7 +24,7 @@ export class CategoriesTransportServicesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.getCategories()
+    this.getCategories()
   }
 
   getCategories() {
@@ -50,8 +50,9 @@ export class CategoriesTransportServicesComponent implements OnInit {
   }
 
   changeState(category: any) {
-    this.categoryTransportService
-      .deleteTransportCategory(category.category_id)
+    if(category.is_active){
+      this.categoryTransportService
+      .deleteTransportCategory(category.id)
       .subscribe({
         next: (data: any) => {
           if (data.status == 200) {
@@ -59,6 +60,7 @@ export class CategoriesTransportServicesComponent implements OnInit {
               `La categoría se ha eliminado ${category.name}`,
               "OK"
             );
+            category.is_active = false;
             this.getCategories();
           } else {
             this.commonService.openSnackBar(
@@ -70,5 +72,6 @@ export class CategoriesTransportServicesComponent implements OnInit {
         error: (err: HttpErrorResponse) =>
           this.commonService.openSnackBar(`Error: ${err}`, "OK"),
       });
+    }  
   }
 }
