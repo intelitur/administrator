@@ -3,5 +3,5 @@ export interface QRCode {
     e_id: Number
     e_type: string
     description: string
-    visits: Number
+    visits?: Number
 }

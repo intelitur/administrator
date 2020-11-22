@@ -22,7 +22,12 @@ export class QrCodesService {
   }
 
   modify(qrCode: QRCode){
-    return this.http.put(`${environment.SERVER_BASE_URL}${this.module}`, qrCode, {observe: 'response'})
+    let json = {
+      e_type: qrCode.e_type,
+      e_id: qrCode.e_id,
+      description: qrCode.description
+    }
+    return this.http.put(`${environment.SERVER_BASE_URL}${this.module}${qrCode.qr_id}`, json, {observe: 'response'})
   }
 
   delete(qrCode_id: Number){

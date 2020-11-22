@@ -1,1 +1,57 @@
-<p>create-modify-qr-codes works!</p>
+<div>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+</div>
+<h1>{{title}}</h1>
+
+<mat-form-field style="padding: 0 25px" appearance="outline">
+  <mat-label>Tipo de Elemento</mat-label>
+  <mat-select
+    [(ngModel)]="elementType"
+    (ngModelChange)="elementChanged()"
+  >
+    <mat-option *ngFor="let t of types" [value]="t.id">
+      {{ t.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<form [formGroup]="qrForm" class="container-fluid" style="padding: 0 25px">
+  <mat-form-field appearance="outline">
+    <mat-label>Elemento a Referenciar</mat-label>
+    <mat-select formControlName="element">
+      <mat-option *ngFor="let e of elements" [value]="e">
+        {{ e.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Descripción</mat-label>
+    <textarea
+      matInput
+      formControlName="description"
+      matTooltip="Descripción del código"
+      type="text"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <div class="buttonContainer">
+    <button
+      mat-raised-button
+      [disabled]="!qrForm.valid || elementType == undefined || loading"
+      color="primary"
+      (click)="submit()"
+    >
+      {{action}}
+    </button>
+    <button
+      (click)="closeDialog()"
+      mat-raised-button
+      color="warn"
+      [disabled]="loading"
+    >
+      Cancelar<mat-icon>close</mat-icon>
+    </button>
+  </div>
+</form>

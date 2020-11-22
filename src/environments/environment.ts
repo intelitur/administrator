@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   localstorage_key: 'key_user',
   SERVER_BASE_URL: 'https://intelitur.arenalcostarica.cr:7031/',
-  IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/'
+  IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/',
+  USER_WEB: 'https://intelitur.arenalcostarica.cr/'
 };
 
 /*

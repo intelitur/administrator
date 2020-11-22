@@ -11,25 +11,39 @@
     </button>
   </div>
   <div *ngIf="this.qrCodesService.qrCodes; else loading">
-
     <div class="table-responsive" style="padding: 0 3%">
       <table class="table" *ngIf="this.qrCodesService.qrCodes">
         <thead class="thead-light">
           <tr>
             <th scope="col">Código</th>
             <th scope="col">Descripción</th>
-            <th scope="col" style="text-align: center;">Acciones</th>
+            <th scope="col" style="text-align: center">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let qr of this.qrCodesService.qrCodes">
-            <td>{{ qr.e_type }}</td>
+            <td>
+              <qrcode
+                [qrdata]="url+ qr.qr_id"
+                [elementType]="'url'"
+              ></qrcode>
+            </td>
             <td>{{ qr.description }}</td>
             <td style="text-align: center">
-              <button matTooltip="Editar código" mat-mini-fab color="primary" (click)="openDialog(false, qr)">
+              <button
+                matTooltip="Editar código"
+                mat-mini-fab
+                color="primary"
+                (click)="openDialog(false, qr)"
+              >
                 <mat-icon>edit</mat-icon>
               </button>
-              <button matTooltip="Eliminar código" mat-mini-fab color="warn" (click)="delete(qr)">
+              <button
+                matTooltip="Eliminar código"
+                mat-mini-fab
+                color="warn"
+                (click)="delete(qr)"
+              >
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

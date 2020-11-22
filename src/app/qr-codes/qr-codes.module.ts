@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { AllQrCodesComponent } from './components/all-qr-codes/all-qr-codes.component';
 import { CreateModifyQrCodesComponent } from './components/create-modify-qr-codes/create-modify-qr-codes.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CreateModifyQrCodesComponent } from './components/create-modify-qr-code
     SharedModule,
     FormsModule,
     FilterPipeModule,
+    QRCodeModule 
   ],
   entryComponents: [CreateModifyQrCodesComponent]
 })
