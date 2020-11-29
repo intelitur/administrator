@@ -11,7 +11,7 @@
 >
   <div style="width: 100%; display: flex; justify-content: space-around">
     <h2 style="color: #dbb735; text-align: center; margin: auto 0">
-      {{ transport.name }}
+      {{ transport.info.name }}
     </h2>
     <div style="display: flex; margin: auto 0; padding: 0 20px">
       <h2
@@ -22,7 +22,7 @@
       </h2>
       <mat-slide-toggle
         style="width: min-content; margin-left: 3%; margin-top: 5%"
-        (change)="changeEventState($transport)"
+        (change)="changeState($transport)"
         color="primary"
         [checked]="transport.is_active"
       >
@@ -68,7 +68,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Categoría</mat-label>
       <mat-select formControlName="categories">
-        <mat-option *ngFor="let c of categories" [value]="c.category_id">
+        <mat-option *ngFor="let c of categories" [value]="c.id">
           {{ c.name }}
         </mat-option>
       </mat-select>

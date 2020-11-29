@@ -14,8 +14,8 @@
   </div>
   <div *ngIf="this.transportService.transportServices; else loading">
     <mat-form-field class="container-fluid mb-3" appearance="outline">
-      <mat-label>Buscar por nombre del servico de transporte</mat-label>
-      <input matInput [(ngModel)]="filter.name" />
+      <mat-label>Buscar por nombre del servicio de transporte</mat-label>
+      <input matInput [(ngModel)]="filter.info.name" />
     </mat-form-field>
 
     <div class="table-responsive" style="padding: 0 3%">
@@ -25,8 +25,8 @@
             <th scope="col">Nombre</th>
             <th scope="col">Correo</th>
             <th scope="col">Teléfono</th>
+            <th scope="col" style="text-align: center">Acciones</th>
             <th scope="col" style="text-align: center">Activo</th>
-            <th scope="col" style="text-align: center;">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -36,27 +36,27 @@
                 | filterBy: filter
             "
           >
-            <td>{{ ts.name }}</td>
-            <td>{{ ts.email }}</td>
-            <td>{{ts.tel</td>
-            <td style="text-align: center">
-              <section (click)="$event.stopPropagation()">
-                <mat-slide-toggle
-                  (change)="changeState(ts, $event)"
-                  color="primary"
-                  [checked]="ts.is_active"
-                >
-                </mat-slide-toggle>
-              </section>
-            </td>
+            <td>{{ ts.info.name }}</td>
+            <td>{{ ts.info.email }}</td>
+            <td>{{ ts.info.tel }}</td>
             <td style="text-align: center">
               <button
                 mat-stroked-button
-                [routerLink]="['/transport-services', ts.transport_id]"
+                [routerLink]="['/transport-services', ts.transport_service_id]"
                 matTooltip="Detalles del servicio de transporte"
                 style="color: rgb(82, 82, 82); font-size: 14px"
               >
                 Ver Detalles
+              </button>
+            </td>
+            <td style="text-align: center">
+              <button
+                matTooltip="Eliminar servicio"
+                mat-mini-fab
+                color="warn"
+                (click)="changeState(ts)"
+              >
+                <mat-icon>delete</mat-icon>
               </button>
             </td>
           </tr>

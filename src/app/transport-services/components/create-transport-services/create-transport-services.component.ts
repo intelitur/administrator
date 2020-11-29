@@ -36,7 +36,7 @@ export class CreateTransportServicesComponent implements OnInit {
     this.tsForm = new FormGroup({
       name: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
       email: new FormControl(null, [Validators.required, Validators.pattern('^(.{1,})[@](.{1,})[.](.{1,})$')]),
-      phone_number: new FormControl(null, [Validators.required, Validators.pattern("^([0-9]{4}[ ][0-9]{4})$")]),
+      phone_number: new FormControl(null, [Validators.required, Validators.pattern("[0-9]{4}[-]{0,1}[ ]{0,1}[0-9]{4}")]),
       address: new FormControl(null, [Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
       categories: new FormControl(null, Validators.required),
     });
@@ -44,7 +44,7 @@ export class CreateTransportServicesComponent implements OnInit {
     this.subscription = this.categoryService.getTransportServicesCategories().subscribe({
       next: (data: any) => {
         this.categories = data
-      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err}`,"OK")
+      }, error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err.message}`,"OK")
     })
 
   }
@@ -55,21 +55,21 @@ export class CreateTransportServicesComponent implements OnInit {
     let transportService: TransportService = {
       name: this.tsForm.controls["name"].value,
       email: this.tsForm.controls["email"].value,
-      category: this.tsForm.controls["categories"].value,
+      categories_id: this.tsForm.controls["categories"].value,
       tel: this.tsForm.controls["phone_number"].value,
-      hire_dir: this.tsForm.controls["address"].value
+      hire_dir: this.tsForm.controls["address"].value,
+      user_id: this.authService.getUser().user_id
     }
     this.transportService.createTransportService(transportService).subscribe({
       next: (data: any) => {
         this.loading = false;
-        if (data.status == 200) {
-          console.log(data)
+        if (data.status == 201) {
           if(this.authService.getUser().role_id == 1){
             this.commonService.openSnackBar(
               `El servicio de transporte ${this.tsForm.value.name} se ha creado`,
               "OK"
             );
-            this.router.navigate(['/transport-services', data.body.transport_id])
+            this.router.navigate(['/transport-services', data.body[0]])
           }else{
             this.commonService.openSnackBar(
               `La solicitud de creación del servicio de transporte ${this.tsForm.value.name} se ha enviado`,

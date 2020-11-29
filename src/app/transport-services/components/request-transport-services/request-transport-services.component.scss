@@ -1,0 +1,12 @@
+.radio-button-group{
+    width: 50%;
+    justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 300px;
+}
+
+.denyBtn, .acceptBtn  {
+    margin-left: 1%;
+    font-size: 14px;
+}

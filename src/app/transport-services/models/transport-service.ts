@@ -1,9 +1,10 @@
 export interface TransportService {
-    transport_id?: Number,
+    transport_service_id?: Number,
     name: string,
     email: string,
     tel: string,
     hire_dir: string
-    category: any
-    is_active?: boolean
+    categories_id: any
+    is_active?: boolean,
+    user_id?: any
 }

@@ -2,7 +2,7 @@
   <mat-tab label="Detalles">
     <app-details-transport-services
       *ngIf="transport; else null"
-      [transport]="transport"
+      [transport]="transport[0]"
     ></app-details-transport-services>
     <ng-template #loading>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>

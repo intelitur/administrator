@@ -1,12 +1,36 @@
 <div class="container">
+  <ng-container *ngIf="this.loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-container>
   <h1 class="text-center font-weight-light mt-3">
     Peticiones de Creación de Servicios de Transporte
   </h1>
 
-  <div *ngIf="this.request; else loading">
+  <div
+    style="display: flex; flex-wrap: wrap; margin: 1rem 0 0 0; padding: 0 3%"
+  >
+    <mat-radio-group
+      class="radio-button-group"
+      color="primary"
+      [(ngModel)]="filter.status"
+      (change)="getTransportSerivicesRequest()"
+    >
+      <mat-radio-button value="1" style="color: rgb(0, 90, 0)">
+        Aceptadas
+      </mat-radio-button>
+      <mat-radio-button value="2" style="color: rgb(160, 105, 0)">
+        Pendientes
+      </mat-radio-button>
+      <mat-radio-button value="3" style="color: rgb(90, 0, 0)">
+        Rechazadas
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div *ngIf="this.request">
     <mat-form-field class="container-fluid mb-3" appearance="outline">
       <mat-label>Buscar por nombre del servicio de transporte</mat-label>
-      <input matInput [(ngModel)]="filter.name" />
+      <input matInput [(ngModel)]="filter.info.name" />
     </mat-form-field>
 
     <div class="table-responsive" style="padding: 0 3%">
@@ -16,30 +40,28 @@
             <th scope="col">Nombre</th>
             <th scope="col">Correo</th>
             <th scope="col">Teléfono</th>
-            <th scope="col" style="text-align: center">Detalles del Servicio</th>
-            <th scope="col" style="text-align: center">Aceptar/Rechazar</th>
+            <th scope="col" style="text-align: center">
+              Detalles del Servicio
+            </th>
+            <th *ngIf="filter.status == '2'" scope="col" style="text-align: center">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="
-              let request of this.request | filterBy: filter
-            "
-          >
-            <td>{{ request.name }}</td>
-            <td>{{ request.email }}</td>
-            <td>{{ request.tel }}</td>
+          <tr *ngFor="let request of this.request | filterBy: filter">
+            <td>{{ request.info.name }}</td>
+            <td>{{ request.info.email }}</td>
+            <td>{{ request.info.tel }}</td>
             <td style="text-align: center">
               <button
                 mat-stroked-button
-                [routerLink]="['/transport-services', request.transport_id]"
+                [routerLink]="['/transport-services', request.transport_service_id]"
                 matTooltip="Detalles del servicio de transporte"
                 style="color: rgb(82, 82, 82); font-size: 14px"
               >
                 Ver Detalles
               </button>
             </td>
-            <td style="text-align: center">
+            <td *ngIf="filter.status == '2'" style="text-align: center">
               <button
                 mat-raised-button
                 class="acceptBtn"
@@ -70,7 +92,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #loading>
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-template>

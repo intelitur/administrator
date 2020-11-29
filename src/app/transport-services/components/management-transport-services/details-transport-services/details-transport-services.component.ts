@@ -13,7 +13,7 @@ import { TransportServicesService } from "src/app/transport-services/services/tr
   styleUrls: ["./details-transport-services.component.scss"],
 })
 export class DetailsTransportServicesComponent implements OnInit {
-  @Input() transport: TransportService;
+  @Input() transport: any;
   loading: boolean = false;
   transportServicesFG: FormGroup;
   categories;
@@ -60,16 +60,17 @@ export class DetailsTransportServicesComponent implements OnInit {
   }
 
   setData() {
-    this.transportServicesFG.controls["name"].setValue(this.transport.name),
-      this.transportServicesFG.controls["email"].setValue(this.transport.email),
+    console.log(this.transport)
+    this.transportServicesFG.controls["name"].setValue(this.transport.info.name),
+      this.transportServicesFG.controls["email"].setValue(this.transport.info.email),
       this.transportServicesFG.controls["phone_number"].setValue(
-        this.transport.tel
+        this.transport.info.tel
       ),
       this.transportServicesFG.controls["address"].setValue(
-        this.transport.hire_dir
+        this.transport.info.hire_dir
       ),
       this.transportServicesFG.controls["categories"].setValue(
-        this.transport.category
+        this.transport.categories_id
       );
   }
 
@@ -125,12 +126,12 @@ export class DetailsTransportServicesComponent implements OnInit {
     this.transportServicesFG.disable();
 
     let newTransportService: TransportService = {
-      transport_id: this.transport.transport_id,
+      transport_service_id: this.transport.transport_service_id,
       name: this.transportServicesFG.controls["name"].value,
       email: this.transportServicesFG.controls["email"].value,
       tel: this.transportServicesFG.controls["phone_number"].value,
       hire_dir: this.transportServicesFG.controls["address"].value,
-      category: this.transportServicesFG.controls["categories"].value,
+      categories_id: this.transportServicesFG.controls["categories"].value,
       is_active: this.transport.is_active,
     };
 
@@ -139,9 +140,13 @@ export class DetailsTransportServicesComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           if (data.status == 200) {
-            this.transport = newTransportService;
+            this.transport.info.name = newTransportService.name;
+            this.transport.info.email = newTransportService.email;
+            this.transport.info.tel = newTransportService.tel;
+            this.transport.info.hire_dir = newTransportService.hire_dir;
+            this.transport.categories_id = newTransportService.categories_id
             this.commonService.openSnackBar(
-              `El servicio de transporte: ${this.transport.name} ha sido cambiado`,
+              `El servicio de transporte: ${this.transport.info.name} ha sido cambiado`,
               "OK"
             );
             this.loading = false;
