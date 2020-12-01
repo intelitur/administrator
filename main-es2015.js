@@ -512,7 +512,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n\n<form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input matInput formControlName=\"name\" matTooltip=\"Nombre de la empresa\" required>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Cédula Jurídica</mat-label>\n        <input matInput formControlName=\"legal_id\" matTooltip=\"10 números sin guiones\" required>\n        <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\" >\n        <mat-label>Teléfono</mat-label>\n        <input matInput formControlName=\"phone_number\" matTooltip=\"Formato: 8888 8888\">\n        <mat-hint align=\"end\"></mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Email</mat-label>\n        <input matInput formControlName=\"email\" matTooltip=\"Formato: email@domain.domain\">\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Ubicación descrita</mat-label>\n        <input matInput formControlName=\"location\" matTooltip=\"Descripción de la ubicación\">\n    </mat-form-field>\n\n    <div style=\"display: flex; justify-content: center; flex-wrap: wrap;\">\n        <button mat-stroked-button [disabled]=\"!companyForm.valid\" color=\"primary\"\n            style=\"width: 50%; min-width: fit-content; margin-top: 10px;\" (click)=\"createCompany()\">\n            Continuar con la creación\n        </button>\n    </div>\n    \n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n\n<form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input matInput formControlName=\"name\" matTooltip=\"Nombre de la empresa\" required>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Cédula Jurídica</mat-label>\n        <input matInput formControlName=\"legal_id\" matTooltip=\"10 números sin guiones\" required>\n        <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\" >\n        <mat-label>Teléfono</mat-label>\n        <input matInput formControlName=\"phone_number\" matTooltip=\"Formato: 8888 8888\">\n        <mat-hint align=\"end\"></mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Email</mat-label>\n        <input matInput formControlName=\"email\" matTooltip=\"Formato: email@domain.domain\">\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Ubicación descrita</mat-label>\n        <input matInput formControlName=\"location\" matTooltip=\"Descripción de la ubicación\">\n    </mat-form-field>\n\n    <div style=\"display: flex; justify-content: center; flex-wrap: wrap;\">\n        <button mat-stroked-button [disabled]=\"!companyForm.valid\" color=\"primary\"\n            style=\"width: 50%; min-width: fit-content; margin-top: 10px;\" (click)=\"createCompany()\">\n            Continuar con la creación\n        </button>\n    </div>\n</form>    \n");
 
 /***/ }),
 
@@ -655,7 +655,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Concursos</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar un concurso\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar concurso</button>\n    </div>\n    <div *ngIf=\"this.contestsService.contests; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del anuncio</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.contestsService.contests\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Detalle</th>\n                <th scope=\"col\">Fecha</th>\n                <th scope=\"col\">Activa</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let contests of this.contestsService.contests | filterBy: filter\">\n                <td>{{contests.name}}</td>\n                <td>{{contests.description}}</td>\n                <td>\n                  Inicio: {{contests.initial_date | date: 'dd/MM/yyyy' }} \n                  <br>\n                  Fin:    {{contests.final_date | date: 'dd/MM/yyyy'}}\n                </td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(contests, $event)\" color=\"primary\"\n                          [checked]= contests.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/contests', contests.contest_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.contestsService.contests | filterBy: filter).length === 0\">\n              ¡No hay anuncios disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Concursos</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar un concurso\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar concurso</button>\n    </div>\n    <div *ngIf=\"this.contestsService.contests; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del anuncio</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.contestsService.contests\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Fecha</th>\n                <th scope=\"col\">Activa</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let contests of this.contestsService.contests | filterBy: filter\">\n                <td>{{contests.name}}</td>\n                <td>\n                  Inicio: {{contests.initial_date | date: 'dd/MM/yyyy' }} \n                  <br>\n                  Fin:    {{contests.final_date | date: 'dd/MM/yyyy'}}\n                </td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(contests, $event)\" color=\"primary\"\n                          [checked]= contests.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/contests', contests.contest_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.contestsService.contests | filterBy: filter).length === 0\">\n              ¡No hay anuncios disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n");
 
 /***/ }),
 
@@ -1123,7 +1123,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/qr-codes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Códigos QR</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/transport-services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios Transporte</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
 
 /***/ }),
 
@@ -1215,6 +1215,32 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container-fluid mt-5 pt-3 d-flex flex-column w-100 justify-content-center\">\n  <div class=\"containner\">\n    <h1 class=\"font-weight-light text-center\">Gestión de ofertas</h1>\n  </div>\n  <div class=\"container-fluid flex-row d-flex mb-2 justify-content-sm-end\">\n    <button (click)=\"openCreateOfferDialog(); false\" mat-raised-button color=\"accent\">Agregar nuevo</button>\n  </div>\n  <div class=\"container-fluid mh-50\">\n    <app-offers-table #datosOffersTable></app-offers-table>\n  </div>\n</div>");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.html":
+/*!********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.html ***!
+  \********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">Gestión de Códigos QR</h1>\n  <div class=\"float-right mb-3\" style=\"width: 40%; text-align: end\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      matTooltip=\"Agregar un código QR\"\n      (click)=\"openDialog(true)\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Código QR\n    </button>\n  </div>\n  <div *ngIf=\"this.qrCodesService.qrCodes; else loading\">\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.qrCodesService.qrCodes\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Código</th>\n            <th scope=\"col\">Descripción</th>\n            <th scope=\"col\" style=\"text-align: center\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let qr of this.qrCodesService.qrCodes\">\n            <td>\n              <qrcode\n                [qrdata]=\"url+ qr.qr_id\"\n                [elementType]=\"'url'\"\n              ></qrcode>\n            </td>\n            <td>{{ qr.description }}</td>\n            <td style=\"text-align: center\">\n              <button\n                matTooltip=\"Editar código\"\n                mat-mini-fab\n                color=\"primary\"\n                (click)=\"openDialog(false, qr)\"\n              >\n                <mat-icon>edit</mat-icon>\n              </button>\n              <button\n                matTooltip=\"Eliminar código\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"delete(qr)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"this.qrCodesService.qrCodes.length === 0\"\n      >\n        ¡No hay códigos QR disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.html":
+/*!****************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.html ***!
+  \****************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>{{title}}</h1>\n\n<mat-form-field style=\"padding: 0 25px\" appearance=\"outline\">\n  <mat-label>Tipo de Elemento</mat-label>\n  <mat-select\n    [(ngModel)]=\"elementType\"\n    (ngModelChange)=\"elementChanged()\"\n  >\n    <mat-option *ngFor=\"let t of types\" [value]=\"t.id\">\n      {{ t.name }}\n    </mat-option>\n  </mat-select>\n</mat-form-field>\n\n<form [formGroup]=\"qrForm\" class=\"container-fluid\" style=\"padding: 0 25px\">\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Elemento a Referenciar</mat-label>\n    <mat-select formControlName=\"element\">\n      <mat-option *ngFor=\"let e of elements\" [value]=\"e\">\n        {{ e.name }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Descripción</mat-label>\n    <textarea\n      matInput\n      formControlName=\"description\"\n      matTooltip=\"Descripción del código\"\n      type=\"text\"\n      required\n    ></textarea>\n  </mat-form-field>\n\n  <div class=\"buttonContainer\">\n    <button\n      mat-raised-button\n      [disabled]=\"!qrForm.valid || elementType == undefined || loading\"\n      color=\"primary\"\n      (click)=\"submit()\"\n    >\n      {{action}}\n    </button>\n    <button\n      (click)=\"closeDialog()\"\n      mat-raised-button\n      color=\"warn\"\n      [disabled]=\"loading\"\n    >\n      Cancelar<mat-icon>close</mat-icon>\n    </button>\n  </div>\n</form>\n");
 
 /***/ }),
 
@@ -1319,6 +1345,110 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n\n<div class=\"container\">\n  <div style=\"display: flex; justify-content: space-around; margin-bottom: 1em\">\n    <h2 style=\"color: #673ab7; text-align: center; margin: auto 0\">\n      Ofertas Asociadas\n    </h2>\n  </div>\n\n  <div class=\"container\" style=\"display: flex; justify-content: space-between;\">\n    <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de la oferta</mat-label>\n      <input matInput [(ngModel)]=\"filter.name\" />\n    </mat-form-field>\n\n    <mat-form-field style=\"width: 30%;\" appearance=\"outline\">\n      <mat-label>Seleccione una oferta</mat-label>\n      <mat-select [(ngModel)]=\"selectedOffer\">\n        <mat-option *ngFor=\"let offer of offerService.offers\" [value]=\"offer\">\n          {{ offer.name }}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n\n    <button mat-fab color=\"primary\" (click)=\"addOffer()\" [disabled]=\"loading\">\n      <mat-icon>add</mat-icon>\n    </button>\n  </div>\n\n  <div class=\"table-responsive\" style=\"padding: 0 3%\">\n    <table class=\"table\" *ngIf=\"associateOffers\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th scope=\"col\">Nombre</th>\n          <th scope=\"col\">Descripción</th>\n          <th style=\"text-align: center\" scope=\"col\">Acciones</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let offer of associateOffers | filterBy: filter\">\n          <td>{{ offer.name }}</td>\n          <td>{{ offer.description }}</td>\n          <td style=\"text-align: center\">\n            <button mat-mini-fab color=\"warn\" (click)=\"removeOffer(offer)\">\n              <mat-icon>delete</mat-icon>\n            </button>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    <div\n      class=\"alert alert-info text-center\"\n      role=\"alert\"\n      *ngIf=\"(associateOffers | filterBy: filter).length === 0\"\n    >\n      ¡No ha seleccionado ninguana oferta!\n    </div>\n  </div>\n</div>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/all-transport-services/all-transport-services.component.html":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/all-transport-services/all-transport-services.component.html ***!
+  \**************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Gestión de Servicios de Transporte\n  </h1>\n  <div class=\"float-right mb-3\" style=\"width: 40%; text-align: end\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      matTooltip=\"Agregar un servicio de transporte\"\n      (click)=\"openCreateDialog()\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Servicio de Transporte\n    </button>\n  </div>\n  <div *ngIf=\"this.transportService.transportServices; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre del servicio de transporte</mat-label>\n      <input matInput [(ngModel)]=\"filter.info.name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.transportService.transportServices\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\">Correo</th>\n            <th scope=\"col\">Teléfono</th>\n            <th scope=\"col\" style=\"text-align: center\">Acciones</th>\n            <th scope=\"col\" style=\"text-align: center\">Activo</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr\n            *ngFor=\"\n              let ts of this.transportService.transportServices\n                | filterBy: filter\n            \"\n          >\n            <td>{{ ts.info.name }}</td>\n            <td>{{ ts.info.email }}</td>\n            <td>{{ ts.info.tel }}</td>\n            <td style=\"text-align: center\">\n              <button\n                mat-stroked-button\n                [routerLink]=\"['/transport-services', ts.transport_service_id]\"\n                matTooltip=\"Detalles del servicio de transporte\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px\"\n              >\n                Ver Detalles\n              </button>\n            </td>\n            <td style=\"text-align: center\">\n              <button\n                matTooltip=\"Eliminar servicio\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"changeState(ts)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"\n          (this.transportService.transportServices | filterBy: filter)\n            .length === 0\n        \"\n      >\n        ¡No hay eventos disponibles<span class=\"text-danger\"></span>!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.html":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.html ***!
+  \****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Gestión de Categorías de Servicios de Transporte\n  </h1>\n  <div class=\"float-right mb-3\" style=\"width: 40%; text-align: end\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      matTooltip=\"Agregar una categoría de servicio de transporte\"\n      (click)=\"openCreateialog()\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Categoría\n    </button>\n  </div>\n  <div *ngIf=\"this.categoryTransportService.categories; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de categoría </mat-label>\n      <input matInput [(ngModel)]=\"filter.name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.categoryTransportService.categories\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\" style=\"text-align: center\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr\n            *ngFor=\"\n              let cat of this.categoryTransportService.categories\n                | filterBy: filter\n            \"\n          >\n            <td>{{ cat.name }}</td>\n            <td style=\"text-align: center\">\n              <button mat-mini-fab color=\"warn\" (click)=\"changeState(cat)\">\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"\n          (this.categoryTransportService.categories | filterBy: filter)\n            .length === 0\n        \"\n      >\n        ¡No hay eventos disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.html":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.html ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación de Categorías de Servicios de Transporte</h1>\n<form [formGroup]=\"categoryForm\" class=\"container-fluid\" style=\"padding: 25px\">\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Nombre</mat-label>\n    <input\n      matInput\n      formControlName=\"name\"\n      matTooltip=\"Nombre del servicio de transporte\"\n      required\n    />\n  </mat-form-field>\n\n  <div class=\"buttonContainer\">\n    <button\n      mat-raised-button\n      [disabled]=\"!categoryForm.valid\"\n      color=\"primary\"\n      (click)=\"createCategory()\"\n    >\n      Crear Categoría\n    </button>\n    <button\n      (click)=\"closeDialog()\"\n      mat-raised-button\n      color=\"warn\"\n      [disabled]=\"loading\"\n    >\n      Cancelar<mat-icon>close</mat-icon>\n    </button>\n  </div>\n</form>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-transport-services/create-transport-services.component.html":
+/*!********************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-transport-services/create-transport-services.component.html ***!
+  \********************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación de Servicios de Transporte</h1>\n<form\n  [formGroup]=\"tsForm\"\n  class=\"container-fluid\"\n  style=\"padding: 25px\"\n>\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Nombre</mat-label>\n    <input\n      matInput\n      formControlName=\"name\"\n      matTooltip=\"Nombre del servicio de transporte\"\n      required\n    />\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Correo</mat-label>\n    <input\n      matInput\n      formControlName=\"email\"\n      matTooltip=\"Correo del servicio de transporte\"\n      required\n    />\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Teléfono</mat-label>\n    <input\n      matInput\n      placeholder=\"Formato: 8888 8888\"\n      formControlName=\"phone_number\"\n      matTooltip=\"Formato: 8888 8888\"\n    />\n    <mat-hint align=\"end\"></mat-hint>\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Categoría</mat-label>\n    <mat-select formControlName=\"categories\">\n      <mat-option *ngFor=\"let c of categories\" [value]=\"c.id\">\n        {{ c.name }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\" style=\"width: 95%;\">\n    <mat-label>Dónde Contrartarlo</mat-label>\n    <textarea\n      matInput\n      formControlName=\"address\"\n      matTooltip=\"Dirección exacta para contratar el servicio de transporte\"\n      type=\"text\"\n      required\n    ></textarea>\n  </mat-form-field>\n\n  <div class=\"buttonContainer\">\n    <button\n      mat-raised-button\n      [disabled]=\"!tsForm.valid\"\n      color=\"primary\"\n      (click)=\"createTransportService()\"\n    >\n      {{\n        this.authService.getUser().role_id == 1\n          ? 'Crear Servicio de Transporte'\n          : 'Enviar solicitud de creción'\n      }}\n    </button>\n    <button\n      (click)=\"closeDialog()\"\n      mat-raised-button\n      color=\"warn\"\n      [disabled]=\"loading\"\n    >\n      Cancelar<mat-icon>close</mat-icon>\n    </button>\n  </div>\n</form>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.html":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.html ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div\n  style=\"\n    display: flex;\n    margin-top: 20px;\n    flex-wrap: wrap;\n    justify-content: center;\n  \"\n>\n  <div style=\"width: 100%; display: flex; justify-content: space-around\">\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n      {{ transport.info.name }}\n    </h2>\n    <div style=\"display: flex; margin: auto 0; padding: 0 20px\">\n      <h2\n        style=\"margin: auto\"\n        [style.color]=\"transport.is_active ? '#673ab7' : 'gray'\"\n      >\n        {{ transport.is_active ? \"Activo\" : \"Eliminado\" }}\n      </h2>\n      <mat-slide-toggle\n        style=\"width: min-content; margin-left: 3%; margin-top: 5%\"\n        (change)=\"changeState($transport)\"\n        color=\"primary\"\n        [checked]=\"transport.is_active\"\n      >\n      </mat-slide-toggle>\n    </div>\n  </div>\n  <hr style=\"width: 100%\" />\n  <form\n    [formGroup]=\"transportServicesFG\"\n    class=\"container-fluid justify-content-center\"\n  >\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Nombre</mat-label>\n      <input\n        matInput\n        formControlName=\"name\"\n        matTooltip=\"Nombre del servicio de transporte\"\n        required\n      />\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Correo</mat-label>\n      <input\n        matInput\n        formControlName=\"email\"\n        matTooltip=\"Correo del servicio de transporte\"\n        required\n      />\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Teléfono</mat-label>\n      <input\n        matInput\n        placeholder=\"Formato: 8888 8888\"\n        formControlName=\"phone_number\"\n        matTooltip=\"Formato: 8888 8888\"\n      />\n      <mat-hint align=\"end\"></mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Categoría</mat-label>\n      <mat-select formControlName=\"categories\">\n        <mat-option *ngFor=\"let c of categories\" [value]=\"c.id\">\n          {{ c.name }}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\" style=\"width: 95%\">\n      <mat-label>Dónde Contrartarlo</mat-label>\n      <textarea\n        matInput\n        formControlName=\"address\"\n        matTooltip=\"Dirección exacta para contratar el servicio de transporte\"\n        type=\"text\"\n        required\n      ></textarea>\n    </mat-form-field>\n  </form>\n</div>\n\n<div class=\"buttonContainer\">\n  <button\n    mat-stroked-button\n    color=\"primary\"\n    [disabled]=\"!transportServicesFG.valid || loading\"\n    style=\"width: 40%; min-width: fit-content; margin-top: 10px\"\n    (click)=\"modifyTransportService()\"\n  >\n    Guardar cambios\n  </button>\n  <button\n    mat-stroked-button\n    color=\"warn\"\n    [disabled]=\"loading\"\n    style=\"width: 40%; min-width: fit-content; margin-top: 10px\"\n    (click)=\"setData()\"\n  >\n    Descartar cambios\n  </button>\n</div>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/management-transport-services.component.html":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/management-transport-services.component.html ***!
+  \****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-tab-group>\n  <mat-tab label=\"Detalles\">\n    <app-details-transport-services\n      *ngIf=\"transport; else null\"\n      [transport]=\"transport[0]\"\n    ></app-details-transport-services>\n    <ng-template #loading>\n      <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n    </ng-template>\n  </mat-tab>\n</mat-tab-group>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/request-transport-services/request-transport-services.component.html":
+/*!**********************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/request-transport-services/request-transport-services.component.html ***!
+  \**********************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n  </ng-container>\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Peticiones de Creación de Servicios de Transporte\n  </h1>\n\n  <div\n    style=\"display: flex; flex-wrap: wrap; margin: 1rem 0 0 0; padding: 0 3%\"\n  >\n    <mat-radio-group\n      class=\"radio-button-group\"\n      color=\"primary\"\n      [(ngModel)]=\"filter.status\"\n      (change)=\"getTransportSerivicesRequest()\"\n    >\n      <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n        Aceptadas\n      </mat-radio-button>\n      <mat-radio-button value=\"2\" style=\"color: rgb(160, 105, 0)\">\n        Pendientes\n      </mat-radio-button>\n      <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n        Rechazadas\n      </mat-radio-button>\n    </mat-radio-group>\n  </div>\n\n  <div *ngIf=\"this.request\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre del servicio de transporte</mat-label>\n      <input matInput [(ngModel)]=\"filter.info.name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.request\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\">Correo</th>\n            <th scope=\"col\">Teléfono</th>\n            <th scope=\"col\" style=\"text-align: center\">\n              Detalles del Servicio\n            </th>\n            <th *ngIf=\"filter.status == '2'\" scope=\"col\" style=\"text-align: center\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let request of this.request | filterBy: filter\">\n            <td>{{ request.info.name }}</td>\n            <td>{{ request.info.email }}</td>\n            <td>{{ request.info.tel }}</td>\n            <td style=\"text-align: center\">\n              <button\n                mat-stroked-button\n                [routerLink]=\"['/transport-services', request.transport_service_id]\"\n                matTooltip=\"Detalles del servicio de transporte\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px\"\n              >\n                Ver Detalles\n              </button>\n            </td>\n            <td *ngIf=\"filter.status == '2'\" style=\"text-align: center\">\n              <button\n                mat-raised-button\n                class=\"acceptBtn\"\n                color=\"primary\"\n                (click)=\"changeStateRequest(request, 1)\"\n              >\n                Aceptar\n              </button>\n              <button\n                mat-raised-button\n                class=\"denyBtn\"\n                color=\"warn\"\n                (click)=\"changeStateRequest(request, 3)\"\n              >\n                Rechazar\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"(this.request | filterBy: filter).length === 0\"\n      >\n        ¡No hay peticiones pendientes<span class=\"text-danger\"></span>!\n      </div>\n    </div>\n  </div>\n</div>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.html":
+/*!****************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.html ***!
+  \****************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-tab-group>\n  <mat-tab label=\"Administración\">\n    <div class=\"container justify-content\">\n      <app-all-transport-services></app-all-transport-services>\n    </div>\n  </mat-tab>\n\n  <mat-tab *ngIf=\"this.authService.getUser().role_id == 1\" label=\"Solicitudes\">\n    <div class=\"container justify-content\">\n      <app-request-transport-services></app-request-transport-services>\n    </div>\n  </mat-tab>\n\n  <mat-tab *ngIf=\"this.authService.getUser().role_id == 1\" label=\"Categorías\">\n    <div class=\"container justify-content\">\n      <app-categories-transport-services></app-categories-transport-services>\n    </div>\n  </mat-tab>\n</mat-tab-group>\n");
 
 /***/ }),
 
@@ -3119,6 +3249,11 @@ const routes = [
         path: "images",
         loadChildren: () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./images/images.module */ "./src/app/images/images.module.ts")).then(i => i.ImagesModule),
         canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
+    },
+    {
+        path: "transport-services",
+        loadChildren: () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./transport-services/transport-services.module */ "./src/app/transport-services/transport-services.module.ts")).then(i => i.TransportServicesModule),
+        canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
     }
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -3225,6 +3360,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./contests/contests.module */ "./src/app/contests/contests.module.ts");
 /* harmony import */ var _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./tourist-routes/tourist-routes.module */ "./src/app/tourist-routes/tourist-routes.module.ts");
 /* harmony import */ var _images_images_module__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./images/images.module */ "./src/app/images/images.module.ts");
+/* harmony import */ var _transport_services_transport_services_module__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./transport-services/transport-services.module */ "./src/app/transport-services/transport-services.module.ts");
+/* harmony import */ var _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./qr-codes/qr-codes.module */ "./src/app/qr-codes/qr-codes.module.ts");
+
+
 
 
 
@@ -3281,7 +3420,9 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"],
             _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__["TouristRoutesModule"],
             _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"],
-            _images_images_module__WEBPACK_IMPORTED_MODULE_25__["ImagesModule"]
+            _images_images_module__WEBPACK_IMPORTED_MODULE_25__["ImagesModule"],
+            _transport_services_transport_services_module__WEBPACK_IMPORTED_MODULE_26__["TransportServicesModule"],
+            _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__["QrCodesModule"]
         ],
         providers: [ng2_charts__WEBPACK_IMPORTED_MODULE_22__["ThemeService"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
@@ -6434,7 +6575,9 @@ ContestsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _contests_root_component__WEBPACK_IMPORTED_MODULE_10__["ContestsRootComponent"],
             _components_contests_create_contests_create_component__WEBPACK_IMPORTED_MODULE_3__["ContestsCreateComponent"],
             _components_contests_main_contests_main_component__WEBPACK_IMPORTED_MODULE_4__["ContestsMainComponent"],
-            _components_contests_management_contests_management_component__WEBPACK_IMPORTED_MODULE_5__["ContestsManagementComponent"], _components_contests_management_contests_details_contests_details_component__WEBPACK_IMPORTED_MODULE_11__["ContestsDetailsComponent"], _components_contests_management_contests_multimedia_contests_multimedia_component__WEBPACK_IMPORTED_MODULE_12__["ContestsMultimediaComponent"]
+            _components_contests_management_contests_management_component__WEBPACK_IMPORTED_MODULE_5__["ContestsManagementComponent"],
+            _components_contests_management_contests_details_contests_details_component__WEBPACK_IMPORTED_MODULE_11__["ContestsDetailsComponent"],
+            _components_contests_management_contests_multimedia_contests_multimedia_component__WEBPACK_IMPORTED_MODULE_12__["ContestsMultimediaComponent"]
         ],
         entryComponents: [_components_contests_create_contests_create_component__WEBPACK_IMPORTED_MODULE_3__["ContestsCreateComponent"]],
         providers: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["DatePipe"]],
@@ -9625,9 +9768,13 @@ let ImagesManagementComponent = class ImagesManagementComponent {
             next: (data) => {
                 if (data.status == 204) {
                     this.currentImg.showed = !this.currentImg.showed;
-                    this.currentImg.showed
-                        ? this.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK")
-                        : this.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
+                    if (this.currentImg.showed) {
+                        this.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK");
+                    }
+                    else {
+                        this.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
+                    }
+                    this.refresh();
                 }
             },
             error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
@@ -9648,6 +9795,7 @@ let ImagesManagementComponent = class ImagesManagementComponent {
                 else {
                     this.commonService.openSnackBar("Error al intentar eliminar la imagen", "OK");
                 }
+                this.refresh();
             });
             this.loading = false;
         });
@@ -13467,6 +13615,575 @@ OfferService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.scss":
+/*!******************************************************************************!*\
+  !*** ./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.scss ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntd {\n  vertical-align: middle;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\nbutton {\n  margin-right: 3%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3FyLWNvZGVzL2NvbXBvbmVudHMvYWxsLXFyLWNvZGVzL2FsbC1xci1jb2Rlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvcXItY29kZXMvY29tcG9uZW50cy9hbGwtcXItY29kZXMvYWxsLXFyLWNvZGVzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0FDQ0Y7O0FERUE7RUFDRSxlQUFBO0VBQ0EsZUFBQTtBQ0NGOztBREVBO0VBQ0Usc0JBQUE7QUNDRjs7QURFQTtFQUNFLHlCQUFBO0FDQ0Y7O0FERUE7RUFDRSxnQkFBQTtBQ0NGOztBREVBO0VBQ0UsaUJBQUE7RUFDQSxlQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9xci1jb2Rlcy9jb21wb25lbnRzL2FsbC1xci1jb2Rlcy9hbGwtcXItY29kZXMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0aCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHIge1xuICBmb250LXNpemU6IDE1cHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxudGQge1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xufVxuXG50cjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDcsIDI0NywgMjQ3KTtcbn1cblxuYnV0dG9uIHtcbiAgbWFyZ2luLXJpZ2h0OiAzJTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuIiwidGgge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbnRyIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnRkIHtcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cblxudHI6aG92ZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjdmN2Y3O1xufVxuXG5idXR0b24ge1xuICBtYXJnaW4tcmlnaHQ6IDMlO1xufVxuXG4uY29udGFpbmVyLXRleHQtbGVmdCB7XG4gIG1hcmdpbi1ib3R0b206IDIlO1xuICBtYXJnaW4tbGVmdDogMiU7XG59Il19 */");
+
+/***/ }),
+
+/***/ "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.ts ***!
+  \****************************************************************************/
+/*! exports provided: AllQrCodesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AllQrCodesComponent", function() { return AllQrCodesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _services_qr_codes_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/qr-codes.service */ "./src/app/qr-codes/services/qr-codes.service.ts");
+/* harmony import */ var _create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../create-modify-qr-codes/create-modify-qr-codes.component */ "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.ts");
+
+
+
+
+
+
+
+let AllQrCodesComponent = class AllQrCodesComponent {
+    constructor(qrCodesService, commonService, dialog) {
+        this.qrCodesService = qrCodesService;
+        this.commonService = commonService;
+        this.dialog = dialog;
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].USER_WEB + "?qr=";
+    }
+    ngOnInit() {
+        this.getQRs();
+    }
+    getQRs() {
+        this.subscription = this.qrCodesService.getQRCodes().subscribe({
+            next: (data) => {
+                console.log(data);
+                this.qrCodesService.qrCodes = data;
+                this.subscription.unsubscribe();
+            }, error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK")
+        });
+    }
+    openDialog(action, data) {
+        let dialogRef;
+        dialogRef = this.dialog.open(_create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_6__["CreateModifyQrCodesComponent"], {
+            height: "70%",
+            width: "60%",
+            disableClose: true,
+            data: {
+                qr: data,
+                action: action,
+            },
+        });
+    }
+    delete(qrCode) {
+        this.qrCodesService.delete(qrCode.qr_id).subscribe({
+            next: (data) => {
+                if (data.status == 204) {
+                    this.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
+                    this.getQRs();
+                }
+                else {
+                    this.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
+                    console.log(data.error);
+                }
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        });
+    }
+};
+AllQrCodesComponent.ctorParameters = () => [
+    { type: _services_qr_codes_service__WEBPACK_IMPORTED_MODULE_5__["QrCodesService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] }
+];
+AllQrCodesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-all-qr-codes',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./all-qr-codes.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./all-qr-codes.component.scss */ "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.scss")).default]
+    })
+], AllQrCodesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.scss":
+/*!**************************************************************************************************!*\
+  !*** ./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.scss ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("h1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\ntextarea {\n  resize: none !important;\n}\n\nform {\n  width: 100%;\n}\n\nmat-form-field {\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3FyLWNvZGVzL2NvbXBvbmVudHMvY3JlYXRlLW1vZGlmeS1xci1jb2Rlcy9jcmVhdGUtbW9kaWZ5LXFyLWNvZGVzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9xci1jb2Rlcy9jb21wb25lbnRzL2NyZWF0ZS1tb2RpZnktcXItY29kZXMvY3JlYXRlLW1vZGlmeS1xci1jb2Rlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLGlCQUFBO0VBQ0EsaUJBQUE7QUNDRjs7QURFQTtFQUNFLGNBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDRjs7QURFQTtFQUNJLHVCQUFBO0FDQ0o7O0FERUE7RUFDRSxXQUFBO0FDQ0Y7O0FERUE7RUFDRSxXQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9xci1jb2Rlcy9jb21wb25lbnRzL2NyZWF0ZS1tb2RpZnktcXItY29kZXMvY3JlYXRlLW1vZGlmeS1xci1jb2Rlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbnRleHRhcmVhIHtcbiAgICByZXNpemU6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiAxMDAlO1xufVxuIiwiaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxudGV4dGFyZWEge1xuICByZXNpemU6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiAxMDAlO1xufSJdfQ== */");
+
+/***/ }),
+
+/***/ "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.ts":
+/*!************************************************************************************************!*\
+  !*** ./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.ts ***!
+  \************************************************************************************************/
+/*! exports provided: CreateModifyQrCodesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateModifyQrCodesComponent", function() { return CreateModifyQrCodesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var src_app_ads_services_ads_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/ads/services/ads.service */ "./src/app/ads/services/ads.service.ts");
+/* harmony import */ var src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/contests/services/contests.service */ "./src/app/contests/services/contests.service.ts");
+/* harmony import */ var src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/event/services/event.service */ "./src/app/event/services/event.service.ts");
+/* harmony import */ var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/general-services/auth.service */ "./src/app/general-services/auth.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/itinerary/services/itinerary.service */ "./src/app/itinerary/services/itinerary.service.ts");
+/* harmony import */ var src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/tourist-routes/services/tourist-routes.service */ "./src/app/tourist-routes/services/tourist-routes.service.ts");
+/* harmony import */ var _services_qr_codes_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../services/qr-codes.service */ "./src/app/qr-codes/services/qr-codes.service.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+let CreateModifyQrCodesComponent = class CreateModifyQrCodesComponent {
+    constructor(data, dialogRef, eventService, commonService, contestService, adService, itineraryService, authService, touristRouteService, qrCodesService) {
+        this.data = data;
+        this.dialogRef = dialogRef;
+        this.eventService = eventService;
+        this.commonService = commonService;
+        this.contestService = contestService;
+        this.adService = adService;
+        this.itineraryService = itineraryService;
+        this.authService = authService;
+        this.touristRouteService = touristRouteService;
+        this.qrCodesService = qrCodesService;
+        this.types = [
+            { name: "Anuncios", id: "ads" },
+            { name: "Concurso", id: "contest" },
+            { name: "Evento", id: "event" },
+            { name: "Itinerario", id: "itinerary" },
+            { name: "Ruta Turística", id: "tourist route" },
+        ];
+        this.elements = [];
+        this.elementType = undefined;
+        this.loading = false;
+        this.qrForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            element: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            description: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required,
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]"),
+            ]),
+        });
+    }
+    ngOnInit() {
+        console.log(this.data);
+        this.data.action
+            ? (this.action = "Crear QR")
+            : (this.action = "Modificar QR");
+        this.data.action
+            ? (this.title = "Creación de Código QR")
+            : (this.title = "Modificación de Código QR");
+        this.data.action ? null : this.setData();
+    }
+    setData() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            let qr = this.data.qr;
+            this.elementType = qr.e_type;
+            this.elementChanged(qr.e_id);
+            this.qrForm.controls["description"].setValue(qr.description);
+        });
+    }
+    elementChanged(element_id) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.loading = true;
+            let element = undefined;
+            if (this.elementType == "event") {
+                yield this.eventService
+                    .getAllEvents()
+                    .toPromise()
+                    .then((data) => {
+                    this.elements = data;
+                    element = this.elements.find(function (value) {
+                        return value.event_id == element_id;
+                    });
+                });
+            }
+            else if (this.elementType == "contest") {
+                yield this.contestService
+                    .getContests()
+                    .toPromise()
+                    .then((data) => {
+                    this.elements = data;
+                    element = this.elements.find(function (value) {
+                        return value.contest_id == element_id;
+                    });
+                });
+            }
+            else if (this.elementType == "ads") {
+                yield this.adService
+                    .getAllAds()
+                    .toPromise()
+                    .then((data) => {
+                    this.elements = data;
+                    element = this.elements.find(function (value) {
+                        return value.ad_id == element_id;
+                    });
+                });
+            }
+            else if (this.elementType == "itinerary") {
+                yield this.itineraryService
+                    .getItineraryMinimalInfoByUser(this.authService.getUser().user_id)
+                    .toPromise()
+                    .then((data) => {
+                    this.elements = data.data;
+                    element = this.elements.find(function (value) {
+                        return value.itinerary_id == element_id;
+                    });
+                });
+            }
+            else if (this.elementType == "tourist route") {
+                yield this.touristRouteService
+                    .getTouristRoutes(true)
+                    .toPromise()
+                    .then((data) => {
+                    this.elements = data;
+                    element = this.elements.find(function (value) {
+                        return value.route_id == element_id;
+                    });
+                });
+            }
+            element == undefined
+                ? this.qrForm.controls["element"].setValue(null)
+                : this.qrForm.controls["element"].setValue(element);
+            this.loading = false;
+        });
+    }
+    submit() {
+        let element_id = this.getElementId(this.qrForm.controls["element"].value);
+        let qr = {
+            description: this.qrForm.controls["description"].value,
+            e_id: element_id,
+            e_type: this.elementType,
+        };
+        this.data.action ? null : (qr.qr_id = this.data.qr.qr_id);
+        this.data.action ? null : (qr.visits = this.data.qr.visits);
+        this.data.action ? this.create(qr) : this.modify(qr);
+    }
+    getElementId(element) {
+        if (this.elementType == "event") {
+            element = this.elements.find(function (value) {
+                return value == element;
+            }).event_id;
+        }
+        else if (this.elementType == "contest") {
+            element = this.elements.find(function (value) {
+                return value == element;
+            }).contest_id;
+        }
+        else if (this.elementType == "ads") {
+            element = this.elements.find(function (value) {
+                return value == element;
+            }).ad_id;
+        }
+        else if (this.elementType == "itinerary") {
+            element = this.elements.find(function (value) {
+                return value == element;
+            }).itinerary_id;
+        }
+        else if (this.elementType == "tourist route") {
+            element = this.elements.find(function (value) {
+                return value == element;
+            }).route_id;
+        }
+        return element;
+    }
+    create(qr) {
+        this.loading = true;
+        this.qrForm.disable();
+        this.qrCodesService.create(qr).subscribe({
+            next: (data) => {
+                if (data.status == 201) {
+                    this.commonService.openSnackBar("El código QR ha sido creado éxitosamente", "OK");
+                    this.getQRCodes();
+                }
+                else {
+                    this.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
+                    console.log(data.error);
+                    this.qrForm.enable();
+                    this.loading = false;
+                }
+            },
+            error: (err) => {
+                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                this.loading = false;
+                this.qrForm.enable();
+            },
+        });
+    }
+    modify(qr) {
+        this.loading = true;
+        this.qrForm.disable();
+        this.qrCodesService.modify(qr).subscribe({
+            next: (data) => {
+                if (data.status == 200) {
+                    this.commonService.openSnackBar("El código QR ha sido editado éxitosamente", "OK");
+                    this.getQRCodes();
+                }
+                else {
+                    this.commonService.openSnackBar("Ha ocurrido un error al intentar editar el código QR", "OK");
+                    console.log(data.error);
+                    this.qrForm.enable();
+                    this.loading = false;
+                }
+            },
+            error: (err) => {
+                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                this.loading = false;
+                this.qrForm.enable();
+            },
+        });
+    }
+    getQRCodes() {
+        this.qrCodesService.getQRCodes().subscribe({
+            next: (data) => {
+                this.qrCodesService.qrCodes = data;
+                this.closeDialog();
+            },
+            error: (err) => {
+                this.commonService.openSnackBar("Ha ocurrido un error, por favor refresque la página", "");
+                this.closeDialog();
+            },
+        });
+    }
+    onNoClick() {
+        this.dialogRef.close();
+    }
+    closeDialog() {
+        this.dialogRef.close();
+    }
+};
+CreateModifyQrCodesComponent.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"],] }] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
+    { type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_6__["EventService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_8__["CommonService"] },
+    { type: src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_5__["ContestsService"] },
+    { type: src_app_ads_services_ads_service__WEBPACK_IMPORTED_MODULE_4__["AdsService"] },
+    { type: src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_9__["ItineraryService"] },
+    { type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"] },
+    { type: src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_10__["TouristRoutesService"] },
+    { type: _services_qr_codes_service__WEBPACK_IMPORTED_MODULE_11__["QrCodesService"] }
+];
+CreateModifyQrCodesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: "app-create-modify-qr-codes",
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./create-modify-qr-codes.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./create-modify-qr-codes.component.scss */ "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.scss")).default]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"]))
+], CreateModifyQrCodesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/qr-codes/qr-codes-root.component.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/qr-codes/qr-codes-root.component.ts ***!
+  \*****************************************************/
+/*! exports provided: QrCodesRootComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QrCodesRootComponent", function() { return QrCodesRootComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let QrCodesRootComponent = class QrCodesRootComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+QrCodesRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-qr-codes-root',
+        template: `
+    <router-outlet></router-outlet>
+  `
+    })
+], QrCodesRootComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/qr-codes/qr-codes-routing.module.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/qr-codes/qr-codes-routing.module.ts ***!
+  \*****************************************************/
+/*! exports provided: QRCodesRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QRCodesRoutingModule", function() { return QRCodesRoutingModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _components_all_qr_codes_all_qr_codes_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/all-qr-codes/all-qr-codes.component */ "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.ts");
+/* harmony import */ var _qr_codes_root_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./qr-codes-root.component */ "./src/app/qr-codes/qr-codes-root.component.ts");
+
+
+
+
+const routes = [
+    {
+        path: "qr-codes",
+        component: _qr_codes_root_component__WEBPACK_IMPORTED_MODULE_3__["QrCodesRootComponent"],
+        children: [
+            {
+                path: "all",
+                component: _components_all_qr_codes_all_qr_codes_component__WEBPACK_IMPORTED_MODULE_2__["AllQrCodesComponent"]
+            }
+        ]
+    }
+];
+const QRCodesRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes);
+
+
+/***/ }),
+
+/***/ "./src/app/qr-codes/qr-codes.module.ts":
+/*!*********************************************!*\
+  !*** ./src/app/qr-codes/qr-codes.module.ts ***!
+  \*********************************************/
+/*! exports provided: QrCodesModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QrCodesModule", function() { return QrCodesModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _qr_codes_root_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./qr-codes-root.component */ "./src/app/qr-codes/qr-codes-root.component.ts");
+/* harmony import */ var _qr_codes_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./qr-codes-routing.module */ "./src/app/qr-codes/qr-codes-routing.module.ts");
+/* harmony import */ var _shared_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared.module */ "./src/app/shared.module.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-filter-pipe */ "./node_modules/ngx-filter-pipe/esm2015/ngx-filter-pipe.js");
+/* harmony import */ var _components_all_qr_codes_all_qr_codes_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/all-qr-codes/all-qr-codes.component */ "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.ts");
+/* harmony import */ var _components_create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/create-modify-qr-codes/create-modify-qr-codes.component */ "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.ts");
+/* harmony import */ var angularx_qrcode__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! angularx-qrcode */ "./node_modules/angularx-qrcode/fesm2015/angularx-qrcode.js");
+
+
+
+
+
+
+
+
+
+
+
+let QrCodesModule = class QrCodesModule {
+};
+QrCodesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        declarations: [
+            _qr_codes_root_component__WEBPACK_IMPORTED_MODULE_3__["QrCodesRootComponent"],
+            _components_all_qr_codes_all_qr_codes_component__WEBPACK_IMPORTED_MODULE_8__["AllQrCodesComponent"],
+            _components_create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_9__["CreateModifyQrCodesComponent"]
+        ],
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            _qr_codes_routing_module__WEBPACK_IMPORTED_MODULE_4__["QRCodesRoutingModule"],
+            _shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"],
+            ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_7__["FilterPipeModule"],
+            angularx_qrcode__WEBPACK_IMPORTED_MODULE_10__["QRCodeModule"]
+        ],
+        entryComponents: [_components_create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_9__["CreateModifyQrCodesComponent"]]
+    })
+], QrCodesModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/qr-codes/services/qr-codes.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/qr-codes/services/qr-codes.service.ts ***!
+  \*******************************************************/
+/*! exports provided: QrCodesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QrCodesService", function() { return QrCodesService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+let QrCodesService = class QrCodesService {
+    constructor(http) {
+        this.http = http;
+        this.module = "qrs/";
+        this.qrCodes = [];
+    }
+    getQRCodes() {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}`);
+    }
+    create(qrCode) {
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}`, qrCode, { observe: 'response' });
+    }
+    modify(qrCode) {
+        let json = {
+            e_type: qrCode.e_type,
+            e_id: qrCode.e_id,
+            description: qrCode.description
+        };
+        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${qrCode.qr_id}`, json, { observe: 'response' });
+    }
+    delete(qrCode_id) {
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${qrCode_id}`, { observe: 'response' });
+    }
+};
+QrCodesService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+];
+QrCodesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: 'root'
+    })
+], QrCodesService);
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/components/service-root.component.ts":
 /*!***************************************************************!*\
   !*** ./src/app/services/components/service-root.component.ts ***!
@@ -14972,6 +15689,1135 @@ TouristRoutesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         entryComponents: [_components_create_tourist_routes_create_tourist_routes_component__WEBPACK_IMPORTED_MODULE_9__["CreateTouristRoutesComponent"]]
     })
 ], TouristRoutesModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/all-transport-services/all-transport-services.component.scss":
+/*!************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/all-transport-services/all-transport-services.component.scss ***!
+  \************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\nbutton {\n  margin-right: 3%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2FsbC10cmFuc3BvcnQtc2VydmljZXMvYWxsLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdHJhbnNwb3J0LXNlcnZpY2VzL2NvbXBvbmVudHMvYWxsLXRyYW5zcG9ydC1zZXJ2aWNlcy9hbGwtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0FDQ0Y7O0FERUE7RUFDRSxlQUFBO0VBQ0EsZUFBQTtBQ0NGOztBREVBO0VBQ0UseUJBQUE7QUNDRjs7QURFQTtFQUNFLGdCQUFBO0FDQ0Y7O0FERUE7RUFDRSxpQkFBQTtFQUNBLGVBQUE7QUNDRiIsImZpbGUiOiJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2FsbC10cmFuc3BvcnQtc2VydmljZXMvYWxsLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRoIHtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBmb250LXdlaWdodDogNjAwO1xufVxuXG50ciB7XG4gIGZvbnQtc2l6ZTogMTVweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG50cjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDcsIDI0NywgMjQ3KTtcbn1cblxuYnV0dG9uIHtcbiAgbWFyZ2luLXJpZ2h0OiAzJTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuIiwidGgge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbnRyIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnRyOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y3ZjdmNztcbn1cblxuYnV0dG9uIHtcbiAgbWFyZ2luLXJpZ2h0OiAzJTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufSJdfQ== */");
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/all-transport-services/all-transport-services.component.ts":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/all-transport-services/all-transport-services.component.ts ***!
+  \**********************************************************************************************************/
+/*! exports provided: AllTransportServicesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AllTransportServicesComponent", function() { return AllTransportServicesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/auth.service */ "./src/app/general-services/auth.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _services_transport_services_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/transport-services.service */ "./src/app/transport-services/services/transport-services.service.ts");
+/* harmony import */ var _create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../create-transport-services/create-transport-services.component */ "./src/app/transport-services/components/create-transport-services/create-transport-services.component.ts");
+
+
+
+
+
+
+
+let AllTransportServicesComponent = class AllTransportServicesComponent {
+    constructor(transportService, authService, commonService, matDialog) {
+        this.transportService = transportService;
+        this.authService = authService;
+        this.commonService = commonService;
+        this.matDialog = matDialog;
+        this.filter = {
+            info: {
+                name: "",
+            },
+        };
+    }
+    ngOnInit() {
+        this.getTransportServices();
+    }
+    getTransportServices() {
+        let user_id;
+        user_id =
+            this.authService.getUser().role_id != 1
+                ? (user_id = this.authService.getUser().role_id)
+                : (user_id = undefined);
+        if (user_id == undefined) {
+            this.subscription = this.transportService
+                .getTransportServices()
+                .subscribe({
+                next: (data) => {
+                    this.transportService.transportServices = data;
+                    this.subscription.unsubscribe();
+                },
+                error: (err) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK"),
+            });
+        }
+        else {
+            this.subscription = this.transportService
+                .getTransportServices(user_id)
+                .subscribe({
+                next: (data) => {
+                    this.transportService.transportServices = data;
+                    this.subscription.unsubscribe();
+                },
+                error: (err) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK"),
+            });
+        }
+    }
+    openCreateDialog() {
+        this.matDialog.open(_create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_6__["CreateTransportServicesComponent"], {
+            height: "75%",
+            width: "65%",
+            minWidth: "280px",
+            disableClose: true,
+        });
+    }
+    changeState(ts) {
+        this.commonService
+            .confirmationDialog(`¿Desea eliminar el servicio de transporte: ${ts.name}?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.transportService.changeTransportServiceState(ts).subscribe({
+                    next: (data) => {
+                        if (data.status == 200) {
+                            this.commonService.openSnackBar(`El servicio ${ts.info.name} ha sido eliminado`, "OK");
+                            this.getTransportServices();
+                        }
+                        else {
+                            this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                        }
+                    },
+                    error: (err) => {
+                        this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                    },
+                });
+            }
+        }));
+    }
+};
+AllTransportServicesComponent.ctorParameters = () => [
+    { type: _services_transport_services_service__WEBPACK_IMPORTED_MODULE_5__["TransportServicesService"] },
+    { type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] }
+];
+AllTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: "app-all-transport-services",
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./all-transport-services.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/all-transport-services/all-transport-services.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./all-transport-services.component.scss */ "./src/app/transport-services/components/all-transport-services/all-transport-services.component.scss")).default]
+    })
+], AllTransportServicesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.scss":
+/*!**************************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.scss ***!
+  \**************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2NhdGVnb3JpZXMtdHJhbnNwb3J0LXNlcnZpY2VzL2NhdGVnb3JpZXMtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIn0= */");
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.ts":
+/*!************************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.ts ***!
+  \************************************************************************************************************************/
+/*! exports provided: CategoriesTransportServicesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoriesTransportServicesComponent", function() { return CategoriesTransportServicesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/transport-services-categories.service */ "./src/app/transport-services/services/transport-services-categories.service.ts");
+/* harmony import */ var _create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../create-categories-transport-services/create-categories-transport-services.component */ "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.ts");
+
+
+
+
+
+
+let CategoriesTransportServicesComponent = class CategoriesTransportServicesComponent {
+    constructor(categoryTransportService, matDialog, commonService) {
+        this.categoryTransportService = categoryTransportService;
+        this.matDialog = matDialog;
+        this.commonService = commonService;
+        this.filter = {
+            name: "",
+        };
+    }
+    ngOnInit() {
+        this.getCategories();
+    }
+    getCategories() {
+        this.subscription = this.categoryTransportService
+            .getTransportServicesCategories()
+            .subscribe({
+            next: (data) => {
+                this.categoryTransportService.categories = data;
+                this.subscription.unsubscribe();
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+        });
+    }
+    openCreateialog() {
+        this.matDialog.open(_create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_5__["CreateCategoriesTransportServicesComponent"], {
+            height: "45%",
+            width: "45%",
+            minWidth: "280px",
+            disableClose: true,
+        });
+    }
+    changeState(category) {
+        if (category.is_active) {
+            this.categoryTransportService
+                .deleteTransportCategory(category.id)
+                .subscribe({
+                next: (data) => {
+                    if (data.status == 200) {
+                        this.commonService.openSnackBar(`La categoría se ha eliminado ${category.name}`, "OK");
+                        category.is_active = false;
+                        this.getCategories();
+                    }
+                    else {
+                        this.commonService.openSnackBar("Error. No se puedo eliminar la categoría", "OK");
+                    }
+                },
+                error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+            });
+        }
+    }
+};
+CategoriesTransportServicesComponent.ctorParameters = () => [
+    { type: _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_4__["TransportServicesCategoriesService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] }
+];
+CategoriesTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: "app-categories-transport-services",
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./categories-transport-services.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./categories-transport-services.component.scss */ "./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.scss")).default]
+    })
+], CategoriesTransportServicesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.scss":
+/*!****************************************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.scss ***!
+  \****************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("h1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\nmat-form-field {\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2NyZWF0ZS1jYXRlZ29yaWVzLXRyYW5zcG9ydC1zZXJ2aWNlcy9jcmVhdGUtY2F0ZWdvcmllcy10cmFuc3BvcnQtc2VydmljZXMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2NyZWF0ZS1jYXRlZ29yaWVzLXRyYW5zcG9ydC1zZXJ2aWNlcy9jcmVhdGUtY2F0ZWdvcmllcy10cmFuc3BvcnQtc2VydmljZXMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxjQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9jcmVhdGUtY2F0ZWdvcmllcy10cmFuc3BvcnQtc2VydmljZXMvY3JlYXRlLWNhdGVnb3JpZXMtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDF7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMSU7XG4gICAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXJ7XG4gICAgbWFyZ2luLXRvcDogMyU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cbiBcbmZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbm1hdC1mb3JtLWZpZWxke1xuICAgIHdpZHRoOiAxMDAlO1xufSIsImgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogMTAwJTtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.ts":
+/*!**************************************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.ts ***!
+  \**************************************************************************************************************************************/
+/*! exports provided: CreateCategoriesTransportServicesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateCategoriesTransportServicesComponent", function() { return CreateCategoriesTransportServicesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/transport-services-categories.service */ "./src/app/transport-services/services/transport-services-categories.service.ts");
+
+
+
+
+
+
+let CreateCategoriesTransportServicesComponent = class CreateCategoriesTransportServicesComponent {
+    constructor(dialogRef, categoryTransportService, commonService) {
+        this.dialogRef = dialogRef;
+        this.categoryTransportService = categoryTransportService;
+        this.commonService = commonService;
+        this.categoryForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+        });
+    }
+    ngOnInit() {
+    }
+    createCategory() {
+        this.categoryForm.disable();
+        this.categoryTransportService.createTransportServicesCategory(this.categoryForm.value.name).subscribe({
+            next: (data) => {
+                if (data.status == 201) {
+                    this.commonService.openSnackBar(`El servicio de transporte ${this.categoryForm.value.name} se ha creado`, "OK");
+                    this.closeDialog();
+                }
+                else {
+                    this.commonService.openSnackBar(`Error al crear la categoría: ${data.error}`, "OK");
+                    this.categoryForm.enable();
+                }
+            },
+            error: (err) => {
+                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                this.categoryForm.enable();
+            }
+        });
+    }
+    onNoClick() {
+        this.dialogRef.close();
+    }
+    closeDialog() {
+        this.dialogRef.close();
+    }
+};
+CreateCategoriesTransportServicesComponent.ctorParameters = () => [
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
+    { type: _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_5__["TransportServicesCategoriesService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] }
+];
+CreateCategoriesTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-create-categories-transport-services',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./create-categories-transport-services.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./create-categories-transport-services.component.scss */ "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.scss")).default]
+    })
+], CreateCategoriesTransportServicesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/create-transport-services/create-transport-services.component.scss":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/create-transport-services/create-transport-services.component.scss ***!
+  \******************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 1%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2NyZWF0ZS10cmFuc3BvcnQtc2VydmljZXMvY3JlYXRlLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdHJhbnNwb3J0LXNlcnZpY2VzL2NvbXBvbmVudHMvY3JlYXRlLXRyYW5zcG9ydC1zZXJ2aWNlcy9jcmVhdGUtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvdHJhbnNwb3J0LXNlcnZpY2VzL2NvbXBvbmVudHMvY3JlYXRlLXRyYW5zcG9ydC1zZXJ2aWNlcy9jcmVhdGUtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGV4dGFyZWF7XG4gICAgcmVzaXplOiBub25lO1xufVxuXG5oMXtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luOiAwJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBtYXJnaW4tdG9wOiAzJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuIFxuZm9ybXtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGR7XG4gICAgd2lkdGg6IDQ1JTtcbiAgICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59IiwidGV4dGFyZWEge1xuICByZXNpemU6IG5vbmU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG5mb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiA0NSU7XG4gIG1hcmdpbi1yaWdodDogMi41JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59Il19 */");
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/create-transport-services/create-transport-services.component.ts":
+/*!****************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/create-transport-services/create-transport-services.component.ts ***!
+  \****************************************************************************************************************/
+/*! exports provided: CreateTransportServicesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateTransportServicesComponent", function() { return CreateTransportServicesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/general-services/auth.service */ "./src/app/general-services/auth.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../services/transport-services-categories.service */ "./src/app/transport-services/services/transport-services-categories.service.ts");
+/* harmony import */ var _services_transport_services_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../services/transport-services.service */ "./src/app/transport-services/services/transport-services.service.ts");
+
+
+
+
+
+
+
+
+
+let CreateTransportServicesComponent = class CreateTransportServicesComponent {
+    constructor(authService, dialogRef, transportService, commonService, router, categoryService) {
+        this.authService = authService;
+        this.dialogRef = dialogRef;
+        this.transportService = transportService;
+        this.commonService = commonService;
+        this.router = router;
+        this.categoryService = categoryService;
+        this.loading = false;
+    }
+    ngOnInit() {
+        this.tsForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('^(.{1,})[@](.{1,})[.](.{1,})$')]),
+            phone_number: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[0-9]{4}[-]{0,1}[ ]{0,1}[0-9]{4}")]),
+            address: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+            categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+        });
+        this.subscription = this.categoryService.getTransportServicesCategories().subscribe({
+            next: (data) => {
+                this.categories = data;
+            }, error: (err) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        });
+    }
+    createTransportService() {
+        this.loading = true;
+        this.tsForm.disable();
+        let transportService = {
+            name: this.tsForm.controls["name"].value,
+            email: this.tsForm.controls["email"].value,
+            categories_id: this.tsForm.controls["categories"].value,
+            tel: this.tsForm.controls["phone_number"].value,
+            hire_dir: this.tsForm.controls["address"].value,
+            user_id: this.authService.getUser().user_id
+        };
+        this.transportService.createTransportService(transportService).subscribe({
+            next: (data) => {
+                this.loading = false;
+                if (data.status == 201) {
+                    if (this.authService.getUser().role_id == 1) {
+                        this.commonService.openSnackBar(`El servicio de transporte ${this.tsForm.value.name} se ha creado`, "OK");
+                        this.router.navigate(['/transport-services', data.body[0]]);
+                    }
+                    else {
+                        this.commonService.openSnackBar(`La solicitud de creación del servicio de transporte ${this.tsForm.value.name} se ha enviado`, "OK");
+                    }
+                    this.closeDialog();
+                }
+                else {
+                    this.commonService.openSnackBar(`Error al crear el servicio de transporte: ${data.error}`, "OK");
+                    this.tsForm.enable();
+                }
+            },
+            error: (err) => {
+                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                this.loading = false;
+                this.tsForm.enable();
+            }
+        });
+    }
+    onNoClick() {
+        this.dialogRef.close();
+    }
+    closeDialog() {
+        this.dialogRef.close();
+    }
+};
+CreateTransportServicesComponent.ctorParameters = () => [
+    { type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
+    { type: _services_transport_services_service__WEBPACK_IMPORTED_MODULE_8__["TransportServicesService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_7__["TransportServicesCategoriesService"] }
+];
+CreateTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-create-transport-services',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./create-transport-services.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-transport-services/create-transport-services.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./create-transport-services.component.scss */ "./src/app/transport-services/components/create-transport-services/create-transport-services.component.scss")).default]
+    })
+], CreateTransportServicesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.scss":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.scss ***!
+  \**************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("textarea {\n  resize: none !important;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 1%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL21hbmFnZW1lbnQtdHJhbnNwb3J0LXNlcnZpY2VzL2RldGFpbHMtdHJhbnNwb3J0LXNlcnZpY2VzL2RldGFpbHMtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9tYW5hZ2VtZW50LXRyYW5zcG9ydC1zZXJ2aWNlcy9kZXRhaWxzLXRyYW5zcG9ydC1zZXJ2aWNlcy9kZXRhaWxzLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHVCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7QUNDSjs7QURFQTtFQUNJLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9tYW5hZ2VtZW50LXRyYW5zcG9ydC1zZXJ2aWNlcy9kZXRhaWxzLXRyYW5zcG9ydC1zZXJ2aWNlcy9kZXRhaWxzLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhe1xuICAgIHJlc2l6ZTogbm9uZSAhaW1wb3J0YW50O1xufVxuXG5oMXtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luOiAwJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBtYXJnaW4tdG9wOiAzJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuIFxuZm9ybXtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGR7XG4gICAgd2lkdGg6IDQ1JTtcbiAgICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59IiwidGV4dGFyZWEge1xuICByZXNpemU6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDQ1JTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.ts":
+/*!************************************************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.ts ***!
+  \************************************************************************************************************************************************/
+/*! exports provided: DetailsTransportServicesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetailsTransportServicesComponent", function() { return DetailsTransportServicesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var src_app_transport_services_services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/transport-services/services/transport-services-categories.service */ "./src/app/transport-services/services/transport-services-categories.service.ts");
+/* harmony import */ var src_app_transport_services_services_transport_services_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/transport-services/services/transport-services.service */ "./src/app/transport-services/services/transport-services.service.ts");
+
+
+
+
+
+
+let DetailsTransportServicesComponent = class DetailsTransportServicesComponent {
+    constructor(categoryService, commonService, transportService) {
+        this.categoryService = categoryService;
+        this.commonService = commonService;
+        this.transportService = transportService;
+        this.loading = false;
+        this.transportServicesFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required,
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]"),
+            ]),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required,
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^(.{1,})[@](.{1,})[.](.{1,})$"),
+            ]),
+            phone_number: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required,
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([0-9]{4}[ ][0-9]{4})$"),
+            ]),
+            address: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required,
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]"),
+            ]),
+            categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+        });
+    }
+    ngOnInit() {
+        this.subscription = this.categoryService
+            .getTransportServicesCategories()
+            .subscribe({
+            next: (data) => {
+                this.categories = data;
+                this.subscription.unsubscribe();
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err}`, "OK"),
+        });
+        this.setData();
+    }
+    setData() {
+        console.log(this.transport);
+        this.transportServicesFG.controls["name"].setValue(this.transport.info.name),
+            this.transportServicesFG.controls["email"].setValue(this.transport.info.email),
+            this.transportServicesFG.controls["phone_number"].setValue(this.transport.info.tel),
+            this.transportServicesFG.controls["address"].setValue(this.transport.info.hire_dir),
+            this.transportServicesFG.controls["categories"].setValue(this.transport.categories_id);
+    }
+    changeState({ source }) {
+        if (this.transport.is_active) {
+            this.commonService
+                .confirmationDialog(`¿Desea eliminar el servicio de transporte: ${this.transport.name}?`)
+                .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+                if (result) {
+                    this.transportService
+                        .changeTransportServiceState(this.transport)
+                        .subscribe({
+                        next: (data) => {
+                            if (data.status == 201) {
+                                this.transport.is_active = !this.transport.is_active;
+                                source.checked = this.transport.is_active;
+                                this.commonService.openSnackBar(`El evento ${this.transport.name} ha sido eliminado`, "OK");
+                            }
+                            else {
+                                this.commonService.openSnackBar(`Error al cambiar el estado: ${data.error}`, "OK");
+                            }
+                        },
+                        error: (err) => {
+                            this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                            source.checked = this.transport.is_active;
+                        },
+                    });
+                }
+                else {
+                    source.checked = this.transport.is_active;
+                }
+            }));
+        }
+        else {
+            source.checked = this.transport.is_active;
+            this.commonService.openSnackBar("No se puede reactivar un servicio de transporte", "OK");
+        }
+    }
+    modifyTransportService() {
+        this.loading = true;
+        this.transportServicesFG.disable();
+        let newTransportService = {
+            transport_service_id: this.transport.transport_service_id,
+            name: this.transportServicesFG.controls["name"].value,
+            email: this.transportServicesFG.controls["email"].value,
+            tel: this.transportServicesFG.controls["phone_number"].value,
+            hire_dir: this.transportServicesFG.controls["address"].value,
+            categories_id: this.transportServicesFG.controls["categories"].value,
+            is_active: this.transport.is_active,
+        };
+        this.transportService
+            .modifyTransportService(newTransportService)
+            .subscribe({
+            next: (data) => {
+                if (data.status == 200) {
+                    this.transport.info.name = newTransportService.name;
+                    this.transport.info.email = newTransportService.email;
+                    this.transport.info.tel = newTransportService.tel;
+                    this.transport.info.hire_dir = newTransportService.hire_dir;
+                    this.transport.categories_id = newTransportService.categories_id;
+                    this.commonService.openSnackBar(`El servicio de transporte: ${this.transport.info.name} ha sido cambiado`, "OK");
+                    this.loading = false;
+                    this.transportServicesFG.enable();
+                }
+                else {
+                    this.commonService.openSnackBar(`Error al cambiar el servicio: ${data.error}`, "OK");
+                    this.loading = false;
+                    this.transportServicesFG.enable();
+                }
+            },
+            error: (err) => {
+                this.commonService.openSnackBar(`Error: ${err.message}`, "OK");
+                this.loading = false;
+                this.transportServicesFG.enable();
+            },
+        });
+    }
+};
+DetailsTransportServicesComponent.ctorParameters = () => [
+    { type: src_app_transport_services_services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_4__["TransportServicesCategoriesService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] },
+    { type: src_app_transport_services_services_transport_services_service__WEBPACK_IMPORTED_MODULE_5__["TransportServicesService"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+], DetailsTransportServicesComponent.prototype, "transport", void 0);
+DetailsTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: "app-details-transport-services",
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./details-transport-services.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./details-transport-services.component.scss */ "./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.scss")).default]
+    })
+], DetailsTransportServicesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/management-transport-services/management-transport-services.component.scss":
+/*!**************************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/management-transport-services/management-transport-services.component.scss ***!
+  \**************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL21hbmFnZW1lbnQtdHJhbnNwb3J0LXNlcnZpY2VzL21hbmFnZW1lbnQtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIn0= */");
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/management-transport-services/management-transport-services.component.ts":
+/*!************************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/management-transport-services/management-transport-services.component.ts ***!
+  \************************************************************************************************************************/
+/*! exports provided: ManagementTransportServicesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ManagementTransportServicesComponent", function() { return ManagementTransportServicesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_transport_services_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/transport-services.service */ "./src/app/transport-services/services/transport-services.service.ts");
+
+
+
+
+let ManagementTransportServicesComponent = class ManagementTransportServicesComponent {
+    constructor(route, transportService) {
+        this.route = route;
+        this.transportService = transportService;
+    }
+    ngOnInit() {
+        this.subscription = this.route.paramMap.subscribe((params) => {
+            this.transport_id = Number(params.get("transport_service_id"));
+            this.recharge();
+        });
+    }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+    recharge() {
+        this.transportService.getTranportService(Number(this.transport_id)).subscribe((data) => {
+            this.transport = data;
+        });
+    }
+};
+ManagementTransportServicesComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
+    { type: _services_transport_services_service__WEBPACK_IMPORTED_MODULE_3__["TransportServicesService"] }
+];
+ManagementTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-management-transport-services',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./management-transport-services.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/management-transport-services.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./management-transport-services.component.scss */ "./src/app/transport-services/components/management-transport-services/management-transport-services.component.scss")).default]
+    })
+], ManagementTransportServicesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/request-transport-services/request-transport-services.component.scss":
+/*!********************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/request-transport-services/request-transport-services.component.scss ***!
+  \********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".radio-button-group {\n  width: 50%;\n  justify-content: space-around;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n}\n\n.denyBtn, .acceptBtn {\n  margin-left: 1%;\n  font-size: 14px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL3JlcXVlc3QtdHJhbnNwb3J0LXNlcnZpY2VzL3JlcXVlc3QtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9yZXF1ZXN0LXRyYW5zcG9ydC1zZXJ2aWNlcy9yZXF1ZXN0LXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7RUFDQSw2QkFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxlQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9yZXF1ZXN0LXRyYW5zcG9ydC1zZXJ2aWNlcy9yZXF1ZXN0LXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yYWRpby1idXR0b24tZ3JvdXB7XG4gICAgd2lkdGg6IDUwJTtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBtaW4td2lkdGg6IDMwMHB4O1xufVxuXG4uZGVueUJ0biwgLmFjY2VwdEJ0biAge1xuICAgIG1hcmdpbi1sZWZ0OiAxJTtcbiAgICBmb250LXNpemU6IDE0cHg7XG59IiwiLnJhZGlvLWJ1dHRvbi1ncm91cCB7XG4gIHdpZHRoOiA1MCU7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIG1pbi13aWR0aDogMzAwcHg7XG59XG5cbi5kZW55QnRuLCAuYWNjZXB0QnRuIHtcbiAgbWFyZ2luLWxlZnQ6IDElO1xuICBmb250LXNpemU6IDE0cHg7XG59Il19 */");
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/request-transport-services/request-transport-services.component.ts":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/request-transport-services/request-transport-services.component.ts ***!
+  \******************************************************************************************************************/
+/*! exports provided: RequestTransportServicesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestTransportServicesComponent", function() { return RequestTransportServicesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/general-services/auth.service */ "./src/app/general-services/auth.service.ts");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _services_transport_services_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/transport-services.service */ "./src/app/transport-services/services/transport-services.service.ts");
+
+
+
+
+
+let RequestTransportServicesComponent = class RequestTransportServicesComponent {
+    constructor(transportService, authService, commonService) {
+        this.transportService = transportService;
+        this.authService = authService;
+        this.commonService = commonService;
+        this.filter = {
+            status: '2',
+            info: {
+                name: "",
+            },
+        };
+        this.request = [];
+        this.loading = false;
+    }
+    ngOnInit() {
+        this.getTransportSerivicesRequest();
+    }
+    getTransportSerivicesRequest() {
+        this.loading = true;
+        let state = Number(this.filter.status);
+        this.transportService
+            .getTranspotServicesPetitions(state)
+            .subscribe({
+            next: (data) => {
+                this.request = data;
+                this.loading = false;
+            },
+            error: (err) => {
+                this.commonService.openSnackBar(`Error: ${err.message}`, "OK"),
+                    this.loading = false;
+            }
+        });
+    }
+    changeStateRequest(ts, state) {
+        let msg;
+        msg = state == 1 ? "aceptado." : "rechazado.";
+        this.transportService
+            .changeRequestState(ts.transport_service_id, state)
+            .subscribe({
+            next: (data) => {
+                data.status == 200 ? this.getTransportSerivicesRequest() : null;
+                data.status == 200
+                    ? this.commonService.openSnackBar(`El evento ha sido ${msg}`, "OK")
+                    : null;
+            },
+            error: (err) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK"),
+        });
+    }
+};
+RequestTransportServicesComponent.ctorParameters = () => [
+    { type: _services_transport_services_service__WEBPACK_IMPORTED_MODULE_4__["TransportServicesService"] },
+    { type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] }
+];
+RequestTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: "app-request-transport-services",
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./request-transport-services.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/request-transport-services/request-transport-services.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./request-transport-services.component.scss */ "./src/app/transport-services/components/request-transport-services/request-transport-services.component.scss")).default]
+    })
+], RequestTransportServicesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.scss":
+/*!**************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.scss ***!
+  \**************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL3RhYnMtdHJhbnNwb3J0LXNlcnZpY2VzL3RhYnMtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIn0= */");
+
+/***/ }),
+
+/***/ "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.ts":
+/*!************************************************************************************************************!*\
+  !*** ./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.ts ***!
+  \************************************************************************************************************/
+/*! exports provided: TabsTransportServicesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabsTransportServicesComponent", function() { return TabsTransportServicesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/general-services/auth.service */ "./src/app/general-services/auth.service.ts");
+
+
+
+let TabsTransportServicesComponent = class TabsTransportServicesComponent {
+    constructor(authService) {
+        this.authService = authService;
+    }
+    ngOnInit() {
+    }
+};
+TabsTransportServicesComponent.ctorParameters = () => [
+    { type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"] }
+];
+TabsTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-tabs-transport-services',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./tabs-transport-services.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./tabs-transport-services.component.scss */ "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.scss")).default]
+    })
+], TabsTransportServicesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/services/transport-services-categories.service.ts":
+/*!**************************************************************************************!*\
+  !*** ./src/app/transport-services/services/transport-services-categories.service.ts ***!
+  \**************************************************************************************/
+/*! exports provided: TransportServicesCategoriesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransportServicesCategoriesService", function() { return TransportServicesCategoriesService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+let TransportServicesCategoriesService = class TransportServicesCategoriesService {
+    constructor(http) {
+        this.http = http;
+        this.module = "categoriesOfTransportService/";
+        this.categories = [];
+    }
+    getTransportServicesCategories() {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}`);
+    }
+    createTransportServicesCategory(name) {
+        let json = {
+            name
+        };
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}`, json, { observe: 'response' });
+    }
+    deleteTransportCategory(categoy_id) {
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${categoy_id}`, { observe: 'response' });
+    }
+};
+TransportServicesCategoriesService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+];
+TransportServicesCategoriesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: 'root'
+    })
+], TransportServicesCategoriesService);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/services/transport-services.service.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/transport-services/services/transport-services.service.ts ***!
+  \***************************************************************************/
+/*! exports provided: TransportServicesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransportServicesService", function() { return TransportServicesService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+let TransportServicesService = class TransportServicesService {
+    constructor(http) {
+        this.http = http;
+        this.transportServices = [];
+        this.module = "transportationService/";
+    }
+    getTransportServices(user_id) {
+        if (user_id != undefined) {
+            return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}user/${user_id}`, { params: { _status: "1" } });
+        }
+        else {
+            return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}`, { params: { _status: "1" } });
+        }
+    }
+    getTranspotServicesPetitions(status) {
+        let params = {
+            _status: status.toString()
+        };
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}`, { params: params });
+    }
+    getTranportService(transport_id) {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${transport_id}`);
+    }
+    createTransportService(ts) {
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}`, ts, {
+            observe: "response",
+        });
+    }
+    modifyTransportService(ts) {
+        let json = {
+            categories_id: ts.categories_id,
+            name: ts.name,
+            email: ts.email,
+            tel: ts.tel,
+            hire_dir: ts.hire_dir
+        };
+        return this.http.patch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${ts.transport_service_id}`, json, { observe: "response" });
+    }
+    changeTransportServiceState(ts) {
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${ts.transport_service_id}`, { observe: "response" });
+    }
+    changeRequestState(transport_id, status) {
+        let json = {
+            status
+        };
+        console.log(status);
+        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${transport_id}`, json, {
+            observe: "response",
+        });
+    }
+};
+TransportServicesService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+];
+TransportServicesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: "root",
+    })
+], TransportServicesService);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/transport-services-root.component.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/transport-services/transport-services-root.component.ts ***!
+  \*************************************************************************/
+/*! exports provided: TransportServicesRootComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransportServicesRootComponent", function() { return TransportServicesRootComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let TransportServicesRootComponent = class TransportServicesRootComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+TransportServicesRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-transport-services-root',
+        template: `
+    <router-outlet></router-outlet>
+  `
+    })
+], TransportServicesRootComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/transport-services-routing.module.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/transport-services/transport-services-routing.module.ts ***!
+  \*************************************************************************/
+/*! exports provided: TransportServicesRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransportServicesRoutingModule", function() { return TransportServicesRoutingModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _components_management_transport_services_management_transport_services_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/management-transport-services/management-transport-services.component */ "./src/app/transport-services/components/management-transport-services/management-transport-services.component.ts");
+/* harmony import */ var _components_request_transport_services_request_transport_services_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/request-transport-services/request-transport-services.component */ "./src/app/transport-services/components/request-transport-services/request-transport-services.component.ts");
+/* harmony import */ var _components_tabs_transport_services_tabs_transport_services_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/tabs-transport-services/tabs-transport-services.component */ "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.ts");
+/* harmony import */ var _transport_services_root_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./transport-services-root.component */ "./src/app/transport-services/transport-services-root.component.ts");
+
+
+
+
+
+
+const routes = [
+    {
+        path: "transport-services",
+        component: _transport_services_root_component__WEBPACK_IMPORTED_MODULE_5__["TransportServicesRootComponent"],
+        children: [
+            {
+                path: "all",
+                component: _components_tabs_transport_services_tabs_transport_services_component__WEBPACK_IMPORTED_MODULE_4__["TabsTransportServicesComponent"]
+            },
+            {
+                path: "requests",
+                component: _components_request_transport_services_request_transport_services_component__WEBPACK_IMPORTED_MODULE_3__["RequestTransportServicesComponent"]
+            },
+            {
+                path: ":transport_service_id",
+                component: _components_management_transport_services_management_transport_services_component__WEBPACK_IMPORTED_MODULE_2__["ManagementTransportServicesComponent"]
+            },
+        ]
+    }
+];
+const TransportServicesRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes);
+
+
+/***/ }),
+
+/***/ "./src/app/transport-services/transport-services.module.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/transport-services/transport-services.module.ts ***!
+  \*****************************************************************/
+/*! exports provided: TransportServicesModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransportServicesModule", function() { return TransportServicesModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _transport_services_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./transport-services-routing.module */ "./src/app/transport-services/transport-services-routing.module.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-filter-pipe */ "./node_modules/ngx-filter-pipe/esm2015/ngx-filter-pipe.js");
+/* harmony import */ var _shared_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../shared.module */ "./src/app/shared.module.ts");
+/* harmony import */ var _transport_services_root_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./transport-services-root.component */ "./src/app/transport-services/transport-services-root.component.ts");
+/* harmony import */ var _components_tabs_transport_services_tabs_transport_services_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/tabs-transport-services/tabs-transport-services.component */ "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.ts");
+/* harmony import */ var _components_all_transport_services_all_transport_services_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/all-transport-services/all-transport-services.component */ "./src/app/transport-services/components/all-transport-services/all-transport-services.component.ts");
+/* harmony import */ var _components_request_transport_services_request_transport_services_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/request-transport-services/request-transport-services.component */ "./src/app/transport-services/components/request-transport-services/request-transport-services.component.ts");
+/* harmony import */ var _components_create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/create-transport-services/create-transport-services.component */ "./src/app/transport-services/components/create-transport-services/create-transport-services.component.ts");
+/* harmony import */ var _components_management_transport_services_management_transport_services_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/management-transport-services/management-transport-services.component */ "./src/app/transport-services/components/management-transport-services/management-transport-services.component.ts");
+/* harmony import */ var _components_management_transport_services_details_transport_services_details_transport_services_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/management-transport-services/details-transport-services/details-transport-services.component */ "./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.ts");
+/* harmony import */ var _components_categories_transport_services_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/categories-transport-services/categories-transport-services.component */ "./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.ts");
+/* harmony import */ var _components_create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/create-categories-transport-services/create-categories-transport-services.component */ "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let TransportServicesModule = class TransportServicesModule {
+};
+TransportServicesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        declarations: [
+            _transport_services_root_component__WEBPACK_IMPORTED_MODULE_7__["TransportServicesRootComponent"],
+            _components_tabs_transport_services_tabs_transport_services_component__WEBPACK_IMPORTED_MODULE_8__["TabsTransportServicesComponent"],
+            _components_all_transport_services_all_transport_services_component__WEBPACK_IMPORTED_MODULE_9__["AllTransportServicesComponent"],
+            _components_request_transport_services_request_transport_services_component__WEBPACK_IMPORTED_MODULE_10__["RequestTransportServicesComponent"],
+            _components_create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_11__["CreateTransportServicesComponent"],
+            _components_management_transport_services_management_transport_services_component__WEBPACK_IMPORTED_MODULE_12__["ManagementTransportServicesComponent"],
+            _components_management_transport_services_details_transport_services_details_transport_services_component__WEBPACK_IMPORTED_MODULE_13__["DetailsTransportServicesComponent"],
+            _components_categories_transport_services_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_14__["CategoriesTransportServicesComponent"],
+            _components_create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_15__["CreateCategoriesTransportServicesComponent"]
+        ],
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            _transport_services_routing_module__WEBPACK_IMPORTED_MODULE_3__["TransportServicesRoutingModule"],
+            _shared_module__WEBPACK_IMPORTED_MODULE_6__["SharedModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
+            ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_5__["FilterPipeModule"],
+        ],
+        entryComponents: [
+            _components_create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_11__["CreateTransportServicesComponent"],
+            _components_create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_15__["CreateCategoriesTransportServicesComponent"]
+        ]
+    })
+], TransportServicesModule);
 
 
 
@@ -16997,7 +18843,8 @@ const environment = {
     production: false,
     localstorage_key: 'key_user',
     SERVER_BASE_URL: 'https://intelitur.arenalcostarica.cr:7031/',
-    IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/'
+    IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/',
+    USER_WEB: 'https://intelitur.arenalcostarica.cr/'
 };
 /*
  * For easier debugging in development mode, you can import the following file

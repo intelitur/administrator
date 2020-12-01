@@ -641,7 +641,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n\n<form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input matInput formControlName=\"name\" matTooltip=\"Nombre de la empresa\" required>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Cédula Jurídica</mat-label>\n        <input matInput formControlName=\"legal_id\" matTooltip=\"10 números sin guiones\" required>\n        <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\" >\n        <mat-label>Teléfono</mat-label>\n        <input matInput formControlName=\"phone_number\" matTooltip=\"Formato: 8888 8888\">\n        <mat-hint align=\"end\"></mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Email</mat-label>\n        <input matInput formControlName=\"email\" matTooltip=\"Formato: email@domain.domain\">\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Ubicación descrita</mat-label>\n        <input matInput formControlName=\"location\" matTooltip=\"Descripción de la ubicación\">\n    </mat-form-field>\n\n    <div style=\"display: flex; justify-content: center; flex-wrap: wrap;\">\n        <button mat-stroked-button [disabled]=\"!companyForm.valid\" color=\"primary\"\n            style=\"width: 50%; min-width: fit-content; margin-top: 10px;\" (click)=\"createCompany()\">\n            Continuar con la creación\n        </button>\n    </div>\n    \n";
+    __webpack_exports__["default"] = "<div style=\"height: 20px;\">\n    <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n\n<form [formGroup]=\"companyForm\" class=\"container-fluid d-flex flex-column justify-content-center\" style=\"padding: 25px\">\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Nombre</mat-label>\n        <input matInput formControlName=\"name\" matTooltip=\"Nombre de la empresa\" required>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Cédula Jurídica</mat-label>\n        <input matInput formControlName=\"legal_id\" matTooltip=\"10 números sin guiones\" required>\n        <mat-hint align=\"end\">Sin guiones - 10 dígitos</mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\" >\n        <mat-label>Teléfono</mat-label>\n        <input matInput formControlName=\"phone_number\" matTooltip=\"Formato: 8888 8888\">\n        <mat-hint align=\"end\"></mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Email</mat-label>\n        <input matInput formControlName=\"email\" matTooltip=\"Formato: email@domain.domain\">\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n        <mat-label>Ubicación descrita</mat-label>\n        <input matInput formControlName=\"location\" matTooltip=\"Descripción de la ubicación\">\n    </mat-form-field>\n\n    <div style=\"display: flex; justify-content: center; flex-wrap: wrap;\">\n        <button mat-stroked-button [disabled]=\"!companyForm.valid\" color=\"primary\"\n            style=\"width: 50%; min-width: fit-content; margin-top: 10px;\" (click)=\"createCompany()\">\n            Continuar con la creación\n        </button>\n    </div>\n</form>    \n";
     /***/
   },
 
@@ -861,7 +861,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Concursos</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar un concurso\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar concurso</button>\n    </div>\n    <div *ngIf=\"this.contestsService.contests; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del anuncio</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.contestsService.contests\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Detalle</th>\n                <th scope=\"col\">Fecha</th>\n                <th scope=\"col\">Activa</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let contests of this.contestsService.contests | filterBy: filter\">\n                <td>{{contests.name}}</td>\n                <td>{{contests.description}}</td>\n                <td>\n                  Inicio: {{contests.initial_date | date: 'dd/MM/yyyy' }} \n                  <br>\n                  Fin:    {{contests.final_date | date: 'dd/MM/yyyy'}}\n                </td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(contests, $event)\" color=\"primary\"\n                          [checked]= contests.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/contests', contests.contest_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.contestsService.contests | filterBy: filter).length === 0\">\n              ¡No hay anuncios disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n";
+    __webpack_exports__["default"] = "<div class=\"container\">\n    <h1 class=\"text-center font-weight-light mt-3\">Gestión de Concursos</h1>\n    <div class=\"float-right mb-3 \">\n      <button mat-raised-button color=\"primary\" class=\"btn-add\" matTooltip=\"Agregar un concurso\"\n        (click)=\"openCreateDialog()\"><i class=\"material-icons\">add</i>Agregar concurso</button>\n    </div>\n    <div *ngIf=\"this.contestsService.contests; else loading\">\n        <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n            <mat-label>Buscar por nombre del anuncio</mat-label>\n            <input matInput [(ngModel)]=\"filter.name\"/>\n        </mat-form-field>\n        \n        <div class=\"table-responsive\" style=\"padding: 0 3%;\">\n            <table class=\"table\" *ngIf=\"this.contestsService.contests\">\n            <thead class=\"thead-light\">\n                <tr>\n                <th scope=\"col\">Nombre</th>\n                <th scope=\"col\">Fecha</th>\n                <th scope=\"col\">Activa</th>\n                <th style=\"text-align: center;\" scope=\"col\">Acciones</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let contests of this.contestsService.contests | filterBy: filter\">\n                <td>{{contests.name}}</td>\n                <td>\n                  Inicio: {{contests.initial_date | date: 'dd/MM/yyyy' }} \n                  <br>\n                  Fin:    {{contests.final_date | date: 'dd/MM/yyyy'}}\n                </td>\n                <td>\n                    <section (click)=\"$event.stopPropagation()\">\n                        <mat-slide-toggle (change)=\"changeState(contests, $event)\" color=\"primary\"\n                          [checked]= contests.is_active>\n                        </mat-slide-toggle>\n                      </section>\n                </td>\n                <td style=\"text-align: center;\"> \n                    <button mat-stroked-button [routerLink]=\"['/contests', contests.contest_id]\" matTooltip=\"Detalles del anuncio\" style=\"color: rgb(82, 82, 82); font-size: 14px;\">\n                        Ver Detalles\n                    </button>\n                </td>\n                </tr>\n            </tbody>\n            </table>\n            <div class=\"alert alert-info text-center\" role=\"alert\" *ngIf=\"(this.contestsService.contests | filterBy: filter).length === 0\">\n              ¡No hay anuncios disponibles<span class=\"text-danger\"></span>!\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n\n";
     /***/
   },
 
@@ -1581,7 +1581,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n";
+    __webpack_exports__["default"] = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/qr-codes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Códigos QR</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/transport-services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios Transporte</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n";
     /***/
   },
 
@@ -1722,6 +1722,46 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     __webpack_exports__["default"] = "<div class=\"container-fluid mt-5 pt-3 d-flex flex-column w-100 justify-content-center\">\n  <div class=\"containner\">\n    <h1 class=\"font-weight-light text-center\">Gestión de ofertas</h1>\n  </div>\n  <div class=\"container-fluid flex-row d-flex mb-2 justify-content-sm-end\">\n    <button (click)=\"openCreateOfferDialog(); false\" mat-raised-button color=\"accent\">Agregar nuevo</button>\n  </div>\n  <div class=\"container-fluid mh-50\">\n    <app-offers-table #datosOffersTable></app-offers-table>\n  </div>\n</div>";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.html":
+  /*!********************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.html ***!
+    \********************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppQrCodesComponentsAllQrCodesAllQrCodesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">Gestión de Códigos QR</h1>\n  <div class=\"float-right mb-3\" style=\"width: 40%; text-align: end\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      matTooltip=\"Agregar un código QR\"\n      (click)=\"openDialog(true)\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Código QR\n    </button>\n  </div>\n  <div *ngIf=\"this.qrCodesService.qrCodes; else loading\">\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.qrCodesService.qrCodes\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Código</th>\n            <th scope=\"col\">Descripción</th>\n            <th scope=\"col\" style=\"text-align: center\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let qr of this.qrCodesService.qrCodes\">\n            <td>\n              <qrcode\n                [qrdata]=\"url+ qr.qr_id\"\n                [elementType]=\"'url'\"\n              ></qrcode>\n            </td>\n            <td>{{ qr.description }}</td>\n            <td style=\"text-align: center\">\n              <button\n                matTooltip=\"Editar código\"\n                mat-mini-fab\n                color=\"primary\"\n                (click)=\"openDialog(false, qr)\"\n              >\n                <mat-icon>edit</mat-icon>\n              </button>\n              <button\n                matTooltip=\"Eliminar código\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"delete(qr)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"this.qrCodesService.qrCodes.length === 0\"\n      >\n        ¡No hay códigos QR disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.html":
+  /*!****************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.html ***!
+    \****************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppQrCodesComponentsCreateModifyQrCodesCreateModifyQrCodesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div>\n  <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>{{title}}</h1>\n\n<mat-form-field style=\"padding: 0 25px\" appearance=\"outline\">\n  <mat-label>Tipo de Elemento</mat-label>\n  <mat-select\n    [(ngModel)]=\"elementType\"\n    (ngModelChange)=\"elementChanged()\"\n  >\n    <mat-option *ngFor=\"let t of types\" [value]=\"t.id\">\n      {{ t.name }}\n    </mat-option>\n  </mat-select>\n</mat-form-field>\n\n<form [formGroup]=\"qrForm\" class=\"container-fluid\" style=\"padding: 0 25px\">\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Elemento a Referenciar</mat-label>\n    <mat-select formControlName=\"element\">\n      <mat-option *ngFor=\"let e of elements\" [value]=\"e\">\n        {{ e.name }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Descripción</mat-label>\n    <textarea\n      matInput\n      formControlName=\"description\"\n      matTooltip=\"Descripción del código\"\n      type=\"text\"\n      required\n    ></textarea>\n  </mat-form-field>\n\n  <div class=\"buttonContainer\">\n    <button\n      mat-raised-button\n      [disabled]=\"!qrForm.valid || elementType == undefined || loading\"\n      color=\"primary\"\n      (click)=\"submit()\"\n    >\n      {{action}}\n    </button>\n    <button\n      (click)=\"closeDialog()\"\n      mat-raised-button\n      color=\"warn\"\n      [disabled]=\"loading\"\n    >\n      Cancelar<mat-icon>close</mat-icon>\n    </button>\n  </div>\n</form>\n";
     /***/
   },
 
@@ -1882,6 +1922,166 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n\n<div class=\"container\">\n  <div style=\"display: flex; justify-content: space-around; margin-bottom: 1em\">\n    <h2 style=\"color: #673ab7; text-align: center; margin: auto 0\">\n      Ofertas Asociadas\n    </h2>\n  </div>\n\n  <div class=\"container\" style=\"display: flex; justify-content: space-between;\">\n    <mat-form-field style=\"width: 40%;\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de la oferta</mat-label>\n      <input matInput [(ngModel)]=\"filter.name\" />\n    </mat-form-field>\n\n    <mat-form-field style=\"width: 30%;\" appearance=\"outline\">\n      <mat-label>Seleccione una oferta</mat-label>\n      <mat-select [(ngModel)]=\"selectedOffer\">\n        <mat-option *ngFor=\"let offer of offerService.offers\" [value]=\"offer\">\n          {{ offer.name }}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n\n    <button mat-fab color=\"primary\" (click)=\"addOffer()\" [disabled]=\"loading\">\n      <mat-icon>add</mat-icon>\n    </button>\n  </div>\n\n  <div class=\"table-responsive\" style=\"padding: 0 3%\">\n    <table class=\"table\" *ngIf=\"associateOffers\">\n      <thead class=\"thead-light\">\n        <tr>\n          <th scope=\"col\">Nombre</th>\n          <th scope=\"col\">Descripción</th>\n          <th style=\"text-align: center\" scope=\"col\">Acciones</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let offer of associateOffers | filterBy: filter\">\n          <td>{{ offer.name }}</td>\n          <td>{{ offer.description }}</td>\n          <td style=\"text-align: center\">\n            <button mat-mini-fab color=\"warn\" (click)=\"removeOffer(offer)\">\n              <mat-icon>delete</mat-icon>\n            </button>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    <div\n      class=\"alert alert-info text-center\"\n      role=\"alert\"\n      *ngIf=\"(associateOffers | filterBy: filter).length === 0\"\n    >\n      ¡No ha seleccionado ninguana oferta!\n    </div>\n  </div>\n</div>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/all-transport-services/all-transport-services.component.html":
+  /*!**************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/all-transport-services/all-transport-services.component.html ***!
+    \**************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppTransportServicesComponentsAllTransportServicesAllTransportServicesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Gestión de Servicios de Transporte\n  </h1>\n  <div class=\"float-right mb-3\" style=\"width: 40%; text-align: end\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      matTooltip=\"Agregar un servicio de transporte\"\n      (click)=\"openCreateDialog()\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Servicio de Transporte\n    </button>\n  </div>\n  <div *ngIf=\"this.transportService.transportServices; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre del servicio de transporte</mat-label>\n      <input matInput [(ngModel)]=\"filter.info.name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.transportService.transportServices\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\">Correo</th>\n            <th scope=\"col\">Teléfono</th>\n            <th scope=\"col\" style=\"text-align: center\">Acciones</th>\n            <th scope=\"col\" style=\"text-align: center\">Activo</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr\n            *ngFor=\"\n              let ts of this.transportService.transportServices\n                | filterBy: filter\n            \"\n          >\n            <td>{{ ts.info.name }}</td>\n            <td>{{ ts.info.email }}</td>\n            <td>{{ ts.info.tel }}</td>\n            <td style=\"text-align: center\">\n              <button\n                mat-stroked-button\n                [routerLink]=\"['/transport-services', ts.transport_service_id]\"\n                matTooltip=\"Detalles del servicio de transporte\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px\"\n              >\n                Ver Detalles\n              </button>\n            </td>\n            <td style=\"text-align: center\">\n              <button\n                matTooltip=\"Eliminar servicio\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"changeState(ts)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"\n          (this.transportService.transportServices | filterBy: filter)\n            .length === 0\n        \"\n      >\n        ¡No hay eventos disponibles<span class=\"text-danger\"></span>!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.html":
+  /*!****************************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.html ***!
+    \****************************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppTransportServicesComponentsCategoriesTransportServicesCategoriesTransportServicesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Gestión de Categorías de Servicios de Transporte\n  </h1>\n  <div class=\"float-right mb-3\" style=\"width: 40%; text-align: end\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      matTooltip=\"Agregar una categoría de servicio de transporte\"\n      (click)=\"openCreateialog()\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Categoría\n    </button>\n  </div>\n  <div *ngIf=\"this.categoryTransportService.categories; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de categoría </mat-label>\n      <input matInput [(ngModel)]=\"filter.name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.categoryTransportService.categories\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\" style=\"text-align: center\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr\n            *ngFor=\"\n              let cat of this.categoryTransportService.categories\n                | filterBy: filter\n            \"\n          >\n            <td>{{ cat.name }}</td>\n            <td style=\"text-align: center\">\n              <button mat-mini-fab color=\"warn\" (click)=\"changeState(cat)\">\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"\n          (this.categoryTransportService.categories | filterBy: filter)\n            .length === 0\n        \"\n      >\n        ¡No hay eventos disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.html":
+  /*!******************************************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.html ***!
+    \******************************************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppTransportServicesComponentsCreateCategoriesTransportServicesCreateCategoriesTransportServicesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div>\n  <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación de Categorías de Servicios de Transporte</h1>\n<form [formGroup]=\"categoryForm\" class=\"container-fluid\" style=\"padding: 25px\">\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Nombre</mat-label>\n    <input\n      matInput\n      formControlName=\"name\"\n      matTooltip=\"Nombre del servicio de transporte\"\n      required\n    />\n  </mat-form-field>\n\n  <div class=\"buttonContainer\">\n    <button\n      mat-raised-button\n      [disabled]=\"!categoryForm.valid\"\n      color=\"primary\"\n      (click)=\"createCategory()\"\n    >\n      Crear Categoría\n    </button>\n    <button\n      (click)=\"closeDialog()\"\n      mat-raised-button\n      color=\"warn\"\n      [disabled]=\"loading\"\n    >\n      Cancelar<mat-icon>close</mat-icon>\n    </button>\n  </div>\n</form>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-transport-services/create-transport-services.component.html":
+  /*!********************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-transport-services/create-transport-services.component.html ***!
+    \********************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppTransportServicesComponentsCreateTransportServicesCreateTransportServicesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div>\n  <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>\n<h1>Creación de Servicios de Transporte</h1>\n<form\n  [formGroup]=\"tsForm\"\n  class=\"container-fluid\"\n  style=\"padding: 25px\"\n>\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Nombre</mat-label>\n    <input\n      matInput\n      formControlName=\"name\"\n      matTooltip=\"Nombre del servicio de transporte\"\n      required\n    />\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Correo</mat-label>\n    <input\n      matInput\n      formControlName=\"email\"\n      matTooltip=\"Correo del servicio de transporte\"\n      required\n    />\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Teléfono</mat-label>\n    <input\n      matInput\n      placeholder=\"Formato: 8888 8888\"\n      formControlName=\"phone_number\"\n      matTooltip=\"Formato: 8888 8888\"\n    />\n    <mat-hint align=\"end\"></mat-hint>\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\">\n    <mat-label>Categoría</mat-label>\n    <mat-select formControlName=\"categories\">\n      <mat-option *ngFor=\"let c of categories\" [value]=\"c.id\">\n        {{ c.name }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n\n  <mat-form-field appearance=\"outline\" style=\"width: 95%;\">\n    <mat-label>Dónde Contrartarlo</mat-label>\n    <textarea\n      matInput\n      formControlName=\"address\"\n      matTooltip=\"Dirección exacta para contratar el servicio de transporte\"\n      type=\"text\"\n      required\n    ></textarea>\n  </mat-form-field>\n\n  <div class=\"buttonContainer\">\n    <button\n      mat-raised-button\n      [disabled]=\"!tsForm.valid\"\n      color=\"primary\"\n      (click)=\"createTransportService()\"\n    >\n      {{\n        this.authService.getUser().role_id == 1\n          ? 'Crear Servicio de Transporte'\n          : 'Enviar solicitud de creción'\n      }}\n    </button>\n    <button\n      (click)=\"closeDialog()\"\n      mat-raised-button\n      color=\"warn\"\n      [disabled]=\"loading\"\n    >\n      Cancelar<mat-icon>close</mat-icon>\n    </button>\n  </div>\n</form>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.html":
+  /*!****************************************************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.html ***!
+    \****************************************************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppTransportServicesComponentsManagementTransportServicesDetailsTransportServicesDetailsTransportServicesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n<div\n  style=\"\n    display: flex;\n    margin-top: 20px;\n    flex-wrap: wrap;\n    justify-content: center;\n  \"\n>\n  <div style=\"width: 100%; display: flex; justify-content: space-around\">\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n      {{ transport.info.name }}\n    </h2>\n    <div style=\"display: flex; margin: auto 0; padding: 0 20px\">\n      <h2\n        style=\"margin: auto\"\n        [style.color]=\"transport.is_active ? '#673ab7' : 'gray'\"\n      >\n        {{ transport.is_active ? \"Activo\" : \"Eliminado\" }}\n      </h2>\n      <mat-slide-toggle\n        style=\"width: min-content; margin-left: 3%; margin-top: 5%\"\n        (change)=\"changeState($transport)\"\n        color=\"primary\"\n        [checked]=\"transport.is_active\"\n      >\n      </mat-slide-toggle>\n    </div>\n  </div>\n  <hr style=\"width: 100%\" />\n  <form\n    [formGroup]=\"transportServicesFG\"\n    class=\"container-fluid justify-content-center\"\n  >\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Nombre</mat-label>\n      <input\n        matInput\n        formControlName=\"name\"\n        matTooltip=\"Nombre del servicio de transporte\"\n        required\n      />\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Correo</mat-label>\n      <input\n        matInput\n        formControlName=\"email\"\n        matTooltip=\"Correo del servicio de transporte\"\n        required\n      />\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Teléfono</mat-label>\n      <input\n        matInput\n        placeholder=\"Formato: 8888 8888\"\n        formControlName=\"phone_number\"\n        matTooltip=\"Formato: 8888 8888\"\n      />\n      <mat-hint align=\"end\"></mat-hint>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Categoría</mat-label>\n      <mat-select formControlName=\"categories\">\n        <mat-option *ngFor=\"let c of categories\" [value]=\"c.id\">\n          {{ c.name }}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\" style=\"width: 95%\">\n      <mat-label>Dónde Contrartarlo</mat-label>\n      <textarea\n        matInput\n        formControlName=\"address\"\n        matTooltip=\"Dirección exacta para contratar el servicio de transporte\"\n        type=\"text\"\n        required\n      ></textarea>\n    </mat-form-field>\n  </form>\n</div>\n\n<div class=\"buttonContainer\">\n  <button\n    mat-stroked-button\n    color=\"primary\"\n    [disabled]=\"!transportServicesFG.valid || loading\"\n    style=\"width: 40%; min-width: fit-content; margin-top: 10px\"\n    (click)=\"modifyTransportService()\"\n  >\n    Guardar cambios\n  </button>\n  <button\n    mat-stroked-button\n    color=\"warn\"\n    [disabled]=\"loading\"\n    style=\"width: 40%; min-width: fit-content; margin-top: 10px\"\n    (click)=\"setData()\"\n  >\n    Descartar cambios\n  </button>\n</div>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/management-transport-services.component.html":
+  /*!****************************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/management-transport-services.component.html ***!
+    \****************************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppTransportServicesComponentsManagementTransportServicesManagementTransportServicesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<mat-tab-group>\n  <mat-tab label=\"Detalles\">\n    <app-details-transport-services\n      *ngIf=\"transport; else null\"\n      [transport]=\"transport[0]\"\n    ></app-details-transport-services>\n    <ng-template #loading>\n      <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n    </ng-template>\n  </mat-tab>\n</mat-tab-group>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/request-transport-services/request-transport-services.component.html":
+  /*!**********************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/request-transport-services/request-transport-services.component.html ***!
+    \**********************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppTransportServicesComponentsRequestTransportServicesRequestTransportServicesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div class=\"container\">\n  <ng-container *ngIf=\"this.loading\">\n    <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n  </ng-container>\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Peticiones de Creación de Servicios de Transporte\n  </h1>\n\n  <div\n    style=\"display: flex; flex-wrap: wrap; margin: 1rem 0 0 0; padding: 0 3%\"\n  >\n    <mat-radio-group\n      class=\"radio-button-group\"\n      color=\"primary\"\n      [(ngModel)]=\"filter.status\"\n      (change)=\"getTransportSerivicesRequest()\"\n    >\n      <mat-radio-button value=\"1\" style=\"color: rgb(0, 90, 0)\">\n        Aceptadas\n      </mat-radio-button>\n      <mat-radio-button value=\"2\" style=\"color: rgb(160, 105, 0)\">\n        Pendientes\n      </mat-radio-button>\n      <mat-radio-button value=\"3\" style=\"color: rgb(90, 0, 0)\">\n        Rechazadas\n      </mat-radio-button>\n    </mat-radio-group>\n  </div>\n\n  <div *ngIf=\"this.request\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre del servicio de transporte</mat-label>\n      <input matInput [(ngModel)]=\"filter.info.name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.request\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Nombre</th>\n            <th scope=\"col\">Correo</th>\n            <th scope=\"col\">Teléfono</th>\n            <th scope=\"col\" style=\"text-align: center\">\n              Detalles del Servicio\n            </th>\n            <th *ngIf=\"filter.status == '2'\" scope=\"col\" style=\"text-align: center\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let request of this.request | filterBy: filter\">\n            <td>{{ request.info.name }}</td>\n            <td>{{ request.info.email }}</td>\n            <td>{{ request.info.tel }}</td>\n            <td style=\"text-align: center\">\n              <button\n                mat-stroked-button\n                [routerLink]=\"['/transport-services', request.transport_service_id]\"\n                matTooltip=\"Detalles del servicio de transporte\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px\"\n              >\n                Ver Detalles\n              </button>\n            </td>\n            <td *ngIf=\"filter.status == '2'\" style=\"text-align: center\">\n              <button\n                mat-raised-button\n                class=\"acceptBtn\"\n                color=\"primary\"\n                (click)=\"changeStateRequest(request, 1)\"\n              >\n                Aceptar\n              </button>\n              <button\n                mat-raised-button\n                class=\"denyBtn\"\n                color=\"warn\"\n                (click)=\"changeStateRequest(request, 3)\"\n              >\n                Rechazar\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"(this.request | filterBy: filter).length === 0\"\n      >\n        ¡No hay peticiones pendientes<span class=\"text-danger\"></span>!\n      </div>\n    </div>\n  </div>\n</div>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.html":
+  /*!****************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.html ***!
+    \****************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppTransportServicesComponentsTabsTransportServicesTabsTransportServicesComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<mat-tab-group>\n  <mat-tab label=\"Administración\">\n    <div class=\"container justify-content\">\n      <app-all-transport-services></app-all-transport-services>\n    </div>\n  </mat-tab>\n\n  <mat-tab *ngIf=\"this.authService.getUser().role_id == 1\" label=\"Solicitudes\">\n    <div class=\"container justify-content\">\n      <app-request-transport-services></app-request-transport-services>\n    </div>\n  </mat-tab>\n\n  <mat-tab *ngIf=\"this.authService.getUser().role_id == 1\" label=\"Categorías\">\n    <div class=\"container justify-content\">\n      <app-categories-transport-services></app-categories-transport-services>\n    </div>\n  </mat-tab>\n</mat-tab-group>\n";
     /***/
   },
 
@@ -5231,6 +5431,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         });
       },
       canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
+    }, {
+      path: "transport-services",
+      loadChildren: function loadChildren() {
+        return Promise.resolve().then(__webpack_require__.bind(null,
+        /*! ./transport-services/transport-services.module */
+        "./src/app/transport-services/transport-services.module.ts")).then(function (i) {
+          return i.TransportServicesModule;
+        });
+      },
+      canActivateChild: [_logged_in_guard__WEBPACK_IMPORTED_MODULE_3__["LoggedInGuard"]]
     }];
 
     var AppRoutingModule = function AppRoutingModule() {
@@ -5522,6 +5732,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _images_images_module__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
     /*! ./images/images.module */
     "./src/app/images/images.module.ts");
+    /* harmony import */
+
+
+    var _transport_services_transport_services_module__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
+    /*! ./transport-services/transport-services.module */
+    "./src/app/transport-services/transport-services.module.ts");
+    /* harmony import */
+
+
+    var _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
+    /*! ./qr-codes/qr-codes.module */
+    "./src/app/qr-codes/qr-codes.module.ts");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -5529,7 +5751,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
       declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _main_nav_main_nav_component__WEBPACK_IMPORTED_MODULE_7__["MainNavComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"], _login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]],
-      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _itinerary_itinerary_module__WEBPACK_IMPORTED_MODULE_9__["ItineraryModule"], _users_users_module__WEBPACK_IMPORTED_MODULE_10__["UsersModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _company_company_module__WEBPACK_IMPORTED_MODULE_15__["CompanyModule"], _event_event_module__WEBPACK_IMPORTED_MODULE_16__["EventModule"], _category_category_module__WEBPACK_IMPORTED_MODULE_17__["CategoryModule"], _ads_ads_module__WEBPACK_IMPORTED_MODULE_18__["AdsModule"], _frequent_questions_frequent_questions_module__WEBPACK_IMPORTED_MODULE_19__["FrecuentQustionsModule"], _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__["OfferModule"], _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"], _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__["TouristRoutesModule"], _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"], _images_images_module__WEBPACK_IMPORTED_MODULE_25__["ImagesModule"]],
+      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _itinerary_itinerary_module__WEBPACK_IMPORTED_MODULE_9__["ItineraryModule"], _users_users_module__WEBPACK_IMPORTED_MODULE_10__["UsersModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _company_company_module__WEBPACK_IMPORTED_MODULE_15__["CompanyModule"], _event_event_module__WEBPACK_IMPORTED_MODULE_16__["EventModule"], _category_category_module__WEBPACK_IMPORTED_MODULE_17__["CategoryModule"], _ads_ads_module__WEBPACK_IMPORTED_MODULE_18__["AdsModule"], _frequent_questions_frequent_questions_module__WEBPACK_IMPORTED_MODULE_19__["FrecuentQustionsModule"], _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__["OfferModule"], _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"], _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__["TouristRoutesModule"], _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"], _images_images_module__WEBPACK_IMPORTED_MODULE_25__["ImagesModule"], _transport_services_transport_services_module__WEBPACK_IMPORTED_MODULE_26__["TransportServicesModule"], _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__["QrCodesModule"]],
       providers: [ng2_charts__WEBPACK_IMPORTED_MODULE_22__["ThemeService"]],
       bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
       entryComponents: [_login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]]
@@ -16607,7 +16829,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             next: function next(data) {
               if (data.status == 204) {
                 _this119.currentImg.showed = !_this119.currentImg.showed;
-                _this119.currentImg.showed ? _this119.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK") : _this119.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
+
+                if (_this119.currentImg.showed) {
+                  _this119.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK");
+                } else {
+                  _this119.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
+                }
+
+                _this119.refresh();
               }
             },
             error: function error(err) {
@@ -16637,6 +16866,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       } else {
                         _this120.commonService.openSnackBar("Error al intentar eliminar la imagen", "OK");
                       }
+
+                      _this120.refresh();
                     });
 
                   case 4:
@@ -22953,6 +23184,961 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
+  "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.scss":
+  /*!******************************************************************************!*\
+    !*** ./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.scss ***!
+    \******************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppQrCodesComponentsAllQrCodesAllQrCodesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntd {\n  vertical-align: middle;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\nbutton {\n  margin-right: 3%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3FyLWNvZGVzL2NvbXBvbmVudHMvYWxsLXFyLWNvZGVzL2FsbC1xci1jb2Rlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvcXItY29kZXMvY29tcG9uZW50cy9hbGwtcXItY29kZXMvYWxsLXFyLWNvZGVzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0FDQ0Y7O0FERUE7RUFDRSxlQUFBO0VBQ0EsZUFBQTtBQ0NGOztBREVBO0VBQ0Usc0JBQUE7QUNDRjs7QURFQTtFQUNFLHlCQUFBO0FDQ0Y7O0FERUE7RUFDRSxnQkFBQTtBQ0NGOztBREVBO0VBQ0UsaUJBQUE7RUFDQSxlQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9xci1jb2Rlcy9jb21wb25lbnRzL2FsbC1xci1jb2Rlcy9hbGwtcXItY29kZXMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0aCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxudHIge1xuICBmb250LXNpemU6IDE1cHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxudGQge1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xufVxuXG50cjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDcsIDI0NywgMjQ3KTtcbn1cblxuYnV0dG9uIHtcbiAgbWFyZ2luLXJpZ2h0OiAzJTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuIiwidGgge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbnRyIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnRkIHtcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cblxudHI6aG92ZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjdmN2Y3O1xufVxuXG5idXR0b24ge1xuICBtYXJnaW4tcmlnaHQ6IDMlO1xufVxuXG4uY29udGFpbmVyLXRleHQtbGVmdCB7XG4gIG1hcmdpbi1ib3R0b206IDIlO1xuICBtYXJnaW4tbGVmdDogMiU7XG59Il19 */";
+    /***/
+  },
+
+  /***/
+  "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.ts":
+  /*!****************************************************************************!*\
+    !*** ./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.ts ***!
+    \****************************************************************************/
+
+  /*! exports provided: AllQrCodesComponent */
+
+  /***/
+  function srcAppQrCodesComponentsAllQrCodesAllQrCodesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AllQrCodesComponent", function () {
+      return AllQrCodesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var _services_qr_codes_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../../services/qr-codes.service */
+    "./src/app/qr-codes/services/qr-codes.service.ts");
+    /* harmony import */
+
+
+    var _create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../create-modify-qr-codes/create-modify-qr-codes.component */
+    "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.ts");
+
+    var AllQrCodesComponent = /*#__PURE__*/function () {
+      function AllQrCodesComponent(qrCodesService, commonService, dialog) {
+        _classCallCheck(this, AllQrCodesComponent);
+
+        this.qrCodesService = qrCodesService;
+        this.commonService = commonService;
+        this.dialog = dialog;
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].USER_WEB + "?qr=";
+      }
+
+      _createClass(AllQrCodesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          this.getQRs();
+        }
+      }, {
+        key: "getQRs",
+        value: function getQRs() {
+          var _this173 = this;
+
+          this.subscription = this.qrCodesService.getQRCodes().subscribe({
+            next: function next(data) {
+              console.log(data);
+              _this173.qrCodesService.qrCodes = data;
+
+              _this173.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this173.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
+      }, {
+        key: "openDialog",
+        value: function openDialog(action, data) {
+          var dialogRef;
+          dialogRef = this.dialog.open(_create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_6__["CreateModifyQrCodesComponent"], {
+            height: "70%",
+            width: "60%",
+            disableClose: true,
+            data: {
+              qr: data,
+              action: action
+            }
+          });
+        }
+      }, {
+        key: "delete",
+        value: function _delete(qrCode) {
+          var _this174 = this;
+
+          this.qrCodesService["delete"](qrCode.qr_id).subscribe({
+            next: function next(data) {
+              if (data.status == 204) {
+                _this174.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
+
+                _this174.getQRs();
+              } else {
+                _this174.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
+
+                console.log(data.error);
+              }
+            },
+            error: function error(err) {
+              return _this174.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+            }
+          });
+        }
+      }]);
+
+      return AllQrCodesComponent;
+    }();
+
+    AllQrCodesComponent.ctorParameters = function () {
+      return [{
+        type: _services_qr_codes_service__WEBPACK_IMPORTED_MODULE_5__["QrCodesService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }, {
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]
+      }];
+    };
+
+    AllQrCodesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-all-qr-codes',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./all-qr-codes.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./all-qr-codes.component.scss */
+      "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.scss"))["default"]]
+    })], AllQrCodesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.scss":
+  /*!**************************************************************************************************!*\
+    !*** ./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.scss ***!
+    \**************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppQrCodesComponentsCreateModifyQrCodesCreateModifyQrCodesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "h1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\ntextarea {\n  resize: none !important;\n}\n\nform {\n  width: 100%;\n}\n\nmat-form-field {\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3FyLWNvZGVzL2NvbXBvbmVudHMvY3JlYXRlLW1vZGlmeS1xci1jb2Rlcy9jcmVhdGUtbW9kaWZ5LXFyLWNvZGVzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9xci1jb2Rlcy9jb21wb25lbnRzL2NyZWF0ZS1tb2RpZnktcXItY29kZXMvY3JlYXRlLW1vZGlmeS1xci1jb2Rlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLGlCQUFBO0VBQ0EsaUJBQUE7QUNDRjs7QURFQTtFQUNFLGNBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDRjs7QURFQTtFQUNJLHVCQUFBO0FDQ0o7O0FERUE7RUFDRSxXQUFBO0FDQ0Y7O0FERUE7RUFDRSxXQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9xci1jb2Rlcy9jb21wb25lbnRzL2NyZWF0ZS1tb2RpZnktcXItY29kZXMvY3JlYXRlLW1vZGlmeS1xci1jb2Rlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbnRleHRhcmVhIHtcbiAgICByZXNpemU6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiAxMDAlO1xufVxuIiwiaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxudGV4dGFyZWEge1xuICByZXNpemU6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiAxMDAlO1xufSJdfQ== */";
+    /***/
+  },
+
+  /***/
+  "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.ts":
+  /*!************************************************************************************************!*\
+    !*** ./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.ts ***!
+    \************************************************************************************************/
+
+  /*! exports provided: CreateModifyQrCodesComponent */
+
+  /***/
+  function srcAppQrCodesComponentsCreateModifyQrCodesCreateModifyQrCodesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "CreateModifyQrCodesComponent", function () {
+      return CreateModifyQrCodesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var src_app_ads_services_ads_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/ads/services/ads.service */
+    "./src/app/ads/services/ads.service.ts");
+    /* harmony import */
+
+
+    var src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/contests/services/contests.service */
+    "./src/app/contests/services/contests.service.ts");
+    /* harmony import */
+
+
+    var src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! src/app/event/services/event.service */
+    "./src/app/event/services/event.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! src/app/general-services/auth.service */
+    "./src/app/general-services/auth.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    /*! src/app/itinerary/services/itinerary.service */
+    "./src/app/itinerary/services/itinerary.service.ts");
+    /* harmony import */
+
+
+    var src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! src/app/tourist-routes/services/tourist-routes.service */
+    "./src/app/tourist-routes/services/tourist-routes.service.ts");
+    /* harmony import */
+
+
+    var _services_qr_codes_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    /*! ../../services/qr-codes.service */
+    "./src/app/qr-codes/services/qr-codes.service.ts");
+
+    var CreateModifyQrCodesComponent = /*#__PURE__*/function () {
+      function CreateModifyQrCodesComponent(data, dialogRef, eventService, commonService, contestService, adService, itineraryService, authService, touristRouteService, qrCodesService) {
+        _classCallCheck(this, CreateModifyQrCodesComponent);
+
+        this.data = data;
+        this.dialogRef = dialogRef;
+        this.eventService = eventService;
+        this.commonService = commonService;
+        this.contestService = contestService;
+        this.adService = adService;
+        this.itineraryService = itineraryService;
+        this.authService = authService;
+        this.touristRouteService = touristRouteService;
+        this.qrCodesService = qrCodesService;
+        this.types = [{
+          name: "Anuncios",
+          id: "ads"
+        }, {
+          name: "Concurso",
+          id: "contest"
+        }, {
+          name: "Evento",
+          id: "event"
+        }, {
+          name: "Itinerario",
+          id: "itinerary"
+        }, {
+          name: "Ruta Turística",
+          id: "tourist route"
+        }];
+        this.elements = [];
+        this.elementType = undefined;
+        this.loading = false;
+        this.qrForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+          element: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+          description: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")])
+        });
+      }
+
+      _createClass(CreateModifyQrCodesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          console.log(this.data);
+          this.data.action ? this.action = "Crear QR" : this.action = "Modificar QR";
+          this.data.action ? this.title = "Creación de Código QR" : this.title = "Modificación de Código QR";
+          this.data.action ? null : this.setData();
+        }
+      }, {
+        key: "setData",
+        value: function setData() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
+            var qr;
+            return regeneratorRuntime.wrap(function _callee55$(_context55) {
+              while (1) {
+                switch (_context55.prev = _context55.next) {
+                  case 0:
+                    qr = this.data.qr;
+                    this.elementType = qr.e_type;
+                    this.elementChanged(qr.e_id);
+                    this.qrForm.controls["description"].setValue(qr.description);
+
+                  case 4:
+                  case "end":
+                    return _context55.stop();
+                }
+              }
+            }, _callee55, this);
+          }));
+        }
+      }, {
+        key: "elementChanged",
+        value: function elementChanged(element_id) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
+            var _this175 = this;
+
+            var element;
+            return regeneratorRuntime.wrap(function _callee56$(_context56) {
+              while (1) {
+                switch (_context56.prev = _context56.next) {
+                  case 0:
+                    this.loading = true;
+                    element = undefined;
+
+                    if (!(this.elementType == "event")) {
+                      _context56.next = 7;
+                      break;
+                    }
+
+                    _context56.next = 5;
+                    return this.eventService.getAllEvents().toPromise().then(function (data) {
+                      _this175.elements = data;
+                      element = _this175.elements.find(function (value) {
+                        return value.event_id == element_id;
+                      });
+                    });
+
+                  case 5:
+                    _context56.next = 25;
+                    break;
+
+                  case 7:
+                    if (!(this.elementType == "contest")) {
+                      _context56.next = 12;
+                      break;
+                    }
+
+                    _context56.next = 10;
+                    return this.contestService.getContests().toPromise().then(function (data) {
+                      _this175.elements = data;
+                      element = _this175.elements.find(function (value) {
+                        return value.contest_id == element_id;
+                      });
+                    });
+
+                  case 10:
+                    _context56.next = 25;
+                    break;
+
+                  case 12:
+                    if (!(this.elementType == "ads")) {
+                      _context56.next = 17;
+                      break;
+                    }
+
+                    _context56.next = 15;
+                    return this.adService.getAllAds().toPromise().then(function (data) {
+                      _this175.elements = data;
+                      element = _this175.elements.find(function (value) {
+                        return value.ad_id == element_id;
+                      });
+                    });
+
+                  case 15:
+                    _context56.next = 25;
+                    break;
+
+                  case 17:
+                    if (!(this.elementType == "itinerary")) {
+                      _context56.next = 22;
+                      break;
+                    }
+
+                    _context56.next = 20;
+                    return this.itineraryService.getItineraryMinimalInfoByUser(this.authService.getUser().user_id).toPromise().then(function (data) {
+                      _this175.elements = data.data;
+                      element = _this175.elements.find(function (value) {
+                        return value.itinerary_id == element_id;
+                      });
+                    });
+
+                  case 20:
+                    _context56.next = 25;
+                    break;
+
+                  case 22:
+                    if (!(this.elementType == "tourist route")) {
+                      _context56.next = 25;
+                      break;
+                    }
+
+                    _context56.next = 25;
+                    return this.touristRouteService.getTouristRoutes(true).toPromise().then(function (data) {
+                      _this175.elements = data;
+                      element = _this175.elements.find(function (value) {
+                        return value.route_id == element_id;
+                      });
+                    });
+
+                  case 25:
+                    element == undefined ? this.qrForm.controls["element"].setValue(null) : this.qrForm.controls["element"].setValue(element);
+                    this.loading = false;
+
+                  case 27:
+                  case "end":
+                    return _context56.stop();
+                }
+              }
+            }, _callee56, this);
+          }));
+        }
+      }, {
+        key: "submit",
+        value: function submit() {
+          var element_id = this.getElementId(this.qrForm.controls["element"].value);
+          var qr = {
+            description: this.qrForm.controls["description"].value,
+            e_id: element_id,
+            e_type: this.elementType
+          };
+          this.data.action ? null : qr.qr_id = this.data.qr.qr_id;
+          this.data.action ? null : qr.visits = this.data.qr.visits;
+          this.data.action ? this.create(qr) : this.modify(qr);
+        }
+      }, {
+        key: "getElementId",
+        value: function getElementId(element) {
+          if (this.elementType == "event") {
+            element = this.elements.find(function (value) {
+              return value == element;
+            }).event_id;
+          } else if (this.elementType == "contest") {
+            element = this.elements.find(function (value) {
+              return value == element;
+            }).contest_id;
+          } else if (this.elementType == "ads") {
+            element = this.elements.find(function (value) {
+              return value == element;
+            }).ad_id;
+          } else if (this.elementType == "itinerary") {
+            element = this.elements.find(function (value) {
+              return value == element;
+            }).itinerary_id;
+          } else if (this.elementType == "tourist route") {
+            element = this.elements.find(function (value) {
+              return value == element;
+            }).route_id;
+          }
+
+          return element;
+        }
+      }, {
+        key: "create",
+        value: function create(qr) {
+          var _this176 = this;
+
+          this.loading = true;
+          this.qrForm.disable();
+          this.qrCodesService.create(qr).subscribe({
+            next: function next(data) {
+              if (data.status == 201) {
+                _this176.commonService.openSnackBar("El código QR ha sido creado éxitosamente", "OK");
+
+                _this176.getQRCodes();
+              } else {
+                _this176.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
+
+                console.log(data.error);
+
+                _this176.qrForm.enable();
+
+                _this176.loading = false;
+              }
+            },
+            error: function error(err) {
+              _this176.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              _this176.loading = false;
+
+              _this176.qrForm.enable();
+            }
+          });
+        }
+      }, {
+        key: "modify",
+        value: function modify(qr) {
+          var _this177 = this;
+
+          this.loading = true;
+          this.qrForm.disable();
+          this.qrCodesService.modify(qr).subscribe({
+            next: function next(data) {
+              if (data.status == 200) {
+                _this177.commonService.openSnackBar("El código QR ha sido editado éxitosamente", "OK");
+
+                _this177.getQRCodes();
+              } else {
+                _this177.commonService.openSnackBar("Ha ocurrido un error al intentar editar el código QR", "OK");
+
+                console.log(data.error);
+
+                _this177.qrForm.enable();
+
+                _this177.loading = false;
+              }
+            },
+            error: function error(err) {
+              _this177.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              _this177.loading = false;
+
+              _this177.qrForm.enable();
+            }
+          });
+        }
+      }, {
+        key: "getQRCodes",
+        value: function getQRCodes() {
+          var _this178 = this;
+
+          this.qrCodesService.getQRCodes().subscribe({
+            next: function next(data) {
+              _this178.qrCodesService.qrCodes = data;
+
+              _this178.closeDialog();
+            },
+            error: function error(err) {
+              _this178.commonService.openSnackBar("Ha ocurrido un error, por favor refresque la página", "");
+
+              _this178.closeDialog();
+            }
+          });
+        }
+      }, {
+        key: "onNoClick",
+        value: function onNoClick() {
+          this.dialogRef.close();
+        }
+      }, {
+        key: "closeDialog",
+        value: function closeDialog() {
+          this.dialogRef.close();
+        }
+      }]);
+
+      return CreateModifyQrCodesComponent;
+    }();
+
+    CreateModifyQrCodesComponent.ctorParameters = function () {
+      return [{
+        type: undefined,
+        decorators: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
+          args: [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"]]
+        }]
+      }, {
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"]
+      }, {
+        type: src_app_event_services_event_service__WEBPACK_IMPORTED_MODULE_6__["EventService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_8__["CommonService"]
+      }, {
+        type: src_app_contests_services_contests_service__WEBPACK_IMPORTED_MODULE_5__["ContestsService"]
+      }, {
+        type: src_app_ads_services_ads_service__WEBPACK_IMPORTED_MODULE_4__["AdsService"]
+      }, {
+        type: src_app_itinerary_services_itinerary_service__WEBPACK_IMPORTED_MODULE_9__["ItineraryService"]
+      }, {
+        type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"]
+      }, {
+        type: src_app_tourist_routes_services_tourist_routes_service__WEBPACK_IMPORTED_MODULE_10__["TouristRoutesService"]
+      }, {
+        type: _services_qr_codes_service__WEBPACK_IMPORTED_MODULE_11__["QrCodesService"]
+      }];
+    };
+
+    CreateModifyQrCodesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: "app-create-modify-qr-codes",
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./create-modify-qr-codes.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./create-modify-qr-codes.component.scss */
+      "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.scss"))["default"]]
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"]))], CreateModifyQrCodesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/qr-codes/qr-codes-root.component.ts":
+  /*!*****************************************************!*\
+    !*** ./src/app/qr-codes/qr-codes-root.component.ts ***!
+    \*****************************************************/
+
+  /*! exports provided: QrCodesRootComponent */
+
+  /***/
+  function srcAppQrCodesQrCodesRootComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "QrCodesRootComponent", function () {
+      return QrCodesRootComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var QrCodesRootComponent = /*#__PURE__*/function () {
+      function QrCodesRootComponent() {
+        _classCallCheck(this, QrCodesRootComponent);
+      }
+
+      _createClass(QrCodesRootComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return QrCodesRootComponent;
+    }();
+
+    QrCodesRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-qr-codes-root',
+      template: "\n    <router-outlet></router-outlet>\n  "
+    })], QrCodesRootComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/qr-codes/qr-codes-routing.module.ts":
+  /*!*****************************************************!*\
+    !*** ./src/app/qr-codes/qr-codes-routing.module.ts ***!
+    \*****************************************************/
+
+  /*! exports provided: QRCodesRoutingModule */
+
+  /***/
+  function srcAppQrCodesQrCodesRoutingModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "QRCodesRoutingModule", function () {
+      return QRCodesRoutingModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _components_all_qr_codes_all_qr_codes_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./components/all-qr-codes/all-qr-codes.component */
+    "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.ts");
+    /* harmony import */
+
+
+    var _qr_codes_root_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./qr-codes-root.component */
+    "./src/app/qr-codes/qr-codes-root.component.ts");
+
+    var routes = [{
+      path: "qr-codes",
+      component: _qr_codes_root_component__WEBPACK_IMPORTED_MODULE_3__["QrCodesRootComponent"],
+      children: [{
+        path: "all",
+        component: _components_all_qr_codes_all_qr_codes_component__WEBPACK_IMPORTED_MODULE_2__["AllQrCodesComponent"]
+      }]
+    }];
+
+    var QRCodesRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes);
+    /***/
+
+  },
+
+  /***/
+  "./src/app/qr-codes/qr-codes.module.ts":
+  /*!*********************************************!*\
+    !*** ./src/app/qr-codes/qr-codes.module.ts ***!
+    \*********************************************/
+
+  /*! exports provided: QrCodesModule */
+
+  /***/
+  function srcAppQrCodesQrCodesModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "QrCodesModule", function () {
+      return QrCodesModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _qr_codes_root_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./qr-codes-root.component */
+    "./src/app/qr-codes/qr-codes-root.component.ts");
+    /* harmony import */
+
+
+    var _qr_codes_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./qr-codes-routing.module */
+    "./src/app/qr-codes/qr-codes-routing.module.ts");
+    /* harmony import */
+
+
+    var _shared_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../shared.module */
+    "./src/app/shared.module.ts");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ngx-filter-pipe */
+    "./node_modules/ngx-filter-pipe/esm2015/ngx-filter-pipe.js");
+    /* harmony import */
+
+
+    var _components_all_qr_codes_all_qr_codes_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ./components/all-qr-codes/all-qr-codes.component */
+    "./src/app/qr-codes/components/all-qr-codes/all-qr-codes.component.ts");
+    /* harmony import */
+
+
+    var _components_create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    /*! ./components/create-modify-qr-codes/create-modify-qr-codes.component */
+    "./src/app/qr-codes/components/create-modify-qr-codes/create-modify-qr-codes.component.ts");
+    /* harmony import */
+
+
+    var angularx_qrcode__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! angularx-qrcode */
+    "./node_modules/angularx-qrcode/fesm2015/angularx-qrcode.js");
+
+    var QrCodesModule = function QrCodesModule() {
+      _classCallCheck(this, QrCodesModule);
+    };
+
+    QrCodesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+      declarations: [_qr_codes_root_component__WEBPACK_IMPORTED_MODULE_3__["QrCodesRootComponent"], _components_all_qr_codes_all_qr_codes_component__WEBPACK_IMPORTED_MODULE_8__["AllQrCodesComponent"], _components_create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_9__["CreateModifyQrCodesComponent"]],
+      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _qr_codes_routing_module__WEBPACK_IMPORTED_MODULE_4__["QRCodesRoutingModule"], _shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"], ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_7__["FilterPipeModule"], angularx_qrcode__WEBPACK_IMPORTED_MODULE_10__["QRCodeModule"]],
+      entryComponents: [_components_create_modify_qr_codes_create_modify_qr_codes_component__WEBPACK_IMPORTED_MODULE_9__["CreateModifyQrCodesComponent"]]
+    })], QrCodesModule);
+    /***/
+  },
+
+  /***/
+  "./src/app/qr-codes/services/qr-codes.service.ts":
+  /*!*******************************************************!*\
+    !*** ./src/app/qr-codes/services/qr-codes.service.ts ***!
+    \*******************************************************/
+
+  /*! exports provided: QrCodesService */
+
+  /***/
+  function srcAppQrCodesServicesQrCodesServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "QrCodesService", function () {
+      return QrCodesService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
+
+    var QrCodesService = /*#__PURE__*/function () {
+      function QrCodesService(http) {
+        _classCallCheck(this, QrCodesService);
+
+        this.http = http;
+        this.module = "qrs/";
+        this.qrCodes = [];
+      }
+
+      _createClass(QrCodesService, [{
+        key: "getQRCodes",
+        value: function getQRCodes() {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module));
+        }
+      }, {
+        key: "create",
+        value: function create(qrCode) {
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module), qrCode, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "modify",
+        value: function modify(qrCode) {
+          var json = {
+            e_type: qrCode.e_type,
+            e_id: qrCode.e_id,
+            description: qrCode.description
+          };
+          return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(qrCode.qr_id), json, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "delete",
+        value: function _delete(qrCode_id) {
+          return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(qrCode_id), {
+            observe: 'response'
+          });
+        }
+      }]);
+
+      return QrCodesService;
+    }();
+
+    QrCodesService.ctorParameters = function () {
+      return [{
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]
+      }];
+    };
+
+    QrCodesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+      providedIn: 'root'
+    })], QrCodesService);
+    /***/
+  },
+
+  /***/
   "./src/app/services/components/service-root.component.ts":
   /*!***************************************************************!*\
     !*** ./src/app/services/components/service-root.component.ts ***!
@@ -23151,31 +24337,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this173 = this;
+          var _this179 = this;
 
           this.subscription = this._service.getCategories(4).subscribe({
             next: function next(result) {
               var temp = result;
-              _this173.categories = temp;
+              _this179.categories = temp;
             },
             error: function error(err) {
-              return _this173._common.handleError(err);
+              return _this179._common.handleError(err);
             }
           });
         }
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this174 = this;
+          var _this180 = this;
 
           this.subscription = this._service.addService(new src_app_services_models_Service__WEBPACK_IMPORTED_MODULE_7__["Service"](this.serviceFG.get('name').value, this.serviceFG.get('category').value)).subscribe({
             next: function next(result) {
-              _this174._common.openSnackBar("Servicio creado", "Ok");
+              _this180._common.openSnackBar("Servicio creado", "Ok");
 
-              _this174.onNoClick(201);
+              _this180.onNoClick(201);
             },
             error: function error(err) {
-              return _this174._common.handleError(err);
+              return _this180._common.handleError(err);
             }
           });
         }
@@ -23357,14 +24543,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getServices",
         value: function getServices() {
-          var _this175 = this;
+          var _this181 = this;
 
           this.subscription = this._service.getServices().subscribe({
             next: function next(data) {
-              _this175.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
+              _this181.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this175._common.handleError(err);
+              return _this181._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -23376,35 +24562,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(service_id) {
-          var _this176 = this;
+          var _this182 = this;
 
           this._common.confirmationDialog("\xBFDesea eliminar el servicio ?").then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this176, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
-              var _this177 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this182, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
+              var _this183 = this;
 
-              return regeneratorRuntime.wrap(function _callee55$(_context55) {
+              return regeneratorRuntime.wrap(function _callee57$(_context57) {
                 while (1) {
-                  switch (_context55.prev = _context55.next) {
+                  switch (_context57.prev = _context57.next) {
                     case 0:
                       if (result) {
                         this.subscription = this._service.deleteService(service_id).subscribe({
                           next: function next(result) {
-                            _this177._common.openSnackBar("Servicio eliminado", "Ok");
+                            _this183._common.openSnackBar("Servicio eliminado", "Ok");
 
-                            _this177.getServices();
+                            _this183.getServices();
                           },
                           error: function error(err) {
-                            return _this177._common.handleError(err);
+                            return _this183._common.handleError(err);
                           }
                         });
                       }
 
                     case 1:
                     case "end":
-                      return _context55.stop();
+                      return _context57.stop();
                   }
                 }
-              }, _callee55, this);
+              }, _callee57, this);
             }));
           });
         }
@@ -23556,7 +24742,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateServiceDialog",
         value: function openCreateServiceDialog() {
-          var _this178 = this;
+          var _this184 = this;
 
           var dialog = this.dialogService.open(_service_service_create_service_create_component__WEBPACK_IMPORTED_MODULE_4__["ServiceCreateComponent"], {
             width: "60%",
@@ -23565,7 +24751,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this178.datosDesdeElPadre.active = false;
+              _this184.datosDesdeElPadre.active = false;
             }
           });
         }
@@ -24156,16 +25342,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getActiveTR",
         value: function getActiveTR() {
-          var _this179 = this;
+          var _this185 = this;
 
           this.subscription = this.turistRoutesService.getTouristRoutes(true).subscribe({
             next: function next(data) {
-              _this179.turistRoutesService.touristRoutes = data;
+              _this185.turistRoutesService.touristRoutes = data;
 
-              _this179.subscription.unsubscribe();
+              _this185.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this179.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this185.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -24182,16 +25368,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(touristRoute, _ref22) {
-          var _this180 = this;
+          var _this186 = this;
 
           var source = _ref22.source;
           this.commonService.confirmationDialog("\xBFDesea eliminar la ruta: ".concat(touristRoute.name, "?")).then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this180, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
-              var _this181 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this186, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
+              var _this187 = this;
 
-              return regeneratorRuntime.wrap(function _callee56$(_context56) {
+              return regeneratorRuntime.wrap(function _callee58$(_context58) {
                 while (1) {
-                  switch (_context56.prev = _context56.next) {
+                  switch (_context58.prev = _context58.next) {
                     case 0:
                       if (result) {
                         this.turistRoutesService.changeTouristRouteState(touristRoute.route_id).subscribe({
@@ -24200,15 +25386,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                               touristRoute.is_active = !touristRoute.is_active;
                               source.checked = touristRoute.is_active;
 
-                              _this181.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
+                              _this187.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
 
-                              _this181.getActiveTR();
+                              _this187.getActiveTR();
                             } else {
-                              _this181.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              _this187.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                             }
                           },
                           error: function error(err) {
-                            _this181.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                            _this187.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
                             source.checked = touristRoute.is_active;
                           }
@@ -24219,10 +25405,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     case 1:
                     case "end":
-                      return _context56.stop();
+                      return _context58.stop();
                   }
                 }
-              }, _callee56, this);
+              }, _callee58, this);
             }));
           });
         }
@@ -24371,23 +25557,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CreateTouristRoutesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this182 = this;
+          var _this188 = this;
 
           this.subscription = this.offerService.getOffers().subscribe({
             next: function next(data) {
-              _this182.filteredOffers = data;
+              _this188.filteredOffers = data;
 
-              _this182.subscription.unsubscribe();
+              _this188.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this182.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this188.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this183 = this;
+          var _this189 = this;
 
           this.loading = true;
           var tr = {
@@ -24395,24 +25581,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.touristRoutesService.createTouristRoute(tr).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this183, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
-                return regeneratorRuntime.wrap(function _callee57$(_context57) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this189, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
+                return regeneratorRuntime.wrap(function _callee59$(_context59) {
                   while (1) {
-                    switch (_context57.prev = _context57.next) {
+                    switch (_context59.prev = _context59.next) {
                       case 0:
                         if (!(data.status == 201)) {
-                          _context57.next = 8;
+                          _context59.next = 8;
                           break;
                         }
 
-                        _context57.next = 3;
+                        _context59.next = 3;
                         return this.asociateoffers(data.body[0]);
 
                       case 3:
                         this.commonService.openSnackBar("El evento ".concat(this.trFG.value.name, " se ha creado"), "OK");
                         this.dialogRef.close();
                         this.router.navigate(['/tourist-routes', data.body[0]]);
-                        _context57.next = 10;
+                        _context59.next = 10;
                         break;
 
                       case 8:
@@ -24421,18 +25607,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 10:
                       case "end":
-                        return _context57.stop();
+                        return _context59.stop();
                     }
                   }
-                }, _callee57, this);
+                }, _callee59, this);
               }));
             },
             error: function error(err) {
-              _this183.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this189.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this183.loading = false;
+              _this189.loading = false;
 
-              _this183.trFG.enable();
+              _this189.trFG.enable();
             }
           });
         }
@@ -24460,23 +25646,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "asociateoffers",
         value: function asociateoffers(tr_id) {
-          var _this184 = this;
+          var _this190 = this;
 
           this.allOffers.forEach(function (offer) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this184, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
-              return regeneratorRuntime.wrap(function _callee58$(_context58) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this190, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
+              return regeneratorRuntime.wrap(function _callee60$(_context60) {
                 while (1) {
-                  switch (_context58.prev = _context58.next) {
+                  switch (_context60.prev = _context60.next) {
                     case 0:
-                      _context58.next = 2;
+                      _context60.next = 2;
                       return this.touristRoutesService.addOfferToTouristRoute(tr_id, offer.offer_id).toPromise();
 
                     case 2:
                     case "end":
-                      return _context58.stop();
+                      return _context60.stop();
                   }
                 }
-              }, _callee58, this);
+              }, _callee60, this);
             }));
           });
         }
@@ -24599,12 +25785,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ManagementTouristRoutesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this185 = this;
+          var _this191 = this;
 
           this.subscription = this.route.paramMap.subscribe(function (params) {
-            _this185.route_id = Number(params.get("tourist-route_id"));
+            _this191.route_id = Number(params.get("tourist-route_id"));
 
-            _this185.recharge();
+            _this191.recharge();
           });
         }
       }, {
@@ -24615,10 +25801,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this186 = this;
+          var _this192 = this;
 
           this.touristRouteService.getTouristRoute(Number(this.route_id)).subscribe(function (data) {
-            _this186.myRoute = data;
+            _this192.myRoute = data;
           });
         }
       }]);
@@ -24755,7 +25941,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "modifyRoute",
         value: function modifyRoute() {
-          var _this187 = this;
+          var _this193 = this;
 
           this.loading = true;
           var tr = {
@@ -24765,10 +25951,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.touristRoutesService.modifyTouristRute(tr).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this187, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
-                return regeneratorRuntime.wrap(function _callee59$(_context59) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this193, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
+                return regeneratorRuntime.wrap(function _callee61$(_context61) {
                   while (1) {
-                    switch (_context59.prev = _context59.next) {
+                    switch (_context61.prev = _context61.next) {
                       case 0:
                         if (data.status == 200) {
                           this.trFG.enable();
@@ -24781,36 +25967,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 1:
                       case "end":
-                        return _context59.stop();
+                        return _context61.stop();
                     }
                   }
-                }, _callee59, this);
+                }, _callee61, this);
               }));
             },
             error: function error(err) {
-              _this187.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this193.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this187.loading = false;
+              _this193.loading = false;
 
-              _this187.trFG.enable();
+              _this193.trFG.enable();
             }
           });
         }
       }, {
         key: "changeState",
         value: function changeState(touristRoute, _ref23) {
-          var _this188 = this;
+          var _this194 = this;
 
           var source = _ref23.source;
 
           if (this.myRoute.is_active) {
             this.commonService.confirmationDialog("\xBFDesea eliminar la ruta: ".concat(touristRoute.name, "?")).then(function (result) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this188, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
-                var _this189 = this;
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this194, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
+                var _this195 = this;
 
-                return regeneratorRuntime.wrap(function _callee60$(_context60) {
+                return regeneratorRuntime.wrap(function _callee62$(_context62) {
                   while (1) {
-                    switch (_context60.prev = _context60.next) {
+                    switch (_context62.prev = _context62.next) {
                       case 0:
                         if (result) {
                           this.touristRoutesService.changeTouristRouteState(touristRoute.route_id).subscribe({
@@ -24819,15 +26005,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                                 touristRoute.is_active = !touristRoute.is_active;
                                 source.checked = touristRoute.is_active;
 
-                                _this189.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
+                                _this195.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
 
-                                _this189.router.navigate(['/tourist-routes/all']);
+                                _this195.router.navigate(['/tourist-routes/all']);
                               } else {
-                                _this189.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                                _this195.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                               }
                             },
                             error: function error(err) {
-                              _this189.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                              _this195.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
                               source.checked = touristRoute.is_active;
                             }
@@ -24838,10 +26024,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 1:
                       case "end":
-                        return _context60.stop();
+                        return _context62.stop();
                     }
                   }
-                }, _callee60, this);
+                }, _callee62, this);
               }));
             });
           } else {
@@ -24982,16 +26168,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(TouristRoutesOffersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this190 = this;
+          var _this196 = this;
 
           this.subscription = this.offerService.getOffers().subscribe({
             next: function next(data) {
-              _this190.offerService.offers = data;
+              _this196.offerService.offers = data;
 
-              _this190.subscription.unsubscribe();
+              _this196.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this190.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this196.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.getRouteOffers();
@@ -24999,26 +26185,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getRouteOffers",
         value: function getRouteOffers() {
-          var _this191 = this;
+          var _this197 = this;
 
           this.subscription2 = this.touristRoutesService.getTouristRouteOffers(this.myRoute.route_id).subscribe({
             next: function next(data) {
-              _this191.associateOffers = [];
+              _this197.associateOffers = [];
               data.forEach(function (val) {
-                return _this191.associateOffers.push(val);
+                return _this197.associateOffers.push(val);
               });
 
-              _this191.subscription2.unsubscribe();
+              _this197.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this191.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this197.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "addOffer",
         value: function addOffer() {
-          var _this192 = this;
+          var _this198 = this;
 
           var offer = this.selectedOffer;
           var offersID = this.getOffersID();
@@ -25029,15 +26215,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             this.touristRoutesService.addOfferToTouristRoute(this.myRoute.route_id, offer.offer_id).subscribe({
               next: function next(data) {
                 if (data.status == 201) {
-                  _this192.getRouteOffers();
+                  _this198.getRouteOffers();
 
-                  _this192.commonService.openSnackBar("Se ha añadido la oferta", "OK");
+                  _this198.commonService.openSnackBar("Se ha añadido la oferta", "OK");
 
-                  _this192.loading = false;
+                  _this198.loading = false;
                 }
               },
               error: function error(err) {
-                return _this192.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this198.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           } else {
@@ -25056,21 +26242,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOffer",
         value: function removeOffer(offer) {
-          var _this193 = this;
+          var _this199 = this;
 
           this.loading = true;
           this.touristRoutesService.deleteOfferFromTouristRoute(this.myRoute.route_id, offer.offer_id).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this193.getRouteOffers();
+                _this199.getRouteOffers();
 
-                _this193.commonService.openSnackBar("La oferta ha sido removida", "OK");
+                _this199.commonService.openSnackBar("La oferta ha sido removida", "OK");
 
-                _this193.loading = false;
+                _this199.loading = false;
               }
             },
             error: function error(err) {
-              return _this193.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this199.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -25476,6 +26662,1853 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
+  "./src/app/transport-services/components/all-transport-services/all-transport-services.component.scss":
+  /*!************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/all-transport-services/all-transport-services.component.scss ***!
+    \************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppTransportServicesComponentsAllTransportServicesAllTransportServicesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "th {\n  font-size: 14px;\n  font-weight: 600;\n}\n\ntr {\n  font-size: 15px;\n  cursor: pointer;\n}\n\ntr:hover {\n  background-color: #f7f7f7;\n}\n\nbutton {\n  margin-right: 3%;\n}\n\n.container-text-left {\n  margin-bottom: 2%;\n  margin-left: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2FsbC10cmFuc3BvcnQtc2VydmljZXMvYWxsLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdHJhbnNwb3J0LXNlcnZpY2VzL2NvbXBvbmVudHMvYWxsLXRyYW5zcG9ydC1zZXJ2aWNlcy9hbGwtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0FDQ0Y7O0FERUE7RUFDRSxlQUFBO0VBQ0EsZUFBQTtBQ0NGOztBREVBO0VBQ0UseUJBQUE7QUNDRjs7QURFQTtFQUNFLGdCQUFBO0FDQ0Y7O0FERUE7RUFDRSxpQkFBQTtFQUNBLGVBQUE7QUNDRiIsImZpbGUiOiJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2FsbC10cmFuc3BvcnQtc2VydmljZXMvYWxsLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRoIHtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBmb250LXdlaWdodDogNjAwO1xufVxuXG50ciB7XG4gIGZvbnQtc2l6ZTogMTVweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG50cjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDcsIDI0NywgMjQ3KTtcbn1cblxuYnV0dG9uIHtcbiAgbWFyZ2luLXJpZ2h0OiAzJTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufVxuIiwidGgge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbnRyIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnRyOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y3ZjdmNztcbn1cblxuYnV0dG9uIHtcbiAgbWFyZ2luLXJpZ2h0OiAzJTtcbn1cblxuLmNvbnRhaW5lci10ZXh0LWxlZnQge1xuICBtYXJnaW4tYm90dG9tOiAyJTtcbiAgbWFyZ2luLWxlZnQ6IDIlO1xufSJdfQ== */";
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/all-transport-services/all-transport-services.component.ts":
+  /*!**********************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/all-transport-services/all-transport-services.component.ts ***!
+    \**********************************************************************************************************/
+
+  /*! exports provided: AllTransportServicesComponent */
+
+  /***/
+  function srcAppTransportServicesComponentsAllTransportServicesAllTransportServicesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AllTransportServicesComponent", function () {
+      return AllTransportServicesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/auth.service */
+    "./src/app/general-services/auth.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _services_transport_services_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../../services/transport-services.service */
+    "./src/app/transport-services/services/transport-services.service.ts");
+    /* harmony import */
+
+
+    var _create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../create-transport-services/create-transport-services.component */
+    "./src/app/transport-services/components/create-transport-services/create-transport-services.component.ts");
+
+    var AllTransportServicesComponent = /*#__PURE__*/function () {
+      function AllTransportServicesComponent(transportService, authService, commonService, matDialog) {
+        _classCallCheck(this, AllTransportServicesComponent);
+
+        this.transportService = transportService;
+        this.authService = authService;
+        this.commonService = commonService;
+        this.matDialog = matDialog;
+        this.filter = {
+          info: {
+            name: ""
+          }
+        };
+      }
+
+      _createClass(AllTransportServicesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          this.getTransportServices();
+        }
+      }, {
+        key: "getTransportServices",
+        value: function getTransportServices() {
+          var _this200 = this;
+
+          var user_id;
+          user_id = this.authService.getUser().role_id != 1 ? user_id = this.authService.getUser().role_id : user_id = undefined;
+
+          if (user_id == undefined) {
+            this.subscription = this.transportService.getTransportServices().subscribe({
+              next: function next(data) {
+                _this200.transportService.transportServices = data;
+
+                _this200.subscription.unsubscribe();
+              },
+              error: function error(err) {
+                return _this200.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              }
+            });
+          } else {
+            this.subscription = this.transportService.getTransportServices(user_id).subscribe({
+              next: function next(data) {
+                _this200.transportService.transportServices = data;
+
+                _this200.subscription.unsubscribe();
+              },
+              error: function error(err) {
+                return _this200.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              }
+            });
+          }
+        }
+      }, {
+        key: "openCreateDialog",
+        value: function openCreateDialog() {
+          this.matDialog.open(_create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_6__["CreateTransportServicesComponent"], {
+            height: "75%",
+            width: "65%",
+            minWidth: "280px",
+            disableClose: true
+          });
+        }
+      }, {
+        key: "changeState",
+        value: function changeState(ts) {
+          var _this201 = this;
+
+          this.commonService.confirmationDialog("\xBFDesea eliminar el servicio de transporte: ".concat(ts.name, "?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this201, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
+              var _this202 = this;
+
+              return regeneratorRuntime.wrap(function _callee63$(_context63) {
+                while (1) {
+                  switch (_context63.prev = _context63.next) {
+                    case 0:
+                      if (result) {
+                        this.transportService.changeTransportServiceState(ts).subscribe({
+                          next: function next(data) {
+                            if (data.status == 200) {
+                              _this202.commonService.openSnackBar("El servicio ".concat(ts.info.name, " ha sido eliminado"), "OK");
+
+                              _this202.getTransportServices();
+                            } else {
+                              _this202.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                            }
+                          },
+                          error: function error(err) {
+                            _this202.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                          }
+                        });
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context63.stop();
+                  }
+                }
+              }, _callee63, this);
+            }));
+          });
+        }
+      }]);
+
+      return AllTransportServicesComponent;
+    }();
+
+    AllTransportServicesComponent.ctorParameters = function () {
+      return [{
+        type: _services_transport_services_service__WEBPACK_IMPORTED_MODULE_5__["TransportServicesService"]
+      }, {
+        type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
+      }, {
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]
+      }];
+    };
+
+    AllTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: "app-all-transport-services",
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./all-transport-services.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/all-transport-services/all-transport-services.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./all-transport-services.component.scss */
+      "./src/app/transport-services/components/all-transport-services/all-transport-services.component.scss"))["default"]]
+    })], AllTransportServicesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.scss":
+  /*!**************************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.scss ***!
+    \**************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppTransportServicesComponentsCategoriesTransportServicesCategoriesTransportServicesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2NhdGVnb3JpZXMtdHJhbnNwb3J0LXNlcnZpY2VzL2NhdGVnb3JpZXMtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIn0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.ts":
+  /*!************************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.ts ***!
+    \************************************************************************************************************************/
+
+  /*! exports provided: CategoriesTransportServicesComponent */
+
+  /***/
+  function srcAppTransportServicesComponentsCategoriesTransportServicesCategoriesTransportServicesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "CategoriesTransportServicesComponent", function () {
+      return CategoriesTransportServicesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../../services/transport-services-categories.service */
+    "./src/app/transport-services/services/transport-services-categories.service.ts");
+    /* harmony import */
+
+
+    var _create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../create-categories-transport-services/create-categories-transport-services.component */
+    "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.ts");
+
+    var CategoriesTransportServicesComponent = /*#__PURE__*/function () {
+      function CategoriesTransportServicesComponent(categoryTransportService, matDialog, commonService) {
+        _classCallCheck(this, CategoriesTransportServicesComponent);
+
+        this.categoryTransportService = categoryTransportService;
+        this.matDialog = matDialog;
+        this.commonService = commonService;
+        this.filter = {
+          name: ""
+        };
+      }
+
+      _createClass(CategoriesTransportServicesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          this.getCategories();
+        }
+      }, {
+        key: "getCategories",
+        value: function getCategories() {
+          var _this203 = this;
+
+          this.subscription = this.categoryTransportService.getTransportServicesCategories().subscribe({
+            next: function next(data) {
+              _this203.categoryTransportService.categories = data;
+
+              _this203.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this203.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+        }
+      }, {
+        key: "openCreateialog",
+        value: function openCreateialog() {
+          this.matDialog.open(_create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_5__["CreateCategoriesTransportServicesComponent"], {
+            height: "45%",
+            width: "45%",
+            minWidth: "280px",
+            disableClose: true
+          });
+        }
+      }, {
+        key: "changeState",
+        value: function changeState(category) {
+          var _this204 = this;
+
+          if (category.is_active) {
+            this.categoryTransportService.deleteTransportCategory(category.id).subscribe({
+              next: function next(data) {
+                if (data.status == 200) {
+                  _this204.commonService.openSnackBar("La categor\xEDa se ha eliminado ".concat(category.name), "OK");
+
+                  category.is_active = false;
+
+                  _this204.getCategories();
+                } else {
+                  _this204.commonService.openSnackBar("Error. No se puedo eliminar la categoría", "OK");
+                }
+              },
+              error: function error(err) {
+                return _this204.commonService.openSnackBar("Error: ".concat(err), "OK");
+              }
+            });
+          }
+        }
+      }]);
+
+      return CategoriesTransportServicesComponent;
+    }();
+
+    CategoriesTransportServicesComponent.ctorParameters = function () {
+      return [{
+        type: _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_4__["TransportServicesCategoriesService"]
+      }, {
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }];
+    };
+
+    CategoriesTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: "app-categories-transport-services",
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./categories-transport-services.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./categories-transport-services.component.scss */
+      "./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.scss"))["default"]]
+    })], CategoriesTransportServicesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.scss":
+  /*!****************************************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.scss ***!
+    \****************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppTransportServicesComponentsCreateCategoriesTransportServicesCreateCategoriesTransportServicesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "h1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\nmat-form-field {\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2NyZWF0ZS1jYXRlZ29yaWVzLXRyYW5zcG9ydC1zZXJ2aWNlcy9jcmVhdGUtY2F0ZWdvcmllcy10cmFuc3BvcnQtc2VydmljZXMuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2NyZWF0ZS1jYXRlZ29yaWVzLXRyYW5zcG9ydC1zZXJ2aWNlcy9jcmVhdGUtY2F0ZWdvcmllcy10cmFuc3BvcnQtc2VydmljZXMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxjQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9jcmVhdGUtY2F0ZWdvcmllcy10cmFuc3BvcnQtc2VydmljZXMvY3JlYXRlLWNhdGVnb3JpZXMtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDF7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMSU7XG4gICAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXJ7XG4gICAgbWFyZ2luLXRvcDogMyU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cbiBcbmZvcm17XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbm1hdC1mb3JtLWZpZWxke1xuICAgIHdpZHRoOiAxMDAlO1xufSIsImgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogMTAwJTtcbn0iXX0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.ts":
+  /*!**************************************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.ts ***!
+    \**************************************************************************************************************************************/
+
+  /*! exports provided: CreateCategoriesTransportServicesComponent */
+
+  /***/
+  function srcAppTransportServicesComponentsCreateCategoriesTransportServicesCreateCategoriesTransportServicesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "CreateCategoriesTransportServicesComponent", function () {
+      return CreateCategoriesTransportServicesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../../services/transport-services-categories.service */
+    "./src/app/transport-services/services/transport-services-categories.service.ts");
+
+    var CreateCategoriesTransportServicesComponent = /*#__PURE__*/function () {
+      function CreateCategoriesTransportServicesComponent(dialogRef, categoryTransportService, commonService) {
+        _classCallCheck(this, CreateCategoriesTransportServicesComponent);
+
+        this.dialogRef = dialogRef;
+        this.categoryTransportService = categoryTransportService;
+        this.commonService = commonService;
+        this.categoryForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+          name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")])
+        });
+      }
+
+      _createClass(CreateCategoriesTransportServicesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }, {
+        key: "createCategory",
+        value: function createCategory() {
+          var _this205 = this;
+
+          this.categoryForm.disable();
+          this.categoryTransportService.createTransportServicesCategory(this.categoryForm.value.name).subscribe({
+            next: function next(data) {
+              if (data.status == 201) {
+                _this205.commonService.openSnackBar("El servicio de transporte ".concat(_this205.categoryForm.value.name, " se ha creado"), "OK");
+
+                _this205.closeDialog();
+              } else {
+                _this205.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
+
+                _this205.categoryForm.enable();
+              }
+            },
+            error: function error(err) {
+              _this205.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              _this205.categoryForm.enable();
+            }
+          });
+        }
+      }, {
+        key: "onNoClick",
+        value: function onNoClick() {
+          this.dialogRef.close();
+        }
+      }, {
+        key: "closeDialog",
+        value: function closeDialog() {
+          this.dialogRef.close();
+        }
+      }]);
+
+      return CreateCategoriesTransportServicesComponent;
+    }();
+
+    CreateCategoriesTransportServicesComponent.ctorParameters = function () {
+      return [{
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"]
+      }, {
+        type: _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_5__["TransportServicesCategoriesService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
+      }];
+    };
+
+    CreateCategoriesTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-create-categories-transport-services',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./create-categories-transport-services.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./create-categories-transport-services.component.scss */
+      "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.scss"))["default"]]
+    })], CreateCategoriesTransportServicesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/create-transport-services/create-transport-services.component.scss":
+  /*!******************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/create-transport-services/create-transport-services.component.scss ***!
+    \******************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppTransportServicesComponentsCreateTransportServicesCreateTransportServicesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 1%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL2NyZWF0ZS10cmFuc3BvcnQtc2VydmljZXMvY3JlYXRlLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdHJhbnNwb3J0LXNlcnZpY2VzL2NvbXBvbmVudHMvY3JlYXRlLXRyYW5zcG9ydC1zZXJ2aWNlcy9jcmVhdGUtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxXQUFBO0FDQ0o7O0FERUE7RUFDSSxhQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvdHJhbnNwb3J0LXNlcnZpY2VzL2NvbXBvbmVudHMvY3JlYXRlLXRyYW5zcG9ydC1zZXJ2aWNlcy9jcmVhdGUtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGV4dGFyZWF7XG4gICAgcmVzaXplOiBub25lO1xufVxuXG5oMXtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luOiAwJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBtYXJnaW4tdG9wOiAzJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuIFxuZm9ybXtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGR7XG4gICAgd2lkdGg6IDQ1JTtcbiAgICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59IiwidGV4dGFyZWEge1xuICByZXNpemU6IG5vbmU7XG59XG5cbmgxIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDAlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZm9udC1zaXplOiBsYXJnZXI7XG59XG5cbi5idXR0b25Db250YWluZXIge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG5mb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiA0NSU7XG4gIG1hcmdpbi1yaWdodDogMi41JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59Il19 */";
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/create-transport-services/create-transport-services.component.ts":
+  /*!****************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/create-transport-services/create-transport-services.component.ts ***!
+    \****************************************************************************************************************/
+
+  /*! exports provided: CreateTransportServicesComponent */
+
+  /***/
+  function srcAppTransportServicesComponentsCreateTransportServicesCreateTransportServicesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "CreateTransportServicesComponent", function () {
+      return CreateTransportServicesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/general-services/auth.service */
+    "./src/app/general-services/auth.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ../../services/transport-services-categories.service */
+    "./src/app/transport-services/services/transport-services-categories.service.ts");
+    /* harmony import */
+
+
+    var _services_transport_services_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ../../services/transport-services.service */
+    "./src/app/transport-services/services/transport-services.service.ts");
+
+    var CreateTransportServicesComponent = /*#__PURE__*/function () {
+      function CreateTransportServicesComponent(authService, dialogRef, transportService, commonService, router, categoryService) {
+        _classCallCheck(this, CreateTransportServicesComponent);
+
+        this.authService = authService;
+        this.dialogRef = dialogRef;
+        this.transportService = transportService;
+        this.commonService = commonService;
+        this.router = router;
+        this.categoryService = categoryService;
+        this.loading = false;
+      }
+
+      _createClass(CreateTransportServicesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var _this206 = this;
+
+          this.tsForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('^(.{1,})[@](.{1,})[.](.{1,})$')]),
+            phone_number: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[0-9]{4}[-]{0,1}[ ]{0,1}[0-9]{4}")]),
+            address: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+            categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+          });
+          this.subscription = this.categoryService.getTransportServicesCategories().subscribe({
+            next: function next(data) {
+              _this206.categories = data;
+            },
+            error: function error(err) {
+              return _this206.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+            }
+          });
+        }
+      }, {
+        key: "createTransportService",
+        value: function createTransportService() {
+          var _this207 = this;
+
+          this.loading = true;
+          this.tsForm.disable();
+          var transportService = {
+            name: this.tsForm.controls["name"].value,
+            email: this.tsForm.controls["email"].value,
+            categories_id: this.tsForm.controls["categories"].value,
+            tel: this.tsForm.controls["phone_number"].value,
+            hire_dir: this.tsForm.controls["address"].value,
+            user_id: this.authService.getUser().user_id
+          };
+          this.transportService.createTransportService(transportService).subscribe({
+            next: function next(data) {
+              _this207.loading = false;
+
+              if (data.status == 201) {
+                if (_this207.authService.getUser().role_id == 1) {
+                  _this207.commonService.openSnackBar("El servicio de transporte ".concat(_this207.tsForm.value.name, " se ha creado"), "OK");
+
+                  _this207.router.navigate(['/transport-services', data.body[0]]);
+                } else {
+                  _this207.commonService.openSnackBar("La solicitud de creaci\xF3n del servicio de transporte ".concat(_this207.tsForm.value.name, " se ha enviado"), "OK");
+                }
+
+                _this207.closeDialog();
+              } else {
+                _this207.commonService.openSnackBar("Error al crear el servicio de transporte: ".concat(data.error), "OK");
+
+                _this207.tsForm.enable();
+              }
+            },
+            error: function error(err) {
+              _this207.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              _this207.loading = false;
+
+              _this207.tsForm.enable();
+            }
+          });
+        }
+      }, {
+        key: "onNoClick",
+        value: function onNoClick() {
+          this.dialogRef.close();
+        }
+      }, {
+        key: "closeDialog",
+        value: function closeDialog() {
+          this.dialogRef.close();
+        }
+      }]);
+
+      return CreateTransportServicesComponent;
+    }();
+
+    CreateTransportServicesComponent.ctorParameters = function () {
+      return [{
+        type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"]
+      }, {
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"]
+      }, {
+        type: _services_transport_services_service__WEBPACK_IMPORTED_MODULE_8__["TransportServicesService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+      }, {
+        type: _services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_7__["TransportServicesCategoriesService"]
+      }];
+    };
+
+    CreateTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-create-transport-services',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./create-transport-services.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/create-transport-services/create-transport-services.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./create-transport-services.component.scss */
+      "./src/app/transport-services/components/create-transport-services/create-transport-services.component.scss"))["default"]]
+    })], CreateTransportServicesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.scss":
+  /*!**************************************************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.scss ***!
+    \**************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppTransportServicesComponentsManagementTransportServicesDetailsTransportServicesDetailsTransportServicesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "textarea {\n  resize: none !important;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 1%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n\nmat-form-field {\n  width: 45%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL21hbmFnZW1lbnQtdHJhbnNwb3J0LXNlcnZpY2VzL2RldGFpbHMtdHJhbnNwb3J0LXNlcnZpY2VzL2RldGFpbHMtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9tYW5hZ2VtZW50LXRyYW5zcG9ydC1zZXJ2aWNlcy9kZXRhaWxzLXRyYW5zcG9ydC1zZXJ2aWNlcy9kZXRhaWxzLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHVCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7QUNDSjs7QURFQTtFQUNJLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7QUNDSjs7QURFQTtFQUNJLFVBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9tYW5hZ2VtZW50LXRyYW5zcG9ydC1zZXJ2aWNlcy9kZXRhaWxzLXRyYW5zcG9ydC1zZXJ2aWNlcy9kZXRhaWxzLXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhe1xuICAgIHJlc2l6ZTogbm9uZSAhaW1wb3J0YW50O1xufVxuXG5oMXtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luOiAwJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lcntcbiAgICBtYXJnaW4tdG9wOiAzJTtcbiAgICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuIFxuZm9ybXtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxubWF0LWZvcm0tZmllbGR7XG4gICAgd2lkdGg6IDQ1JTtcbiAgICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59IiwidGV4dGFyZWEge1xuICByZXNpemU6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDQ1JTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbn0iXX0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.ts":
+  /*!************************************************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.ts ***!
+    \************************************************************************************************************************************************/
+
+  /*! exports provided: DetailsTransportServicesComponent */
+
+  /***/
+  function srcAppTransportServicesComponentsManagementTransportServicesDetailsTransportServicesDetailsTransportServicesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "DetailsTransportServicesComponent", function () {
+      return DetailsTransportServicesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_app_transport_services_services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/transport-services/services/transport-services-categories.service */
+    "./src/app/transport-services/services/transport-services-categories.service.ts");
+    /* harmony import */
+
+
+    var src_app_transport_services_services_transport_services_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/transport-services/services/transport-services.service */
+    "./src/app/transport-services/services/transport-services.service.ts");
+
+    var DetailsTransportServicesComponent = /*#__PURE__*/function () {
+      function DetailsTransportServicesComponent(categoryService, commonService, transportService) {
+        _classCallCheck(this, DetailsTransportServicesComponent);
+
+        this.categoryService = categoryService;
+        this.commonService = commonService;
+        this.transportService = transportService;
+        this.loading = false;
+        this.transportServicesFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+          name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+          email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^(.{1,})[@](.{1,})[.](.{1,})$")]),
+          phone_number: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^([0-9]{4}[ ][0-9]{4})$")]),
+          address: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
+          categories: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+        });
+      }
+
+      _createClass(DetailsTransportServicesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var _this208 = this;
+
+          this.subscription = this.categoryService.getTransportServicesCategories().subscribe({
+            next: function next(data) {
+              _this208.categories = data;
+
+              _this208.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this208.commonService.openSnackBar("Error: ".concat(err), "OK");
+            }
+          });
+          this.setData();
+        }
+      }, {
+        key: "setData",
+        value: function setData() {
+          console.log(this.transport);
+          this.transportServicesFG.controls["name"].setValue(this.transport.info.name), this.transportServicesFG.controls["email"].setValue(this.transport.info.email), this.transportServicesFG.controls["phone_number"].setValue(this.transport.info.tel), this.transportServicesFG.controls["address"].setValue(this.transport.info.hire_dir), this.transportServicesFG.controls["categories"].setValue(this.transport.categories_id);
+        }
+      }, {
+        key: "changeState",
+        value: function changeState(_ref24) {
+          var _this209 = this;
+
+          var source = _ref24.source;
+
+          if (this.transport.is_active) {
+            this.commonService.confirmationDialog("\xBFDesea eliminar el servicio de transporte: ".concat(this.transport.name, "?")).then(function (result) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this209, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
+                var _this210 = this;
+
+                return regeneratorRuntime.wrap(function _callee64$(_context64) {
+                  while (1) {
+                    switch (_context64.prev = _context64.next) {
+                      case 0:
+                        if (result) {
+                          this.transportService.changeTransportServiceState(this.transport).subscribe({
+                            next: function next(data) {
+                              if (data.status == 201) {
+                                _this210.transport.is_active = !_this210.transport.is_active;
+                                source.checked = _this210.transport.is_active;
+
+                                _this210.commonService.openSnackBar("El evento ".concat(_this210.transport.name, " ha sido eliminado"), "OK");
+                              } else {
+                                _this210.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              }
+                            },
+                            error: function error(err) {
+                              _this210.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+                              source.checked = _this210.transport.is_active;
+                            }
+                          });
+                        } else {
+                          source.checked = this.transport.is_active;
+                        }
+
+                      case 1:
+                      case "end":
+                        return _context64.stop();
+                    }
+                  }
+                }, _callee64, this);
+              }));
+            });
+          } else {
+            source.checked = this.transport.is_active;
+            this.commonService.openSnackBar("No se puede reactivar un servicio de transporte", "OK");
+          }
+        }
+      }, {
+        key: "modifyTransportService",
+        value: function modifyTransportService() {
+          var _this211 = this;
+
+          this.loading = true;
+          this.transportServicesFG.disable();
+          var newTransportService = {
+            transport_service_id: this.transport.transport_service_id,
+            name: this.transportServicesFG.controls["name"].value,
+            email: this.transportServicesFG.controls["email"].value,
+            tel: this.transportServicesFG.controls["phone_number"].value,
+            hire_dir: this.transportServicesFG.controls["address"].value,
+            categories_id: this.transportServicesFG.controls["categories"].value,
+            is_active: this.transport.is_active
+          };
+          this.transportService.modifyTransportService(newTransportService).subscribe({
+            next: function next(data) {
+              if (data.status == 200) {
+                _this211.transport.info.name = newTransportService.name;
+                _this211.transport.info.email = newTransportService.email;
+                _this211.transport.info.tel = newTransportService.tel;
+                _this211.transport.info.hire_dir = newTransportService.hire_dir;
+                _this211.transport.categories_id = newTransportService.categories_id;
+
+                _this211.commonService.openSnackBar("El servicio de transporte: ".concat(_this211.transport.info.name, " ha sido cambiado"), "OK");
+
+                _this211.loading = false;
+
+                _this211.transportServicesFG.enable();
+              } else {
+                _this211.commonService.openSnackBar("Error al cambiar el servicio: ".concat(data.error), "OK");
+
+                _this211.loading = false;
+
+                _this211.transportServicesFG.enable();
+              }
+            },
+            error: function error(err) {
+              _this211.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              _this211.loading = false;
+
+              _this211.transportServicesFG.enable();
+            }
+          });
+        }
+      }]);
+
+      return DetailsTransportServicesComponent;
+    }();
+
+    DetailsTransportServicesComponent.ctorParameters = function () {
+      return [{
+        type: src_app_transport_services_services_transport_services_categories_service__WEBPACK_IMPORTED_MODULE_4__["TransportServicesCategoriesService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }, {
+        type: src_app_transport_services_services_transport_services_service__WEBPACK_IMPORTED_MODULE_5__["TransportServicesService"]
+      }];
+    };
+
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], DetailsTransportServicesComponent.prototype, "transport", void 0);
+    DetailsTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: "app-details-transport-services",
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./details-transport-services.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./details-transport-services.component.scss */
+      "./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.scss"))["default"]]
+    })], DetailsTransportServicesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/management-transport-services/management-transport-services.component.scss":
+  /*!**************************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/management-transport-services/management-transport-services.component.scss ***!
+    \**************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppTransportServicesComponentsManagementTransportServicesManagementTransportServicesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL21hbmFnZW1lbnQtdHJhbnNwb3J0LXNlcnZpY2VzL21hbmFnZW1lbnQtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIn0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/management-transport-services/management-transport-services.component.ts":
+  /*!************************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/management-transport-services/management-transport-services.component.ts ***!
+    \************************************************************************************************************************/
+
+  /*! exports provided: ManagementTransportServicesComponent */
+
+  /***/
+  function srcAppTransportServicesComponentsManagementTransportServicesManagementTransportServicesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ManagementTransportServicesComponent", function () {
+      return ManagementTransportServicesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _services_transport_services_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../services/transport-services.service */
+    "./src/app/transport-services/services/transport-services.service.ts");
+
+    var ManagementTransportServicesComponent = /*#__PURE__*/function () {
+      function ManagementTransportServicesComponent(route, transportService) {
+        _classCallCheck(this, ManagementTransportServicesComponent);
+
+        this.route = route;
+        this.transportService = transportService;
+      }
+
+      _createClass(ManagementTransportServicesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var _this212 = this;
+
+          this.subscription = this.route.paramMap.subscribe(function (params) {
+            _this212.transport_id = Number(params.get("transport_service_id"));
+
+            _this212.recharge();
+          });
+        }
+      }, {
+        key: "ngOnDestroy",
+        value: function ngOnDestroy() {
+          this.subscription.unsubscribe();
+        }
+      }, {
+        key: "recharge",
+        value: function recharge() {
+          var _this213 = this;
+
+          this.transportService.getTranportService(Number(this.transport_id)).subscribe(function (data) {
+            _this213.transport = data;
+          });
+        }
+      }]);
+
+      return ManagementTransportServicesComponent;
+    }();
+
+    ManagementTransportServicesComponent.ctorParameters = function () {
+      return [{
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]
+      }, {
+        type: _services_transport_services_service__WEBPACK_IMPORTED_MODULE_3__["TransportServicesService"]
+      }];
+    };
+
+    ManagementTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-management-transport-services',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./management-transport-services.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/management-transport-services/management-transport-services.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./management-transport-services.component.scss */
+      "./src/app/transport-services/components/management-transport-services/management-transport-services.component.scss"))["default"]]
+    })], ManagementTransportServicesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/request-transport-services/request-transport-services.component.scss":
+  /*!********************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/request-transport-services/request-transport-services.component.scss ***!
+    \********************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppTransportServicesComponentsRequestTransportServicesRequestTransportServicesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = ".radio-button-group {\n  width: 50%;\n  justify-content: space-around;\n  display: flex;\n  flex-wrap: wrap;\n  min-width: 300px;\n}\n\n.denyBtn, .acceptBtn {\n  margin-left: 1%;\n  font-size: 14px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL3JlcXVlc3QtdHJhbnNwb3J0LXNlcnZpY2VzL3JlcXVlc3QtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9yZXF1ZXN0LXRyYW5zcG9ydC1zZXJ2aWNlcy9yZXF1ZXN0LXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7RUFDQSw2QkFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxlQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC90cmFuc3BvcnQtc2VydmljZXMvY29tcG9uZW50cy9yZXF1ZXN0LXRyYW5zcG9ydC1zZXJ2aWNlcy9yZXF1ZXN0LXRyYW5zcG9ydC1zZXJ2aWNlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yYWRpby1idXR0b24tZ3JvdXB7XG4gICAgd2lkdGg6IDUwJTtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBtaW4td2lkdGg6IDMwMHB4O1xufVxuXG4uZGVueUJ0biwgLmFjY2VwdEJ0biAge1xuICAgIG1hcmdpbi1sZWZ0OiAxJTtcbiAgICBmb250LXNpemU6IDE0cHg7XG59IiwiLnJhZGlvLWJ1dHRvbi1ncm91cCB7XG4gIHdpZHRoOiA1MCU7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIG1pbi13aWR0aDogMzAwcHg7XG59XG5cbi5kZW55QnRuLCAuYWNjZXB0QnRuIHtcbiAgbWFyZ2luLWxlZnQ6IDElO1xuICBmb250LXNpemU6IDE0cHg7XG59Il19 */";
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/request-transport-services/request-transport-services.component.ts":
+  /*!******************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/request-transport-services/request-transport-services.component.ts ***!
+    \******************************************************************************************************************/
+
+  /*! exports provided: RequestTransportServicesComponent */
+
+  /***/
+  function srcAppTransportServicesComponentsRequestTransportServicesRequestTransportServicesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "RequestTransportServicesComponent", function () {
+      return RequestTransportServicesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/general-services/auth.service */
+    "./src/app/general-services/auth.service.ts");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _services_transport_services_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../../services/transport-services.service */
+    "./src/app/transport-services/services/transport-services.service.ts");
+
+    var RequestTransportServicesComponent = /*#__PURE__*/function () {
+      function RequestTransportServicesComponent(transportService, authService, commonService) {
+        _classCallCheck(this, RequestTransportServicesComponent);
+
+        this.transportService = transportService;
+        this.authService = authService;
+        this.commonService = commonService;
+        this.filter = {
+          status: '2',
+          info: {
+            name: ""
+          }
+        };
+        this.request = [];
+        this.loading = false;
+      }
+
+      _createClass(RequestTransportServicesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          this.getTransportSerivicesRequest();
+        }
+      }, {
+        key: "getTransportSerivicesRequest",
+        value: function getTransportSerivicesRequest() {
+          var _this214 = this;
+
+          this.loading = true;
+          var state = Number(this.filter.status);
+          this.transportService.getTranspotServicesPetitions(state).subscribe({
+            next: function next(data) {
+              _this214.request = data;
+              _this214.loading = false;
+            },
+            error: function error(err) {
+              _this214.commonService.openSnackBar("Error: ".concat(err.message), "OK"), _this214.loading = false;
+            }
+          });
+        }
+      }, {
+        key: "changeStateRequest",
+        value: function changeStateRequest(ts, state) {
+          var _this215 = this;
+
+          var msg;
+          msg = state == 1 ? "aceptado." : "rechazado.";
+          this.transportService.changeRequestState(ts.transport_service_id, state).subscribe({
+            next: function next(data) {
+              data.status == 200 ? _this215.getTransportSerivicesRequest() : null;
+              data.status == 200 ? _this215.commonService.openSnackBar("El evento ha sido ".concat(msg), "OK") : null;
+            },
+            error: function error(err) {
+              return _this215.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+            }
+          });
+        }
+      }]);
+
+      return RequestTransportServicesComponent;
+    }();
+
+    RequestTransportServicesComponent.ctorParameters = function () {
+      return [{
+        type: _services_transport_services_service__WEBPACK_IMPORTED_MODULE_4__["TransportServicesService"]
+      }, {
+        type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }];
+    };
+
+    RequestTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: "app-request-transport-services",
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./request-transport-services.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/request-transport-services/request-transport-services.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./request-transport-services.component.scss */
+      "./src/app/transport-services/components/request-transport-services/request-transport-services.component.scss"))["default"]]
+    })], RequestTransportServicesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.scss":
+  /*!**************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.scss ***!
+    \**************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppTransportServicesComponentsTabsTransportServicesTabsTransportServicesComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RyYW5zcG9ydC1zZXJ2aWNlcy9jb21wb25lbnRzL3RhYnMtdHJhbnNwb3J0LXNlcnZpY2VzL3RhYnMtdHJhbnNwb3J0LXNlcnZpY2VzLmNvbXBvbmVudC5zY3NzIn0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.ts":
+  /*!************************************************************************************************************!*\
+    !*** ./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.ts ***!
+    \************************************************************************************************************/
+
+  /*! exports provided: TabsTransportServicesComponent */
+
+  /***/
+  function srcAppTransportServicesComponentsTabsTransportServicesTabsTransportServicesComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "TabsTransportServicesComponent", function () {
+      return TabsTransportServicesComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/general-services/auth.service */
+    "./src/app/general-services/auth.service.ts");
+
+    var TabsTransportServicesComponent = /*#__PURE__*/function () {
+      function TabsTransportServicesComponent(authService) {
+        _classCallCheck(this, TabsTransportServicesComponent);
+
+        this.authService = authService;
+      }
+
+      _createClass(TabsTransportServicesComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return TabsTransportServicesComponent;
+    }();
+
+    TabsTransportServicesComponent.ctorParameters = function () {
+      return [{
+        type: src_app_general_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]
+      }];
+    };
+
+    TabsTransportServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-tabs-transport-services',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./tabs-transport-services.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./tabs-transport-services.component.scss */
+      "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.scss"))["default"]]
+    })], TabsTransportServicesComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/services/transport-services-categories.service.ts":
+  /*!**************************************************************************************!*\
+    !*** ./src/app/transport-services/services/transport-services-categories.service.ts ***!
+    \**************************************************************************************/
+
+  /*! exports provided: TransportServicesCategoriesService */
+
+  /***/
+  function srcAppTransportServicesServicesTransportServicesCategoriesServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "TransportServicesCategoriesService", function () {
+      return TransportServicesCategoriesService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
+
+    var TransportServicesCategoriesService = /*#__PURE__*/function () {
+      function TransportServicesCategoriesService(http) {
+        _classCallCheck(this, TransportServicesCategoriesService);
+
+        this.http = http;
+        this.module = "categoriesOfTransportService/";
+        this.categories = [];
+      }
+
+      _createClass(TransportServicesCategoriesService, [{
+        key: "getTransportServicesCategories",
+        value: function getTransportServicesCategories() {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module));
+        }
+      }, {
+        key: "createTransportServicesCategory",
+        value: function createTransportServicesCategory(name) {
+          var json = {
+            name: name
+          };
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module), json, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "deleteTransportCategory",
+        value: function deleteTransportCategory(categoy_id) {
+          return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(categoy_id), {
+            observe: 'response'
+          });
+        }
+      }]);
+
+      return TransportServicesCategoriesService;
+    }();
+
+    TransportServicesCategoriesService.ctorParameters = function () {
+      return [{
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]
+      }];
+    };
+
+    TransportServicesCategoriesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+      providedIn: 'root'
+    })], TransportServicesCategoriesService);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/services/transport-services.service.ts":
+  /*!***************************************************************************!*\
+    !*** ./src/app/transport-services/services/transport-services.service.ts ***!
+    \***************************************************************************/
+
+  /*! exports provided: TransportServicesService */
+
+  /***/
+  function srcAppTransportServicesServicesTransportServicesServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "TransportServicesService", function () {
+      return TransportServicesService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
+
+    var TransportServicesService = /*#__PURE__*/function () {
+      function TransportServicesService(http) {
+        _classCallCheck(this, TransportServicesService);
+
+        this.http = http;
+        this.transportServices = [];
+        this.module = "transportationService/";
+      }
+
+      _createClass(TransportServicesService, [{
+        key: "getTransportServices",
+        value: function getTransportServices(user_id) {
+          if (user_id != undefined) {
+            return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module, "user/").concat(user_id), {
+              params: {
+                _status: "1"
+              }
+            });
+          } else {
+            return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module), {
+              params: {
+                _status: "1"
+              }
+            });
+          }
+        }
+      }, {
+        key: "getTranspotServicesPetitions",
+        value: function getTranspotServicesPetitions(status) {
+          var params = {
+            _status: status.toString()
+          };
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module), {
+            params: params
+          });
+        }
+      }, {
+        key: "getTranportService",
+        value: function getTranportService(transport_id) {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(transport_id));
+        }
+      }, {
+        key: "createTransportService",
+        value: function createTransportService(ts) {
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module), ts, {
+            observe: "response"
+          });
+        }
+      }, {
+        key: "modifyTransportService",
+        value: function modifyTransportService(ts) {
+          var json = {
+            categories_id: ts.categories_id,
+            name: ts.name,
+            email: ts.email,
+            tel: ts.tel,
+            hire_dir: ts.hire_dir
+          };
+          return this.http.patch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(ts.transport_service_id), json, {
+            observe: "response"
+          });
+        }
+      }, {
+        key: "changeTransportServiceState",
+        value: function changeTransportServiceState(ts) {
+          return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(ts.transport_service_id), {
+            observe: "response"
+          });
+        }
+      }, {
+        key: "changeRequestState",
+        value: function changeRequestState(transport_id, status) {
+          var json = {
+            status: status
+          };
+          console.log(status);
+          return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(transport_id), json, {
+            observe: "response"
+          });
+        }
+      }]);
+
+      return TransportServicesService;
+    }();
+
+    TransportServicesService.ctorParameters = function () {
+      return [{
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]
+      }];
+    };
+
+    TransportServicesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+      providedIn: "root"
+    })], TransportServicesService);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/transport-services-root.component.ts":
+  /*!*************************************************************************!*\
+    !*** ./src/app/transport-services/transport-services-root.component.ts ***!
+    \*************************************************************************/
+
+  /*! exports provided: TransportServicesRootComponent */
+
+  /***/
+  function srcAppTransportServicesTransportServicesRootComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "TransportServicesRootComponent", function () {
+      return TransportServicesRootComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var TransportServicesRootComponent = /*#__PURE__*/function () {
+      function TransportServicesRootComponent() {
+        _classCallCheck(this, TransportServicesRootComponent);
+      }
+
+      _createClass(TransportServicesRootComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return TransportServicesRootComponent;
+    }();
+
+    TransportServicesRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-transport-services-root',
+      template: "\n    <router-outlet></router-outlet>\n  "
+    })], TransportServicesRootComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/transport-services/transport-services-routing.module.ts":
+  /*!*************************************************************************!*\
+    !*** ./src/app/transport-services/transport-services-routing.module.ts ***!
+    \*************************************************************************/
+
+  /*! exports provided: TransportServicesRoutingModule */
+
+  /***/
+  function srcAppTransportServicesTransportServicesRoutingModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "TransportServicesRoutingModule", function () {
+      return TransportServicesRoutingModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _components_management_transport_services_management_transport_services_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./components/management-transport-services/management-transport-services.component */
+    "./src/app/transport-services/components/management-transport-services/management-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _components_request_transport_services_request_transport_services_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./components/request-transport-services/request-transport-services.component */
+    "./src/app/transport-services/components/request-transport-services/request-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _components_tabs_transport_services_tabs_transport_services_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./components/tabs-transport-services/tabs-transport-services.component */
+    "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _transport_services_root_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ./transport-services-root.component */
+    "./src/app/transport-services/transport-services-root.component.ts");
+
+    var routes = [{
+      path: "transport-services",
+      component: _transport_services_root_component__WEBPACK_IMPORTED_MODULE_5__["TransportServicesRootComponent"],
+      children: [{
+        path: "all",
+        component: _components_tabs_transport_services_tabs_transport_services_component__WEBPACK_IMPORTED_MODULE_4__["TabsTransportServicesComponent"]
+      }, {
+        path: "requests",
+        component: _components_request_transport_services_request_transport_services_component__WEBPACK_IMPORTED_MODULE_3__["RequestTransportServicesComponent"]
+      }, {
+        path: ":transport_service_id",
+        component: _components_management_transport_services_management_transport_services_component__WEBPACK_IMPORTED_MODULE_2__["ManagementTransportServicesComponent"]
+      }]
+    }];
+
+    var TransportServicesRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes);
+    /***/
+
+  },
+
+  /***/
+  "./src/app/transport-services/transport-services.module.ts":
+  /*!*****************************************************************!*\
+    !*** ./src/app/transport-services/transport-services.module.ts ***!
+    \*****************************************************************/
+
+  /*! exports provided: TransportServicesModule */
+
+  /***/
+  function srcAppTransportServicesTransportServicesModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "TransportServicesModule", function () {
+      return TransportServicesModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _transport_services_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./transport-services-routing.module */
+    "./src/app/transport-services/transport-services-routing.module.ts");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ngx-filter-pipe */
+    "./node_modules/ngx-filter-pipe/esm2015/ngx-filter-pipe.js");
+    /* harmony import */
+
+
+    var _shared_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../shared.module */
+    "./src/app/shared.module.ts");
+    /* harmony import */
+
+
+    var _transport_services_root_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ./transport-services-root.component */
+    "./src/app/transport-services/transport-services-root.component.ts");
+    /* harmony import */
+
+
+    var _components_tabs_transport_services_tabs_transport_services_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ./components/tabs-transport-services/tabs-transport-services.component */
+    "./src/app/transport-services/components/tabs-transport-services/tabs-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _components_all_transport_services_all_transport_services_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    /*! ./components/all-transport-services/all-transport-services.component */
+    "./src/app/transport-services/components/all-transport-services/all-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _components_request_transport_services_request_transport_services_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! ./components/request-transport-services/request-transport-services.component */
+    "./src/app/transport-services/components/request-transport-services/request-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _components_create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    /*! ./components/create-transport-services/create-transport-services.component */
+    "./src/app/transport-services/components/create-transport-services/create-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _components_management_transport_services_management_transport_services_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    /*! ./components/management-transport-services/management-transport-services.component */
+    "./src/app/transport-services/components/management-transport-services/management-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _components_management_transport_services_details_transport_services_details_transport_services_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    /*! ./components/management-transport-services/details-transport-services/details-transport-services.component */
+    "./src/app/transport-services/components/management-transport-services/details-transport-services/details-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _components_categories_transport_services_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    /*! ./components/categories-transport-services/categories-transport-services.component */
+    "./src/app/transport-services/components/categories-transport-services/categories-transport-services.component.ts");
+    /* harmony import */
+
+
+    var _components_create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+    /*! ./components/create-categories-transport-services/create-categories-transport-services.component */
+    "./src/app/transport-services/components/create-categories-transport-services/create-categories-transport-services.component.ts");
+
+    var TransportServicesModule = function TransportServicesModule() {
+      _classCallCheck(this, TransportServicesModule);
+    };
+
+    TransportServicesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+      declarations: [_transport_services_root_component__WEBPACK_IMPORTED_MODULE_7__["TransportServicesRootComponent"], _components_tabs_transport_services_tabs_transport_services_component__WEBPACK_IMPORTED_MODULE_8__["TabsTransportServicesComponent"], _components_all_transport_services_all_transport_services_component__WEBPACK_IMPORTED_MODULE_9__["AllTransportServicesComponent"], _components_request_transport_services_request_transport_services_component__WEBPACK_IMPORTED_MODULE_10__["RequestTransportServicesComponent"], _components_create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_11__["CreateTransportServicesComponent"], _components_management_transport_services_management_transport_services_component__WEBPACK_IMPORTED_MODULE_12__["ManagementTransportServicesComponent"], _components_management_transport_services_details_transport_services_details_transport_services_component__WEBPACK_IMPORTED_MODULE_13__["DetailsTransportServicesComponent"], _components_categories_transport_services_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_14__["CategoriesTransportServicesComponent"], _components_create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_15__["CreateCategoriesTransportServicesComponent"]],
+      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _transport_services_routing_module__WEBPACK_IMPORTED_MODULE_3__["TransportServicesRoutingModule"], _shared_module__WEBPACK_IMPORTED_MODULE_6__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_5__["FilterPipeModule"]],
+      entryComponents: [_components_create_transport_services_create_transport_services_component__WEBPACK_IMPORTED_MODULE_11__["CreateTransportServicesComponent"], _components_create_categories_transport_services_create_categories_transport_services_component__WEBPACK_IMPORTED_MODULE_15__["CreateCategoriesTransportServicesComponent"]]
+    })], TransportServicesModule);
+    /***/
+  },
+
+  /***/
   "./src/app/users/components/add-admin/add-admin.component.scss":
   /*!*********************************************************************!*\
     !*** ./src/app/users/components/add-admin/add-admin.component.scss ***!
@@ -25576,11 +28609,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddAdminComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this194 = this;
+          var _this216 = this;
 
           // Trigger to change icon
           this.addAdminForm.valueChanges.subscribe(function () {
-            if (_this194.addAdminForm.invalid == false) _this194.icon = "done";else _this194.icon = "warning";
+            if (_this216.addAdminForm.invalid == false) _this216.icon = "done";else _this216.icon = "warning";
           });
         }
         /**
@@ -25590,7 +28623,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addAdmin",
         value: function addAdmin() {
-          var _this195 = this;
+          var _this217 = this;
 
           this.loading = true; // Charge loading
 
@@ -25604,14 +28637,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.subscription = this.sessionService.saveUserAdmi(info, 1).subscribe({
             next: function next() {
-              _this195.loading = false;
+              _this217.loading = false;
 
-              _this195.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
+              _this217.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
 
-              _this195.dialog.closeAll();
+              _this217.dialog.closeAll();
             },
             error: function error(err) {
-              _this195.commonService.openSnackBar("Error: ".concat(err), "OK");
+              _this217.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -25776,7 +28809,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var AddEventRequestComponent = /*#__PURE__*/function () {
       function AddEventRequestComponent(data, dialogRef, commonService, eventService, router, categoryService, companyService, userService, multimediaService) {
-        var _this196 = this;
+        var _this218 = this;
 
         _classCallCheck(this, AddEventRequestComponent);
 
@@ -25845,7 +28878,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
          */
 
         this.dateFilter = function (date) {
-          return date >= _this196.initial_date;
+          return date >= _this218.initial_date;
         };
 
         this.refreshMap = this.refreshMap.bind(this);
@@ -25854,7 +28887,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddEventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this197 = this;
+          var _this219 = this;
 
           this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({
@@ -25887,22 +28920,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.data.action ? this.visible = false : this.visible = true;
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this197.filteredCategories = data;
+              _this219.filteredCategories = data;
 
-              _this197.subscription.unsubscribe();
+              _this219.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this197.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this219.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription2 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this197.filteredCompanies = data;
+              _this219.filteredCompanies = data;
 
-              _this197.subscription2.unsubscribe();
+              _this219.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this197.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this219.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.user = this.userService.actualUser;
@@ -25915,7 +28948,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this198 = this;
+          var _this220 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -25926,7 +28959,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           setTimeout(function () {
-            return _this198.map.invalidateSize();
+            return _this220.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -25957,7 +28990,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setData",
         value: function setData(event) {
-          var _this199 = this;
+          var _this221 = this;
 
           this.eventFG.controls['name'].setValue(event.name);
           this.eventFG.controls['address'].setValue(event.address);
@@ -25974,29 +29007,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (!this.petition) {
             this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
               next: function next(data) {
-                _this199.allCategories = [];
+                _this221.allCategories = [];
                 data.forEach(function (val) {
-                  return _this199.allCategories.push(val);
+                  return _this221.allCategories.push(val);
                 });
 
-                _this199.subscription3.unsubscribe();
+                _this221.subscription3.unsubscribe();
               },
               error: function error(err) {
-                return _this199.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this221.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             }); //compañías
 
             this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
               next: function next(data) {
-                _this199.allCompanies = [];
+                _this221.allCompanies = [];
                 data.forEach(function (val) {
-                  return _this199.allCompanies.push(val);
+                  return _this221.allCompanies.push(val);
                 });
 
-                _this199.subscription4.unsubscribe();
+                _this221.subscription4.unsubscribe();
               },
               error: function error(err) {
-                return _this199.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this221.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           }
@@ -26008,8 +29041,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
       }, {
         key: "changeState",
-        value: function changeState(_ref24) {
-          var source = _ref24.source;
+        value: function changeState(_ref25) {
+          var source = _ref25.source;
           this.allDay == false ? this.allDay = true : this.allDay = false;
           source.checked = this.allDay;
         }
@@ -26026,22 +29059,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
             var urlImages;
-            return regeneratorRuntime.wrap(function _callee61$(_context61) {
+            return regeneratorRuntime.wrap(function _callee65$(_context65) {
               while (1) {
-                switch (_context61.prev = _context61.next) {
+                switch (_context65.prev = _context65.next) {
                   case 0:
                     this.loading = true;
                     this.eventFG.disable();
                     this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
                     this.initial_time == undefined ? this.initial_time = null : null;
                     this.final_time == undefined ? this.final_time = null : null;
-                    _context61.next = 7;
+                    _context65.next = 7;
                     return this.uploadFiles();
 
                   case 7:
-                    urlImages = _context61.sent;
+                    urlImages = _context65.sent;
                     this.myEvent.name = this.eventFG.controls['name'].value;
                     this.myEvent.cost = this.eventFG.controls['cost'].value;
                     this.myEvent.address = this.eventFG.controls['address'].value;
@@ -26059,46 +29092,46 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 19:
                   case "end":
-                    return _context61.stop();
+                    return _context65.stop();
                 }
               }
-            }, _callee61, this);
+            }, _callee65, this);
           }));
         }
       }, {
         key: "createRequest",
         value: function createRequest(event) {
-          var _this200 = this;
+          var _this222 = this;
 
           this.eventService.createEvent(event, true).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this200, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
-                return regeneratorRuntime.wrap(function _callee62$(_context62) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this222, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
+                return regeneratorRuntime.wrap(function _callee66$(_context66) {
                   while (1) {
-                    switch (_context62.prev = _context62.next) {
+                    switch (_context66.prev = _context66.next) {
                       case 0:
                         console.log(data);
 
                         if (!(data.status == 201)) {
-                          _context62.next = 13;
+                          _context66.next = 13;
                           break;
                         }
 
                         /**Añadiendo compañías y categorías al evento */
                         this.getCategories();
                         this.getCompanies();
-                        _context62.next = 6;
+                        _context66.next = 6;
                         return this.eventRelations(data.body[0]);
 
                       case 6:
-                        _context62.next = 8;
+                        _context66.next = 8;
                         return this.addImagesToEvent(data.body[0]);
 
                       case 8:
                         this.commonService.openSnackBar("La petici\xF3n del evento ".concat(this.eventFG.value.name, " se ha creado"), "OK");
                         this.dialogRef.close();
                         this.router.navigate(['/event', data.body[0]]);
-                        _context62.next = 16;
+                        _context66.next = 16;
                         break;
 
                       case 13:
@@ -26108,18 +29141,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 16:
                       case "end":
-                        return _context62.stop();
+                        return _context66.stop();
                     }
                   }
-                }, _callee62, this);
+                }, _callee66, this);
               }));
             },
             error: function error(err) {
-              _this200.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this222.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this200.loading = false;
+              _this222.loading = false;
 
-              _this200.eventFG.enable();
+              _this222.eventFG.enable();
             }
           });
         }
@@ -26230,27 +29263,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "eventRelations",
         value: function eventRelations(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee67() {
             var i, _i6;
 
-            return regeneratorRuntime.wrap(function _callee63$(_context63) {
+            return regeneratorRuntime.wrap(function _callee67$(_context67) {
               while (1) {
-                switch (_context63.prev = _context63.next) {
+                switch (_context67.prev = _context67.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < this.allCompanies.length)) {
-                      _context63.next = 7;
+                      _context67.next = 7;
                       break;
                     }
 
-                    _context63.next = 4;
+                    _context67.next = 4;
                     return this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise();
 
                   case 4:
                     i++;
-                    _context63.next = 1;
+                    _context67.next = 1;
                     break;
 
                   case 7:
@@ -26258,30 +29291,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 8:
                     if (!(_i6 < this.allCategories.length)) {
-                      _context63.next = 14;
+                      _context67.next = 14;
                       break;
                     }
 
-                    _context63.next = 11;
+                    _context67.next = 11;
                     return this.eventService.addCategoryToEvent(this.allCategories[_i6], event_id).toPromise();
 
                   case 11:
                     _i6++;
-                    _context63.next = 8;
+                    _context67.next = 8;
                     break;
 
                   case 14:
                   case "end":
-                    return _context63.stop();
+                    return _context67.stop();
                 }
               }
-            }, _callee63, this);
+            }, _callee67, this);
           }));
         }
       }, {
         key: "getFiles",
         value: function getFiles(event) {
-          var _this201 = this;
+          var _this223 = this;
 
           if (event.target.files) {
             for (var i = 0; i < event.target.files.length; i++) {
@@ -26291,7 +29324,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 reader.readAsDataURL(event.target.files[i]);
 
                 reader.onload = function (event) {
-                  _this201.eventImages.push(event.target.result);
+                  _this223.eventImages.push(event.target.result);
                 };
               }
             }
@@ -26300,40 +29333,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "uploadFiles",
         value: function uploadFiles() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee68() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee64$(_context64) {
+            return regeneratorRuntime.wrap(function _callee68$(_context68) {
               while (1) {
-                switch (_context64.prev = _context64.next) {
+                switch (_context68.prev = _context68.next) {
                   case 0:
                     images = [];
                     i = 0;
 
                   case 2:
                     if (!(i < this.eventImagesFinal.length)) {
-                      _context64.next = 8;
+                      _context68.next = 8;
                       break;
                     }
 
-                    _context64.next = 5;
+                    _context68.next = 5;
                     return this.commonService.uploadFile(this.eventImagesFinal[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 5:
                     i++;
-                    _context64.next = 2;
+                    _context68.next = 2;
                     break;
 
                   case 8:
-                    return _context64.abrupt("return", images);
+                    return _context68.abrupt("return", images);
 
                   case 9:
                   case "end":
-                    return _context64.stop();
+                    return _context68.stop();
                 }
               }
-            }, _callee64, this);
+            }, _callee68, this);
           }));
         }
       }, {
@@ -26354,39 +29387,39 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addImagesToEvent",
         value: function addImagesToEvent(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee69() {
             var urlImages, i;
-            return regeneratorRuntime.wrap(function _callee65$(_context65) {
+            return regeneratorRuntime.wrap(function _callee69$(_context69) {
               while (1) {
-                switch (_context65.prev = _context65.next) {
+                switch (_context69.prev = _context69.next) {
                   case 0:
-                    _context65.next = 2;
+                    _context69.next = 2;
                     return this.uploadFiles();
 
                   case 2:
-                    urlImages = _context65.sent;
+                    urlImages = _context69.sent;
                     i = 0;
 
                   case 4:
                     if (!(i < urlImages.length)) {
-                      _context65.next = 10;
+                      _context69.next = 10;
                       break;
                     }
 
-                    _context65.next = 7;
+                    _context69.next = 7;
                     return this.multimediaService.addImage(event_id, 1, urlImages[i]).toPromise();
 
                   case 7:
                     i++;
-                    _context65.next = 4;
+                    _context69.next = 4;
                     break;
 
                   case 10:
                   case "end":
-                    return _context65.stop();
+                    return _context69.stop();
                 }
               }
-            }, _callee65, this);
+            }, _callee69, this);
           }));
         }
       }]);
@@ -26545,13 +29578,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddRequestCompanyUnionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this202 = this;
+          var _this224 = this;
 
           this.companyService.getCompanies().subscribe(function (data) {
-            _this202.companies = data;
+            _this224.companies = data;
           });
           this.filteredCompanies = this.companyControl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (value) {
-            return _this202._filter(value);
+            return _this224._filter(value);
           }));
         }
       }, {
@@ -26567,23 +29600,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "requestUnion",
         value: function requestUnion() {
-          var _this203 = this;
+          var _this225 = this;
 
           this.loading = true;
           var company_id = Number(this.companyControl.value.split(" | ")[0]);
           this.companyUsersService.requesUnion(this.user.user_id, company_id).subscribe({
             next: function next(response) {
               if (response.status == 204) {
-                _this203.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
+                _this225.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
 
-                _this203.loading = false;
+                _this225.loading = false;
 
-                _this203.dialog.close();
+                _this225.dialog.close();
               }
             },
             error: function error(err) {
-              if (err.status == 400) _this203.commonService.snackBar.open(err.error, "Ok");else _this203.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
-              _this203.loading = false;
+              if (err.status == 400) _this225.commonService.snackBar.open(err.error, "Ok");else _this225.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
+              _this225.loading = false;
             }
           });
         }
@@ -26700,7 +29733,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var CreateEvenRequestComponent = /*#__PURE__*/function () {
       function CreateEvenRequestComponent(eventService, userService, matDialog) {
-        var _this204 = this;
+        var _this226 = this;
 
         _classCallCheck(this, CreateEvenRequestComponent);
 
@@ -26711,7 +29744,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.name.toLowerCase().indexOf(_this204.filter.name.toLowerCase()) > -1;
+            return request.name.toLowerCase().indexOf(_this226.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -26721,14 +29754,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CreateEvenRequestComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this205 = this;
+          var _this227 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
           state == 0 ? state = -1 : state = Number(this.filter.state);
           this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, state).subscribe(function (data) {
-            _this205.eventRequests = data;
-            _this205.loading = false;
+            _this227.eventRequests = data;
+            _this227.loading = false;
           });
         }
       }, {
@@ -26739,11 +29772,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteRequest",
         value: function deleteRequest(event) {
-          var _this206 = this;
+          var _this228 = this;
 
           this.eventService.changeRequestState(event.event_id, 3).subscribe({
             next: function next(data) {
-              data.status == 201 ? _this206.refresh() : null;
+              data.status == 201 ? _this228.refresh() : null;
             }
           });
         }
@@ -26883,14 +29916,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FavoriteItineraryComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this207 = this;
+          var _this229 = this;
 
           this.subscription = this._itinerary.getFavoriteItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this207.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this229.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this207._common.handleError(err);
+              return _this229._common.handleError(err);
             }
           });
         }
@@ -26910,17 +29943,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeItineraryFavorite",
         value: function removeItineraryFavorite(itineraryID, elementIndex) {
-          var _this208 = this;
+          var _this230 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this208._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
+              _this230._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this208._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this230._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -27055,14 +30088,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FavoriteOfferComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this209 = this;
+          var _this231 = this;
 
           this.subscription = this._itinerary.getFavoriteOfferInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this209.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this231.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this209._common.handleError(err);
+              return _this231._common.handleError(err);
             }
           });
         }
@@ -27087,17 +30120,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOfferFavorite",
         value: function removeOfferFavorite(offerID, elementIndex) {
-          var _this210 = this;
+          var _this232 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this210._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
+              _this232._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this210._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this232._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -27200,7 +30233,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var ProfileCompaniesComponent = /*#__PURE__*/function () {
       function ProfileCompaniesComponent(companyUsersService, commonService, sessionService) {
-        var _this211 = this;
+        var _this233 = this;
 
         _classCallCheck(this, ProfileCompaniesComponent);
 
@@ -27209,9 +30242,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.sessionService = sessionService;
         this.filter = {
           input: "",
-          filter: function filter(_ref25) {
-            var name = _ref25.name;
-            return name.toLowerCase().indexOf(_this211.filter.input.toLowerCase()) > -1;
+          filter: function filter(_ref26) {
+            var name = _ref26.name;
+            return name.toLowerCase().indexOf(_this233.filter.input.toLowerCase()) > -1;
           }
         };
       }
@@ -27225,29 +30258,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this212 = this;
+          var _this234 = this;
 
           this.companyUsersService.getUserCompanies(this.user.user_id).subscribe(function (data) {
-            _this212.userCompanies = data;
+            _this234.userCompanies = data;
           });
         }
       }, {
         key: "deleteUserFromCompany",
         value: function deleteUserFromCompany(company) {
-          var _this213 = this;
+          var _this235 = this;
 
           this.companyUsersService.deleteUserFromCompany(company).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this213.refresh();
+                _this235.refresh();
 
-                _this213.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
+                _this235.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
               } else {
-                _this213.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
+                _this235.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this213.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this235.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -27365,12 +30398,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ProfileEventsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this214 = this;
+          var _this236 = this;
 
           this.user = this.userService.actualUser;
           this.eventService.getEventRequestsByUser(this.user.user_id, 1).subscribe({
             next: function next(data) {
-              _this214.userEvents = data;
+              _this236.userEvents = data;
             }
           });
         }
@@ -27488,18 +30521,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ProfileInfoComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this215 = this;
+          var _this237 = this;
 
           this.subscriptionUserProfile = this.userService.getUser(this.userService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this215.user = data.data[0];
+              _this237.user = data.data[0];
 
-              _this215.subscriptionUserProfile.unsubscribe();
+              _this237.subscriptionUserProfile.unsubscribe();
 
-              _this215.loadUser();
+              _this237.loadUser();
             },
             error: function error(err) {
-              return _this215.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this237.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -27510,7 +30543,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loadUser",
         value: function loadUser() {
-          var _this216 = this;
+          var _this238 = this;
 
           this.editProfileForm = this._fb.group({
             name: [this.user.info.name, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
@@ -27519,7 +30552,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             password: [""]
           });
           this.editProfileForm.valueChanges.subscribe(function () {
-            if (_this216.editProfileForm.invalid == false) _this216.icon = "done";else _this216.icon = "warning";
+            if (_this238.editProfileForm.invalid == false) _this238.icon = "done";else _this238.icon = "warning";
           });
         }
         /**
@@ -27529,7 +30562,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "saveChanges",
         value: function saveChanges() {
-          var _this217 = this;
+          var _this239 = this;
 
           var passChanged = false;
 
@@ -27543,12 +30576,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.user.info.email = this.editProfileForm.get("email").value;
           this.subscriptionUserProfile = this.userService.updateUser(this.user.user_id, this.user.info, passChanged).subscribe({
             next: function next(data) {
-              _this217.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this217.user.info.name), "OK");
+              _this239.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this239.user.info.name), "OK");
 
-              _this217.subscriptionUserProfile.unsubscribe();
+              _this239.subscriptionUserProfile.unsubscribe();
             },
             error: function error(err) {
-              return _this217.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this239.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -27740,7 +30773,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var RequestCompanyUnionComponent = /*#__PURE__*/function () {
       function RequestCompanyUnionComponent(companyUserService, userService, matDialog) {
-        var _this218 = this;
+        var _this240 = this;
 
         _classCallCheck(this, RequestCompanyUnionComponent);
 
@@ -27751,7 +30784,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '',
           filter: function filter(request) {
-            return request.company_info.name.toLowerCase().indexOf(_this218.filter.name.toLowerCase()) > -1;
+            return request.company_info.name.toLowerCase().indexOf(_this240.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -27768,12 +30801,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(RequestCompanyUnionComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this219 = this;
+          var _this241 = this;
 
           this.loading = true;
           this.companyUserService.getUserRequests(this.userService.actualUser.user_id, Number(this.filter.state)).subscribe(function (data) {
-            _this219.userRequests = data;
-            _this219.loading = false;
+            _this241.userRequests = data;
+            _this241.loading = false;
           });
         }
       }, {
@@ -27914,7 +30947,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PetitionsFilterComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this220 = this;
+          var _this242 = this;
 
           this.petitionsFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
@@ -27922,12 +30955,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.user = this.userService.actualUser;
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this220.companies = data;
+              _this242.companies = data;
 
-              _this220.subscription.unsubscribe();
+              _this242.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this220.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this242.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -28072,7 +31105,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var UnionEventRequestComponent = /*#__PURE__*/function () {
       function UnionEventRequestComponent(userService, companyUserService, commonService, companyService, dialogService) {
-        var _this221 = this;
+        var _this243 = this;
 
         _classCallCheck(this, UnionEventRequestComponent);
 
@@ -28089,7 +31122,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.event_info.info.name.toLowerCase().indexOf(_this221.filter.name.toLowerCase()) > -1;
+            return request.event_info.info.name.toLowerCase().indexOf(_this243.filter.name.toLowerCase()) > -1;
           }
         };
       }
@@ -28097,26 +31130,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UnionEventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
-            return regeneratorRuntime.wrap(function _callee66$(_context66) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee70() {
+            return regeneratorRuntime.wrap(function _callee70$(_context70) {
               while (1) {
-                switch (_context66.prev = _context66.next) {
+                switch (_context70.prev = _context70.next) {
                   case 0:
                     this.user = this.userService.actualUser;
                     this.refresh();
 
                   case 2:
                   case "end":
-                    return _context66.stop();
+                    return _context70.stop();
                 }
               }
-            }, _callee66, this);
+            }, _callee70, this);
           }));
         }
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this222 = this;
+          var _this244 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
@@ -28130,14 +31163,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           state != -1 ? this.isFilters = true : null;
           this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
             next: function next(data) {
-              _this222.userRequest = data;
+              _this244.userRequest = data;
 
-              _this222.subscription.unsubscribe();
+              _this244.subscription.unsubscribe();
 
-              _this222.loading = false;
+              _this244.loading = false;
             },
             error: function error(err) {
-              return _this222.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this244.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -28152,7 +31185,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this223 = this;
+          var _this245 = this;
 
           var dialog = this.dialogService.open(_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__["PetitionsFilterComponent"], {
             width: "50",
@@ -28161,11 +31194,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (company) {
             if (company != undefined) {
-              _this223.currentCompanyId = company.company_id;
-              _this223.currentCompanyName = company.name;
-              _this223.isFilters = true;
+              _this245.currentCompanyId = company.company_id;
+              _this245.currentCompanyName = company.name;
+              _this245.isFilters = true;
 
-              _this223.refresh();
+              _this245.refresh();
             }
           });
         }
@@ -28309,16 +31342,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UsersManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this224 = this;
+          var _this246 = this;
 
           this.subscription = this.userManagmentService.getAllUser().subscribe({
             next: function next(data) {
-              _this224.userManagmentService.users = data.data;
+              _this246.userManagmentService.users = data.data;
 
-              _this224.subscription.unsubscribe();
+              _this246.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this224.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this246.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -28335,28 +31368,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAvailable",
         value: function setAvailable(state, userID, info) {
-          var _this225 = this;
+          var _this247 = this;
 
           var modifyInfo = info;
           modifyInfo.available = state;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
               if (state) {
-                _this225.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
+                _this247.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
               } else {
-                _this225.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
+                _this247.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
               }
 
-              _this225.subscription.unsubscribe();
+              _this247.subscription.unsubscribe();
 
-              var idx = _this225.userManagmentService.users.findIndex(function (user) {
+              var idx = _this247.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this225.userManagmentService.users[idx].info.available = state;
+              _this247.userManagmentService.users[idx].info.available = state;
             },
             error: function error(err) {
-              return _this225.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this247.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -28369,24 +31402,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAcceptance",
         value: function setAcceptance(userID, info) {
-          var _this226 = this;
+          var _this248 = this;
 
           var modifyInfo = info;
           modifyInfo.state = true;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
-              _this226.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
+              _this248.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
 
-              _this226.subscription.unsubscribe();
+              _this248.subscription.unsubscribe();
 
-              var idx = _this226.userManagmentService.users.findIndex(function (user) {
+              var idx = _this248.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this226.userManagmentService.users[idx].info.state = true;
+              _this248.userManagmentService.users[idx].info.state = true;
             },
             error: function error(err) {
-              return _this226.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this248.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -29011,7 +32044,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       production: false,
       localstorage_key: 'key_user',
       SERVER_BASE_URL: 'https://intelitur.arenalcostarica.cr:7031/',
-      IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/'
+      IMAGES_URL_BASE: 'https://intelitur.arenalcostarica.cr:7031/',
+      USER_WEB: 'https://intelitur.arenalcostarica.cr/'
     };
     /*
      * For easier debugging in development mode, you can import the following file
