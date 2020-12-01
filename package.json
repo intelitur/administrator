@@ -27,6 +27,7 @@
     "@material/form-field": "^5.1.0",
     "@ng-bootstrap/ng-bootstrap": "^5.1.5",
     "@types/hammerjs": "^2.0.36",
+    "angularx-qrcode": "~2.1.4",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "fb-sdk-wrapper": "^1.0.5",

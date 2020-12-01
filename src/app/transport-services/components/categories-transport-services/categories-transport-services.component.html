@@ -1,0 +1,61 @@
+<div class="container">
+  <h1 class="text-center font-weight-light mt-3">
+    Gestión de Categorías de Servicios de Transporte
+  </h1>
+  <div class="float-right mb-3" style="width: 40%; text-align: end">
+    <button
+      mat-raised-button
+      color="primary"
+      matTooltip="Agregar una categoría de servicio de transporte"
+      (click)="openCreateialog()"
+    >
+      <i class="material-icons">add</i>Agregar Categoría
+    </button>
+  </div>
+  <div *ngIf="this.categoryTransportService.categories; else loading">
+    <mat-form-field class="container-fluid mb-3" appearance="outline">
+      <mat-label>Buscar por nombre de categoría </mat-label>
+      <input matInput [(ngModel)]="filter.name" />
+    </mat-form-field>
+
+    <div class="table-responsive" style="padding: 0 3%">
+      <table class="table" *ngIf="this.categoryTransportService.categories">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col" style="text-align: center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let cat of this.categoryTransportService.categories
+                | filterBy: filter
+            "
+          >
+            <td>{{ cat.name }}</td>
+            <td style="text-align: center">
+              <button mat-mini-fab color="warn" (click)="changeState(cat)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class="alert alert-info text-center"
+        role="alert"
+        *ngIf="
+          (this.categoryTransportService.categories | filterBy: filter)
+            .length === 0
+        "
+      >
+        ¡No hay eventos disponibles!
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

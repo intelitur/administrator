@@ -85,15 +85,18 @@ export class ImagesManagementComponent implements OnInit {
       next: (data: any) => {
         if (data.status == 204) {
           this.currentImg.showed = !this.currentImg.showed;
-          this.currentImg.showed
-            ? this.commonService.openSnackBar(
+          if(this.currentImg.showed){
+            this.commonService.openSnackBar(
                 "Se ha cambiado la imagen para mostrarla",
                 "OK"
               )
-            : this.commonService.openSnackBar(
-                "Se ha cambiado la imagen para no mostrarla",
-                "OK"
-              );
+          }else{
+            this.commonService.openSnackBar(
+              "Se ha cambiado la imagen para no mostrarla",
+              "OK"
+            );
+          }
+          this.refresh()
         }
       },
       error: (err: HttpErrorResponse) =>
@@ -118,6 +121,7 @@ export class ImagesManagementComponent implements OnInit {
             "OK"
           );
         }
+        this.refresh();
       });
 
     this.loading = false;

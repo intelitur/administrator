@@ -1,0 +1,26 @@
+th {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+tr {
+  font-size: 15px;
+  cursor: pointer;
+}
+
+td {
+  vertical-align: middle;
+}
+
+tr:hover {
+  background-color: rgb(247, 247, 247);
+}
+
+button {
+  margin-right: 3%;
+}
+
+.container-text-left {
+  margin-bottom: 2%;
+  margin-left: 2%;
+}

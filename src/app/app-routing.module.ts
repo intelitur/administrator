@@ -99,6 +99,14 @@ const routes: Routes = [
         i => i.ImagesModule
       ),
     canActivateChild: [LoggedInGuard]
+  },
+  {
+    path: "transport-services",
+    loadChildren: () =>
+      import("./transport-services/transport-services.module").then(
+        i => i.TransportServicesModule
+      ),
+    canActivateChild: [LoggedInGuard]
   }
 ];
 

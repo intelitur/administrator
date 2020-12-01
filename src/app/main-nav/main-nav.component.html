@@ -5,6 +5,7 @@
     <mat-nav-list>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/ads/all']" routerLinkActive="router-link-active" href="#">Anuncios</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/category/all']" routerLinkActive="router-link-active" href="#">Categorías</a>
+      <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/qr-codes/all']" routerLinkActive="router-link-active" href="#">Códigos QR</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/contests/all']" routerLinkActive="router-link-active" href="#">Concursos</a>
       <a mat-list-item [routerLink]="['user/profile']" routerLinkActive="router-link-active" href="#">Cuenta</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/company/all']" routerLinkActive="router-link-active" href="#">Empresas</a>
@@ -15,6 +16,7 @@
       <a mat-list-item  [routerLink]="['/offers/all']" routerLinkActive="router-link-active" href="#">Ofertas</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2" [routerLink]="['/questions/all']" routerLinkActive="router-link-active" href="#">Preguntas Frecuentes</a>
       <a mat-list-item  [routerLink]="['/services/all']" routerLinkActive="router-link-active" href="#">Servicios</a>
+      <a mat-list-item *ngIf="_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2" [routerLink]="['/transport-services/all']" routerLinkActive="router-link-active" href="#">Servicios Transporte</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['user/user-managment']" routerLinkActive="router-link-active" href="#">Usuarios</a>
       <a mat-list-item *ngIf="_auth.getUser().role_id === 1" [routerLink]="['/tourist-routes/all']" routerLinkActive="router-link-active" href="#">Rutas Turísticas</a>
     </mat-nav-list>
