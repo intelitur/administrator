@@ -52,20 +52,26 @@ export class AllQrCodesComponent implements OnInit {
   }
 
   delete(qrCode: QRCode){
-    this.qrCodesService.delete(qrCode.qr_id).subscribe({
-      next: (data: any) => {
-        if(data.status == 204) {
-          this.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
-          this.getQRs()
-        }else{
-          this.commonService.openSnackBar(
-            "Ha ocurrido un error al intentar crear el código QR",
-            "OK"
-          );
-          console.log(data.error);
-        }
-      },
-      error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+    this.commonService
+    .confirmationDialog(`¿Desea eliminar el código?`)
+    .then(async (result) => {
+      if (result) {
+        this.qrCodesService.delete(qrCode.qr_id).subscribe({
+          next: (data: any) => {
+            if(data.status == 204) {
+              this.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
+              this.getQRs()
+            }else{
+              this.commonService.openSnackBar(
+                "Ha ocurrido un error al intentar eliminar el código QR",
+                "OK"
+              );
+              console.log(data.error);
+            }
+          },
+          error: (err: HttpErrorResponse) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        })
+      }
     })
   }
 }
