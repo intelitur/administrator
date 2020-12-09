@@ -1206,6 +1206,106 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.html":
+  /*!***********************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.html ***!
+    \***********************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppGeographicLayersComponentsAllGeographicLayersAllGeographicLayersComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Gestión de Capas Geográficas\n  </h1>\n  <div class=\"float-right mb-3\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      class=\"btn-add\"\n      matTooltip=\"Agregar una capa gegráfica\"\n      (click)=\"openCreateDialog()\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Capa\n    </button>\n  </div>\n  <div *ngIf=\"this.geographicLayerService.layers; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de la capa</mat-label>\n      <input matInput [(ngModel)]=\"filter.layer_name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.geographicLayerService.layers\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th style=\"width: 50%\" scope=\"col\">Nombre</th>\n            <th style=\"text-align: center\" scope=\"col\">Detalles</th>\n            <th style=\"text-align: center\" scope=\"col\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let layer of this.geographicLayerService.layers | filterBy: filter\">\n            <td style=\"width: 50%\">{{ layer.layer_name }}</td>\n            <td style=\"text-align: center\">\n              <button\n                mat-stroked-button\n                [routerLink]=\"['/geographic-layers', layer.layer_id]\"\n                matTooltip=\"Detalles de la capa geográfica\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px\"\n              >\n                Ver Detalles\n              </button>\n            </td>\n            <td style=\"text-align: center\">\n                <button\n                matTooltip=\"Eliminar capa geográfica\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"delete(layer)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"(this.geographicLayerService.layers | filterBy: filter).length === 0\"\n      >\n        ¡No hay capas geográficas disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.html":
+  /*!***************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.html ***!
+    \***************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppGeographicLayersComponentsCreateGeographicLayerCreateGeographicLayerComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<button mat-mini-fab id=\"exit\">\n  <i (click)=\"closeDialog()\" style=\"color: black\" class=\"material-icons\">\n    clear\n  </i>\n</button>\n<mat-horizontal-stepper #stepper>\n  <mat-step [stepControl]=\"firstFormGroup\">\n    <form [formGroup]=\"layerFG\" class=\"container\">\n      <ng-template matStepLabel>Info. General</ng-template>\n      <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n          <mat-label>Nombre</mat-label>\n          <input\n            matInput\n            formControlName=\"name\"\n            matTooltip=\"Nombre de la capa\"\n            required\n          />\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n          <mat-label>Detalles</mat-label>\n          <textarea\n            matInput\n            formControlName=\"detail\"\n            matTooltip=\"Detalles de la capa\"\n            type=\"text\"\n            required\n          ></textarea>\n        </mat-form-field>\n\n        <label class=\"lblAtribute\">Atributos de texto:</label>\n\n        <button mat-mini-fab (click)=\"addTextAtribute()\" color=\"primary\">\n          <i class=\"material-icons\">add</i>\n        </button>\n\n        <hr width=\"100%\" />\n\n        <div class=\"container\" formArrayName=\"textAtributes\">\n          <div\n            *ngFor=\"\n              let item of txtAtributes.controls;\n              let txtAtributeIndex = index\n            \"\n            [formGroupName]=\"txtAtributeIndex\"\n            style=\"width: 45%\"\n          >\n            <mat-form-field appearance=\"outline\">\n              <mat-label>Atributo</mat-label>\n              <input matInput formControlName=\"textAtribute\" required />\n              <button\n                color=\"warn\"\n                style=\"vertical-align: initial\"\n                matSuffix\n                mat-icon-button\n                (click)=\"deleteTextAtribute(txtAtributeIndex)\"\n              >\n                <i class=\"material-icons-outlined\">cancel</i>\n              </button>\n            </mat-form-field>\n          </div>\n        </div>\n\n        <hr width=\"100%\" />\n\n        <label class=\"lblAtribute\">Atributos Numéricos:</label>\n\n        <button mat-mini-fab (click)=\"addIntAtribute()\" color=\"primary\">\n          <i class=\"material-icons\">add</i>\n        </button>\n\n        <hr width=\"100%\" />\n\n        <div class=\"container\" formArrayName=\"intAtributes\">\n          <div\n            *ngFor=\"\n              let item of integerAtributes.controls;\n              let intAtributeIndex = index\n            \"\n            [formGroupName]=\"intAtributeIndex\"\n            style=\"width: 45%\"\n          >\n            <mat-form-field appearance=\"outline\">\n              <mat-label>Atributo</mat-label>\n              <input matInput formControlName=\"intAtribute\" required />\n              <button\n                color=\"warn\"\n                style=\"vertical-align: initial\"\n                matSuffix\n                mat-icon-button\n                (click)=\"deleteIntAtribute(intAtributeIndex)\"\n              >\n                <i class=\"material-icons-outlined\">cancel</i>\n              </button>\n            </mat-form-field>\n          </div>\n        </div>\n      </div>\n    </form>\n    <div class=\"buttonContainer\">\n      <button\n        mat-raised-button\n        style=\"width: 40%; min-width: 200px; margin: 0 auto\"\n        matStepperNext\n        [disabled]=\"disableDialog()\"\n        color=\"primary\"\n      >\n        Continuar la Creación\n      </button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n\n    <div class=\"buttonContainer\">\n        <ng-template matStepLabel>Mapa</ng-template>\n        <button  mat-raised-button matStepperPrevious color=\"accent\" [disabled]=\"loading\">\n            <mat-icon>reply</mat-icon>Atrás\n        </button>\n        <button\n          (click)=\"submit()\"\n          mat-raised-button\n          color=\"primary\"\n          [disabled]=\"disableDialog()\"\n        >\n          Aceptar<mat-icon>check</mat-icon>\n        </button>\n    </div>\n   \n  </mat-step>\n</mat-horizontal-stepper>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.html":
+  /*!*********************************************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.html ***!
+    \*********************************************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppGeographicLayersComponentsManagementGeographicLayerDetailsGeographicLayerDetailsGeographicLayerComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<p>details-geographic-layer works!</p>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.html":
+  /*!***********************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.html ***!
+    \***********************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppGeographicLayersComponentsManagementGeographicLayerManagementGeographicLayerComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<p>management-geographic-layer works!</p>\n";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.html":
+  /*!*************************************************************************************************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.html ***!
+    \*************************************************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppGeographicLayersComponentsManagementGeographicLayerUbicationGeographicLayerUbicationGeographicLayerComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<p>ubication-geographic-layer works!</p>\n";
+    /***/
+  },
+
+  /***/
   "./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html":
   /*!****************************************************************************************************************************!*\
     !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html ***!
@@ -1581,7 +1681,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/qr-codes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Códigos QR</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/transport-services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios Transporte</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n";
+    __webpack_exports__["default"] = "<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/geographic-layers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Capas Geográficas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/qr-codes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Códigos QR</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/transport-services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios Transporte</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n";
     /***/
   },
 
@@ -5744,6 +5844,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
     /*! ./qr-codes/qr-codes.module */
     "./src/app/qr-codes/qr-codes.module.ts");
+    /* harmony import */
+
+
+    var _geographic_layers_geographic_layers_module__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
+    /*! ./geographic-layers/geographic-layers.module */
+    "./src/app/geographic-layers/geographic-layers.module.ts");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -5751,7 +5857,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
       declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _main_nav_main_nav_component__WEBPACK_IMPORTED_MODULE_7__["MainNavComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"], _login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]],
-      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _itinerary_itinerary_module__WEBPACK_IMPORTED_MODULE_9__["ItineraryModule"], _users_users_module__WEBPACK_IMPORTED_MODULE_10__["UsersModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _company_company_module__WEBPACK_IMPORTED_MODULE_15__["CompanyModule"], _event_event_module__WEBPACK_IMPORTED_MODULE_16__["EventModule"], _category_category_module__WEBPACK_IMPORTED_MODULE_17__["CategoryModule"], _ads_ads_module__WEBPACK_IMPORTED_MODULE_18__["AdsModule"], _frequent_questions_frequent_questions_module__WEBPACK_IMPORTED_MODULE_19__["FrecuentQustionsModule"], _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__["OfferModule"], _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"], _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__["TouristRoutesModule"], _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"], _images_images_module__WEBPACK_IMPORTED_MODULE_25__["ImagesModule"], _transport_services_transport_services_module__WEBPACK_IMPORTED_MODULE_26__["TransportServicesModule"], _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__["QrCodesModule"]],
+      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _itinerary_itinerary_module__WEBPACK_IMPORTED_MODULE_9__["ItineraryModule"], _users_users_module__WEBPACK_IMPORTED_MODULE_10__["UsersModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _company_company_module__WEBPACK_IMPORTED_MODULE_15__["CompanyModule"], _event_event_module__WEBPACK_IMPORTED_MODULE_16__["EventModule"], _category_category_module__WEBPACK_IMPORTED_MODULE_17__["CategoryModule"], _ads_ads_module__WEBPACK_IMPORTED_MODULE_18__["AdsModule"], _frequent_questions_frequent_questions_module__WEBPACK_IMPORTED_MODULE_19__["FrecuentQustionsModule"], _offers_offer_module__WEBPACK_IMPORTED_MODULE_20__["OfferModule"], _services_service_module__WEBPACK_IMPORTED_MODULE_21__["ServiceModule"], _tourist_routes_tourist_routes_module__WEBPACK_IMPORTED_MODULE_24__["TouristRoutesModule"], _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"], _images_images_module__WEBPACK_IMPORTED_MODULE_25__["ImagesModule"], _transport_services_transport_services_module__WEBPACK_IMPORTED_MODULE_26__["TransportServicesModule"], _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__["QrCodesModule"], _geographic_layers_geographic_layers_module__WEBPACK_IMPORTED_MODULE_28__["GeographicLayersModule"]],
       providers: [ng2_charts__WEBPACK_IMPORTED_MODULE_22__["ThemeService"]],
       bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
       entryComponents: [_login_register_business_man_register_business_man_component__WEBPACK_IMPORTED_MODULE_12__["RegisterBusinessManComponent"], _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_14__["ForgotPasswordComponent"]]
@@ -16619,6 +16725,950 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
+  "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.scss":
+  /*!*********************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.scss ***!
+    \*********************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppGeographicLayersComponentsAllGeographicLayersAllGeographicLayersComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvYWxsLWdlb2dyYXBoaWMtbGF5ZXJzL2FsbC1nZW9ncmFwaGljLWxheWVycy5jb21wb25lbnQuc2NzcyJ9 */";
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.ts":
+  /*!*******************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.ts ***!
+    \*******************************************************************************************************/
+
+  /*! exports provided: AllGeographicLayersComponent */
+
+  /***/
+  function srcAppGeographicLayersComponentsAllGeographicLayersAllGeographicLayersComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AllGeographicLayersComponent", function () {
+      return AllGeographicLayersComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../../services/geographic-layers.service */
+    "./src/app/geographic-layers/services/geographic-layers.service.ts");
+    /* harmony import */
+
+
+    var _create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../create-geographic-layer/create-geographic-layer.component */
+    "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.ts");
+
+    var AllGeographicLayersComponent = /*#__PURE__*/function () {
+      function AllGeographicLayersComponent(geographicLayerService, commonService, dialogService) {
+        _classCallCheck(this, AllGeographicLayersComponent);
+
+        this.geographicLayerService = geographicLayerService;
+        this.commonService = commonService;
+        this.dialogService = dialogService;
+        this.filter = {
+          layer_name: ''
+        };
+        this.loading = false;
+      }
+
+      _createClass(AllGeographicLayersComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          this.getLayers();
+        }
+      }, {
+        key: "getLayers",
+        value: function getLayers() {
+          var _this118 = this;
+
+          this.subscription = this.geographicLayerService.getLayers().subscribe({
+            next: function next(data) {
+              console.log(data);
+              _this118.geographicLayerService.layers = data;
+
+              _this118.subscription.unsubscribe();
+            },
+            error: function error(err) {
+              return _this118.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+            }
+          });
+        }
+      }, {
+        key: "openCreateDialog",
+        value: function openCreateDialog() {
+          this.dialogService.open(_create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_5__["CreateGeographicLayerComponent"], {
+            height: "95%",
+            width: "70%",
+            minWidth: "280px",
+            disableClose: true
+          });
+        }
+      }, {
+        key: "delete",
+        value: function _delete(layer) {
+          var _this119 = this;
+
+          this.commonService.confirmationDialog("\xBFDesea eliminar la capa: ".concat(layer.layer_name, "?")).then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this119, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee48() {
+              var _this120 = this;
+
+              return regeneratorRuntime.wrap(function _callee48$(_context48) {
+                while (1) {
+                  switch (_context48.prev = _context48.next) {
+                    case 0:
+                      if (result) {
+                        this.geographicLayerService.deleteLayer(layer.layer_id).subscribe({
+                          next: function next(data) {
+                            if (data.status == 200) {
+                              _this120.commonService.openSnackBar("La capa ".concat(layer.layer_name, " ha sido eliminada"), "OK");
+
+                              _this120.getLayers();
+                            } else {
+                              _this120.commonService.openSnackBar("Ha ocurrido un error al intentar eliminar la capa geográfica", "OK");
+
+                              console.log(data.error);
+                            }
+                          },
+                          error: function error(err) {
+                            return _this120.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                          }
+                        });
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context48.stop();
+                  }
+                }
+              }, _callee48, this);
+            }));
+          });
+        }
+      }]);
+
+      return AllGeographicLayersComponent;
+    }();
+
+    AllGeographicLayersComponent.ctorParameters = function () {
+      return [{
+        type: _services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_4__["GeographicLayersService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }, {
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]
+      }];
+    };
+
+    AllGeographicLayersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-all-geographic-layers',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./all-geographic-layers.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./all-geographic-layers.component.scss */
+      "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.scss"))["default"]]
+    })], AllGeographicLayersComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.scss":
+  /*!*************************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.scss ***!
+    \*************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppGeographicLayersComponentsCreateGeographicLayerCreateGeographicLayerComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n  align-items: center;\n}\n\n::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {\n  align-items: center;\n}\n\nmat-form-field {\n  width: 100%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.lblAtribute {\n  font-size: 18px;\n  font-weight: bold;\n}\n\n#exit {\n  float: right;\n  background-color: transparent;\n}\n\n::ng-deep .mat-horizontal-stepper-header {\n  pointer-events: none !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFBO0FDQ0Y7O0FERUE7RUFDRSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0Y7O0FERUE7RUFDRSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDRjs7QURFQTtFQUNFLFdBQUE7QUNDRjs7QURFQTtFQUNJLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7RUFDQSxtQkFBQTtBQ0NKOztBREVBO0VBQ0ksbUJBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURFQTtFQUNJLFlBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksK0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG46Om5nLWRlZXAgLm1hdC1mb3JtLWZpZWxkLWFwcGVhcmFuY2Utb3V0bGluZSAubWF0LWZvcm0tZmllbGQtZmxleCB7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxubWF0LWZvcm0tZmllbGR7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4ubGJsQXRyaWJ1dGV7XG4gICAgZm9udC1zaXplOiAxOHB4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4jZXhpdHtcbiAgICBmbG9hdDogcmlnaHQ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59XG5cbjo6bmctZGVlcCAubWF0LWhvcml6b250YWwtc3RlcHBlci1oZWFkZXJ7XG4gICAgcG9pbnRlci1ldmVudHM6IG5vbmUgIWltcG9ydGFudDtcbn0iLCJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbjo6bmctZGVlcCAubWF0LWZvcm0tZmllbGQtYXBwZWFyYW5jZS1vdXRsaW5lIC5tYXQtZm9ybS1maWVsZC1mbGV4IHtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogMTAwJTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuLmxibEF0cmlidXRlIHtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuI2V4aXQge1xuICBmbG9hdDogcmlnaHQ7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuXG46Om5nLWRlZXAgLm1hdC1ob3Jpem9udGFsLXN0ZXBwZXItaGVhZGVyIHtcbiAgcG9pbnRlci1ldmVudHM6IG5vbmUgIWltcG9ydGFudDtcbn0iXX0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.ts":
+  /*!***********************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.ts ***!
+    \***********************************************************************************************************/
+
+  /*! exports provided: CreateGeographicLayerComponent */
+
+  /***/
+  function srcAppGeographicLayersComponentsCreateGeographicLayerCreateGeographicLayerComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "CreateGeographicLayerComponent", function () {
+      return CreateGeographicLayerComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/material */
+    "./node_modules/@angular/material/esm2015/material.js");
+
+    var CreateGeographicLayerComponent = /*#__PURE__*/function () {
+      function CreateGeographicLayerComponent(dialogRef, fb) {
+        _classCallCheck(this, CreateGeographicLayerComponent);
+
+        this.dialogRef = dialogRef;
+        this.fb = fb;
+        this.layerFG = this.fb.group({
+          name: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+          detail: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+          textAtributes: this.fb.array([this.fb.group({
+            textAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+          })], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+          intAtributes: this.fb.array([this.fb.group({
+            intAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+          })], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+        });
+      }
+
+      _createClass(CreateGeographicLayerComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }, {
+        key: "addTextAtribute",
+        value: function addTextAtribute() {
+          this.txtAtributes.push(this.fb.group({
+            textAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+          }));
+        }
+      }, {
+        key: "deleteTextAtribute",
+        value: function deleteTextAtribute(index) {
+          this.txtAtributes.removeAt(index);
+        }
+      }, {
+        key: "addIntAtribute",
+        value: function addIntAtribute() {
+          this.integerAtributes.push(this.fb.group({
+            intAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+          }));
+        }
+      }, {
+        key: "deleteIntAtribute",
+        value: function deleteIntAtribute(index) {
+          this.integerAtributes.removeAt(index);
+        }
+      }, {
+        key: "disableDialog",
+        value: function disableDialog() {
+          if (!this.layerFG.valid) {
+            return true;
+          }
+
+          return false;
+        }
+      }, {
+        key: "onNoClick",
+        value: function onNoClick() {
+          this.dialogRef.close();
+        }
+      }, {
+        key: "closeDialog",
+        value: function closeDialog() {
+          this.dialogRef.close();
+        }
+      }, {
+        key: "txtAtributes",
+        get: function get() {
+          return this.layerFG.get("textAtributes");
+        }
+      }, {
+        key: "integerAtributes",
+        get: function get() {
+          return this.layerFG.get("intAtributes");
+        }
+      }]);
+
+      return CreateGeographicLayerComponent;
+    }();
+
+    CreateGeographicLayerComponent.ctorParameters = function () {
+      return [{
+        type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"]
+      }, {
+        type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]
+      }];
+    };
+
+    CreateGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: "app-create-geographic-layer",
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./create-geographic-layer.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./create-geographic-layer.component.scss */
+      "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.scss"))["default"]]
+    })], CreateGeographicLayerComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.scss":
+  /*!*******************************************************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.scss ***!
+    \*******************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppGeographicLayersComponentsManagementGeographicLayerDetailsGeographicLayerDetailsGeographicLayerComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvbWFuYWdlbWVudC1nZW9ncmFwaGljLWxheWVyL2RldGFpbHMtZ2VvZ3JhcGhpYy1sYXllci9kZXRhaWxzLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MifQ== */";
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.ts":
+  /*!*****************************************************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.ts ***!
+    \*****************************************************************************************************************************************/
+
+  /*! exports provided: DetailsGeographicLayerComponent */
+
+  /***/
+  function srcAppGeographicLayersComponentsManagementGeographicLayerDetailsGeographicLayerDetailsGeographicLayerComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "DetailsGeographicLayerComponent", function () {
+      return DetailsGeographicLayerComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var DetailsGeographicLayerComponent = /*#__PURE__*/function () {
+      function DetailsGeographicLayerComponent() {
+        _classCallCheck(this, DetailsGeographicLayerComponent);
+      }
+
+      _createClass(DetailsGeographicLayerComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return DetailsGeographicLayerComponent;
+    }();
+
+    DetailsGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-details-geographic-layer',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./details-geographic-layer.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./details-geographic-layer.component.scss */
+      "./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.scss"))["default"]]
+    })], DetailsGeographicLayerComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.scss":
+  /*!*********************************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.scss ***!
+    \*********************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppGeographicLayersComponentsManagementGeographicLayerManagementGeographicLayerComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvbWFuYWdlbWVudC1nZW9ncmFwaGljLWxheWVyL21hbmFnZW1lbnQtZ2VvZ3JhcGhpYy1sYXllci5jb21wb25lbnQuc2NzcyJ9 */";
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.ts":
+  /*!*******************************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.ts ***!
+    \*******************************************************************************************************************/
+
+  /*! exports provided: ManagementGeographicLayerComponent */
+
+  /***/
+  function srcAppGeographicLayersComponentsManagementGeographicLayerManagementGeographicLayerComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ManagementGeographicLayerComponent", function () {
+      return ManagementGeographicLayerComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var ManagementGeographicLayerComponent = /*#__PURE__*/function () {
+      function ManagementGeographicLayerComponent() {
+        _classCallCheck(this, ManagementGeographicLayerComponent);
+      }
+
+      _createClass(ManagementGeographicLayerComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return ManagementGeographicLayerComponent;
+    }();
+
+    ManagementGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-management-geographic-layer',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./management-geographic-layer.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./management-geographic-layer.component.scss */
+      "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.scss"))["default"]]
+    })], ManagementGeographicLayerComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.scss":
+  /*!***********************************************************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.scss ***!
+    \***********************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppGeographicLayersComponentsManagementGeographicLayerUbicationGeographicLayerUbicationGeographicLayerComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvbWFuYWdlbWVudC1nZW9ncmFwaGljLWxheWVyL3ViaWNhdGlvbi1nZW9ncmFwaGljLWxheWVyL3ViaWNhdGlvbi1nZW9ncmFwaGljLWxheWVyLmNvbXBvbmVudC5zY3NzIn0= */";
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.ts":
+  /*!*********************************************************************************************************************************************!*\
+    !*** ./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.ts ***!
+    \*********************************************************************************************************************************************/
+
+  /*! exports provided: UbicationGeographicLayerComponent */
+
+  /***/
+  function srcAppGeographicLayersComponentsManagementGeographicLayerUbicationGeographicLayerUbicationGeographicLayerComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "UbicationGeographicLayerComponent", function () {
+      return UbicationGeographicLayerComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var UbicationGeographicLayerComponent = /*#__PURE__*/function () {
+      function UbicationGeographicLayerComponent() {
+        _classCallCheck(this, UbicationGeographicLayerComponent);
+      }
+
+      _createClass(UbicationGeographicLayerComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return UbicationGeographicLayerComponent;
+    }();
+
+    UbicationGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-ubication-geographic-layer',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./ubication-geographic-layer.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./ubication-geographic-layer.component.scss */
+      "./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.scss"))["default"]]
+    })], UbicationGeographicLayerComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/geographic-layers-root.component.ts":
+  /*!***********************************************************************!*\
+    !*** ./src/app/geographic-layers/geographic-layers-root.component.ts ***!
+    \***********************************************************************/
+
+  /*! exports provided: GeographicLayersRootComponent */
+
+  /***/
+  function srcAppGeographicLayersGeographicLayersRootComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "GeographicLayersRootComponent", function () {
+      return GeographicLayersRootComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var GeographicLayersRootComponent = /*#__PURE__*/function () {
+      function GeographicLayersRootComponent() {
+        _classCallCheck(this, GeographicLayersRootComponent);
+      }
+
+      _createClass(GeographicLayersRootComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {}
+      }]);
+
+      return GeographicLayersRootComponent;
+    }();
+
+    GeographicLayersRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-geographic-layers-root',
+      template: "\n    <router-outlet></router-outlet>\n  "
+    })], GeographicLayersRootComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/geographic-layers.module.ts":
+  /*!***************************************************************!*\
+    !*** ./src/app/geographic-layers/geographic-layers.module.ts ***!
+    \***************************************************************/
+
+  /*! exports provided: GeographicLayersModule */
+
+  /***/
+  function srcAppGeographicLayersGeographicLayersModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "GeographicLayersModule", function () {
+      return GeographicLayersModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _geograpihc_layers_rounting_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./geograpihc-layers-rounting.module */
+    "./src/app/geographic-layers/geograpihc-layers-rounting.module.ts");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! @asymmetrik/ngx-leaflet */
+    "./node_modules/@asymmetrik/ngx-leaflet/dist/index.js");
+    /* harmony import */
+
+
+    var ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ngx-filter-pipe */
+    "./node_modules/ngx-filter-pipe/esm2015/ngx-filter-pipe.js");
+    /* harmony import */
+
+
+    var _shared_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ../shared.module */
+    "./src/app/shared.module.ts");
+    /* harmony import */
+
+
+    var _components_all_geographic_layers_all_geographic_layers_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ./components/all-geographic-layers/all-geographic-layers.component */
+    "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.ts");
+    /* harmony import */
+
+
+    var _geographic_layers_root_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    /*! ./geographic-layers-root.component */
+    "./src/app/geographic-layers/geographic-layers-root.component.ts");
+    /* harmony import */
+
+
+    var _components_create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! ./components/create-geographic-layer/create-geographic-layer.component */
+    "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.ts");
+    /* harmony import */
+
+
+    var _components_management_geographic_layer_management_geographic_layer_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    /*! ./components/management-geographic-layer/management-geographic-layer.component */
+    "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.ts");
+    /* harmony import */
+
+
+    var _components_management_geographic_layer_details_geographic_layer_details_geographic_layer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    /*! ./components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component */
+    "./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.ts");
+    /* harmony import */
+
+
+    var _components_management_geographic_layer_ubication_geographic_layer_ubication_geographic_layer_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    /*! ./components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component */
+    "./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.ts");
+
+    var GeographicLayersModule = function GeographicLayersModule() {
+      _classCallCheck(this, GeographicLayersModule);
+    };
+
+    GeographicLayersModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+      declarations: [_geographic_layers_root_component__WEBPACK_IMPORTED_MODULE_9__["GeographicLayersRootComponent"], _components_all_geographic_layers_all_geographic_layers_component__WEBPACK_IMPORTED_MODULE_8__["AllGeographicLayersComponent"], _components_create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_10__["CreateGeographicLayerComponent"], _components_management_geographic_layer_management_geographic_layer_component__WEBPACK_IMPORTED_MODULE_11__["ManagementGeographicLayerComponent"], _components_management_geographic_layer_details_geographic_layer_details_geographic_layer_component__WEBPACK_IMPORTED_MODULE_12__["DetailsGeographicLayerComponent"], _components_management_geographic_layer_ubication_geographic_layer_ubication_geographic_layer_component__WEBPACK_IMPORTED_MODULE_13__["UbicationGeographicLayerComponent"]],
+      entryComponents: [_components_create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_10__["CreateGeographicLayerComponent"]],
+      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _geograpihc_layers_rounting_module__WEBPACK_IMPORTED_MODULE_3__["GeograpihicLayersRoutingModule"], _shared_module__WEBPACK_IMPORTED_MODULE_7__["SharedModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_6__["FilterPipeModule"], _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_5__["LeafletModule"]]
+    })], GeographicLayersModule);
+    /***/
+  },
+
+  /***/
+  "./src/app/geographic-layers/geograpihc-layers-rounting.module.ts":
+  /*!************************************************************************!*\
+    !*** ./src/app/geographic-layers/geograpihc-layers-rounting.module.ts ***!
+    \************************************************************************/
+
+  /*! exports provided: GeograpihicLayersRoutingModule */
+
+  /***/
+  function srcAppGeographicLayersGeograpihcLayersRountingModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "GeograpihicLayersRoutingModule", function () {
+      return GeograpihicLayersRoutingModule;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _components_all_geographic_layers_all_geographic_layers_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./components/all-geographic-layers/all-geographic-layers.component */
+    "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.ts");
+    /* harmony import */
+
+
+    var _components_management_geographic_layer_management_geographic_layer_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./components/management-geographic-layer/management-geographic-layer.component */
+    "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.ts");
+    /* harmony import */
+
+
+    var _geographic_layers_root_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./geographic-layers-root.component */
+    "./src/app/geographic-layers/geographic-layers-root.component.ts");
+
+    var routes = [{
+      path: "geographic-layers",
+      component: _geographic_layers_root_component__WEBPACK_IMPORTED_MODULE_4__["GeographicLayersRootComponent"],
+      children: [{
+        path: "all",
+        component: _components_all_geographic_layers_all_geographic_layers_component__WEBPACK_IMPORTED_MODULE_2__["AllGeographicLayersComponent"]
+      }, {
+        path: ":layer_id",
+        component: _components_management_geographic_layer_management_geographic_layer_component__WEBPACK_IMPORTED_MODULE_3__["ManagementGeographicLayerComponent"]
+      }]
+    }];
+
+    var GeograpihicLayersRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes);
+    /***/
+
+  },
+
+  /***/
+  "./src/app/geographic-layers/services/geographic-layers.service.ts":
+  /*!*************************************************************************!*\
+    !*** ./src/app/geographic-layers/services/geographic-layers.service.ts ***!
+    \*************************************************************************/
+
+  /*! exports provided: GeographicLayersService */
+
+  /***/
+  function srcAppGeographicLayersServicesGeographicLayersServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "GeographicLayersService", function () {
+      return GeographicLayersService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/environments/environment */
+    "./src/environments/environment.ts");
+
+    var GeographicLayersService = /*#__PURE__*/function () {
+      function GeographicLayersService(http) {
+        _classCallCheck(this, GeographicLayersService);
+
+        this.http = http;
+        this.layers = [];
+        this.module = "geographicLayers/";
+      }
+
+      _createClass(GeographicLayersService, [{
+        key: "getLayers",
+        value: function getLayers() {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module), {
+            params: {
+              is_active: "true"
+            }
+          });
+        }
+      }, {
+        key: "getLayerPoints",
+        value: function getLayerPoints(layer_id) {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(layer_id, "/point"));
+        }
+      }, {
+        key: "createLayer",
+        value: function createLayer(layer) {
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module), layer, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "createLayerPoint",
+        value: function createLayerPoint(layer_point) {
+          return this.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module, "point"), layer_point, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "updateLayer",
+        value: function updateLayer(layer, layer_id) {
+          return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(layer_id), layer, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "updateLayerPoint",
+        value: function updateLayerPoint(layer_point, layer_point_id) {
+          return this.http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(layer_point_id, "/point"), layer_point, {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "deleteLayer",
+        value: function deleteLayer(layer_id) {
+          return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(layer_id), {
+            observe: 'response'
+          });
+        }
+      }, {
+        key: "deleteLayerPoint",
+        value: function deleteLayerPoint(layer_point_id) {
+          return this.http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(layer_point_id, "/point"), {
+            observe: 'response'
+          });
+        }
+      }]);
+
+      return GeographicLayersService;
+    }();
+
+    GeographicLayersService.ctorParameters = function () {
+      return [{
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]
+      }];
+    };
+
+    GeographicLayersService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+      providedIn: 'root'
+    })], GeographicLayersService);
+    /***/
+  },
+
+  /***/
   "./src/app/images/components/images-management/images-management.component.scss":
   /*!**************************************************************************************!*\
     !*** ./src/app/images/components/images-management/images-management.component.scss ***!
@@ -16723,33 +17773,33 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this118 = this;
+          var _this121 = this;
 
           this.loading = true;
           var showed = Number(this.filter.showed);
           showed == 0 ? showed = undefined : showed == 1 ? showed = true : showed = false;
           this.subscription = this.imageService.getTouristViewImages(showed).subscribe({
             next: function next(data) {
-              _this118.imageService.images = data;
-              data != [] ? _this118.currentImg = data[0] : null;
+              _this121.imageService.images = data;
+              data != [] ? _this121.currentImg = data[0] : null;
 
-              _this118.subscription.unsubscribe();
+              _this121.subscription.unsubscribe();
 
-              _this118.loading = false;
+              _this121.loading = false;
             },
             error: function error(err) {
-              return _this118.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this121.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "uploadFile",
         value: function uploadFile(files) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee48() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee48$(_context48) {
+            return regeneratorRuntime.wrap(function _callee49$(_context49) {
               while (1) {
-                switch (_context48.prev = _context48.next) {
+                switch (_context49.prev = _context49.next) {
                   case 0:
                     this.loading = true;
                     images = [];
@@ -16757,61 +17807,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 3:
                     if (!(i < files.length)) {
-                      _context48.next = 9;
+                      _context49.next = 9;
                       break;
                     }
 
-                    _context48.next = 6;
+                    _context49.next = 6;
                     return this.commonService.uploadFile(files[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 6:
                     i++;
-                    _context48.next = 3;
+                    _context49.next = 3;
                     break;
 
                   case 9:
                     this.updateImages(images);
 
                   case 10:
-                  case "end":
-                    return _context48.stop();
-                }
-              }
-            }, _callee48, this);
-          }));
-        }
-      }, {
-        key: "updateImages",
-        value: function updateImages(images) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
-            var i;
-            return regeneratorRuntime.wrap(function _callee49$(_context49) {
-              while (1) {
-                switch (_context49.prev = _context49.next) {
-                  case 0:
-                    i = 0;
-
-                  case 1:
-                    if (!(i < images.length)) {
-                      _context49.next = 7;
-                      break;
-                    }
-
-                    _context49.next = 4;
-                    return this.imageService.addImageToTouristView(images[i]).toPromise();
-
-                  case 4:
-                    i++;
-                    _context49.next = 1;
-                    break;
-
-                  case 7:
-                    this.commonService.openSnackBar("Se han añadido las imágenes", "OK");
-                    this.refresh();
-
-                  case 9:
                   case "end":
                     return _context49.stop();
                 }
@@ -16820,54 +17833,91 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }));
         }
       }, {
+        key: "updateImages",
+        value: function updateImages(images) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
+            var i;
+            return regeneratorRuntime.wrap(function _callee50$(_context50) {
+              while (1) {
+                switch (_context50.prev = _context50.next) {
+                  case 0:
+                    i = 0;
+
+                  case 1:
+                    if (!(i < images.length)) {
+                      _context50.next = 7;
+                      break;
+                    }
+
+                    _context50.next = 4;
+                    return this.imageService.addImageToTouristView(images[i]).toPromise();
+
+                  case 4:
+                    i++;
+                    _context50.next = 1;
+                    break;
+
+                  case 7:
+                    this.commonService.openSnackBar("Se han añadido las imágenes", "OK");
+                    this.refresh();
+
+                  case 9:
+                  case "end":
+                    return _context50.stop();
+                }
+              }
+            }, _callee50, this);
+          }));
+        }
+      }, {
         key: "changeImgShowState",
         value: function changeImgShowState() {
-          var _this119 = this;
+          var _this122 = this;
 
           var id = this.currentImg.home_image_id;
           this.imageService.changeShowState(id, !this.currentImg.showed).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this119.currentImg.showed = !_this119.currentImg.showed;
+                _this122.currentImg.showed = !_this122.currentImg.showed;
 
-                if (_this119.currentImg.showed) {
-                  _this119.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK");
+                if (_this122.currentImg.showed) {
+                  _this122.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK");
                 } else {
-                  _this119.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
+                  _this122.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
                 }
 
-                _this119.refresh();
+                _this122.refresh();
               }
             },
             error: function error(err) {
-              return _this119.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this122.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "deleteImage",
         value: function deleteImage() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
-            var _this120 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
+            var _this123 = this;
 
             var id;
-            return regeneratorRuntime.wrap(function _callee50$(_context50) {
+            return regeneratorRuntime.wrap(function _callee51$(_context51) {
               while (1) {
-                switch (_context50.prev = _context50.next) {
+                switch (_context51.prev = _context51.next) {
                   case 0:
                     this.loading = true;
                     id = this.currentImg.home_image_id;
-                    _context50.next = 4;
+                    _context51.next = 4;
                     return this.imageService.disableImg(id).toPromise().then(function (data) {
                       if (data.status == 204) {
-                        _this120.commonService.openSnackBar("La imagen se ha eleminado", "OK");
+                        _this123.commonService.openSnackBar("La imagen se ha eleminado", "OK");
 
-                        _this120.imageService.images.splice(_this120.imageIndex, 1);
+                        _this123.imageService.images.splice(_this123.imageIndex, 1);
                       } else {
-                        _this120.commonService.openSnackBar("Error al intentar eliminar la imagen", "OK");
+                        _this123.commonService.openSnackBar("Error al intentar eliminar la imagen", "OK");
                       }
 
-                      _this120.refresh();
+                      _this123.refresh();
                     });
 
                   case 4:
@@ -16875,10 +17925,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 5:
                   case "end":
-                    return _context50.stop();
+                    return _context51.stop();
                 }
               }
-            }, _callee50, this);
+            }, _callee51, this);
           }));
         }
       }]);
@@ -17394,24 +18444,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FilterOptionsDialogComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this121 = this;
+          var _this124 = this;
 
           this.filters.role = this._session.actualUser.role_id;
           this.filters.user_id = this._session.actualUser.user_id;
           this.categorySubs = this._itineray.getCategories().subscribe({
             next: function next(response) {
-              return _this121.categories = response.data;
+              return _this124.categories = response.data;
             },
             error: function error(err) {
-              return _this121._common.handleError(err);
+              return _this124._common.handleError(err);
             }
           });
           this.groupTypeSubs = this._itineray.getGroupTypes().subscribe({
             next: function next(response) {
-              return _this121.groupTypes = response.data;
+              return _this124.groupTypes = response.data;
             },
             error: function error(err) {
-              return _this121._common.handleError(err);
+              return _this124._common.handleError(err);
             }
           });
         }
@@ -17574,14 +18624,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getItinerariesMinimalInfo",
         value: function getItinerariesMinimalInfo() {
-          var _this122 = this;
+          var _this125 = this;
 
           this.subscription = this._itinerary.getItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this122.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data.data);
+              _this125.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this122._common.handleError(err);
+              return _this125._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -17593,20 +18643,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this123 = this;
+          var _this126 = this;
 
           this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
             next: function next(filters) {
               if (filters) {
-                _this123.filterItinerariesSubs = _this123._itinerary.filterItineraries(filters).subscribe({
+                _this126.filterItinerariesSubs = _this126._itinerary.filterItineraries(filters).subscribe({
                   next: function next(response) {
-                    _this123.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](response.data);
+                    _this126.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](response.data);
                   },
                   error: function error(err) {
-                    return _this123._common.handleError(err);
+                    return _this126._common.handleError(err);
                   }
                 });
-                _this123.isFilters = true;
+                _this126.isFilters = true;
               }
             }
           });
@@ -17905,16 +18955,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setupEndDate",
         value: function setupEndDate() {
-          var _this124 = this;
+          var _this127 = this;
 
           this.itineraryFG.get("startDate").valueChanges.subscribe(function (val) {
-            if (_this124.itineraryFG.get("startDate").value) {
+            if (_this127.itineraryFG.get("startDate").value) {
               var date = new Date(val);
 
-              if (_this124.itineraryFG.get("duration").value) {
-                date.setDate(date.getDate() + _this124.itineraryFG.get("duration").value);
+              if (_this127.itineraryFG.get("duration").value) {
+                date.setDate(date.getDate() + _this127.itineraryFG.get("duration").value);
 
-                _this124.itineraryFG.get('endDate').setValue(date);
+                _this127.itineraryFG.get('endDate').setValue(date);
               }
             }
           });
@@ -17926,20 +18976,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setupValueChangesTotalPrice",
         value: function setupValueChangesTotalPrice() {
-          var _this125 = this;
+          var _this128 = this;
 
           this.itineraryFG.get("pricePerDay").valueChanges.subscribe(function (val) {
-            if (_this125.itineraryFG.get("duration").value) {
-              var duration = _this125.itineraryFG.get("duration").value;
+            if (_this128.itineraryFG.get("duration").value) {
+              var duration = _this128.itineraryFG.get("duration").value;
 
-              _this125.itineraryFG.controls["totalPrice"].setValue(val * duration);
+              _this128.itineraryFG.controls["totalPrice"].setValue(val * duration);
             }
           });
           this.itineraryFG.get("duration").valueChanges.subscribe(function (val) {
-            if (_this125.itineraryFG.get("pricePerDay").value) {
-              var pricePerDay = _this125.itineraryFG.get("pricePerDay").value;
+            if (_this128.itineraryFG.get("pricePerDay").value) {
+              var pricePerDay = _this128.itineraryFG.get("pricePerDay").value;
 
-              _this125.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
+              _this128.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
             }
           });
         }
@@ -17950,7 +19000,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setupUploader",
         value: function setupUploader() {
-          var _this126 = this;
+          var _this129 = this;
 
           this._image.uploader.onAfterAddingFile = function (file) {
             file.withCredentials = false;
@@ -17959,14 +19009,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this._image.uploader.onSuccessItem = function (item, response, status, headers) {
             var path = JSON.parse(response).data;
 
-            _this126.savedImagePaths.push(path);
+            _this129.savedImagePaths.push(path);
           };
 
           this._image.uploader.onCompleteAll = function () {
-            _this126.savedImagePaths.forEach(function (e) {
-              _this126.subscription = _this126._itinerary.saveImageUrl(_this126.savedIt, e).subscribe({
+            _this129.savedImagePaths.forEach(function (e) {
+              _this129.subscription = _this129._itinerary.saveImageUrl(_this129.savedIt, e).subscribe({
                 error: function error(err) {
-                  return _this126._common.handleError(err);
+                  return _this129._common.handleError(err);
                 }
               });
             });
@@ -17997,17 +19047,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getGroupTypes",
         value: function getGroupTypes() {
-          var _this127 = this;
+          var _this130 = this;
 
           this.subscription = this._itinerary.getGroupTypes().subscribe({
             next: function next(data) {
-              _this127.groupTypes = [];
+              _this130.groupTypes = [];
               data.data.forEach(function (el) {
-                _this127.groupTypes.unshift(el);
+                _this130.groupTypes.unshift(el);
               });
             },
             error: function error(err) {
-              return _this127._common.handleError(err);
+              return _this130._common.handleError(err);
             }
           });
         }
@@ -18018,14 +19068,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this128 = this;
+          var _this131 = this;
 
           this.subscription = this._itinerary.getCategories().subscribe({
             next: function next(result) {
-              _this128.categories = result.data;
+              _this131.categories = result.data;
             },
             error: function error(err) {
-              return _this128._common.handleError(err);
+              return _this131._common.handleError(err);
             }
           });
         }
@@ -18036,7 +19086,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "catchSelectedImages",
         value: function catchSelectedImages(files) {
-          var _this129 = this;
+          var _this132 = this;
 
           for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
@@ -18044,9 +19094,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
             reader.onload = function (event) {
               // called once readAsDataURL is completed
-              _this129.images.push(event.target.result);
+              _this132.images.push(event.target.result);
 
-              _this129.data.images = _this129.images;
+              _this132.data.images = _this132.images;
             };
           }
         }
@@ -18062,7 +19112,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this130 = this;
+          var _this133 = this;
 
           var fv = this.itineraryFG.value;
           this.subscription = this._itinerary.saveItinerary(new src_app_itinerary_models_Itinerary__WEBPACK_IMPORTED_MODULE_4__["Itinerary"]({
@@ -18081,14 +19131,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             return e.category_id;
           })).subscribe({
             next: function next(result) {
-              _this130._common.openSnackBar("Itinerario guardado con éxito", "Ok");
+              _this133._common.openSnackBar("Itinerario guardado con éxito", "Ok");
 
-              _this130.savedIt = result.data;
+              _this133.savedIt = result.data;
 
-              _this130.uploadImages();
+              _this133.uploadImages();
             },
             error: function error(err) {
-              return _this130._common.handleError(err);
+              return _this133._common.handleError(err);
             }
           });
         }
@@ -18313,14 +19363,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ItineraryDashboardComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this131 = this;
+          var _this134 = this;
 
           if (!this._itinerary.itinerary_id) this._router.navigate(["itineraries/show-all"]);else this.subscription = this._itinerary.getItineraryFullInfo(this._itinerary.itinerary_id).subscribe({
             next: function next(data) {
-              _this131.itinerary = data.data;
+              _this134.itinerary = data.data;
             },
             error: function error(err) {
-              return _this131._common.handleError(err);
+              return _this134._common.handleError(err);
             }
           });
         }
@@ -18532,16 +19582,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "save",
         value: function save() {
-          var _this132 = this;
+          var _this135 = this;
 
           this.subscription = this._itinerary.addDay(this.data.id_itinerary, this.data.day_number, this.data.details, this.data.duration + 1).subscribe({
             next: function next(result) {
-              _this132._common.openSnackBar(result.message, "Ok");
+              _this135._common.openSnackBar(result.message, "Ok");
 
-              return _this132.dialogRef.close(_this132.data);
+              return _this135.dialogRef.close(_this135.data);
             },
             error: function error(err) {
-              return _this132._common.handleError(err);
+              return _this135._common.handleError(err);
             }
           });
         }
@@ -18678,16 +19728,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ItineraryDistributionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this133 = this;
+          var _this136 = this;
 
           this.subscription = this.itineraryService.getFavoriteItinerary(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
               if (data.data.length > 0) {
-                _this133.favorites = data.data[0].get_favorite_itinerary;
+                _this136.favorites = data.data[0].get_favorite_itinerary;
               }
             },
             error: function error(err) {
-              return _this133.commonService.handleError(err);
+              return _this136.commonService.handleError(err);
             }
           });
         }
@@ -18701,19 +19751,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAvailable",
         value: function setAvailable(state, itineraryID, info, _ref21) {
-          var _this134 = this;
+          var _this137 = this;
 
           var source = _ref21.source;
           var action;
           state ? action = "activar" : action = "desactivar";
           this.commonService.confirmationDialog("\xBFDesea ".concat(action, " el itinerario?")).then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this134, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
-              var _this135 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this137, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
+              var _this138 = this;
 
               var modifyInfo;
-              return regeneratorRuntime.wrap(function _callee51$(_context51) {
+              return regeneratorRuntime.wrap(function _callee52$(_context52) {
                 while (1) {
-                  switch (_context51.prev = _context51.next) {
+                  switch (_context52.prev = _context52.next) {
                     case 0:
                       if (result) {
                         modifyInfo = info;
@@ -18721,15 +19771,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         this.subscription = this.itineraryService.changeActiveState(itineraryID, modifyInfo).subscribe({
                           next: function next() {
                             if (state) {
-                              _this135.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido habilitado"), "OK");
+                              _this138.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido habilitado"), "OK");
                             } else {
-                              _this135.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido desabilitado"), "OK");
+                              _this138.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido desabilitado"), "OK");
                             }
 
-                            _this135.subscription.unsubscribe();
+                            _this138.subscription.unsubscribe();
                           },
                           error: function error(err) {
-                            return _this135.commonService.openSnackBar("Error: ".concat(err), "OK");
+                            return _this138.commonService.openSnackBar("Error: ".concat(err), "OK");
                           }
                         });
                       } else {
@@ -18738,10 +19788,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     case 1:
                     case "end":
-                      return _context51.stop();
+                      return _context52.stop();
                   }
                 }
-              }, _callee51, this);
+              }, _callee52, this);
             }));
           });
         }
@@ -18753,18 +19803,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addFavoriteItinerary",
         value: function addFavoriteItinerary(itineraryID) {
-          var _this136 = this;
+          var _this139 = this;
 
           this.favorites.push(itineraryID);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this.itineraryService.addFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this136.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido agregado a favoritos"), "OK");
+              _this139.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido agregado a favoritos"), "OK");
 
-              _this136.subscription.unsubscribe();
+              _this139.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this136.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this139.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -18776,18 +19826,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeFavoriteItinerary",
         value: function removeFavoriteItinerary(itineraryID) {
-          var _this137 = this;
+          var _this140 = this;
 
           this.favorites.splice(this.favorites.indexOf(itineraryID, 0), 1);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this.itineraryService.removeFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this137.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido removido de favoritos"), "OK");
+              _this140.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido removido de favoritos"), "OK");
 
-              _this137.subscription.unsubscribe();
+              _this140.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this137.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this140.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -18957,30 +20007,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(OffersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this138 = this;
+          var _this141 = this;
 
           this.days = new Array(this.it.info["duration"]);
           this.days = this.fillArray(this.it.info["duration"]);
           this.subscription = this._itinerary.getFavoriteOffer(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              if (data.data[0]) _this138.favorites = data.data[0].get_favorite_offer;
+              if (data.data[0]) _this141.favorites = data.data[0].get_favorite_offer;
             },
             error: function error(err) {
-              return _this138.commonService.handleError(err);
+              return _this141.commonService.handleError(err);
             }
           });
 
           if (this.it) {
             this.getDaysInfo();
             this.searchOffersCTRL.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
-              _this138.filteredOffers = [];
-              _this138.isLoading = true;
+              _this141.filteredOffers = [];
+              _this141.isLoading = true;
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["switchMap"])(function (value) {
-              return _this138.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].SERVER_BASE_URL, "itinerary/filterOffers?value=").concat(value, "&it_id=").concat(_this138.it["itinerary_id"])).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["finalize"])(function () {
-                _this138.isLoading = false;
+              return _this141.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].SERVER_BASE_URL, "itinerary/filterOffers?value=").concat(value, "&it_id=").concat(_this141.it["itinerary_id"])).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["finalize"])(function () {
+                _this141.isLoading = false;
               }));
             })).subscribe(function (result) {
-              _this138.filteredOffers = result.data;
+              _this141.filteredOffers = result.data;
             });
           }
         }
@@ -19010,18 +20060,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addOfferFavorite",
         value: function addOfferFavorite(offerID) {
-          var _this139 = this;
+          var _this142 = this;
 
           this.favorites.push(offerID);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.addFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this139.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido agregado a favoritos"), "OK");
+              _this142.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido agregado a favoritos"), "OK");
 
-              _this139.subscription.unsubscribe();
+              _this142.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this139.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this142.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -19033,18 +20083,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOfferFavorite",
         value: function removeOfferFavorite(offerID) {
-          var _this140 = this;
+          var _this143 = this;
 
           this.favorites.splice(this.favorites.indexOf(offerID, 0), 1);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this140.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
+              _this143.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
 
-              _this140.subscription.unsubscribe();
+              _this143.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this140.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this143.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -19056,11 +20106,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateDayDistribution",
         value: function updateDayDistribution(day_number, index) {
-          var _this141 = this;
+          var _this144 = this;
 
           var distArray = this.days[index].items.map(function (e) {
             return {
-              it: _this141.it["itinerary_id"],
+              it: _this144.it["itinerary_id"],
               offer_id: e.offer_id,
               day_number: day_number,
               initial_time: "21:40:12.585447",
@@ -19074,10 +20124,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }];
           this.subscription = this._itinerary.updateDayDistribution(distArray).subscribe({
             next: function next(result) {
-              return _this141.commonService.openSnackBar(result.message, "Ok");
+              return _this144.commonService.openSnackBar(result.message, "Ok");
             },
             error: function error(err) {
-              return _this141.commonService.handleError(err);
+              return _this144.commonService.handleError(err);
             }
           });
         }
@@ -19088,38 +20138,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDaysInfo",
         value: function getDaysInfo() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
-            var _this142 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
+            var _this145 = this;
 
-            return regeneratorRuntime.wrap(function _callee52$(_context52) {
+            return regeneratorRuntime.wrap(function _callee53$(_context53) {
               while (1) {
-                switch (_context52.prev = _context52.next) {
+                switch (_context53.prev = _context53.next) {
                   case 0:
-                    _context52.next = 2;
+                    _context53.next = 2;
                     return this._itinerary.getDayInfo(this.it["itinerary_id"]).toPromise().then(function (data) {
                       if (data.data.day !== null) {
-                        _this142.formatDaysArray(data.data.day);
+                        _this145.formatDaysArray(data.data.day);
                       }
                     })["catch"](function (err) {
-                      return _this142.commonService.handleError(err);
+                      return _this145.commonService.handleError(err);
                     });
 
                   case 2:
                     this.subscription = this._itinerary.getDaysDetails(this.it["itinerary_id"]).subscribe({
                       next: function next(result) {
-                        return _this142.daysDetails = result.data;
+                        return _this145.daysDetails = result.data;
                       },
                       error: function error(err) {
-                        return _this142.commonService.handleError(err);
+                        return _this145.commonService.handleError(err);
                       }
                     });
 
                   case 3:
                   case "end":
-                    return _context52.stop();
+                    return _context53.stop();
                 }
               }
-            }, _callee52, this);
+            }, _callee53, this);
           }));
         }
         /**
@@ -19130,7 +20180,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "formatDaysArray",
         value: function formatDaysArray(data) {
-          var _this143 = this;
+          var _this146 = this;
 
           var source = Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["from"])(data);
           var obs = source.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["groupBy"])(function (d) {
@@ -19141,7 +20191,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }));
           this.formatArraySubscription = obs.subscribe({
             next: function next(val) {
-              if (_this143.days[val[0].day_number - 1]) _this143.days[val[0].day_number - 1].items = val;
+              if (_this146.days[val[0].day_number - 1]) _this146.days[val[0].day_number - 1].items = val;
             }
           });
         }
@@ -19196,16 +20246,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteDay",
         value: function deleteDay(day_number, index) {
-          var _this144 = this;
+          var _this147 = this;
 
           this.deleteDaySubs = this._itinerary.deleteDay(this.it["itinerary_id"], day_number).subscribe({
             next: function next(result) {
-              _this144.commonService.openSnackBar(result.message, "Ok");
+              _this147.commonService.openSnackBar(result.message, "Ok");
 
-              _this144.days.splice(index, 1);
+              _this147.days.splice(index, 1);
             },
             error: function error(err) {
-              return _this144.commonService.handleError(err);
+              return _this147.commonService.handleError(err);
             }
           });
         }
@@ -19216,7 +20266,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addDay",
         value: function addDay() {
-          var _this145 = this;
+          var _this148 = this;
 
           this._dialog.openCreateDay({
             details: "",
@@ -19225,12 +20275,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             duration: this.it.info["duration"]
           }).subscribe({
             next: function next(createdDay) {
-              _this145.days.push({
+              _this148.days.push({
                 day_number: createdDay.day_number,
                 items: []
               });
 
-              _this145.daysDetails.push({
+              _this148.daysDetails.push({
                 details: createdDay.details
               });
             }
@@ -19247,16 +20297,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "unlinkOffer",
         value: function unlinkOffer(offer_id, day_number, offer_index, day_index) {
-          var _this146 = this;
+          var _this149 = this;
 
           this.subscription = this._itinerary.unlinkOffer(offer_id, this.it["itinerary_id"], day_number).subscribe({
             next: function next(result) {
-              _this146.commonService.openSnackBar(result.message, "Ok");
+              _this149.commonService.openSnackBar(result.message, "Ok");
 
-              _this146.days[day_index].items.splice(offer_index, 1);
+              _this149.days[day_index].items.splice(offer_index, 1);
             },
             error: function error(err) {
-              return _this146.commonService.handleError(err);
+              return _this149.commonService.handleError(err);
             }
           });
         }
@@ -19409,17 +20459,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getPromotionByItineraryID",
         value: function getPromotionByItineraryID() {
-          var _this147 = this;
+          var _this150 = this;
 
           this.subscriptionAddedPromotion = this.itineraryService.getPromotionByItineraryID().subscribe({
             next: function next(data) {
-              _this147.addedPromotions = data.data.rows;
-              _this147.addedPromotionLoading = false;
+              _this150.addedPromotions = data.data.rows;
+              _this150.addedPromotionLoading = false;
 
-              _this147.subscriptionAddedPromotion.unsubscribe();
+              _this150.subscriptionAddedPromotion.unsubscribe();
             },
             error: function error(err) {
-              return _this147.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this150.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -19430,17 +20480,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getAllPromotions",
         value: function getAllPromotions() {
-          var _this148 = this;
+          var _this151 = this;
 
           this.subscriptionPromotion = this.itineraryService.getAllPromotions().subscribe({
             next: function next(data) {
-              _this148.promotions = data.data;
-              _this148.promotionLoading = false;
+              _this151.promotions = data.data;
+              _this151.promotionLoading = false;
 
-              _this148.subscriptionPromotion.unsubscribe();
+              _this151.subscriptionPromotion.unsubscribe();
             },
             error: function error(err) {
-              return _this148.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this151.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -19452,18 +20502,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addPromotionInItinerary",
         value: function addPromotionInItinerary(promotion_id) {
-          var _this149 = this;
+          var _this152 = this;
 
           this.subscription = this.itineraryService.addPromotionInItinerary(promotion_id).subscribe({
             next: function next(data) {
-              _this149.addPromotionToListAddedPromotion(promotion_id);
+              _this152.addPromotionToListAddedPromotion(promotion_id);
 
-              _this149.commonService.openSnackBar("Se ha agregado la promoción correctamente", "OK");
+              _this152.commonService.openSnackBar("Se ha agregado la promoción correctamente", "OK");
 
-              _this149.subscription.unsubscribe();
+              _this152.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this149.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this152.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -19497,18 +20547,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletePromotionOfItinerary",
         value: function deletePromotionOfItinerary(promotion_id) {
-          var _this150 = this;
+          var _this153 = this;
 
           this.subscription = this.itineraryService.deletePromotionOfItinerary(promotion_id).subscribe({
             next: function next(data) {
-              _this150.returnPromotionToPromotions(promotion_id);
+              _this153.returnPromotionToPromotions(promotion_id);
 
-              _this150.commonService.openSnackBar("Se ha eliminado la promoción correctamente", "OK");
+              _this153.commonService.openSnackBar("Se ha eliminado la promoción correctamente", "OK");
 
-              _this150.subscription.unsubscribe();
+              _this153.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this150.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this153.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -19755,17 +20805,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ItineraryMapComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this151 = this;
+          var _this154 = this;
 
           this.itineraryService.itinerary_id !== undefined ? this.itineraryService.getEventGeomByItineraryID().subscribe({
             next: function next(data) {
-              _this151.markers = data.data;
+              _this154.markers = data.data;
 
-              _this151.fillMarkers(); // Fill info
+              _this154.fillMarkers(); // Fill info
 
             },
             error: function error(err) {
-              return _this151._common.handleError(err);
+              return _this154._common.handleError(err);
             }
           }) : null;
         }
@@ -19776,10 +20826,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "fillMarkers",
         value: function fillMarkers() {
-          var _this152 = this;
+          var _this155 = this;
 
           this.markers.forEach(function (mark) {
-            _this152.layers.push(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["marker"])([mark.lat, mark.lon], {
+            _this155.layers.push(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["marker"])([mark.lat, mark.lon], {
               icon: Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["icon"])({
                 iconSize: [25, 41],
                 iconAnchor: [13, 41],
@@ -20710,14 +21760,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ForgotPasswordComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this153 = this;
+          var _this156 = this;
 
           // Trigger to change icon
           this.forgotPasswordForm.valueChanges.subscribe(function () {
-            if (_this153.forgotPasswordForm.invalid == false) _this153.icon = "done";else _this153.icon = "warning";
+            if (_this156.forgotPasswordForm.invalid == false) _this156.icon = "done";else _this156.icon = "warning";
           });
           this.changePasswordForm.valueChanges.subscribe(function () {
-            if (_this153.forgotPasswordForm.invalid == false) _this153.icon = "done";else _this153.icon = "warning";
+            if (_this156.forgotPasswordForm.invalid == false) _this156.icon = "done";else _this156.icon = "warning";
           });
         }
         /**
@@ -20727,21 +21777,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendCodePassword",
         value: function sendCodePassword() {
-          var _this154 = this;
+          var _this157 = this;
 
           this.loading = true;
           this.subscribeForgotPassword = this.sessionService.sendCodePassword(this.forgotPasswordForm.get("email").value).subscribe({
             next: function next(data) {
-              _this154.loading = false;
+              _this157.loading = false;
 
-              _this154.commonService.openSnackBar("Verifique su correo electrónico", "OK");
+              _this157.commonService.openSnackBar("Verifique su correo electrónico", "OK");
 
-              _this154.isSendEmail = true;
+              _this157.isSendEmail = true;
             },
             error: function error(err) {
-              _this154.loading = false;
+              _this157.loading = false;
 
-              _this154.commonService.openSnackBar(err.error.message, "OK");
+              _this157.commonService.openSnackBar(err.error.message, "OK");
             }
           });
         }
@@ -20752,7 +21802,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changePasswordByCode",
         value: function changePasswordByCode() {
-          var _this155 = this;
+          var _this158 = this;
 
           this.loading = true;
 
@@ -20763,16 +21813,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           } else {
             this.subscribeForgotPassword = this.sessionService.changePasswordByCode(this.changePasswordForm.get("password").value, this.changePasswordForm.get("code").value).subscribe({
               next: function next(data) {
-                _this155.loading = false;
+                _this158.loading = false;
 
-                _this155.commonService.openSnackBar("Las contraseña ha sido actualizada!", "OK");
+                _this158.commonService.openSnackBar("Las contraseña ha sido actualizada!", "OK");
 
-                _this155.dialog.closeAll();
+                _this158.dialog.closeAll();
               },
               error: function error(err) {
-                _this155.loading = false;
+                _this158.loading = false;
 
-                _this155.commonService.openSnackBar(err.error.message, "OK");
+                _this158.commonService.openSnackBar(err.error.message, "OK");
               }
             });
           }
@@ -20916,12 +21966,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(LoginComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this156 = this;
+          var _this159 = this;
 
           document.body.classList.add("bg-img"); // Trigger to change icon
 
           this.loginForm.valueChanges.subscribe(function () {
-            if (_this156.loginForm.invalid == false) _this156.icon = "done";else _this156.icon = "warning";
+            if (_this159.loginForm.invalid == false) _this159.icon = "done";else _this159.icon = "warning";
           });
         }
         /**
@@ -20949,31 +21999,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loginUser",
         value: function loginUser() {
-          var _this157 = this;
+          var _this160 = this;
 
           this.sessionService.loadingLogin = true;
           this.subscribeLogin = this.sessionService.login(this.loginForm.get("email").value, this.loginForm.get("password").value).subscribe({
             next: function next(data) {
-              _this157.sessionService.loadingLogin = false;
+              _this160.sessionService.loadingLogin = false;
 
-              _this157._auth.login({
+              _this160._auth.login({
                 name: data.data.name,
                 user_id: data.data.user_id,
                 role_id: data.data.role_id
               });
 
-              _this157.sessionService.actualUser = _this157._auth.getUser();
+              _this160.sessionService.actualUser = _this160._auth.getUser();
 
-              _this157.sessionService.commonService.openSnackBar("Bienvenido ".concat(_this157.sessionService.actualUser.name), "OK");
+              _this160.sessionService.commonService.openSnackBar("Bienvenido ".concat(_this160.sessionService.actualUser.name), "OK");
 
-              _this157._router.navigate(["/itineraries/show-all"]);
+              _this160._router.navigate(["/itineraries/show-all"]);
             },
             error: function error(_err) {
               console.log(_err);
 
-              _this157.sessionService.commonService.openSnackBar("Error en la autenticaci\xF3n", "OK");
+              _this160.sessionService.commonService.openSnackBar("Error en la autenticaci\xF3n", "OK");
 
-              _this157.sessionService.loadingLogin = false;
+              _this160.sessionService.loadingLogin = false;
             }
           });
         }
@@ -21115,11 +22165,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(RegisterBusinessManComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this158 = this;
+          var _this161 = this;
 
           // Trigger to change icon
           this.addBusinessmanForm.valueChanges.subscribe(function () {
-            if (_this158.addBusinessmanForm.invalid == false) _this158.icon = "done";else _this158.icon = "warning";
+            if (_this161.addBusinessmanForm.invalid == false) _this161.icon = "done";else _this161.icon = "warning";
           });
         }
         /**
@@ -21129,7 +22179,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addBusinessman",
         value: function addBusinessman() {
-          var _this159 = this;
+          var _this162 = this;
 
           this.loading = true; // Charge loading
 
@@ -21144,16 +22194,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.subscription = this.sessionService.saveUser(info, 2).subscribe({
             next: function next(_data) {
-              _this159.loading = false;
+              _this162.loading = false;
 
-              _this159.commonService.openSnackBar("Se ha registrado ".concat(info.name, ", espere la validaci\xF3n de su cuenta"), "OK");
+              _this162.commonService.openSnackBar("Se ha registrado ".concat(info.name, ", espere la validaci\xF3n de su cuenta"), "OK");
 
-              _this159.dialog.closeAll();
+              _this162.dialog.closeAll();
             },
             error: function error(err) {
-              _this159.commonService.openSnackBar("Error: ".concat(err), "OK");
+              _this162.commonService.openSnackBar("Error: ".concat(err), "OK");
 
-              _this159.subscription.unsubscribe();
+              _this162.subscription.unsubscribe();
             }
           });
         }
@@ -21423,18 +22473,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getInformation",
         value: function getInformation() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
-            var _this160 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
+            var _this163 = this;
 
-            return regeneratorRuntime.wrap(function _callee53$(_context53) {
+            return regeneratorRuntime.wrap(function _callee54$(_context54) {
               while (1) {
-                switch (_context53.prev = _context53.next) {
+                switch (_context54.prev = _context54.next) {
                   case 0:
-                    _context53.next = 2;
+                    _context54.next = 2;
                     return this._offer.getServicesByOffer(this._offer.offer_id).subscribe({
                       next: function next(data) {
-                        _this160.listServices = data;
-                        _this160.subscription3 = _this160._service.getServices().subscribe({
+                        _this163.listServices = data;
+                        _this163.subscription3 = _this163._service.getServices().subscribe({
                           next: function next(data) {
                             var band;
 
@@ -21442,8 +22492,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                               band = false;
                               var element = data[index];
 
-                              for (var index2 = 0; index2 < _this160.listServices.length; index2++) {
-                                var element2 = _this160.listServices[index2];
+                              for (var index2 = 0; index2 < _this163.listServices.length; index2++) {
+                                var element2 = _this163.listServices[index2];
 
                                 if (element.service_id == element2.service_id) {
                                   band = true;
@@ -21451,35 +22501,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                               }
 
                               if (!band) {
-                                _this160.filteredServices.push(element);
+                                _this163.filteredServices.push(element);
                               }
                             }
 
-                            if (_this160.filteredServices.length == 0) {
-                              _this160._common.openSnackBar("No hay servicios por agregar", "Ok");
+                            if (_this163.filteredServices.length == 0) {
+                              _this163._common.openSnackBar("No hay servicios por agregar", "Ok");
 
-                              _this160.onNoClick();
+                              _this163.onNoClick();
                             }
                           },
                           error: function error(err) {
-                            return _this160._common.handleError(err);
+                            return _this163._common.handleError(err);
                           }
                         });
                       },
                       error: function error(err) {
-                        return _this160._common.handleError(err);
+                        return _this163._common.handleError(err);
                       }
                     });
 
                   case 2:
-                    this.subscription2 = _context53.sent;
+                    this.subscription2 = _context54.sent;
 
                   case 3:
                   case "end":
-                    return _context53.stop();
+                    return _context54.stop();
                 }
               }
-            }, _callee53, this);
+            }, _callee54, this);
           }));
         }
         /**
@@ -21489,20 +22539,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this161 = this;
+          var _this164 = this;
 
           this.subscription = this._service.addServiceToOffer(this.serviceFG.controls['services'].value, this._offer.offer_id).subscribe({
             next: function next(result) {
-              _this161._common.openSnackBar("Servicio creado", "Ok");
+              _this164._common.openSnackBar("Servicio creado", "Ok");
 
-              _this161.serviceFG.controls['services'].setValue(null);
+              _this164.serviceFG.controls['services'].setValue(null);
 
-              _this161.status = 201;
+              _this164.status = 201;
 
-              _this161.onNoClick();
+              _this164.onNoClick();
             },
             error: function error(err) {
-              return _this161._common.handleError(err);
+              return _this164._common.handleError(err);
             }
           });
         }
@@ -21802,17 +22852,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "applyChanges",
         value: function applyChanges() {
-          var _this162 = this;
+          var _this165 = this;
 
           this.subscription = this._offer.saveOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_3__["OfferDetaills"](this.offerDetaillsFG.get("name").value, this.offerDetaillsFG.get("description").value, true), this._offer.offer_id).subscribe({
             next: function next(result) {
-              _this162._offer.offer_name = _this162.offerDetaillsFG.controls["name"].value;
-              _this162._offer.offer_description = _this162.offerDetaillsFG.controls["description"].value;
+              _this165._offer.offer_name = _this165.offerDetaillsFG.controls["name"].value;
+              _this165._offer.offer_description = _this165.offerDetaillsFG.controls["description"].value;
 
-              _this162._common.openSnackBar("Cambios realizados", "Ok");
+              _this165._common.openSnackBar("Cambios realizados", "Ok");
             },
             error: function error(err) {
-              return _this162._common.handleError(err);
+              return _this165._common.handleError(err);
             }
           });
         }
@@ -21823,35 +22873,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteOffer",
         value: function deleteOffer() {
-          var _this163 = this;
+          var _this166 = this;
 
           this._common.confirmationDialog("\xBFDesea eliminar la oferta: ".concat(this._offer.offer_name, "?")).then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this163, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
-              var _this164 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this166, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
+              var _this167 = this;
 
-              return regeneratorRuntime.wrap(function _callee54$(_context54) {
+              return regeneratorRuntime.wrap(function _callee55$(_context55) {
                 while (1) {
-                  switch (_context54.prev = _context54.next) {
+                  switch (_context55.prev = _context55.next) {
                     case 0:
                       if (result) {
                         this.subscriptionDelete = this._offer.deleteOffer(this._offer.offer_id).subscribe({
                           next: function next(result) {
-                            _this164.router.navigate(["/offers/all"]);
+                            _this167.router.navigate(["/offers/all"]);
 
-                            _this164._common.openSnackBar("Oferta eliminada", "Ok");
+                            _this167._common.openSnackBar("Oferta eliminada", "Ok");
                           },
                           error: function error(err) {
-                            return _this164._common.handleError(err);
+                            return _this167._common.handleError(err);
                           }
                         });
                       }
 
                     case 1:
                     case "end":
-                      return _context54.stop();
+                      return _context55.stop();
                   }
                 }
-              }, _callee54, this);
+              }, _callee55, this);
             }));
           });
         }
@@ -22029,14 +23079,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getServices",
         value: function getServices() {
-          var _this165 = this;
+          var _this168 = this;
 
           this.subscription = this._offer.getServicesByOffer(this._offer.offer_id).subscribe({
             next: function next(data) {
-              _this165.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](data);
+              _this168.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this165._common.handleError(err);
+              return _this168._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -22048,16 +23098,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteServiceToOffer",
         value: function deleteServiceToOffer(service_id) {
-          var _this166 = this;
+          var _this169 = this;
 
           this.subscription = this._service.deleteServiceToOffer(service_id, this._offer.offer_id).subscribe({
             next: function next(result) {
-              _this166._common.openSnackBar("Servicio eliminado de la oferta", "Ok");
+              _this169._common.openSnackBar("Servicio eliminado de la oferta", "Ok");
 
-              _this166.getServices();
+              _this169.getServices();
             },
             error: function error(err) {
-              return _this166._common.handleError(err);
+              return _this169._common.handleError(err);
             }
           });
         }
@@ -22097,7 +23147,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateServiceDialog",
         value: function openCreateServiceDialog() {
-          var _this167 = this;
+          var _this170 = this;
 
           var dialog = this.dialogService.open(_offer_add_service_offer_add_service_component__WEBPACK_IMPORTED_MODULE_9__["OfferAddServiceComponent"], {
             width: "60%",
@@ -22106,7 +23156,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this167.getServices();
+              _this170.getServices();
             }
           });
         }
@@ -22311,7 +23361,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(OfferCreateComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this168 = this;
+          var _this171 = this;
 
           this.offerFG = this._fb.group({
             name: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
@@ -22321,20 +23371,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           this.subscription2 = this._service.getServices().subscribe({
             next: function next(data) {
-              _this168.filteredServices = data;
+              _this171.filteredServices = data;
             },
             error: function error(err) {
-              return _this168._common.handleError(err);
+              return _this171._common.handleError(err);
             }
           });
           this.subscription3 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this168.companies = data;
+              _this171.companies = data;
 
-              _this168.subscription2.unsubscribe();
+              _this171.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this168.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this171.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -22345,19 +23395,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this169 = this;
+          var _this172 = this;
 
           var fv = this.offerFG.value;
           this.subscription = this._offer.addOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_4__["Offer"](this.offerFG.get('name').value, this.offerFG.get('description').value, this.offerFG.get('companies').value)).subscribe({
             next: function next(result) {
-              _this169._common.openSnackBar("Oferta creada con éxito", "Ok");
+              _this172._common.openSnackBar("Oferta creada con éxito", "Ok");
 
               var offer_id = result[0];
 
-              _this169.onSubmitAux(offer_id);
+              _this172.onSubmitAux(offer_id);
             },
             error: function error(err) {
-              _this169._common.handleError(err), err.status == 500 ? _this169._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
+              _this172._common.handleError(err), err.status == 500 ? _this172._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
             }
           });
         }
@@ -22369,17 +23419,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmitAux",
         value: function onSubmitAux(offer_id) {
-          var _this170 = this;
+          var _this173 = this;
 
           var fv = this.offerFG.value;
           this.subscription = this._offer.addServiceToOffer(offer_id, this.allServices).subscribe({
             next: function next(result) {
-              _this170._common.openSnackBar("Servicios agregados con éxito", "Ok");
+              _this173._common.openSnackBar("Servicios agregados con éxito", "Ok");
 
-              _this170.onNoClick(201);
+              _this173.onNoClick(201);
             },
             error: function error(err) {
-              _this170._common.handleError(err), err.status == 500 ? _this170._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
+              _this173._common.handleError(err), err.status == 500 ? _this173._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
             }
           });
         }
@@ -22587,14 +23637,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getOffers",
         value: function getOffers() {
-          var _this171 = this;
+          var _this174 = this;
 
           this.subscription = this._offers.getOffers().subscribe({
             next: function next(data) {
-              _this171.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
+              _this174.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this171._common.handleError(err);
+              return _this174._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -22739,7 +23789,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateOfferDialog",
         value: function openCreateOfferDialog() {
-          var _this172 = this;
+          var _this175 = this;
 
           var dialog = this.dialogService.open(_offer_offer_create_offer_create_component__WEBPACK_IMPORTED_MODULE_3__["OfferCreateComponent"], {
             width: "60%",
@@ -22748,7 +23798,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this172.datosDesdeElPadre.active = false;
+              _this175.datosDesdeElPadre.active = false;
             }
           });
         }
@@ -23283,17 +24333,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getQRs",
         value: function getQRs() {
-          var _this173 = this;
+          var _this176 = this;
 
           this.subscription = this.qrCodesService.getQRCodes().subscribe({
             next: function next(data) {
               console.log(data);
-              _this173.qrCodesService.qrCodes = data;
+              _this176.qrCodesService.qrCodes = data;
 
-              _this173.subscription.unsubscribe();
+              _this176.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this173.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this176.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -23314,23 +24364,42 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "delete",
         value: function _delete(qrCode) {
-          var _this174 = this;
+          var _this177 = this;
 
-          this.qrCodesService["delete"](qrCode.qr_id).subscribe({
-            next: function next(data) {
-              if (data.status == 204) {
-                _this174.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
+          this.commonService.confirmationDialog("\xBFDesea eliminar el c\xF3digo?").then(function (result) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this177, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
+              var _this178 = this;
 
-                _this174.getQRs();
-              } else {
-                _this174.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
+              return regeneratorRuntime.wrap(function _callee56$(_context56) {
+                while (1) {
+                  switch (_context56.prev = _context56.next) {
+                    case 0:
+                      if (result) {
+                        this.qrCodesService["delete"](qrCode.qr_id).subscribe({
+                          next: function next(data) {
+                            if (data.status == 204) {
+                              _this178.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
 
-                console.log(data.error);
-              }
-            },
-            error: function error(err) {
-              return _this174.commonService.openSnackBar("Error: ".concat(err.message), "OK");
-            }
+                              _this178.getQRs();
+                            } else {
+                              _this178.commonService.openSnackBar("Ha ocurrido un error al intentar eliminar el código QR", "OK");
+
+                              console.log(data.error);
+                            }
+                          },
+                          error: function error(err) {
+                            return _this178.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                          }
+                        });
+                      }
+
+                    case 1:
+                    case "end":
+                      return _context56.stop();
+                  }
+                }
+              }, _callee56, this);
+            }));
           });
         }
       }]);
@@ -23522,11 +24591,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setData",
         value: function setData() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
             var qr;
-            return regeneratorRuntime.wrap(function _callee55$(_context55) {
+            return regeneratorRuntime.wrap(function _callee57$(_context57) {
               while (1) {
-                switch (_context55.prev = _context55.next) {
+                switch (_context57.prev = _context57.next) {
                   case 0:
                     qr = this.data.qr;
                     this.elementType = qr.e_type;
@@ -23535,107 +24604,107 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 4:
                   case "end":
-                    return _context55.stop();
+                    return _context57.stop();
                 }
               }
-            }, _callee55, this);
+            }, _callee57, this);
           }));
         }
       }, {
         key: "elementChanged",
         value: function elementChanged(element_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
-            var _this175 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
+            var _this179 = this;
 
             var element;
-            return regeneratorRuntime.wrap(function _callee56$(_context56) {
+            return regeneratorRuntime.wrap(function _callee58$(_context58) {
               while (1) {
-                switch (_context56.prev = _context56.next) {
+                switch (_context58.prev = _context58.next) {
                   case 0:
                     this.loading = true;
                     element = undefined;
 
                     if (!(this.elementType == "event")) {
-                      _context56.next = 7;
+                      _context58.next = 7;
                       break;
                     }
 
-                    _context56.next = 5;
+                    _context58.next = 5;
                     return this.eventService.getAllEvents().toPromise().then(function (data) {
-                      _this175.elements = data;
-                      element = _this175.elements.find(function (value) {
+                      _this179.elements = data;
+                      element = _this179.elements.find(function (value) {
                         return value.event_id == element_id;
                       });
                     });
 
                   case 5:
-                    _context56.next = 25;
+                    _context58.next = 25;
                     break;
 
                   case 7:
                     if (!(this.elementType == "contest")) {
-                      _context56.next = 12;
+                      _context58.next = 12;
                       break;
                     }
 
-                    _context56.next = 10;
+                    _context58.next = 10;
                     return this.contestService.getContests().toPromise().then(function (data) {
-                      _this175.elements = data;
-                      element = _this175.elements.find(function (value) {
+                      _this179.elements = data;
+                      element = _this179.elements.find(function (value) {
                         return value.contest_id == element_id;
                       });
                     });
 
                   case 10:
-                    _context56.next = 25;
+                    _context58.next = 25;
                     break;
 
                   case 12:
                     if (!(this.elementType == "ads")) {
-                      _context56.next = 17;
+                      _context58.next = 17;
                       break;
                     }
 
-                    _context56.next = 15;
+                    _context58.next = 15;
                     return this.adService.getAllAds().toPromise().then(function (data) {
-                      _this175.elements = data;
-                      element = _this175.elements.find(function (value) {
+                      _this179.elements = data;
+                      element = _this179.elements.find(function (value) {
                         return value.ad_id == element_id;
                       });
                     });
 
                   case 15:
-                    _context56.next = 25;
+                    _context58.next = 25;
                     break;
 
                   case 17:
                     if (!(this.elementType == "itinerary")) {
-                      _context56.next = 22;
+                      _context58.next = 22;
                       break;
                     }
 
-                    _context56.next = 20;
+                    _context58.next = 20;
                     return this.itineraryService.getItineraryMinimalInfoByUser(this.authService.getUser().user_id).toPromise().then(function (data) {
-                      _this175.elements = data.data;
-                      element = _this175.elements.find(function (value) {
+                      _this179.elements = data.data;
+                      element = _this179.elements.find(function (value) {
                         return value.itinerary_id == element_id;
                       });
                     });
 
                   case 20:
-                    _context56.next = 25;
+                    _context58.next = 25;
                     break;
 
                   case 22:
                     if (!(this.elementType == "tourist route")) {
-                      _context56.next = 25;
+                      _context58.next = 25;
                       break;
                     }
 
-                    _context56.next = 25;
+                    _context58.next = 25;
                     return this.touristRouteService.getTouristRoutes(true).toPromise().then(function (data) {
-                      _this175.elements = data;
-                      element = _this175.elements.find(function (value) {
+                      _this179.elements = data;
+                      element = _this179.elements.find(function (value) {
                         return value.route_id == element_id;
                       });
                     });
@@ -23646,10 +24715,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 27:
                   case "end":
-                    return _context56.stop();
+                    return _context58.stop();
                 }
               }
-            }, _callee56, this);
+            }, _callee58, this);
           }));
         }
       }, {
@@ -23695,82 +24764,82 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "create",
         value: function create(qr) {
-          var _this176 = this;
+          var _this180 = this;
 
           this.loading = true;
           this.qrForm.disable();
           this.qrCodesService.create(qr).subscribe({
             next: function next(data) {
               if (data.status == 201) {
-                _this176.commonService.openSnackBar("El código QR ha sido creado éxitosamente", "OK");
+                _this180.commonService.openSnackBar("El código QR ha sido creado éxitosamente", "OK");
 
-                _this176.getQRCodes();
+                _this180.getQRCodes();
               } else {
-                _this176.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
+                _this180.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
 
                 console.log(data.error);
 
-                _this176.qrForm.enable();
+                _this180.qrForm.enable();
 
-                _this176.loading = false;
+                _this180.loading = false;
               }
             },
             error: function error(err) {
-              _this176.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this180.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this176.loading = false;
+              _this180.loading = false;
 
-              _this176.qrForm.enable();
+              _this180.qrForm.enable();
             }
           });
         }
       }, {
         key: "modify",
         value: function modify(qr) {
-          var _this177 = this;
+          var _this181 = this;
 
           this.loading = true;
           this.qrForm.disable();
           this.qrCodesService.modify(qr).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this177.commonService.openSnackBar("El código QR ha sido editado éxitosamente", "OK");
+                _this181.commonService.openSnackBar("El código QR ha sido editado éxitosamente", "OK");
 
-                _this177.getQRCodes();
+                _this181.getQRCodes();
               } else {
-                _this177.commonService.openSnackBar("Ha ocurrido un error al intentar editar el código QR", "OK");
+                _this181.commonService.openSnackBar("Ha ocurrido un error al intentar editar el código QR", "OK");
 
                 console.log(data.error);
 
-                _this177.qrForm.enable();
+                _this181.qrForm.enable();
 
-                _this177.loading = false;
+                _this181.loading = false;
               }
             },
             error: function error(err) {
-              _this177.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this181.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this177.loading = false;
+              _this181.loading = false;
 
-              _this177.qrForm.enable();
+              _this181.qrForm.enable();
             }
           });
         }
       }, {
         key: "getQRCodes",
         value: function getQRCodes() {
-          var _this178 = this;
+          var _this182 = this;
 
           this.qrCodesService.getQRCodes().subscribe({
             next: function next(data) {
-              _this178.qrCodesService.qrCodes = data;
+              _this182.qrCodesService.qrCodes = data;
 
-              _this178.closeDialog();
+              _this182.closeDialog();
             },
             error: function error(err) {
-              _this178.commonService.openSnackBar("Ha ocurrido un error, por favor refresque la página", "");
+              _this182.commonService.openSnackBar("Ha ocurrido un error, por favor refresque la página", "");
 
-              _this178.closeDialog();
+              _this182.closeDialog();
             }
           });
         }
@@ -24337,31 +25406,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this179 = this;
+          var _this183 = this;
 
           this.subscription = this._service.getCategories(4).subscribe({
             next: function next(result) {
               var temp = result;
-              _this179.categories = temp;
+              _this183.categories = temp;
             },
             error: function error(err) {
-              return _this179._common.handleError(err);
+              return _this183._common.handleError(err);
             }
           });
         }
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this180 = this;
+          var _this184 = this;
 
           this.subscription = this._service.addService(new src_app_services_models_Service__WEBPACK_IMPORTED_MODULE_7__["Service"](this.serviceFG.get('name').value, this.serviceFG.get('category').value)).subscribe({
             next: function next(result) {
-              _this180._common.openSnackBar("Servicio creado", "Ok");
+              _this184._common.openSnackBar("Servicio creado", "Ok");
 
-              _this180.onNoClick(201);
+              _this184.onNoClick(201);
             },
             error: function error(err) {
-              return _this180._common.handleError(err);
+              return _this184._common.handleError(err);
             }
           });
         }
@@ -24543,14 +25612,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getServices",
         value: function getServices() {
-          var _this181 = this;
+          var _this185 = this;
 
           this.subscription = this._service.getServices().subscribe({
             next: function next(data) {
-              _this181.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
+              _this185.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this181._common.handleError(err);
+              return _this185._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -24562,35 +25631,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(service_id) {
-          var _this182 = this;
+          var _this186 = this;
 
           this._common.confirmationDialog("\xBFDesea eliminar el servicio ?").then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this182, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
-              var _this183 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this186, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
+              var _this187 = this;
 
-              return regeneratorRuntime.wrap(function _callee57$(_context57) {
+              return regeneratorRuntime.wrap(function _callee59$(_context59) {
                 while (1) {
-                  switch (_context57.prev = _context57.next) {
+                  switch (_context59.prev = _context59.next) {
                     case 0:
                       if (result) {
                         this.subscription = this._service.deleteService(service_id).subscribe({
                           next: function next(result) {
-                            _this183._common.openSnackBar("Servicio eliminado", "Ok");
+                            _this187._common.openSnackBar("Servicio eliminado", "Ok");
 
-                            _this183.getServices();
+                            _this187.getServices();
                           },
                           error: function error(err) {
-                            return _this183._common.handleError(err);
+                            return _this187._common.handleError(err);
                           }
                         });
                       }
 
                     case 1:
                     case "end":
-                      return _context57.stop();
+                      return _context59.stop();
                   }
                 }
-              }, _callee57, this);
+              }, _callee59, this);
             }));
           });
         }
@@ -24742,7 +25811,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateServiceDialog",
         value: function openCreateServiceDialog() {
-          var _this184 = this;
+          var _this188 = this;
 
           var dialog = this.dialogService.open(_service_service_create_service_create_component__WEBPACK_IMPORTED_MODULE_4__["ServiceCreateComponent"], {
             width: "60%",
@@ -24751,7 +25820,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this184.datosDesdeElPadre.active = false;
+              _this188.datosDesdeElPadre.active = false;
             }
           });
         }
@@ -25342,16 +26411,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getActiveTR",
         value: function getActiveTR() {
-          var _this185 = this;
+          var _this189 = this;
 
           this.subscription = this.turistRoutesService.getTouristRoutes(true).subscribe({
             next: function next(data) {
-              _this185.turistRoutesService.touristRoutes = data;
+              _this189.turistRoutesService.touristRoutes = data;
 
-              _this185.subscription.unsubscribe();
+              _this189.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this185.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this189.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -25368,16 +26437,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(touristRoute, _ref22) {
-          var _this186 = this;
+          var _this190 = this;
 
           var source = _ref22.source;
           this.commonService.confirmationDialog("\xBFDesea eliminar la ruta: ".concat(touristRoute.name, "?")).then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this186, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
-              var _this187 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this190, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
+              var _this191 = this;
 
-              return regeneratorRuntime.wrap(function _callee58$(_context58) {
+              return regeneratorRuntime.wrap(function _callee60$(_context60) {
                 while (1) {
-                  switch (_context58.prev = _context58.next) {
+                  switch (_context60.prev = _context60.next) {
                     case 0:
                       if (result) {
                         this.turistRoutesService.changeTouristRouteState(touristRoute.route_id).subscribe({
@@ -25386,15 +26455,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                               touristRoute.is_active = !touristRoute.is_active;
                               source.checked = touristRoute.is_active;
 
-                              _this187.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
+                              _this191.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
 
-                              _this187.getActiveTR();
+                              _this191.getActiveTR();
                             } else {
-                              _this187.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              _this191.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                             }
                           },
                           error: function error(err) {
-                            _this187.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                            _this191.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
                             source.checked = touristRoute.is_active;
                           }
@@ -25405,10 +26474,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     case 1:
                     case "end":
-                      return _context58.stop();
+                      return _context60.stop();
                   }
                 }
-              }, _callee58, this);
+              }, _callee60, this);
             }));
           });
         }
@@ -25557,23 +26626,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CreateTouristRoutesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this188 = this;
+          var _this192 = this;
 
           this.subscription = this.offerService.getOffers().subscribe({
             next: function next(data) {
-              _this188.filteredOffers = data;
+              _this192.filteredOffers = data;
 
-              _this188.subscription.unsubscribe();
+              _this192.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this188.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this192.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this189 = this;
+          var _this193 = this;
 
           this.loading = true;
           var tr = {
@@ -25581,24 +26650,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.touristRoutesService.createTouristRoute(tr).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this189, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
-                return regeneratorRuntime.wrap(function _callee59$(_context59) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this193, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
+                return regeneratorRuntime.wrap(function _callee61$(_context61) {
                   while (1) {
-                    switch (_context59.prev = _context59.next) {
+                    switch (_context61.prev = _context61.next) {
                       case 0:
                         if (!(data.status == 201)) {
-                          _context59.next = 8;
+                          _context61.next = 8;
                           break;
                         }
 
-                        _context59.next = 3;
+                        _context61.next = 3;
                         return this.asociateoffers(data.body[0]);
 
                       case 3:
                         this.commonService.openSnackBar("El evento ".concat(this.trFG.value.name, " se ha creado"), "OK");
                         this.dialogRef.close();
                         this.router.navigate(['/tourist-routes', data.body[0]]);
-                        _context59.next = 10;
+                        _context61.next = 10;
                         break;
 
                       case 8:
@@ -25607,18 +26676,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 10:
                       case "end":
-                        return _context59.stop();
+                        return _context61.stop();
                     }
                   }
-                }, _callee59, this);
+                }, _callee61, this);
               }));
             },
             error: function error(err) {
-              _this189.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this193.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this189.loading = false;
+              _this193.loading = false;
 
-              _this189.trFG.enable();
+              _this193.trFG.enable();
             }
           });
         }
@@ -25646,23 +26715,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "asociateoffers",
         value: function asociateoffers(tr_id) {
-          var _this190 = this;
+          var _this194 = this;
 
           this.allOffers.forEach(function (offer) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this190, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
-              return regeneratorRuntime.wrap(function _callee60$(_context60) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this194, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
+              return regeneratorRuntime.wrap(function _callee62$(_context62) {
                 while (1) {
-                  switch (_context60.prev = _context60.next) {
+                  switch (_context62.prev = _context62.next) {
                     case 0:
-                      _context60.next = 2;
+                      _context62.next = 2;
                       return this.touristRoutesService.addOfferToTouristRoute(tr_id, offer.offer_id).toPromise();
 
                     case 2:
                     case "end":
-                      return _context60.stop();
+                      return _context62.stop();
                   }
                 }
-              }, _callee60, this);
+              }, _callee62, this);
             }));
           });
         }
@@ -25785,12 +26854,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ManagementTouristRoutesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this191 = this;
+          var _this195 = this;
 
           this.subscription = this.route.paramMap.subscribe(function (params) {
-            _this191.route_id = Number(params.get("tourist-route_id"));
+            _this195.route_id = Number(params.get("tourist-route_id"));
 
-            _this191.recharge();
+            _this195.recharge();
           });
         }
       }, {
@@ -25801,10 +26870,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this192 = this;
+          var _this196 = this;
 
           this.touristRouteService.getTouristRoute(Number(this.route_id)).subscribe(function (data) {
-            _this192.myRoute = data;
+            _this196.myRoute = data;
           });
         }
       }]);
@@ -25941,7 +27010,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "modifyRoute",
         value: function modifyRoute() {
-          var _this193 = this;
+          var _this197 = this;
 
           this.loading = true;
           var tr = {
@@ -25951,10 +27020,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.touristRoutesService.modifyTouristRute(tr).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this193, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
-                return regeneratorRuntime.wrap(function _callee61$(_context61) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this197, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
+                return regeneratorRuntime.wrap(function _callee63$(_context63) {
                   while (1) {
-                    switch (_context61.prev = _context61.next) {
+                    switch (_context63.prev = _context63.next) {
                       case 0:
                         if (data.status == 200) {
                           this.trFG.enable();
@@ -25967,36 +27036,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 1:
                       case "end":
-                        return _context61.stop();
+                        return _context63.stop();
                     }
                   }
-                }, _callee61, this);
+                }, _callee63, this);
               }));
             },
             error: function error(err) {
-              _this193.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this197.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this193.loading = false;
+              _this197.loading = false;
 
-              _this193.trFG.enable();
+              _this197.trFG.enable();
             }
           });
         }
       }, {
         key: "changeState",
         value: function changeState(touristRoute, _ref23) {
-          var _this194 = this;
+          var _this198 = this;
 
           var source = _ref23.source;
 
           if (this.myRoute.is_active) {
             this.commonService.confirmationDialog("\xBFDesea eliminar la ruta: ".concat(touristRoute.name, "?")).then(function (result) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this194, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
-                var _this195 = this;
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this198, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
+                var _this199 = this;
 
-                return regeneratorRuntime.wrap(function _callee62$(_context62) {
+                return regeneratorRuntime.wrap(function _callee64$(_context64) {
                   while (1) {
-                    switch (_context62.prev = _context62.next) {
+                    switch (_context64.prev = _context64.next) {
                       case 0:
                         if (result) {
                           this.touristRoutesService.changeTouristRouteState(touristRoute.route_id).subscribe({
@@ -26005,15 +27074,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                                 touristRoute.is_active = !touristRoute.is_active;
                                 source.checked = touristRoute.is_active;
 
-                                _this195.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
+                                _this199.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
 
-                                _this195.router.navigate(['/tourist-routes/all']);
+                                _this199.router.navigate(['/tourist-routes/all']);
                               } else {
-                                _this195.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                                _this199.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                               }
                             },
                             error: function error(err) {
-                              _this195.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                              _this199.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
                               source.checked = touristRoute.is_active;
                             }
@@ -26024,10 +27093,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 1:
                       case "end":
-                        return _context62.stop();
+                        return _context64.stop();
                     }
                   }
-                }, _callee62, this);
+                }, _callee64, this);
               }));
             });
           } else {
@@ -26168,16 +27237,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(TouristRoutesOffersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this196 = this;
+          var _this200 = this;
 
           this.subscription = this.offerService.getOffers().subscribe({
             next: function next(data) {
-              _this196.offerService.offers = data;
+              _this200.offerService.offers = data;
 
-              _this196.subscription.unsubscribe();
+              _this200.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this196.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this200.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.getRouteOffers();
@@ -26185,26 +27254,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getRouteOffers",
         value: function getRouteOffers() {
-          var _this197 = this;
+          var _this201 = this;
 
           this.subscription2 = this.touristRoutesService.getTouristRouteOffers(this.myRoute.route_id).subscribe({
             next: function next(data) {
-              _this197.associateOffers = [];
+              _this201.associateOffers = [];
               data.forEach(function (val) {
-                return _this197.associateOffers.push(val);
+                return _this201.associateOffers.push(val);
               });
 
-              _this197.subscription2.unsubscribe();
+              _this201.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this197.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this201.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "addOffer",
         value: function addOffer() {
-          var _this198 = this;
+          var _this202 = this;
 
           var offer = this.selectedOffer;
           var offersID = this.getOffersID();
@@ -26215,15 +27284,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             this.touristRoutesService.addOfferToTouristRoute(this.myRoute.route_id, offer.offer_id).subscribe({
               next: function next(data) {
                 if (data.status == 201) {
-                  _this198.getRouteOffers();
+                  _this202.getRouteOffers();
 
-                  _this198.commonService.openSnackBar("Se ha añadido la oferta", "OK");
+                  _this202.commonService.openSnackBar("Se ha añadido la oferta", "OK");
 
-                  _this198.loading = false;
+                  _this202.loading = false;
                 }
               },
               error: function error(err) {
-                return _this198.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this202.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           } else {
@@ -26242,21 +27311,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOffer",
         value: function removeOffer(offer) {
-          var _this199 = this;
+          var _this203 = this;
 
           this.loading = true;
           this.touristRoutesService.deleteOfferFromTouristRoute(this.myRoute.route_id, offer.offer_id).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this199.getRouteOffers();
+                _this203.getRouteOffers();
 
-                _this199.commonService.openSnackBar("La oferta ha sido removida", "OK");
+                _this203.commonService.openSnackBar("La oferta ha sido removida", "OK");
 
-                _this199.loading = false;
+                _this203.loading = false;
               }
             },
             error: function error(err) {
-              return _this199.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this203.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -26766,7 +27835,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getTransportServices",
         value: function getTransportServices() {
-          var _this200 = this;
+          var _this204 = this;
 
           var user_id;
           user_id = this.authService.getUser().role_id != 1 ? user_id = this.authService.getUser().role_id : user_id = undefined;
@@ -26774,23 +27843,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (user_id == undefined) {
             this.subscription = this.transportService.getTransportServices().subscribe({
               next: function next(data) {
-                _this200.transportService.transportServices = data;
+                _this204.transportService.transportServices = data;
 
-                _this200.subscription.unsubscribe();
+                _this204.subscription.unsubscribe();
               },
               error: function error(err) {
-                return _this200.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                return _this204.commonService.openSnackBar("Error: ".concat(err.message), "OK");
               }
             });
           } else {
             this.subscription = this.transportService.getTransportServices(user_id).subscribe({
               next: function next(data) {
-                _this200.transportService.transportServices = data;
+                _this204.transportService.transportServices = data;
 
-                _this200.subscription.unsubscribe();
+                _this204.subscription.unsubscribe();
               },
               error: function error(err) {
-                return _this200.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                return _this204.commonService.openSnackBar("Error: ".concat(err.message), "OK");
               }
             });
           }
@@ -26808,39 +27877,39 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(ts) {
-          var _this201 = this;
+          var _this205 = this;
 
           this.commonService.confirmationDialog("\xBFDesea eliminar el servicio de transporte: ".concat(ts.name, "?")).then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this201, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
-              var _this202 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this205, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
+              var _this206 = this;
 
-              return regeneratorRuntime.wrap(function _callee63$(_context63) {
+              return regeneratorRuntime.wrap(function _callee65$(_context65) {
                 while (1) {
-                  switch (_context63.prev = _context63.next) {
+                  switch (_context65.prev = _context65.next) {
                     case 0:
                       if (result) {
                         this.transportService.changeTransportServiceState(ts).subscribe({
                           next: function next(data) {
                             if (data.status == 200) {
-                              _this202.commonService.openSnackBar("El servicio ".concat(ts.info.name, " ha sido eliminado"), "OK");
+                              _this206.commonService.openSnackBar("El servicio ".concat(ts.info.name, " ha sido eliminado"), "OK");
 
-                              _this202.getTransportServices();
+                              _this206.getTransportServices();
                             } else {
-                              _this202.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              _this206.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                             }
                           },
                           error: function error(err) {
-                            _this202.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                            _this206.commonService.openSnackBar("Error: ".concat(err.message), "OK");
                           }
                         });
                       }
 
                     case 1:
                     case "end":
-                      return _context63.stop();
+                      return _context65.stop();
                   }
                 }
-              }, _callee63, this);
+              }, _callee65, this);
             }));
           });
         }
@@ -26969,16 +28038,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this203 = this;
+          var _this207 = this;
 
           this.subscription = this.categoryTransportService.getTransportServicesCategories().subscribe({
             next: function next(data) {
-              _this203.categoryTransportService.categories = data;
+              _this207.categoryTransportService.categories = data;
 
-              _this203.subscription.unsubscribe();
+              _this207.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this203.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this207.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -26995,23 +28064,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(category) {
-          var _this204 = this;
+          var _this208 = this;
 
           if (category.is_active) {
             this.categoryTransportService.deleteTransportCategory(category.id).subscribe({
               next: function next(data) {
                 if (data.status == 200) {
-                  _this204.commonService.openSnackBar("La categor\xEDa se ha eliminado ".concat(category.name), "OK");
+                  _this208.commonService.openSnackBar("La categor\xEDa se ha eliminado ".concat(category.name), "OK");
 
                   category.is_active = false;
 
-                  _this204.getCategories();
+                  _this208.getCategories();
                 } else {
-                  _this204.commonService.openSnackBar("Error. No se puedo eliminar la categoría", "OK");
+                  _this208.commonService.openSnackBar("Error. No se puedo eliminar la categoría", "OK");
                 }
               },
               error: function error(err) {
-                return _this204.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this208.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           }
@@ -27137,25 +28206,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createCategory",
         value: function createCategory() {
-          var _this205 = this;
+          var _this209 = this;
 
           this.categoryForm.disable();
           this.categoryTransportService.createTransportServicesCategory(this.categoryForm.value.name).subscribe({
             next: function next(data) {
               if (data.status == 201) {
-                _this205.commonService.openSnackBar("El servicio de transporte ".concat(_this205.categoryForm.value.name, " se ha creado"), "OK");
+                _this209.commonService.openSnackBar("El servicio de transporte ".concat(_this209.categoryForm.value.name, " se ha creado"), "OK");
 
-                _this205.closeDialog();
+                _this209.closeDialog();
               } else {
-                _this205.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
+                _this209.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
 
-                _this205.categoryForm.enable();
+                _this209.categoryForm.enable();
               }
             },
             error: function error(err) {
-              _this205.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this209.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this205.categoryForm.enable();
+              _this209.categoryForm.enable();
             }
           });
         }
@@ -27306,7 +28375,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CreateTransportServicesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this206 = this;
+          var _this210 = this;
 
           this.tsForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
@@ -27317,17 +28386,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           this.subscription = this.categoryService.getTransportServicesCategories().subscribe({
             next: function next(data) {
-              _this206.categories = data;
+              _this210.categories = data;
             },
             error: function error(err) {
-              return _this206.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              return _this210.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
       }, {
         key: "createTransportService",
         value: function createTransportService() {
-          var _this207 = this;
+          var _this211 = this;
 
           this.loading = true;
           this.tsForm.disable();
@@ -27341,30 +28410,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.transportService.createTransportService(transportService).subscribe({
             next: function next(data) {
-              _this207.loading = false;
+              _this211.loading = false;
 
               if (data.status == 201) {
-                if (_this207.authService.getUser().role_id == 1) {
-                  _this207.commonService.openSnackBar("El servicio de transporte ".concat(_this207.tsForm.value.name, " se ha creado"), "OK");
+                if (_this211.authService.getUser().role_id == 1) {
+                  _this211.commonService.openSnackBar("El servicio de transporte ".concat(_this211.tsForm.value.name, " se ha creado"), "OK");
 
-                  _this207.router.navigate(['/transport-services', data.body[0]]);
+                  _this211.router.navigate(['/transport-services', data.body[0]]);
                 } else {
-                  _this207.commonService.openSnackBar("La solicitud de creaci\xF3n del servicio de transporte ".concat(_this207.tsForm.value.name, " se ha enviado"), "OK");
+                  _this211.commonService.openSnackBar("La solicitud de creaci\xF3n del servicio de transporte ".concat(_this211.tsForm.value.name, " se ha enviado"), "OK");
                 }
 
-                _this207.closeDialog();
+                _this211.closeDialog();
               } else {
-                _this207.commonService.openSnackBar("Error al crear el servicio de transporte: ".concat(data.error), "OK");
+                _this211.commonService.openSnackBar("Error al crear el servicio de transporte: ".concat(data.error), "OK");
 
-                _this207.tsForm.enable();
+                _this211.tsForm.enable();
               }
             },
             error: function error(err) {
-              _this207.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this211.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this207.loading = false;
+              _this211.loading = false;
 
-              _this207.tsForm.enable();
+              _this211.tsForm.enable();
             }
           });
         }
@@ -27507,16 +28576,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(DetailsTransportServicesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this208 = this;
+          var _this212 = this;
 
           this.subscription = this.categoryService.getTransportServicesCategories().subscribe({
             next: function next(data) {
-              _this208.categories = data;
+              _this212.categories = data;
 
-              _this208.subscription.unsubscribe();
+              _this212.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this208.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this212.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.setData();
@@ -27530,35 +28599,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(_ref24) {
-          var _this209 = this;
+          var _this213 = this;
 
           var source = _ref24.source;
 
           if (this.transport.is_active) {
             this.commonService.confirmationDialog("\xBFDesea eliminar el servicio de transporte: ".concat(this.transport.name, "?")).then(function (result) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this209, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
-                var _this210 = this;
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this213, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
+                var _this214 = this;
 
-                return regeneratorRuntime.wrap(function _callee64$(_context64) {
+                return regeneratorRuntime.wrap(function _callee66$(_context66) {
                   while (1) {
-                    switch (_context64.prev = _context64.next) {
+                    switch (_context66.prev = _context66.next) {
                       case 0:
                         if (result) {
                           this.transportService.changeTransportServiceState(this.transport).subscribe({
                             next: function next(data) {
                               if (data.status == 201) {
-                                _this210.transport.is_active = !_this210.transport.is_active;
-                                source.checked = _this210.transport.is_active;
+                                _this214.transport.is_active = !_this214.transport.is_active;
+                                source.checked = _this214.transport.is_active;
 
-                                _this210.commonService.openSnackBar("El evento ".concat(_this210.transport.name, " ha sido eliminado"), "OK");
+                                _this214.commonService.openSnackBar("El evento ".concat(_this214.transport.name, " ha sido eliminado"), "OK");
                               } else {
-                                _this210.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                                _this214.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                               }
                             },
                             error: function error(err) {
-                              _this210.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                              _this214.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-                              source.checked = _this210.transport.is_active;
+                              source.checked = _this214.transport.is_active;
                             }
                           });
                         } else {
@@ -27567,10 +28636,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 1:
                       case "end":
-                        return _context64.stop();
+                        return _context66.stop();
                     }
                   }
-                }, _callee64, this);
+                }, _callee66, this);
               }));
             });
           } else {
@@ -27581,7 +28650,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "modifyTransportService",
         value: function modifyTransportService() {
-          var _this211 = this;
+          var _this215 = this;
 
           this.loading = true;
           this.transportServicesFG.disable();
@@ -27597,31 +28666,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.transportService.modifyTransportService(newTransportService).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this211.transport.info.name = newTransportService.name;
-                _this211.transport.info.email = newTransportService.email;
-                _this211.transport.info.tel = newTransportService.tel;
-                _this211.transport.info.hire_dir = newTransportService.hire_dir;
-                _this211.transport.categories_id = newTransportService.categories_id;
+                _this215.transport.info.name = newTransportService.name;
+                _this215.transport.info.email = newTransportService.email;
+                _this215.transport.info.tel = newTransportService.tel;
+                _this215.transport.info.hire_dir = newTransportService.hire_dir;
+                _this215.transport.categories_id = newTransportService.categories_id;
 
-                _this211.commonService.openSnackBar("El servicio de transporte: ".concat(_this211.transport.info.name, " ha sido cambiado"), "OK");
+                _this215.commonService.openSnackBar("El servicio de transporte: ".concat(_this215.transport.info.name, " ha sido cambiado"), "OK");
 
-                _this211.loading = false;
+                _this215.loading = false;
 
-                _this211.transportServicesFG.enable();
+                _this215.transportServicesFG.enable();
               } else {
-                _this211.commonService.openSnackBar("Error al cambiar el servicio: ".concat(data.error), "OK");
+                _this215.commonService.openSnackBar("Error al cambiar el servicio: ".concat(data.error), "OK");
 
-                _this211.loading = false;
+                _this215.loading = false;
 
-                _this211.transportServicesFG.enable();
+                _this215.transportServicesFG.enable();
               }
             },
             error: function error(err) {
-              _this211.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this215.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this211.loading = false;
+              _this215.loading = false;
 
-              _this211.transportServicesFG.enable();
+              _this215.transportServicesFG.enable();
             }
           });
         }
@@ -27728,12 +28797,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ManagementTransportServicesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this212 = this;
+          var _this216 = this;
 
           this.subscription = this.route.paramMap.subscribe(function (params) {
-            _this212.transport_id = Number(params.get("transport_service_id"));
+            _this216.transport_id = Number(params.get("transport_service_id"));
 
-            _this212.recharge();
+            _this216.recharge();
           });
         }
       }, {
@@ -27744,10 +28813,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this213 = this;
+          var _this217 = this;
 
           this.transportService.getTranportService(Number(this.transport_id)).subscribe(function (data) {
-            _this213.transport = data;
+            _this217.transport = data;
           });
         }
       }]);
@@ -27870,34 +28939,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getTransportSerivicesRequest",
         value: function getTransportSerivicesRequest() {
-          var _this214 = this;
+          var _this218 = this;
 
           this.loading = true;
           var state = Number(this.filter.status);
           this.transportService.getTranspotServicesPetitions(state).subscribe({
             next: function next(data) {
-              _this214.request = data;
-              _this214.loading = false;
+              _this218.request = data;
+              _this218.loading = false;
             },
             error: function error(err) {
-              _this214.commonService.openSnackBar("Error: ".concat(err.message), "OK"), _this214.loading = false;
+              _this218.commonService.openSnackBar("Error: ".concat(err.message), "OK"), _this218.loading = false;
             }
           });
         }
       }, {
         key: "changeStateRequest",
         value: function changeStateRequest(ts, state) {
-          var _this215 = this;
+          var _this219 = this;
 
           var msg;
           msg = state == 1 ? "aceptado." : "rechazado.";
           this.transportService.changeRequestState(ts.transport_service_id, state).subscribe({
             next: function next(data) {
-              data.status == 200 ? _this215.getTransportSerivicesRequest() : null;
-              data.status == 200 ? _this215.commonService.openSnackBar("El evento ha sido ".concat(msg), "OK") : null;
+              data.status == 200 ? _this219.getTransportSerivicesRequest() : null;
+              data.status == 200 ? _this219.commonService.openSnackBar("El evento ha sido ".concat(msg), "OK") : null;
             },
             error: function error(err) {
-              return _this215.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              return _this219.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -28609,11 +29678,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddAdminComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this216 = this;
+          var _this220 = this;
 
           // Trigger to change icon
           this.addAdminForm.valueChanges.subscribe(function () {
-            if (_this216.addAdminForm.invalid == false) _this216.icon = "done";else _this216.icon = "warning";
+            if (_this220.addAdminForm.invalid == false) _this220.icon = "done";else _this220.icon = "warning";
           });
         }
         /**
@@ -28623,7 +29692,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addAdmin",
         value: function addAdmin() {
-          var _this217 = this;
+          var _this221 = this;
 
           this.loading = true; // Charge loading
 
@@ -28637,14 +29706,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.subscription = this.sessionService.saveUserAdmi(info, 1).subscribe({
             next: function next() {
-              _this217.loading = false;
+              _this221.loading = false;
 
-              _this217.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
+              _this221.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
 
-              _this217.dialog.closeAll();
+              _this221.dialog.closeAll();
             },
             error: function error(err) {
-              _this217.commonService.openSnackBar("Error: ".concat(err), "OK");
+              _this221.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -28809,7 +29878,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var AddEventRequestComponent = /*#__PURE__*/function () {
       function AddEventRequestComponent(data, dialogRef, commonService, eventService, router, categoryService, companyService, userService, multimediaService) {
-        var _this218 = this;
+        var _this222 = this;
 
         _classCallCheck(this, AddEventRequestComponent);
 
@@ -28878,7 +29947,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
          */
 
         this.dateFilter = function (date) {
-          return date >= _this218.initial_date;
+          return date >= _this222.initial_date;
         };
 
         this.refreshMap = this.refreshMap.bind(this);
@@ -28887,7 +29956,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddEventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this219 = this;
+          var _this223 = this;
 
           this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({
@@ -28920,22 +29989,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.data.action ? this.visible = false : this.visible = true;
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this219.filteredCategories = data;
+              _this223.filteredCategories = data;
 
-              _this219.subscription.unsubscribe();
+              _this223.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this219.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this223.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription2 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this219.filteredCompanies = data;
+              _this223.filteredCompanies = data;
 
-              _this219.subscription2.unsubscribe();
+              _this223.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this219.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this223.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.user = this.userService.actualUser;
@@ -28948,7 +30017,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this220 = this;
+          var _this224 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -28959,7 +30028,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           setTimeout(function () {
-            return _this220.map.invalidateSize();
+            return _this224.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -28990,7 +30059,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setData",
         value: function setData(event) {
-          var _this221 = this;
+          var _this225 = this;
 
           this.eventFG.controls['name'].setValue(event.name);
           this.eventFG.controls['address'].setValue(event.address);
@@ -29007,29 +30076,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (!this.petition) {
             this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
               next: function next(data) {
-                _this221.allCategories = [];
+                _this225.allCategories = [];
                 data.forEach(function (val) {
-                  return _this221.allCategories.push(val);
+                  return _this225.allCategories.push(val);
                 });
 
-                _this221.subscription3.unsubscribe();
+                _this225.subscription3.unsubscribe();
               },
               error: function error(err) {
-                return _this221.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this225.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             }); //compañías
 
             this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
               next: function next(data) {
-                _this221.allCompanies = [];
+                _this225.allCompanies = [];
                 data.forEach(function (val) {
-                  return _this221.allCompanies.push(val);
+                  return _this225.allCompanies.push(val);
                 });
 
-                _this221.subscription4.unsubscribe();
+                _this225.subscription4.unsubscribe();
               },
               error: function error(err) {
-                return _this221.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this225.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           }
@@ -29059,22 +30128,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee67() {
             var urlImages;
-            return regeneratorRuntime.wrap(function _callee65$(_context65) {
+            return regeneratorRuntime.wrap(function _callee67$(_context67) {
               while (1) {
-                switch (_context65.prev = _context65.next) {
+                switch (_context67.prev = _context67.next) {
                   case 0:
                     this.loading = true;
                     this.eventFG.disable();
                     this.allDay == true ? (this.initial_date = this.common_date, this.final_date = this.common_date) : null;
                     this.initial_time == undefined ? this.initial_time = null : null;
                     this.final_time == undefined ? this.final_time = null : null;
-                    _context65.next = 7;
+                    _context67.next = 7;
                     return this.uploadFiles();
 
                   case 7:
-                    urlImages = _context65.sent;
+                    urlImages = _context67.sent;
                     this.myEvent.name = this.eventFG.controls['name'].value;
                     this.myEvent.cost = this.eventFG.controls['cost'].value;
                     this.myEvent.address = this.eventFG.controls['address'].value;
@@ -29092,46 +30161,46 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 19:
                   case "end":
-                    return _context65.stop();
+                    return _context67.stop();
                 }
               }
-            }, _callee65, this);
+            }, _callee67, this);
           }));
         }
       }, {
         key: "createRequest",
         value: function createRequest(event) {
-          var _this222 = this;
+          var _this226 = this;
 
           this.eventService.createEvent(event, true).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this222, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
-                return regeneratorRuntime.wrap(function _callee66$(_context66) {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this226, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee68() {
+                return regeneratorRuntime.wrap(function _callee68$(_context68) {
                   while (1) {
-                    switch (_context66.prev = _context66.next) {
+                    switch (_context68.prev = _context68.next) {
                       case 0:
                         console.log(data);
 
                         if (!(data.status == 201)) {
-                          _context66.next = 13;
+                          _context68.next = 13;
                           break;
                         }
 
                         /**Añadiendo compañías y categorías al evento */
                         this.getCategories();
                         this.getCompanies();
-                        _context66.next = 6;
+                        _context68.next = 6;
                         return this.eventRelations(data.body[0]);
 
                       case 6:
-                        _context66.next = 8;
+                        _context68.next = 8;
                         return this.addImagesToEvent(data.body[0]);
 
                       case 8:
                         this.commonService.openSnackBar("La petici\xF3n del evento ".concat(this.eventFG.value.name, " se ha creado"), "OK");
                         this.dialogRef.close();
                         this.router.navigate(['/event', data.body[0]]);
-                        _context66.next = 16;
+                        _context68.next = 16;
                         break;
 
                       case 13:
@@ -29141,18 +30210,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       case 16:
                       case "end":
-                        return _context66.stop();
+                        return _context68.stop();
                     }
                   }
-                }, _callee66, this);
+                }, _callee68, this);
               }));
             },
             error: function error(err) {
-              _this222.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this226.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this222.loading = false;
+              _this226.loading = false;
 
-              _this222.eventFG.enable();
+              _this226.eventFG.enable();
             }
           });
         }
@@ -29263,27 +30332,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "eventRelations",
         value: function eventRelations(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee67() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee69() {
             var i, _i6;
 
-            return regeneratorRuntime.wrap(function _callee67$(_context67) {
+            return regeneratorRuntime.wrap(function _callee69$(_context69) {
               while (1) {
-                switch (_context67.prev = _context67.next) {
+                switch (_context69.prev = _context69.next) {
                   case 0:
                     i = 0;
 
                   case 1:
                     if (!(i < this.allCompanies.length)) {
-                      _context67.next = 7;
+                      _context69.next = 7;
                       break;
                     }
 
-                    _context67.next = 4;
+                    _context69.next = 4;
                     return this.eventService.addCompanyToEvent(this.allCompanies[i], event_id, this.user.user_id).toPromise();
 
                   case 4:
                     i++;
-                    _context67.next = 1;
+                    _context69.next = 1;
                     break;
 
                   case 7:
@@ -29291,30 +30360,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 8:
                     if (!(_i6 < this.allCategories.length)) {
-                      _context67.next = 14;
+                      _context69.next = 14;
                       break;
                     }
 
-                    _context67.next = 11;
+                    _context69.next = 11;
                     return this.eventService.addCategoryToEvent(this.allCategories[_i6], event_id).toPromise();
 
                   case 11:
                     _i6++;
-                    _context67.next = 8;
+                    _context69.next = 8;
                     break;
 
                   case 14:
                   case "end":
-                    return _context67.stop();
+                    return _context69.stop();
                 }
               }
-            }, _callee67, this);
+            }, _callee69, this);
           }));
         }
       }, {
         key: "getFiles",
         value: function getFiles(event) {
-          var _this223 = this;
+          var _this227 = this;
 
           if (event.target.files) {
             for (var i = 0; i < event.target.files.length; i++) {
@@ -29324,7 +30393,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 reader.readAsDataURL(event.target.files[i]);
 
                 reader.onload = function (event) {
-                  _this223.eventImages.push(event.target.result);
+                  _this227.eventImages.push(event.target.result);
                 };
               }
             }
@@ -29333,40 +30402,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "uploadFiles",
         value: function uploadFiles() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee68() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee70() {
             var images, i;
-            return regeneratorRuntime.wrap(function _callee68$(_context68) {
+            return regeneratorRuntime.wrap(function _callee70$(_context70) {
               while (1) {
-                switch (_context68.prev = _context68.next) {
+                switch (_context70.prev = _context70.next) {
                   case 0:
                     images = [];
                     i = 0;
 
                   case 2:
                     if (!(i < this.eventImagesFinal.length)) {
-                      _context68.next = 8;
+                      _context70.next = 8;
                       break;
                     }
 
-                    _context68.next = 5;
+                    _context70.next = 5;
                     return this.commonService.uploadFile(this.eventImagesFinal[i]).then(function (data) {
                       images.push(data.filename);
                     });
 
                   case 5:
                     i++;
-                    _context68.next = 2;
+                    _context70.next = 2;
                     break;
 
                   case 8:
-                    return _context68.abrupt("return", images);
+                    return _context70.abrupt("return", images);
 
                   case 9:
                   case "end":
-                    return _context68.stop();
+                    return _context70.stop();
                 }
               }
-            }, _callee68, this);
+            }, _callee70, this);
           }));
         }
       }, {
@@ -29387,39 +30456,39 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addImagesToEvent",
         value: function addImagesToEvent(event_id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee69() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee71() {
             var urlImages, i;
-            return regeneratorRuntime.wrap(function _callee69$(_context69) {
+            return regeneratorRuntime.wrap(function _callee71$(_context71) {
               while (1) {
-                switch (_context69.prev = _context69.next) {
+                switch (_context71.prev = _context71.next) {
                   case 0:
-                    _context69.next = 2;
+                    _context71.next = 2;
                     return this.uploadFiles();
 
                   case 2:
-                    urlImages = _context69.sent;
+                    urlImages = _context71.sent;
                     i = 0;
 
                   case 4:
                     if (!(i < urlImages.length)) {
-                      _context69.next = 10;
+                      _context71.next = 10;
                       break;
                     }
 
-                    _context69.next = 7;
+                    _context71.next = 7;
                     return this.multimediaService.addImage(event_id, 1, urlImages[i]).toPromise();
 
                   case 7:
                     i++;
-                    _context69.next = 4;
+                    _context71.next = 4;
                     break;
 
                   case 10:
                   case "end":
-                    return _context69.stop();
+                    return _context71.stop();
                 }
               }
-            }, _callee69, this);
+            }, _callee71, this);
           }));
         }
       }]);
@@ -29578,13 +30647,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddRequestCompanyUnionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this224 = this;
+          var _this228 = this;
 
           this.companyService.getCompanies().subscribe(function (data) {
-            _this224.companies = data;
+            _this228.companies = data;
           });
           this.filteredCompanies = this.companyControl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (value) {
-            return _this224._filter(value);
+            return _this228._filter(value);
           }));
         }
       }, {
@@ -29600,23 +30669,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "requestUnion",
         value: function requestUnion() {
-          var _this225 = this;
+          var _this229 = this;
 
           this.loading = true;
           var company_id = Number(this.companyControl.value.split(" | ")[0]);
           this.companyUsersService.requesUnion(this.user.user_id, company_id).subscribe({
             next: function next(response) {
               if (response.status == 204) {
-                _this225.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
+                _this229.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
 
-                _this225.loading = false;
+                _this229.loading = false;
 
-                _this225.dialog.close();
+                _this229.dialog.close();
               }
             },
             error: function error(err) {
-              if (err.status == 400) _this225.commonService.snackBar.open(err.error, "Ok");else _this225.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
-              _this225.loading = false;
+              if (err.status == 400) _this229.commonService.snackBar.open(err.error, "Ok");else _this229.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
+              _this229.loading = false;
             }
           });
         }
@@ -29733,7 +30802,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var CreateEvenRequestComponent = /*#__PURE__*/function () {
       function CreateEvenRequestComponent(eventService, userService, matDialog) {
-        var _this226 = this;
+        var _this230 = this;
 
         _classCallCheck(this, CreateEvenRequestComponent);
 
@@ -29744,7 +30813,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.name.toLowerCase().indexOf(_this226.filter.name.toLowerCase()) > -1;
+            return request.name.toLowerCase().indexOf(_this230.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -29754,14 +30823,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CreateEvenRequestComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this227 = this;
+          var _this231 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
           state == 0 ? state = -1 : state = Number(this.filter.state);
           this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, state).subscribe(function (data) {
-            _this227.eventRequests = data;
-            _this227.loading = false;
+            _this231.eventRequests = data;
+            _this231.loading = false;
           });
         }
       }, {
@@ -29772,11 +30841,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteRequest",
         value: function deleteRequest(event) {
-          var _this228 = this;
+          var _this232 = this;
 
           this.eventService.changeRequestState(event.event_id, 3).subscribe({
             next: function next(data) {
-              data.status == 201 ? _this228.refresh() : null;
+              data.status == 201 ? _this232.refresh() : null;
             }
           });
         }
@@ -29916,14 +30985,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FavoriteItineraryComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this229 = this;
+          var _this233 = this;
 
           this.subscription = this._itinerary.getFavoriteItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this229.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this233.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this229._common.handleError(err);
+              return _this233._common.handleError(err);
             }
           });
         }
@@ -29943,17 +31012,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeItineraryFavorite",
         value: function removeItineraryFavorite(itineraryID, elementIndex) {
-          var _this230 = this;
+          var _this234 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this230._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
+              _this234._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this230._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this234._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -30088,14 +31157,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FavoriteOfferComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this231 = this;
+          var _this235 = this;
 
           this.subscription = this._itinerary.getFavoriteOfferInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this231.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this235.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this231._common.handleError(err);
+              return _this235._common.handleError(err);
             }
           });
         }
@@ -30120,17 +31189,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOfferFavorite",
         value: function removeOfferFavorite(offerID, elementIndex) {
-          var _this232 = this;
+          var _this236 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this232._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
+              _this236._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this232._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this236._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -30233,7 +31302,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var ProfileCompaniesComponent = /*#__PURE__*/function () {
       function ProfileCompaniesComponent(companyUsersService, commonService, sessionService) {
-        var _this233 = this;
+        var _this237 = this;
 
         _classCallCheck(this, ProfileCompaniesComponent);
 
@@ -30244,7 +31313,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           input: "",
           filter: function filter(_ref26) {
             var name = _ref26.name;
-            return name.toLowerCase().indexOf(_this233.filter.input.toLowerCase()) > -1;
+            return name.toLowerCase().indexOf(_this237.filter.input.toLowerCase()) > -1;
           }
         };
       }
@@ -30258,29 +31327,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this234 = this;
+          var _this238 = this;
 
           this.companyUsersService.getUserCompanies(this.user.user_id).subscribe(function (data) {
-            _this234.userCompanies = data;
+            _this238.userCompanies = data;
           });
         }
       }, {
         key: "deleteUserFromCompany",
         value: function deleteUserFromCompany(company) {
-          var _this235 = this;
+          var _this239 = this;
 
           this.companyUsersService.deleteUserFromCompany(company).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this235.refresh();
+                _this239.refresh();
 
-                _this235.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
+                _this239.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
               } else {
-                _this235.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
+                _this239.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this235.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this239.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -30398,12 +31467,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ProfileEventsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this236 = this;
+          var _this240 = this;
 
           this.user = this.userService.actualUser;
           this.eventService.getEventRequestsByUser(this.user.user_id, 1).subscribe({
             next: function next(data) {
-              _this236.userEvents = data;
+              _this240.userEvents = data;
             }
           });
         }
@@ -30521,18 +31590,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ProfileInfoComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this237 = this;
+          var _this241 = this;
 
           this.subscriptionUserProfile = this.userService.getUser(this.userService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this237.user = data.data[0];
+              _this241.user = data.data[0];
 
-              _this237.subscriptionUserProfile.unsubscribe();
+              _this241.subscriptionUserProfile.unsubscribe();
 
-              _this237.loadUser();
+              _this241.loadUser();
             },
             error: function error(err) {
-              return _this237.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this241.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -30543,7 +31612,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loadUser",
         value: function loadUser() {
-          var _this238 = this;
+          var _this242 = this;
 
           this.editProfileForm = this._fb.group({
             name: [this.user.info.name, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
@@ -30552,7 +31621,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             password: [""]
           });
           this.editProfileForm.valueChanges.subscribe(function () {
-            if (_this238.editProfileForm.invalid == false) _this238.icon = "done";else _this238.icon = "warning";
+            if (_this242.editProfileForm.invalid == false) _this242.icon = "done";else _this242.icon = "warning";
           });
         }
         /**
@@ -30562,7 +31631,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "saveChanges",
         value: function saveChanges() {
-          var _this239 = this;
+          var _this243 = this;
 
           var passChanged = false;
 
@@ -30576,12 +31645,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.user.info.email = this.editProfileForm.get("email").value;
           this.subscriptionUserProfile = this.userService.updateUser(this.user.user_id, this.user.info, passChanged).subscribe({
             next: function next(data) {
-              _this239.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this239.user.info.name), "OK");
+              _this243.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this243.user.info.name), "OK");
 
-              _this239.subscriptionUserProfile.unsubscribe();
+              _this243.subscriptionUserProfile.unsubscribe();
             },
             error: function error(err) {
-              return _this239.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this243.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -30773,7 +31842,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var RequestCompanyUnionComponent = /*#__PURE__*/function () {
       function RequestCompanyUnionComponent(companyUserService, userService, matDialog) {
-        var _this240 = this;
+        var _this244 = this;
 
         _classCallCheck(this, RequestCompanyUnionComponent);
 
@@ -30784,7 +31853,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '',
           filter: function filter(request) {
-            return request.company_info.name.toLowerCase().indexOf(_this240.filter.name.toLowerCase()) > -1;
+            return request.company_info.name.toLowerCase().indexOf(_this244.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -30801,12 +31870,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(RequestCompanyUnionComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this241 = this;
+          var _this245 = this;
 
           this.loading = true;
           this.companyUserService.getUserRequests(this.userService.actualUser.user_id, Number(this.filter.state)).subscribe(function (data) {
-            _this241.userRequests = data;
-            _this241.loading = false;
+            _this245.userRequests = data;
+            _this245.loading = false;
           });
         }
       }, {
@@ -30947,7 +32016,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PetitionsFilterComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this242 = this;
+          var _this246 = this;
 
           this.petitionsFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
@@ -30955,12 +32024,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.user = this.userService.actualUser;
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this242.companies = data;
+              _this246.companies = data;
 
-              _this242.subscription.unsubscribe();
+              _this246.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this242.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this246.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -31105,7 +32174,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var UnionEventRequestComponent = /*#__PURE__*/function () {
       function UnionEventRequestComponent(userService, companyUserService, commonService, companyService, dialogService) {
-        var _this243 = this;
+        var _this247 = this;
 
         _classCallCheck(this, UnionEventRequestComponent);
 
@@ -31122,7 +32191,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.event_info.info.name.toLowerCase().indexOf(_this243.filter.name.toLowerCase()) > -1;
+            return request.event_info.info.name.toLowerCase().indexOf(_this247.filter.name.toLowerCase()) > -1;
           }
         };
       }
@@ -31130,26 +32199,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UnionEventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee70() {
-            return regeneratorRuntime.wrap(function _callee70$(_context70) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee72() {
+            return regeneratorRuntime.wrap(function _callee72$(_context72) {
               while (1) {
-                switch (_context70.prev = _context70.next) {
+                switch (_context72.prev = _context72.next) {
                   case 0:
                     this.user = this.userService.actualUser;
                     this.refresh();
 
                   case 2:
                   case "end":
-                    return _context70.stop();
+                    return _context72.stop();
                 }
               }
-            }, _callee70, this);
+            }, _callee72, this);
           }));
         }
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this244 = this;
+          var _this248 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
@@ -31163,14 +32232,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           state != -1 ? this.isFilters = true : null;
           this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
             next: function next(data) {
-              _this244.userRequest = data;
+              _this248.userRequest = data;
 
-              _this244.subscription.unsubscribe();
+              _this248.subscription.unsubscribe();
 
-              _this244.loading = false;
+              _this248.loading = false;
             },
             error: function error(err) {
-              return _this244.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this248.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -31185,7 +32254,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this245 = this;
+          var _this249 = this;
 
           var dialog = this.dialogService.open(_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__["PetitionsFilterComponent"], {
             width: "50",
@@ -31194,11 +32263,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (company) {
             if (company != undefined) {
-              _this245.currentCompanyId = company.company_id;
-              _this245.currentCompanyName = company.name;
-              _this245.isFilters = true;
+              _this249.currentCompanyId = company.company_id;
+              _this249.currentCompanyName = company.name;
+              _this249.isFilters = true;
 
-              _this245.refresh();
+              _this249.refresh();
             }
           });
         }
@@ -31342,16 +32411,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UsersManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this246 = this;
+          var _this250 = this;
 
           this.subscription = this.userManagmentService.getAllUser().subscribe({
             next: function next(data) {
-              _this246.userManagmentService.users = data.data;
+              _this250.userManagmentService.users = data.data;
 
-              _this246.subscription.unsubscribe();
+              _this250.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this246.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this250.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -31368,28 +32437,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAvailable",
         value: function setAvailable(state, userID, info) {
-          var _this247 = this;
+          var _this251 = this;
 
           var modifyInfo = info;
           modifyInfo.available = state;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
               if (state) {
-                _this247.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
+                _this251.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
               } else {
-                _this247.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
+                _this251.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
               }
 
-              _this247.subscription.unsubscribe();
+              _this251.subscription.unsubscribe();
 
-              var idx = _this247.userManagmentService.users.findIndex(function (user) {
+              var idx = _this251.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this247.userManagmentService.users[idx].info.available = state;
+              _this251.userManagmentService.users[idx].info.available = state;
             },
             error: function error(err) {
-              return _this247.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this251.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -31402,24 +32471,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAcceptance",
         value: function setAcceptance(userID, info) {
-          var _this248 = this;
+          var _this252 = this;
 
           var modifyInfo = info;
           modifyInfo.state = true;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
-              _this248.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
+              _this252.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
 
-              _this248.subscription.unsubscribe();
+              _this252.subscription.unsubscribe();
 
-              var idx = _this248.userManagmentService.users.findIndex(function (user) {
+              var idx = _this252.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this248.userManagmentService.users[idx].info.state = true;
+              _this252.userManagmentService.users[idx].info.state = true;
             },
             error: function error(err) {
-              return _this248.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this252.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }

@@ -880,6 +880,71 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.html":
+/*!***********************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.html ***!
+  \***********************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Gestión de Capas Geográficas\n  </h1>\n  <div class=\"float-right mb-3\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      class=\"btn-add\"\n      matTooltip=\"Agregar una capa gegráfica\"\n      (click)=\"openCreateDialog()\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Capa\n    </button>\n  </div>\n  <div *ngIf=\"this.geographicLayerService.layers; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de la capa</mat-label>\n      <input matInput [(ngModel)]=\"filter.layer_name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.geographicLayerService.layers\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th style=\"width: 50%\" scope=\"col\">Nombre</th>\n            <th style=\"text-align: center\" scope=\"col\">Detalles</th>\n            <th style=\"text-align: center\" scope=\"col\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let layer of this.geographicLayerService.layers | filterBy: filter\">\n            <td style=\"width: 50%\">{{ layer.layer_name }}</td>\n            <td style=\"text-align: center\">\n              <button\n                mat-stroked-button\n                [routerLink]=\"['/geographic-layers', layer.layer_id]\"\n                matTooltip=\"Detalles de la capa geográfica\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px\"\n              >\n                Ver Detalles\n              </button>\n            </td>\n            <td style=\"text-align: center\">\n                <button\n                matTooltip=\"Eliminar capa geográfica\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"delete(layer)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"(this.geographicLayerService.layers | filterBy: filter).length === 0\"\n      >\n        ¡No hay capas geográficas disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.html":
+/*!***************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.html ***!
+  \***************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<button mat-mini-fab id=\"exit\">\n  <i (click)=\"closeDialog()\" style=\"color: black\" class=\"material-icons\">\n    clear\n  </i>\n</button>\n<mat-horizontal-stepper #stepper>\n  <mat-step [stepControl]=\"firstFormGroup\">\n    <form [formGroup]=\"layerFG\" class=\"container\">\n      <ng-template matStepLabel>Info. General</ng-template>\n      <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n          <mat-label>Nombre</mat-label>\n          <input\n            matInput\n            formControlName=\"name\"\n            matTooltip=\"Nombre de la capa\"\n            required\n          />\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n          <mat-label>Detalles</mat-label>\n          <textarea\n            matInput\n            formControlName=\"detail\"\n            matTooltip=\"Detalles de la capa\"\n            type=\"text\"\n            required\n          ></textarea>\n        </mat-form-field>\n\n        <label class=\"lblAtribute\">Atributos de texto:</label>\n\n        <button mat-mini-fab (click)=\"addTextAtribute()\" color=\"primary\">\n          <i class=\"material-icons\">add</i>\n        </button>\n\n        <hr width=\"100%\" />\n\n        <div class=\"container\" formArrayName=\"textAtributes\">\n          <div\n            *ngFor=\"\n              let item of txtAtributes.controls;\n              let txtAtributeIndex = index\n            \"\n            [formGroupName]=\"txtAtributeIndex\"\n            style=\"width: 45%\"\n          >\n            <mat-form-field appearance=\"outline\">\n              <mat-label>Atributo</mat-label>\n              <input matInput formControlName=\"textAtribute\" required />\n              <button\n                color=\"warn\"\n                style=\"vertical-align: initial\"\n                matSuffix\n                mat-icon-button\n                (click)=\"deleteTextAtribute(txtAtributeIndex)\"\n              >\n                <i class=\"material-icons-outlined\">cancel</i>\n              </button>\n            </mat-form-field>\n          </div>\n        </div>\n\n        <hr width=\"100%\" />\n\n        <label class=\"lblAtribute\">Atributos Numéricos:</label>\n\n        <button mat-mini-fab (click)=\"addIntAtribute()\" color=\"primary\">\n          <i class=\"material-icons\">add</i>\n        </button>\n\n        <hr width=\"100%\" />\n\n        <div class=\"container\" formArrayName=\"intAtributes\">\n          <div\n            *ngFor=\"\n              let item of integerAtributes.controls;\n              let intAtributeIndex = index\n            \"\n            [formGroupName]=\"intAtributeIndex\"\n            style=\"width: 45%\"\n          >\n            <mat-form-field appearance=\"outline\">\n              <mat-label>Atributo</mat-label>\n              <input matInput formControlName=\"intAtribute\" required />\n              <button\n                color=\"warn\"\n                style=\"vertical-align: initial\"\n                matSuffix\n                mat-icon-button\n                (click)=\"deleteIntAtribute(intAtributeIndex)\"\n              >\n                <i class=\"material-icons-outlined\">cancel</i>\n              </button>\n            </mat-form-field>\n          </div>\n        </div>\n      </div>\n    </form>\n    <div class=\"buttonContainer\">\n      <button\n        mat-raised-button\n        style=\"width: 40%; min-width: 200px; margin: 0 auto\"\n        matStepperNext\n        [disabled]=\"disableDialog()\"\n        color=\"primary\"\n      >\n        Continuar la Creación\n      </button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n\n    <div class=\"buttonContainer\">\n        <ng-template matStepLabel>Mapa</ng-template>\n        <button  mat-raised-button matStepperPrevious color=\"accent\" [disabled]=\"loading\">\n            <mat-icon>reply</mat-icon>Atrás\n        </button>\n        <button\n          (click)=\"submit()\"\n          mat-raised-button\n          color=\"primary\"\n          [disabled]=\"disableDialog()\"\n        >\n          Aceptar<mat-icon>check</mat-icon>\n        </button>\n    </div>\n   \n  </mat-step>\n</mat-horizontal-stepper>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.html":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.html ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<p>details-geographic-layer works!</p>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.html":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.html ***!
+  \***********************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<p>management-geographic-layer works!</p>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.html":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.html ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<p>ubication-geographic-layer works!</p>\n");
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html":
 /*!****************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/images/components/images-management/images-management.component.html ***!
@@ -1123,7 +1188,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/qr-codes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Códigos QR</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/transport-services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios Transporte</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\">\n    <mat-toolbar color=\"primary\">Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/ads/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Anuncios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/category/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Categorías</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/geographic-layers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Capas Geográficas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/qr-codes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Códigos QR</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/contests/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Concursos</a>\n      <a mat-list-item [routerLink]=\"['user/profile']\" routerLinkActive=\"router-link-active\" href=\"#\">Cuenta</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/company/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Empresas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/event/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Eventos</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/images/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Imágenes</a>\n      <a mat-list-item [routerLink]=\"['/itineraries/show-all']\" routerLinkActive=\"router-link-active\" href=\"#\">Itinerarios</a>\n      <a mat-list-item [routerLink]=\"['social/social-nav']\" routerLinkActive=\"router-link-active\" href=\"#\">Modulo Social</a>\n      <a mat-list-item  [routerLink]=\"['/offers/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Ofertas</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/questions/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Preguntas Frecuentes</a>\n      <a mat-list-item  [routerLink]=\"['/services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1 || _auth.getUser().role_id === 2\" [routerLink]=\"['/transport-services/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Servicios Transporte</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['user/user-managment']\" routerLinkActive=\"router-link-active\" href=\"#\">Usuarios</a>\n      <a mat-list-item *ngIf=\"_auth.getUser().role_id === 1\" [routerLink]=\"['/tourist-routes/all']\" routerLinkActive=\"router-link-active\" href=\"#\">Rutas Turísticas</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Intelitur | {{sessionService.actualUser.name}}</span>\n      <span class=\"fx-spacer\"></span>\n      <button mat-icon-button (click)=\"_auth.logout()\" matTooltip=\"Salir\">\n        <mat-icon mat-list-icon>exit_to_app</mat-icon>\n      </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
 
 /***/ }),
 
@@ -3362,6 +3427,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_images_module__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./images/images.module */ "./src/app/images/images.module.ts");
 /* harmony import */ var _transport_services_transport_services_module__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./transport-services/transport-services.module */ "./src/app/transport-services/transport-services.module.ts");
 /* harmony import */ var _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./qr-codes/qr-codes.module */ "./src/app/qr-codes/qr-codes.module.ts");
+/* harmony import */ var _geographic_layers_geographic_layers_module__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./geographic-layers/geographic-layers.module */ "./src/app/geographic-layers/geographic-layers.module.ts");
+
 
 
 
@@ -3422,7 +3489,8 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _contests_contests_module__WEBPACK_IMPORTED_MODULE_23__["ContestsModule"],
             _images_images_module__WEBPACK_IMPORTED_MODULE_25__["ImagesModule"],
             _transport_services_transport_services_module__WEBPACK_IMPORTED_MODULE_26__["TransportServicesModule"],
-            _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__["QrCodesModule"]
+            _qr_codes_qr_codes_module__WEBPACK_IMPORTED_MODULE_27__["QrCodesModule"],
+            _geographic_layers_geographic_layers_module__WEBPACK_IMPORTED_MODULE_28__["GeographicLayersModule"]
         ],
         providers: [ng2_charts__WEBPACK_IMPORTED_MODULE_22__["ThemeService"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
@@ -9667,6 +9735,533 @@ MultimediaService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.scss":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.scss ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvYWxsLWdlb2dyYXBoaWMtbGF5ZXJzL2FsbC1nZW9ncmFwaGljLWxheWVycy5jb21wb25lbnQuc2NzcyJ9 */");
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.ts ***!
+  \*******************************************************************************************************/
+/*! exports provided: AllGeographicLayersComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AllGeographicLayersComponent", function() { return AllGeographicLayersComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/general-services/common.service */ "./src/app/general-services/common.service.ts");
+/* harmony import */ var _services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/geographic-layers.service */ "./src/app/geographic-layers/services/geographic-layers.service.ts");
+/* harmony import */ var _create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../create-geographic-layer/create-geographic-layer.component */ "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.ts");
+
+
+
+
+
+
+let AllGeographicLayersComponent = class AllGeographicLayersComponent {
+    constructor(geographicLayerService, commonService, dialogService) {
+        this.geographicLayerService = geographicLayerService;
+        this.commonService = commonService;
+        this.dialogService = dialogService;
+        this.filter = {
+            layer_name: ''
+        };
+        this.loading = false;
+    }
+    ngOnInit() {
+        this.getLayers();
+    }
+    getLayers() {
+        this.subscription = this.geographicLayerService.getLayers().subscribe({
+            next: (data) => {
+                console.log(data);
+                this.geographicLayerService.layers = data;
+                this.subscription.unsubscribe();
+            }, error: (err) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+        });
+    }
+    openCreateDialog() {
+        this.dialogService.open(_create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_5__["CreateGeographicLayerComponent"], {
+            height: "95%",
+            width: "70%",
+            minWidth: "280px",
+            disableClose: true,
+        });
+    }
+    delete(layer) {
+        this.commonService
+            .confirmationDialog(`¿Desea eliminar la capa: ${layer.layer_name}?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.geographicLayerService.deleteLayer(layer.layer_id).subscribe({
+                    next: (data) => {
+                        if (data.status == 200) {
+                            this.commonService.openSnackBar(`La capa ${layer.layer_name} ha sido eliminada`, "OK");
+                            this.getLayers();
+                        }
+                        else {
+                            this.commonService.openSnackBar("Ha ocurrido un error al intentar eliminar la capa geográfica", "OK");
+                            console.log(data.error);
+                        }
+                    },
+                    error: (err) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+                });
+            }
+        }));
+    }
+};
+AllGeographicLayersComponent.ctorParameters = () => [
+    { type: _services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_4__["GeographicLayersService"] },
+    { type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] },
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] }
+];
+AllGeographicLayersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-all-geographic-layers',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./all-geographic-layers.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./all-geographic-layers.component.scss */ "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.scss")).default]
+    })
+], AllGeographicLayersComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.scss":
+/*!*************************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.scss ***!
+  \*************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n  align-items: center;\n}\n\n::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {\n  align-items: center;\n}\n\nmat-form-field {\n  width: 100%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.lblAtribute {\n  font-size: 18px;\n  font-weight: bold;\n}\n\n#exit {\n  float: right;\n  background-color: transparent;\n}\n\n::ng-deep .mat-horizontal-stepper-header {\n  pointer-events: none !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFBO0FDQ0Y7O0FERUE7RUFDRSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0Y7O0FERUE7RUFDRSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDRjs7QURFQTtFQUNFLFdBQUE7QUNDRjs7QURFQTtFQUNJLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7RUFDQSxtQkFBQTtBQ0NKOztBREVBO0VBQ0ksbUJBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURFQTtFQUNJLFlBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksK0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG46Om5nLWRlZXAgLm1hdC1mb3JtLWZpZWxkLWFwcGVhcmFuY2Utb3V0bGluZSAubWF0LWZvcm0tZmllbGQtZmxleCB7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxubWF0LWZvcm0tZmllbGR7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4ubGJsQXRyaWJ1dGV7XG4gICAgZm9udC1zaXplOiAxOHB4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4jZXhpdHtcbiAgICBmbG9hdDogcmlnaHQ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59XG5cbjo6bmctZGVlcCAubWF0LWhvcml6b250YWwtc3RlcHBlci1oZWFkZXJ7XG4gICAgcG9pbnRlci1ldmVudHM6IG5vbmUgIWltcG9ydGFudDtcbn0iLCJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbjo6bmctZGVlcCAubWF0LWZvcm0tZmllbGQtYXBwZWFyYW5jZS1vdXRsaW5lIC5tYXQtZm9ybS1maWVsZC1mbGV4IHtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogMTAwJTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuLmxibEF0cmlidXRlIHtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuI2V4aXQge1xuICBmbG9hdDogcmlnaHQ7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuXG46Om5nLWRlZXAgLm1hdC1ob3Jpem9udGFsLXN0ZXBwZXItaGVhZGVyIHtcbiAgcG9pbnRlci1ldmVudHM6IG5vbmUgIWltcG9ydGFudDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.ts":
+/*!***********************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.ts ***!
+  \***********************************************************************************************************/
+/*! exports provided: CreateGeographicLayerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateGeographicLayerComponent", function() { return CreateGeographicLayerComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+
+
+
+
+let CreateGeographicLayerComponent = class CreateGeographicLayerComponent {
+    constructor(dialogRef, fb) {
+        this.dialogRef = dialogRef;
+        this.fb = fb;
+        this.layerFG = this.fb.group({
+            name: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            detail: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            textAtributes: this.fb.array([this.fb.group({ textAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required] })], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            intAtributes: this.fb.array([this.fb.group({ intAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required] })], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+        });
+    }
+    ngOnInit() { }
+    get txtAtributes() {
+        return this.layerFG.get("textAtributes");
+    }
+    addTextAtribute() {
+        this.txtAtributes.push(this.fb.group({ textAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required] }));
+    }
+    deleteTextAtribute(index) {
+        this.txtAtributes.removeAt(index);
+    }
+    get integerAtributes() {
+        return this.layerFG.get("intAtributes");
+    }
+    addIntAtribute() {
+        this.integerAtributes.push(this.fb.group({ intAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required] }));
+    }
+    deleteIntAtribute(index) {
+        this.integerAtributes.removeAt(index);
+    }
+    disableDialog() {
+        if (!this.layerFG.valid) {
+            return true;
+        }
+        return false;
+    }
+    onNoClick() {
+        this.dialogRef.close();
+    }
+    closeDialog() {
+        this.dialogRef.close();
+    }
+};
+CreateGeographicLayerComponent.ctorParameters = () => [
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] }
+];
+CreateGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: "app-create-geographic-layer",
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./create-geographic-layer.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./create-geographic-layer.component.scss */ "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.scss")).default]
+    })
+], CreateGeographicLayerComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.scss":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.scss ***!
+  \*******************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvbWFuYWdlbWVudC1nZW9ncmFwaGljLWxheWVyL2RldGFpbHMtZ2VvZ3JhcGhpYy1sYXllci9kZXRhaWxzLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.ts":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.ts ***!
+  \*****************************************************************************************************************************************/
+/*! exports provided: DetailsGeographicLayerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetailsGeographicLayerComponent", function() { return DetailsGeographicLayerComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let DetailsGeographicLayerComponent = class DetailsGeographicLayerComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+DetailsGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-details-geographic-layer',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./details-geographic-layer.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./details-geographic-layer.component.scss */ "./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.scss")).default]
+    })
+], DetailsGeographicLayerComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.scss":
+/*!*********************************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.scss ***!
+  \*********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvbWFuYWdlbWVudC1nZW9ncmFwaGljLWxheWVyL21hbmFnZW1lbnQtZ2VvZ3JhcGhpYy1sYXllci5jb21wb25lbnQuc2NzcyJ9 */");
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.ts":
+/*!*******************************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.ts ***!
+  \*******************************************************************************************************************/
+/*! exports provided: ManagementGeographicLayerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ManagementGeographicLayerComponent", function() { return ManagementGeographicLayerComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let ManagementGeographicLayerComponent = class ManagementGeographicLayerComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+ManagementGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-management-geographic-layer',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./management-geographic-layer.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./management-geographic-layer.component.scss */ "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.scss")).default]
+    })
+], ManagementGeographicLayerComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.scss":
+/*!***********************************************************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.scss ***!
+  \***********************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvbWFuYWdlbWVudC1nZW9ncmFwaGljLWxheWVyL3ViaWNhdGlvbi1nZW9ncmFwaGljLWxheWVyL3ViaWNhdGlvbi1nZW9ncmFwaGljLWxheWVyLmNvbXBvbmVudC5zY3NzIn0= */");
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.ts":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.ts ***!
+  \*********************************************************************************************************************************************/
+/*! exports provided: UbicationGeographicLayerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UbicationGeographicLayerComponent", function() { return UbicationGeographicLayerComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let UbicationGeographicLayerComponent = class UbicationGeographicLayerComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+UbicationGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-ubication-geographic-layer',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./ubication-geographic-layer.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./ubication-geographic-layer.component.scss */ "./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.scss")).default]
+    })
+], UbicationGeographicLayerComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/geographic-layers-root.component.ts":
+/*!***********************************************************************!*\
+  !*** ./src/app/geographic-layers/geographic-layers-root.component.ts ***!
+  \***********************************************************************/
+/*! exports provided: GeographicLayersRootComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GeographicLayersRootComponent", function() { return GeographicLayersRootComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let GeographicLayersRootComponent = class GeographicLayersRootComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+GeographicLayersRootComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-geographic-layers-root',
+        template: `
+    <router-outlet></router-outlet>
+  `
+    })
+], GeographicLayersRootComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/geographic-layers.module.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/geographic-layers/geographic-layers.module.ts ***!
+  \***************************************************************/
+/*! exports provided: GeographicLayersModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GeographicLayersModule", function() { return GeographicLayersModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _geograpihc_layers_rounting_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./geograpihc-layers-rounting.module */ "./src/app/geographic-layers/geograpihc-layers-rounting.module.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @asymmetrik/ngx-leaflet */ "./node_modules/@asymmetrik/ngx-leaflet/dist/index.js");
+/* harmony import */ var ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-filter-pipe */ "./node_modules/ngx-filter-pipe/esm2015/ngx-filter-pipe.js");
+/* harmony import */ var _shared_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../shared.module */ "./src/app/shared.module.ts");
+/* harmony import */ var _components_all_geographic_layers_all_geographic_layers_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/all-geographic-layers/all-geographic-layers.component */ "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.ts");
+/* harmony import */ var _geographic_layers_root_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./geographic-layers-root.component */ "./src/app/geographic-layers/geographic-layers-root.component.ts");
+/* harmony import */ var _components_create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/create-geographic-layer/create-geographic-layer.component */ "./src/app/geographic-layers/components/create-geographic-layer/create-geographic-layer.component.ts");
+/* harmony import */ var _components_management_geographic_layer_management_geographic_layer_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/management-geographic-layer/management-geographic-layer.component */ "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.ts");
+/* harmony import */ var _components_management_geographic_layer_details_geographic_layer_details_geographic_layer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component */ "./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.ts");
+/* harmony import */ var _components_management_geographic_layer_ubication_geographic_layer_ubication_geographic_layer_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component */ "./src/app/geographic-layers/components/management-geographic-layer/ubication-geographic-layer/ubication-geographic-layer.component.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let GeographicLayersModule = class GeographicLayersModule {
+};
+GeographicLayersModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        declarations: [
+            _geographic_layers_root_component__WEBPACK_IMPORTED_MODULE_9__["GeographicLayersRootComponent"],
+            _components_all_geographic_layers_all_geographic_layers_component__WEBPACK_IMPORTED_MODULE_8__["AllGeographicLayersComponent"],
+            _components_create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_10__["CreateGeographicLayerComponent"],
+            _components_management_geographic_layer_management_geographic_layer_component__WEBPACK_IMPORTED_MODULE_11__["ManagementGeographicLayerComponent"],
+            _components_management_geographic_layer_details_geographic_layer_details_geographic_layer_component__WEBPACK_IMPORTED_MODULE_12__["DetailsGeographicLayerComponent"],
+            _components_management_geographic_layer_ubication_geographic_layer_ubication_geographic_layer_component__WEBPACK_IMPORTED_MODULE_13__["UbicationGeographicLayerComponent"]
+        ],
+        entryComponents: [_components_create_geographic_layer_create_geographic_layer_component__WEBPACK_IMPORTED_MODULE_10__["CreateGeographicLayerComponent"]],
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            _geograpihc_layers_rounting_module__WEBPACK_IMPORTED_MODULE_3__["GeograpihicLayersRoutingModule"],
+            _shared_module__WEBPACK_IMPORTED_MODULE_7__["SharedModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
+            ngx_filter_pipe__WEBPACK_IMPORTED_MODULE_6__["FilterPipeModule"],
+            _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_5__["LeafletModule"],
+        ]
+    })
+], GeographicLayersModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/geograpihc-layers-rounting.module.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/geographic-layers/geograpihc-layers-rounting.module.ts ***!
+  \************************************************************************/
+/*! exports provided: GeograpihicLayersRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GeograpihicLayersRoutingModule", function() { return GeograpihicLayersRoutingModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _components_all_geographic_layers_all_geographic_layers_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/all-geographic-layers/all-geographic-layers.component */ "./src/app/geographic-layers/components/all-geographic-layers/all-geographic-layers.component.ts");
+/* harmony import */ var _components_management_geographic_layer_management_geographic_layer_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/management-geographic-layer/management-geographic-layer.component */ "./src/app/geographic-layers/components/management-geographic-layer/management-geographic-layer.component.ts");
+/* harmony import */ var _geographic_layers_root_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./geographic-layers-root.component */ "./src/app/geographic-layers/geographic-layers-root.component.ts");
+
+
+
+
+
+const routes = [
+    {
+        path: "geographic-layers",
+        component: _geographic_layers_root_component__WEBPACK_IMPORTED_MODULE_4__["GeographicLayersRootComponent"],
+        children: [
+            {
+                path: "all",
+                component: _components_all_geographic_layers_all_geographic_layers_component__WEBPACK_IMPORTED_MODULE_2__["AllGeographicLayersComponent"]
+            },
+            {
+                path: ":layer_id",
+                component: _components_management_geographic_layer_management_geographic_layer_component__WEBPACK_IMPORTED_MODULE_3__["ManagementGeographicLayerComponent"]
+            }
+        ]
+    }
+];
+const GeograpihicLayersRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes);
+
+
+/***/ }),
+
+/***/ "./src/app/geographic-layers/services/geographic-layers.service.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/geographic-layers/services/geographic-layers.service.ts ***!
+  \*************************************************************************/
+/*! exports provided: GeographicLayersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GeographicLayersService", function() { return GeographicLayersService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+let GeographicLayersService = class GeographicLayersService {
+    constructor(http) {
+        this.http = http;
+        this.layers = [];
+        this.module = "geographicLayers/";
+    }
+    getLayers() {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}`, { params: { is_active: "true" } });
+    }
+    getLayerPoints(layer_id) {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${layer_id}/point`);
+    }
+    createLayer(layer) {
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}`, layer, { observe: 'response' });
+    }
+    createLayerPoint(layer_point) {
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}point`, layer_point, { observe: 'response' });
+    }
+    updateLayer(layer, layer_id) {
+        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${layer_id}`, layer, { observe: 'response' });
+    }
+    updateLayerPoint(layer_point, layer_point_id) {
+        return this.http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${layer_point_id}/point`, layer_point, { observe: 'response' });
+    }
+    deleteLayer(layer_id) {
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${layer_id}`, { observe: 'response' });
+    }
+    deleteLayerPoint(layer_point_id) {
+        return this.http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL}${this.module}${layer_point_id}/point`, { observe: 'response' });
+    }
+};
+GeographicLayersService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+];
+GeographicLayersService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: 'root'
+    })
+], GeographicLayersService);
+
+
+
+/***/ }),
+
 /***/ "./src/app/images/components/images-management/images-management.component.scss":
 /*!**************************************************************************************!*\
   !*** ./src/app/images/components/images-management/images-management.component.scss ***!
@@ -13684,19 +14279,25 @@ let AllQrCodesComponent = class AllQrCodesComponent {
         });
     }
     delete(qrCode) {
-        this.qrCodesService.delete(qrCode.qr_id).subscribe({
-            next: (data) => {
-                if (data.status == 204) {
-                    this.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
-                    this.getQRs();
-                }
-                else {
-                    this.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
-                    console.log(data.error);
-                }
-            },
-            error: (err) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
-        });
+        this.commonService
+            .confirmationDialog(`¿Desea eliminar el código?`)
+            .then((result) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (result) {
+                this.qrCodesService.delete(qrCode.qr_id).subscribe({
+                    next: (data) => {
+                        if (data.status == 204) {
+                            this.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
+                            this.getQRs();
+                        }
+                        else {
+                            this.commonService.openSnackBar("Ha ocurrido un error al intentar eliminar el código QR", "OK");
+                            console.log(data.error);
+                        }
+                    },
+                    error: (err) => this.commonService.openSnackBar(`Error: ${err.message}`, "OK")
+                });
+            }
+        }));
     }
 };
 AllQrCodesComponent.ctorParameters = () => [
