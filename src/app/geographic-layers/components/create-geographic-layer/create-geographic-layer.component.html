@@ -1,0 +1,132 @@
+<button mat-mini-fab id="exit">
+  <i (click)="closeDialog()" style="color: black" class="material-icons">
+    clear
+  </i>
+</button>
+<mat-horizontal-stepper #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="layerFG" class="container">
+      <ng-template matStepLabel>Info. General</ng-template>
+      <div class="container">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input
+            matInput
+            formControlName="name"
+            matTooltip="Nombre de la capa"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Detalles</mat-label>
+          <textarea
+            matInput
+            formControlName="detail"
+            matTooltip="Detalles de la capa"
+            type="text"
+            required
+          ></textarea>
+        </mat-form-field>
+
+        <label class="lblAtribute">Atributos de texto:</label>
+
+        <button mat-mini-fab (click)="addTextAtribute()" color="primary">
+          <i class="material-icons">add</i>
+        </button>
+
+        <hr width="100%" />
+
+        <div class="container" formArrayName="textAtributes">
+          <div
+            *ngFor="
+              let item of txtAtributes.controls;
+              let txtAtributeIndex = index
+            "
+            [formGroupName]="txtAtributeIndex"
+            style="width: 45%"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>Atributo</mat-label>
+              <input matInput formControlName="textAtribute" required />
+              <button
+                color="warn"
+                style="vertical-align: initial"
+                matSuffix
+                mat-icon-button
+                (click)="deleteTextAtribute(txtAtributeIndex)"
+              >
+                <i class="material-icons-outlined">cancel</i>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <hr width="100%" />
+
+        <label class="lblAtribute">Atributos Numéricos:</label>
+
+        <button mat-mini-fab (click)="addIntAtribute()" color="primary">
+          <i class="material-icons">add</i>
+        </button>
+
+        <hr width="100%" />
+
+        <div class="container" formArrayName="intAtributes">
+          <div
+            *ngFor="
+              let item of integerAtributes.controls;
+              let intAtributeIndex = index
+            "
+            [formGroupName]="intAtributeIndex"
+            style="width: 45%"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>Atributo</mat-label>
+              <input matInput formControlName="intAtribute" required />
+              <button
+                color="warn"
+                style="vertical-align: initial"
+                matSuffix
+                mat-icon-button
+                (click)="deleteIntAtribute(intAtributeIndex)"
+              >
+                <i class="material-icons-outlined">cancel</i>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="buttonContainer">
+      <button
+        mat-raised-button
+        style="width: 40%; min-width: 200px; margin: 0 auto"
+        matStepperNext
+        [disabled]="disableDialog()"
+        color="primary"
+      >
+        Continuar la Creación
+      </button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+
+    <div class="buttonContainer">
+        <ng-template matStepLabel>Mapa</ng-template>
+        <button  mat-raised-button matStepperPrevious color="accent" [disabled]="loading">
+            <mat-icon>reply</mat-icon>Atrás
+        </button>
+        <button
+          (click)="submit()"
+          mat-raised-button
+          color="primary"
+          [disabled]="disableDialog()"
+        >
+          Aceptar<mat-icon>check</mat-icon>
+        </button>
+    </div>
+   
+  </mat-step>
+</mat-horizontal-stepper>

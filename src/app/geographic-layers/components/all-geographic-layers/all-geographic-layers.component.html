@@ -1,0 +1,70 @@
+<div class="container">
+  <h1 class="text-center font-weight-light mt-3">
+    Gestión de Capas Geográficas
+  </h1>
+  <div class="float-right mb-3">
+    <button
+      mat-raised-button
+      color="primary"
+      class="btn-add"
+      matTooltip="Agregar una capa gegráfica"
+      (click)="openCreateDialog()"
+    >
+      <i class="material-icons">add</i>Agregar Capa
+    </button>
+  </div>
+  <div *ngIf="this.geographicLayerService.layers; else loading">
+    <mat-form-field class="container-fluid mb-3" appearance="outline">
+      <mat-label>Buscar por nombre de la capa</mat-label>
+      <input matInput [(ngModel)]="filter.layer_name" />
+    </mat-form-field>
+
+    <div class="table-responsive" style="padding: 0 3%">
+      <table class="table" *ngIf="this.geographicLayerService.layers">
+        <thead class="thead-light">
+          <tr>
+            <th style="width: 50%" scope="col">Nombre</th>
+            <th style="text-align: center" scope="col">Detalles</th>
+            <th style="text-align: center" scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let layer of this.geographicLayerService.layers | filterBy: filter">
+            <td style="width: 50%">{{ layer.layer_name }}</td>
+            <td style="text-align: center">
+              <button
+                mat-stroked-button
+                [routerLink]="['/geographic-layers', layer.layer_id]"
+                matTooltip="Detalles de la capa geográfica"
+                style="color: rgb(82, 82, 82); font-size: 14px"
+              >
+                Ver Detalles
+              </button>
+            </td>
+            <td style="text-align: center">
+                <button
+                matTooltip="Eliminar capa geográfica"
+                mat-mini-fab
+                color="warn"
+                (click)="delete(layer)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class="alert alert-info text-center"
+        role="alert"
+        *ngIf="(this.geographicLayerService.layers | filterBy: filter).length === 0"
+      >
+        ¡No hay capas geográficas disponibles!
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

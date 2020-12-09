@@ -25,6 +25,7 @@ import { TouristRoutesModule } from './tourist-routes/tourist-routes.module';
 import { ImagesModule } from './images/images.module';
 import { TransportServicesModule } from './transport-services/transport-services.module';
 import { QrCodesModule } from './qr-codes/qr-codes.module';
+import { GeographicLayersModule } from './geographic-layers/geographic-layers.module';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { QrCodesModule } from './qr-codes/qr-codes.module';
     ContestsModule,
     ImagesModule,
     TransportServicesModule,
-    QrCodesModule
+    QrCodesModule,
+    GeographicLayersModule
   ],
   providers: [ThemeService],
   bootstrap: [AppComponent],
