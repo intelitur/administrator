@@ -1221,7 +1221,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Gestión de Capas Geográficas\n  </h1>\n  <div class=\"float-right mb-3\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      class=\"btn-add\"\n      matTooltip=\"Agregar una capa gegráfica\"\n      (click)=\"openCreateDialog()\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Capa\n    </button>\n  </div>\n  <div *ngIf=\"this.geographicLayerService.layers; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de la capa</mat-label>\n      <input matInput [(ngModel)]=\"filter.layer_name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.geographicLayerService.layers\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th style=\"width: 50%\" scope=\"col\">Nombre</th>\n            <th style=\"text-align: center\" scope=\"col\">Detalles</th>\n            <th style=\"text-align: center\" scope=\"col\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let layer of this.geographicLayerService.layers | filterBy: filter\">\n            <td style=\"width: 50%\">{{ layer.layer_name }}</td>\n            <td style=\"text-align: center\">\n              <button\n                mat-stroked-button\n                [routerLink]=\"['/geographic-layers', layer.layer_id]\"\n                matTooltip=\"Detalles de la capa geográfica\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px\"\n              >\n                Ver Detalles\n              </button>\n            </td>\n            <td style=\"text-align: center\">\n                <button\n                matTooltip=\"Eliminar capa geográfica\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"delete(layer)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"(this.geographicLayerService.layers | filterBy: filter).length === 0\"\n      >\n        ¡No hay capas geográficas disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
+    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">\n    Gestión de Capas Geográficas\n  </h1>\n  <div class=\"float-right mb-3\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      class=\"btn-add\"\n      matTooltip=\"Agregar una capa gegráfica\"\n      (click)=\"openCreateDialog()\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Capa\n    </button>\n  </div>\n  <div *ngIf=\"this.geographicLayerService.layers; else loading\">\n    <mat-form-field class=\"container-fluid mb-3\" appearance=\"outline\">\n      <mat-label>Buscar por nombre de la capa</mat-label>\n      <input matInput [(ngModel)]=\"filter.layer_name\" />\n    </mat-form-field>\n\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.geographicLayerService.layers\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th style=\"width: 50%\" scope=\"col\">Nombre</th>\n            <th style=\"text-align: center\" scope=\"col\">Detalles</th>\n            <th style=\"text-align: center\" scope=\"col\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let layer of this.geographicLayerService.layers | filterBy: filter\">\n            <td style=\"width: 50%\">{{ layer.layer_name }}</td>\n            <td style=\"text-align: center\">\n              <button\n                mat-stroked-button\n                [routerLink]=\"['/geographic-layers', layer.layer_id]\" \n                matTooltip=\"Detalles de la capa geográfica\"\n                style=\"color: rgb(82, 82, 82); font-size: 14px\"\n              >\n                Ver Detalles\n              </button>\n            </td>\n            <td style=\"text-align: center\">\n                <button\n                matTooltip=\"Eliminar capa geográfica\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"delete(layer)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"(this.geographicLayerService.layers | filterBy: filter).length === 0\"\n      >\n        ¡No hay capas geográficas disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
     /***/
   },
 
@@ -1241,7 +1241,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<button mat-mini-fab id=\"exit\">\n  <i (click)=\"closeDialog()\" style=\"color: black\" class=\"material-icons\">\n    clear\n  </i>\n</button>\n<mat-horizontal-stepper #stepper>\n  <mat-step [stepControl]=\"firstFormGroup\">\n    <form [formGroup]=\"layerFG\" class=\"container\">\n      <ng-template matStepLabel>Info. General</ng-template>\n      <div class=\"container\">\n        <mat-form-field appearance=\"outline\">\n          <mat-label>Nombre</mat-label>\n          <input\n            matInput\n            formControlName=\"name\"\n            matTooltip=\"Nombre de la capa\"\n            required\n          />\n        </mat-form-field>\n\n        <mat-form-field appearance=\"outline\">\n          <mat-label>Detalles</mat-label>\n          <textarea\n            matInput\n            formControlName=\"detail\"\n            matTooltip=\"Detalles de la capa\"\n            type=\"text\"\n            required\n          ></textarea>\n        </mat-form-field>\n\n        <label class=\"lblAtribute\">Atributos de texto:</label>\n\n        <button mat-mini-fab (click)=\"addTextAtribute()\" color=\"primary\">\n          <i class=\"material-icons\">add</i>\n        </button>\n\n        <hr width=\"100%\" />\n\n        <div class=\"container\" formArrayName=\"textAtributes\">\n          <div\n            *ngFor=\"\n              let item of txtAtributes.controls;\n              let txtAtributeIndex = index\n            \"\n            [formGroupName]=\"txtAtributeIndex\"\n            style=\"width: 45%\"\n          >\n            <mat-form-field appearance=\"outline\">\n              <mat-label>Atributo</mat-label>\n              <input matInput formControlName=\"textAtribute\" required />\n              <button\n                color=\"warn\"\n                style=\"vertical-align: initial\"\n                matSuffix\n                mat-icon-button\n                (click)=\"deleteTextAtribute(txtAtributeIndex)\"\n              >\n                <i class=\"material-icons-outlined\">cancel</i>\n              </button>\n            </mat-form-field>\n          </div>\n        </div>\n\n        <hr width=\"100%\" />\n\n        <label class=\"lblAtribute\">Atributos Numéricos:</label>\n\n        <button mat-mini-fab (click)=\"addIntAtribute()\" color=\"primary\">\n          <i class=\"material-icons\">add</i>\n        </button>\n\n        <hr width=\"100%\" />\n\n        <div class=\"container\" formArrayName=\"intAtributes\">\n          <div\n            *ngFor=\"\n              let item of integerAtributes.controls;\n              let intAtributeIndex = index\n            \"\n            [formGroupName]=\"intAtributeIndex\"\n            style=\"width: 45%\"\n          >\n            <mat-form-field appearance=\"outline\">\n              <mat-label>Atributo</mat-label>\n              <input matInput formControlName=\"intAtribute\" required />\n              <button\n                color=\"warn\"\n                style=\"vertical-align: initial\"\n                matSuffix\n                mat-icon-button\n                (click)=\"deleteIntAtribute(intAtributeIndex)\"\n              >\n                <i class=\"material-icons-outlined\">cancel</i>\n              </button>\n            </mat-form-field>\n          </div>\n        </div>\n      </div>\n    </form>\n    <div class=\"buttonContainer\">\n      <button\n        mat-raised-button\n        style=\"width: 40%; min-width: 200px; margin: 0 auto\"\n        matStepperNext\n        [disabled]=\"disableDialog()\"\n        color=\"primary\"\n      >\n        Continuar la Creación\n      </button>\n    </div>\n  </mat-step>\n\n  <mat-step>\n\n    <div class=\"buttonContainer\">\n        <ng-template matStepLabel>Mapa</ng-template>\n        <button  mat-raised-button matStepperPrevious color=\"accent\" [disabled]=\"loading\">\n            <mat-icon>reply</mat-icon>Atrás\n        </button>\n        <button\n          (click)=\"submit()\"\n          mat-raised-button\n          color=\"primary\"\n          [disabled]=\"disableDialog()\"\n        >\n          Aceptar<mat-icon>check</mat-icon>\n        </button>\n    </div>\n   \n  </mat-step>\n</mat-horizontal-stepper>\n";
+    __webpack_exports__["default"] = "<button mat-mini-fab id=\"exit\">\n  <i (click)=\"closeDialog()\" style=\"color: black\" class=\"material-icons\">\n    clear\n  </i>\n</button>\n\n<form [formGroup]=\"layerFG\" class=\"container\">\n  <h1>Creación de Capa Geográfica</h1>\n  <ng-template matStepLabel>Info. General</ng-template>\n  <div class=\"container\">\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Nombre</mat-label>\n      <input\n        matInput\n        formControlName=\"name\"\n        matTooltip=\"Nombre de la capa\"\n        required\n      />\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Detalles</mat-label>\n      <textarea\n        matInput\n        formControlName=\"detail\"\n        matTooltip=\"Detalles de la capa\"\n        type=\"text\"\n        required\n      ></textarea>\n    </mat-form-field>\n\n    <label class=\"lblAtribute\">Atributos de texto:</label>\n\n    <button mat-mini-fab (click)=\"addTextAtribute()\" color=\"primary\">\n      <i class=\"material-icons\">add</i>\n    </button>\n\n    <hr width=\"100%\" />\n\n    <div class=\"container\" formArrayName=\"textAtributes\">\n      <div\n        *ngFor=\"let item of txtAtributes.controls; let txtAtributeIndex = index\"\n        [formGroupName]=\"txtAtributeIndex\"\n        style=\"width: 45%\"\n      >\n        <mat-form-field appearance=\"outline\">\n          <mat-label>Atributo</mat-label>\n          <input matInput formControlName=\"textAtribute\" required />\n          <button\n            color=\"warn\"\n            style=\"vertical-align: initial\"\n            matSuffix\n            mat-icon-button\n            (click)=\"deleteTextAtribute(txtAtributeIndex)\"\n          >\n            <i class=\"material-icons-outlined\">cancel</i>\n          </button>\n        </mat-form-field>\n      </div>\n    </div>\n\n    <hr width=\"100%\" />\n\n    <label class=\"lblAtribute\">Atributos Numéricos:</label>\n\n    <button mat-mini-fab (click)=\"addIntAtribute()\" color=\"primary\">\n      <i class=\"material-icons\">add</i>\n    </button>\n\n    <hr width=\"100%\" />\n\n    <div class=\"container\" formArrayName=\"intAtributes\">\n      <div\n        *ngFor=\"\n          let item of integerAtributes.controls;\n          let intAtributeIndex = index\n        \"\n        [formGroupName]=\"intAtributeIndex\"\n        style=\"width: 45%\"\n      >\n        <mat-form-field appearance=\"outline\">\n          <mat-label>Nombre del Atributo</mat-label>\n          <input matInput formControlName=\"intAtribute\" required />\n          <button\n            color=\"warn\"\n            style=\"vertical-align: initial\"\n            matSuffix\n            mat-icon-button\n            (click)=\"deleteIntAtribute(intAtributeIndex)\"\n          >\n            <i class=\"material-icons-outlined\">cancel</i>\n          </button>\n        </mat-form-field>\n      </div>\n    </div>\n  </div>\n</form>\n\n<div class=\"buttonContainer\">\n  <button\n    (click)=\"submit()\"\n    mat-raised-button\n    color=\"primary\"\n    [disabled]=\"disableDialog() || loading\"\n  >\n    Continuar con la creación\n  </button>\n</div>\n\n<div style=\"height: 20px;\">\n  <mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n</div>";
     /***/
   },
 
@@ -1261,7 +1261,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<p>details-geographic-layer works!</p>\n";
+    __webpack_exports__["default"] = "<ng-container *ngIf=\"this.loading\">\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-container>\n\n<div style=\"display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap\">\n  <div\n    style=\"\n      display: flex;\n      justify-content: space-around;\n      width: -webkit-fill-available;\n    \"\n  >\n    <h2 style=\"color: #dbb735; text-align: center; margin: auto 0\">\n      {{ myLayer.layer_name }}\n    </h2>\n    <div\n      style=\"\n        display: flex;\n        flex-direction: column;\n        margin: auto 0;\n        padding: 0 20px;\n      \"\n    >\n      <div\n        style=\"margin: auto\"\n        [style.color]=\"myLayer.is_active ? '#673ab7' : 'gray'\"\n      >\n        {{ myLayer.is_active ? \"Activa\" : \"Eliminada\" }}\n      </div>\n      <mat-slide-toggle\n        style=\"width: min-content; margin: auto\"\n        (change)=\"changeState($event)\"\n        color=\"primary\"\n        [checked]=\"myLayer.is_active\"\n      >\n      </mat-slide-toggle>\n    </div>\n  </div>\n\n  <form [formGroup]=\"layerFG\" class=\"container\" style=\"padding: 25px\">\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Nombre</mat-label>\n      <input\n        matInput\n        formControlName=\"name\"\n        matTooltip=\"Nombre de la capa\"\n        required\n      />\n    </mat-form-field>\n\n    <mat-form-field appearance=\"outline\">\n      <mat-label>Detalles</mat-label>\n      <textarea\n        matInput\n        formControlName=\"detail\"\n        matTooltip=\"Detalles de la capa\"\n        type=\"text\"\n        required\n      ></textarea>\n    </mat-form-field>\n\n    <label class=\"lblAtribute\">Atributos de texto:</label>\n\n    <button mat-mini-fab (click)=\"addTextAtribute()\" color=\"primary\">\n      <i class=\"material-icons\">add</i>\n    </button>\n\n    <hr width=\"100%\" />\n\n    <div class=\"container\" formArrayName=\"textAtributes\">\n      <div *ngIf=\"txtAtributes\">\n        <div\n          *ngFor=\"\n            let item of txtAtributes.controls;\n            let txtAtributeIndex = index\n          \"\n          [formGroupName]=\"txtAtributeIndex\"\n          style=\"width: 45%\"\n        >\n          <mat-form-field appearance=\"outline\">\n            <mat-label>Atributo</mat-label>\n            <input matInput formControlName=\"textAtribute\" required />\n            <button\n              color=\"warn\"\n              style=\"vertical-align: initial\"\n              matSuffix\n              mat-icon-button\n              (click)=\"deleteTextAtribute(txtAtributeIndex)\"\n            >\n              <i class=\"material-icons-outlined\">cancel</i>\n            </button>\n          </mat-form-field>\n        </div>\n      </div>\n    </div>\n\n    <hr width=\"100%\" />\n\n    <label class=\"lblAtribute\">Atributos Numéricos:</label>\n\n    <button mat-mini-fab (click)=\"addIntAtribute()\" color=\"primary\">\n      <i class=\"material-icons\">add</i>\n    </button>\n\n    <hr width=\"100%\" />\n\n    <div class=\"container\" formArrayName=\"intAtributes\">\n      <div *ngIf=\"integerAtributes\">\n        <div\n          *ngFor=\"\n            let item of integerAtributes.controls;\n            let intAtributeIndex = index\n          \"\n          [formGroupName]=\"intAtributeIndex\"\n          style=\"width: 45%\"\n        >\n          <mat-form-field appearance=\"outline\">\n            <mat-label>Nombre del Atributo</mat-label>\n            <input matInput formControlName=\"intAtribute\" required />\n            <button\n              color=\"warn\"\n              style=\"vertical-align: initial\"\n              matSuffix\n              mat-icon-button\n              (click)=\"deleteIntAtribute(intAtributeIndex)\"\n            >\n              <i class=\"material-icons-outlined\">cancel</i>\n            </button>\n          </mat-form-field>\n        </div>\n      </div>\n    </div>\n  </form>\n</div>\n\n<div class=\"buttonContainer\">\n  <button\n    mat-stroked-button\n    color=\"primary\"\n    [disabled]=\"disableDialog() || loading\"\n    style=\"width: 47%; min-width: fit-content; margin-top: 10px\"\n    (click)=\"submit()\"\n  >\n    Guardar cambios\n  </button>\n\n  <button\n    mat-stroked-button\n    color=\"warn\"\n    [disabled]=\"loading\"\n    style=\"width: 47%; min-width: fit-content; margin-top: 10px\"\n    (click)=\"setData()\"\n  >\n    Descartar cambios\n  </button>\n</div>\n";
     /***/
   },
 
@@ -1281,7 +1281,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<p>management-geographic-layer works!</p>\n";
+    __webpack_exports__["default"] = "<mat-tab-group>\n  <mat-tab label=\"Detalles\">\n    <app-details-geographic-layer\n      *ngIf=\"myLayer; else loading\"\n      [myLayer]=\"myLayer[0]\"\n    ></app-details-geographic-layer>\n    <ng-template #loading>\n      <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n    </ng-template>\n  </mat-tab>\n  <mat-tab label=\"Puntos Geográficos\">\n    <app-ubication-geographic-layer\n      *ngIf=\"myLayer; else loading\"\n      [myLayer]=\"myLayer[0]\"\n    ></app-ubication-geographic-layer>\n    <ng-template #loading>\n      <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n    </ng-template>\n  </mat-tab>\n</mat-tab-group>\n";
     /***/
   },
 
@@ -1841,7 +1841,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">Gestión de Códigos QR</h1>\n  <div class=\"float-right mb-3\" style=\"width: 40%; text-align: end\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      matTooltip=\"Agregar un código QR\"\n      (click)=\"openDialog(true)\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Código QR\n    </button>\n  </div>\n  <div *ngIf=\"this.qrCodesService.qrCodes; else loading\">\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.qrCodesService.qrCodes\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Código</th>\n            <th scope=\"col\">Descripción</th>\n            <th scope=\"col\" style=\"text-align: center\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let qr of this.qrCodesService.qrCodes\">\n            <td>\n              <qrcode\n                [qrdata]=\"url+ qr.qr_id\"\n                [elementType]=\"'url'\"\n              ></qrcode>\n            </td>\n            <td>{{ qr.description }}</td>\n            <td style=\"text-align: center\">\n              <button\n                matTooltip=\"Editar código\"\n                mat-mini-fab\n                color=\"primary\"\n                (click)=\"openDialog(false, qr)\"\n              >\n                <mat-icon>edit</mat-icon>\n              </button>\n              <button\n                matTooltip=\"Eliminar código\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"delete(qr)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"this.qrCodesService.qrCodes.length === 0\"\n      >\n        ¡No hay códigos QR disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
+    __webpack_exports__["default"] = "<div class=\"container\">\n  <h1 class=\"text-center font-weight-light mt-3\">Gestión de Códigos QR</h1>\n  <div class=\"float-right mb-3\" style=\"width: 40%; text-align: end\">\n    <button\n      mat-raised-button\n      color=\"primary\"\n      matTooltip=\"Agregar un código QR\"\n      (click)=\"openDialog(true)\"\n    >\n      <i class=\"material-icons\">add</i>Agregar Código QR\n    </button>\n  </div>\n  <div *ngIf=\"this.qrCodesService.qrCodes; else loading\">\n    <div class=\"table-responsive\" style=\"padding: 0 3%\">\n      <table class=\"table\" *ngIf=\"this.qrCodesService.qrCodes\">\n        <thead class=\"thead-light\">\n          <tr>\n            <th scope=\"col\">Código</th>\n            <th scope=\"col\">Descripción</th>\n            <th scope=\"col\" style=\"text-align: center\">Acciones</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let qr of this.qrCodesService.qrCodes\">\n            <td>\n              <qrcode\n                [qrdata]=\"url+ qr.qr_id\"\n                [elementType]=\"'url'\"\n              ></qrcode>\n            </td>\n            <td>{{ qr.description }} <br>\n              <a [href]=\"url+ qr.qr_id\">Link</a>\n            </td>\n            <td style=\"text-align: center\">\n              <button\n                matTooltip=\"Editar código\"\n                mat-mini-fab\n                color=\"primary\"\n                (click)=\"openDialog(false, qr)\"\n              >\n                <mat-icon>edit</mat-icon>\n              </button>\n              <button\n                matTooltip=\"Eliminar código\"\n                mat-mini-fab\n                color=\"warn\"\n                (click)=\"delete(qr)\"\n              >\n                <mat-icon>delete</mat-icon>\n              </button>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div\n        class=\"alert alert-info text-center\"\n        role=\"alert\"\n        *ngIf=\"this.qrCodesService.qrCodes.length === 0\"\n      >\n        ¡No hay códigos QR disponibles!\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loading>\n  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>\n</ng-template>\n";
     /***/
   },
 
@@ -16929,7 +16929,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "textarea {\n  resize: none;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n  align-items: center;\n}\n\n::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {\n  align-items: center;\n}\n\nmat-form-field {\n  width: 100%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.lblAtribute {\n  font-size: 18px;\n  font-weight: bold;\n}\n\n#exit {\n  float: right;\n  background-color: transparent;\n}\n\n::ng-deep .mat-horizontal-stepper-header {\n  pointer-events: none !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFBO0FDQ0Y7O0FERUE7RUFDRSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0Y7O0FERUE7RUFDRSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDRjs7QURFQTtFQUNFLFdBQUE7QUNDRjs7QURFQTtFQUNJLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7RUFDQSxtQkFBQTtBQ0NKOztBREVBO0VBQ0ksbUJBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURFQTtFQUNJLFlBQUE7RUFDQSw2QkFBQTtBQ0NKOztBREVBO0VBQ0ksK0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lcntcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG46Om5nLWRlZXAgLm1hdC1mb3JtLWZpZWxkLWFwcGVhcmFuY2Utb3V0bGluZSAubWF0LWZvcm0tZmllbGQtZmxleCB7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxubWF0LWZvcm0tZmllbGR7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICAgIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4ubGJsQXRyaWJ1dGV7XG4gICAgZm9udC1zaXplOiAxOHB4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4jZXhpdHtcbiAgICBmbG9hdDogcmlnaHQ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59XG5cbjo6bmctZGVlcCAubWF0LWhvcml6b250YWwtc3RlcHBlci1oZWFkZXJ7XG4gICAgcG9pbnRlci1ldmVudHM6IG5vbmUgIWltcG9ydGFudDtcbn0iLCJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBtYXJnaW4tYm90dG9tOiAzJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG59XG5cbmZvcm0ge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbjo6bmctZGVlcCAubWF0LWZvcm0tZmllbGQtYXBwZWFyYW5jZS1vdXRsaW5lIC5tYXQtZm9ybS1maWVsZC1mbGV4IHtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICB3aWR0aDogMTAwJTtcbiAgbWFyZ2luLXJpZ2h0OiAyLjUlO1xuICBtYXJnaW4tbGVmdDogMi41JTtcbn1cblxuLmxibEF0cmlidXRlIHtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuI2V4aXQge1xuICBmbG9hdDogcmlnaHQ7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuXG46Om5nLWRlZXAgLm1hdC1ob3Jpem9udGFsLXN0ZXBwZXItaGVhZGVyIHtcbiAgcG9pbnRlci1ldmVudHM6IG5vbmUgIWltcG9ydGFudDtcbn0iXX0= */";
+    __webpack_exports__["default"] = "textarea {\n  resize: none !important;\n  height: 50px !important;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-top: 3%;\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n  align-items: center;\n}\n\n::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {\n  align-items: center;\n}\n\nmat-form-field {\n  width: 100%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.lblAtribute {\n  font-size: 18px;\n  font-weight: bold;\n}\n\n#exit {\n  float: right;\n  background-color: transparent;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIvY3JlYXRlLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSx1QkFBQTtFQUNBLHVCQUFBO0FDQ0Y7O0FERUE7RUFDRSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0Y7O0FERUE7RUFDRSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsNkJBQUE7QUNDRjs7QURFQTtFQUNFLFdBQUE7QUNDRjs7QURFQTtFQUNJLGFBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7RUFDQSxtQkFBQTtBQ0NKOztBREVBO0VBQ0ksbUJBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURFQTtFQUNJLFlBQUE7RUFDQSw2QkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvZ2VvZ3JhcGhpYy1sYXllcnMvY29tcG9uZW50cy9jcmVhdGUtZ2VvZ3JhcGhpYy1sYXllci9jcmVhdGUtZ2VvZ3JhcGhpYy1sYXllci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhIHtcbiAgcmVzaXplOiBub25lICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogNTBweCAhaW1wb3J0YW50O1xufVxuXG5oMSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiAwJTtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG4gIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMyU7XG4gIG1hcmdpbi1ib3R0b206IDMlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVye1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC13cmFwOiB3cmFwO1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbjo6bmctZGVlcCAubWF0LWZvcm0tZmllbGQtYXBwZWFyYW5jZS1vdXRsaW5lIC5tYXQtZm9ybS1maWVsZC1mbGV4IHtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG5tYXQtZm9ybS1maWVsZHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gICAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi5sYmxBdHJpYnV0ZXtcbiAgICBmb250LXNpemU6IDE4cHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbiNleGl0e1xuICAgIGZsb2F0OiByaWdodDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDtcbn1cbiIsInRleHRhcmVhIHtcbiAgcmVzaXplOiBub25lICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogNTBweCAhaW1wb3J0YW50O1xufVxuXG5oMSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiAwJTtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG4gIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLXRvcDogMyU7XG4gIG1hcmdpbi1ib3R0b206IDMlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuOjpuZy1kZWVwIC5tYXQtZm9ybS1maWVsZC1hcHBlYXJhbmNlLW91dGxpbmUgLm1hdC1mb3JtLWZpZWxkLWZsZXgge1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiAxMDAlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4ubGJsQXRyaWJ1dGUge1xuICBmb250LXNpemU6IDE4cHg7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4jZXhpdCB7XG4gIGZsb2F0OiByaWdodDtcbiAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59Il19 */";
     /***/
   },
 
@@ -16976,13 +16976,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! @angular/material */
     "./node_modules/@angular/material/esm2015/material.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var _services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../services/geographic-layers.service */
+    "./src/app/geographic-layers/services/geographic-layers.service.ts");
 
     var CreateGeographicLayerComponent = /*#__PURE__*/function () {
-      function CreateGeographicLayerComponent(dialogRef, fb) {
+      function CreateGeographicLayerComponent(dialogRef, fb, geographicLayerService, commonService, router) {
         _classCallCheck(this, CreateGeographicLayerComponent);
 
         this.dialogRef = dialogRef;
         this.fb = fb;
+        this.geographicLayerService = geographicLayerService;
+        this.commonService = commonService;
+        this.router = router;
+        this.loading = false;
         this.layerFG = this.fb.group({
           name: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
           detail: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
@@ -17023,6 +17045,67 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.integerAtributes.removeAt(index);
         }
       }, {
+        key: "submit",
+        value: function submit() {
+          this.layerFG.disable();
+          this.loading = true;
+          var layer = {
+            layer_name: this.layerFG.controls['name'].value,
+            layer_detail: this.layerFG.controls['detail'].value
+          };
+
+          for (var i = 0; i < this.txtAtributes.value.length; i++) {
+            var element = this.txtAtributes.value[i].textAtribute;
+            layer[element] = {
+              name: element,
+              tipo: "string"
+            };
+          }
+
+          for (var _i6 = 0; _i6 < this.integerAtributes.value.length; _i6++) {
+            var _element = this.integerAtributes.value[_i6].intAtribute;
+            layer[_element] = {
+              name: _element,
+              tipo: "integer"
+            };
+          }
+
+          this.addLayer(layer);
+        }
+      }, {
+        key: "addLayer",
+        value: function addLayer(layer) {
+          var _this121 = this;
+
+          console.log(layer);
+          this.geographicLayerService.createLayer(layer).subscribe({
+            next: function next(data) {
+              if (data.status == 201) {
+                console.log(data);
+
+                _this121.commonService.openSnackBar("La capa ".concat(_this121.layerFG.value.name, " se ha creado!"), "OK");
+
+                _this121.dialogRef.close();
+
+                _this121.router.navigate(["/geographic-layers/".concat(data.body[0])]);
+              } else {
+                _this121.commonService.openSnackBar("Ha ocurrido un error al intentar crear la capa: ".concat(data.error), "OK");
+
+                _this121.layerFG.enable();
+
+                _this121.loading = true;
+              }
+            },
+            error: function error(err) {
+              _this121.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+
+              _this121.layerFG.enable();
+
+              _this121.loading = true;
+            }
+          });
+        }
+      }, {
         key: "disableDialog",
         value: function disableDialog() {
           if (!this.layerFG.valid) {
@@ -17061,6 +17144,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"]
       }, {
         type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]
+      }, {
+        type: _services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_6__["GeographicLayersService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
       }];
     };
 
@@ -17092,7 +17181,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvbWFuYWdlbWVudC1nZW9ncmFwaGljLWxheWVyL2RldGFpbHMtZ2VvZ3JhcGhpYy1sYXllci9kZXRhaWxzLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MifQ== */";
+    __webpack_exports__["default"] = "textarea {\n  resize: none !important;\n  height: 50px !important;\n}\n\nh1 {\n  text-align: center;\n  margin: 0%;\n  margin-bottom: 1%;\n  font-size: larger;\n}\n\n.buttonContainer {\n  margin-bottom: 3%;\n  display: flex;\n  justify-content: space-around;\n}\n\nform {\n  width: 100%;\n}\n\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n  align-items: center;\n}\n\n::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {\n  align-items: center;\n}\n\nmat-form-field {\n  width: 100%;\n  margin-right: 2.5%;\n  margin-left: 2.5%;\n}\n\n.lblAtribute {\n  font-size: 18px;\n  font-weight: bold;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9pbnRlbGl0dXIvYWRtaW5pc3RyYXRvci9zcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvbWFuYWdlbWVudC1nZW9ncmFwaGljLWxheWVyL2RldGFpbHMtZ2VvZ3JhcGhpYy1sYXllci9kZXRhaWxzLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2dlb2dyYXBoaWMtbGF5ZXJzL2NvbXBvbmVudHMvbWFuYWdlbWVudC1nZW9ncmFwaGljLWxheWVyL2RldGFpbHMtZ2VvZ3JhcGhpYy1sYXllci9kZXRhaWxzLWdlb2dyYXBoaWMtbGF5ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSx1QkFBQTtFQUNBLHVCQUFBO0FDQ0Y7O0FERUE7RUFDRSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0Y7O0FERUE7RUFDRSxpQkFBQTtFQUNBLGFBQUE7RUFDQSw2QkFBQTtBQ0NGOztBREVBO0VBQ0UsV0FBQTtBQ0NGOztBREVBO0VBQ0UsYUFBQTtFQUNBLGVBQUE7RUFDQSw2QkFBQTtFQUNBLG1CQUFBO0FDQ0Y7O0FERUE7RUFDRSxtQkFBQTtBQ0NGOztBREVBO0VBQ0UsV0FBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7QUNDRjs7QURFQTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtBQ0NGIiwiZmlsZSI6InNyYy9hcHAvZ2VvZ3JhcGhpYy1sYXllcnMvY29tcG9uZW50cy9tYW5hZ2VtZW50LWdlb2dyYXBoaWMtbGF5ZXIvZGV0YWlscy1nZW9ncmFwaGljLWxheWVyL2RldGFpbHMtZ2VvZ3JhcGhpYy1sYXllci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRleHRhcmVhIHtcbiAgcmVzaXplOiBub25lICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogNTBweCAhaW1wb3J0YW50O1xufVxuXG5oMSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiAwJTtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG4gIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuXG4uYnV0dG9uQ29udGFpbmVyIHtcbiAgbWFyZ2luLWJvdHRvbTogMyU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG5mb3JtIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG46Om5nLWRlZXAgLm1hdC1mb3JtLWZpZWxkLWFwcGVhcmFuY2Utb3V0bGluZSAubWF0LWZvcm0tZmllbGQtZmxleCB7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi1yaWdodDogMi41JTtcbiAgbWFyZ2luLWxlZnQ6IDIuNSU7XG59XG5cbi5sYmxBdHJpYnV0ZSB7XG4gIGZvbnQtc2l6ZTogMThweDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4iLCJ0ZXh0YXJlYSB7XG4gIHJlc2l6ZTogbm9uZSAhaW1wb3J0YW50O1xuICBoZWlnaHQ6IDUwcHggIWltcG9ydGFudDtcbn1cblxuaDEge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogMCU7XG4gIG1hcmdpbi1ib3R0b206IDElO1xuICBmb250LXNpemU6IGxhcmdlcjtcbn1cblxuLmJ1dHRvbkNvbnRhaW5lciB7XG4gIG1hcmdpbi1ib3R0b206IDMlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbn1cblxuZm9ybSB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWFyb3VuZDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuOjpuZy1kZWVwIC5tYXQtZm9ybS1maWVsZC1hcHBlYXJhbmNlLW91dGxpbmUgLm1hdC1mb3JtLWZpZWxkLWZsZXgge1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIHdpZHRoOiAxMDAlO1xuICBtYXJnaW4tcmlnaHQ6IDIuNSU7XG4gIG1hcmdpbi1sZWZ0OiAyLjUlO1xufVxuXG4ubGJsQXRyaWJ1dGUge1xuICBmb250LXNpemU6IDE4cHg7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufSJdfQ== */";
     /***/
   },
 
@@ -17127,22 +17216,115 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! src/app/general-services/common.service */
+    "./src/app/general-services/common.service.ts");
+    /* harmony import */
+
+
+    var src_app_geographic_layers_services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/geographic-layers/services/geographic-layers.service */
+    "./src/app/geographic-layers/services/geographic-layers.service.ts");
 
     var DetailsGeographicLayerComponent = /*#__PURE__*/function () {
-      function DetailsGeographicLayerComponent() {
+      function DetailsGeographicLayerComponent(fb, geographicLayerService, commonService) {
         _classCallCheck(this, DetailsGeographicLayerComponent);
+
+        this.fb = fb;
+        this.geographicLayerService = geographicLayerService;
+        this.commonService = commonService;
+        this.loading = false;
+        this.layerFG = this.fb.group({
+          name: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+          detail: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+          textAtributes: this.fb.array([this.fb.group({})], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+          intAtributes: this.fb.array([this.fb.group({})], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+        });
       }
 
       _createClass(DetailsGeographicLayerComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {}
+      }, {
+        key: "addTextAtribute",
+        value: function addTextAtribute() {
+          this.txtAtributes.push(this.fb.group({
+            textAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+          }));
+        }
+      }, {
+        key: "deleteTextAtribute",
+        value: function deleteTextAtribute(index) {
+          this.txtAtributes.removeAt(index);
+        }
+      }, {
+        key: "addIntAtribute",
+        value: function addIntAtribute() {
+          this.integerAtributes.push(this.fb.group({
+            intAtribute: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+          }));
+        }
+      }, {
+        key: "deleteIntAtribute",
+        value: function deleteIntAtribute(index) {
+          this.integerAtributes.removeAt(index);
+        }
+      }, {
+        key: "setData",
+        value: function setData() {
+          this.layerFG.controls["name"].setValue(this.myLayer.layer_name);
+          this.layerFG.controls["detail"].setValue(this.myLayer.detail);
+
+          for (var i = 0; i < this.myLayer.length; i++) {
+            var element = this.myLayer[i];
+          }
+        }
+      }, {
+        key: "disableDialog",
+        value: function disableDialog() {
+          if (!this.layerFG.valid) {
+            return true;
+          }
+
+          return false;
+        }
+      }, {
+        key: "txtAtributes",
+        get: function get() {
+          return this.layerFG.get("textAtributes");
+        }
+      }, {
+        key: "integerAtributes",
+        get: function get() {
+          return this.layerFG.get("intAtributes");
+        }
       }]);
 
       return DetailsGeographicLayerComponent;
     }();
 
+    DetailsGeographicLayerComponent.ctorParameters = function () {
+      return [{
+        type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]
+      }, {
+        type: src_app_geographic_layers_services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_4__["GeographicLayersService"]
+      }, {
+        type: src_app_general_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
+      }];
+    };
+
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], DetailsGeographicLayerComponent.prototype, "myLayer", void 0);
     DetailsGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-      selector: 'app-details-geographic-layer',
+      selector: "app-details-geographic-layer",
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./details-geographic-layer.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/geographic-layers/components/management-geographic-layer/details-geographic-layer/details-geographic-layer.component.html"))["default"],
@@ -17204,19 +17386,64 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../services/geographic-layers.service */
+    "./src/app/geographic-layers/services/geographic-layers.service.ts");
 
     var ManagementGeographicLayerComponent = /*#__PURE__*/function () {
-      function ManagementGeographicLayerComponent() {
+      function ManagementGeographicLayerComponent(route, geographicLayerService) {
         _classCallCheck(this, ManagementGeographicLayerComponent);
+
+        this.route = route;
+        this.geographicLayerService = geographicLayerService;
       }
 
       _createClass(ManagementGeographicLayerComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {}
+        value: function ngOnInit() {
+          var _this122 = this;
+
+          this.subscription = this.route.paramMap.subscribe(function (params) {
+            _this122.layer_id = Number(params.get("layer_id"));
+
+            _this122.recharge();
+          });
+        }
+      }, {
+        key: "ngOnDestroy",
+        value: function ngOnDestroy() {
+          this.subscription.unsubscribe();
+        }
+      }, {
+        key: "recharge",
+        value: function recharge() {
+          var _this123 = this;
+
+          this.geographicLayerService.getLayer(Number(this.layer_id)).subscribe(function (data) {
+            _this123.myLayer = data;
+          });
+        }
       }]);
 
       return ManagementGeographicLayerComponent;
     }();
+
+    ManagementGeographicLayerComponent.ctorParameters = function () {
+      return [{
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]
+      }, {
+        type: _services_geographic_layers_service__WEBPACK_IMPORTED_MODULE_3__["GeographicLayersService"]
+      }];
+    };
 
     ManagementGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-management-geographic-layer',
@@ -17289,12 +17516,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
       _createClass(UbicationGeographicLayerComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {}
+        value: function ngOnInit() {
+          console.log(this.myLayer);
+        }
       }]);
 
       return UbicationGeographicLayerComponent;
     }();
 
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], UbicationGeographicLayerComponent.prototype, "myLayer", void 0);
     UbicationGeographicLayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-ubication-geographic-layer',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
@@ -17605,6 +17835,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
         }
       }, {
+        key: "getLayer",
+        value: function getLayer(layer_id) {
+          return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module), {
+            params: {
+              layer_id: layer_id.toString()
+            }
+          });
+        }
+      }, {
         key: "getLayerPoints",
         value: function getLayerPoints(layer_id) {
           return this.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_BASE_URL).concat(this.module).concat(layer_id, "/point"));
@@ -17773,22 +18012,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this121 = this;
+          var _this124 = this;
 
           this.loading = true;
           var showed = Number(this.filter.showed);
           showed == 0 ? showed = undefined : showed == 1 ? showed = true : showed = false;
           this.subscription = this.imageService.getTouristViewImages(showed).subscribe({
             next: function next(data) {
-              _this121.imageService.images = data;
-              data != [] ? _this121.currentImg = data[0] : null;
+              _this124.imageService.images = data;
+              data != [] ? _this124.currentImg = data[0] : null;
 
-              _this121.subscription.unsubscribe();
+              _this124.subscription.unsubscribe();
 
-              _this121.loading = false;
+              _this124.loading = false;
             },
             error: function error(err) {
-              return _this121.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this124.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -17872,25 +18111,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeImgShowState",
         value: function changeImgShowState() {
-          var _this122 = this;
+          var _this125 = this;
 
           var id = this.currentImg.home_image_id;
           this.imageService.changeShowState(id, !this.currentImg.showed).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this122.currentImg.showed = !_this122.currentImg.showed;
+                _this125.currentImg.showed = !_this125.currentImg.showed;
 
-                if (_this122.currentImg.showed) {
-                  _this122.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK");
+                if (_this125.currentImg.showed) {
+                  _this125.commonService.openSnackBar("Se ha cambiado la imagen para mostrarla", "OK");
                 } else {
-                  _this122.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
+                  _this125.commonService.openSnackBar("Se ha cambiado la imagen para no mostrarla", "OK");
                 }
 
-                _this122.refresh();
+                _this125.refresh();
               }
             },
             error: function error(err) {
-              return _this122.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this125.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -17898,7 +18137,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "deleteImage",
         value: function deleteImage() {
           return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
-            var _this123 = this;
+            var _this126 = this;
 
             var id;
             return regeneratorRuntime.wrap(function _callee51$(_context51) {
@@ -17910,14 +18149,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     _context51.next = 4;
                     return this.imageService.disableImg(id).toPromise().then(function (data) {
                       if (data.status == 204) {
-                        _this123.commonService.openSnackBar("La imagen se ha eleminado", "OK");
+                        _this126.commonService.openSnackBar("La imagen se ha eleminado", "OK");
 
-                        _this123.imageService.images.splice(_this123.imageIndex, 1);
+                        _this126.imageService.images.splice(_this126.imageIndex, 1);
                       } else {
-                        _this123.commonService.openSnackBar("Error al intentar eliminar la imagen", "OK");
+                        _this126.commonService.openSnackBar("Error al intentar eliminar la imagen", "OK");
                       }
 
-                      _this123.refresh();
+                      _this126.refresh();
                     });
 
                   case 4:
@@ -18444,24 +18683,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FilterOptionsDialogComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this124 = this;
+          var _this127 = this;
 
           this.filters.role = this._session.actualUser.role_id;
           this.filters.user_id = this._session.actualUser.user_id;
           this.categorySubs = this._itineray.getCategories().subscribe({
             next: function next(response) {
-              return _this124.categories = response.data;
+              return _this127.categories = response.data;
             },
             error: function error(err) {
-              return _this124._common.handleError(err);
+              return _this127._common.handleError(err);
             }
           });
           this.groupTypeSubs = this._itineray.getGroupTypes().subscribe({
             next: function next(response) {
-              return _this124.groupTypes = response.data;
+              return _this127.groupTypes = response.data;
             },
             error: function error(err) {
-              return _this124._common.handleError(err);
+              return _this127._common.handleError(err);
             }
           });
         }
@@ -18624,14 +18863,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getItinerariesMinimalInfo",
         value: function getItinerariesMinimalInfo() {
-          var _this125 = this;
+          var _this128 = this;
 
           this.subscription = this._itinerary.getItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this125.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data.data);
+              _this128.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this125._common.handleError(err);
+              return _this128._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -18643,20 +18882,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this126 = this;
+          var _this129 = this;
 
           this.dialogSubscription = this._dialog.openFilterOptionsDialog().subscribe({
             next: function next(filters) {
               if (filters) {
-                _this126.filterItinerariesSubs = _this126._itinerary.filterItineraries(filters).subscribe({
+                _this129.filterItinerariesSubs = _this129._itinerary.filterItineraries(filters).subscribe({
                   next: function next(response) {
-                    _this126.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](response.data);
+                    _this129.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](response.data);
                   },
                   error: function error(err) {
-                    return _this126._common.handleError(err);
+                    return _this129._common.handleError(err);
                   }
                 });
-                _this126.isFilters = true;
+                _this129.isFilters = true;
               }
             }
           });
@@ -18955,16 +19194,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setupEndDate",
         value: function setupEndDate() {
-          var _this127 = this;
+          var _this130 = this;
 
           this.itineraryFG.get("startDate").valueChanges.subscribe(function (val) {
-            if (_this127.itineraryFG.get("startDate").value) {
+            if (_this130.itineraryFG.get("startDate").value) {
               var date = new Date(val);
 
-              if (_this127.itineraryFG.get("duration").value) {
-                date.setDate(date.getDate() + _this127.itineraryFG.get("duration").value);
+              if (_this130.itineraryFG.get("duration").value) {
+                date.setDate(date.getDate() + _this130.itineraryFG.get("duration").value);
 
-                _this127.itineraryFG.get('endDate').setValue(date);
+                _this130.itineraryFG.get('endDate').setValue(date);
               }
             }
           });
@@ -18976,20 +19215,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setupValueChangesTotalPrice",
         value: function setupValueChangesTotalPrice() {
-          var _this128 = this;
+          var _this131 = this;
 
           this.itineraryFG.get("pricePerDay").valueChanges.subscribe(function (val) {
-            if (_this128.itineraryFG.get("duration").value) {
-              var duration = _this128.itineraryFG.get("duration").value;
+            if (_this131.itineraryFG.get("duration").value) {
+              var duration = _this131.itineraryFG.get("duration").value;
 
-              _this128.itineraryFG.controls["totalPrice"].setValue(val * duration);
+              _this131.itineraryFG.controls["totalPrice"].setValue(val * duration);
             }
           });
           this.itineraryFG.get("duration").valueChanges.subscribe(function (val) {
-            if (_this128.itineraryFG.get("pricePerDay").value) {
-              var pricePerDay = _this128.itineraryFG.get("pricePerDay").value;
+            if (_this131.itineraryFG.get("pricePerDay").value) {
+              var pricePerDay = _this131.itineraryFG.get("pricePerDay").value;
 
-              _this128.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
+              _this131.itineraryFG.controls["totalPrice"].setValue(val * pricePerDay);
             }
           });
         }
@@ -19000,7 +19239,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setupUploader",
         value: function setupUploader() {
-          var _this129 = this;
+          var _this132 = this;
 
           this._image.uploader.onAfterAddingFile = function (file) {
             file.withCredentials = false;
@@ -19009,14 +19248,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this._image.uploader.onSuccessItem = function (item, response, status, headers) {
             var path = JSON.parse(response).data;
 
-            _this129.savedImagePaths.push(path);
+            _this132.savedImagePaths.push(path);
           };
 
           this._image.uploader.onCompleteAll = function () {
-            _this129.savedImagePaths.forEach(function (e) {
-              _this129.subscription = _this129._itinerary.saveImageUrl(_this129.savedIt, e).subscribe({
+            _this132.savedImagePaths.forEach(function (e) {
+              _this132.subscription = _this132._itinerary.saveImageUrl(_this132.savedIt, e).subscribe({
                 error: function error(err) {
-                  return _this129._common.handleError(err);
+                  return _this132._common.handleError(err);
                 }
               });
             });
@@ -19047,17 +19286,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getGroupTypes",
         value: function getGroupTypes() {
-          var _this130 = this;
+          var _this133 = this;
 
           this.subscription = this._itinerary.getGroupTypes().subscribe({
             next: function next(data) {
-              _this130.groupTypes = [];
+              _this133.groupTypes = [];
               data.data.forEach(function (el) {
-                _this130.groupTypes.unshift(el);
+                _this133.groupTypes.unshift(el);
               });
             },
             error: function error(err) {
-              return _this130._common.handleError(err);
+              return _this133._common.handleError(err);
             }
           });
         }
@@ -19068,14 +19307,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this131 = this;
+          var _this134 = this;
 
           this.subscription = this._itinerary.getCategories().subscribe({
             next: function next(result) {
-              _this131.categories = result.data;
+              _this134.categories = result.data;
             },
             error: function error(err) {
-              return _this131._common.handleError(err);
+              return _this134._common.handleError(err);
             }
           });
         }
@@ -19086,7 +19325,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "catchSelectedImages",
         value: function catchSelectedImages(files) {
-          var _this132 = this;
+          var _this135 = this;
 
           for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
@@ -19094,9 +19333,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
             reader.onload = function (event) {
               // called once readAsDataURL is completed
-              _this132.images.push(event.target.result);
+              _this135.images.push(event.target.result);
 
-              _this132.data.images = _this132.images;
+              _this135.data.images = _this135.images;
             };
           }
         }
@@ -19112,7 +19351,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this133 = this;
+          var _this136 = this;
 
           var fv = this.itineraryFG.value;
           this.subscription = this._itinerary.saveItinerary(new src_app_itinerary_models_Itinerary__WEBPACK_IMPORTED_MODULE_4__["Itinerary"]({
@@ -19131,14 +19370,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             return e.category_id;
           })).subscribe({
             next: function next(result) {
-              _this133._common.openSnackBar("Itinerario guardado con éxito", "Ok");
+              _this136._common.openSnackBar("Itinerario guardado con éxito", "Ok");
 
-              _this133.savedIt = result.data;
+              _this136.savedIt = result.data;
 
-              _this133.uploadImages();
+              _this136.uploadImages();
             },
             error: function error(err) {
-              return _this133._common.handleError(err);
+              return _this136._common.handleError(err);
             }
           });
         }
@@ -19363,14 +19602,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ItineraryDashboardComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this134 = this;
+          var _this137 = this;
 
           if (!this._itinerary.itinerary_id) this._router.navigate(["itineraries/show-all"]);else this.subscription = this._itinerary.getItineraryFullInfo(this._itinerary.itinerary_id).subscribe({
             next: function next(data) {
-              _this134.itinerary = data.data;
+              _this137.itinerary = data.data;
             },
             error: function error(err) {
-              return _this134._common.handleError(err);
+              return _this137._common.handleError(err);
             }
           });
         }
@@ -19582,16 +19821,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "save",
         value: function save() {
-          var _this135 = this;
+          var _this138 = this;
 
           this.subscription = this._itinerary.addDay(this.data.id_itinerary, this.data.day_number, this.data.details, this.data.duration + 1).subscribe({
             next: function next(result) {
-              _this135._common.openSnackBar(result.message, "Ok");
+              _this138._common.openSnackBar(result.message, "Ok");
 
-              return _this135.dialogRef.close(_this135.data);
+              return _this138.dialogRef.close(_this138.data);
             },
             error: function error(err) {
-              return _this135._common.handleError(err);
+              return _this138._common.handleError(err);
             }
           });
         }
@@ -19728,16 +19967,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ItineraryDistributionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this136 = this;
+          var _this139 = this;
 
           this.subscription = this.itineraryService.getFavoriteItinerary(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
               if (data.data.length > 0) {
-                _this136.favorites = data.data[0].get_favorite_itinerary;
+                _this139.favorites = data.data[0].get_favorite_itinerary;
               }
             },
             error: function error(err) {
-              return _this136.commonService.handleError(err);
+              return _this139.commonService.handleError(err);
             }
           });
         }
@@ -19751,14 +19990,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAvailable",
         value: function setAvailable(state, itineraryID, info, _ref21) {
-          var _this137 = this;
+          var _this140 = this;
 
           var source = _ref21.source;
           var action;
           state ? action = "activar" : action = "desactivar";
           this.commonService.confirmationDialog("\xBFDesea ".concat(action, " el itinerario?")).then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this137, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
-              var _this138 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this140, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
+              var _this141 = this;
 
               var modifyInfo;
               return regeneratorRuntime.wrap(function _callee52$(_context52) {
@@ -19771,15 +20010,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         this.subscription = this.itineraryService.changeActiveState(itineraryID, modifyInfo).subscribe({
                           next: function next() {
                             if (state) {
-                              _this138.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido habilitado"), "OK");
+                              _this141.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido habilitado"), "OK");
                             } else {
-                              _this138.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido desabilitado"), "OK");
+                              _this141.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido desabilitado"), "OK");
                             }
 
-                            _this138.subscription.unsubscribe();
+                            _this141.subscription.unsubscribe();
                           },
                           error: function error(err) {
-                            return _this138.commonService.openSnackBar("Error: ".concat(err), "OK");
+                            return _this141.commonService.openSnackBar("Error: ".concat(err), "OK");
                           }
                         });
                       } else {
@@ -19803,18 +20042,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addFavoriteItinerary",
         value: function addFavoriteItinerary(itineraryID) {
-          var _this139 = this;
+          var _this142 = this;
 
           this.favorites.push(itineraryID);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this.itineraryService.addFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this139.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido agregado a favoritos"), "OK");
+              _this142.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido agregado a favoritos"), "OK");
 
-              _this139.subscription.unsubscribe();
+              _this142.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this139.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this142.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -19826,18 +20065,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeFavoriteItinerary",
         value: function removeFavoriteItinerary(itineraryID) {
-          var _this140 = this;
+          var _this143 = this;
 
           this.favorites.splice(this.favorites.indexOf(itineraryID, 0), 1);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this.itineraryService.removeFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this140.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido removido de favoritos"), "OK");
+              _this143.commonService.openSnackBar("El itinerario ".concat(itineraryID, " ha sido removido de favoritos"), "OK");
 
-              _this140.subscription.unsubscribe();
+              _this143.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this140.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this143.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -20007,30 +20246,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(OffersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this141 = this;
+          var _this144 = this;
 
           this.days = new Array(this.it.info["duration"]);
           this.days = this.fillArray(this.it.info["duration"]);
           this.subscription = this._itinerary.getFavoriteOffer(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              if (data.data[0]) _this141.favorites = data.data[0].get_favorite_offer;
+              if (data.data[0]) _this144.favorites = data.data[0].get_favorite_offer;
             },
             error: function error(err) {
-              return _this141.commonService.handleError(err);
+              return _this144.commonService.handleError(err);
             }
           });
 
           if (this.it) {
             this.getDaysInfo();
             this.searchOffersCTRL.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
-              _this141.filteredOffers = [];
-              _this141.isLoading = true;
+              _this144.filteredOffers = [];
+              _this144.isLoading = true;
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["switchMap"])(function (value) {
-              return _this141.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].SERVER_BASE_URL, "itinerary/filterOffers?value=").concat(value, "&it_id=").concat(_this141.it["itinerary_id"])).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["finalize"])(function () {
-                _this141.isLoading = false;
+              return _this144.http.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].SERVER_BASE_URL, "itinerary/filterOffers?value=").concat(value, "&it_id=").concat(_this144.it["itinerary_id"])).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["finalize"])(function () {
+                _this144.isLoading = false;
               }));
             })).subscribe(function (result) {
-              _this141.filteredOffers = result.data;
+              _this144.filteredOffers = result.data;
             });
           }
         }
@@ -20060,18 +20299,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addOfferFavorite",
         value: function addOfferFavorite(offerID) {
-          var _this142 = this;
+          var _this145 = this;
 
           this.favorites.push(offerID);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.addFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this142.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido agregado a favoritos"), "OK");
+              _this145.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido agregado a favoritos"), "OK");
 
-              _this142.subscription.unsubscribe();
+              _this145.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this142.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this145.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -20083,18 +20322,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOfferFavorite",
         value: function removeOfferFavorite(offerID) {
-          var _this143 = this;
+          var _this146 = this;
 
           this.favorites.splice(this.favorites.indexOf(offerID, 0), 1);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this143.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
+              _this146.commonService.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
 
-              _this143.subscription.unsubscribe();
+              _this146.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this143.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this146.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -20106,11 +20345,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateDayDistribution",
         value: function updateDayDistribution(day_number, index) {
-          var _this144 = this;
+          var _this147 = this;
 
           var distArray = this.days[index].items.map(function (e) {
             return {
-              it: _this144.it["itinerary_id"],
+              it: _this147.it["itinerary_id"],
               offer_id: e.offer_id,
               day_number: day_number,
               initial_time: "21:40:12.585447",
@@ -20124,10 +20363,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }];
           this.subscription = this._itinerary.updateDayDistribution(distArray).subscribe({
             next: function next(result) {
-              return _this144.commonService.openSnackBar(result.message, "Ok");
+              return _this147.commonService.openSnackBar(result.message, "Ok");
             },
             error: function error(err) {
-              return _this144.commonService.handleError(err);
+              return _this147.commonService.handleError(err);
             }
           });
         }
@@ -20139,7 +20378,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "getDaysInfo",
         value: function getDaysInfo() {
           return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
-            var _this145 = this;
+            var _this148 = this;
 
             return regeneratorRuntime.wrap(function _callee53$(_context53) {
               while (1) {
@@ -20148,19 +20387,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     _context53.next = 2;
                     return this._itinerary.getDayInfo(this.it["itinerary_id"]).toPromise().then(function (data) {
                       if (data.data.day !== null) {
-                        _this145.formatDaysArray(data.data.day);
+                        _this148.formatDaysArray(data.data.day);
                       }
                     })["catch"](function (err) {
-                      return _this145.commonService.handleError(err);
+                      return _this148.commonService.handleError(err);
                     });
 
                   case 2:
                     this.subscription = this._itinerary.getDaysDetails(this.it["itinerary_id"]).subscribe({
                       next: function next(result) {
-                        return _this145.daysDetails = result.data;
+                        return _this148.daysDetails = result.data;
                       },
                       error: function error(err) {
-                        return _this145.commonService.handleError(err);
+                        return _this148.commonService.handleError(err);
                       }
                     });
 
@@ -20180,7 +20419,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "formatDaysArray",
         value: function formatDaysArray(data) {
-          var _this146 = this;
+          var _this149 = this;
 
           var source = Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["from"])(data);
           var obs = source.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["groupBy"])(function (d) {
@@ -20191,7 +20430,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }));
           this.formatArraySubscription = obs.subscribe({
             next: function next(val) {
-              if (_this146.days[val[0].day_number - 1]) _this146.days[val[0].day_number - 1].items = val;
+              if (_this149.days[val[0].day_number - 1]) _this149.days[val[0].day_number - 1].items = val;
             }
           });
         }
@@ -20246,16 +20485,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteDay",
         value: function deleteDay(day_number, index) {
-          var _this147 = this;
+          var _this150 = this;
 
           this.deleteDaySubs = this._itinerary.deleteDay(this.it["itinerary_id"], day_number).subscribe({
             next: function next(result) {
-              _this147.commonService.openSnackBar(result.message, "Ok");
+              _this150.commonService.openSnackBar(result.message, "Ok");
 
-              _this147.days.splice(index, 1);
+              _this150.days.splice(index, 1);
             },
             error: function error(err) {
-              return _this147.commonService.handleError(err);
+              return _this150.commonService.handleError(err);
             }
           });
         }
@@ -20266,7 +20505,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addDay",
         value: function addDay() {
-          var _this148 = this;
+          var _this151 = this;
 
           this._dialog.openCreateDay({
             details: "",
@@ -20275,12 +20514,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             duration: this.it.info["duration"]
           }).subscribe({
             next: function next(createdDay) {
-              _this148.days.push({
+              _this151.days.push({
                 day_number: createdDay.day_number,
                 items: []
               });
 
-              _this148.daysDetails.push({
+              _this151.daysDetails.push({
                 details: createdDay.details
               });
             }
@@ -20297,16 +20536,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "unlinkOffer",
         value: function unlinkOffer(offer_id, day_number, offer_index, day_index) {
-          var _this149 = this;
+          var _this152 = this;
 
           this.subscription = this._itinerary.unlinkOffer(offer_id, this.it["itinerary_id"], day_number).subscribe({
             next: function next(result) {
-              _this149.commonService.openSnackBar(result.message, "Ok");
+              _this152.commonService.openSnackBar(result.message, "Ok");
 
-              _this149.days[day_index].items.splice(offer_index, 1);
+              _this152.days[day_index].items.splice(offer_index, 1);
             },
             error: function error(err) {
-              return _this149.commonService.handleError(err);
+              return _this152.commonService.handleError(err);
             }
           });
         }
@@ -20459,17 +20698,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getPromotionByItineraryID",
         value: function getPromotionByItineraryID() {
-          var _this150 = this;
+          var _this153 = this;
 
           this.subscriptionAddedPromotion = this.itineraryService.getPromotionByItineraryID().subscribe({
             next: function next(data) {
-              _this150.addedPromotions = data.data.rows;
-              _this150.addedPromotionLoading = false;
+              _this153.addedPromotions = data.data.rows;
+              _this153.addedPromotionLoading = false;
 
-              _this150.subscriptionAddedPromotion.unsubscribe();
+              _this153.subscriptionAddedPromotion.unsubscribe();
             },
             error: function error(err) {
-              return _this150.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this153.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -20480,17 +20719,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getAllPromotions",
         value: function getAllPromotions() {
-          var _this151 = this;
+          var _this154 = this;
 
           this.subscriptionPromotion = this.itineraryService.getAllPromotions().subscribe({
             next: function next(data) {
-              _this151.promotions = data.data;
-              _this151.promotionLoading = false;
+              _this154.promotions = data.data;
+              _this154.promotionLoading = false;
 
-              _this151.subscriptionPromotion.unsubscribe();
+              _this154.subscriptionPromotion.unsubscribe();
             },
             error: function error(err) {
-              return _this151.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this154.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -20502,18 +20741,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addPromotionInItinerary",
         value: function addPromotionInItinerary(promotion_id) {
-          var _this152 = this;
+          var _this155 = this;
 
           this.subscription = this.itineraryService.addPromotionInItinerary(promotion_id).subscribe({
             next: function next(data) {
-              _this152.addPromotionToListAddedPromotion(promotion_id);
+              _this155.addPromotionToListAddedPromotion(promotion_id);
 
-              _this152.commonService.openSnackBar("Se ha agregado la promoción correctamente", "OK");
+              _this155.commonService.openSnackBar("Se ha agregado la promoción correctamente", "OK");
 
-              _this152.subscription.unsubscribe();
+              _this155.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this152.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this155.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -20547,18 +20786,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletePromotionOfItinerary",
         value: function deletePromotionOfItinerary(promotion_id) {
-          var _this153 = this;
+          var _this156 = this;
 
           this.subscription = this.itineraryService.deletePromotionOfItinerary(promotion_id).subscribe({
             next: function next(data) {
-              _this153.returnPromotionToPromotions(promotion_id);
+              _this156.returnPromotionToPromotions(promotion_id);
 
-              _this153.commonService.openSnackBar("Se ha eliminado la promoción correctamente", "OK");
+              _this156.commonService.openSnackBar("Se ha eliminado la promoción correctamente", "OK");
 
-              _this153.subscription.unsubscribe();
+              _this156.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this153.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this156.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -20805,17 +21044,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ItineraryMapComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this154 = this;
+          var _this157 = this;
 
           this.itineraryService.itinerary_id !== undefined ? this.itineraryService.getEventGeomByItineraryID().subscribe({
             next: function next(data) {
-              _this154.markers = data.data;
+              _this157.markers = data.data;
 
-              _this154.fillMarkers(); // Fill info
+              _this157.fillMarkers(); // Fill info
 
             },
             error: function error(err) {
-              return _this154._common.handleError(err);
+              return _this157._common.handleError(err);
             }
           }) : null;
         }
@@ -20826,10 +21065,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "fillMarkers",
         value: function fillMarkers() {
-          var _this155 = this;
+          var _this158 = this;
 
           this.markers.forEach(function (mark) {
-            _this155.layers.push(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["marker"])([mark.lat, mark.lon], {
+            _this158.layers.push(Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["marker"])([mark.lat, mark.lon], {
               icon: Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["icon"])({
                 iconSize: [25, 41],
                 iconAnchor: [13, 41],
@@ -21760,14 +21999,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ForgotPasswordComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this156 = this;
+          var _this159 = this;
 
           // Trigger to change icon
           this.forgotPasswordForm.valueChanges.subscribe(function () {
-            if (_this156.forgotPasswordForm.invalid == false) _this156.icon = "done";else _this156.icon = "warning";
+            if (_this159.forgotPasswordForm.invalid == false) _this159.icon = "done";else _this159.icon = "warning";
           });
           this.changePasswordForm.valueChanges.subscribe(function () {
-            if (_this156.forgotPasswordForm.invalid == false) _this156.icon = "done";else _this156.icon = "warning";
+            if (_this159.forgotPasswordForm.invalid == false) _this159.icon = "done";else _this159.icon = "warning";
           });
         }
         /**
@@ -21777,21 +22016,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendCodePassword",
         value: function sendCodePassword() {
-          var _this157 = this;
+          var _this160 = this;
 
           this.loading = true;
           this.subscribeForgotPassword = this.sessionService.sendCodePassword(this.forgotPasswordForm.get("email").value).subscribe({
             next: function next(data) {
-              _this157.loading = false;
+              _this160.loading = false;
 
-              _this157.commonService.openSnackBar("Verifique su correo electrónico", "OK");
+              _this160.commonService.openSnackBar("Verifique su correo electrónico", "OK");
 
-              _this157.isSendEmail = true;
+              _this160.isSendEmail = true;
             },
             error: function error(err) {
-              _this157.loading = false;
+              _this160.loading = false;
 
-              _this157.commonService.openSnackBar(err.error.message, "OK");
+              _this160.commonService.openSnackBar(err.error.message, "OK");
             }
           });
         }
@@ -21802,7 +22041,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changePasswordByCode",
         value: function changePasswordByCode() {
-          var _this158 = this;
+          var _this161 = this;
 
           this.loading = true;
 
@@ -21813,16 +22052,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           } else {
             this.subscribeForgotPassword = this.sessionService.changePasswordByCode(this.changePasswordForm.get("password").value, this.changePasswordForm.get("code").value).subscribe({
               next: function next(data) {
-                _this158.loading = false;
+                _this161.loading = false;
 
-                _this158.commonService.openSnackBar("Las contraseña ha sido actualizada!", "OK");
+                _this161.commonService.openSnackBar("Las contraseña ha sido actualizada!", "OK");
 
-                _this158.dialog.closeAll();
+                _this161.dialog.closeAll();
               },
               error: function error(err) {
-                _this158.loading = false;
+                _this161.loading = false;
 
-                _this158.commonService.openSnackBar(err.error.message, "OK");
+                _this161.commonService.openSnackBar(err.error.message, "OK");
               }
             });
           }
@@ -21966,12 +22205,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(LoginComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this159 = this;
+          var _this162 = this;
 
           document.body.classList.add("bg-img"); // Trigger to change icon
 
           this.loginForm.valueChanges.subscribe(function () {
-            if (_this159.loginForm.invalid == false) _this159.icon = "done";else _this159.icon = "warning";
+            if (_this162.loginForm.invalid == false) _this162.icon = "done";else _this162.icon = "warning";
           });
         }
         /**
@@ -21999,31 +22238,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loginUser",
         value: function loginUser() {
-          var _this160 = this;
+          var _this163 = this;
 
           this.sessionService.loadingLogin = true;
           this.subscribeLogin = this.sessionService.login(this.loginForm.get("email").value, this.loginForm.get("password").value).subscribe({
             next: function next(data) {
-              _this160.sessionService.loadingLogin = false;
+              _this163.sessionService.loadingLogin = false;
 
-              _this160._auth.login({
+              _this163._auth.login({
                 name: data.data.name,
                 user_id: data.data.user_id,
                 role_id: data.data.role_id
               });
 
-              _this160.sessionService.actualUser = _this160._auth.getUser();
+              _this163.sessionService.actualUser = _this163._auth.getUser();
 
-              _this160.sessionService.commonService.openSnackBar("Bienvenido ".concat(_this160.sessionService.actualUser.name), "OK");
+              _this163.sessionService.commonService.openSnackBar("Bienvenido ".concat(_this163.sessionService.actualUser.name), "OK");
 
-              _this160._router.navigate(["/itineraries/show-all"]);
+              _this163._router.navigate(["/itineraries/show-all"]);
             },
             error: function error(_err) {
               console.log(_err);
 
-              _this160.sessionService.commonService.openSnackBar("Error en la autenticaci\xF3n", "OK");
+              _this163.sessionService.commonService.openSnackBar("Error en la autenticaci\xF3n", "OK");
 
-              _this160.sessionService.loadingLogin = false;
+              _this163.sessionService.loadingLogin = false;
             }
           });
         }
@@ -22165,11 +22404,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(RegisterBusinessManComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this161 = this;
+          var _this164 = this;
 
           // Trigger to change icon
           this.addBusinessmanForm.valueChanges.subscribe(function () {
-            if (_this161.addBusinessmanForm.invalid == false) _this161.icon = "done";else _this161.icon = "warning";
+            if (_this164.addBusinessmanForm.invalid == false) _this164.icon = "done";else _this164.icon = "warning";
           });
         }
         /**
@@ -22179,7 +22418,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addBusinessman",
         value: function addBusinessman() {
-          var _this162 = this;
+          var _this165 = this;
 
           this.loading = true; // Charge loading
 
@@ -22194,16 +22433,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.subscription = this.sessionService.saveUser(info, 2).subscribe({
             next: function next(_data) {
-              _this162.loading = false;
+              _this165.loading = false;
 
-              _this162.commonService.openSnackBar("Se ha registrado ".concat(info.name, ", espere la validaci\xF3n de su cuenta"), "OK");
+              _this165.commonService.openSnackBar("Se ha registrado ".concat(info.name, ", espere la validaci\xF3n de su cuenta"), "OK");
 
-              _this162.dialog.closeAll();
+              _this165.dialog.closeAll();
             },
             error: function error(err) {
-              _this162.commonService.openSnackBar("Error: ".concat(err), "OK");
+              _this165.commonService.openSnackBar("Error: ".concat(err), "OK");
 
-              _this162.subscription.unsubscribe();
+              _this165.subscription.unsubscribe();
             }
           });
         }
@@ -22474,7 +22713,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "getInformation",
         value: function getInformation() {
           return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
-            var _this163 = this;
+            var _this166 = this;
 
             return regeneratorRuntime.wrap(function _callee54$(_context54) {
               while (1) {
@@ -22483,8 +22722,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     _context54.next = 2;
                     return this._offer.getServicesByOffer(this._offer.offer_id).subscribe({
                       next: function next(data) {
-                        _this163.listServices = data;
-                        _this163.subscription3 = _this163._service.getServices().subscribe({
+                        _this166.listServices = data;
+                        _this166.subscription3 = _this166._service.getServices().subscribe({
                           next: function next(data) {
                             var band;
 
@@ -22492,8 +22731,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                               band = false;
                               var element = data[index];
 
-                              for (var index2 = 0; index2 < _this163.listServices.length; index2++) {
-                                var element2 = _this163.listServices[index2];
+                              for (var index2 = 0; index2 < _this166.listServices.length; index2++) {
+                                var element2 = _this166.listServices[index2];
 
                                 if (element.service_id == element2.service_id) {
                                   band = true;
@@ -22501,23 +22740,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                               }
 
                               if (!band) {
-                                _this163.filteredServices.push(element);
+                                _this166.filteredServices.push(element);
                               }
                             }
 
-                            if (_this163.filteredServices.length == 0) {
-                              _this163._common.openSnackBar("No hay servicios por agregar", "Ok");
+                            if (_this166.filteredServices.length == 0) {
+                              _this166._common.openSnackBar("No hay servicios por agregar", "Ok");
 
-                              _this163.onNoClick();
+                              _this166.onNoClick();
                             }
                           },
                           error: function error(err) {
-                            return _this163._common.handleError(err);
+                            return _this166._common.handleError(err);
                           }
                         });
                       },
                       error: function error(err) {
-                        return _this163._common.handleError(err);
+                        return _this166._common.handleError(err);
                       }
                     });
 
@@ -22539,20 +22778,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this164 = this;
+          var _this167 = this;
 
           this.subscription = this._service.addServiceToOffer(this.serviceFG.controls['services'].value, this._offer.offer_id).subscribe({
             next: function next(result) {
-              _this164._common.openSnackBar("Servicio creado", "Ok");
+              _this167._common.openSnackBar("Servicio creado", "Ok");
 
-              _this164.serviceFG.controls['services'].setValue(null);
+              _this167.serviceFG.controls['services'].setValue(null);
 
-              _this164.status = 201;
+              _this167.status = 201;
 
-              _this164.onNoClick();
+              _this167.onNoClick();
             },
             error: function error(err) {
-              return _this164._common.handleError(err);
+              return _this167._common.handleError(err);
             }
           });
         }
@@ -22852,17 +23091,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "applyChanges",
         value: function applyChanges() {
-          var _this165 = this;
+          var _this168 = this;
 
           this.subscription = this._offer.saveOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_3__["OfferDetaills"](this.offerDetaillsFG.get("name").value, this.offerDetaillsFG.get("description").value, true), this._offer.offer_id).subscribe({
             next: function next(result) {
-              _this165._offer.offer_name = _this165.offerDetaillsFG.controls["name"].value;
-              _this165._offer.offer_description = _this165.offerDetaillsFG.controls["description"].value;
+              _this168._offer.offer_name = _this168.offerDetaillsFG.controls["name"].value;
+              _this168._offer.offer_description = _this168.offerDetaillsFG.controls["description"].value;
 
-              _this165._common.openSnackBar("Cambios realizados", "Ok");
+              _this168._common.openSnackBar("Cambios realizados", "Ok");
             },
             error: function error(err) {
-              return _this165._common.handleError(err);
+              return _this168._common.handleError(err);
             }
           });
         }
@@ -22873,11 +23112,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteOffer",
         value: function deleteOffer() {
-          var _this166 = this;
+          var _this169 = this;
 
           this._common.confirmationDialog("\xBFDesea eliminar la oferta: ".concat(this._offer.offer_name, "?")).then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this166, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
-              var _this167 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this169, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
+              var _this170 = this;
 
               return regeneratorRuntime.wrap(function _callee55$(_context55) {
                 while (1) {
@@ -22886,12 +23125,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       if (result) {
                         this.subscriptionDelete = this._offer.deleteOffer(this._offer.offer_id).subscribe({
                           next: function next(result) {
-                            _this167.router.navigate(["/offers/all"]);
+                            _this170.router.navigate(["/offers/all"]);
 
-                            _this167._common.openSnackBar("Oferta eliminada", "Ok");
+                            _this170._common.openSnackBar("Oferta eliminada", "Ok");
                           },
                           error: function error(err) {
-                            return _this167._common.handleError(err);
+                            return _this170._common.handleError(err);
                           }
                         });
                       }
@@ -23079,14 +23318,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getServices",
         value: function getServices() {
-          var _this168 = this;
+          var _this171 = this;
 
           this.subscription = this._offer.getServicesByOffer(this._offer.offer_id).subscribe({
             next: function next(data) {
-              _this168.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](data);
+              _this171.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this168._common.handleError(err);
+              return _this171._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -23098,16 +23337,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteServiceToOffer",
         value: function deleteServiceToOffer(service_id) {
-          var _this169 = this;
+          var _this172 = this;
 
           this.subscription = this._service.deleteServiceToOffer(service_id, this._offer.offer_id).subscribe({
             next: function next(result) {
-              _this169._common.openSnackBar("Servicio eliminado de la oferta", "Ok");
+              _this172._common.openSnackBar("Servicio eliminado de la oferta", "Ok");
 
-              _this169.getServices();
+              _this172.getServices();
             },
             error: function error(err) {
-              return _this169._common.handleError(err);
+              return _this172._common.handleError(err);
             }
           });
         }
@@ -23147,7 +23386,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateServiceDialog",
         value: function openCreateServiceDialog() {
-          var _this170 = this;
+          var _this173 = this;
 
           var dialog = this.dialogService.open(_offer_add_service_offer_add_service_component__WEBPACK_IMPORTED_MODULE_9__["OfferAddServiceComponent"], {
             width: "60%",
@@ -23156,7 +23395,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this170.getServices();
+              _this173.getServices();
             }
           });
         }
@@ -23361,7 +23600,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(OfferCreateComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this171 = this;
+          var _this174 = this;
 
           this.offerFG = this._fb.group({
             name: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
@@ -23371,20 +23610,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           this.subscription2 = this._service.getServices().subscribe({
             next: function next(data) {
-              _this171.filteredServices = data;
+              _this174.filteredServices = data;
             },
             error: function error(err) {
-              return _this171._common.handleError(err);
+              return _this174._common.handleError(err);
             }
           });
           this.subscription3 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this171.companies = data;
+              _this174.companies = data;
 
-              _this171.subscription2.unsubscribe();
+              _this174.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this171.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this174.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -23395,19 +23634,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this172 = this;
+          var _this175 = this;
 
           var fv = this.offerFG.value;
           this.subscription = this._offer.addOffer(new src_app_offers_models_Offer__WEBPACK_IMPORTED_MODULE_4__["Offer"](this.offerFG.get('name').value, this.offerFG.get('description').value, this.offerFG.get('companies').value)).subscribe({
             next: function next(result) {
-              _this172._common.openSnackBar("Oferta creada con éxito", "Ok");
+              _this175._common.openSnackBar("Oferta creada con éxito", "Ok");
 
               var offer_id = result[0];
 
-              _this172.onSubmitAux(offer_id);
+              _this175.onSubmitAux(offer_id);
             },
             error: function error(err) {
-              _this172._common.handleError(err), err.status == 500 ? _this172._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
+              _this175._common.handleError(err), err.status == 500 ? _this175._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
             }
           });
         }
@@ -23419,17 +23658,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmitAux",
         value: function onSubmitAux(offer_id) {
-          var _this173 = this;
+          var _this176 = this;
 
           var fv = this.offerFG.value;
           this.subscription = this._offer.addServiceToOffer(offer_id, this.allServices).subscribe({
             next: function next(result) {
-              _this173._common.openSnackBar("Servicios agregados con éxito", "Ok");
+              _this176._common.openSnackBar("Servicios agregados con éxito", "Ok");
 
-              _this173.onNoClick(201);
+              _this176.onNoClick(201);
             },
             error: function error(err) {
-              _this173._common.handleError(err), err.status == 500 ? _this173._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
+              _this176._common.handleError(err), err.status == 500 ? _this176._common.openSnackBar("Problemas en el servidor", "Ok") : console.log("Error"), console.log(err.status);
             }
           });
         }
@@ -23637,14 +23876,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getOffers",
         value: function getOffers() {
-          var _this174 = this;
+          var _this177 = this;
 
           this.subscription = this._offers.getOffers().subscribe({
             next: function next(data) {
-              _this174.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
+              _this177.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this174._common.handleError(err);
+              return _this177._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -23789,7 +24028,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateOfferDialog",
         value: function openCreateOfferDialog() {
-          var _this175 = this;
+          var _this178 = this;
 
           var dialog = this.dialogService.open(_offer_offer_create_offer_create_component__WEBPACK_IMPORTED_MODULE_3__["OfferCreateComponent"], {
             width: "60%",
@@ -23798,7 +24037,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this175.datosDesdeElPadre.active = false;
+              _this178.datosDesdeElPadre.active = false;
             }
           });
         }
@@ -24333,17 +24572,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getQRs",
         value: function getQRs() {
-          var _this176 = this;
+          var _this179 = this;
 
           this.subscription = this.qrCodesService.getQRCodes().subscribe({
             next: function next(data) {
               console.log(data);
-              _this176.qrCodesService.qrCodes = data;
+              _this179.qrCodesService.qrCodes = data;
 
-              _this176.subscription.unsubscribe();
+              _this179.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this176.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this179.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -24364,11 +24603,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "delete",
         value: function _delete(qrCode) {
-          var _this177 = this;
+          var _this180 = this;
 
           this.commonService.confirmationDialog("\xBFDesea eliminar el c\xF3digo?").then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this177, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
-              var _this178 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this180, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
+              var _this181 = this;
 
               return regeneratorRuntime.wrap(function _callee56$(_context56) {
                 while (1) {
@@ -24378,17 +24617,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         this.qrCodesService["delete"](qrCode.qr_id).subscribe({
                           next: function next(data) {
                             if (data.status == 204) {
-                              _this178.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
+                              _this181.commonService.openSnackBar("Se ha eliminado el código QR", "OK");
 
-                              _this178.getQRs();
+                              _this181.getQRs();
                             } else {
-                              _this178.commonService.openSnackBar("Ha ocurrido un error al intentar eliminar el código QR", "OK");
+                              _this181.commonService.openSnackBar("Ha ocurrido un error al intentar eliminar el código QR", "OK");
 
                               console.log(data.error);
                             }
                           },
                           error: function error(err) {
-                            return _this178.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                            return _this181.commonService.openSnackBar("Error: ".concat(err.message), "OK");
                           }
                         });
                       }
@@ -24614,7 +24853,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "elementChanged",
         value: function elementChanged(element_id) {
           return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
-            var _this179 = this;
+            var _this182 = this;
 
             var element;
             return regeneratorRuntime.wrap(function _callee58$(_context58) {
@@ -24631,8 +24870,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     _context58.next = 5;
                     return this.eventService.getAllEvents().toPromise().then(function (data) {
-                      _this179.elements = data;
-                      element = _this179.elements.find(function (value) {
+                      _this182.elements = data;
+                      element = _this182.elements.find(function (value) {
                         return value.event_id == element_id;
                       });
                     });
@@ -24649,8 +24888,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     _context58.next = 10;
                     return this.contestService.getContests().toPromise().then(function (data) {
-                      _this179.elements = data;
-                      element = _this179.elements.find(function (value) {
+                      _this182.elements = data;
+                      element = _this182.elements.find(function (value) {
                         return value.contest_id == element_id;
                       });
                     });
@@ -24667,8 +24906,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     _context58.next = 15;
                     return this.adService.getAllAds().toPromise().then(function (data) {
-                      _this179.elements = data;
-                      element = _this179.elements.find(function (value) {
+                      _this182.elements = data;
+                      element = _this182.elements.find(function (value) {
                         return value.ad_id == element_id;
                       });
                     });
@@ -24685,8 +24924,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     _context58.next = 20;
                     return this.itineraryService.getItineraryMinimalInfoByUser(this.authService.getUser().user_id).toPromise().then(function (data) {
-                      _this179.elements = data.data;
-                      element = _this179.elements.find(function (value) {
+                      _this182.elements = data.data;
+                      element = _this182.elements.find(function (value) {
                         return value.itinerary_id == element_id;
                       });
                     });
@@ -24703,8 +24942,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     _context58.next = 25;
                     return this.touristRouteService.getTouristRoutes(true).toPromise().then(function (data) {
-                      _this179.elements = data;
-                      element = _this179.elements.find(function (value) {
+                      _this182.elements = data;
+                      element = _this182.elements.find(function (value) {
                         return value.route_id == element_id;
                       });
                     });
@@ -24764,82 +25003,82 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "create",
         value: function create(qr) {
-          var _this180 = this;
+          var _this183 = this;
 
           this.loading = true;
           this.qrForm.disable();
           this.qrCodesService.create(qr).subscribe({
             next: function next(data) {
               if (data.status == 201) {
-                _this180.commonService.openSnackBar("El código QR ha sido creado éxitosamente", "OK");
+                _this183.commonService.openSnackBar("El código QR ha sido creado éxitosamente", "OK");
 
-                _this180.getQRCodes();
+                _this183.getQRCodes();
               } else {
-                _this180.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
+                _this183.commonService.openSnackBar("Ha ocurrido un error al intentar crear el código QR", "OK");
 
                 console.log(data.error);
 
-                _this180.qrForm.enable();
+                _this183.qrForm.enable();
 
-                _this180.loading = false;
+                _this183.loading = false;
               }
             },
             error: function error(err) {
-              _this180.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this183.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this180.loading = false;
+              _this183.loading = false;
 
-              _this180.qrForm.enable();
+              _this183.qrForm.enable();
             }
           });
         }
       }, {
         key: "modify",
         value: function modify(qr) {
-          var _this181 = this;
+          var _this184 = this;
 
           this.loading = true;
           this.qrForm.disable();
           this.qrCodesService.modify(qr).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this181.commonService.openSnackBar("El código QR ha sido editado éxitosamente", "OK");
+                _this184.commonService.openSnackBar("El código QR ha sido editado éxitosamente", "OK");
 
-                _this181.getQRCodes();
+                _this184.getQRCodes();
               } else {
-                _this181.commonService.openSnackBar("Ha ocurrido un error al intentar editar el código QR", "OK");
+                _this184.commonService.openSnackBar("Ha ocurrido un error al intentar editar el código QR", "OK");
 
                 console.log(data.error);
 
-                _this181.qrForm.enable();
+                _this184.qrForm.enable();
 
-                _this181.loading = false;
+                _this184.loading = false;
               }
             },
             error: function error(err) {
-              _this181.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this184.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this181.loading = false;
+              _this184.loading = false;
 
-              _this181.qrForm.enable();
+              _this184.qrForm.enable();
             }
           });
         }
       }, {
         key: "getQRCodes",
         value: function getQRCodes() {
-          var _this182 = this;
+          var _this185 = this;
 
           this.qrCodesService.getQRCodes().subscribe({
             next: function next(data) {
-              _this182.qrCodesService.qrCodes = data;
+              _this185.qrCodesService.qrCodes = data;
 
-              _this182.closeDialog();
+              _this185.closeDialog();
             },
             error: function error(err) {
-              _this182.commonService.openSnackBar("Ha ocurrido un error, por favor refresque la página", "");
+              _this185.commonService.openSnackBar("Ha ocurrido un error, por favor refresque la página", "");
 
-              _this182.closeDialog();
+              _this185.closeDialog();
             }
           });
         }
@@ -25406,31 +25645,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this183 = this;
+          var _this186 = this;
 
           this.subscription = this._service.getCategories(4).subscribe({
             next: function next(result) {
               var temp = result;
-              _this183.categories = temp;
+              _this186.categories = temp;
             },
             error: function error(err) {
-              return _this183._common.handleError(err);
+              return _this186._common.handleError(err);
             }
           });
         }
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this184 = this;
+          var _this187 = this;
 
           this.subscription = this._service.addService(new src_app_services_models_Service__WEBPACK_IMPORTED_MODULE_7__["Service"](this.serviceFG.get('name').value, this.serviceFG.get('category').value)).subscribe({
             next: function next(result) {
-              _this184._common.openSnackBar("Servicio creado", "Ok");
+              _this187._common.openSnackBar("Servicio creado", "Ok");
 
-              _this184.onNoClick(201);
+              _this187.onNoClick(201);
             },
             error: function error(err) {
-              return _this184._common.handleError(err);
+              return _this187._common.handleError(err);
             }
           });
         }
@@ -25612,14 +25851,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getServices",
         value: function getServices() {
-          var _this185 = this;
+          var _this188 = this;
 
           this.subscription = this._service.getServices().subscribe({
             next: function next(data) {
-              _this185.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
+              _this188.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](data);
             },
             error: function error(err) {
-              return _this185._common.handleError(err);
+              return _this188._common.handleError(err);
             }
           });
           this.isFilters = false;
@@ -25631,11 +25870,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(service_id) {
-          var _this186 = this;
+          var _this189 = this;
 
           this._common.confirmationDialog("\xBFDesea eliminar el servicio ?").then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this186, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
-              var _this187 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this189, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
+              var _this190 = this;
 
               return regeneratorRuntime.wrap(function _callee59$(_context59) {
                 while (1) {
@@ -25644,12 +25883,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       if (result) {
                         this.subscription = this._service.deleteService(service_id).subscribe({
                           next: function next(result) {
-                            _this187._common.openSnackBar("Servicio eliminado", "Ok");
+                            _this190._common.openSnackBar("Servicio eliminado", "Ok");
 
-                            _this187.getServices();
+                            _this190.getServices();
                           },
                           error: function error(err) {
-                            return _this187._common.handleError(err);
+                            return _this190._common.handleError(err);
                           }
                         });
                       }
@@ -25811,7 +26050,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openCreateServiceDialog",
         value: function openCreateServiceDialog() {
-          var _this188 = this;
+          var _this191 = this;
 
           var dialog = this.dialogService.open(_service_service_create_service_create_component__WEBPACK_IMPORTED_MODULE_4__["ServiceCreateComponent"], {
             width: "60%",
@@ -25820,7 +26059,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (data) {
             if (data.status == 201) {
-              _this188.datosDesdeElPadre.active = false;
+              _this191.datosDesdeElPadre.active = false;
             }
           });
         }
@@ -26411,16 +26650,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getActiveTR",
         value: function getActiveTR() {
-          var _this189 = this;
+          var _this192 = this;
 
           this.subscription = this.turistRoutesService.getTouristRoutes(true).subscribe({
             next: function next(data) {
-              _this189.turistRoutesService.touristRoutes = data;
+              _this192.turistRoutesService.touristRoutes = data;
 
-              _this189.subscription.unsubscribe();
+              _this192.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this189.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this192.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -26437,12 +26676,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(touristRoute, _ref22) {
-          var _this190 = this;
+          var _this193 = this;
 
           var source = _ref22.source;
           this.commonService.confirmationDialog("\xBFDesea eliminar la ruta: ".concat(touristRoute.name, "?")).then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this190, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
-              var _this191 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this193, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
+              var _this194 = this;
 
               return regeneratorRuntime.wrap(function _callee60$(_context60) {
                 while (1) {
@@ -26455,15 +26694,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                               touristRoute.is_active = !touristRoute.is_active;
                               source.checked = touristRoute.is_active;
 
-                              _this191.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
+                              _this194.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
 
-                              _this191.getActiveTR();
+                              _this194.getActiveTR();
                             } else {
-                              _this191.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              _this194.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                             }
                           },
                           error: function error(err) {
-                            _this191.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                            _this194.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
                             source.checked = touristRoute.is_active;
                           }
@@ -26626,23 +26865,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CreateTouristRoutesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this192 = this;
+          var _this195 = this;
 
           this.subscription = this.offerService.getOffers().subscribe({
             next: function next(data) {
-              _this192.filteredOffers = data;
+              _this195.filteredOffers = data;
 
-              _this192.subscription.unsubscribe();
+              _this195.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this192.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this195.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          var _this193 = this;
+          var _this196 = this;
 
           this.loading = true;
           var tr = {
@@ -26650,7 +26889,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.touristRoutesService.createTouristRoute(tr).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this193, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this196, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
                 return regeneratorRuntime.wrap(function _callee61$(_context61) {
                   while (1) {
                     switch (_context61.prev = _context61.next) {
@@ -26683,11 +26922,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               }));
             },
             error: function error(err) {
-              _this193.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this196.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this193.loading = false;
+              _this196.loading = false;
 
-              _this193.trFG.enable();
+              _this196.trFG.enable();
             }
           });
         }
@@ -26715,10 +26954,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "asociateoffers",
         value: function asociateoffers(tr_id) {
-          var _this194 = this;
+          var _this197 = this;
 
           this.allOffers.forEach(function (offer) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this194, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this197, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
               return regeneratorRuntime.wrap(function _callee62$(_context62) {
                 while (1) {
                   switch (_context62.prev = _context62.next) {
@@ -26854,12 +27093,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ManagementTouristRoutesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this195 = this;
+          var _this198 = this;
 
           this.subscription = this.route.paramMap.subscribe(function (params) {
-            _this195.route_id = Number(params.get("tourist-route_id"));
+            _this198.route_id = Number(params.get("tourist-route_id"));
 
-            _this195.recharge();
+            _this198.recharge();
           });
         }
       }, {
@@ -26870,10 +27109,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this196 = this;
+          var _this199 = this;
 
           this.touristRouteService.getTouristRoute(Number(this.route_id)).subscribe(function (data) {
-            _this196.myRoute = data;
+            _this199.myRoute = data;
           });
         }
       }]);
@@ -27010,7 +27249,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "modifyRoute",
         value: function modifyRoute() {
-          var _this197 = this;
+          var _this200 = this;
 
           this.loading = true;
           var tr = {
@@ -27020,7 +27259,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.touristRoutesService.modifyTouristRute(tr).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this197, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this200, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
                 return regeneratorRuntime.wrap(function _callee63$(_context63) {
                   while (1) {
                     switch (_context63.prev = _context63.next) {
@@ -27043,25 +27282,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               }));
             },
             error: function error(err) {
-              _this197.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this200.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this197.loading = false;
+              _this200.loading = false;
 
-              _this197.trFG.enable();
+              _this200.trFG.enable();
             }
           });
         }
       }, {
         key: "changeState",
         value: function changeState(touristRoute, _ref23) {
-          var _this198 = this;
+          var _this201 = this;
 
           var source = _ref23.source;
 
           if (this.myRoute.is_active) {
             this.commonService.confirmationDialog("\xBFDesea eliminar la ruta: ".concat(touristRoute.name, "?")).then(function (result) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this198, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
-                var _this199 = this;
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this201, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
+                var _this202 = this;
 
                 return regeneratorRuntime.wrap(function _callee64$(_context64) {
                   while (1) {
@@ -27074,15 +27313,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                                 touristRoute.is_active = !touristRoute.is_active;
                                 source.checked = touristRoute.is_active;
 
-                                _this199.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
+                                _this202.commonService.openSnackBar("La ruta tur\xEDstica ".concat(touristRoute.name, " ha sido desactivada"), "OK");
 
-                                _this199.router.navigate(['/tourist-routes/all']);
+                                _this202.router.navigate(['/tourist-routes/all']);
                               } else {
-                                _this199.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                                _this202.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                               }
                             },
                             error: function error(err) {
-                              _this199.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                              _this202.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
                               source.checked = touristRoute.is_active;
                             }
@@ -27237,16 +27476,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(TouristRoutesOffersComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this200 = this;
+          var _this203 = this;
 
           this.subscription = this.offerService.getOffers().subscribe({
             next: function next(data) {
-              _this200.offerService.offers = data;
+              _this203.offerService.offers = data;
 
-              _this200.subscription.unsubscribe();
+              _this203.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this200.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this203.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.getRouteOffers();
@@ -27254,26 +27493,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getRouteOffers",
         value: function getRouteOffers() {
-          var _this201 = this;
+          var _this204 = this;
 
           this.subscription2 = this.touristRoutesService.getTouristRouteOffers(this.myRoute.route_id).subscribe({
             next: function next(data) {
-              _this201.associateOffers = [];
+              _this204.associateOffers = [];
               data.forEach(function (val) {
-                return _this201.associateOffers.push(val);
+                return _this204.associateOffers.push(val);
               });
 
-              _this201.subscription2.unsubscribe();
+              _this204.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this201.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this204.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
       }, {
         key: "addOffer",
         value: function addOffer() {
-          var _this202 = this;
+          var _this205 = this;
 
           var offer = this.selectedOffer;
           var offersID = this.getOffersID();
@@ -27284,15 +27523,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             this.touristRoutesService.addOfferToTouristRoute(this.myRoute.route_id, offer.offer_id).subscribe({
               next: function next(data) {
                 if (data.status == 201) {
-                  _this202.getRouteOffers();
+                  _this205.getRouteOffers();
 
-                  _this202.commonService.openSnackBar("Se ha añadido la oferta", "OK");
+                  _this205.commonService.openSnackBar("Se ha añadido la oferta", "OK");
 
-                  _this202.loading = false;
+                  _this205.loading = false;
                 }
               },
               error: function error(err) {
-                return _this202.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this205.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           } else {
@@ -27311,21 +27550,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOffer",
         value: function removeOffer(offer) {
-          var _this203 = this;
+          var _this206 = this;
 
           this.loading = true;
           this.touristRoutesService.deleteOfferFromTouristRoute(this.myRoute.route_id, offer.offer_id).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this203.getRouteOffers();
+                _this206.getRouteOffers();
 
-                _this203.commonService.openSnackBar("La oferta ha sido removida", "OK");
+                _this206.commonService.openSnackBar("La oferta ha sido removida", "OK");
 
-                _this203.loading = false;
+                _this206.loading = false;
               }
             },
             error: function error(err) {
-              return _this203.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this206.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -27835,7 +28074,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getTransportServices",
         value: function getTransportServices() {
-          var _this204 = this;
+          var _this207 = this;
 
           var user_id;
           user_id = this.authService.getUser().role_id != 1 ? user_id = this.authService.getUser().role_id : user_id = undefined;
@@ -27843,23 +28082,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (user_id == undefined) {
             this.subscription = this.transportService.getTransportServices().subscribe({
               next: function next(data) {
-                _this204.transportService.transportServices = data;
+                _this207.transportService.transportServices = data;
 
-                _this204.subscription.unsubscribe();
+                _this207.subscription.unsubscribe();
               },
               error: function error(err) {
-                return _this204.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                return _this207.commonService.openSnackBar("Error: ".concat(err.message), "OK");
               }
             });
           } else {
             this.subscription = this.transportService.getTransportServices(user_id).subscribe({
               next: function next(data) {
-                _this204.transportService.transportServices = data;
+                _this207.transportService.transportServices = data;
 
-                _this204.subscription.unsubscribe();
+                _this207.subscription.unsubscribe();
               },
               error: function error(err) {
-                return _this204.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                return _this207.commonService.openSnackBar("Error: ".concat(err.message), "OK");
               }
             });
           }
@@ -27877,11 +28116,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(ts) {
-          var _this205 = this;
+          var _this208 = this;
 
           this.commonService.confirmationDialog("\xBFDesea eliminar el servicio de transporte: ".concat(ts.name, "?")).then(function (result) {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this205, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
-              var _this206 = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this208, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
+              var _this209 = this;
 
               return regeneratorRuntime.wrap(function _callee65$(_context65) {
                 while (1) {
@@ -27891,15 +28130,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         this.transportService.changeTransportServiceState(ts).subscribe({
                           next: function next(data) {
                             if (data.status == 200) {
-                              _this206.commonService.openSnackBar("El servicio ".concat(ts.info.name, " ha sido eliminado"), "OK");
+                              _this209.commonService.openSnackBar("El servicio ".concat(ts.info.name, " ha sido eliminado"), "OK");
 
-                              _this206.getTransportServices();
+                              _this209.getTransportServices();
                             } else {
-                              _this206.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                              _this209.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                             }
                           },
                           error: function error(err) {
-                            _this206.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                            _this209.commonService.openSnackBar("Error: ".concat(err.message), "OK");
                           }
                         });
                       }
@@ -28038,16 +28277,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCategories",
         value: function getCategories() {
-          var _this207 = this;
+          var _this210 = this;
 
           this.subscription = this.categoryTransportService.getTransportServicesCategories().subscribe({
             next: function next(data) {
-              _this207.categoryTransportService.categories = data;
+              _this210.categoryTransportService.categories = data;
 
-              _this207.subscription.unsubscribe();
+              _this210.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this207.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this210.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -28064,23 +28303,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(category) {
-          var _this208 = this;
+          var _this211 = this;
 
           if (category.is_active) {
             this.categoryTransportService.deleteTransportCategory(category.id).subscribe({
               next: function next(data) {
                 if (data.status == 200) {
-                  _this208.commonService.openSnackBar("La categor\xEDa se ha eliminado ".concat(category.name), "OK");
+                  _this211.commonService.openSnackBar("La categor\xEDa se ha eliminado ".concat(category.name), "OK");
 
                   category.is_active = false;
 
-                  _this208.getCategories();
+                  _this211.getCategories();
                 } else {
-                  _this208.commonService.openSnackBar("Error. No se puedo eliminar la categoría", "OK");
+                  _this211.commonService.openSnackBar("Error. No se puedo eliminar la categoría", "OK");
                 }
               },
               error: function error(err) {
-                return _this208.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this211.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           }
@@ -28206,25 +28445,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createCategory",
         value: function createCategory() {
-          var _this209 = this;
+          var _this212 = this;
 
           this.categoryForm.disable();
           this.categoryTransportService.createTransportServicesCategory(this.categoryForm.value.name).subscribe({
             next: function next(data) {
               if (data.status == 201) {
-                _this209.commonService.openSnackBar("El servicio de transporte ".concat(_this209.categoryForm.value.name, " se ha creado"), "OK");
+                _this212.commonService.openSnackBar("El servicio de transporte ".concat(_this212.categoryForm.value.name, " se ha creado"), "OK");
 
-                _this209.closeDialog();
+                _this212.closeDialog();
               } else {
-                _this209.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
+                _this212.commonService.openSnackBar("Error al crear la categor\xEDa: ".concat(data.error), "OK");
 
-                _this209.categoryForm.enable();
+                _this212.categoryForm.enable();
               }
             },
             error: function error(err) {
-              _this209.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this212.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this209.categoryForm.enable();
+              _this212.categoryForm.enable();
             }
           });
         }
@@ -28375,7 +28614,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CreateTransportServicesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this210 = this;
+          var _this213 = this;
 
           this.tsForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(".*\\S.*[a-zA-z0-9 ._-]")]),
@@ -28386,17 +28625,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           this.subscription = this.categoryService.getTransportServicesCategories().subscribe({
             next: function next(data) {
-              _this210.categories = data;
+              _this213.categories = data;
             },
             error: function error(err) {
-              return _this210.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              return _this213.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
       }, {
         key: "createTransportService",
         value: function createTransportService() {
-          var _this211 = this;
+          var _this214 = this;
 
           this.loading = true;
           this.tsForm.disable();
@@ -28410,30 +28649,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.transportService.createTransportService(transportService).subscribe({
             next: function next(data) {
-              _this211.loading = false;
+              _this214.loading = false;
 
               if (data.status == 201) {
-                if (_this211.authService.getUser().role_id == 1) {
-                  _this211.commonService.openSnackBar("El servicio de transporte ".concat(_this211.tsForm.value.name, " se ha creado"), "OK");
+                if (_this214.authService.getUser().role_id == 1) {
+                  _this214.commonService.openSnackBar("El servicio de transporte ".concat(_this214.tsForm.value.name, " se ha creado"), "OK");
 
-                  _this211.router.navigate(['/transport-services', data.body[0]]);
+                  _this214.router.navigate(['/transport-services', data.body[0]]);
                 } else {
-                  _this211.commonService.openSnackBar("La solicitud de creaci\xF3n del servicio de transporte ".concat(_this211.tsForm.value.name, " se ha enviado"), "OK");
+                  _this214.commonService.openSnackBar("La solicitud de creaci\xF3n del servicio de transporte ".concat(_this214.tsForm.value.name, " se ha enviado"), "OK");
                 }
 
-                _this211.closeDialog();
+                _this214.closeDialog();
               } else {
-                _this211.commonService.openSnackBar("Error al crear el servicio de transporte: ".concat(data.error), "OK");
+                _this214.commonService.openSnackBar("Error al crear el servicio de transporte: ".concat(data.error), "OK");
 
-                _this211.tsForm.enable();
+                _this214.tsForm.enable();
               }
             },
             error: function error(err) {
-              _this211.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this214.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this211.loading = false;
+              _this214.loading = false;
 
-              _this211.tsForm.enable();
+              _this214.tsForm.enable();
             }
           });
         }
@@ -28576,16 +28815,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(DetailsTransportServicesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this212 = this;
+          var _this215 = this;
 
           this.subscription = this.categoryService.getTransportServicesCategories().subscribe({
             next: function next(data) {
-              _this212.categories = data;
+              _this215.categories = data;
 
-              _this212.subscription.unsubscribe();
+              _this215.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this212.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this215.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.setData();
@@ -28599,14 +28838,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeState",
         value: function changeState(_ref24) {
-          var _this213 = this;
+          var _this216 = this;
 
           var source = _ref24.source;
 
           if (this.transport.is_active) {
             this.commonService.confirmationDialog("\xBFDesea eliminar el servicio de transporte: ".concat(this.transport.name, "?")).then(function (result) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this213, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
-                var _this214 = this;
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this216, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
+                var _this217 = this;
 
                 return regeneratorRuntime.wrap(function _callee66$(_context66) {
                   while (1) {
@@ -28616,18 +28855,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           this.transportService.changeTransportServiceState(this.transport).subscribe({
                             next: function next(data) {
                               if (data.status == 201) {
-                                _this214.transport.is_active = !_this214.transport.is_active;
-                                source.checked = _this214.transport.is_active;
+                                _this217.transport.is_active = !_this217.transport.is_active;
+                                source.checked = _this217.transport.is_active;
 
-                                _this214.commonService.openSnackBar("El evento ".concat(_this214.transport.name, " ha sido eliminado"), "OK");
+                                _this217.commonService.openSnackBar("El evento ".concat(_this217.transport.name, " ha sido eliminado"), "OK");
                               } else {
-                                _this214.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
+                                _this217.commonService.openSnackBar("Error al cambiar el estado: ".concat(data.error), "OK");
                               }
                             },
                             error: function error(err) {
-                              _this214.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+                              _this217.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-                              source.checked = _this214.transport.is_active;
+                              source.checked = _this217.transport.is_active;
                             }
                           });
                         } else {
@@ -28650,7 +28889,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "modifyTransportService",
         value: function modifyTransportService() {
-          var _this215 = this;
+          var _this218 = this;
 
           this.loading = true;
           this.transportServicesFG.disable();
@@ -28666,31 +28905,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.transportService.modifyTransportService(newTransportService).subscribe({
             next: function next(data) {
               if (data.status == 200) {
-                _this215.transport.info.name = newTransportService.name;
-                _this215.transport.info.email = newTransportService.email;
-                _this215.transport.info.tel = newTransportService.tel;
-                _this215.transport.info.hire_dir = newTransportService.hire_dir;
-                _this215.transport.categories_id = newTransportService.categories_id;
+                _this218.transport.info.name = newTransportService.name;
+                _this218.transport.info.email = newTransportService.email;
+                _this218.transport.info.tel = newTransportService.tel;
+                _this218.transport.info.hire_dir = newTransportService.hire_dir;
+                _this218.transport.categories_id = newTransportService.categories_id;
 
-                _this215.commonService.openSnackBar("El servicio de transporte: ".concat(_this215.transport.info.name, " ha sido cambiado"), "OK");
+                _this218.commonService.openSnackBar("El servicio de transporte: ".concat(_this218.transport.info.name, " ha sido cambiado"), "OK");
 
-                _this215.loading = false;
+                _this218.loading = false;
 
-                _this215.transportServicesFG.enable();
+                _this218.transportServicesFG.enable();
               } else {
-                _this215.commonService.openSnackBar("Error al cambiar el servicio: ".concat(data.error), "OK");
+                _this218.commonService.openSnackBar("Error al cambiar el servicio: ".concat(data.error), "OK");
 
-                _this215.loading = false;
+                _this218.loading = false;
 
-                _this215.transportServicesFG.enable();
+                _this218.transportServicesFG.enable();
               }
             },
             error: function error(err) {
-              _this215.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this218.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this215.loading = false;
+              _this218.loading = false;
 
-              _this215.transportServicesFG.enable();
+              _this218.transportServicesFG.enable();
             }
           });
         }
@@ -28797,12 +29036,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ManagementTransportServicesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this216 = this;
+          var _this219 = this;
 
           this.subscription = this.route.paramMap.subscribe(function (params) {
-            _this216.transport_id = Number(params.get("transport_service_id"));
+            _this219.transport_id = Number(params.get("transport_service_id"));
 
-            _this216.recharge();
+            _this219.recharge();
           });
         }
       }, {
@@ -28813,10 +29052,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "recharge",
         value: function recharge() {
-          var _this217 = this;
+          var _this220 = this;
 
           this.transportService.getTranportService(Number(this.transport_id)).subscribe(function (data) {
-            _this217.transport = data;
+            _this220.transport = data;
           });
         }
       }]);
@@ -28939,34 +29178,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getTransportSerivicesRequest",
         value: function getTransportSerivicesRequest() {
-          var _this218 = this;
+          var _this221 = this;
 
           this.loading = true;
           var state = Number(this.filter.status);
           this.transportService.getTranspotServicesPetitions(state).subscribe({
             next: function next(data) {
-              _this218.request = data;
-              _this218.loading = false;
+              _this221.request = data;
+              _this221.loading = false;
             },
             error: function error(err) {
-              _this218.commonService.openSnackBar("Error: ".concat(err.message), "OK"), _this218.loading = false;
+              _this221.commonService.openSnackBar("Error: ".concat(err.message), "OK"), _this221.loading = false;
             }
           });
         }
       }, {
         key: "changeStateRequest",
         value: function changeStateRequest(ts, state) {
-          var _this219 = this;
+          var _this222 = this;
 
           var msg;
           msg = state == 1 ? "aceptado." : "rechazado.";
           this.transportService.changeRequestState(ts.transport_service_id, state).subscribe({
             next: function next(data) {
-              data.status == 200 ? _this219.getTransportSerivicesRequest() : null;
-              data.status == 200 ? _this219.commonService.openSnackBar("El evento ha sido ".concat(msg), "OK") : null;
+              data.status == 200 ? _this222.getTransportSerivicesRequest() : null;
+              data.status == 200 ? _this222.commonService.openSnackBar("El evento ha sido ".concat(msg), "OK") : null;
             },
             error: function error(err) {
-              return _this219.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              return _this222.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -29678,11 +29917,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddAdminComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this220 = this;
+          var _this223 = this;
 
           // Trigger to change icon
           this.addAdminForm.valueChanges.subscribe(function () {
-            if (_this220.addAdminForm.invalid == false) _this220.icon = "done";else _this220.icon = "warning";
+            if (_this223.addAdminForm.invalid == false) _this223.icon = "done";else _this223.icon = "warning";
           });
         }
         /**
@@ -29692,7 +29931,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addAdmin",
         value: function addAdmin() {
-          var _this221 = this;
+          var _this224 = this;
 
           this.loading = true; // Charge loading
 
@@ -29706,14 +29945,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
           this.subscription = this.sessionService.saveUserAdmi(info, 1).subscribe({
             next: function next() {
-              _this221.loading = false;
+              _this224.loading = false;
 
-              _this221.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
+              _this224.commonService.openSnackBar("Se ha registrado el usuario administrador ".concat(info.name), "OK");
 
-              _this221.dialog.closeAll();
+              _this224.dialog.closeAll();
             },
             error: function error(err) {
-              _this221.commonService.openSnackBar("Error: ".concat(err), "OK");
+              _this224.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -29878,7 +30117,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var AddEventRequestComponent = /*#__PURE__*/function () {
       function AddEventRequestComponent(data, dialogRef, commonService, eventService, router, categoryService, companyService, userService, multimediaService) {
-        var _this222 = this;
+        var _this225 = this;
 
         _classCallCheck(this, AddEventRequestComponent);
 
@@ -29947,7 +30186,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
          */
 
         this.dateFilter = function (date) {
-          return date >= _this222.initial_date;
+          return date >= _this225.initial_date;
         };
 
         this.refreshMap = this.refreshMap.bind(this);
@@ -29956,7 +30195,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddEventRequestComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this223 = this;
+          var _this226 = this;
 
           this.eventFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({
@@ -29989,22 +30228,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.data.action ? this.visible = false : this.visible = true;
           this.subscription = this.categoryService.getAllCategories(1).subscribe({
             next: function next(data) {
-              _this223.filteredCategories = data;
+              _this226.filteredCategories = data;
 
-              _this223.subscription.unsubscribe();
+              _this226.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this223.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this226.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.subscription2 = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this223.filteredCompanies = data;
+              _this226.filteredCompanies = data;
 
-              _this223.subscription2.unsubscribe();
+              _this226.subscription2.unsubscribe();
             },
             error: function error(err) {
-              return _this223.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this226.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
           this.user = this.userService.actualUser;
@@ -30017,7 +30256,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this224 = this;
+          var _this227 = this;
 
           if (document.getElementById("mat-tab-label-0-2")) {
             document.getElementById("mat-tab-label-0-2").parameters = {
@@ -30028,7 +30267,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           setTimeout(function () {
-            return _this224.map.invalidateSize();
+            return _this227.map.invalidateSize();
           }, 2000);
         }
       }, {
@@ -30059,7 +30298,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setData",
         value: function setData(event) {
-          var _this225 = this;
+          var _this228 = this;
 
           this.eventFG.controls['name'].setValue(event.name);
           this.eventFG.controls['address'].setValue(event.address);
@@ -30076,29 +30315,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (!this.petition) {
             this.subscription3 = this.categoryService.getEventCategories(event.event_id).subscribe({
               next: function next(data) {
-                _this225.allCategories = [];
+                _this228.allCategories = [];
                 data.forEach(function (val) {
-                  return _this225.allCategories.push(val);
+                  return _this228.allCategories.push(val);
                 });
 
-                _this225.subscription3.unsubscribe();
+                _this228.subscription3.unsubscribe();
               },
               error: function error(err) {
-                return _this225.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this228.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             }); //compañías
 
             this.subscription4 = this.companyService.getCompaniesByEvent(event.event_id).subscribe({
               next: function next(data) {
-                _this225.allCompanies = [];
+                _this228.allCompanies = [];
                 data.forEach(function (val) {
-                  return _this225.allCompanies.push(val);
+                  return _this228.allCompanies.push(val);
                 });
 
-                _this225.subscription4.unsubscribe();
+                _this228.subscription4.unsubscribe();
               },
               error: function error(err) {
-                return _this225.commonService.openSnackBar("Error: ".concat(err), "OK");
+                return _this228.commonService.openSnackBar("Error: ".concat(err), "OK");
               }
             });
           }
@@ -30170,11 +30409,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createRequest",
         value: function createRequest(event) {
-          var _this226 = this;
+          var _this229 = this;
 
           this.eventService.createEvent(event, true).subscribe({
             next: function next(data) {
-              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this226, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee68() {
+              return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this229, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee68() {
                 return regeneratorRuntime.wrap(function _callee68$(_context68) {
                   while (1) {
                     switch (_context68.prev = _context68.next) {
@@ -30217,11 +30456,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               }));
             },
             error: function error(err) {
-              _this226.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this229.commonService.openSnackBar("Error: ".concat(err.message), "OK");
 
-              _this226.loading = false;
+              _this229.loading = false;
 
-              _this226.eventFG.enable();
+              _this229.eventFG.enable();
             }
           });
         }
@@ -30333,7 +30572,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "eventRelations",
         value: function eventRelations(event_id) {
           return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee69() {
-            var i, _i6;
+            var i, _i7;
 
             return regeneratorRuntime.wrap(function _callee69$(_context69) {
               while (1) {
@@ -30356,19 +30595,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     break;
 
                   case 7:
-                    _i6 = 0;
+                    _i7 = 0;
 
                   case 8:
-                    if (!(_i6 < this.allCategories.length)) {
+                    if (!(_i7 < this.allCategories.length)) {
                       _context69.next = 14;
                       break;
                     }
 
                     _context69.next = 11;
-                    return this.eventService.addCategoryToEvent(this.allCategories[_i6], event_id).toPromise();
+                    return this.eventService.addCategoryToEvent(this.allCategories[_i7], event_id).toPromise();
 
                   case 11:
-                    _i6++;
+                    _i7++;
                     _context69.next = 8;
                     break;
 
@@ -30383,7 +30622,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getFiles",
         value: function getFiles(event) {
-          var _this227 = this;
+          var _this230 = this;
 
           if (event.target.files) {
             for (var i = 0; i < event.target.files.length; i++) {
@@ -30393,7 +30632,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 reader.readAsDataURL(event.target.files[i]);
 
                 reader.onload = function (event) {
-                  _this227.eventImages.push(event.target.result);
+                  _this230.eventImages.push(event.target.result);
                 };
               }
             }
@@ -30647,13 +30886,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddRequestCompanyUnionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this228 = this;
+          var _this231 = this;
 
           this.companyService.getCompanies().subscribe(function (data) {
-            _this228.companies = data;
+            _this231.companies = data;
           });
           this.filteredCompanies = this.companyControl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (value) {
-            return _this228._filter(value);
+            return _this231._filter(value);
           }));
         }
       }, {
@@ -30669,23 +30908,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "requestUnion",
         value: function requestUnion() {
-          var _this229 = this;
+          var _this232 = this;
 
           this.loading = true;
           var company_id = Number(this.companyControl.value.split(" | ")[0]);
           this.companyUsersService.requesUnion(this.user.user_id, company_id).subscribe({
             next: function next(response) {
               if (response.status == 204) {
-                _this229.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
+                _this232.commonService.snackBar.open("La solicitud de unión ha sido enviada", "Ok");
 
-                _this229.loading = false;
+                _this232.loading = false;
 
-                _this229.dialog.close();
+                _this232.dialog.close();
               }
             },
             error: function error(err) {
-              if (err.status == 400) _this229.commonService.snackBar.open(err.error, "Ok");else _this229.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
-              _this229.loading = false;
+              if (err.status == 400) _this232.commonService.snackBar.open(err.error, "Ok");else _this232.commonService.snackBar.open("Ha ocurrido un error con la base de datos", "Ok");
+              _this232.loading = false;
             }
           });
         }
@@ -30802,7 +31041,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var CreateEvenRequestComponent = /*#__PURE__*/function () {
       function CreateEvenRequestComponent(eventService, userService, matDialog) {
-        var _this230 = this;
+        var _this233 = this;
 
         _classCallCheck(this, CreateEvenRequestComponent);
 
@@ -30813,7 +31052,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.name.toLowerCase().indexOf(_this230.filter.name.toLowerCase()) > -1;
+            return request.name.toLowerCase().indexOf(_this233.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -30823,14 +31062,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CreateEvenRequestComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this231 = this;
+          var _this234 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
           state == 0 ? state = -1 : state = Number(this.filter.state);
           this.eventService.getEventRequestsByUser(this.userService.actualUser.user_id, state).subscribe(function (data) {
-            _this231.eventRequests = data;
-            _this231.loading = false;
+            _this234.eventRequests = data;
+            _this234.loading = false;
           });
         }
       }, {
@@ -30841,11 +31080,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteRequest",
         value: function deleteRequest(event) {
-          var _this232 = this;
+          var _this235 = this;
 
           this.eventService.changeRequestState(event.event_id, 3).subscribe({
             next: function next(data) {
-              data.status == 201 ? _this232.refresh() : null;
+              data.status == 201 ? _this235.refresh() : null;
             }
           });
         }
@@ -30985,14 +31224,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FavoriteItineraryComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this233 = this;
+          var _this236 = this;
 
           this.subscription = this._itinerary.getFavoriteItineraryMinimalInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this233.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this236.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this233._common.handleError(err);
+              return _this236._common.handleError(err);
             }
           });
         }
@@ -31012,17 +31251,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeItineraryFavorite",
         value: function removeItineraryFavorite(itineraryID, elementIndex) {
-          var _this234 = this;
+          var _this237 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteItinerary(itineraryID, userID).subscribe({
             next: function next() {
-              _this234._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
+              _this237._common.openSnackBar("El itinerario ".concat(itineraryID, " ha sido eliminado de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this234._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this237._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -31157,14 +31396,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(FavoriteOfferComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this235 = this;
+          var _this238 = this;
 
           this.subscription = this._itinerary.getFavoriteOfferInfoByUser(this.sesionService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this235.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
+              _this238.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](data.data);
             },
             error: function error(err) {
-              return _this235._common.handleError(err);
+              return _this238._common.handleError(err);
             }
           });
         }
@@ -31189,17 +31428,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeOfferFavorite",
         value: function removeOfferFavorite(offerID, elementIndex) {
-          var _this236 = this;
+          var _this239 = this;
 
           this.dataSource.filteredData.splice(elementIndex, 1);
           this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.dataSource.filteredData);
           var userID = this.sesionService.actualUser.user_id;
           this.subscription = this._itinerary.removeFavoriteOffer(offerID, userID).subscribe({
             next: function next() {
-              _this236._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
+              _this239._common.openSnackBar("La oferta ".concat(offerID, " ha sido eliminada de favoritos"), "OK");
             },
             error: function error(err) {
-              return _this236._common.openSnackBar("Error: ".concat(err), "OK");
+              return _this239._common.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -31302,7 +31541,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var ProfileCompaniesComponent = /*#__PURE__*/function () {
       function ProfileCompaniesComponent(companyUsersService, commonService, sessionService) {
-        var _this237 = this;
+        var _this240 = this;
 
         _classCallCheck(this, ProfileCompaniesComponent);
 
@@ -31313,7 +31552,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           input: "",
           filter: function filter(_ref26) {
             var name = _ref26.name;
-            return name.toLowerCase().indexOf(_this237.filter.input.toLowerCase()) > -1;
+            return name.toLowerCase().indexOf(_this240.filter.input.toLowerCase()) > -1;
           }
         };
       }
@@ -31327,29 +31566,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this238 = this;
+          var _this241 = this;
 
           this.companyUsersService.getUserCompanies(this.user.user_id).subscribe(function (data) {
-            _this238.userCompanies = data;
+            _this241.userCompanies = data;
           });
         }
       }, {
         key: "deleteUserFromCompany",
         value: function deleteUserFromCompany(company) {
-          var _this239 = this;
+          var _this242 = this;
 
           this.companyUsersService.deleteUserFromCompany(company).subscribe({
             next: function next(data) {
               if (data.status == 204) {
-                _this239.refresh();
+                _this242.refresh();
 
-                _this239.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
+                _this242.commonService.openSnackBar("Se le ha desasociado de la empresa ".concat(company.name), "OK");
               } else {
-                _this239.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
+                _this242.commonService.openSnackBar("Error al desasociar el usuario: ".concat(data.error), "OK");
               }
             },
             error: function error(err) {
-              _this239.commonService.openSnackBar("Error: ".concat(err.message), "OK");
+              _this242.commonService.openSnackBar("Error: ".concat(err.message), "OK");
             }
           });
         }
@@ -31467,12 +31706,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ProfileEventsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this240 = this;
+          var _this243 = this;
 
           this.user = this.userService.actualUser;
           this.eventService.getEventRequestsByUser(this.user.user_id, 1).subscribe({
             next: function next(data) {
-              _this240.userEvents = data;
+              _this243.userEvents = data;
             }
           });
         }
@@ -31590,18 +31829,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ProfileInfoComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this241 = this;
+          var _this244 = this;
 
           this.subscriptionUserProfile = this.userService.getUser(this.userService.actualUser.user_id).subscribe({
             next: function next(data) {
-              _this241.user = data.data[0];
+              _this244.user = data.data[0];
 
-              _this241.subscriptionUserProfile.unsubscribe();
+              _this244.subscriptionUserProfile.unsubscribe();
 
-              _this241.loadUser();
+              _this244.loadUser();
             },
             error: function error(err) {
-              return _this241.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this244.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -31612,7 +31851,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loadUser",
         value: function loadUser() {
-          var _this242 = this;
+          var _this245 = this;
 
           this.editProfileForm = this._fb.group({
             name: [this.user.info.name, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
@@ -31621,7 +31860,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             password: [""]
           });
           this.editProfileForm.valueChanges.subscribe(function () {
-            if (_this242.editProfileForm.invalid == false) _this242.icon = "done";else _this242.icon = "warning";
+            if (_this245.editProfileForm.invalid == false) _this245.icon = "done";else _this245.icon = "warning";
           });
         }
         /**
@@ -31631,7 +31870,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "saveChanges",
         value: function saveChanges() {
-          var _this243 = this;
+          var _this246 = this;
 
           var passChanged = false;
 
@@ -31645,12 +31884,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.user.info.email = this.editProfileForm.get("email").value;
           this.subscriptionUserProfile = this.userService.updateUser(this.user.user_id, this.user.info, passChanged).subscribe({
             next: function next(data) {
-              _this243.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this243.user.info.name), "OK");
+              _this246.commonService.openSnackBar("Se ha actualizado el usuario  ".concat(_this246.user.info.name), "OK");
 
-              _this243.subscriptionUserProfile.unsubscribe();
+              _this246.subscriptionUserProfile.unsubscribe();
             },
             error: function error(err) {
-              return _this243.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this246.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -31842,7 +32081,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var RequestCompanyUnionComponent = /*#__PURE__*/function () {
       function RequestCompanyUnionComponent(companyUserService, userService, matDialog) {
-        var _this244 = this;
+        var _this247 = this;
 
         _classCallCheck(this, RequestCompanyUnionComponent);
 
@@ -31853,7 +32092,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '',
           filter: function filter(request) {
-            return request.company_info.name.toLowerCase().indexOf(_this244.filter.name.toLowerCase()) > -1;
+            return request.company_info.name.toLowerCase().indexOf(_this247.filter.name.toLowerCase()) > -1;
           }
         };
         this.loading = true;
@@ -31870,12 +32109,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(RequestCompanyUnionComponent, [{
         key: "refresh",
         value: function refresh() {
-          var _this245 = this;
+          var _this248 = this;
 
           this.loading = true;
           this.companyUserService.getUserRequests(this.userService.actualUser.user_id, Number(this.filter.state)).subscribe(function (data) {
-            _this245.userRequests = data;
-            _this245.loading = false;
+            _this248.userRequests = data;
+            _this248.loading = false;
           });
         }
       }, {
@@ -32016,7 +32255,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PetitionsFilterComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this246 = this;
+          var _this249 = this;
 
           this.petitionsFiltersFG = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             companies: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
@@ -32024,12 +32263,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.user = this.userService.actualUser;
           this.subscription = this.companyService.getCompanies().subscribe({
             next: function next(data) {
-              _this246.companies = data;
+              _this249.companies = data;
 
-              _this246.subscription.unsubscribe();
+              _this249.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this246.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this249.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -32174,7 +32413,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var UnionEventRequestComponent = /*#__PURE__*/function () {
       function UnionEventRequestComponent(userService, companyUserService, commonService, companyService, dialogService) {
-        var _this247 = this;
+        var _this250 = this;
 
         _classCallCheck(this, UnionEventRequestComponent);
 
@@ -32191,7 +32430,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           name: '',
           state: '0',
           filter: function filter(request) {
-            return request.event_info.info.name.toLowerCase().indexOf(_this247.filter.name.toLowerCase()) > -1;
+            return request.event_info.info.name.toLowerCase().indexOf(_this250.filter.name.toLowerCase()) > -1;
           }
         };
       }
@@ -32218,7 +32457,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refresh",
         value: function refresh() {
-          var _this248 = this;
+          var _this251 = this;
 
           this.loading = true;
           var state = Number(this.filter.state);
@@ -32232,14 +32471,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           state != -1 ? this.isFilters = true : null;
           this.subscription = this.companyService.getCompanyEventRequests(this.user.user_id, this.currentCompanyId, state).subscribe({
             next: function next(data) {
-              _this248.userRequest = data;
+              _this251.userRequest = data;
 
-              _this248.subscription.unsubscribe();
+              _this251.subscription.unsubscribe();
 
-              _this248.loading = false;
+              _this251.loading = false;
             },
             error: function error(err) {
-              return _this248.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this251.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -32254,7 +32493,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openShowFilterOptionsDialog",
         value: function openShowFilterOptionsDialog() {
-          var _this249 = this;
+          var _this252 = this;
 
           var dialog = this.dialogService.open(_petitions_filter_petitions_filter_component__WEBPACK_IMPORTED_MODULE_7__["PetitionsFilterComponent"], {
             width: "50",
@@ -32263,11 +32502,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           dialog.afterClosed().subscribe(function (company) {
             if (company != undefined) {
-              _this249.currentCompanyId = company.company_id;
-              _this249.currentCompanyName = company.name;
-              _this249.isFilters = true;
+              _this252.currentCompanyId = company.company_id;
+              _this252.currentCompanyName = company.name;
+              _this252.isFilters = true;
 
-              _this249.refresh();
+              _this252.refresh();
             }
           });
         }
@@ -32411,16 +32650,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UsersManagementComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this250 = this;
+          var _this253 = this;
 
           this.subscription = this.userManagmentService.getAllUser().subscribe({
             next: function next(data) {
-              _this250.userManagmentService.users = data.data;
+              _this253.userManagmentService.users = data.data;
 
-              _this250.subscription.unsubscribe();
+              _this253.subscription.unsubscribe();
             },
             error: function error(err) {
-              return _this250.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this253.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -32437,28 +32676,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAvailable",
         value: function setAvailable(state, userID, info) {
-          var _this251 = this;
+          var _this254 = this;
 
           var modifyInfo = info;
           modifyInfo.available = state;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
               if (state) {
-                _this251.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
+                _this254.commonService.openSnackBar("El usuario ".concat(userID, " ha sido habilitado"), "OK");
               } else {
-                _this251.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
+                _this254.commonService.openSnackBar("El usuario ".concat(userID, " ha sido desabilitado"), "OK");
               }
 
-              _this251.subscription.unsubscribe();
+              _this254.subscription.unsubscribe();
 
-              var idx = _this251.userManagmentService.users.findIndex(function (user) {
+              var idx = _this254.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this251.userManagmentService.users[idx].info.available = state;
+              _this254.userManagmentService.users[idx].info.available = state;
             },
             error: function error(err) {
-              return _this251.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this254.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
@@ -32471,24 +32710,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setAcceptance",
         value: function setAcceptance(userID, info) {
-          var _this252 = this;
+          var _this255 = this;
 
           var modifyInfo = info;
           modifyInfo.state = true;
           this.subscription = this.userManagmentService.changeAvailableOrStateUser(userID, modifyInfo).subscribe({
             next: function next(data) {
-              _this252.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
+              _this255.commonService.openSnackBar("El id de usuario ".concat(userID, " ha sido registrado correctamente"), "OK");
 
-              _this252.subscription.unsubscribe();
+              _this255.subscription.unsubscribe();
 
-              var idx = _this252.userManagmentService.users.findIndex(function (user) {
+              var idx = _this255.userManagmentService.users.findIndex(function (user) {
                 return user.user_id === userID;
               });
 
-              _this252.userManagmentService.users[idx].info.state = true;
+              _this255.userManagmentService.users[idx].info.state = true;
             },
             error: function error(err) {
-              return _this252.commonService.openSnackBar("Error: ".concat(err), "OK");
+              return _this255.commonService.openSnackBar("Error: ".concat(err), "OK");
             }
           });
         }
