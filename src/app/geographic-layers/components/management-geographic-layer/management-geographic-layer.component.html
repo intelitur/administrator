@@ -1,1 +1,20 @@
-<p>management-geographic-layer works!</p>
+<mat-tab-group>
+  <mat-tab label="Detalles">
+    <app-details-geographic-layer
+      *ngIf="myLayer; else loading"
+      [myLayer]="myLayer[0]"
+    ></app-details-geographic-layer>
+    <ng-template #loading>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Puntos Geográficos">
+    <app-ubication-geographic-layer
+      *ngIf="myLayer; else loading"
+      [myLayer]="myLayer[0]"
+    ></app-ubication-geographic-layer>
+    <ng-template #loading>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

@@ -1,5 +1,6 @@
 textarea {
-  resize: none;
+  resize: none !important;
+  height: 50px !important;
 }
 
 h1 {
@@ -45,8 +46,4 @@ mat-form-field{
 #exit{
     float: right;
     background-color: transparent;
-}
-
-::ng-deep .mat-horizontal-stepper-header{
-    pointer-events: none !important;
 }
