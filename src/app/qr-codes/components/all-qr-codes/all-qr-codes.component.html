@@ -28,7 +28,9 @@
                 [elementType]="'url'"
               ></qrcode>
             </td>
-            <td>{{ qr.description }}</td>
+            <td>{{ qr.description }} <br>
+              <a [href]="url+ qr.qr_id">Link</a>
+            </td>
             <td style="text-align: center">
               <button
                 matTooltip="Editar código"

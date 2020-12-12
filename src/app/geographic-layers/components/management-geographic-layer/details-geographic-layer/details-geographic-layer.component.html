@@ -1,1 +1,156 @@
-<p>details-geographic-layer works!</p>
+<ng-container *ngIf="this.loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+
+<div style="display: flex; margin-top: 20px; padding: 0 20px; flex-wrap: wrap">
+  <div
+    style="
+      display: flex;
+      justify-content: space-around;
+      width: -webkit-fill-available;
+    "
+  >
+    <h2 style="color: #dbb735; text-align: center; margin: auto 0">
+      {{ myLayer.layer_name }}
+    </h2>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        margin: auto 0;
+        padding: 0 20px;
+      "
+    >
+      <div
+        style="margin: auto"
+        [style.color]="myLayer.is_active ? '#673ab7' : 'gray'"
+      >
+        {{ myLayer.is_active ? "Activa" : "Eliminada" }}
+      </div>
+      <mat-slide-toggle
+        style="width: min-content; margin: auto"
+        (change)="changeState($event)"
+        color="primary"
+        [checked]="myLayer.is_active"
+      >
+      </mat-slide-toggle>
+    </div>
+  </div>
+
+  <form [formGroup]="layerFG" class="container" style="padding: 25px">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        matTooltip="Nombre de la capa"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Detalles</mat-label>
+      <textarea
+        matInput
+        formControlName="detail"
+        matTooltip="Detalles de la capa"
+        type="text"
+        required
+      ></textarea>
+    </mat-form-field>
+
+    <label class="lblAtribute">Atributos de texto:</label>
+
+    <button mat-mini-fab (click)="addTextAtribute()" color="primary">
+      <i class="material-icons">add</i>
+    </button>
+
+    <hr width="100%" />
+
+    <div class="container" formArrayName="textAtributes">
+      <div *ngIf="txtAtributes">
+        <div
+          *ngFor="
+            let item of txtAtributes.controls;
+            let txtAtributeIndex = index
+          "
+          [formGroupName]="txtAtributeIndex"
+          style="width: 45%"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Atributo</mat-label>
+            <input matInput formControlName="textAtribute" required />
+            <button
+              color="warn"
+              style="vertical-align: initial"
+              matSuffix
+              mat-icon-button
+              (click)="deleteTextAtribute(txtAtributeIndex)"
+            >
+              <i class="material-icons-outlined">cancel</i>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <hr width="100%" />
+
+    <label class="lblAtribute">Atributos Numéricos:</label>
+
+    <button mat-mini-fab (click)="addIntAtribute()" color="primary">
+      <i class="material-icons">add</i>
+    </button>
+
+    <hr width="100%" />
+
+    <div class="container" formArrayName="intAtributes">
+      <div *ngIf="integerAtributes">
+        <div
+          *ngFor="
+            let item of integerAtributes.controls;
+            let intAtributeIndex = index
+          "
+          [formGroupName]="intAtributeIndex"
+          style="width: 45%"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del Atributo</mat-label>
+            <input matInput formControlName="intAtribute" required />
+            <button
+              color="warn"
+              style="vertical-align: initial"
+              matSuffix
+              mat-icon-button
+              (click)="deleteIntAtribute(intAtributeIndex)"
+            >
+              <i class="material-icons-outlined">cancel</i>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="buttonContainer">
+  <button
+    mat-stroked-button
+    color="primary"
+    [disabled]="disableDialog() || loading"
+    style="width: 47%; min-width: fit-content; margin-top: 10px"
+    (click)="submit()"
+  >
+    Guardar cambios
+  </button>
+
+  <button
+    mat-stroked-button
+    color="warn"
+    [disabled]="loading"
+    style="width: 47%; min-width: fit-content; margin-top: 10px"
+    (click)="setData()"
+  >
+    Descartar cambios
+  </button>
+</div>

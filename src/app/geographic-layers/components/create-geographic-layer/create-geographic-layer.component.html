@@ -3,130 +3,110 @@
     clear
   </i>
 </button>
-<mat-horizontal-stepper #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="layerFG" class="container">
-      <ng-template matStepLabel>Info. General</ng-template>
-      <div class="container">
-        <mat-form-field appearance="outline">
-          <mat-label>Nombre</mat-label>
-          <input
-            matInput
-            formControlName="name"
-            matTooltip="Nombre de la capa"
-            required
-          />
-        </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Detalles</mat-label>
-          <textarea
-            matInput
-            formControlName="detail"
-            matTooltip="Detalles de la capa"
-            type="text"
-            required
-          ></textarea>
-        </mat-form-field>
+<form [formGroup]="layerFG" class="container">
+  <h1>Creación de Capa Geográfica</h1>
+  <ng-template matStepLabel>Info. General</ng-template>
+  <div class="container">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        matTooltip="Nombre de la capa"
+        required
+      />
+    </mat-form-field>
 
-        <label class="lblAtribute">Atributos de texto:</label>
+    <mat-form-field appearance="outline">
+      <mat-label>Detalles</mat-label>
+      <textarea
+        matInput
+        formControlName="detail"
+        matTooltip="Detalles de la capa"
+        type="text"
+        required
+      ></textarea>
+    </mat-form-field>
 
-        <button mat-mini-fab (click)="addTextAtribute()" color="primary">
-          <i class="material-icons">add</i>
-        </button>
+    <label class="lblAtribute">Atributos de texto:</label>
 
-        <hr width="100%" />
+    <button mat-mini-fab (click)="addTextAtribute()" color="primary">
+      <i class="material-icons">add</i>
+    </button>
 
-        <div class="container" formArrayName="textAtributes">
-          <div
-            *ngFor="
-              let item of txtAtributes.controls;
-              let txtAtributeIndex = index
-            "
-            [formGroupName]="txtAtributeIndex"
-            style="width: 45%"
-          >
-            <mat-form-field appearance="outline">
-              <mat-label>Atributo</mat-label>
-              <input matInput formControlName="textAtribute" required />
-              <button
-                color="warn"
-                style="vertical-align: initial"
-                matSuffix
-                mat-icon-button
-                (click)="deleteTextAtribute(txtAtributeIndex)"
-              >
-                <i class="material-icons-outlined">cancel</i>
-              </button>
-            </mat-form-field>
-          </div>
-        </div>
+    <hr width="100%" />
 
-        <hr width="100%" />
-
-        <label class="lblAtribute">Atributos Numéricos:</label>
-
-        <button mat-mini-fab (click)="addIntAtribute()" color="primary">
-          <i class="material-icons">add</i>
-        </button>
-
-        <hr width="100%" />
-
-        <div class="container" formArrayName="intAtributes">
-          <div
-            *ngFor="
-              let item of integerAtributes.controls;
-              let intAtributeIndex = index
-            "
-            [formGroupName]="intAtributeIndex"
-            style="width: 45%"
-          >
-            <mat-form-field appearance="outline">
-              <mat-label>Atributo</mat-label>
-              <input matInput formControlName="intAtribute" required />
-              <button
-                color="warn"
-                style="vertical-align: initial"
-                matSuffix
-                mat-icon-button
-                (click)="deleteIntAtribute(intAtributeIndex)"
-              >
-                <i class="material-icons-outlined">cancel</i>
-              </button>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </form>
-    <div class="buttonContainer">
-      <button
-        mat-raised-button
-        style="width: 40%; min-width: 200px; margin: 0 auto"
-        matStepperNext
-        [disabled]="disableDialog()"
-        color="primary"
+    <div class="container" formArrayName="textAtributes">
+      <div
+        *ngFor="let item of txtAtributes.controls; let txtAtributeIndex = index"
+        [formGroupName]="txtAtributeIndex"
+        style="width: 45%"
       >
-        Continuar la Creación
-      </button>
+        <mat-form-field appearance="outline">
+          <mat-label>Atributo</mat-label>
+          <input matInput formControlName="textAtribute" required />
+          <button
+            color="warn"
+            style="vertical-align: initial"
+            matSuffix
+            mat-icon-button
+            (click)="deleteTextAtribute(txtAtributeIndex)"
+          >
+            <i class="material-icons-outlined">cancel</i>
+          </button>
+        </mat-form-field>
+      </div>
     </div>
-  </mat-step>
 
-  <mat-step>
+    <hr width="100%" />
 
-    <div class="buttonContainer">
-        <ng-template matStepLabel>Mapa</ng-template>
-        <button  mat-raised-button matStepperPrevious color="accent" [disabled]="loading">
-            <mat-icon>reply</mat-icon>Atrás
-        </button>
-        <button
-          (click)="submit()"
-          mat-raised-button
-          color="primary"
-          [disabled]="disableDialog()"
-        >
-          Aceptar<mat-icon>check</mat-icon>
-        </button>
+    <label class="lblAtribute">Atributos Numéricos:</label>
+
+    <button mat-mini-fab (click)="addIntAtribute()" color="primary">
+      <i class="material-icons">add</i>
+    </button>
+
+    <hr width="100%" />
+
+    <div class="container" formArrayName="intAtributes">
+      <div
+        *ngFor="
+          let item of integerAtributes.controls;
+          let intAtributeIndex = index
+        "
+        [formGroupName]="intAtributeIndex"
+        style="width: 45%"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre del Atributo</mat-label>
+          <input matInput formControlName="intAtribute" required />
+          <button
+            color="warn"
+            style="vertical-align: initial"
+            matSuffix
+            mat-icon-button
+            (click)="deleteIntAtribute(intAtributeIndex)"
+          >
+            <i class="material-icons-outlined">cancel</i>
+          </button>
+        </mat-form-field>
+      </div>
     </div>
-   
-  </mat-step>
-</mat-horizontal-stepper>
+  </div>
+</form>
+
+<div class="buttonContainer">
+  <button
+    (click)="submit()"
+    mat-raised-button
+    color="primary"
+    [disabled]="disableDialog() || loading"
+  >
+    Continuar con la creación
+  </button>
+</div>
+
+<div style="height: 20px;">
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+</div>

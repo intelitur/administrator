@@ -15,6 +15,10 @@ export class GeographicLayersService {
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`, {params: {is_active: "true"}});
   }
 
+  getLayer(layer_id: Number){
+    return this.http.get(`${environment.SERVER_BASE_URL}${this.module}`, {params: {layer_id: layer_id.toString()}})
+  }
+
   getLayerPoints(layer_id){
     return this.http.get(`${environment.SERVER_BASE_URL}${this.module}${layer_id}/point`);
   }
